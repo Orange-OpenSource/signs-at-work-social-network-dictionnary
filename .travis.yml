@@ -11,10 +11,10 @@ script: cd app && mvn install
 # say 'go to hell' when there is a pb
 notifications:
 email:
+  on_success: change
+  on_failure: always
   recipients:
     - christophe.maldivi@orange.com
     - denis.boisset@orange.com
     - manuel1.sanchez@orange.com
     - gilles.zanolin@orange.com
- on_success: change
- on_failure: always
