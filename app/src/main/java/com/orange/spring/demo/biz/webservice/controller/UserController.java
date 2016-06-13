@@ -56,6 +56,6 @@ public class UserController {
   @RequestMapping(value = RestApi.WS_ADMIN_USER_CREATE, method = RequestMethod.POST)
   public void user(@RequestBody UserCredentials userCredentials, Principal principal) {
     log.info("Create user: " + userCredentials.getUsername());
-    userService.create(new User(0, userCredentials.getUsername()), userCredentials.getPassword());
+    userService.create(new User(0, userCredentials.getUsername(), userCredentials.getFirstName(), userCredentials.getLastName(), userCredentials.getEmail(), userCredentials.getEntity(), userCredentials.getActivity(), userCredentials.getLastConnectionDate()), userCredentials.getPassword());
   }
 }

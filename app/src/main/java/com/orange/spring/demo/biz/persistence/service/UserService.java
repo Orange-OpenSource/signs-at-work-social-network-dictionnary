@@ -62,7 +62,7 @@ public class UserService {
   }
 
   private User userFrom(UserDB userDB) {
-    return new User(userDB.getId(), userDB.getUsername());
+    return new User(userDB.getId(), userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getEmail(), userDB.getEntity(), userDB.getActivity(), userDB.getLastConnectionDate());
   }
 
   /**
@@ -72,7 +72,7 @@ public class UserService {
    * @return the UserDB object to persist
    */
   private UserDB userDBFrom(User user, String password) {
-    UserDB userDB = new UserDB(user.getUsername(), passwordEncoder.encode(password));
+    UserDB userDB = new UserDB(user.getUsername(), passwordEncoder.encode(password), user.getFirstName(), user.getLastName(), user.getEmail(), user.getEntity(), user.getActivity());
     addUserRole(userDB);
     return userDB;
   }

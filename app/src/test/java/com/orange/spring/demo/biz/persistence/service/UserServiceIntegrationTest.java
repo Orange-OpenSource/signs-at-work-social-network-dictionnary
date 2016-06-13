@@ -35,6 +35,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -52,12 +53,18 @@ public class UserServiceIntegrationTest {
   private long id = 1234;
   private String username = "Duchess";
   private String password = "aristocats";
+  private String firstName = "Duchess";
+  private String lastName = "Aristocats";
+  private String email = "duchess@cats.com";
+  private String entity = "CATS";
+  private String activity = "mother";
+  private Date lastConnectionDate;
 
   @Test
   public void createUser() {
     // given
     // do
-    User user = userService.create(new User(id, username), password);
+    User user = userService.create(new User(id, username, firstName, lastName, email, entity, activity, lastConnectionDate), password);
 
     UserDB userDB = userRepository.findOne(user.getId());
     String passwordHash = userDB.getPasswordHash();

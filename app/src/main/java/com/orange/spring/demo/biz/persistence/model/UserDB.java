@@ -26,6 +26,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,17 +42,45 @@ public class UserDB {
   private Long id;
 
   @NotNull
+  @Column(unique = true)
   private String username;
+
+  @NotNull
+  private String firstName;
+
+  @NotNull
+  private String lastName;
+
+  @NotNull
+  private String email;
+
+  // entity in the company: OLPS/SOFT for instance
+  private String entity;
+
+  // for instance: developer, designer, etc
+  private String activity;
+
+  private Date lastConnectionDate;
 
   @NotNull
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<UserRoleDB> userRoles = new HashSet<>();
 
-  @NonNull
+  @NotNull
   private String passwordHash;
 
   public UserDB(String username, String passwordHash) {
     this.username = username;
     this.passwordHash = passwordHash;
+  }
+
+  public UserDB(String username, String passwordHash, String firstName, String lastName, String email, String entity, String activity) {
+    this.username = username;
+    this.passwordHash = passwordHash;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.entity = entity;
+    this.activity = activity;
   }
 }

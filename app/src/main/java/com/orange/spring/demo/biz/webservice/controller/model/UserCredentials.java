@@ -27,6 +27,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,6 +36,14 @@ import lombok.Setter;
 public class UserCredentials {
   private String username;
   private String password;
+  private String firstName;
+  private String lastName;
+  private String email;
+  // entity in the company: OLPS/SOFT for instance
+  private String entity;
+  // for instance: developer, designer, etc
+  private String activity;
+  private Date lastConnectionDate;
 
   @Override
   public String toString() {

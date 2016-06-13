@@ -25,9 +25,20 @@ package com.orange.spring.demo.biz.domain;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 @RequiredArgsConstructor
 @Getter
 public class User {
   private final long id;
   private final String username;
+  private final String firstName;
+  private final String lastName;
+  private final String email;
+  // entity in the company: OLPS/SOFT for instance
+  private final String entity;
+  // for instance: developer, designer, etc
+  private final String activity;
+  private final Date lastConnectionDate;
 }

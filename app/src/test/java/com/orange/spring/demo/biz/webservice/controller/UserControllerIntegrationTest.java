@@ -38,6 +38,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,9 +62,23 @@ public class UserControllerIntegrationTest {
 
   private long id1 = 11;
   private String username1 = "Duchess";
+  private String firstName1 = "Duchess";
+  private String lastName1 = "Aristocats";
+  private String email1 = "duchess@cats.com";
+  private String entity1 = "CATS";
+  private String activity1 = "mother";
+  private Date lastConnectionDate1;
+
 
   private long id2 = 22;
   private String username2 = "Thomas";
+  private String firstName2 = "Thomas";
+  private String lastName2 = "O'Malley";
+  private String email2 = "gangster@cats.com";
+  private String entity2 = "MOUSE";
+  private String activity2 = "gangster";
+  private Date lastConnectionDate2;
+
 
   @Before
   public void setup() {
@@ -73,7 +88,7 @@ public class UserControllerIntegrationTest {
             .alwaysDo(print())
             .build();
 
-    List<User> users = Arrays.asList(new User(id1, username1), new User(id2, username2));
+    List<User> users = Arrays.asList(new User(id1, username1, firstName1, lastName1, email1, entity1, activity1,lastConnectionDate1), new User(id2, username2, firstName2, lastName2, email2, entity2, activity2,lastConnectionDate2));
     given(userService.all()).willReturn(users);
   }
 

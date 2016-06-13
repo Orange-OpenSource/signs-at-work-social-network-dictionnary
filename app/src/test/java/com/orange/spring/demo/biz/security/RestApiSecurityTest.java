@@ -40,6 +40,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Date;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,8 +61,14 @@ public class RestApiSecurityTest {
 
   private MockMvc mockMvc;
 
-  private String username = "roro";
-  private String password = "rara";
+  private String username = "Duchess";
+  private String password = "aristocats";
+  private String firstName = "Duchess";
+  private String lastName = "Aristocats";
+  private String email = "duchess@cats.com";
+  private String entity = "CATS";
+  private String activity = "mother";
+  private Date lastConnectionDate;
 
   @Before
   public void setup() {
@@ -71,7 +79,7 @@ public class RestApiSecurityTest {
             .build();
 
     if (shouldCreateUser()) {
-      userService.create(new User(0, username), password);
+      userService.create(new User(0, username, firstName, lastName, email, entity, activity, lastConnectionDate), password);
     }
   }
 
@@ -142,6 +150,6 @@ public class RestApiSecurityTest {
 
   private String bodyForUserCreation() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
-    return mapper.writeValueAsString(new UserCredentials("titi", "toto"));
+    return mapper.writeValueAsString(new UserCredentials("Thomas", "4321","Thomas", "O'Malley", "gangster@cats.com", "MOUSE", "gangster",null));
   }
 }

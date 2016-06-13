@@ -28,6 +28,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,13 +42,21 @@ public class UserView {
   private long id;
   private String username;
   private String password;
+  private String firstName;
+  private String lastName;
+  private String email;
+  // entity in the company: OLPS/SOFT for instance
+  private String entity;
+  // for instance: developer, designer, etc
+  private String activity;
+  private Date lastConnectionDate;
 
   public User toUser() {
-    return new User(id, username);
+    return new User(id, username, firstName, lastName, email, entity, activity, lastConnectionDate);
   }
 
   public static UserView from(User user) {
-    return new UserView(user.getId(), user.getUsername(), EMPTY_PASSWORD);
+    return new UserView(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getEntity(), user.getActivity(), EMPTY_PASSWORD, user.getLastConnectionDate());
   }
 
   public static List<UserView> from(List<User> users) {

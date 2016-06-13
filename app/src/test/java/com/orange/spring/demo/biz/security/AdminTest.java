@@ -126,6 +126,11 @@ public class AdminTest {
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .param("username", "titi")
                             .param("password", "toto")
+                            .param("firstName", "petit")
+                            .param("lastName", "titi")
+                            .param("email", "petit.titi@canari.com")
+                            .param("entity", "canari")
+                            .param("activity", "chomeur")
             )
             // then
             .andExpect(status().isOk());
