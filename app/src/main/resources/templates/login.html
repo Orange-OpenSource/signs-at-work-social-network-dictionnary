@@ -36,7 +36,7 @@
 <div class="container">
 
     <form class="form-signin" th:action="@{/login}" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading" th:text="#{signin_invite}"></h2>
         <div th:if="${param.error}" class="alert alert-danger" role="alert">
             Invalid username and password.
         </div>
@@ -44,10 +44,10 @@
             You have been logged out.
         </div>
         <label for="username" class="sr-only">Email address</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="User name" required="" autofocus=""/>
+        <input type="text" id="username" name="username" class="form-control" th:placeholder="#{user_name}" required="" autofocus=""/>
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" name="password" placeholder="Password" required=""/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <input type="password" id="password" class="form-control" name="password" th:placeholder="#{password}" required=""/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{signin}"></button>
     </form>
 
 </div>

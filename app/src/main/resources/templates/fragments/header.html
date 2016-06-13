@@ -31,23 +31,23 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3">
-                    <a th:href="@{/}" class="btn btn-secondary">Home</a>
-                    <a th:if="${!isAuthenticated}" th:href="@{/login}" class="btn btn-secondary">Signin</a>
+                    <a th:href="@{/}" class="btn btn-secondary" th:text="#{home}"></a>
+                    <a th:if="${!isAuthenticated}" th:href="@{/login}" class="btn btn-secondary" th:text="#{signin}"></a>
                     <form th:if="${isAuthenticated}" th:action="@{/logout}" method = "post">
-                        <button class="btn btn-secondary" type="submit">Logout</button>
+                        <button class="btn btn-secondary" type="submit" th:text="#{logout}"></button>
                     </form>
                 </div>
                 <div class="col-sm-3">
-                    <h4>About</h4>
+                    <h4 th:text="#{about}"></h4>
                     <p class="text-muted">Spring-boot demo</p>
                 </div>
                 <div class="col-sm-3">
-                    <h4>Contact</h4>
-                    <p class="text-muted"><a href="mailto:christophe.maldivi@orange.com" class="text-muted">Email me</a>
+                    <h4 th:text="#{contact}"></h4>
+                    <p class="text-muted"><a href="mailto:christophe.maldivi@orange.com" class="text-muted" th:text="#{email_me}"></a>
                     </p>
                 </div>
                 <div class="col-sm-3">
-                    <h4>Version</h4>
+                    <h4 th:text="#{version}"></h4>
                     <p class="text-muted">0.0.1</p>
                 </div>
             </div>

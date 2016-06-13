@@ -35,14 +35,14 @@
 
 <section class="jumbotron text-xs-center">
     <div th:if="${isAuthenticated}" class="container">
-        <h2 th:text="'Welcome ' + ${authenticatedUsername} + '!'" class="jumbotron-heading">Welcome titi</h2>
-        <a th:href="@{/users}" class="btn btn-secondary">See Users</a>
-        <a th:if="${isAdmin}" th:href="@{/admin}" class="btn btn-secondary">Manage users</a>
+        <h2 th:text="#{welcome_user(${authenticatedUsername})}" class="jumbotron-heading"></h2>
+        <a th:href="@{/users}" th:text="#{see_users}" class="btn btn-secondary"></a>
+        <a th:if="${isAdmin}" th:href="@{/admin}" th:text="#{manage_users}" class="btn btn-secondary"></a>
     </div>
     <div th:if="${!isAuthenticated}" class="container">
-        <h2 class="jumbotron-heading">Please Signin to go further!</h2>
-        <p class="lead text-muted">authenticated users can see users details; admin can create new users</p>
-        <a th:href="@{/login}" class="btn btn-primary">Signin</a>
+        <h2 class="jumbotron-heading" th:text="#{invite_message}"></h2>
+        <p class="lead text-muted" th:text="#{authorization_message}"></p>
+        <a th:href="@{/login}" class="btn btn-primary" th:text="#{signin}"></a>
     </div>
     <br/>
 </section>

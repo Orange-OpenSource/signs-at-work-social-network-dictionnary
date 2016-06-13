@@ -22,6 +22,7 @@ package com.orange.spring.demo.biz.security;
  * #L%
  */
 
+import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
 import com.orange.spring.demo.biz.view.controller.HomeController;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +46,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class RootTest {
   @Autowired
   private WebApplicationContext context;
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
 
   private MockMvc mockMvc;
 
@@ -62,6 +65,6 @@ public class RootTest {
     mockMvc
             .perform(get("/"))
             .andExpect(status().isOk())
-            .andExpect(content().string(containsString(HomeController.HOME_TITLE)));
+            .andExpect(content().string(containsString(messageByLocaleService.getMessage("welcome"))));
   }
 }

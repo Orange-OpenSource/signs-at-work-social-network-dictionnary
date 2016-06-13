@@ -35,42 +35,42 @@
 
 <section class="jumbotron text-xs-center">
     <div class="container">
-        <h1 class="jumbotron-heading">
-            Add User
+        <h1 class="jumbotron-heading" th:text="#{add_user}">
         </h1>
     </div>
     <br/>
 
     <form class="form-inline" action="#" th:action="@{/admin/user/create}" th:object="${user}" method="post">
         <div class="form-group">
-            <label for="username">User name</label>
+            <label for="username" th:text="#{user_name}"></label>
             <input th:field="*{username}" type="text" class="form-control" placeholder="titi"/>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password" th:text="#{password}"></label>
             <input th:field="*{password}" type="password" class="form-control"/>
         </div>
         <div class="form-group">
-            <label for="firstName">firstName</label>
+            <label for="firstName" th:text="#{first_name}"></label>
             <input th:field="*{firstName}" type="text" class="form-control"/>
         </div>
         <div class="form-group">
-            <label for="lastName">lastName</label>
+            <label for="lastName" th:text="#{last_name}"></label>
             <input th:field="*{lastName}" type="text" class="form-control"/>
         </div>
         <div class="form-group">
-            <label for="email">email</label>
+            <label for="email" th:text="#{email}"></label>
             <input th:field="*{email}" type="text" class="form-control"/>
         </div>
         <div class="form-group">
-            <label for="entity">entity</label>
+            <label for="entity" th:text="#{entity}"></label>
             <input th:field="*{entity}" type="text" class="form-control"/>
         </div>
         <div class="form-group">
-            <label for="activity">activity</label>
+            <label for="activity" th:text="#{activity}"></label>
             <input th:field="*{activity}" type="text" class="form-control"/>
         </div>
-        <button type="submit" class="btn btn-primary">Add User</button>
+        <br/>
+        <button type="submit" class="btn btn-primary" th:text="#{add_user}"></button>
     </form>
 
 </section>

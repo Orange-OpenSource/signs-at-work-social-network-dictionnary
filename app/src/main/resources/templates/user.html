@@ -32,8 +32,7 @@
 
 <section class="jumbotron text-xs-center">
     <div class="container">
-        <h1 class="jumbotron-heading">
-            User details
+        <h1 class="jumbotron-heading" th:text="#{user_details}">
         </h1>
         <a href="/" class="btn btn-primary" style="margin-top: 2%">Home</a>
     </div>
@@ -43,13 +42,23 @@
         <thead>
         <tr>
             <th>#id</th>
-            <th>User Name</th>
+            <th th:text="#{user_name}"></th>
+            <th th:text="#{first_name}"></th>
+            <th th:text="#{last_name}"></th>
+            <th th:text="#{email}"></th>
+            <th th:text="#{entity}"></th>
+            <th th:text="#{activity}"></th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td th:text="${user.id}"></td>
             <td th:text="${user.username}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.entity}"></td>
+            <td th:text="${user.activity}"></td>
         </tr>
         </tbody>
     </table>

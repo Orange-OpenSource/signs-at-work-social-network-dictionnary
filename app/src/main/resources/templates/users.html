@@ -35,8 +35,7 @@
 
 <section class="jumbotron text-xs-center">
     <div class="container">
-        <h1 class="jumbotron-heading">
-            Users
+        <h1 class="jumbotron-heading" th:text="#{users}">
         </h1>
     </div>
     <br/>
@@ -46,13 +45,23 @@
             <thead>
             <tr>
                 <th>#id</th>
-                <th>User name</th>
+                <th th:text="#{user_name}"></th>
+                <th th:text="#{first_name}"></th>
+                <th th:text="#{last_name}"></th>
+                <th th:text="#{email}"></th>
+                <th th:text="#{entity}"></th>
+                <th th:text="#{activity}"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
                 <td><a th:href="@{/user/{userid}(userid=${user.id})}" th:text="${user.id}"/></td>
                 <td th:text="${user.username}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.entity}"></td>
+                <td th:text="${user.activity}"></td>
             </tr>
             </tbody>
         </table>

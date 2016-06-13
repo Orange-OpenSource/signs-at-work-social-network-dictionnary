@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.view.controller;
  */
 
 import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.view.model.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +37,25 @@ import java.security.Principal;
 
 @Controller
 public class HomeController {
-  public static final String HOME_TITLE = "Welcome";
 
   @Autowired
   private UserService userService;
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
 
   @RequestMapping("/")
   public String index(Principal principal, Model model) {
     setAuthenticated(principal, model);
-    model.addAttribute("title", HOME_TITLE);
+    model.addAttribute("title", messageByLocaleService.getMessage("welcome"));
     return "index";
   }
 
   @Secured("ROLE_USER")
   @RequestMapping("/users")
   public String index(Model model) {
+
     setAuthenticated(true, model);
-    model.addAttribute("title", "Users");
+    model.addAttribute("title", messageByLocaleService.getMessage("users"));
     model.addAttribute("users", UserView.from(userService.all()));
     return "users";
   }
@@ -60,9 +63,10 @@ public class HomeController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{id}")
   public String user(@PathVariable long id, Model model) {
+
     User user = userService.withId(id);
     setAuthenticated(true, model);
-    model.addAttribute("title", "User details");
+    model.addAttribute("title", messageByLocaleService.getMessage("user_details"));
     model.addAttribute("user", user);
     return "user";
   }
@@ -71,7 +75,7 @@ public class HomeController {
   @RequestMapping("/admin")
   public String admin(Model model) {
     setAuthenticated(true, model);
-    model.addAttribute("title", "Admin page");
+    model.addAttribute("title", messageByLocaleService.getMessage("admin_page"));
     // for thymeleaf form management
     model.addAttribute("user", new UserView());
     return "admin";

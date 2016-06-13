@@ -56,7 +56,7 @@ public class UserView {
   }
 
   public static UserView from(User user) {
-    return new UserView(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getEntity(), user.getActivity(), EMPTY_PASSWORD, user.getLastConnectionDate());
+    return new UserView(user.getId(), user.getUsername(), EMPTY_PASSWORD, user.getFirstName(), user.getLastName(), user.getEmail(), user.getEntity(), user.getActivity(), user.getLastConnectionDate());
   }
 
   public static List<UserView> from(List<User> users) {
