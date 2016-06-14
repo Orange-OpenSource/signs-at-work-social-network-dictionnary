@@ -37,11 +37,10 @@
 
     <form class="form-signin" th:action="@{/login}" method="post">
         <h2 class="form-signin-heading" th:text="#{signin_invite}"></h2>
-        <div th:if="${param.error}" class="alert alert-danger" role="alert">
-            Invalid username and password.
+        <div th:if="${param.error}" class="alert alert-danger" role="alert" th:text="#{invalid_connexion}">
         </div>
-        <div th:if="${param.logout}" class="alert alert-info" role="alert">
-            You have been logged out.
+        <div th:if="${param.logout}" class="alert alert-info" role="alert" th:text="#{logged_out}">
+
         </div>
         <label for="username" class="sr-only">Email address</label>
         <input type="text" id="username" name="username" class="form-control" th:placeholder="#{user_name}" required="" autofocus=""/>
