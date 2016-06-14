@@ -22,9 +22,13 @@ package com.orange.spring.demo.biz.view.controller;
  * #L%
  */
 
+import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
+import com.orange.spring.demo.biz.security.AppSecurityAdmin;
+import com.orange.spring.demo.biz.view.model.CommunityView;
 import com.orange.spring.demo.biz.view.model.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -41,6 +45,8 @@ public class HomeController {
   @Autowired
   private UserService userService;
   @Autowired
+  private CommunityService communityService;
+  @Autowired
   MessageByLocaleService messageByLocaleService;
 
   @RequestMapping("/")
@@ -52,12 +58,22 @@ public class HomeController {
 
   @Secured("ROLE_USER")
   @RequestMapping("/users")
-  public String index(Model model) {
+  public String users(Model model) {
 
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("users"));
     model.addAttribute("users", UserView.from(userService.all()));
     return "users";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping("/communities")
+  public String communities(Model model) {
+
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("communities"));
+    model.addAttribute("communities", CommunityView.from(communityService.all()));
+    return "communities";
   }
 
   @Secured("ROLE_USER")
@@ -72,12 +88,24 @@ public class HomeController {
   }
 
   @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/community/{id}")
+  public String community(@PathVariable long id, Model model) {
+
+    Community community = communityService.withId(id);
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("community_details"));
+    model.addAttribute("community", community);
+    return "community";
+  }
+
+  @Secured("ROLE_ADMIN")
   @RequestMapping("/admin")
   public String admin(Model model) {
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("admin_page"));
     // for thymeleaf form management
     model.addAttribute("user", new UserView());
+    model.addAttribute("community", new CommunityView());
     return "admin";
   }
 
@@ -85,8 +113,17 @@ public class HomeController {
   @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
   public String user(@ModelAttribute UserView userView, Model model) {
     User user = userService.create(userView.toUser(), userView.getPassword());
-    return user(user.getId(), model);
+    return user(user.id, model);
   }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/admin/community/create", method = RequestMethod.POST)
+  public String community(@ModelAttribute CommunityView communityView, Model model) {
+    Community community = communityService.create(communityView.toCommunity());
+    return  community(community.id, model);
+
+  }
+
 
   private void setAuthenticated(Principal principal, Model model) {
     boolean authenticated = principal != null && principal.getName() != null;
@@ -101,8 +138,6 @@ public class HomeController {
   }
 
   private boolean isAdmin(Principal principal) {
-    return ((UsernamePasswordAuthenticationToken)principal).getAuthorities().stream()
-            .filter(authority -> authority.getAuthority().equals("ROLE_ADMIN"))
-            .count() > 0;
+    return AppSecurityAdmin.isAdmin(principal.getName());
   }
 }

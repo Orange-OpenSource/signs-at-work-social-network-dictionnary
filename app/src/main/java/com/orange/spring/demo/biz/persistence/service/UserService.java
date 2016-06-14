@@ -27,20 +27,35 @@ import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.model.UserRoleDB;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRoleRepository;
+import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.security.AppSecurityRoles;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationListener;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements ApplicationListener<AuthenticationSuccessEvent> {
   private final UserRepository userRepository;
   private final UserRoleRepository userRoleRepository;
   private final PasswordEncoder passwordEncoder;
+
+  @Override
+  public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
+    String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
+    if (!AppSecurityAdmin.isAdmin(userName)) {
+      UserDB userDB = userRepository.findByUsername(userName).get(0);
+      userDB.setLastConnectionDate(new Date());
+      userRepository.save(userDB);
+    }
+  }
 
   public List<User> all() {
     return usersFrom(userRepository.findAll());
@@ -72,7 +87,7 @@ public class UserService {
    * @return the UserDB object to persist
    */
   private UserDB userDBFrom(User user, String password) {
-    UserDB userDB = new UserDB(user.getUsername(), passwordEncoder.encode(password), user.getFirstName(), user.getLastName(), user.getEmail(), user.getEntity(), user.getActivity());
+    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.email, user.entity, user.activity);
     addUserRole(userDB);
     return userDB;
   }

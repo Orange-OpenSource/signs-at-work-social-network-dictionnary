@@ -22,6 +22,7 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
+import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,32 +37,22 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserView {
-  public static final String EMPTY_PASSWORD = "";
+public class CommunityView {
 
   private long id;
-  private String username;
-  private String password;
-  private String firstName;
-  private String lastName;
-  private String email;
-  // entity in the company: OLPS/SOFT for instance
-  private String entity;
-  // for instance: developer, designer, etc
-  private String activity;
-  private Date lastConnectionDate;
+  private String name;
 
-  public User toUser() {
-    return new User(id, username, firstName, lastName, email, entity, activity, lastConnectionDate);
+  public Community toCommunity() {
+    return new Community(id, name);
   }
 
-  public static UserView from(User user) {
-    return new UserView(user.id, user.username, EMPTY_PASSWORD, user.firstName, user.lastName, user.email, user.entity, user.activity, user.lastConnectionDate);
+  public static CommunityView from(Community community) {
+    return new CommunityView(community.id, community.name);
   }
 
-  public static List<UserView> from(List<User> users) {
-    return users.stream()
-            .map(UserView::from)
+  public static List<CommunityView> from(List<Community> communities) {
+    return communities.stream()
+            .map(CommunityView::from)
             .collect(Collectors.toList());
   }
 }

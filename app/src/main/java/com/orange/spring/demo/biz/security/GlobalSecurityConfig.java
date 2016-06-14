@@ -47,6 +47,5 @@ public class GlobalSecurityConfig {
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    AppSecurityAdmin.addAdminInMemory(auth);
   }
 }

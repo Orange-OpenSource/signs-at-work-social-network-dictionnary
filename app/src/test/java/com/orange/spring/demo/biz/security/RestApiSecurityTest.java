@@ -85,7 +85,7 @@ public class RestApiSecurityTest {
 
   private boolean shouldCreateUser() {
     return userService.all().stream()
-            .filter(u -> u.getUsername().equals(username))
+            .filter(u -> u.username.equals(username))
             .count() == 0;
   }
 

@@ -22,16 +22,42 @@ package com.orange.spring.demo.biz.security;
  * #L%
  */
 
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.persistence.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Slf4j
+@Component
 public class AppSecurityAdmin {
   public static final String ADMIN_USERNAME = "admin";
   public static final String ADMIN_PASSWORD = "admin";
 
-  public static void addAdminInMemory(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication()
-            .withUser(ADMIN_USERNAME)
-            .password(ADMIN_PASSWORD)
-            .authorities(AppSecurityRoles.authorities());
+  @Autowired
+  UserRepository userRepository;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
+
+  @PostConstruct
+  private void init() {
+    boolean adminDoesNotExist = userRepository.findByUsername(ADMIN_USERNAME).isEmpty();
+    if (adminDoesNotExist) {
+      createAndPersistAdmin();
+    }
+    log.warn(adminDoesNotExist ? "Create admin user" : "Admin exists");
+  }
+
+  private void createAndPersistAdmin() {
+    UserDB userDB = new UserDB(ADMIN_USERNAME, passwordEncoder.encode(ADMIN_PASSWORD), "", "", "", "", "");
+    userRepository.save(userDB);
+  }
+
+  public static boolean isAdmin(String username) {
+    return username.equals(ADMIN_USERNAME);
   }
 }

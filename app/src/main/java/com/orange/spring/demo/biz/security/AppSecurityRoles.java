@@ -53,21 +53,18 @@ public class AppSecurityRoles {
     addRoles();
   }
 
+
   private void addRoles() {
     if (userRoleRepository.count() == 0) {
       log.info("Add user roles");
-      userRoleRepository.save(
-              Arrays.asList(new UserRoleDB[] {
-                      new UserRoleDB(ROLE_USER), new UserRoleDB(ROLE_ADMIN)
-              })
-      );
+      userRoleRepository.save(roles());
     }
   }
 
-  public static List<GrantedAuthority> authorities() {
-    return Arrays.stream(Role.values())
-            .map(userRole -> new SimpleGrantedAuthority(userRole.toString()))
-            .collect(Collectors.toList());
+  public static List<UserRoleDB> roles() {
+    return Arrays.asList(new UserRoleDB[] {
+            new UserRoleDB(ROLE_USER), new UserRoleDB(ROLE_ADMIN)
+    });
   }
 
   public static List<GrantedAuthority> authoritiesFor(Set<UserRoleDB> roles) {

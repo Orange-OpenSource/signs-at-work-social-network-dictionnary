@@ -66,12 +66,12 @@ public class UserServiceIntegrationTest {
     // do
     User user = userService.create(new User(id, username, firstName, lastName, email, entity, activity, lastConnectionDate), password);
 
-    UserDB userDB = userRepository.findOne(user.getId());
+    UserDB userDB = userRepository.findOne(user.id);
     String passwordHash = userDB.getPasswordHash();
     Set<UserRoleDB> roles = userDB.getUserRoles();
 
     // then
-    Assertions.assertThat(user.getUsername()).isEqualTo(username);
+    Assertions.assertThat(user.username).isEqualTo(username);
     Assertions.assertThat(passwordEncoder.matches(password, passwordHash)).isTrue();
     Assertions.assertThat(passwordEncoder.matches("", passwordHash)).isFalse();
     Assertions.assertThat(roles).hasSize(1);

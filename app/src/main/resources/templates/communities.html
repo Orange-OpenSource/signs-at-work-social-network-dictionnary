@@ -34,20 +34,29 @@
 
 
 <section class="jumbotron text-xs-center">
-    <div th:if="${isAuthenticated}" class="container">
-        <h2 th:text="#{welcome_user(${authenticatedUsername})}" class="jumbotron-heading"></h2>
-        <a th:href="@{/users}" th:text="#{see_users}" class="btn btn-secondary"></a>
-        <a th:if="${isAdmin}" th:href="@{/communities}" th:text="#{see_communities}" class="btn btn-secondary"></a>
-        <a th:if="${isAdmin}" th:href="@{/admin}" th:text="#{manage_communities_users}" class="btn btn-secondary"></a>
-    </div>
-    <div th:if="${!isAuthenticated}" class="container">
-        <h2 class="jumbotron-heading" th:text="#{invite_message}"></h2>
-        <p class="lead text-muted" th:text="#{authorization_message}"></p>
-        <a th:href="@{/login}" class="btn btn-primary" th:text="#{signin}"></a>
+    <div class="container">
+        <h1 class="jumbotron-heading" th:text="#{communities}">
+        </h1>
     </div>
     <br/>
-</section>
 
-<script type="text/javascript" src="../public/js/app.js" th:src="@{/js/app.js}"></script>
+    <div th:if="${not #lists.isEmpty(communities)}">
+        <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
+            <thead>
+            <tr>
+                <th>#id</th>
+                <th th:text="#{name}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="community : ${communities}">
+                <td><a th:href="@{/community/{communityid}(communityid=${community.id})}" th:text="${community.id}"/></td>
+                <td th:text="${community.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
 </body>
 </html>

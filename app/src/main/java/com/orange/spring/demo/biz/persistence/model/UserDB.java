@@ -22,13 +22,12 @@ package com.orange.spring.demo.biz.persistence.model;
  * #L%
  */
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 // default constructor only exists for the sake of JPA
@@ -66,13 +65,14 @@ public class UserDB {
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<UserRoleDB> userRoles = new HashSet<>();
 
+  // we use 'fetch = FetchType.EAGER' to be sure to avoid lazy loading
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinTable(name = "users_communities", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communities_id", referencedColumnName = "id"))
+  @JsonManagedReference
+  private List<CommunityDB> communities = new ArrayList<>();
+
   @NotNull
   private String passwordHash;
-
-  public UserDB(String username, String passwordHash) {
-    this.username = username;
-    this.passwordHash = passwordHash;
-  }
 
   public UserDB(String username, String passwordHash, String firstName, String lastName, String email, String entity, String activity) {
     this.username = username;

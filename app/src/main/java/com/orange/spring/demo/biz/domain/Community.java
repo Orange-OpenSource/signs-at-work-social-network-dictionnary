@@ -2,40 +2,39 @@ package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
- * Spring demo
+ * Telsigne
  * %%
  * Copyright (C) 2016 Orange
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 2 of the
+ * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-2.0.html>.
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
-public class User {
-  public final long id;
-  public final String username;
-  public final String firstName;
-  public final String lastName;
-  public final String email;
-  // entity in the company: OLPS/SOFT for instance
-  public final String entity;
-  // for instance: developer, designer, etc
-  public final String activity;
-  public final Date lastConnectionDate;
+public class Community {
+    public final long id;
+    public final String name;
 }

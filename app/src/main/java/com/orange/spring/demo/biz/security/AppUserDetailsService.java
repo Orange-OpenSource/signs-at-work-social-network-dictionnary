@@ -32,6 +32,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,11 +47,15 @@ public class AppUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    List<UserDB> usersDB = userRepository.findByUsername(username);
-    check(usersDB, username);
-    UserDB userDB = usersDB.get(0);
+    UserDB userDB = retrieveUserDB(username);
     List<GrantedAuthority> authorities = AppSecurityRoles.authoritiesFor(userDB.getUserRoles());
     return toSpringSecurityUser(userDB, authorities);
+  }
+
+  private UserDB retrieveUserDB(String username) {
+    List<UserDB> usersDB = userRepository.findByUsername(username);
+    check(usersDB, username);
+    return usersDB.get(0);
   }
 
   private void check(List<UserDB> usersDB, String username) {
