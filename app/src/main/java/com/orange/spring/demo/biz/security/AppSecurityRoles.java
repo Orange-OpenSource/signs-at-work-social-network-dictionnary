@@ -30,10 +30,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.orange.spring.demo.biz.security.AppSecurityRoles.Role.ROLE_ADMIN;
@@ -48,28 +45,25 @@ public class AppSecurityRoles {
   @Autowired
   private UserRoleRepository userRoleRepository;
 
-  @PostConstruct
-  void init() {
-    addRoles();
+  static List<GrantedAuthority> authoritiesFor(Set<UserRoleDB> roles) {
+    return roles.stream()
+            .map(userRole -> new SimpleGrantedAuthority(userRole.getRole()))
+            .collect(Collectors.toList());
   }
 
-
-  private void addRoles() {
+  Iterable<UserRoleDB> createAndPersistRoles() {
     if (userRoleRepository.count() == 0) {
-      log.info("Add user roles");
-      userRoleRepository.save(roles());
+      log.info("Add user allRoles");
+      return userRoleRepository.save(allRoles());
     }
+    return null;
   }
 
-  public static List<UserRoleDB> roles() {
-    return Arrays.asList(new UserRoleDB[] {
+  private Set<UserRoleDB> allRoles() {
+    Set<UserRoleDB> set = new HashSet<>();
+    Collections.addAll(set, new UserRoleDB[] {
             new UserRoleDB(ROLE_USER), new UserRoleDB(ROLE_ADMIN)
     });
-  }
-
-  public static List<GrantedAuthority> authoritiesFor(Set<UserRoleDB> roles) {
-    return roles.stream()
-            .map(userRole -> new SimpleGrantedAuthority(userRole.toString()))
-            .collect(Collectors.toList());
+    return set;
   }
 }

@@ -29,6 +29,7 @@ import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.webservice.controller.RestApi;
 import com.orange.spring.demo.biz.webservice.controller.model.UserCredentials;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,6 @@ public class RestApiSecurityTest {
   private String email = "duchess@cats.com";
   private String entity = "CATS";
   private String activity = "mother";
-  private Date lastConnectionDate;
 
   @Before
   public void setup() {
@@ -79,7 +79,7 @@ public class RestApiSecurityTest {
             .build();
 
     if (shouldCreateUser()) {
-      userService.create(new User(0, username, firstName, lastName, email, entity, activity, lastConnectionDate), password);
+      userService.create(new User(0, username, firstName, lastName, email, entity, activity, null), password);
     }
   }
 
@@ -120,7 +120,6 @@ public class RestApiSecurityTest {
             // then
             .andExpect(status().isUnauthorized());
   }
-
 
   @Test
   public void forbiddenToCreateUserWithBasicAuthAsANonAdminUser() throws Exception {

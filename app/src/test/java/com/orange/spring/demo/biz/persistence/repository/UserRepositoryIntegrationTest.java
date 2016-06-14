@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.persistence.repository;
  */
 
 import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,12 +70,16 @@ public class UserRepositoryIntegrationTest {
     entityManager.persist(new UserDB(username2, password2, firstName2, lastName2, email2, entity2, activity2));
     // do
     Iterable<UserDB> users = userRepository.findAll();
+    UserDB admin = userRepository.findByUsername(AppSecurityAdmin.ADMIN_USERNAME).get(0);
     UserDB user1 = userRepository.findByUsername(username1).get(0);
     UserDB user2 = userRepository.findByUsername(username2).get(0);
     // then
-    assertThat(users).hasSize(2);
+    assertThat(users).hasSize(3);
+    assertThat(users).contains(admin);
     assertThat(users).contains(user1);
     assertThat(users).contains(user2);
+
+    assertThat(admin.getUsername()).isEqualTo(AppSecurityAdmin.ADMIN_USERNAME);
 
     assertThat(user1.getUsername()).isEqualTo(username1);
     assertThat(user1.getPasswordHash()).isEqualTo(password1);
@@ -83,7 +88,6 @@ public class UserRepositoryIntegrationTest {
     assertThat(user1.getEmail()).isEqualTo(email1);
     assertThat(user1.getEntity()).isEqualTo(entity1);
     assertThat(user1.getActivity()).isEqualTo(activity1);
-
 
     assertThat(user2.getUsername()).isEqualTo(username2);
     assertThat(user2.getPasswordHash()).isEqualTo(password2);

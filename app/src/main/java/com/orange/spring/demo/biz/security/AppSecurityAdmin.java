@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.security;
  */
 
 import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.persistence.model.UserRoleDB;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.orange.spring.demo.biz.security.AppSecurityRoles.Role.ROLE_ADMIN;
+import static com.orange.spring.demo.biz.security.AppSecurityRoles.Role.ROLE_USER;
 
 @Slf4j
 @Component
@@ -41,19 +48,26 @@ public class AppSecurityAdmin {
   UserRepository userRepository;
 
   @Autowired
+  AppSecurityRoles appSecurityRoles;
+
+  @Autowired
   PasswordEncoder passwordEncoder;
 
   @PostConstruct
   private void init() {
-    boolean adminDoesNotExist = userRepository.findByUsername(ADMIN_USERNAME).isEmpty();
-    if (adminDoesNotExist) {
-      createAndPersistAdmin();
+    boolean dbNotInitialised = userRepository.findByUsername(ADMIN_USERNAME).isEmpty();
+    if (dbNotInitialised) {
+      Iterable<UserRoleDB> roles = appSecurityRoles.createAndPersistRoles();
+      createAndPersistAdmin(roles);
     }
-    log.warn(adminDoesNotExist ? "Create admin user" : "Admin exists");
+    log.warn(dbNotInitialised ? "Create allRoles & admin user" : "Roles & Admin exists");
   }
 
-  private void createAndPersistAdmin() {
+  private void createAndPersistAdmin(Iterable<UserRoleDB> roles) {
     UserDB userDB = new UserDB(ADMIN_USERNAME, passwordEncoder.encode(ADMIN_PASSWORD), "", "", "", "", "");
+    Set<UserRoleDB> set = new HashSet<>();
+    roles.forEach(userRoleDB -> set.add(userRoleDB));
+    userDB.setUserRoles(set);
     userRepository.save(userDB);
   }
 
