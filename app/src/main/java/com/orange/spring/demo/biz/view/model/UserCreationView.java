@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.webservice.controller.model;
+package com.orange.spring.demo.biz.view.model;
 
 /*
  * #%L
@@ -10,43 +10,45 @@ package com.orange.spring.demo.biz.webservice.controller.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
+import com.orange.spring.demo.biz.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sun.reflect.CallerSensitive;
 
-import java.util.Date;
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserCredentials {
+public class UserCreationView {
+  public static final String EMPTY_PASSWORD = "";
+
   private String username;
   private String password;
   private String firstName;
   private String lastName;
   private String email;
-  // entity in the company: OLPS/SOFT for instance
   private String entity;
-  // for instance: developer, designer, etc
   private String activity;
-  private Date lastConnectionDate;
 
-  @Override
-  public String toString() {
-    return "username = " + username;
+  public User toUser() {
+    return new User(
+            0, username, firstName, lastName, email, entity, activity,
+            null,
+            null,
+            null);
   }
 }

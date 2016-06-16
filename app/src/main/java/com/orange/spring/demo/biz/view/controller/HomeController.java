@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -29,6 +29,7 @@ import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.view.model.CommunityView;
+import com.orange.spring.demo.biz.view.model.UserCreationView;
 import com.orange.spring.demo.biz.view.model.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -106,15 +107,15 @@ public class HomeController {
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("admin_page"));
     // for thymeleaf form management
-    model.addAttribute("user", new UserView());
+    model.addAttribute("user", new UserCreationView());
     model.addAttribute("community", new CommunityView());
     return "admin";
   }
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-  public String user(@ModelAttribute UserView userView, Model model) {
-    User user = userService.create(userView.toUser(), userView.getPassword());
+  public String user(@ModelAttribute UserCreationView userCreationView, Model model) {
+    User user = userService.create(userCreationView.toUser(), userCreationView.getPassword());
     return user(user.id, model);
   }
 

@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.security;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -26,8 +26,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.persistence.service.UserService;
+import com.orange.spring.demo.biz.view.model.UserCreationView;
 import com.orange.spring.demo.biz.webservice.controller.RestApi;
-import com.orange.spring.demo.biz.webservice.controller.model.UserCredentials;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,7 +76,7 @@ public class RestApiSecurityTest {
             .build();
 
     if (shouldCreateUser()) {
-      userService.create(new User(0, username, firstName, lastName, email, entity, activity, null), password);
+      userService.create(new User(0, username, firstName, lastName, email, entity, activity, null, null, null), password);
     }
   }
 
@@ -146,6 +146,9 @@ public class RestApiSecurityTest {
 
   private String bodyForUserCreation() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
-    return mapper.writeValueAsString(new UserCredentials("Thomas", "4321","Thomas", "O'Malley", "gangster@cats.com", "MOUSE", "gangster",null));
+    return mapper.writeValueAsString(
+            new UserCreationView(
+                    "Thomas", "4321","Thomas", "O'Malley", "gangster@cats.com",
+                    "MOUSE", "gangster"));
   }
 }

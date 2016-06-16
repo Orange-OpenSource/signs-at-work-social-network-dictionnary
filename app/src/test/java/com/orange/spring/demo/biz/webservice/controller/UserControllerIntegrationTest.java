@@ -10,20 +10,23 @@ package com.orange.spring.demo.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
+import com.orange.spring.demo.biz.domain.Communities;
+import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.domain.Users;
+import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +41,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -59,6 +63,9 @@ public class UserControllerIntegrationTest {
 
   @MockBean
   private UserService userService;
+
+  @MockBean
+  private CommunityService communityService;
 
   private long id1 = 11;
   private String username1 = "Duchess";
@@ -88,7 +95,18 @@ public class UserControllerIntegrationTest {
             .alwaysDo(print())
             .build();
 
-    Users users = new Users(Arrays.asList(new User(id1, username1, firstName1, lastName1, email1, entity1, activity1,lastConnectionDate1), new User(id2, username2, firstName2, lastName2, email2, entity2, activity2,lastConnectionDate2)));
+    Users users = new Users(
+            Arrays.asList(
+                    new User(
+                            id1, username1, firstName1, lastName1,
+                            email1, entity1, activity1,
+                            new Communities(new ArrayList<>()),
+                            lastConnectionDate1, communityService),
+                    new User(id2, username2, firstName2, lastName2,
+                            email2, entity2, activity2,
+                            new Communities(new ArrayList<>()),
+                            lastConnectionDate2, communityService)));
+
     given(userService.all()).willReturn(users);
   }
 
