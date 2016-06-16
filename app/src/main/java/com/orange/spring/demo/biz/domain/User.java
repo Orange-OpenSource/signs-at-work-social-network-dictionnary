@@ -26,6 +26,7 @@ import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class User {
@@ -41,10 +42,14 @@ public class User {
 
   public final CommunityService communityService;
 
-  public User loadCommunities(User user) {
+  public User loadCommunities() {
     return new User(
             id, username, firstName, lastName, email, entity, activity,
             communityService.forUser(id),
             lastConnectionDate, communityService);
+  }
+
+  public List<Long> communitiesIds() {
+    return communities.ids();
   }
 }

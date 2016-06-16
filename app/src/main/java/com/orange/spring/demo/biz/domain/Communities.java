@@ -25,6 +25,7 @@ package com.orange.spring.demo.biz.domain;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
@@ -33,5 +34,15 @@ public class Communities {
 
   public Stream<Community> stream() {
     return communities.stream();
+  }
+
+  public List<Long> ids() {
+    return communities.stream()
+            .map(community -> community.id)
+            .collect(Collectors.toList());
+  }
+
+  public List<Community> asList() {
+    return communities;
   }
 }

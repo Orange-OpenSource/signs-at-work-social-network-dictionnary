@@ -30,6 +30,7 @@ import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.view.model.CommunityView;
 import com.orange.spring.demo.biz.view.model.UserCreationView;
+import com.orange.spring.demo.biz.view.model.UserProfileView;
 import com.orange.spring.demo.biz.view.model.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -82,11 +83,14 @@ public class HomeController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{id}")
   public String user(@PathVariable long id, Model model) {
-
     User user = userService.withId(id);
+
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("user_details"));
-    model.addAttribute("user", user);
+
+    UserProfileView userProfileView = new UserProfileView(user);
+    model.addAttribute("userProfileView", userProfileView);
+
     return "user";
   }
 

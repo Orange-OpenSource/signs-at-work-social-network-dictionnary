@@ -52,16 +52,34 @@
         </thead>
         <tbody>
         <tr>
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.entity}"></td>
-            <td th:text="${user.activity}"></td>
+            <td th:text="${userProfileView.user.id}"></td>
+            <td th:text="${userProfileView.user.username}"></td>
+            <td th:text="${userProfileView.user.firstName}"></td>
+            <td th:text="${userProfileView.user.lastName}"></td>
+            <td th:text="${userProfileView.user.email}"></td>
+            <td th:text="${userProfileView.user.entity}"></td>
+            <td th:text="${userProfileView.user.activity}"></td>
         </tr>
         </tbody>
     </table>
+</section>
+
+<section class="jumbotron text-xs-center">
+    <div class="container">
+        <h1 class="jumbotron-heading" th:text="#{communities}">
+        </h1>
+    </div>
+    <br/>
+
+    <form id="addsignsform" class="form-inline" action="#" th:action="@{/user/{userid}/add/communities(userid=${userProfileView.user.id})}" th:object="${userProfileView}" method="post">
+        <div class="form-group">
+            <label th:each="community : ${userProfileView.allCommunities}" th:for="${#ids.next('userCommunitiesIds')}">
+                <input type="checkbox" th:field="*{userCommunitiesIds}" th:text="${community.name}" th:value="${community.id}"/>
+            </label>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary" th:text="#{add_user_to_communities}"></button>
+    </form>
 </section>
 
 </body>
