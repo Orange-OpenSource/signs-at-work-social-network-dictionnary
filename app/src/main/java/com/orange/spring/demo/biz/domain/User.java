@@ -33,9 +33,7 @@ public class User {
   public final String firstName;
   public final String lastName;
   public final String email;
-  // entity in the company: OLPS/SOFT for instance
   public final String entity;
-  // for instance: developer, designer, etc
   public final String activity;
   public final Date lastConnectionDate;
 }

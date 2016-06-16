@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.security;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -25,7 +25,7 @@ package com.orange.spring.demo.biz.security;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.persistence.service.impl.UserServiceImpl;
+import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.webservice.controller.RestApi;
 import com.orange.spring.demo.biz.webservice.controller.model.UserCredentials;
 import org.junit.Before;
@@ -42,8 +42,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,7 +55,7 @@ public class RestApiSecurityTest {
   private WebApplicationContext context;
 
   @Autowired
-  private UserServiceImpl userService;
+  private UserService userService;
 
   private MockMvc mockMvc;
 

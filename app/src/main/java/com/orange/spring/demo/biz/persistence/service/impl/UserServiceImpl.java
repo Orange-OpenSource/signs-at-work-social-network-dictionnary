@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -23,10 +23,11 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  */
 
 import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.domain.Users;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
-import com.orange.spring.demo.biz.persistence.model.UserRoleDB;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRoleRepository;
+import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.security.AppSecurityRoles;
 import lombok.RequiredArgsConstructor;
@@ -34,18 +35,34 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Component
+@Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements ApplicationListener<AuthenticationSuccessEvent> {
+public class UserServiceImpl implements UserService, ApplicationListener<AuthenticationSuccessEvent> {
   private final UserRepository userRepository;
   private final UserRoleRepository userRoleRepository;
   private final PasswordEncoder passwordEncoder;
+
+  @Override
+  public Users all() {
+    return usersFrom(userRepository.findAll());
+  }
+
+  @Override
+  public User withId(long id) {
+    return userFrom(userRepository.findOne(id));
+  }
+
+  @Override
+  public User create(User user, String password) {
+    UserDB userDB = userRepository.save(userDBFrom(user, password));
+    return userFrom(userDB);
+  }
 
   @Override
   public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
@@ -57,23 +74,10 @@ public class UserServiceImpl implements ApplicationListener<AuthenticationSucces
     }
   }
 
-  public List<User> all() {
-    return usersFrom(userRepository.findAll());
-  }
-
-  public User withId(long id) {
-    return userFrom(userRepository.findOne(id));
-  }
-
-  public User create(User user, String password) {
-    UserDB userDB = userRepository.save(userDBFrom(user, password));
-    return userFrom(userDB);
-  }
-
-  private List<User> usersFrom(Iterable<UserDB> usersDB) {
+  private Users usersFrom(Iterable<UserDB> usersDB) {
     List<User> users = new ArrayList<>();
     usersDB.forEach(userDB -> users.add(userFrom(userDB)));
-    return users;
+    return new Users(users);
   }
 
   private User userFrom(UserDB userDB) {

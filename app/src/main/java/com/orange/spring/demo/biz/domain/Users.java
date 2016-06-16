@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
@@ -22,13 +22,16 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
+import lombok.RequiredArgsConstructor;
 
-public interface CommunityService {
-  Communities all();
+import java.util.List;
+import java.util.stream.Stream;
 
-  Community withId(long id);
+@RequiredArgsConstructor
+public class Users {
+  private final List<User> users;
 
-  Community create(Community community);
+  public Stream<User> stream() {
+    return users.stream();
+  }
 }

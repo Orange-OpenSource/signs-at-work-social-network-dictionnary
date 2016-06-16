@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -23,7 +23,8 @@ package com.orange.spring.demo.biz.webservice.controller;
  */
 
 import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.persistence.service.impl.UserServiceImpl;
+import com.orange.spring.demo.biz.domain.Users;
+import com.orange.spring.demo.biz.persistence.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +40,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -58,7 +58,7 @@ public class UserControllerIntegrationTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private UserServiceImpl userService;
+  private UserService userService;
 
   private long id1 = 11;
   private String username1 = "Duchess";
@@ -88,7 +88,7 @@ public class UserControllerIntegrationTest {
             .alwaysDo(print())
             .build();
 
-    List<User> users = Arrays.asList(new User(id1, username1, firstName1, lastName1, email1, entity1, activity1,lastConnectionDate1), new User(id2, username2, firstName2, lastName2, email2, entity2, activity2,lastConnectionDate2));
+    Users users = new Users(Arrays.asList(new User(id1, username1, firstName1, lastName1, email1, entity1, activity1,lastConnectionDate1), new User(id2, username2, firstName2, lastName2, email2, entity2, activity2,lastConnectionDate2)));
     given(userService.all()).willReturn(users);
   }
 

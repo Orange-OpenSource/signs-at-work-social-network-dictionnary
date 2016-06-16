@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -26,7 +26,7 @@ import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
-import com.orange.spring.demo.biz.persistence.service.impl.UserServiceImpl;
+import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.view.model.CommunityView;
 import com.orange.spring.demo.biz.view.model.UserView;
@@ -45,7 +45,7 @@ import java.security.Principal;
 public class HomeController {
 
   @Autowired
-  private UserServiceImpl userService;
+  private UserService userService;
   @Autowired
   private CommunityService communityService;
   @Autowired

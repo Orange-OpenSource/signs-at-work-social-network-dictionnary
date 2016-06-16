@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.view.model;
  */
 
 import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,7 +60,7 @@ public class UserView {
     return new UserView(user.id, user.username, EMPTY_PASSWORD, user.firstName, user.lastName, user.email, user.entity, user.activity, user.lastConnectionDate);
   }
 
-  public static List<UserView> from(List<User> users) {
+  public static List<UserView> from(Users users) {
     return users.stream()
             .map(UserView::from)
             .collect(Collectors.toList());
