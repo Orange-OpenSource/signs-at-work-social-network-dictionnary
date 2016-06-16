@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -23,7 +23,7 @@ package com.orange.spring.demo.biz.webservice.controller;
  */
 
 import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.persistence.service.UserService;
+import com.orange.spring.demo.biz.persistence.service.impl.UserServiceImpl;
 import com.orange.spring.demo.biz.view.model.UserView;
 import com.orange.spring.demo.biz.webservice.controller.model.UserCredentials;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ import java.util.List;
 public class UserController {
 
   @Autowired
-  private UserService userService;
+  private UserServiceImpl userService;
 
   @Secured("ROLE_USER")
   @RequestMapping(RestApi.WS_SEC_GET_USERS)
