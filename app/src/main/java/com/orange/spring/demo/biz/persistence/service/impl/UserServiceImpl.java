@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -26,7 +26,9 @@ import com.orange.spring.demo.biz.domain.Communities;
 import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.domain.Users;
+import com.orange.spring.demo.biz.persistence.model.CommunityDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.persistence.repository.CommunityRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRoleRepository;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
@@ -50,6 +52,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService, ApplicationListener<AuthenticationSuccessEvent> {
   private final UserRepository userRepository;
   private final UserRoleRepository userRoleRepository;
+  private final CommunityRepository communityRepository;
   private final CommunityService communityService;
   private final PasswordEncoder passwordEncoder;
 
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
 
   @Override
   public User withId(long id) {
-    return userFrom(userRepository.findOne(id));
+    return userFrom(withDBId(id));
   }
 
   @Override
@@ -75,6 +78,16 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   }
 
   @Override
+  public User changeUserCommunities(long userId, List<Long> communitiesIds) {
+    UserDB userDB = withDBId(userId);
+    List<CommunityDB> userCommunities = userDB.getCommunities();
+    userCommunities.clear();
+    communityRepository.findAll(communitiesIds).forEach(userCommunities::add);
+    userDB = userRepository.save(userDB);
+    return userFrom(userDB);
+  }
+
+  @Override
   public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
     String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
     if (!AppSecurityAdmin.isAdmin(userName)) {
@@ -82,6 +95,10 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
       userDB.setLastConnectionDate(new Date());
       userRepository.save(userDB);
     }
+  }
+
+  private UserDB withDBId(long id) {
+    return userRepository.findOne(id);
   }
 
   private Users usersFrom(Iterable<UserDB> usersDB) {

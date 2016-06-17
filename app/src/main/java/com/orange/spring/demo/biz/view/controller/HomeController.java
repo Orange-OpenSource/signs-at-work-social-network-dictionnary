@@ -10,12 +10,12 @@ package com.orange.spring.demo.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -41,7 +41,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -88,10 +94,45 @@ public class HomeController {
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("user_details"));
 
-    UserProfileView userProfileView = new UserProfileView(user);
+    UserProfileView userProfileView = new UserProfileView(user, communityService);
     model.addAttribute("userProfileView", userProfileView);
 
     return "user";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/user/{userId}/add/communities", method = RequestMethod.POST)
+  /**
+   * We retrieve all form parameters directly from the raw request since in this case
+   * we can not rely on a json object deserialization.
+   * Indeed, POST form parameters look like this:
+   *  - userCommunitiesIds -> "1"
+   *  - userCommunitiesIds -> "2"
+   *  - ...
+   */
+  public String changeUserCommunities(HttpServletRequest req, @PathVariable long userId, Model model) {
+    List<Long> communitiesIds =
+            extractUserCommunitiesIds(req.getParameterMap().get("userCommunitiesIds"));
+
+    User user = userService.changeUserCommunities(userId, communitiesIds);
+
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("user_details"));
+
+    UserProfileView userProfileView = new UserProfileView(user, communityService);
+    model.addAttribute("userProfileView", userProfileView);
+
+    return "user";
+  }
+
+  /** The form POST provides Ids of communities, we convert it back to Long */
+  private List<Long> extractUserCommunitiesIds(String[] userCommunitiesIds) {
+    if (userCommunitiesIds == null) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(userCommunitiesIds).stream()
+            .map(communityIdString -> Long.parseLong(communityIdString))
+            .collect(Collectors.toList());
   }
 
   @Secured("ROLE_ADMIN")
