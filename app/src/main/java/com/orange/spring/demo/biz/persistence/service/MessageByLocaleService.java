@@ -2,7 +2,7 @@ package com.orange.spring.demo.biz.persistence.service;
 
 /*
  * #%L
- * Telsigne
+ * Signs at work
  * %%
  * Copyright (C) 2016 Orange
  * %%
@@ -23,5 +23,5 @@ package com.orange.spring.demo.biz.persistence.service;
  */
 
 public interface MessageByLocaleService {
-    public String getMessage(String id);
+    String getMessage(String id);
 }

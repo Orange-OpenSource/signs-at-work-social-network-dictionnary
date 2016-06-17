@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.orange.accessibility</groupId>
-    <artifactId>demo-spring-boot-thymeleaf-jpa-hibernate</artifactId>
+    <artifactId>signs-at-work</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Demo spring-boot + thymeleaf + jpa-hibernate</name>
+    <name>Signs at work</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -152,9 +152,8 @@
                     <includeTransitiveDependencies>false</includeTransitiveDependencies>
                     <inceptionYear>2016</inceptionYear>
                     <organizationName>Orange</organizationName>
-                    <projectName>Spring demo</projectName>
+                    <projectName>Signs at work</projectName>
                     <addJavaLicenseAfterPackage>true</addJavaLicenseAfterPackage>
-                    <projectName>Spring demo</projectName>
                     <licenseName>gpl_v2</licenseName>
                 </configuration>
                 <executions>
