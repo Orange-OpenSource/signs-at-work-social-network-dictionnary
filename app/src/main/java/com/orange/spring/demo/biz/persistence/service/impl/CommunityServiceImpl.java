@@ -24,29 +24,20 @@ package com.orange.spring.demo.biz.persistence.service.impl;
 
 import com.orange.spring.demo.biz.domain.Communities;
 import com.orange.spring.demo.biz.domain.Community;
-import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
-import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.repository.CommunityRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
-import com.orange.spring.demo.biz.persistence.repository.UserRoleRepository;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
-import com.orange.spring.demo.biz.security.AppSecurityRoles;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationListener;
-import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService {
+  private final UserRepository userRepository;
   private final CommunityRepository communityRepository;
 
   @Override
@@ -60,9 +51,10 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   @Override
-  public Communities forUser(long id) {
-    // FIXME only to go green
-    return all();
+  public Communities forUser(long userId) {
+    return communitiesFrom(
+            communityRepository.findByUser(userRepository.findOne(userId))
+    );
   }
 
   @Override

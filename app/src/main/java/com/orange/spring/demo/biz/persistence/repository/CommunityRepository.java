@@ -23,10 +23,16 @@ package com.orange.spring.demo.biz.persistence.repository;
  */
 
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
+import com.orange.spring.demo.biz.persistence.model.UserDB;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface CommunityRepository extends CrudRepository<CommunityDB, Long> {
     List<CommunityDB> findByName(String name);
+
+    @Query("select distinct c FROM CommunityDB c inner join c.users user where user = :userDB")
+    List<CommunityDB> findByUser(@Param("userDB") UserDB userDB);
 }

@@ -46,7 +46,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -88,7 +87,7 @@ public class HomeController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{id}")
-  public String user(@PathVariable long id, Model model) {
+  public String userDetails(@PathVariable long id, Model model) {
     User user = userService.withId(id);
 
     setAuthenticated(true, model);
@@ -106,27 +105,26 @@ public class HomeController {
    * We retrieve all form parameters directly from the raw request since in this case
    * we can not rely on a json object deserialization.
    * Indeed, POST form parameters look like this:
-   *  - userCommunitiesIds -> "1"
-   *  - userCommunitiesIds -> "2"
+   *  - userCommunitiesIds -> "12"
+   *  - userCommunitiesIds -> "34"
    *  - ...
+   *  which in this case means that the user belongs to communities with id 12 & 34
+   *
+   *  Then we resend the user details page
    */
-  public String changeUserCommunities(HttpServletRequest req, @PathVariable long userId, Model model) {
+  public String changeUserCommunities(
+          HttpServletRequest req, @PathVariable long userId, Model model) {
+
     List<Long> communitiesIds =
-            extractUserCommunitiesIds(req.getParameterMap().get("userCommunitiesIds"));
+            transformCommunitiesIdsToLong(req.getParameterMap().get("userCommunitiesIds"));
 
-    User user = userService.changeUserCommunities(userId, communitiesIds);
+    userService.changeUserCommunities(userId, communitiesIds);
 
-    setAuthenticated(true, model);
-    model.addAttribute("title", messageByLocaleService.getMessage("user_details"));
-
-    UserProfileView userProfileView = new UserProfileView(user, communityService);
-    model.addAttribute("userProfileView", userProfileView);
-
-    return "user";
+    return userDetails(userId, model);
   }
 
-  /** The form POST provides Ids of communities, we convert it back to Long */
-  private List<Long> extractUserCommunitiesIds(String[] userCommunitiesIds) {
+  /** The form POST provides Ids as String, we convert it back to Long */
+  private List<Long> transformCommunitiesIdsToLong(String[] userCommunitiesIds) {
     if (userCommunitiesIds == null) {
       return new ArrayList<>();
     }
@@ -161,7 +159,7 @@ public class HomeController {
   @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
   public String user(@ModelAttribute UserCreationView userCreationView, Model model) {
     User user = userService.create(userCreationView.toUser(), userCreationView.getPassword());
-    return user(user.id, model);
+    return userDetails(user.id, model);
   }
 
   @Secured("ROLE_ADMIN")
