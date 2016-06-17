@@ -64,6 +64,11 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   }
 
   @Override
+  public User withUserName(String userName) {
+    return userFrom(userRepository.findByUsername(userName).get(0));
+  }
+
+  @Override
   public User create(User user, String password) {
     UserDB userDB = userRepository.save(userDBFrom(user, password));
     return userFrom(userDB);

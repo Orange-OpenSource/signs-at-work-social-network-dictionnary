@@ -30,5 +30,7 @@ public interface UserService {
 
   User withId(long id);
 
+  User withUserName(String userName);
+
   User create(User user, String password);
 }

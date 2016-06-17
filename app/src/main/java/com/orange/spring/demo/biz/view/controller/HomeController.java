@@ -138,6 +138,9 @@ public class HomeController {
     model.addAttribute("authenticatedUsername",
             authenticated ? principal.getName() : "Please sign in");
     model.addAttribute("isAdmin", authenticated && isAdmin(principal));
+    if ((authenticated) && !(isAdmin(principal))) {
+      model.addAttribute("user", userService.withUserName(principal.getName()));
+    }
   }
 
   private void setAuthenticated(boolean isAuthenticated, Model model) {

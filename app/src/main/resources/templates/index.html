@@ -36,7 +36,8 @@
 <section class="jumbotron text-xs-center">
     <div th:if="${isAuthenticated}" class="container">
         <h2 th:text="#{welcome_user(${authenticatedUsername})}" class="jumbotron-heading"></h2>
-        <a th:href="@{/users}" th:text="#{see_users}" class="btn btn-secondary"></a>
+        <a th:unless="${isAdmin}" th:href="@{/user/{userid}(userid=${user.id})}" th:text="#{see_user_details}" class="btn btn-secondary"></a>
+        <a th:if="${isAdmin}" th:href="@{/users}" th:text="#{see_users}" class="btn btn-secondary"></a>
         <a th:if="${isAdmin}" th:href="@{/communities}" th:text="#{see_communities}" class="btn btn-secondary"></a>
         <a th:if="${isAdmin}" th:href="@{/admin}" th:text="#{manage_communities_users}" class="btn btn-secondary"></a>
     </div>
