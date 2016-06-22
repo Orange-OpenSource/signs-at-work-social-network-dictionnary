@@ -27,7 +27,7 @@
 
 
 <div th:fragment="joinRequests(requestIds)">
-    <th:block th:each="requestId : ${requestIds} " th:text="${#strings.listJoin(requestIds,',')}"></th:block>
+    <th:block th:each="requestId : ${requestIds} " th:text="${#strings.listJoin(requestId,',')}"></th:block>
 </div>
 
 </body>
