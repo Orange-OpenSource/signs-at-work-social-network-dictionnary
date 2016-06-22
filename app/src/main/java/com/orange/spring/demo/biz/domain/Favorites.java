@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.view.model;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
@@ -22,31 +22,27 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import sun.reflect.CallerSensitive;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class UserCreationView {
-  public static final String EMPTY_PASSWORD = "";
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-  private String username;
-  private String password;
-  private String firstName;
-  private String lastName;
-  private String email;
-  private String entity;
-  private String activity;
+@RequiredArgsConstructor
+public class Favorites {
+  private final List<Favorite> favorites;
 
-  public User toUser() {
-    return new User(
-            0, username, firstName, lastName, email, entity, activity,
-            null, null, null, null, null, null, null);
+  public Stream<Favorite> stream() {
+    return favorites.stream();
+  }
+
+  public List<Long> ids() {
+    return favorites.stream()
+            .map(favorite -> favorite.id)
+            .collect(Collectors.toList());
+  }
+
+  public List<Favorite> list() {
+    return favorites;
   }
 }

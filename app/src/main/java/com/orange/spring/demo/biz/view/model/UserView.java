@@ -43,11 +43,8 @@ public class UserView {
 
   public User toUser() {
     return new User(
-            id, username, firstName, lastName, email, entity, activity,
-            null,
-            lastConnectionDate,
-            null,
-            null, null);
+            id, username, firstName, lastName, email, entity, activity, lastConnectionDate,
+            null, null, null, null, null, null);
   }
 
   public static UserView from(User user) {

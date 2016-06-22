@@ -71,11 +71,17 @@ public class UserDB {
   @JsonManagedReference
   private List<CommunityDB> communities = new ArrayList<>();
 
-  @OneToMany(fetch = FetchType.EAGER)
+  @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="user_id", referencedColumnName = "id")
   // we put this annotation because findAll and findOne don't have the same result
   @Fetch(value = FetchMode.SUBSELECT)
   private List<RequestDB> requests = new ArrayList<>();
+
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name="user_id", referencedColumnName = "id")
+  // we put this annotation because findAll and findOne don't have the same result
+  @Fetch(value = FetchMode.SUBSELECT)
+  private List<FavoriteDB> favorites = new ArrayList<>();
 
   @NotNull
   private String passwordHash;

@@ -64,7 +64,7 @@ public class UserServiceIntegrationTest {
     // given
     // do
     User user = userService.create(
-            new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null), password);
+            new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null, null, null), password);
 
     UserDB userDB = userRepository.findOne(user.id);
     String passwordHash = userDB.getPasswordHash();

@@ -1,8 +1,8 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.persistence.repository;
 
 /*
  * #%L
- * Spring demo
+ * Signs at work
  * %%
  * Copyright (C) 2016 Orange
  * %%
@@ -22,24 +22,18 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.domain.Users;
+import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
+import com.orange.spring.demo.biz.persistence.model.RequestDB;
+import com.orange.spring.demo.biz.persistence.model.UserDB;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface UserService {
-  Users all();
+public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
+    List<FavoriteDB> findByName(String name);
 
-  User withId(long id);
-
-  User withUserName(String userName);
-
-  User create(User user, String password);
-
-  User changeUserCommunities(long userId, List<Long> communitiesIds);
-
-  User createUserRequest(long userId, String requestName);
-
-  User createUserFavorite(long userId, String favoriteName);
-
+    @Query("select distinct c FROM FavoriteDB c inner join c.user user where user = :userDB")
+    List<FavoriteDB> findByUser(@Param("userDB") UserDB userDB);
 }

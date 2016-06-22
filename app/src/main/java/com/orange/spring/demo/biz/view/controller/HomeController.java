@@ -103,6 +103,7 @@ public class HomeController {
     model.addAttribute("userProfileView", userProfileView);
 
     model.addAttribute("requestView", new RequestView());
+    model.addAttribute("favoriteView", new FavoriteView());
 
     return "user";
   }
@@ -153,6 +154,18 @@ public class HomeController {
       userService.createUserRequest(userId, requestName);
 
     }
+
+    return userDetails(userId, model);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/user/{userId}/add/favorite", method = RequestMethod.POST)
+  public String createUserFavorite(
+          HttpServletRequest req, @PathVariable long userId, Model model) {
+
+    String favoriteName = req.getParameter("favoriteName");
+    userService.createUserFavorite(userId, favoriteName);
+
 
     return userDetails(userId, model);
   }

@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.domain;
  */
 
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.persistence.service.FavoriteService;
 import com.orange.spring.demo.biz.persistence.service.RequestService;
 import lombok.RequiredArgsConstructor;
 
@@ -38,20 +39,22 @@ public class User {
   public final String email;
   public final String entity;
   public final String activity;
-  public final Communities communities;
   public final Date lastConnectionDate;
-  public final Requests requests;
+  public final Communities communities;
+    public final Requests requests;
+  public final Favorites favorites;
 
   private final CommunityService communityService;
   private final RequestService requestService;
+  private final FavoriteService favoriteService;
 
-  public User loadCommunitiesRequests() {
-    return communities != null || requests != null ?
+  public User loadCommunitiesRequestsFavorites() {
+    return communities != null || requests != null || favorites != null ?
             this :
             new User(
-                    id, username, firstName, lastName, email, entity, activity,
-                    communityService.forUser(id),
-                    lastConnectionDate, requestService.requestsforUser(id), communityService, requestService);
+                    id, username, firstName, lastName, email, entity, activity, lastConnectionDate,
+                    communityService.forUser(id),  requestService.requestsforUser(id), favoriteService.favoritesforUser(id),
+                    communityService, requestService, favoriteService);
   }
 
   public List<Long> communitiesIds() {

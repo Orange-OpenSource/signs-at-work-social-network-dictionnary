@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.view.model;
+package com.orange.spring.demo.biz.persistence.service;
 
 /*
  * #%L
@@ -22,31 +22,19 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import sun.reflect.CallerSensitive;
+import com.orange.spring.demo.biz.domain.Favorite;
+import com.orange.spring.demo.biz.domain.Favorites;
+import com.orange.spring.demo.biz.domain.Request;
+import com.orange.spring.demo.biz.domain.Requests;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class UserCreationView {
-  public static final String EMPTY_PASSWORD = "";
+public interface FavoriteService {
+  Favorites all();
 
-  private String username;
-  private String password;
-  private String firstName;
-  private String lastName;
-  private String email;
-  private String entity;
-  private String activity;
+  Favorites favoritesforUser(long id);
 
-  public User toUser() {
-    return new User(
-            0, username, firstName, lastName, email, entity, activity,
-            null, null, null, null, null, null, null);
-  }
+  Favorite withId(long id);
+
+  Favorites withName(String name);
+
+  Favorite create(Favorite favorite);
 }

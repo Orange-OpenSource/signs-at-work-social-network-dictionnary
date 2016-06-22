@@ -29,6 +29,10 @@
 <div th:fragment="joinRequests(requests)">
     <th:block th:each="request : ${requests} " th:text="${#strings.listJoin(request.name,',')}"></th:block>
 </div>
+<div th:fragment="joinFavorites(favorites)">
+    <th:block th:each="favorite : ${favorites} " th:text="${#strings.listJoin(favorite.name,',')}"></th:block>
+</div>
+
 
 </body>
 </html>

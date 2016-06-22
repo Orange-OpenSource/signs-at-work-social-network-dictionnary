@@ -24,6 +24,7 @@ package com.orange.spring.demo.biz.webservice.controller;
 
 import com.orange.spring.demo.biz.domain.*;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.persistence.service.FavoriteService;
 import com.orange.spring.demo.biz.persistence.service.RequestService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import org.junit.Before;
@@ -68,6 +69,9 @@ public class UserControllerIntegrationTest {
   @MockBean
   private RequestService requestService;
 
+  @MockBean
+  private FavoriteService favoriteService;
+
   private long id1 = 11;
   private String username1 = "Duchess";
   private String firstName1 = "Duchess";
@@ -100,13 +104,11 @@ public class UserControllerIntegrationTest {
             Arrays.asList(
                     new User(
                             id1, username1, firstName1, lastName1,
-                            email1, entity1, activity1,
-                            new Communities(new ArrayList<>()),
-                            lastConnectionDate1, new Requests(new ArrayList<>()), communityService, requestService),
+                            email1, entity1, activity1, lastConnectionDate1,
+                            new Communities(new ArrayList<>()), new Requests(new ArrayList<>()), new Favorites(new ArrayList<>()), communityService, requestService, favoriteService),
                     new User(id2, username2, firstName2, lastName2,
-                            email2, entity2, activity2,
-                            new Communities(new ArrayList<>()),
-                            lastConnectionDate2, new Requests(new ArrayList<>()), communityService, requestService)));
+                            email2, entity2, activity2, lastConnectionDate2,
+                            new Communities(new ArrayList<>()), new Requests(new ArrayList<>()), new Favorites(new ArrayList<>()), communityService, requestService, favoriteService)));
 
     given(userService.all()).willReturn(users);
   }

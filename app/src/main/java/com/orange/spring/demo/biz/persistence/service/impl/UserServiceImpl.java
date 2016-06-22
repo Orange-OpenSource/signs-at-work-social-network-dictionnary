@@ -27,13 +27,12 @@ import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.domain.Users;
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
+import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
 import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
-import com.orange.spring.demo.biz.persistence.repository.CommunityRepository;
-import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
-import com.orange.spring.demo.biz.persistence.repository.UserRepository;
-import com.orange.spring.demo.biz.persistence.repository.UserRoleRepository;
+import com.orange.spring.demo.biz.persistence.repository.*;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.persistence.service.FavoriteService;
 import com.orange.spring.demo.biz.persistence.service.RequestService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
@@ -57,8 +56,10 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   private final UserRoleRepository userRoleRepository;
   private final CommunityRepository communityRepository;
   private final RequestRepository requestRepository;
+  private final FavoriteRepository favoriteRepository;
   private final CommunityService communityService;
   private final RequestService requestService;
+  private final FavoriteService favoriteService;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -107,6 +108,20 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   }
 
   @Override
+  public User createUserFavorite(long userId, String favoriteName) {
+    UserDB userDB = withDBId(userId);
+
+    FavoriteDB favoriteDB = new FavoriteDB();
+
+    favoriteDB.setName(favoriteName);
+    favoriteRepository.save(favoriteDB);
+
+    userDB.getFavorites().add(favoriteDB);
+    userRepository.save(userDB);
+    return userFrom(userDB);
+  }
+
+  @Override
   public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
     String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
     if (!AppSecurityAdmin.isAdmin(userName)) {
@@ -130,11 +145,10 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     return new User(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getActivity(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getActivity(), userDB.getLastConnectionDate(),
             null /* communities lazy loading, use User to load it */,
-            userDB.getLastConnectionDate(),
-            null,
-            communityService, requestService);
+            null, null,
+            communityService, requestService, favoriteService);
   }
 
   /**

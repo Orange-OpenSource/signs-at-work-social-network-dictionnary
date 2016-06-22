@@ -24,6 +24,7 @@ package com.orange.spring.demo.biz.view.model;
 
 
 import com.orange.spring.demo.biz.domain.Community;
+import com.orange.spring.demo.biz.domain.Favorites;
 import com.orange.spring.demo.biz.domain.Requests;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
@@ -38,12 +39,14 @@ public class UserProfileView {
   private User user;
   private List<Long> userCommunitiesIds;
   private Requests userRequests;
+  private Favorites userFavorites;
   private List<Community> allCommunities;
 
-  public UserProfileView(User userWithoutCommunitiesRequests, CommunityService communityService) {
-    user = userWithoutCommunitiesRequests.loadCommunitiesRequests();
+  public UserProfileView(User userWithoutCommunitiesRequestsFavorites, CommunityService communityService) {
+    user = userWithoutCommunitiesRequestsFavorites.loadCommunitiesRequestsFavorites();
     this.userCommunitiesIds = user.communitiesIds();
     this.userRequests = user.requests;
+    this.userFavorites = user.favorites;
     this.allCommunities = communityService.all().list();
   }
 }

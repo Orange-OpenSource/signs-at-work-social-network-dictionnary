@@ -22,31 +22,38 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.domain.Favorite;
+import com.orange.spring.demo.biz.domain.Favorites;
+import com.orange.spring.demo.biz.domain.Request;
+import com.orange.spring.demo.biz.domain.Requests;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sun.reflect.CallerSensitive;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
-public class UserCreationView {
-  public static final String EMPTY_PASSWORD = "";
+@AllArgsConstructor
+@NoArgsConstructor
+public class FavoriteView {
+  private long id;
+  private String name;
 
-  private String username;
-  private String password;
-  private String firstName;
-  private String lastName;
-  private String email;
-  private String entity;
-  private String activity;
+  public Favorite toFavorite() {
+    return new Favorite(id, name);
+  }
 
-  public User toUser() {
-    return new User(
-            0, username, firstName, lastName, email, entity, activity,
-            null, null, null, null, null, null, null);
+  public static FavoriteView from(Favorite favorite) {
+    return new FavoriteView(favorite.id, favorite.name);
+  }
+
+  public static List<FavoriteView> from(Favorites favorites) {
+    return favorites.stream()
+            .map(FavoriteView::from)
+            .collect(Collectors.toList());
   }
 }

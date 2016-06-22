@@ -38,7 +38,7 @@ public class Requests {
 
   public List<Long> ids() {
     return requests.stream()
-            .map(community -> community.id)
+            .map(request -> request.id)
             .collect(Collectors.toList());
   }
 

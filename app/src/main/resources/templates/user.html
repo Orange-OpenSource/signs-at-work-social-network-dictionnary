@@ -50,6 +50,8 @@
             <th th:text="#{activity}"></th>
             <th th:text="#{number_of_requests}"></th>
             <th th:text="#{requests}"></th>
+            <th th:text="#{number_of_favorites}"></th>
+            <th th:text="#{favorites}"></th>
         </tr>
         </thead>
         <tbody>
@@ -63,6 +65,8 @@
             <td th:text="${userProfileView.user.activity}"></td>
             <td th:text="${#lists.size(userProfileView.userRequests.list())}"></td>
             <td th:include="fragments/tools :: joinRequests(${userProfileView.userRequests.list()})"></td>
+            <td th:text="${#lists.size(userProfileView.userFavorites.list())}"></td>
+            <td th:include="fragments/tools :: joinFavorites(${userProfileView.userFavorites.list()})"></td>
         </tr>
         </tbody>
     </table>
@@ -99,6 +103,22 @@
             <input th:value="${requestView.name}" id="requestName" name="requestName" type="text" class="form-control" placeholder="chat" required="true"/>
         </div>
         <button type="submit" class="btn btn-primary" th:text="#{add_request_to_user}"></button>
+    </form>
+</section>
+
+<section class="jumbotron text-xs-center">
+    <div class="container">
+        <h1 class="jumbotron-heading" th:text="#{favorites}">
+        </h1>
+    </div>
+    <br/>
+
+    <form id="addfavoriteform" class="form-inline" action="#" th:action="@{/user/{userid}/add/favorite(userid=${userProfileView.user.id})}" th:object="${favoriteView}" method="post">
+        <div class="form-group">
+            <label for="favoriteName" th:text="#{name}"></label>
+            <input th:value="${favoriteView.name}" id="favoriteName" name="favoriteName" type="text" class="form-control" placeholder="favoris" required="true"/>
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{add_favorite_to_user}"></button>
     </form>
 </section>
 
