@@ -49,6 +49,6 @@ public class UserCreationView {
             0, username, firstName, lastName, email, entity, activity,
             null,
             null,
-            null);
+            null,null,null);
   }
 }

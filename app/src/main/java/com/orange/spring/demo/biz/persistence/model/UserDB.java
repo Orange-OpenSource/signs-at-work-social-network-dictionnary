@@ -24,6 +24,8 @@ package com.orange.spring.demo.biz.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -68,6 +70,12 @@ public class UserDB {
   @JoinTable(name = "users_communities", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communities_id", referencedColumnName = "id"))
   @JsonManagedReference
   private List<CommunityDB> communities = new ArrayList<>();
+
+  @OneToMany(fetch = FetchType.EAGER)
+  @JoinColumn(name="user_id", referencedColumnName = "id")
+  // we put this annotation because findAll and findOne don't have the same result
+  @Fetch(value = FetchMode.SUBSELECT)
+  private List<RequestDB> requests = new ArrayList<>();
 
   @NotNull
   private String passwordHash;

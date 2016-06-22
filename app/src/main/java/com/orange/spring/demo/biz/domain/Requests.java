@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
@@ -22,22 +22,27 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.domain.Users;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public interface UserService {
-  Users all();
+@RequiredArgsConstructor
+public class Requests {
+  private final List<Request> requests;
 
-  User withId(long id);
+  public Stream<Request> stream() {
+    return requests.stream();
+  }
 
-  User withUserName(String userName);
+  public List<Long> ids() {
+    return requests.stream()
+            .map(community -> community.id)
+            .collect(Collectors.toList());
+  }
 
-  User create(User user, String password);
-
-  User changeUserCommunities(long userId, List<Long> communitiesIds);
-
-  User createUserRequest(long userId, String requestName);
-
+  public List<Request> list() {
+    return requests;
+  }
 }

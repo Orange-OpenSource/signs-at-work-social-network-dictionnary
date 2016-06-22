@@ -22,27 +22,39 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-
+import com.orange.spring.demo.biz.domain.Communities;
 import com.orange.spring.demo.biz.domain.Community;
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.domain.Request;
+import com.orange.spring.demo.biz.domain.Requests;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
-public class UserProfileView {
-  private User user;
-  private List<Long> userCommunitiesIds;
-  private List<Long> userRequestsIds;
-  private List<Community> allCommunities;
+public class RequestView {
+  private long id;
+  private String name;
+  private Date requestDate;
 
-  public UserProfileView(User userWithoutCommunitiesRequests, CommunityService communityService) {
-    user = userWithoutCommunitiesRequests.loadCommunitiesRequests();
-    this.userCommunitiesIds = user.communitiesIds();
-    this.userRequestsIds = user.requestsIds();
-    this.allCommunities = communityService.all().list();
+  public Request toRequest() {
+    return new Request(id, name, requestDate);
+  }
+
+  public static RequestView from(Request request) {
+    return new RequestView(request.id, request.name, request.requestDate);
+  }
+
+  public static List<RequestView> from(Requests requests) {
+    return requests.stream()
+            .map(RequestView::from)
+            .collect(Collectors.toList());
   }
 }

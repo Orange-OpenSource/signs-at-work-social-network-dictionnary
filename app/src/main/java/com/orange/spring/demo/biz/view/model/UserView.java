@@ -46,7 +46,8 @@ public class UserView {
             id, username, firstName, lastName, email, entity, activity,
             null,
             lastConnectionDate,
-            null);
+            null,
+            null, null);
   }
 
   public static UserView from(User user) {

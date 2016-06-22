@@ -27,11 +27,14 @@ import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.domain.Users;
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
+import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.repository.CommunityRepository;
+import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRoleRepository;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.persistence.service.RequestService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.security.AppSecurityRoles;
@@ -53,7 +56,9 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   private final UserRepository userRepository;
   private final UserRoleRepository userRoleRepository;
   private final CommunityRepository communityRepository;
+  private final RequestRepository requestRepository;
   private final CommunityService communityService;
+  private final RequestService requestService;
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -88,6 +93,20 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   }
 
   @Override
+  public User createUserRequest(long userId, String requestName) {
+    UserDB userDB = withDBId(userId);
+
+    RequestDB requestDB = new RequestDB();
+    requestDB.setRequestDate(new Date());
+    requestDB.setName(requestName);
+    requestRepository.save(requestDB);
+
+    userDB.getRequests().add(requestDB);
+    userRepository.save(userDB);
+    return userFrom(userDB);
+  }
+
+  @Override
   public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
     String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
     if (!AppSecurityAdmin.isAdmin(userName)) {
@@ -114,7 +133,8 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
             userDB.getEmail(), userDB.getEntity(), userDB.getActivity(),
             null /* communities lazy loading, use User to load it */,
             userDB.getLastConnectionDate(),
-            communityService);
+            null,
+            communityService, requestService);
   }
 
   /**

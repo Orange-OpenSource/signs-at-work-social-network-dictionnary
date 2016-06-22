@@ -23,15 +23,18 @@ package com.orange.spring.demo.biz.view.controller;
  */
 
 import com.orange.spring.demo.biz.domain.Community;
+import com.orange.spring.demo.biz.domain.Request;
 import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.persistence.model.RequestDB;
+import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
+import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
+import com.orange.spring.demo.biz.persistence.service.RequestService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
-import com.orange.spring.demo.biz.view.model.CommunityView;
-import com.orange.spring.demo.biz.view.model.UserCreationView;
-import com.orange.spring.demo.biz.view.model.UserProfileView;
-import com.orange.spring.demo.biz.view.model.UserView;
+import com.orange.spring.demo.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -45,6 +48,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +59,8 @@ public class HomeController {
   private UserService userService;
   @Autowired
   private CommunityService communityService;
+  @Autowired
+  private RequestService requestService;
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
@@ -96,6 +102,8 @@ public class HomeController {
     UserProfileView userProfileView = new UserProfileView(user, communityService);
     model.addAttribute("userProfileView", userProfileView);
 
+    model.addAttribute("requestView", new RequestView());
+
     return "user";
   }
 
@@ -123,6 +131,7 @@ public class HomeController {
     return userDetails(userId, model);
   }
 
+
   /** The form POST provides Ids as String, we convert it back to Long */
   private List<Long> transformCommunitiesIdsToLong(String[] userCommunitiesIds) {
     if (userCommunitiesIds == null) {
@@ -131,6 +140,21 @@ public class HomeController {
     return Arrays.asList(userCommunitiesIds).stream()
             .map(communityIdString -> Long.parseLong(communityIdString))
             .collect(Collectors.toList());
+  }
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/user/{userId}/add/request", method = RequestMethod.POST)
+  public String createUserRequest(
+          HttpServletRequest req, @PathVariable long userId, Model model) {
+
+    String requestName = req.getParameter("requestName");
+    if (requestService.withName(requestName).list().isEmpty()) {
+      userService.createUserRequest(userId, requestName);
+
+    }
+
+    return userDetails(userId, model);
   }
 
   @Secured("ROLE_ADMIN")

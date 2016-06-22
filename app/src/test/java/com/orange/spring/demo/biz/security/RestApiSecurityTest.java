@@ -76,7 +76,7 @@ public class RestApiSecurityTest {
             .build();
 
     if (shouldCreateUser()) {
-      userService.create(new User(0, username, firstName, lastName, email, entity, activity, null, null, null), password);
+      userService.create(new User(0, username, firstName, lastName, email, entity, activity, null, null, null, null, null), password);
     }
   }
 

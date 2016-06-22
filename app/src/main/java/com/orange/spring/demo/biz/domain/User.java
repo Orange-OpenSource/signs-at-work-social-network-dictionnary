@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.domain;
  */
 
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.persistence.service.RequestService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
@@ -39,19 +40,24 @@ public class User {
   public final String activity;
   public final Communities communities;
   public final Date lastConnectionDate;
+  public final Requests requests;
 
   private final CommunityService communityService;
+  private final RequestService requestService;
 
-  public User loadCommunities() {
+  public User loadCommunitiesRequests() {
     return communities != null ?
             this :
             new User(
                     id, username, firstName, lastName, email, entity, activity,
                     communityService.forUser(id),
-                    lastConnectionDate, communityService);
+                    lastConnectionDate, requestService.requestsforUser(id), communityService, requestService);
   }
 
   public List<Long> communitiesIds() {
     return communities.ids();
+  }
+  public List<Long> requestsIds() {
+    return requests.ids();
   }
 }

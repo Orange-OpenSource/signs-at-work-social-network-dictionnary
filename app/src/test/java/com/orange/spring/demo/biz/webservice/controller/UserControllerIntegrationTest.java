@@ -22,11 +22,9 @@ package com.orange.spring.demo.biz.webservice.controller;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.domain.Users;
+import com.orange.spring.demo.biz.domain.*;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.persistence.service.RequestService;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,6 +65,9 @@ public class UserControllerIntegrationTest {
   @MockBean
   private CommunityService communityService;
 
+  @MockBean
+  private RequestService requestService;
+
   private long id1 = 11;
   private String username1 = "Duchess";
   private String firstName1 = "Duchess";
@@ -101,11 +102,11 @@ public class UserControllerIntegrationTest {
                             id1, username1, firstName1, lastName1,
                             email1, entity1, activity1,
                             new Communities(new ArrayList<>()),
-                            lastConnectionDate1, communityService),
+                            lastConnectionDate1, new Requests(new ArrayList<>()), communityService, requestService),
                     new User(id2, username2, firstName2, lastName2,
                             email2, entity2, activity2,
                             new Communities(new ArrayList<>()),
-                            lastConnectionDate2, communityService)));
+                            lastConnectionDate2, new Requests(new ArrayList<>()), communityService, requestService)));
 
     given(userService.all()).willReturn(users);
   }

@@ -22,22 +22,19 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.domain.Users;
+import com.orange.spring.demo.biz.domain.Communities;
+import com.orange.spring.demo.biz.domain.Community;
+import com.orange.spring.demo.biz.domain.Request;
+import com.orange.spring.demo.biz.domain.Requests;
 
-import java.util.List;
+public interface RequestService {
+  Requests all();
 
-public interface UserService {
-  Users all();
+  Requests requestsforUser(long id);
 
-  User withId(long id);
+  Request withId(long id);
 
-  User withUserName(String userName);
+  Requests withName(String name);
 
-  User create(User user, String password);
-
-  User changeUserCommunities(long userId, List<Long> communitiesIds);
-
-  User createUserRequest(long userId, String requestName);
-
+  Request create(Request request);
 }
