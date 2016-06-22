@@ -22,14 +22,8 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.domain.Users;
-import com.orange.spring.demo.biz.persistence.model.CommunityDB;
-import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
-import com.orange.spring.demo.biz.persistence.model.RequestDB;
-import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.domain.*;
+import com.orange.spring.demo.biz.persistence.model.*;
 import com.orange.spring.demo.biz.persistence.repository.*;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import com.orange.spring.demo.biz.persistence.service.FavoriteService;
@@ -57,6 +51,8 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   private final CommunityRepository communityRepository;
   private final RequestRepository requestRepository;
   private final FavoriteRepository favoriteRepository;
+  private final SignRepository signRepository;
+  private final VideoRepository videoRepository;
   private final CommunityService communityService;
   private final RequestService requestService;
   private final FavoriteService favoriteService;
@@ -118,6 +114,52 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
 
     userDB.getFavorites().add(favoriteDB);
     userRepository.save(userDB);
+    return userFrom(userDB);
+  }
+
+
+  @Override
+  public User createUserSignVideo(long userId, String signName, String signUrl) {
+    UserDB userDB = withDBId(userId);
+
+    List<SignDB> signsMatches = signRepository.findByName(signName);
+    if (signsMatches.isEmpty()) {
+
+      Date now = new Date();
+      VideoDB videoDB = new VideoDB();
+      videoDB.setUrl(signUrl);
+      videoDB.setUser(userDB);
+      videoDB.setCreateDate(now);
+
+      SignDB signDB = new SignDB();
+      signDB.setName(signName);
+      signDB.setUrl(signUrl);
+      signDB.getVideos().add(videoDB);
+      videoDB.setSign(signDB);
+
+      videoRepository.save(videoDB);
+      signRepository.save(signDB);
+
+      userDB.getVideos().add(videoDB);
+      userRepository.save(userDB);
+
+    } else {
+      Date now = new Date();
+
+      VideoDB videoDB = new VideoDB();
+      videoDB.setUrl(signUrl);
+      videoDB.setCreateDate(now);
+      videoDB.setUser(userDB);
+      SignDB signDB = signsMatches.get(0);
+      signDB.setUrl(signUrl);
+      videoDB.setSign(signDB);
+
+      videoRepository.save(videoDB);
+      signRepository.save(signDB);
+
+      userDB.getVideos().add(videoDB);
+      userRepository.save(userDB);
+    }
     return userFrom(userDB);
   }
 

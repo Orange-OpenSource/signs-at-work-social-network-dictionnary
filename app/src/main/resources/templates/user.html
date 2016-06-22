@@ -124,5 +124,23 @@
     </form>
 </section>
 
+<section class="jumbotron text-xs-center">
+<div class="container">
+    <h1 class="jumbotron-heading" th:text="#{signs}">
+    </h1>
+</div>
+<br/>
+
+<form id="addsignform" class="form-inline" action="#" th:action="@{/user/{userid}/add/sign(userid=${userProfileView.user.id})}" th:object="${signView}" method="post">
+    <div class="form-group">
+        <label for="signName" th:text="#{name}"></label>
+        <input th:field="*{name}" type="text" class="form-control" placeholder="donald" required="true"/>
+        <label for="signUrl" th:text="#{url}"></label>
+        <input th:field="*{url}" type="text" class="form-control" placeholder="http://cartoon/donald" required="true"/>
+    </div>
+    <button type="submit" class="btn btn-primary" th:text="#{add_sign}"></button>
+</form>
+</section>
+
 </body>
 </html>

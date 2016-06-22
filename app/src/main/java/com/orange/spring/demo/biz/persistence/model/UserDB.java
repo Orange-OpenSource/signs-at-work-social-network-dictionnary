@@ -83,6 +83,12 @@ public class UserDB {
   @Fetch(value = FetchMode.SUBSELECT)
   private List<FavoriteDB> favorites = new ArrayList<>();
 
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name="user_id", referencedColumnName = "id")
+  // we put this annotation because findAll and findOne don't have the same result
+  @Fetch(value = FetchMode.SUBSELECT)
+  private List<VideoDB> videos = new ArrayList<>();
+
   @NotNull
   private String passwordHash;
 

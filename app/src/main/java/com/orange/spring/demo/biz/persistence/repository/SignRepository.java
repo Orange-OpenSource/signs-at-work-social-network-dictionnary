@@ -1,8 +1,8 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.persistence.repository;
 
 /*
  * #%L
- * Spring demo
+ * Signs at work
  * %%
  * Copyright (C) 2016 Orange
  * %%
@@ -22,26 +22,16 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.domain.Users;
+import com.orange.spring.demo.biz.persistence.model.RequestDB;
+import com.orange.spring.demo.biz.persistence.model.SignDB;
+import com.orange.spring.demo.biz.persistence.model.UserDB;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface UserService {
-  Users all();
-
-  User withId(long id);
-
-  User withUserName(String userName);
-
-  User create(User user, String password);
-
-  User changeUserCommunities(long userId, List<Long> communitiesIds);
-
-  User createUserRequest(long userId, String requestName);
-
-  User createUserFavorite(long userId, String favoriteName);
-
-  User createUserSignVideo(long userId, String signName, String SignUrl);
+public interface SignRepository extends CrudRepository<SignDB, Long> {
+    List<SignDB> findByName(String name);
 
 }

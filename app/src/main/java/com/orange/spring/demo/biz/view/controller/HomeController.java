@@ -104,6 +104,7 @@ public class HomeController {
 
     model.addAttribute("requestView", new RequestView());
     model.addAttribute("favoriteView", new FavoriteView());
+    model.addAttribute("signView", new SignView());
 
     return "user";
   }
@@ -166,6 +167,18 @@ public class HomeController {
     String favoriteName = req.getParameter("favoriteName");
     userService.createUserFavorite(userId, favoriteName);
 
+
+    return userDetails(userId, model);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/user/{userId}/add/sign", method = RequestMethod.POST)
+  public String createUserSignVideo(
+          HttpServletRequest req, @PathVariable long userId, Model model) {
+
+    String signName = req.getParameter("name");
+    String signUrl = req.getParameter("url");
+    userService.createUserSignVideo(userId, signName, signUrl);
 
     return userDetails(userId, model);
   }

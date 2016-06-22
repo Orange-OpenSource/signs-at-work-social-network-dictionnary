@@ -1,8 +1,8 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
- * Spring demo
+ * Signs at work
  * %%
  * Copyright (C) 2016 Orange
  * %%
@@ -22,26 +22,13 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
-import com.orange.spring.demo.biz.domain.Users;
+import lombok.RequiredArgsConstructor;
 
-import java.util.List;
+import java.util.Date;
 
-public interface UserService {
-  Users all();
-
-  User withId(long id);
-
-  User withUserName(String userName);
-
-  User create(User user, String password);
-
-  User changeUserCommunities(long userId, List<Long> communitiesIds);
-
-  User createUserRequest(long userId, String requestName);
-
-  User createUserFavorite(long userId, String favoriteName);
-
-  User createUserSignVideo(long userId, String signName, String SignUrl);
-
+@RequiredArgsConstructor
+public class Video {
+    public final long id;
+    public final String url;
+    public final Date createDate;
 }
