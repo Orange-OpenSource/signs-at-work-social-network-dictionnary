@@ -24,6 +24,7 @@ package com.orange.spring.demo.biz.view.model;
 
 
 import com.orange.spring.demo.biz.domain.Community;
+import com.orange.spring.demo.biz.domain.Requests;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import lombok.Getter;
@@ -36,13 +37,13 @@ import java.util.List;
 public class UserProfileView {
   private User user;
   private List<Long> userCommunitiesIds;
-  private List<Long> userRequestsIds;
+  private Requests userRequests;
   private List<Community> allCommunities;
 
   public UserProfileView(User userWithoutCommunitiesRequests, CommunityService communityService) {
     user = userWithoutCommunitiesRequests.loadCommunitiesRequests();
     this.userCommunitiesIds = user.communitiesIds();
-    this.userRequestsIds = user.requestsIds();
+    this.userRequests = user.requests;
     this.allCommunities = communityService.all().list();
   }
 }

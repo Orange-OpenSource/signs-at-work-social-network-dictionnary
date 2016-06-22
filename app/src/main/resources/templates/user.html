@@ -61,8 +61,8 @@
             <td th:text="${userProfileView.user.email}"></td>
             <td th:text="${userProfileView.user.entity}"></td>
             <td th:text="${userProfileView.user.activity}"></td>
-            <td th:text="${#lists.size(userProfileView.userRequestsIds)}"></td>
-            <td th:include="fragments/tools :: joinRequests(${userProfileView.userRequestsIds})"></td>
+            <td th:text="${#lists.size(userProfileView.userRequests.list())}"></td>
+            <td th:include="fragments/tools :: joinRequests(${userProfileView.userRequests.list()})"></td>
         </tr>
         </tbody>
     </table>

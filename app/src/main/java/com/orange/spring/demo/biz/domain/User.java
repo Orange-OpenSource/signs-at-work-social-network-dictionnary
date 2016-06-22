@@ -46,7 +46,7 @@ public class User {
   private final RequestService requestService;
 
   public User loadCommunitiesRequests() {
-    return communities != null ?
+    return communities != null || requests != null ?
             this :
             new User(
                     id, username, firstName, lastName, email, entity, activity,
@@ -57,7 +57,5 @@ public class User {
   public List<Long> communitiesIds() {
     return communities.ids();
   }
-  public List<Long> requestsIds() {
-    return requests.ids();
-  }
+
 }
