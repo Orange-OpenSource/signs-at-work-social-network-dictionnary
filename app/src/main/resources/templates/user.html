@@ -48,6 +48,7 @@
             <th th:text="#{email}"></th>
             <th th:text="#{entity}"></th>
             <th th:text="#{activity}"></th>
+            <th th:text="#{lastConnectionDate}"></th>
             <th th:text="#{number_of_requests}"></th>
             <th th:text="#{requests}"></th>
             <th th:text="#{number_of_favorites}"></th>
@@ -63,6 +64,7 @@
             <td th:text="${userProfileView.user.email}"></td>
             <td th:text="${userProfileView.user.entity}"></td>
             <td th:text="${userProfileView.user.activity}"></td>
+            <td th:text="${userProfileView.user.lastConnectionDate}"></td>
             <td th:text="${#lists.size(userProfileView.userRequests.list())}"></td>
             <td th:include="fragments/tools :: joinRequests(${userProfileView.userRequests.list()})"></td>
             <td th:text="${#lists.size(userProfileView.userFavorites.list())}"></td>

@@ -50,7 +50,7 @@ public class CommunityDB {
     @NotNull
     private String name;
 
-    @ManyToMany(mappedBy = "communities", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<UserDB> users = new ArrayList<>();
 

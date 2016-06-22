@@ -52,7 +52,7 @@ public class FavoriteDB {
     private String name;
 
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     private UserDB user;
 
 

@@ -51,7 +51,7 @@ public class RequestDB {
     @NotNull
     private Date requestDate;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     private UserDB user;
 
     public RequestDB(String name, Date requestDate) {
