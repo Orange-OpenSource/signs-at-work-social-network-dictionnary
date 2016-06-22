@@ -1,6 +1,6 @@
 <!--
   #%L
-  Spring demo
+  Signs at work
   %%
   Copyright (C) 2016 Orange
   %%
@@ -97,6 +97,22 @@
         <h1 class="jumbotron-heading" th:text="#{requests}">
         </h1>
     </div>
+    <div th:if="${not #lists.isEmpty(userProfileView.userRequests.list())}">
+        <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
+            <thead>
+            <tr>
+                <th>#id</th>
+                <th th:text="#{name}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="request : ${userProfileView.userRequests.list()}">
+                <td><a th:href="@{/request-details/{requestid}(requestid=${request.id})}" th:text="${request.id}"/></td>
+                <td th:text="${request.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <br/>
 
     <form id="addrequestform" class="form-inline" action="#" th:action="@{/user/{userid}/add/request(userid=${userProfileView.user.id})}" th:object="${requestView}" method="post">
@@ -112,6 +128,22 @@
     <div class="container">
         <h1 class="jumbotron-heading" th:text="#{favorites}">
         </h1>
+    </div>
+    <div th:if="${not #lists.isEmpty(userProfileView.userFavorites.list())}">
+        <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
+            <thead>
+            <tr>
+                <th>#id</th>
+                <th th:text="#{name}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="favorite : ${userProfileView.userFavorites.list()}">
+                <td><a th:href="@{/favorite-details/{favoriteid}(favoriteid=${favorite.id})}" th:text="${favorite.id}"/></td>
+                <td th:text="${favorite.name}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <br/>
 

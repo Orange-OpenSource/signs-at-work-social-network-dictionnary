@@ -2,7 +2,7 @@ package com.orange.spring.demo.biz.security;
 
 /*
  * #%L
- * Spring demo
+ * Signs at work
  * %%
  * Copyright (C) 2016 Orange
  * %%
