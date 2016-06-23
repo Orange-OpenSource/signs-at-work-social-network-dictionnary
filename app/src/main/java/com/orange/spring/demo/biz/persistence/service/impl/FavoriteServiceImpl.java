@@ -22,16 +22,14 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Favorite;
-import com.orange.spring.demo.biz.domain.Favorites;
-import com.orange.spring.demo.biz.domain.Request;
-import com.orange.spring.demo.biz.domain.Requests;
-import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
-import com.orange.spring.demo.biz.persistence.model.RequestDB;
+import com.orange.spring.demo.biz.domain.*;
+import com.orange.spring.demo.biz.persistence.model.*;
 import com.orange.spring.demo.biz.persistence.repository.FavoriteRepository;
 import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
+import com.orange.spring.demo.biz.persistence.repository.SignRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.service.FavoriteService;
+import com.orange.spring.demo.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +41,8 @@ import java.util.List;
 public class FavoriteServiceImpl implements FavoriteService {
   private final UserRepository userRepository;
   private final FavoriteRepository favoriteRepository;
+  private final SignRepository signRepository;
+  private final SignService signService;
 
   @Override
   public Favorites all() {
@@ -67,6 +67,20 @@ public class FavoriteServiceImpl implements FavoriteService {
   }
 
   @Override
+  public Favorite changeFavoriteSigns(long favoriteId, List<Long> signsIds) {
+    FavoriteDB favoriteDB = withDBId(favoriteId);
+    List<SignDB> favoriteSigns = favoriteDB.getSigns();
+    favoriteSigns.clear();
+    signRepository.findAll(signsIds).forEach(favoriteSigns::add);
+    favoriteDB = favoriteRepository.save(favoriteDB);
+    return favoriteFrom(favoriteDB);
+  }
+
+  private FavoriteDB withDBId(long id) {
+    return favoriteRepository.findOne(id);
+  }
+
+  @Override
   public Favorite create(Favorite favorite) {
     FavoriteDB favoriteDB = favoriteRepository.save(favoriteDBFrom(favorite));
     return favoriteFrom(favoriteDB);
@@ -79,7 +93,7 @@ public class FavoriteServiceImpl implements FavoriteService {
   }
 
   private Favorite favoriteFrom(FavoriteDB favoriteDB) {
-    return new Favorite(favoriteDB.getId(), favoriteDB.getName());
+    return new Favorite(favoriteDB.getId(), favoriteDB.getName(), null, signService);
   }
 
   private FavoriteDB favoriteDBFrom(Favorite favorite) {

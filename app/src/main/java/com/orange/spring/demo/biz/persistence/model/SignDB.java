@@ -57,6 +57,10 @@ public class SignDB {
   @OneToMany(mappedBy = "sign", cascade = CascadeType.ALL)
   private List<VideoDB> videos = new ArrayList<>();
 
+  @ManyToMany(mappedBy = "signs", fetch = FetchType.LAZY)
+  @JsonBackReference
+  private List<FavoriteDB> favorites = new ArrayList<>();
+
   public SignDB(String name, String url) {
     this.name = name; this.url = url;
   }

@@ -52,9 +52,14 @@ public class FavoriteDB {
     @NotNull
     private String name;
 
-
     @ManyToOne(fetch=FetchType.LAZY)
     private UserDB user;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "favorites_signs", joinColumns = @JoinColumn(name = "favorites_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "signs_id", referencedColumnName = "id"))
+    @JsonManagedReference
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<SignDB> signs = new ArrayList<>();
 
 
     public FavoriteDB(String name) {

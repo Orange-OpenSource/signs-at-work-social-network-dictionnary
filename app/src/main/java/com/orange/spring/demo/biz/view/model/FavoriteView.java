@@ -44,7 +44,7 @@ public class FavoriteView {
   private String name;
 
   public Favorite toFavorite() {
-    return new Favorite(id, name);
+    return new Favorite(id, name, null, null);
   }
 
   public static FavoriteView from(Favorite favorite) {

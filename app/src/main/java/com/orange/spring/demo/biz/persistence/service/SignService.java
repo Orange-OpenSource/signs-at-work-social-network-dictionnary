@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.domain;
+package com.orange.spring.demo.biz.persistence.service;
 
 /*
  * #%L
@@ -22,27 +22,19 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.service.SignService;
-import lombok.RequiredArgsConstructor;
+import com.orange.spring.demo.biz.domain.Favorite;
+import com.orange.spring.demo.biz.domain.Favorites;
+import com.orange.spring.demo.biz.domain.Sign;
+import com.orange.spring.demo.biz.domain.Signs;
 
-import java.util.Date;
-import java.util.List;
+public interface SignService {
+  Signs all();
 
-@RequiredArgsConstructor
-public class Favorite {
-    public final long id;
-    public final String name;
-    public final Signs signs;
+  Signs forFavorite(long id);
 
-    private final SignService signService;
+  Sign withId(long id);
 
-    public Favorite loadSigns() {
-        return signs != null ?
-                this :
-                new Favorite(id, name, signService.forFavorite(id), signService);
-    }
+  Signs withName(String name);
 
-    public List<Long> signsIds() {
-        return signs.ids();
-    }
+  Sign create(Sign sign);
 }

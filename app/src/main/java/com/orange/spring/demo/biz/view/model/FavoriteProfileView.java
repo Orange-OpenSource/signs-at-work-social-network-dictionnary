@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.domain;
+package com.orange.spring.demo.biz.view.model;
 
 /*
  * #%L
@@ -22,27 +22,25 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.service.SignService;
-import lombok.RequiredArgsConstructor;
 
-import java.util.Date;
+import com.orange.spring.demo.biz.domain.*;
+import com.orange.spring.demo.biz.persistence.service.CommunityService;
+import com.orange.spring.demo.biz.persistence.service.SignService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
-@RequiredArgsConstructor
-public class Favorite {
-    public final long id;
-    public final String name;
-    public final Signs signs;
+@Getter
+@NoArgsConstructor
+public class FavoriteProfileView {
+  private Favorite favorite;
+  private List<Long> favoriteSignsIds;
+  private List<Sign> allSigns;
 
-    private final SignService signService;
-
-    public Favorite loadSigns() {
-        return signs != null ?
-                this :
-                new Favorite(id, name, signService.forFavorite(id), signService);
-    }
-
-    public List<Long> signsIds() {
-        return signs.ids();
-    }
+  public FavoriteProfileView(Favorite favoriteWithoutSigns, SignService signService) {
+    favorite = favoriteWithoutSigns.loadSigns();
+    this.favoriteSignsIds = favorite.signsIds();
+    this.allSigns = signService.all().list();
+  }
 }

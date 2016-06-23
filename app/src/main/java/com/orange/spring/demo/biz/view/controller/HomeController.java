@@ -23,16 +23,14 @@ package com.orange.spring.demo.biz.view.controller;
  */
 
 import com.orange.spring.demo.biz.domain.Community;
+import com.orange.spring.demo.biz.domain.Favorite;
 import com.orange.spring.demo.biz.domain.Request;
 import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
-import com.orange.spring.demo.biz.persistence.service.CommunityService;
-import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
-import com.orange.spring.demo.biz.persistence.service.RequestService;
-import com.orange.spring.demo.biz.persistence.service.UserService;
+import com.orange.spring.demo.biz.persistence.service.*;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +59,10 @@ public class HomeController {
   private CommunityService communityService;
   @Autowired
   private RequestService requestService;
+  @Autowired
+  private FavoriteService favoriteService;
+  @Autowired
+  private SignService signService;
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
@@ -110,6 +112,19 @@ public class HomeController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/favorite/{id}")
+  public String favoriteDetails(@PathVariable long id, Model model) {
+    Favorite favorite = favoriteService.withId(id);
+
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("favorite_details"));
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, signService);
+    model.addAttribute("favoriteProfileView", favoriteProfileView);;
+
+    return "favorite";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{userId}/add/communities", method = RequestMethod.POST)
   /**
    * We retrieve all form parameters directly from the raw request since in this case
@@ -144,6 +159,28 @@ public class HomeController {
             .collect(Collectors.toList());
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/favorite/{favoriteId}/add/signs", method = RequestMethod.POST)
+  public String changeFavoriteSigns(
+          HttpServletRequest req, @PathVariable long favoriteId, Model model) {
+
+    List<Long> signsIds =
+            transformSignsIdsToLong(req.getParameterMap().get("favoriteSignsIds"));
+
+    favoriteService.changeFavoriteSigns(favoriteId, signsIds);
+
+    return favoriteDetails(favoriteId, model);
+  }
+
+
+  private List<Long> transformSignsIdsToLong(String[] favoriteSignsIds) {
+    if (favoriteSignsIds == null) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(favoriteSignsIds).stream()
+            .map(signIdString -> Long.parseLong(signIdString))
+            .collect(Collectors.toList());
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{userId}/add/request", method = RequestMethod.POST)

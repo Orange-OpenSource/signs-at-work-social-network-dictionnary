@@ -139,7 +139,7 @@
             </thead>
             <tbody>
             <tr th:each="favorite : ${userProfileView.userFavorites.list()}">
-                <td><a th:href="@{/favorite-details/{favoriteid}(favoriteid=${favorite.id})}" th:text="${favorite.id}"/></td>
+                <td><a th:href="@{/favorite/{favoriteid}(favoriteid=${favorite.id})}" th:text="${favorite.id}"/></td>
                 <td th:text="${favorite.name}"></td>
             </tr>
             </tbody>

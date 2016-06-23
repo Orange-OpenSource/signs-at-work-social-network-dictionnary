@@ -22,6 +22,7 @@ package com.orange.spring.demo.biz.persistence.repository;
  * #L%
  */
 
+import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
 import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import com.orange.spring.demo.biz.persistence.model.SignDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
@@ -33,5 +34,8 @@ import java.util.List;
 
 public interface SignRepository extends CrudRepository<SignDB, Long> {
     List<SignDB> findByName(String name);
+
+    @Query("select distinct s FROM SignDB s inner join s.favorites favorite where favorite = :favoriteDB")
+    List<SignDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
 }

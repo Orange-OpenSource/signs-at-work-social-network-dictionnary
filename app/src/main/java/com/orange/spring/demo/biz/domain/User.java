@@ -41,7 +41,7 @@ public class User {
   public final String activity;
   public final Date lastConnectionDate;
   public final Communities communities;
-    public final Requests requests;
+  public final Requests requests;
   public final Favorites favorites;
 
   private final CommunityService communityService;

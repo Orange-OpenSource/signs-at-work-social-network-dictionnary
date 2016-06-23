@@ -27,6 +27,8 @@ import com.orange.spring.demo.biz.domain.Favorites;
 import com.orange.spring.demo.biz.domain.Request;
 import com.orange.spring.demo.biz.domain.Requests;
 
+import java.util.List;
+
 public interface FavoriteService {
   Favorites all();
 
@@ -37,4 +39,6 @@ public interface FavoriteService {
   Favorites withName(String name);
 
   Favorite create(Favorite favorite);
+
+  Favorite changeFavoriteSigns(long favoriteId, List<Long> signsIds);
 }
