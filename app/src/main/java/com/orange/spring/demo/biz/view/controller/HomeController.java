@@ -125,6 +125,19 @@ public class HomeController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/request/{id}")
+  public String requestDetails(@PathVariable long id, Model model) {
+    Request request = requestService.withId(id);
+
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("request_details"));
+    RequestProfileView requestProfileView = new RequestProfileView(request, signService);
+    model.addAttribute("requestProfileView", requestProfileView);;
+
+    return "request";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{userId}/add/communities", method = RequestMethod.POST)
   /**
    * We retrieve all form parameters directly from the raw request since in this case
@@ -181,6 +194,20 @@ public class HomeController {
             .map(signIdString -> Long.parseLong(signIdString))
             .collect(Collectors.toList());
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/request/{requestId}/add/sign", method = RequestMethod.POST)
+  public String changeSignRequest(
+          HttpServletRequest req, @PathVariable long requestId, Model model) {
+
+    Long signId = Long.parseLong(req.getParameter("requestSignId"));
+
+    requestService.changeSignRequest(requestId, signId);
+
+    return requestDetails(requestId, model);
+  }
+
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{userId}/add/request", method = RequestMethod.POST)

@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.domain;
+package com.orange.spring.demo.biz.view.model;
 
 /*
  * #%L
@@ -22,17 +22,31 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
+
+import com.orange.spring.demo.biz.domain.Favorite;
+import com.orange.spring.demo.biz.domain.Request;
+import com.orange.spring.demo.biz.domain.Sign;
 import com.orange.spring.demo.biz.persistence.service.RequestService;
 import com.orange.spring.demo.biz.persistence.service.SignService;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
 
-@RequiredArgsConstructor
-public class Request {
-    public final long id;
-    public final String name;
-    public final Date requestDate;
-    public final Sign sign;
+@Getter
+@NoArgsConstructor
+public class RequestProfileView {
+  private Request request;
+  private Long requestSignId;
+  private List<Sign> allSigns;
 
+  private RequestService requestService;
+
+  public RequestProfileView(Request requestWithoutSign, SignService signService) {
+    request = requestWithoutSign;
+    if (request.sign != null) {
+      this.requestSignId = request.sign.id;
+    }
+    this.allSigns = signService.all().list();
+  }
 }

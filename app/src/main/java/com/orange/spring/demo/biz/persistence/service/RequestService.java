@@ -32,6 +32,8 @@ public interface RequestService {
 
   Requests requestsforUser(long id);
 
+  Request changeSignRequest(long requestId, long signId);
+
   Request withId(long id);
 
   Requests withName(String name);

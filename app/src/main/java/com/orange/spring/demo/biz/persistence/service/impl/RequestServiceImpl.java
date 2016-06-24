@@ -22,13 +22,13 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
-import com.orange.spring.demo.biz.domain.Request;
-import com.orange.spring.demo.biz.domain.Requests;
+import com.orange.spring.demo.biz.domain.*;
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
 import com.orange.spring.demo.biz.persistence.model.RequestDB;
+import com.orange.spring.demo.biz.persistence.model.SignDB;
+import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
+import com.orange.spring.demo.biz.persistence.repository.SignRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import com.orange.spring.demo.biz.persistence.service.RequestService;
@@ -43,6 +43,7 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
   private final UserRepository userRepository;
   private final RequestRepository requestRepository;
+  private final SignRepository signRepository;
 
   @Override
   public Requests all() {
@@ -67,6 +68,16 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
+  public Request changeSignRequest(long requestId, long signId) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+    SignDB signDB = signRepository.findOne(signId);
+    requestDB.setSign(signDB);
+
+    requestDB = requestRepository.save(requestDB);
+    return requestFrom(requestDB);
+  }
+
+  @Override
   public Request create(Request request) {
     RequestDB requestDB = requestRepository.save(requestDBFrom(request));
     return requestFrom(requestDB);
@@ -79,7 +90,7 @@ public class RequestServiceImpl implements RequestService {
   }
 
   private Request requestFrom(RequestDB requestDB) {
-    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestDate());
+    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestDate(), null);
   }
 
   private RequestDB requestDBFrom(Request request) {

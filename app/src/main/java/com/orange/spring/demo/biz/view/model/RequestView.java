@@ -45,7 +45,7 @@ public class RequestView {
   private Date requestDate;
 
   public Request toRequest() {
-    return new Request(id, name, requestDate);
+    return new Request(id, name, requestDate, null);
   }
 
   public static RequestView from(Request request) {

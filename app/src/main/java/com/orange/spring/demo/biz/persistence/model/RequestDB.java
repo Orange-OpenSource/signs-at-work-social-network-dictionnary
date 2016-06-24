@@ -55,6 +55,10 @@ public class RequestDB {
     @ManyToOne(fetch=FetchType.LAZY)
     private UserDB user;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sign_id")
+    private SignDB sign;
+
     public RequestDB(String name, Date requestDate) {
         this.name = name; this.requestDate = requestDate;
     }
