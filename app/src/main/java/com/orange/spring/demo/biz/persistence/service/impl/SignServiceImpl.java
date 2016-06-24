@@ -79,8 +79,13 @@ public class SignServiceImpl implements SignService {
     return new Signs(signs);
   }
 
-  private Sign signFrom(SignDB signDB) {
-    return new Sign(signDB.getId(), signDB.getName(), signDB.getUrl());
+  static Sign signFrom(SignDB signDB) {
+    if (signDB == null) {
+      return null;
+    }
+    else {
+      return new Sign(signDB.getId(), signDB.getName(), signDB.getUrl());
+    }
   }
 
   private SignDB signDBFrom(Sign sign) {

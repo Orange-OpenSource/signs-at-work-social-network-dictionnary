@@ -90,7 +90,7 @@ public class RequestServiceImpl implements RequestService {
   }
 
   private Request requestFrom(RequestDB requestDB) {
-    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestDate(), null);
+    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestDate(), SignServiceImpl.signFrom(requestDB.getSign()));
   }
 
   private RequestDB requestDBFrom(Request request) {

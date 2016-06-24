@@ -42,8 +42,8 @@ public class RequestProfileView {
 
   private RequestService requestService;
 
-  public RequestProfileView(Request requestWithoutSign, SignService signService) {
-    request = requestWithoutSign;
+  public RequestProfileView(Request request, SignService signService) {
+    this.request = request;
     if (request.sign != null) {
       this.requestSignId = request.sign.id;
     }
