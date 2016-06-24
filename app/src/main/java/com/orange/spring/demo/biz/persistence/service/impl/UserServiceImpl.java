@@ -193,6 +193,13 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
             communityService, requestService, favoriteService);
   }
 
+  static User userFromSignView(UserDB userDB) {
+    return new User(
+            userDB.getId(),
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getActivity(), userDB.getLastConnectionDate(),
+            null, null, null, null, null, null);
+  }
   /**
    * Create a transient UserDB with a hashed password and a ROLE_USER as default
    * @param user user domain object

@@ -1,8 +1,8 @@
-package com.orange.spring.demo.biz.view.model;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
- * Signs at work
+ ** Signs at work
  * %%
  * Copyright (C) 2016 Orange
  * %%
@@ -22,38 +22,27 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class SignView {
-  private long id;
-  private String name;
-  private String url;
-  private Videos videos;
+@RequiredArgsConstructor
+public class Videos {
+  private final List<Video> videos;
 
-  public Sign toSign() {
-    return new Sign(id, name, url, null);
+  public Stream<Video> stream() {
+    return videos.stream();
   }
 
-  public static SignView from(Sign sign) {
-    return new SignView(sign.id, sign.name, sign.url, sign.videos);
-  }
-
-  public static List<SignView> from(Signs signs) {
-    return signs
-            .stream()
-            .map(SignView::from)
+  public List<Long> ids() {
+    return videos.stream()
+            .map(video -> video.id)
             .collect(Collectors.toList());
+  }
+
+  public List<Video> list() {
+    return videos;
   }
 }

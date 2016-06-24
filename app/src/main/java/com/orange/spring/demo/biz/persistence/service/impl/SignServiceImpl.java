@@ -28,6 +28,7 @@ import com.orange.spring.demo.biz.domain.Sign;
 import com.orange.spring.demo.biz.domain.Signs;
 import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
 import com.orange.spring.demo.biz.persistence.model.SignDB;
+import com.orange.spring.demo.biz.persistence.model.VideoDB;
 import com.orange.spring.demo.biz.persistence.repository.FavoriteRepository;
 import com.orange.spring.demo.biz.persistence.repository.SignRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
@@ -84,7 +85,8 @@ public class SignServiceImpl implements SignService {
       return null;
     }
     else {
-      return new Sign(signDB.getId(), signDB.getName(), signDB.getUrl());
+      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()));
+      return sign;
     }
   }
 

@@ -24,9 +24,12 @@ package com.orange.spring.demo.biz.domain;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class Sign {
     public final long id;
     public final String name;
     public final String url;
+    public final Videos videos;
 }

@@ -94,6 +94,17 @@ public class HomeController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping("/signs")
+  public String signs(Model model) {
+
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("signs"));
+    List<SignView> signsView = SignView.from(signService.all());
+    model.addAttribute("signs", signsView);
+    return "signs";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{id}")
   public String userDetails(@PathVariable long id, Model model) {
     User user = userService.withId(id);
