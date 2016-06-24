@@ -55,29 +55,23 @@
 
                 <div th:each="sign:${signs}" th:with="videoCount=${sign.videos.list().size()}">
                     <tr>
-                        <td th:rowspan="${videoCount}"><a th:href="@{/sign-details/{signid}(signid=${sign.getId()})}" th:text="${sign.getId()}"/></td>
+                        <td th:rowspan="${videoCount}"><a th:href="@{/sign/{signid}(signid=${sign.id})}" th:text="${sign.id}"/></td>
                         <td th:rowspan="${videoCount}" th:text="${sign.name}"></td>
-                        <td><a th:href="@{/video-details/{videoid}(videoid=${sign.videos.list()[0].id})}" th:text="${sign.videos.list()[0].id}"/></td>
+                        <td><a th:href="@{/video/{videoid}(videoid=${sign.videos.list()[0].id})}" th:text="${sign.videos.list()[0].id}"/></td>
                         <td>
                             <iframe th:src="${sign.videos.list()[0].url}" frameborder="0" width="480" height="270" allowfullscreen=""/>
                         </td>
                         <td th:text="${sign.videos.list()[0].url}" ></td>
                         <td th:text="#{created_by(${sign.videos.list()[0].user.firstName + ' ' + sign.videos.list()[0].user.lastName},${sign.videos.list()[0].createDate})}"></td>
-                        <!--
-                        <td th:text="#{created_by(' ',${sign.videos.list()[0].createDate})}"></td>
-                        -->
                     </tr>
                     <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${!stats.first}">
                         <tr>
-                            <td><a th:href="@{/video-details/{videoid}(videoid=${video.id})}" th:text="${video.id}"/></td>
+                            <td><a th:href="@{/video/{videoid}(videoid=${video.id})}" th:text="${video.id}"/></td>
                             <td>
                                 <iframe th:src="${video.url}" frameborder="0" width="480" height="270" allowfullscreen=""/>
                             </td>
                             <td th:text="${video.url}" ></td>
                             <td th:text="#{created_by(${video.user.firstName + ' ' + video.user.lastName},${video.createDate})}"></td>
-                            <!--
-                            <td th:text="#{created_by(' ',${video.createDate})}"></td>
-                            -->
                         </tr>
                     </div>
                 </div>

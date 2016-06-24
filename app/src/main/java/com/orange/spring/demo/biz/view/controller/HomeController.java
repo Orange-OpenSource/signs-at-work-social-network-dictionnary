@@ -22,10 +22,7 @@ package com.orange.spring.demo.biz.view.controller;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Community;
-import com.orange.spring.demo.biz.domain.Favorite;
-import com.orange.spring.demo.biz.domain.Request;
-import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.domain.*;
 import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
@@ -63,6 +60,8 @@ public class HomeController {
   private FavoriteService favoriteService;
   @Autowired
   private SignService signService;
+  @Autowired
+  private VideoService videoService;
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
@@ -120,6 +119,22 @@ public class HomeController {
     model.addAttribute("signView", new SignView());
 
     return "user";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/video/{id}")
+  public String videoDetails(@PathVariable long id, Model model) {
+    Video video = videoService.withId(id);
+
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("video_details"));
+
+    VideoView videoView = VideoView.from(video);
+    model.addAttribute("videoView", videoView);
+    model.addAttribute("commentView", new CommentView());
+
+
+    return "video";
   }
 
   @Secured("ROLE_USER")
@@ -233,6 +248,20 @@ public class HomeController {
 
     return userDetails(userId, model);
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/video/{videoId}/add/comment", method = RequestMethod.POST)
+  public String createVideoComment(
+          HttpServletRequest req, @PathVariable long videoId, Model model, Principal principal) {
+
+    String commentText = req.getParameter("text");
+    long userId = userService.withUserName(principal.getName()).id;
+    videoService.createVideoComment(videoId, userId, commentText);
+
+
+    return videoDetails(videoId, model);
+  }
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{userId}/add/favorite", method = RequestMethod.POST)

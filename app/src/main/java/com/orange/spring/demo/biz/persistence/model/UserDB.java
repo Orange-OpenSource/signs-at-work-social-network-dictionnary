@@ -89,6 +89,9 @@ public class UserDB {
   @Fetch(value = FetchMode.SUBSELECT)
   private List<VideoDB> videos = new ArrayList<>();
 
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<CommentDB> comments = new ArrayList<>();
+
   @NotNull
   private String passwordHash;
 

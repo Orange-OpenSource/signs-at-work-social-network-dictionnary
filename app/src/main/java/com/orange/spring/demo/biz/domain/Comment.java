@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
@@ -22,16 +22,13 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Request;
-import com.orange.spring.demo.biz.domain.Requests;
-import com.orange.spring.demo.biz.domain.Video;
-import com.orange.spring.demo.biz.domain.Videos;
+import lombok.RequiredArgsConstructor;
 
-public interface VideoService {
-  Videos all();
+import java.util.Date;
 
-  Video withId(long id);
-
-  Video createVideoComment(long id, long userId, String commentText);
-
+@RequiredArgsConstructor
+public class Comment {
+    public final long id;
+    public final Date commentDate;
+    public final String text;
 }

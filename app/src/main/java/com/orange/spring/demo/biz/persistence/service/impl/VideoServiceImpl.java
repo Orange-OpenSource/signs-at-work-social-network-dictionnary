@@ -26,25 +26,23 @@ import com.orange.spring.demo.biz.domain.Request;
 import com.orange.spring.demo.biz.domain.Requests;
 import com.orange.spring.demo.biz.domain.Video;
 import com.orange.spring.demo.biz.domain.Videos;
-import com.orange.spring.demo.biz.persistence.model.RequestDB;
-import com.orange.spring.demo.biz.persistence.model.SignDB;
-import com.orange.spring.demo.biz.persistence.model.VideoDB;
-import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
-import com.orange.spring.demo.biz.persistence.repository.SignRepository;
-import com.orange.spring.demo.biz.persistence.repository.UserRepository;
-import com.orange.spring.demo.biz.persistence.repository.VideoRepository;
+import com.orange.spring.demo.biz.persistence.model.*;
+import com.orange.spring.demo.biz.persistence.repository.*;
 import com.orange.spring.demo.biz.persistence.service.RequestService;
 import com.orange.spring.demo.biz.persistence.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class VideoServiceImpl implements VideoService {
   private final VideoRepository videoRepository;
+  private final CommentRepository commentRepository;
+  private final UserRepository userRepository;
 
   @Override
   public Videos all() {
@@ -56,6 +54,21 @@ public class VideoServiceImpl implements VideoService {
     return videoFrom(videoRepository.findOne(id));
   }
 
+  @Override
+  public Video createVideoComment(long id, long userId, String commentText) {
+    VideoDB videoDB = videoRepository.findOne(id);
+    UserDB userDB = userRepository.findOne(userId);
+
+    CommentDB commentDB = new CommentDB();
+    commentDB.setCommentDate(new Date());
+    commentDB.setText(commentText);
+    commentDB.setVideo(videoDB);
+    commentDB.setUser(userDB);
+
+    commentRepository.save(commentDB);
+
+    return videoFrom(videoDB);
+  }
 
   static Videos videosFrom(Iterable<VideoDB> videosDB) {
     List<Video> videos = new ArrayList<>();
