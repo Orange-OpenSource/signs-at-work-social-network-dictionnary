@@ -12,3 +12,6 @@ Go to the 'app' directory, then:
  - ```./mvnw clean install```
  - ```./mvnw spring-boot:run```
  - open your browser at [http://localhost:8080](http://localhost:8080)
+
+## License
+GPLv2, Copyright (C) 2016 Orange
