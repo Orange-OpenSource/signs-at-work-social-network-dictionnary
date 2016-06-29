@@ -58,5 +58,8 @@ public class CommentDB implements Serializable {
     @JoinColumn(name="user_id")
     private UserDB user;
 
+    public CommentDB(Date commentDate, String text) {
+        this.commentDate = commentDate;this.text = text;
+    }
 
 }

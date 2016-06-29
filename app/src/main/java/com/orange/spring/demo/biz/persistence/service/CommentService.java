@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.domain;
+package com.orange.spring.demo.biz.persistence.service;
 
 /*
  * #%L
@@ -22,14 +22,17 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import lombok.RequiredArgsConstructor;
+import com.orange.spring.demo.biz.domain.Comment;
+import com.orange.spring.demo.biz.domain.Comments;
+import com.orange.spring.demo.biz.domain.Communities;
+import com.orange.spring.demo.biz.domain.Community;
 
-import java.util.Date;
+public interface CommentService {
+  Comments all();
 
-@RequiredArgsConstructor
-public class Comment {
-    public final long id;
-    public final Date commentDate;
-    public final String text;
-    public final User user;
+  Comments forVideo(long id);
+
+  Comment withId(long id);
+
+  Comment create(Comment comment);
 }

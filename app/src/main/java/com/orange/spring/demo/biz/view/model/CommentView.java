@@ -22,10 +22,7 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Comment;
-import com.orange.spring.demo.biz.domain.Comments;
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
+import com.orange.spring.demo.biz.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,13 +40,14 @@ public class CommentView {
   private long id;
   private Date commentDate;
   private String text;
+  private User user;
 
   public Comment toComment() {
-    return new Comment(id, commentDate, text);
+    return new Comment(id, commentDate, text, user);
   }
 
   public static CommentView from(Comment comment) {
-    return new CommentView(comment.id, comment.commentDate, comment.text);
+    return new CommentView(comment.id, comment.commentDate, comment.text, comment.user);
   }
 
   public static List<CommentView> from(Comments comments) {

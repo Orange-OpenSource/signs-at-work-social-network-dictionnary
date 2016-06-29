@@ -45,8 +45,32 @@
 
 <section class="jumbotron text-xs-center">
     <div class="container">
-        <h1 class="jumbotron-heading" th:text="#{users}">
+        <h1 class="jumbotron-heading" th:text="#{comments}">
         </h1>
+    </div>
+    <br/>
+
+    <div th:if="${not #lists.isEmpty(allCommentView)}">
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
+                <thead>
+                <tr>
+                    <th th:text="#{user}"></th>
+                    <th th:text="#{comment}"></th>
+                    <th th:text="#{date}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="comment :${allCommentView}">
+                    <tr>
+                        <td th:text="${comment.user.firstName + ' ' + comment.user.lastName}" ></td>
+                        <td th:text="${comment.text}"></td>
+                        <td th:text="${comment.commentDate}"></td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
     </div>
     <br/>
 

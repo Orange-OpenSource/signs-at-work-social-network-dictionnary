@@ -63,6 +63,8 @@ public class HomeController {
   @Autowired
   private VideoService videoService;
   @Autowired
+  private CommentService commentService;
+  @Autowired
   MessageByLocaleService messageByLocaleService;
 
   @RequestMapping("/")
@@ -132,6 +134,9 @@ public class HomeController {
     VideoView videoView = VideoView.from(video);
     model.addAttribute("videoView", videoView);
     model.addAttribute("commentView", new CommentView());
+
+    Comments comments = commentService.forVideo(video.id);
+    model.addAttribute("allCommentView", comments.list());
 
 
     return "video";
