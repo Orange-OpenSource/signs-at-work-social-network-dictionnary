@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
@@ -22,14 +22,10 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
+import lombok.RequiredArgsConstructor;
 
-public interface VideoService {
-  Videos all();
-
-  Video withId(long id);
-
-  Video createVideoComment(long id, long userId, String commentText);
-
-  Video createVideoRating(long id, long userId, Rate rate);
+@RequiredArgsConstructor
+public class RatingId {
+    public final Video video;
+    public final User user;
 }

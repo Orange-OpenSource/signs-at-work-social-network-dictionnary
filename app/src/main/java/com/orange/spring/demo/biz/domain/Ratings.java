@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
@@ -22,14 +22,27 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
+import lombok.RequiredArgsConstructor;
 
-public interface VideoService {
-  Videos all();
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-  Video withId(long id);
+@RequiredArgsConstructor
+public class Ratings {
+  private final List<Rating> ratings;
 
-  Video createVideoComment(long id, long userId, String commentText);
+  public Stream<Rating> stream() {
+    return ratings.stream();
+  }
 
-  Video createVideoRating(long id, long userId, Rate rate);
+  public List<RatingId> ids() {
+    return ratings.stream()
+            .map(rating -> rating.primaryKey)
+            .collect(Collectors.toList());
+  }
+
+  public List<Rating> list() {
+    return ratings;
+  }
 }

@@ -22,10 +22,7 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Request;
-import com.orange.spring.demo.biz.domain.Requests;
-import com.orange.spring.demo.biz.domain.Video;
-import com.orange.spring.demo.biz.domain.Videos;
+import com.orange.spring.demo.biz.domain.*;
 import com.orange.spring.demo.biz.persistence.model.*;
 import com.orange.spring.demo.biz.persistence.repository.*;
 import com.orange.spring.demo.biz.persistence.service.RequestService;
@@ -43,6 +40,7 @@ public class VideoServiceImpl implements VideoService {
   private final VideoRepository videoRepository;
   private final CommentRepository commentRepository;
   private final UserRepository userRepository;
+  private final RatingRepository ratingRepository;
 
   @Override
   public Videos all() {
@@ -66,6 +64,22 @@ public class VideoServiceImpl implements VideoService {
     commentDB.setUser(userDB);
 
     commentRepository.save(commentDB);
+
+    return videoFrom(videoDB);
+  }
+
+  @Override
+  public Video createVideoRating(long id, long userId, Rate rate) {
+    VideoDB videoDB = videoRepository.findOne(id);
+    UserDB userDB = userRepository.findOne(userId);
+
+    RatingDB ratingDB = new RatingDB();
+    ratingDB.setUser(userDB);
+    ratingDB.setVideo(videoDB);
+    ratingDB.setRatingDate(new Date());
+    ratingDB.setRate(rate);
+
+    ratingRepository.save(ratingDB);
 
     return videoFrom(videoDB);
   }

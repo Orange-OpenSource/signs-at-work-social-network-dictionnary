@@ -47,6 +47,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.String.valueOf;
+
 @Controller
 public class HomeController {
 
@@ -134,6 +136,7 @@ public class HomeController {
     VideoView videoView = VideoView.from(video);
     model.addAttribute("videoView", videoView);
     model.addAttribute("commentView", new CommentView());
+    model.addAttribute("ratingView", new RatingView());
 
     Comments comments = commentService.forVideo(video.id);
     model.addAttribute("allCommentView", comments.list());
@@ -267,6 +270,18 @@ public class HomeController {
     return videoDetails(videoId, model);
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/video/{videoId}/add/rating", method = RequestMethod.POST)
+  public String createVideoRating(
+          HttpServletRequest req, @PathVariable long videoId, Model model, Principal principal) {
+
+    Rate rate = Rate.valueOf(req.getParameter("rate"));
+    long userId = userService.withUserName(principal.getName()).id;
+    videoService.createVideoRating(videoId, userId, rate);
+
+
+    return videoDetails(videoId, model);
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/user/{userId}/add/favorite", method = RequestMethod.POST)

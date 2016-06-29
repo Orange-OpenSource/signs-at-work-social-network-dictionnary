@@ -76,73 +76,14 @@
 
     <form id="addcommenttovideoform" class="form-inline" action="#" th:action="@{/video/{videoid}/add/comment(videoid=${videoView.id})}"
           th:object="${commentView}" method="post">
-        <!--
-        <select th:field="*{user}">
-            <option th:each="user : ${allUsers}"
-                    th:value="${user.id}"
-                    th:text="${user.firstName + ' ' + user.lastName}"></option>
-        </select>
-        -->
-        <br/>
         <div class="form-group">
             <label for="text" th:text="#{comment}"></label>
             <input th:value="${text}" id="text" name="text"  type="text" class="form-control" placeholder="c'est un commentaire"/>
         </div>
+        <br/>
         <button type="submit" class="btn btn-primary" th:text="#{add_comment_to_video}"></button>
     </form>
     <br/>
-<!--
-    <form id="addratingtovideoform" class="form-inline" action="#" th:action="@{/video/{videoid}/add/rating(videoid=${video.id})}" th:object="${rating}" method="post">
-
-        <select id="userForRating" th:field="*{user}">
-            <option th:each="user : ${allUsers}"
-                    th:value="${user.id}"
-                    th:text="${user.firstName + ' ' + user.lastName}"></option>
-        </select>
-        <br/>
-        <div id="vote" class="form-group">
-
-            <label th:each="rate : ${T(com.orange.accessibility.demo.biz.model.Rating.Rate).values()}" th:for="${#ids.next('rate')}">
-                <input type="radio" name="rate" th:field="*{rate}"
-                       th:text="${rate}" th:value="${rate}"/>
-            </label>
-        </div>
-        <button type="submit" class="btn btn-primary" th:text="#{add_rating_to_video}"></button>
-        <br/>
-    </form>
- -->
-</section>
-
-<!--
-<section class="jumbotron text-xs-center">
-    <div class="container">
-        <h1 class="jumbotron-heading" th:text="#{comments}">
-        </h1>
-    </div>
-    <br/>
-
-    <div th:if="${not #lists.isEmpty(video.getComments())}">
-        <div class="table-responsive">
-            <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
-                <thead>
-                <tr>
-                    <th th:text="#{user}"></th>
-                    <th th:text="#{comment}"></th>
-                    <th th:text="#{date}"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <div th:each="comment :${video.getComments()}">
-                    <tr>
-                        <td th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}" ></td>
-                        <td th:text="${comment.getText()}"></td>
-                        <td th:text="${comment.getCommentDate()}"></td>
-                    </tr>
-                </div>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </section>
 
 <section class="jumbotron text-xs-center">
@@ -152,6 +93,7 @@
     </div>
     <br/>
 
+<!--
     <div th:if="${not #lists.isEmpty(video.getRatings())}">
         <div class="table-responsive">
             <table id="userRating" class="table table-sm table-bordered table-hover" style="margin-top: 1%">
@@ -176,8 +118,19 @@
             </table>
         </div>
     </div>
-</section>
 -->
+    <form id="addratingtovideoform" class="form-inline" action="#" th:action="@{/video/{videoid}/add/rating(videoid=${videoView.id})}" th:object="${ratingView}" method="post">
+
+        <div id="vote" class="form-group">
+            <label th:each="rate : ${T(com.orange.spring.demo.biz.domain.Rate).values()}" th:for="${#ids.next('rate')}">
+                <input type="radio" name="rate" th:field="*{rate}" th:text="${rate}" th:value="${rate}"/>
+            </label>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary" th:text="#{add_rating_to_video}"></button>
+        <br/>
+    </form>
+</section>
 
 
 </body>

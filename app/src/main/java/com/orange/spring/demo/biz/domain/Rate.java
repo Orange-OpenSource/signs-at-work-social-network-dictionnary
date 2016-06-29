@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.persistence.service;
+package com.orange.spring.demo.biz.domain;
 
 /*
  * #%L
@@ -22,14 +22,13 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
+import lombok.RequiredArgsConstructor;
 
-public interface VideoService {
-  Videos all();
+import java.util.Date;
 
-  Video withId(long id);
 
-  Video createVideoComment(long id, long userId, String commentText);
-
-  Video createVideoRating(long id, long userId, Rate rate);
+public enum Rate {
+    Negative,
+    Neutral,
+    Positive,
 }
