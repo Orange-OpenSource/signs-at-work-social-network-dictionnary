@@ -6,3 +6,9 @@ Signs@Work is a dynamic dictionary of FSL on the social network dedicated to emp
 It aims at facilitating work for deaf employees and their interpreters, in their everyday life. 
 Because FSL is a living language and need to be adjusted to working environment, specific business or scientific terms need to be created and shared through FSL community.
 Signs@Work will provide tools to propose a sign, to make a request about a concept/term, and to vote the proposed neologism.
+
+## Build then Run
+Go to the 'app' directory, then:
+ - ```./mvnw clean install```
+ - ```./mvnw spring-boot:run```
+ - open your browser at [http://localhost:8080](http://localhost:8080)
