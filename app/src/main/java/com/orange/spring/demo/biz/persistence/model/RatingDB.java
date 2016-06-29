@@ -75,11 +75,5 @@ public class RatingDB implements Serializable {
     @Enumerated(EnumType.STRING)
     private Rate rate;
 
-//    public static enum Rate {
-//        Negative,
-//        Neutral,
-//        Positive,
-//    };
-
 
 }
