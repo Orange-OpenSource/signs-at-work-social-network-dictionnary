@@ -100,7 +100,7 @@ public class SignServiceImpl implements SignService {
       return null;
     }
     else {
-      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()), SignServiceImpl.signsFrom(signDB.getAssociates()));
+      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()), signsFrom(signDB.getAssociates()).ids());
       return sign;
     }
   }

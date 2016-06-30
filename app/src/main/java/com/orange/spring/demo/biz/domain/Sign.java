@@ -33,10 +33,6 @@ public class Sign {
     public final String name;
     public final String url;
     public final Videos videos;
-    public final Signs associates;
-
-    public List<Long> associateSignsIds() {
-        return associates.ids();
-    }
+    public final List<Long> associateSignsIds;
 
 }
