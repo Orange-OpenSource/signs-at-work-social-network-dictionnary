@@ -40,7 +40,5 @@ public interface SignService {
 
   Sign changeSignAssociates(long signId, List<Long> associateSignsIds);
 
-  Signs forSign(long id);
-
   Sign create(Sign sign);
 }

@@ -84,12 +84,6 @@ public class SignServiceImpl implements SignService {
     return signFrom(signDB);
   }
 
-  @Override
-  public Signs forSign(long signId) {
-    return signsFrom(
-            signRepository.findBySign(signRepository.findOne(signId))
-    );
-  }
 
   private SignDB withDBId(long id) {
     return signRepository.findOne(id);

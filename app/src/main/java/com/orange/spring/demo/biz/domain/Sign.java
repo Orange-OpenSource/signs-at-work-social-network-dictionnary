@@ -35,16 +35,6 @@ public class Sign {
     public final Videos videos;
     public final Signs associates;
 
-    //private final SignService signService;
-
-//    public Sign loadAssociateSigns(SignService signService) {
-//        Signs signs = signService.forSign(id);
-//        return associates != null ?
-//                this :
-//                new Sign(
-//                        id, name, url, videos, signs);
-//    }
-
     public List<Long> associateSignsIds() {
         return associates.ids();
     }
