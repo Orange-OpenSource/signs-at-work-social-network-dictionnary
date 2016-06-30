@@ -146,6 +146,20 @@ public class HomeController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/sign/{id}")
+  public String signDetails(@PathVariable long id, Model model) {
+    Sign sign = signService.withId(id);
+
+    setAuthenticated(true, model);
+    model.addAttribute("title", messageByLocaleService.getMessage("sign_details"));
+
+    SignProfileView signProfileView = new SignProfileView(sign, signService);
+    model.addAttribute("signProfileView", signProfileView);
+
+    return "sign";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/favorite/{id}")
   public String favoriteDetails(@PathVariable long id, Model model) {
     Favorite favorite = favoriteService.withId(id);
@@ -203,6 +217,31 @@ public class HomeController {
     }
     return Arrays.asList(userCommunitiesIds).stream()
             .map(communityIdString -> Long.parseLong(communityIdString))
+            .collect(Collectors.toList());
+  }
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sign/{signId}/add/signs", method = RequestMethod.POST)
+
+  public String changeSignAssociates(
+          HttpServletRequest req, @PathVariable long signId, Model model) {
+
+    List<Long> associateSignsIds =
+            transformAssociateSignsIdsToLong(req.getParameterMap().get("associateSignsIds"));
+
+    signService.changeSignAssociates(signId, associateSignsIds);
+
+    return signDetails(signId, model);
+  }
+
+
+  private List<Long> transformAssociateSignsIdsToLong(String[] associateSignsIds) {
+    if (associateSignsIds == null) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(associateSignsIds).stream()
+            .map(signIdString -> Long.parseLong(signIdString))
             .collect(Collectors.toList());
   }
 

@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.domain;
+package com.orange.spring.demo.biz.view.model;
 
 /*
  * #%L
@@ -22,31 +22,35 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.service.SignService;
-import lombok.RequiredArgsConstructor;
 
+import com.orange.spring.demo.biz.domain.Favorite;
+import com.orange.spring.demo.biz.domain.Sign;
+import com.orange.spring.demo.biz.domain.Signs;
+import com.orange.spring.demo.biz.persistence.service.SignService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
-public class Sign {
-    public final long id;
-    public final String name;
-    public final String url;
-    public final Videos videos;
-    public final Signs associates;
+@Getter
+@NoArgsConstructor
+public class SignProfileView {
+  private Sign sign;
+  private List<Long> associateSignsIds;
+  private List<Sign> allSignsWithoutCurrentSign;
 
-    //private final SignService signService;
+  public SignProfileView(Sign sign, SignService signService) {
+    this.sign = sign;
+    this.associateSignsIds = sign.associateSignsIds();
 
-//    public Sign loadAssociateSigns(SignService signService) {
-//        Signs signs = signService.forSign(id);
-//        return associates != null ?
-//                this :
-//                new Sign(
-//                        id, name, url, videos, signs);
-//    }
-
-    public List<Long> associateSignsIds() {
-        return associates.ids();
+    List<Sign> listSignWithOutId = new ArrayList<>();
+    for (Sign signe:signService.all().list()) {
+      if (signe.id != sign.id) {
+        listSignWithOutId.add(signe);
+      }
     }
+    this.allSignsWithoutCurrentSign = listSignWithOutId;
 
+  }
 }

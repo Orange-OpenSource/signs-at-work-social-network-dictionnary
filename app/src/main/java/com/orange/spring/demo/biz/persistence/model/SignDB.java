@@ -61,6 +61,16 @@ public class SignDB {
   @JsonBackReference
   private List<FavoriteDB> favorites = new ArrayList<>();
 
+  @ManyToMany(cascade={CascadeType.ALL})
+  @JoinTable(name="associate_sign",
+          joinColumns={@JoinColumn(name="sign_id")},
+          inverseJoinColumns={@JoinColumn(name="associate_sign_id")})
+  private List<SignDB> associates = new ArrayList<>();
+
+  @ManyToMany(mappedBy="associates",cascade = CascadeType.ALL)
+  private List<SignDB> referenceBy = new ArrayList<>();
+
+
   public SignDB(String name, String url) {
     this.name = name; this.url = url;
   }

@@ -69,12 +69,33 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Sign changeSignAssociates(long signId, List<Long> associateSignsIds) {
+    SignDB signDB = withDBId(signId);
+    List<SignDB> signAssociates = signDB.getAssociates();
+    signAssociates.clear();
+    signRepository.findAll(associateSignsIds).forEach(signAssociates::add);
+    signDB = signRepository.save(signDB);
+    return signFrom(signDB);
+  }
+
+  @Override
   public Sign create(Sign sign) {
     SignDB signDB = signRepository.save(signDBFrom(sign));
     return signFrom(signDB);
   }
 
-  private Signs signsFrom(Iterable<SignDB> signsDB) {
+  @Override
+  public Signs forSign(long signId) {
+    return signsFrom(
+            signRepository.findBySign(signRepository.findOne(signId))
+    );
+  }
+
+  private SignDB withDBId(long id) {
+    return signRepository.findOne(id);
+  }
+
+  static Signs signsFrom(Iterable<SignDB> signsDB) {
     List<Sign> signs = new ArrayList<>();
     signsDB.forEach(signDB -> signs.add(signFrom(signDB)));
     return new Signs(signs);
@@ -85,7 +106,7 @@ public class SignServiceImpl implements SignService {
       return null;
     }
     else {
-      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()));
+      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()), SignServiceImpl.signsFrom(signDB.getAssociates()));
       return sign;
     }
   }

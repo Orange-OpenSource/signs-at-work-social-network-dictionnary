@@ -27,6 +27,8 @@ import com.orange.spring.demo.biz.domain.Favorites;
 import com.orange.spring.demo.biz.domain.Sign;
 import com.orange.spring.demo.biz.domain.Signs;
 
+import java.util.List;
+
 public interface SignService {
   Signs all();
 
@@ -35,6 +37,10 @@ public interface SignService {
   Sign withId(long id);
 
   Signs withName(String name);
+
+  Sign changeSignAssociates(long signId, List<Long> associateSignsIds);
+
+  Signs forSign(long id);
 
   Sign create(Sign sign);
 }
