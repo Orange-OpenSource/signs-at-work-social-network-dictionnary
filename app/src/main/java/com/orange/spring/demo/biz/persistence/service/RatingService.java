@@ -1,4 +1,4 @@
-package com.orange.spring.demo.biz.domain;
+package com.orange.spring.demo.biz.persistence.service;
 
 /*
  * #%L
@@ -22,18 +22,8 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.model.RatingDB;
-import lombok.RequiredArgsConstructor;
+import com.orange.spring.demo.biz.domain.Comment;
+import com.orange.spring.demo.biz.domain.Comments;
 
-import java.util.Date;
-import java.util.List;
-
-@RequiredArgsConstructor
-public class Video {
-    public final long id;
-    public final String url;
-    public final Date createDate;
-    public final User user;
-    public final Sign sign;
-    public final Ratings ratings;
+public interface RatingService {
 }

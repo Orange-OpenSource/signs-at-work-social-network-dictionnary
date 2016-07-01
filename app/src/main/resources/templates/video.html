@@ -94,7 +94,7 @@
     <br/>
 
 
-    <div th:if="${not #lists.isEmpty(videoView.ratings)}">
+    <div th:if="${not #lists.isEmpty(videoView.ratings.list())}">
         <div class="table-responsive">
             <table id="userRating" class="table table-sm table-bordered table-hover" style="margin-top: 1%">
                 <thead>
@@ -106,11 +106,11 @@
                 </thead>
 
                 <tbody>
-                    <div th:each="vote :${videoView.ratings}">
+                    <div th:each="vote :${videoView.ratings.list()}">
                         <tr>
-                            <td th:text="${vote.getUser().getFirstName() + ' ' + vote.getUser().getLastName()}" ></td>
-                            <td th:text="${vote.getRate()}"></td>
-                            <td th:text="${vote.getRatingDate()}"></td>
+                            <td th:text="${vote.primaryKey.user.firstName + ' ' + vote.primaryKey.user.lastName}" ></td>
+                            <td th:text="${vote.rate}"></td>
+                            <td th:text="${vote.ratingDate}"></td>
                         </tr>
                    </div>
                 </tbody>

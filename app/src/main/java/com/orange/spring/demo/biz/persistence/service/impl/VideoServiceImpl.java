@@ -91,8 +91,11 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFrom(VideoDB videoDB) {
-    // TODO Transform RatingDB en Rating
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, videoDB.getRatings());
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
+  }
+
+  static Video videoFromRatingView(VideoDB videoDB) {
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getCreateDate(), null, null, null);
   }
 
   private VideoDB videoDBFrom(Video video) {

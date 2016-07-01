@@ -42,7 +42,7 @@ public class VideoView {
   private String url;
   private Date createDate;
   // TODO Transform RatingDB en Rating
-  private List<RatingDB> ratings;
+  private Ratings ratings;
 
   public Video toVideo() {
     return new Video(id, url, createDate, null, null, null);
