@@ -36,6 +36,8 @@ public interface SignService {
 
   Sign withId(long id);
 
+  Sign  withIdForAssociate(long id);
+
   Signs withName(String name);
 
   Sign changeSignAssociates(long signId, List<Long> associateSignsIds);

@@ -34,5 +34,5 @@ public class Sign {
     public final String url;
     public final Videos videos;
     public final List<Long> associateSignsIds;
-
+    public final List<Long> refrenceBySignsIds;
 }

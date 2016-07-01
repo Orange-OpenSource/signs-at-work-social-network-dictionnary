@@ -42,7 +42,9 @@ public class SignProfileView {
 
   public SignProfileView(Sign sign, SignService signService) {
     this.sign = sign;
-    this.associateSignsIds = sign.associateSignsIds;
+    List<Long> associateIds = sign.associateSignsIds;
+    associateIds.addAll(sign.refrenceBySignsIds);
+    this.associateSignsIds = associateIds;
 
     List<Sign> listSignWithOutId = new ArrayList<>();
     for (Sign signe:signService.all().list()) {

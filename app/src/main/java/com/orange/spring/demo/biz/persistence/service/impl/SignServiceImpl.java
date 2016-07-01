@@ -57,6 +57,12 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Sign withIdForAssociate(long id) {
+    return signFromAssociate(signRepository.findOne(id));
+  }
+
+
+  @Override
   public Signs withName(String name) {
     return signsFrom(signRepository.findByName(name));
   }
@@ -100,7 +106,17 @@ public class SignServiceImpl implements SignService {
       return null;
     }
     else {
-      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()), signsFrom(signDB.getAssociates()).ids());
+      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()), null, null);
+      return sign;
+    }
+  }
+
+  static Sign signFromAssociate(SignDB signDB) {
+    if (signDB == null) {
+      return null;
+    }
+    else {
+      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids());
       return sign;
     }
   }
