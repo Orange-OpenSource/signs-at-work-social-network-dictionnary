@@ -64,6 +64,9 @@ public class VideoDB {
   @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
   private List<CommentDB> comments = new ArrayList<>();
 
+  @OneToMany(mappedBy = "primaryKey.video", cascade = CascadeType.ALL)
+  private List<RatingDB> ratings = new ArrayList<>();
+
   public VideoDB(String url, Date createDate) {
     this.url = url;
     this.createDate = createDate;

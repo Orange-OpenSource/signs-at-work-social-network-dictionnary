@@ -22,9 +22,11 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
+import com.orange.spring.demo.biz.persistence.model.RatingDB;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class Video {
@@ -33,4 +35,6 @@ public class Video {
     public final Date createDate;
     public final User user;
     public final Sign sign;
+    // TODO Transform RatingDB en Rating
+    public final List<RatingDB> ratings;
 }

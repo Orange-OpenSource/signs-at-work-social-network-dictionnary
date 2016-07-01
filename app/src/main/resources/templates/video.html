@@ -93,32 +93,32 @@
     </div>
     <br/>
 
-<!--
-    <div th:if="${not #lists.isEmpty(video.getRatings())}">
+
+    <div th:if="${not #lists.isEmpty(videoView.ratings)}">
         <div class="table-responsive">
             <table id="userRating" class="table table-sm table-bordered table-hover" style="margin-top: 1%">
                 <thead>
                     <tr>
-                        <th>#id</th>
                         <th th:text="#{user}"></th>
                         <th th:text="#{rating}"></th>
                         <th th:text="#{date}"></th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <div th:each="vote :${video.getRatings()}">
+                    <div th:each="vote :${videoView.ratings}">
                         <tr>
-                            <td th:text="${vote.getUser().getId()}"></td>
                             <td th:text="${vote.getUser().getFirstName() + ' ' + vote.getUser().getLastName()}" ></td>
                             <td th:text="${vote.getRate()}"></td>
                             <td th:text="${vote.getRatingDate()}"></td>
                         </tr>
                    </div>
                 </tbody>
+
             </table>
         </div>
     </div>
--->
+
     <form id="addratingtovideoform" class="form-inline" action="#" th:action="@{/video/{videoid}/add/rating(videoid=${videoView.id})}" th:object="${ratingView}" method="post">
 
         <div id="vote" class="form-group">

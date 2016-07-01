@@ -22,10 +22,8 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Sign;
-import com.orange.spring.demo.biz.domain.Signs;
-import com.orange.spring.demo.biz.domain.Video;
-import com.orange.spring.demo.biz.domain.Videos;
+import com.orange.spring.demo.biz.domain.*;
+import com.orange.spring.demo.biz.persistence.model.RatingDB;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,13 +41,15 @@ public class VideoView {
   private long id;
   private String url;
   private Date createDate;
+  // TODO Transform RatingDB en Rating
+  private List<RatingDB> ratings;
 
   public Video toVideo() {
-    return new Video(id, url, createDate, null, null);
+    return new Video(id, url, createDate, null, null, null);
   }
 
   public static VideoView from(Video video) {
-    return new VideoView(video.id, video.url, video.createDate);
+    return new VideoView(video.id, video.url, video.createDate, video.ratings);
 
   }
 
