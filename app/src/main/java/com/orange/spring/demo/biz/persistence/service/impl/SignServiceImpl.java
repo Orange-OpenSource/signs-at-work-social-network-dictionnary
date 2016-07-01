@@ -77,12 +77,30 @@ public class SignServiceImpl implements SignService {
   @Override
   public Sign changeSignAssociates(long signId, List<Long> associateSignsIds) {
     SignDB signDB = withDBId(signId);
-    List<SignDB> signAssociates = signDB.getAssociates();
-    signAssociates.clear();
-    signRepository.findAll(associateSignsIds).forEach(signAssociates::add);
-    signDB = signRepository.save(signDB);
+    List<SignDB> signReferenceBy = signDB.getReferenceBy();
+
+
+
+    for (SignDB R : signReferenceBy) {
+      if (!associateSignsIds.contains(R.getId())) {
+        R.getAssociates().remove(signDB);
+        signRepository.save(R);
+      }
+    }
+
+    List<SignDB> newSignAssociates = new ArrayList<>();
+    for (Long id : associateSignsIds ) {
+      SignDB signDB1 = withDBId(id);
+      newSignAssociates.add(signDB1);
+    }
+
+    signDB.setAssociates(newSignAssociates);
+    signDB.setReferenceBy(new ArrayList<>());
+    signRepository.save(signDB);
+
     return signFrom(signDB);
   }
+
 
   @Override
   public Sign create(Sign sign) {
