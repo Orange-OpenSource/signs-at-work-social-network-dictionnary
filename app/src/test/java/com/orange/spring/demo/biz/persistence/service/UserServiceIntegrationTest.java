@@ -22,7 +22,11 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
+import com.orange.spring.demo.biz.domain.Community;
+import com.orange.spring.demo.biz.domain.Request;
+import com.orange.spring.demo.biz.domain.Requests;
 import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.model.UserRoleDB;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
@@ -32,18 +36,27 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
 public class UserServiceIntegrationTest {
 
   @Autowired
   private UserService userService;
+  @Autowired
+  private CommunityService communityService;
   @Autowired
   private UserRepository userRepository;
 
@@ -58,6 +71,16 @@ public class UserServiceIntegrationTest {
   private String email = "duchess@cats.com";
   private String entity = "CATS";
   private String activity = "mother";
+
+  private String communityName = "gangstercat";
+
+  private String requestName = "chat";
+
+  private String favoriteName = "favoris";
+
+  private String signName = "chat";
+  private String signUrl ="//www.dailymotion.com/embed/video/k4h7GSlUDZQUvkaMF5s";
+
 
   @Test
   public void createUser() {
@@ -76,5 +99,81 @@ public class UserServiceIntegrationTest {
     Assertions.assertThat(passwordEncoder.matches("", passwordHash)).isFalse();
     Assertions.assertThat(roles).hasSize(1);
     Assertions.assertThat(roles.stream().findFirst().get().getRole()).isEqualTo(AppSecurityRoles.Role.ROLE_USER.toString());
+  }
+
+  @Test
+  public void changeUserCommunities() {
+    //given
+    User user = userService.create(
+            new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null, null, null), password);
+
+
+    Community community = communityService.create(new Community(id, communityName));
+    List<Long> commmunitiesIds = new ArrayList<>();
+    commmunitiesIds.add(community.id);
+
+    //do
+    userService.changeUserCommunities(user.id, commmunitiesIds);
+
+    User userWithCommunitiesRequestsFavorites = user.loadCommunitiesRequestsFavorites();
+
+    //then
+    Assertions.assertThat(userWithCommunitiesRequestsFavorites.communities.list().size()).isEqualTo(1);
+    Assertions.assertThat(userWithCommunitiesRequestsFavorites.communities.list().get(0).name).isEqualTo(communityName);
+
+
+  }
+
+  @Test
+  public void createUserRequest() {
+    //given
+    User user = userService.create(
+            new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null, null, null), password);
+
+    //do
+    userService.createUserRequest(user.id, requestName);
+
+    User userWithCommunitiesRequestsFavorites = user.loadCommunitiesRequestsFavorites();
+
+    //then
+    Assertions.assertThat(userWithCommunitiesRequestsFavorites.requests.list().size()).isEqualTo(1);
+    Assertions.assertThat(userWithCommunitiesRequestsFavorites.requests.list().get(0).name).isEqualTo(requestName);
+
+
+  }
+
+  @Test
+  public void createUserFavorite() {
+    //given
+    User user = userService.create(
+            new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null, null, null), password);
+
+    //do
+    userService.createUserFavorite(user.id, favoriteName);
+
+    User userWithCommunitiesRequestsFavorites = user.loadCommunitiesRequestsFavorites();
+
+
+    //then
+    Assertions.assertThat(userWithCommunitiesRequestsFavorites.favorites.list().size()).isEqualTo(1);
+    Assertions.assertThat(userWithCommunitiesRequestsFavorites.favorites.list().get(0).name).isEqualTo(favoriteName);
+
+  }
+
+  @Test
+  public void createUserSignVideo() {
+    //given
+    User user = userService.create(
+            new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null, null, null), password);
+
+    //do
+    userService.createUserSignVideo(user.id, signName, signUrl);
+    UserDB userDB = userRepository.findOne(user.id);
+
+
+    //then
+    Assertions.assertThat(userDB.getVideos()).hasSize(1);
+    Assertions.assertThat(userDB.getVideos().get(0).getUrl()).isEqualTo(signUrl);
+
   }
 }
