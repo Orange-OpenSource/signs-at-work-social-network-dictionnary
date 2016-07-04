@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.persistence.repository;
  */
 
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
+import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,53 +32,58 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CommunityRepositoryIntegrationTest {
+public class RequestRepositoryIntegrationTest {
 
   @Autowired
   private TestEntityManager entityManager;
 
   @Autowired
-  private CommunityRepository communityRepository;
+  private RequestRepository requestRepository;
 
-  private String community1Name = "aristochat";
-  private String community2Name = "gangster";
+  private String request1Name = "chat";
+  private String request2Name = "cloud";
+  Date requestDate = new Date();
+
 
 
   @Test
   public void returnAllPersisted() throws IOException {
+
     // given
-    entityManager.persist(new CommunityDB(community1Name));
-    entityManager.persist(new CommunityDB(community2Name));
+    entityManager.persist(new RequestDB(request1Name, requestDate));
+    entityManager.persist(new RequestDB(request2Name, requestDate));
 
     // do
-    Iterable<CommunityDB> communities = communityRepository.findAll();
-    CommunityDB community1 = communityRepository.findByName(community1Name).get(0);
-    CommunityDB community2 = communityRepository.findByName(community2Name).get(0);
+    Iterable<RequestDB> requests = requestRepository.findAll();
+    RequestDB request1 = requestRepository.findByName(request1Name).get(0);
+    RequestDB request2 = requestRepository.findByName(request2Name).get(0);
 
     // then
-    assertThat(communities).hasSize(2);
-    assertThat(communities).contains(community1);
-    assertThat(communities).contains(community2);
+    assertThat(requests).hasSize(2);
+    assertThat(requests).contains(request1);
+    assertThat(requests).contains(request2);
 
-    assertThat(community1.getName()).isEqualTo(community1Name);
-
-    assertThat(community2.getName()).isEqualTo(community2Name);
+    assertThat(request1.getName()).isEqualTo(request1Name);
+    assertThat(request1.getRequestDate()).isEqualTo(requestDate);
+    assertThat(request2.getName()).isEqualTo(request2Name);
+    assertThat(request2.getRequestDate()).isEqualTo(requestDate);
 
   }
 
   @Test
-  public void createCommunity() {
+  public void createRequest() {
     // given
     // do
-    entityManager.persist(new CommunityDB(community1Name));
-    CommunityDB community1 = communityRepository.findByName(community1Name).get(0);
+    entityManager.persist(new RequestDB(request1Name, requestDate));
+    RequestDB request1 = requestRepository.findByName(request1Name).get(0);
     // then
-    assertThat(community1.getName()).isEqualTo(community1Name);
-
+    assertThat(request1.getName()).isEqualTo(request1Name);
+    assertThat(request1.getRequestDate()).isEqualTo(requestDate);
   }
 }

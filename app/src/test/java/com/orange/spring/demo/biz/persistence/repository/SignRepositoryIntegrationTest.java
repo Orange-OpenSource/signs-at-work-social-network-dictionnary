@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.persistence.repository;
  */
 
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
+import com.orange.spring.demo.biz.persistence.model.SignDB;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,48 +37,52 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CommunityRepositoryIntegrationTest {
+public class SignRepositoryIntegrationTest {
 
   @Autowired
   private TestEntityManager entityManager;
 
   @Autowired
-  private CommunityRepository communityRepository;
+  private SignRepository signRepository;
 
-  private String community1Name = "aristochat";
-  private String community2Name = "gangster";
+  private String sign1Name = "cloud";
+  private String sign1Url ="//www.dailymotion.com/embed/video/x2mnl8q";
+  private String sign2Name = "chat";
+  private String sign2Url ="//www.dailymotion.com/embed/video/k4h7GSlUDZQUvkaMF5s";
 
 
   @Test
   public void returnAllPersisted() throws IOException {
     // given
-    entityManager.persist(new CommunityDB(community1Name));
-    entityManager.persist(new CommunityDB(community2Name));
+    entityManager.persist(new SignDB(sign1Name, sign1Url));
+    entityManager.persist(new SignDB(sign2Name, sign2Url));
 
     // do
-    Iterable<CommunityDB> communities = communityRepository.findAll();
-    CommunityDB community1 = communityRepository.findByName(community1Name).get(0);
-    CommunityDB community2 = communityRepository.findByName(community2Name).get(0);
+    Iterable<SignDB> signs = signRepository.findAll();
+    SignDB sign1 = signRepository.findByName(sign1Name).get(0);
+    SignDB sign2 = signRepository.findByName(sign2Name).get(0);
 
     // then
-    assertThat(communities).hasSize(2);
-    assertThat(communities).contains(community1);
-    assertThat(communities).contains(community2);
+    assertThat(signs).hasSize(2);
+    assertThat(signs).contains(sign1);
+    assertThat(signs).contains(sign2);
 
-    assertThat(community1.getName()).isEqualTo(community1Name);
-
-    assertThat(community2.getName()).isEqualTo(community2Name);
+    assertThat(sign1.getName()).isEqualTo(sign1Name);
+    assertThat(sign1.getUrl()).isEqualTo(sign1Url);
+    assertThat(sign2.getName()).isEqualTo(sign2Name);
+    assertThat(sign2.getUrl()).isEqualTo(sign2Url);
 
   }
 
   @Test
-  public void createCommunity() {
+  public void createSign() {
     // given
     // do
-    entityManager.persist(new CommunityDB(community1Name));
-    CommunityDB community1 = communityRepository.findByName(community1Name).get(0);
+    entityManager.persist(new SignDB(sign1Name, sign1Url));
+    SignDB sign1 = signRepository.findByName(sign1Name).get(0);
     // then
-    assertThat(community1.getName()).isEqualTo(community1Name);
+    assertThat(sign1.getName()).isEqualTo(sign1Name);
+    assertThat(sign1.getUrl()).isEqualTo(sign1Url);
 
   }
 }

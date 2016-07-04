@@ -23,6 +23,7 @@ package com.orange.spring.demo.biz.persistence.repository;
  */
 
 import com.orange.spring.demo.biz.persistence.model.CommunityDB;
+import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,48 +37,48 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CommunityRepositoryIntegrationTest {
+public class FavoriteRepositoryIntegrationTest {
 
   @Autowired
   private TestEntityManager entityManager;
 
   @Autowired
-  private CommunityRepository communityRepository;
+  private FavoriteRepository favoriteRepository;
 
-  private String community1Name = "aristochat";
-  private String community2Name = "gangster";
+  private String favorite1Name = "Favoris";
+  private String favorite2Name = "Interfaces";
 
 
   @Test
   public void returnAllPersisted() throws IOException {
     // given
-    entityManager.persist(new CommunityDB(community1Name));
-    entityManager.persist(new CommunityDB(community2Name));
+    entityManager.persist(new FavoriteDB(favorite1Name));
+    entityManager.persist(new FavoriteDB(favorite2Name));
 
     // do
-    Iterable<CommunityDB> communities = communityRepository.findAll();
-    CommunityDB community1 = communityRepository.findByName(community1Name).get(0);
-    CommunityDB community2 = communityRepository.findByName(community2Name).get(0);
+    Iterable<FavoriteDB> favorites = favoriteRepository.findAll();
+    FavoriteDB favorite1 = favoriteRepository.findByName(favorite1Name).get(0);
+    FavoriteDB favorite2 = favoriteRepository.findByName(favorite2Name).get(0);
 
     // then
-    assertThat(communities).hasSize(2);
-    assertThat(communities).contains(community1);
-    assertThat(communities).contains(community2);
+    assertThat(favorites).hasSize(2);
+    assertThat(favorites).contains(favorite1);
+    assertThat(favorites).contains(favorite2);
 
-    assertThat(community1.getName()).isEqualTo(community1Name);
+    assertThat(favorite1.getName()).isEqualTo(favorite1Name);
 
-    assertThat(community2.getName()).isEqualTo(community2Name);
+    assertThat(favorite2.getName()).isEqualTo(favorite2Name);
 
   }
 
   @Test
-  public void createCommunity() {
+  public void createFavorite() {
     // given
     // do
-    entityManager.persist(new CommunityDB(community1Name));
-    CommunityDB community1 = communityRepository.findByName(community1Name).get(0);
+    entityManager.persist(new FavoriteDB(favorite1Name));
+    FavoriteDB favorite1 = favoriteRepository.findByName(favorite1Name).get(0);
     // then
-    assertThat(community1.getName()).isEqualTo(community1Name);
+    assertThat(favorite1.getName()).isEqualTo(favorite1Name);
 
   }
 }
