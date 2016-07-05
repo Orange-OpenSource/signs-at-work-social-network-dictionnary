@@ -41,7 +41,6 @@ public class VideoView {
   private long id;
   private String url;
   private Date createDate;
-  // TODO Transform RatingDB en Rating
   private Ratings ratings;
 
   public Video toVideo() {

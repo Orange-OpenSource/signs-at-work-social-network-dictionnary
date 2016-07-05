@@ -24,7 +24,6 @@ package com.orange.spring.demo.biz.persistence.service;
 
 
 import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -34,23 +33,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
-public class FavoriteServiceIntegrationTest {
+public class RequestServiceIntegrationTest {
 
   @Autowired
-  private FavoriteService favoriteService;
+  private RequestService requestService;
   @Autowired
   private SignService signService;
   @Autowired
   private UserService userService;
 
   private long id = 1234;
-  private String favoriteName = "favoris";
+  private String requestName = "chat";
 
   private String username = "Duchess";
   private String password = "aristocats";
@@ -68,7 +66,7 @@ public class FavoriteServiceIntegrationTest {
 
 
   @Test
-  public void changeFavoriteSigns() {
+  public void changeSignRequest() {
 
     //given
     User user = userService.create(
@@ -76,18 +74,19 @@ public class FavoriteServiceIntegrationTest {
     userService.createUserSignVideo(user.id, sign1Name, sign1Url);
     userService.createUserSignVideo(user.id, sign2Name, sign2Url);
     Signs signs = signService.all();
+    Long signId = signs.list().get(1).id;
 
-    Favorite favorite = favoriteService.create(new Favorite(id, favoriteName, null, signService));
+    Request request = requestService.create(new Request(id, requestName, new Date(), signs.list().get(0)));
 
 
     // do
-    favoriteService.changeFavoriteSigns(favorite.id, signs.ids());
-    Favorite favoriteWithSign = favorite.loadSigns();
+    requestService.changeSignRequest(request.id, signId);
+    Request requestWithSign = requestService.withId(request.id);
 
     // then
-    Assertions.assertThat(favoriteWithSign.name).isEqualTo(favoriteName);
-    Assertions.assertThat(favoriteWithSign.signs.list().size()).isEqualTo(2);
-    Assertions.assertThat(favoriteWithSign.signs.list().containsAll(signs.list()));
+    Assertions.assertThat(requestWithSign.name).isEqualTo(requestName);
+    Assertions.assertThat(requestWithSign.sign.id).isEqualTo(signId);
+
 
   }
 }

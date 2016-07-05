@@ -24,8 +24,9 @@ package com.orange.spring.demo.biz.persistence.service;
 
 
 import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.persistence.model.VideoDB;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
+import com.orange.spring.demo.biz.persistence.repository.VideoRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,23 +35,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
-public class FavoriteServiceIntegrationTest {
+public class VideoServiceIntegrationTest {
 
   @Autowired
-  private FavoriteService favoriteService;
+  private VideoService videoService;
   @Autowired
-  private SignService signService;
+  private CommentService commentService;
   @Autowired
   private UserService userService;
 
   private long id = 1234;
-  private String favoriteName = "favoris";
+  private String commentText1="super signe";
+  private String commentText2="pas super signe";
+  private String commentText3="signe doit être améliorée";
 
   private String username = "Duchess";
   private String password = "aristocats";
@@ -68,26 +68,33 @@ public class FavoriteServiceIntegrationTest {
 
 
   @Test
-  public void changeFavoriteSigns() {
+  public void createVideoComment() {
 
     //given
     User user = userService.create(
             new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null, null, null), password);
     userService.createUserSignVideo(user.id, sign1Name, sign1Url);
     userService.createUserSignVideo(user.id, sign2Name, sign2Url);
-    Signs signs = signService.all();
-
-    Favorite favorite = favoriteService.create(new Favorite(id, favoriteName, null, signService));
-
+    Videos videos = videoService.all();
+    long idVideo1 = videos.list().get(0).id;
+    long idVideo2 = videos.list().get(1).id;
 
     // do
-    favoriteService.changeFavoriteSigns(favorite.id, signs.ids());
-    Favorite favoriteWithSign = favorite.loadSigns();
+    videoService.createVideoComment(idVideo1, user.id, commentText1);
+    Comments commentsVideo1 = commentService.forVideo(idVideo1);
+
+    videoService.createVideoComment(idVideo2, user.id, commentText2);
+    videoService.createVideoComment(idVideo2, user.id, commentText3);
+    Comments commentsVideo2 = commentService.forVideo(idVideo2);
+
 
     // then
-    Assertions.assertThat(favoriteWithSign.name).isEqualTo(favoriteName);
-    Assertions.assertThat(favoriteWithSign.signs.list().size()).isEqualTo(2);
-    Assertions.assertThat(favoriteWithSign.signs.list().containsAll(signs.list()));
+    Assertions.assertThat(commentsVideo1.list().size()).isEqualTo(1);
+    Assertions.assertThat(commentsVideo1.list().get(0).text).isEqualTo(commentText1);
+    Assertions.assertThat(commentsVideo2.list().size()).isEqualTo(2);
+    Assertions.assertThat(commentsVideo2.list().get(0).text).isEqualTo(commentText2);
+    Assertions.assertThat(commentsVideo2.list().get(1).text).isEqualTo(commentText3);
 
   }
+
 }
