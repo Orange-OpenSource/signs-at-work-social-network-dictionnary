@@ -92,8 +92,8 @@ public class VideoServiceIntegrationTest {
     Assertions.assertThat(commentsVideo1.list().size()).isEqualTo(1);
     Assertions.assertThat(commentsVideo1.list().get(0).text).isEqualTo(commentText1);
     Assertions.assertThat(commentsVideo2.list().size()).isEqualTo(2);
-    Assertions.assertThat(commentsVideo2.list().get(0).text).isEqualTo(commentText2);
-    Assertions.assertThat(commentsVideo2.list().get(1).text).isEqualTo(commentText3);
+    Assertions.assertThat(commentsVideo2.list().contains(commentText2));
+    Assertions.assertThat(commentsVideo2.list().contains(commentText3));
 
   }
 
