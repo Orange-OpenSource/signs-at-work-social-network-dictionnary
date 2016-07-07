@@ -134,6 +134,7 @@ public class SignServiceImpl implements SignService {
       return null;
     }
     else {
+      List<Long> referenceBy = signsFrom(signDB.getReferenceBy()).ids();
       Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids());
       return sign;
     }

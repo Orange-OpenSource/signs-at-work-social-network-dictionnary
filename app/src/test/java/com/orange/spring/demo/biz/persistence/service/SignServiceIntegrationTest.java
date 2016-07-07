@@ -68,7 +68,7 @@ public class SignServiceIntegrationTest {
   private String sign3Url = "//www.dailymotion.com/embed/video/k6Ekk8a95ZT36waMEi0";
 
   @Test
-  public void changeFavoriteSigns() {
+  public void changeSignAssociates() {
 
     //given
     User user = userService.create(
@@ -82,15 +82,18 @@ public class SignServiceIntegrationTest {
     long idSign3 = signs.list().get(2).id;
     List<Long> associateSignsIds = new ArrayList<>();
     associateSignsIds.add(idSign3);
+    associateSignsIds.add(idSign2);
 
 
     // do
     signService.changeSignAssociates(idSign1, associateSignsIds);
     Sign sign1 = signService.withIdForAssociate(idSign1);
+    Sign sign2 = signService.withIdForAssociate(idSign2);
+    Sign sign3 = signService.withIdForAssociate(idSign3);
 
 
     // then
-    Assertions.assertThat(sign1.associateSignsIds.size()).isEqualTo(1);
-    Assertions.assertThat(sign1.associateSignsIds.get(0)).isEqualTo(idSign3);
+    Assertions.assertThat(sign1.associateSignsIds.size()).isEqualTo(2);
+    Assertions.assertThat(sign1.associateSignsIds).contains(idSign3);
   }
 }

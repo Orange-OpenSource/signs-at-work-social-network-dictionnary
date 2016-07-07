@@ -97,4 +97,30 @@ public class VideoServiceIntegrationTest {
 
   }
 
+  @Test
+  public void createVideoRating() {
+
+    //given
+    User user = userService.create(
+            new User(id, username, firstName, lastName, email, entity, activity, null, null, null, null, null, null, null), password);
+    userService.createUserSignVideo(user.id, sign1Name, sign1Url);
+    userService.createUserSignVideo(user.id, sign2Name, sign2Url);
+    Videos videos = videoService.all();
+    long idVideo1 = videos.list().get(0).id;
+    long idVideo2 = videos.list().get(1).id;
+
+
+    // do
+    videoService.createVideoRating(idVideo1, user.id, Rate.Positive);
+    Video video1 = videoService.withId(idVideo1);
+    videoService.createVideoRating(idVideo2, user.id, Rate.Neutral);
+    Video video2 = videoService.withId(idVideo2);
+
+    // then
+    Assertions.assertThat(video1.ratings.list().size()).isEqualTo(1);
+    Assertions.assertThat(video1.ratings.list().get(0).rate).isEqualTo(Rate.Positive);
+    Assertions.assertThat(video2.ratings.list().size()).isEqualTo(1);
+    Assertions.assertThat(video2.ratings.list().get(0).rate).isEqualTo(Rate.Neutral);
+
+  }
 }

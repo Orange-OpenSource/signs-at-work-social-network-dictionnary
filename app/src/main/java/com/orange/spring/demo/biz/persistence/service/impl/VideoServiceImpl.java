@@ -80,6 +80,8 @@ public class VideoServiceImpl implements VideoService {
     ratingDB.setRate(rate);
 
     ratingRepository.save(ratingDB);
+    videoDB.getRatings().add(ratingDB);
+    videoRepository.save(videoDB);
 
     return videoFrom(videoDB);
   }
