@@ -36,6 +36,7 @@ import com.orange.spring.demo.biz.persistence.service.FavoriteService;
 import com.orange.spring.demo.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class SignServiceImpl implements SignService {
   private final SignRepository signRepository;
 
   @Override
+  @Transactional
   public Signs all() {
     return signsFrom(signRepository.findAll());
   }
@@ -57,6 +59,7 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  @Transactional
   public Sign withIdForAssociate(long id) {
     return signFromAssociate(signRepository.findOne(id));
   }
@@ -75,6 +78,7 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  @Transactional
   public Sign changeSignAssociates(long signId, List<Long> associateSignsIds) {
     SignDB signDB = withDBId(signId);
     List<SignDB> signReferenceBy = signDB.getReferenceBy();

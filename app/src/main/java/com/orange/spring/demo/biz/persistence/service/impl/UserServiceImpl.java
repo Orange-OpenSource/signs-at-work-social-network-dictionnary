@@ -37,6 +37,7 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -119,6 +120,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
 
 
   @Override
+  @Transactional
   public User createUserSignVideo(long userId, String signName, String signUrl) {
     UserDB userDB = withDBId(userId);
 

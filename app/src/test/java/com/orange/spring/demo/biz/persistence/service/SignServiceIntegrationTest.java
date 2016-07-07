@@ -40,7 +40,6 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
 public class SignServiceIntegrationTest {
 
 
@@ -95,5 +94,8 @@ public class SignServiceIntegrationTest {
     // then
     Assertions.assertThat(sign1.associateSignsIds.size()).isEqualTo(2);
     Assertions.assertThat(sign1.associateSignsIds).contains(idSign3);
+    Assertions.assertThat(sign1.associateSignsIds).contains(idSign2);
+    Assertions.assertThat(sign2.refrenceBySignsIds).contains(idSign1);
+    Assertions.assertThat(sign3.refrenceBySignsIds).contains(idSign1);
   }
 }
