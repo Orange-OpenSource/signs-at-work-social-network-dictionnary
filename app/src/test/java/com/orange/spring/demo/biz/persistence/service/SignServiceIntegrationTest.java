@@ -40,6 +40,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
 public class SignServiceIntegrationTest {
 
 
@@ -86,9 +87,12 @@ public class SignServiceIntegrationTest {
 
     // do
     signService.changeSignAssociates(idSign1, associateSignsIds);
-    Sign sign1 = signService.withIdForAssociate(idSign1);
-    Sign sign2 = signService.withIdForAssociate(idSign2);
-    Sign sign3 = signService.withIdForAssociate(idSign3);
+    Sign sign1 = signService.withId(idSign1);
+    sign1 = sign1.loadAssociatesReferenceBy(signService);
+    Sign sign2 = signService.withId(idSign2);
+    sign2 = sign2.loadAssociatesReferenceBy(signService);
+    Sign sign3 = signService.withId(idSign3);
+    sign3 = sign3.loadAssociatesReferenceBy(signService);
 
 
     // then

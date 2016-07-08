@@ -38,4 +38,10 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query("select distinct s FROM SignDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<SignDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
+    @Query("select s FROM SignDB s inner join s.associates sign where sign = :signDB")
+    List<SignDB> findReferenceByBySign(@Param("signDB") SignDB signDB);
+
+    @Query("select s FROM SignDB s inner join s.referenceBy sign where sign = :signDB")
+    List<SignDB> findAssociatesBySign(@Param("signDB") SignDB signDB);
+
 }

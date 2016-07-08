@@ -120,7 +120,6 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
 
 
   @Override
-  @Transactional
   public User createUserSignVideo(long userId, String signName, String signUrl) {
     UserDB userDB = withDBId(userId);
 

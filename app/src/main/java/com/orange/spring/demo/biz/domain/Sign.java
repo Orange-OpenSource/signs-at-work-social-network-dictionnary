@@ -25,6 +25,7 @@ package com.orange.spring.demo.biz.domain;
 import com.orange.spring.demo.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,4 +36,13 @@ public class Sign {
     public final Videos videos;
     public final List<Long> associateSignsIds;
     public final List<Long> refrenceBySignsIds;
+
+    private final SignService signService;
+
+    public Sign loadAssociatesReferenceBy(SignService signService) {
+        return associateSignsIds != null || refrenceBySignsIds != null ?
+                this :
+                new Sign(id, name, url, videos, signService.signsAssociates(id), signService.signsReferenceBy(id), signService);
+
+    }
 }

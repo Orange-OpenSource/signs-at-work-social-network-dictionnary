@@ -40,8 +40,8 @@ public class SignProfileView {
   private List<Long> associateSignsIds;
   private List<Sign> allSignsWithoutCurrentSign;
 
-  public SignProfileView(Sign sign, SignService signService) {
-    this.sign = sign;
+  public SignProfileView(Sign signWithoutAssociatesReferenceBy, SignService signService) {
+    sign = signWithoutAssociatesReferenceBy.loadAssociatesReferenceBy(signService);
     List<Long> associateIds = sign.associateSignsIds;
     associateIds.addAll(sign.refrenceBySignsIds);
     this.associateSignsIds = associateIds;

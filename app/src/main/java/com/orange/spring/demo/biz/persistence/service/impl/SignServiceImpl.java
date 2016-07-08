@@ -48,7 +48,6 @@ public class SignServiceImpl implements SignService {
   private final SignRepository signRepository;
 
   @Override
-  @Transactional
   public Signs all() {
     return signsFrom(signRepository.findAll());
   }
@@ -59,7 +58,6 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
-  @Transactional
   public Sign withIdForAssociate(long id) {
     return signFromAssociate(signRepository.findOne(id));
   }
@@ -78,7 +76,6 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
-  @Transactional
   public Sign changeSignAssociates(long signId, List<Long> associateSignsIds) {
     SignDB signDB = withDBId(signId);
     List<SignDB> signReferenceBy = signDB.getReferenceBy();
@@ -112,6 +109,21 @@ public class SignServiceImpl implements SignService {
     return signFrom(signDB);
   }
 
+  @Override
+  public List<Long> signsAssociates(long id) {
+    List<Long> associates = new ArrayList<>();
+    associates = signsFrom(signRepository.findAssociatesBySign(signRepository.findOne(id))).ids();
+    return associates;
+
+  }
+
+  @Override
+  public List<Long> signsReferenceBy(long id) {
+    List<Long> referenceBy = new ArrayList<>();
+    referenceBy = signsFrom(signRepository.findReferenceByBySign(signRepository.findOne(id))).ids();
+    return referenceBy;
+
+  }
 
   private SignDB withDBId(long id) {
     return signRepository.findOne(id);
@@ -128,7 +140,7 @@ public class SignServiceImpl implements SignService {
       return null;
     }
     else {
-      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()), null, null);
+      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), VideoServiceImpl.videosFrom(signDB.getVideos()), null, null,null);
       return sign;
     }
   }
@@ -139,7 +151,7 @@ public class SignServiceImpl implements SignService {
     }
     else {
       List<Long> referenceBy = signsFrom(signDB.getReferenceBy()).ids();
-      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids());
+      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids(),null);
       return sign;
     }
   }

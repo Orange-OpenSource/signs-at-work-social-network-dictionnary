@@ -148,7 +148,7 @@ public class HomeController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sign/{id}")
   public String signDetails(@PathVariable long id, Model model) {
-    Sign sign = signService.withIdForAssociate(id);
+    Sign sign = signService.withId(id);
 
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("sign_details"));

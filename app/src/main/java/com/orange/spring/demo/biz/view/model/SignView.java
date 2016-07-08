@@ -43,7 +43,7 @@ public class SignView {
   private Videos videos;
 
   public Sign toSign() {
-    return new Sign(id, name, url, null, null, null);
+    return new Sign(id, name, url, null, null, null, null);
   }
 
   public static SignView from(Sign sign) {
