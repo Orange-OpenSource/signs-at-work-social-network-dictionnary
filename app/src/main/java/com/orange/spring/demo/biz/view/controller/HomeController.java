@@ -160,7 +160,7 @@ public class HomeController {
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("favorite_details"));
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, signService);
-    model.addAttribute("favoriteProfileView", favoriteProfileView);;
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
 
     return "favorite";
   }
@@ -173,7 +173,7 @@ public class HomeController {
     setAuthenticated(true, model);
     model.addAttribute("title", messageByLocaleService.getMessage("request_details"));
     RequestProfileView requestProfileView = new RequestProfileView(request, signService);
-    model.addAttribute("requestProfileView", requestProfileView);;
+    model.addAttribute("requestProfileView", requestProfileView);
 
     return "request";
   }
