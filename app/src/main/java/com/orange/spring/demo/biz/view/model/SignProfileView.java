@@ -30,6 +30,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -44,12 +45,9 @@ public class SignProfileView {
     associateIds.addAll(sign.refrenceBySignsIds);
     this.associateSignsIds = associateIds;
 
-    List<Sign> listSignWithOutId = new ArrayList<>();
-    for (Sign signe:signService.all().list()) {
-      if (signe.id != sign.id) {
-        listSignWithOutId.add(signe);
-      }
-    }
+    List<Sign> listSignWithOutId = signService.all().list()
+            .stream().filter(signe -> signe.id != sign.id)
+            .collect(Collectors.toList());
     this.allSignsWithoutCurrentSign = listSignWithOutId;
 
   }
