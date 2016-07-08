@@ -22,7 +22,6 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.model.RatingDB;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;

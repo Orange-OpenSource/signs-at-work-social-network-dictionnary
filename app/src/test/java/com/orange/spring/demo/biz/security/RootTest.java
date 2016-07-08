@@ -23,7 +23,6 @@ package com.orange.spring.demo.biz.security;
  */
 
 import com.orange.spring.demo.biz.persistence.service.MessageByLocaleService;
-import com.orange.spring.demo.biz.view.controller.HomeController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

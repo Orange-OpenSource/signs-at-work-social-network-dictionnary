@@ -22,7 +22,6 @@ package com.orange.spring.demo.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.model.CommunityDB;
 import com.orange.spring.demo.biz.persistence.model.RequestDB;
 import org.junit.Test;
 import org.junit.runner.RunWith;

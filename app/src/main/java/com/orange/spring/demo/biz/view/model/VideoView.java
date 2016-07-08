@@ -22,8 +22,9 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.RatingDB;
+import com.orange.spring.demo.biz.domain.Ratings;
+import com.orange.spring.demo.biz.domain.Video;
+import com.orange.spring.demo.biz.domain.Videos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

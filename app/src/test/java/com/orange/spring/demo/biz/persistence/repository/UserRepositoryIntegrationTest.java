@@ -32,7 +32,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -23,9 +23,7 @@ package com.orange.spring.demo.biz.view.model;
  */
 
 
-import com.orange.spring.demo.biz.domain.Favorite;
 import com.orange.spring.demo.biz.domain.Sign;
-import com.orange.spring.demo.biz.domain.Signs;
 import com.orange.spring.demo.biz.persistence.service.SignService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

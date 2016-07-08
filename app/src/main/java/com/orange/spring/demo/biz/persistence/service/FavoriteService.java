@@ -24,8 +24,6 @@ package com.orange.spring.demo.biz.persistence.service;
 
 import com.orange.spring.demo.biz.domain.Favorite;
 import com.orange.spring.demo.biz.domain.Favorites;
-import com.orange.spring.demo.biz.domain.Request;
-import com.orange.spring.demo.biz.domain.Requests;
 
 import java.util.List;
 

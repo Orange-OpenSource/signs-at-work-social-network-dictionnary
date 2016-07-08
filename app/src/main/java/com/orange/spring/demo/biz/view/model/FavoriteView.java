@@ -24,14 +24,11 @@ package com.orange.spring.demo.biz.view.model;
 
 import com.orange.spring.demo.biz.domain.Favorite;
 import com.orange.spring.demo.biz.domain.Favorites;
-import com.orange.spring.demo.biz.domain.Request;
-import com.orange.spring.demo.biz.domain.Requests;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

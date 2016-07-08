@@ -23,9 +23,9 @@ package com.orange.spring.demo.biz.persistence.service;
  */
 
 
-import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.UserDB;
-import com.orange.spring.demo.biz.persistence.repository.UserRepository;
+import com.orange.spring.demo.biz.domain.Favorite;
+import com.orange.spring.demo.biz.domain.Signs;
+import com.orange.spring.demo.biz.domain.User;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,9 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)

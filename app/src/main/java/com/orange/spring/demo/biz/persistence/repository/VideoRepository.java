@@ -22,7 +22,6 @@ package com.orange.spring.demo.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.model.CommunityDB;
 import com.orange.spring.demo.biz.persistence.model.SignDB;
 import com.orange.spring.demo.biz.persistence.model.UserDB;
 import com.orange.spring.demo.biz.persistence.model.VideoDB;

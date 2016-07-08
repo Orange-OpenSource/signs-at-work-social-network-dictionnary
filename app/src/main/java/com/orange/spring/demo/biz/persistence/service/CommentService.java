@@ -24,8 +24,6 @@ package com.orange.spring.demo.biz.persistence.service;
 
 import com.orange.spring.demo.biz.domain.Comment;
 import com.orange.spring.demo.biz.domain.Comments;
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
 
 public interface CommentService {
   Comments all();

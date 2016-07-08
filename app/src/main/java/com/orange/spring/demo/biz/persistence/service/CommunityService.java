@@ -25,8 +25,6 @@ package com.orange.spring.demo.biz.persistence.service;
 import com.orange.spring.demo.biz.domain.Communities;
 import com.orange.spring.demo.biz.domain.Community;
 
-import java.util.List;
-
 public interface CommunityService {
   Communities all();
 

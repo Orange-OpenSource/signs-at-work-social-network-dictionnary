@@ -22,10 +22,11 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.*;
+import com.orange.spring.demo.biz.domain.Favorite;
+import com.orange.spring.demo.biz.domain.Favorites;
+import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
+import com.orange.spring.demo.biz.persistence.model.SignDB;
 import com.orange.spring.demo.biz.persistence.repository.FavoriteRepository;
-import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
 import com.orange.spring.demo.biz.persistence.repository.SignRepository;
 import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.service.FavoriteService;

@@ -22,8 +22,6 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Favorite;
-import com.orange.spring.demo.biz.domain.Favorites;
 import com.orange.spring.demo.biz.domain.Sign;
 import com.orange.spring.demo.biz.domain.Signs;
 
@@ -35,8 +33,6 @@ public interface SignService {
   Signs forFavorite(long id);
 
   Sign withId(long id);
-
-  Sign  withIdForAssociate(long id);
 
   Signs withName(String name);
 

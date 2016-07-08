@@ -22,8 +22,6 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import com.orange.spring.demo.biz.persistence.service.RequestService;
-import com.orange.spring.demo.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;

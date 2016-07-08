@@ -24,16 +24,10 @@ package com.orange.spring.demo.biz.persistence.service.impl;
 
 import com.orange.spring.demo.biz.domain.Comment;
 import com.orange.spring.demo.biz.domain.Comments;
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.persistence.model.CommentDB;
-import com.orange.spring.demo.biz.persistence.model.CommunityDB;
 import com.orange.spring.demo.biz.persistence.repository.CommentRepository;
-import com.orange.spring.demo.biz.persistence.repository.CommunityRepository;
-import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.repository.VideoRepository;
 import com.orange.spring.demo.biz.persistence.service.CommentService;
-import com.orange.spring.demo.biz.persistence.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

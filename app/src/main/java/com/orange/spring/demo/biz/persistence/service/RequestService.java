@@ -22,8 +22,6 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Communities;
-import com.orange.spring.demo.biz.domain.Community;
 import com.orange.spring.demo.biz.domain.Request;
 import com.orange.spring.demo.biz.domain.Requests;
 

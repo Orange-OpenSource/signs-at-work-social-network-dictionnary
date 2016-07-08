@@ -22,11 +22,6 @@ package com.orange.spring.demo.biz.domain;
  * #L%
  */
 
-import lombok.RequiredArgsConstructor;
-
-import java.util.Date;
-
-
 public enum Rate {
     Negative,
     Neutral,

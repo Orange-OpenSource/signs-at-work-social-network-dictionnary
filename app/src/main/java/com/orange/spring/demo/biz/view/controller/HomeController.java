@@ -23,10 +23,6 @@ package com.orange.spring.demo.biz.view.controller;
  */
 
 import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.RequestDB;
-import com.orange.spring.demo.biz.persistence.model.UserDB;
-import com.orange.spring.demo.biz.persistence.repository.RequestRepository;
-import com.orange.spring.demo.biz.persistence.repository.UserRepository;
 import com.orange.spring.demo.biz.persistence.service.*;
 import com.orange.spring.demo.biz.security.AppSecurityAdmin;
 import com.orange.spring.demo.biz.view.model.*;
@@ -43,11 +39,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.String.valueOf;
 
 @Controller
 public class HomeController {

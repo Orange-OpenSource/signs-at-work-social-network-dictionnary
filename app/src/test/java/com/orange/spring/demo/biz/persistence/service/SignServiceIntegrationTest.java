@@ -23,7 +23,6 @@ package com.orange.spring.demo.biz.persistence.service;
  */
 
 
-import com.orange.spring.demo.biz.domain.Favorite;
 import com.orange.spring.demo.biz.domain.Sign;
 import com.orange.spring.demo.biz.domain.Signs;
 import com.orange.spring.demo.biz.domain.User;

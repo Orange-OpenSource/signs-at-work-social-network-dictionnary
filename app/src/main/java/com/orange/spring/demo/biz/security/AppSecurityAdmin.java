@@ -31,12 +31,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.orange.spring.demo.biz.security.AppSecurityRoles.Role.ROLE_ADMIN;
-import static com.orange.spring.demo.biz.security.AppSecurityRoles.Role.ROLE_USER;
 
 @Slf4j
 @Component

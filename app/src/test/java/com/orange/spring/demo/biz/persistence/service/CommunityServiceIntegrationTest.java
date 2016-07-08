@@ -24,15 +24,12 @@ package com.orange.spring.demo.biz.persistence.service;
 
 
 import com.orange.spring.demo.biz.domain.Community;
-import com.orange.spring.demo.biz.persistence.model.CommunityDB;
-import com.orange.spring.demo.biz.persistence.repository.CommunityRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)

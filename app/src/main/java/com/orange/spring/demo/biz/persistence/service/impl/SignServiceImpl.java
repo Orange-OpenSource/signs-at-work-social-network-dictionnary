@@ -22,21 +22,14 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Favorite;
-import com.orange.spring.demo.biz.domain.Favorites;
 import com.orange.spring.demo.biz.domain.Sign;
 import com.orange.spring.demo.biz.domain.Signs;
-import com.orange.spring.demo.biz.persistence.model.FavoriteDB;
 import com.orange.spring.demo.biz.persistence.model.SignDB;
-import com.orange.spring.demo.biz.persistence.model.VideoDB;
 import com.orange.spring.demo.biz.persistence.repository.FavoriteRepository;
 import com.orange.spring.demo.biz.persistence.repository.SignRepository;
-import com.orange.spring.demo.biz.persistence.repository.UserRepository;
-import com.orange.spring.demo.biz.persistence.service.FavoriteService;
 import com.orange.spring.demo.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +48,6 @@ public class SignServiceImpl implements SignService {
   @Override
   public Sign withId(long id) {
     return signFrom(signRepository.findOne(id));
-  }
-
-  @Override
-  public Sign withIdForAssociate(long id) {
-    return signFromAssociate(signRepository.findOne(id));
   }
 
 
@@ -111,7 +99,7 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public List<Long> signsAssociates(long id) {
-    List<Long> associates = new ArrayList<>();
+    List<Long> associates;
     associates = signsFrom(signRepository.findAssociatesBySign(signRepository.findOne(id))).ids();
     return associates;
 
@@ -119,7 +107,7 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public List<Long> signsReferenceBy(long id) {
-    List<Long> referenceBy = new ArrayList<>();
+    List<Long> referenceBy;
     referenceBy = signsFrom(signRepository.findReferenceByBySign(signRepository.findOne(id))).ids();
     return referenceBy;
 
@@ -145,16 +133,6 @@ public class SignServiceImpl implements SignService {
     }
   }
 
-  static Sign signFromAssociate(SignDB signDB) {
-    if (signDB == null) {
-      return null;
-    }
-    else {
-      List<Long> referenceBy = signsFrom(signDB.getReferenceBy()).ids();
-      Sign sign = new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids(),null);
-      return sign;
-    }
-  }
 
   private SignDB signDBFrom(Sign sign) {
     SignDB signDB = new SignDB(sign.name, sign.url);

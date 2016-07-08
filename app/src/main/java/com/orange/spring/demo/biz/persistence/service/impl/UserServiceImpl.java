@@ -22,7 +22,8 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
+import com.orange.spring.demo.biz.domain.User;
+import com.orange.spring.demo.biz.domain.Users;
 import com.orange.spring.demo.biz.persistence.model.*;
 import com.orange.spring.demo.biz.persistence.repository.*;
 import com.orange.spring.demo.biz.persistence.service.CommunityService;
@@ -37,12 +38,10 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

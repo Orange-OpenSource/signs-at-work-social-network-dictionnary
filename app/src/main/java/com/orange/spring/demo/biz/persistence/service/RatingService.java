@@ -22,8 +22,5 @@ package com.orange.spring.demo.biz.persistence.service;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.Comment;
-import com.orange.spring.demo.biz.domain.Comments;
-
 public interface RatingService {
 }

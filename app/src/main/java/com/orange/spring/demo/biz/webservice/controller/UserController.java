@@ -22,7 +22,6 @@ package com.orange.spring.demo.biz.webservice.controller;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.User;
 import com.orange.spring.demo.biz.persistence.service.UserService;
 import com.orange.spring.demo.biz.view.model.UserCreationView;
 import com.orange.spring.demo.biz.view.model.UserView;

@@ -22,10 +22,17 @@ package com.orange.spring.demo.biz.persistence.service.impl;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.*;
-import com.orange.spring.demo.biz.persistence.repository.*;
-import com.orange.spring.demo.biz.persistence.service.RequestService;
+import com.orange.spring.demo.biz.domain.Rate;
+import com.orange.spring.demo.biz.domain.Video;
+import com.orange.spring.demo.biz.domain.Videos;
+import com.orange.spring.demo.biz.persistence.model.CommentDB;
+import com.orange.spring.demo.biz.persistence.model.RatingDB;
+import com.orange.spring.demo.biz.persistence.model.UserDB;
+import com.orange.spring.demo.biz.persistence.model.VideoDB;
+import com.orange.spring.demo.biz.persistence.repository.CommentRepository;
+import com.orange.spring.demo.biz.persistence.repository.RatingRepository;
+import com.orange.spring.demo.biz.persistence.repository.UserRepository;
+import com.orange.spring.demo.biz.persistence.repository.VideoRepository;
 import com.orange.spring.demo.biz.persistence.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

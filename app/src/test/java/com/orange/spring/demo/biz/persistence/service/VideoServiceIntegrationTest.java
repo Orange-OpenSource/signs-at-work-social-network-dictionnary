@@ -24,9 +24,6 @@ package com.orange.spring.demo.biz.persistence.service;
 
 
 import com.orange.spring.demo.biz.domain.*;
-import com.orange.spring.demo.biz.persistence.model.VideoDB;
-import com.orange.spring.demo.biz.persistence.repository.UserRepository;
-import com.orange.spring.demo.biz.persistence.repository.VideoRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;

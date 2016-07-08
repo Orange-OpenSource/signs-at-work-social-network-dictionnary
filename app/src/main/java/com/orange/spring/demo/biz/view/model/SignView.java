@@ -22,13 +22,14 @@ package com.orange.spring.demo.biz.view.model;
  * #L%
  */
 
-import com.orange.spring.demo.biz.domain.*;
+import com.orange.spring.demo.biz.domain.Sign;
+import com.orange.spring.demo.biz.domain.Signs;
+import com.orange.spring.demo.biz.domain.Videos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
