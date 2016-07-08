@@ -23,7 +23,9 @@ package com.orange.spring.demo.biz.persistence.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -36,7 +38,6 @@ import java.util.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class UserDB {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

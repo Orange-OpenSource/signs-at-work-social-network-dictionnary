@@ -3,7 +3,6 @@ package com.orange.spring.demo.biz.persistence.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -36,7 +35,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class RatingDBId implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)

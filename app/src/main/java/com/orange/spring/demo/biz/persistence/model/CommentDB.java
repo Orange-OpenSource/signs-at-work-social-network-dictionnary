@@ -3,7 +3,6 @@ package com.orange.spring.demo.biz.persistence.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -38,7 +37,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class CommentDB implements Serializable {
 
     @Id

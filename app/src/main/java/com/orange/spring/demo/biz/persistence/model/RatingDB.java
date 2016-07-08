@@ -4,7 +4,6 @@ import com.orange.spring.demo.biz.domain.Rate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -44,7 +43,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class RatingDB implements Serializable {
 
 
