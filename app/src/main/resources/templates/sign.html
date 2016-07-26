@@ -24,18 +24,23 @@
                             <h2 class="container_H2" th:text="${signProfileView.sign.name}"/>
                             <div>
                                 <div class="pull-right menu_detail_with_chevron"/>
+                                <div th:if="${signProfileView.ratePositive}" class="pull-right sentiment_positif"/>
+                                <div th:if="${signProfileView.rateNeutral}" class="pull-right sentiment_neutre"/>
+                                <div th:if="${signProfileView.rateNegative}" class="pull-right sentiment_negatif"/>
                             </div>
                         </a>
                     </li>
-                    <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                        <a href="#" data-toggle="modal" data-target="#evaluation_modal">
-                            <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
-                            <div>
-                                <div class="pull-right  chevron_right"/>
-                                <div class="pull-right sentiment_evaluation"/>
-                            </div>
-                        </a>
-                    </li>
+                    <div th:if="${signProfileView.rateNoRate}">
+                        <li th:if="${isAuthenticated}" class="aside_bckg_li">
+                            <a href="#" data-toggle="modal" data-target="#evaluation_modal">
+                                <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
+                                <div>
+                                    <div class="pull-right  chevron_right"/>
+                                    <div class="pull-right sentiment_evaluation"/>
+                                </div>
+                            </a>
+                        </li>
+                    </div>
                     <li class="aside_bckg_li">
                         <a th:href="@{/sign/} + ${signProfileView.sign.id} + '/associates'">
                         <h2 class="container_H2" th:text="#{sign.associated}"></h2>

@@ -106,7 +106,7 @@ public class VideoServiceImpl implements VideoService {
             .filter(ratingDB -> ratingDB.getUser().getId() == userId)
             .findAny();
 
-    return rating.isPresent() ? rating.get().getRating() : Rating.Neutral;
+    return rating.isPresent() ? rating.get().getRating() : Rating.NoRate;
   }
 
   @Override
