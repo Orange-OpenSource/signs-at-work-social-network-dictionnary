@@ -30,7 +30,7 @@
 
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >
-                        <div id="add_video_from_request" class="modal fade" role="dialog">
+                        <div th:id="add_video_from_suggest_associate_to_request + ${request.id}" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -57,7 +57,7 @@
                         </div>
 
                         <li class="dotted-top">
-                            <a data-target="#add_video_from_request" data-toggle="modal" href="#">
+                            <a th:attr="data-target='#add_video_from_suggest_associate_to_request' + ${request.id}" data-toggle="modal" href="#">
                                 <div class="pull-right">
                                     <div class="containerRight_signes">
                                         <div class="containerRight_signes">

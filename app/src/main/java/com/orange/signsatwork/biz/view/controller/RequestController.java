@@ -62,6 +62,7 @@ public class RequestController {
     fillModelWithRequests(model, principal);
     model.addAttribute("showTooltip", true);
     model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
 
     return "request";
   }
@@ -85,6 +86,7 @@ public class RequestController {
     User user = services.user().withUserName(principal.getName());
     Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl());
     services.request().changeSignRequest(requestId, sign.id);
+    log.info("createSign: username = {} / sign name = {} / video url = {} and associate to request = {} ", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl(),requestId);
 
     return "redirect:/sign/" + sign.id;
   }
