@@ -1,0 +1,58 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div">
+
+    <form th:if="${not #lists.isEmpty(signProfileView.allSignsWithoutCurrentSign)}"
+          class="row"
+          th:action="@{/sec/sign/{signid}/associate(signid=${signProfileView.sign.id})}"
+          th:object="${signProfileView}"
+          method="post">
+
+        <div class="form-group">
+            <label th:each="sign : ${signProfileView.allSignsWithoutCurrentSign}"
+                   th:for="${#ids.next('associateSignsIds')}">
+
+                <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
+                    <iframe th:src="${video.url}" frameborder="0" allowfullscreen=""/>
+                </div>
+
+                <input type="checkbox" th:field="*{associateSignsIds}" th:text="${sign.name}" th:value="${sign.id}"/>
+            </label>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-default" th:text="#{sign.associate}"></button>
+    </form>
+
+    <div th:if="${#lists.isEmpty(signProfileView.allSignsWithoutCurrentSign)}">
+        <h2 th:text="#{sign.not_available}"></h2>
+    </div>
+</div>
+
+</body>
+</html>

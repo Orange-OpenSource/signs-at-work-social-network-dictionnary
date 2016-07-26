@@ -22,34 +22,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
-    <link href="../public/css/signin.css" th:href="@{/css/signin.css}" rel="stylesheet"/>
+    <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
+
+<header role="banner" th:replace="fragments/header-logo-only :: header">&nbsp;</header>
 
 <body>
 
-<div class="container">
+<form class="login-form" role="form" th:action="@{/login}" method="post">
+    <h2 class="form-signin-heading text-center" th:text="#{signin_invite}"></h2>
+    <div th:if="${param.error}" class="alert alert-danger text-center" role="alert" th:text="#{invalid_connexion}">
+    </div>
+    <div th:if="${param.logout}" class="alert alert-info text-center" role="alert" th:text="#{logged_out}"/>
 
-    <form class="form-signin" th:action="@{/login}" method="post">
-        <h2 class="form-signin-heading" th:text="#{signin_invite}"></h2>
-        <div th:if="${param.error}" class="alert alert-danger" role="alert" th:text="#{invalid_connexion}">
-        </div>
-        <div th:if="${param.logout}" class="alert alert-info" role="alert" th:text="#{logged_out}">
-
-        </div>
-        <label for="username" class="sr-only">Email address</label>
-        <input type="text" id="username" name="username" class="form-control" th:placeholder="#{user_name}" required="" autofocus=""/>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" name="password" th:placeholder="#{password}" required=""/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{signin}"></button>
-    </form>
-
-</div>
+    <div class="form-group">
+        <label class="sr-only">Username</label>
+        <input type="text" id="username" name="username" class="form-control" th:placeholder="#{user_name}" required=""
+               autofocus=""/>
+    </div>
+    <label class="sr-only">Password</label>
+    <input type="password" id="password" class="form-control" name="password" th:placeholder="#{password}"
+           required=""/>
+    <div class="form-group">
+    </div>
+    <div class=" text-center">
+        <button type="submit" class="btn btn-default" th:text="#{signin}"></button>
+    </div>
+</form>
 
 </body>
 </html>

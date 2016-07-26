@@ -1,85 +1,21 @@
-<!--
-  #%L
-  Signs at work
-  %%
-  Copyright (C) 2016 Orange
-  %%
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as
-  published by the Free Software Foundation, either version 2 of the
-  License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public
-  License along with this program.  If not, see
-  <http://www.gnu.org/licenses/gpl-2.0.html>.
-  #L%
-  -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-
     <th:block th:include="fragments/header-head :: head"></th:block>
-
-    <link href="../public/css/app.css" th:href="@{/css/app.css}" rel="stylesheet" media="screen"/>
-
 </head>
-<body>
 
-<div th:replace="fragments/header :: header">&nbsp;</div>
+<header role="banner" th:replace="fragments/header-signs :: header">&nbsp;</header>
 
+<body class="container-fluid">
 
-<section class="jumbotron text-xs-center">
-    <div class="container">
-        <h1 class="jumbotron-heading" th:text="#{signs}">
-        </h1>
-    </div>
-    <br/>
+<div th:fragment="div" class="text-center title_middle col-lg-12 col-md-8 col-xs-12 middle-col">
+    <h1 th:text="#{sign.list}"></h1>
 
-    <div th:if="${not #lists.isEmpty(signs)}">
-        <div class="table-responsive">
-            <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
-                <thead>
-                <th>#signId</th>
-                <th th:text="#{name}"></th>
-                <th>#videoId</th>
-                <th th:text="#{video}"></th>
-                <th th:text="#{url}"></th>
-                <th th:text="#{comment}"></th>
-                </thead>
-                <tbody>
+    <div th:replace="fragments/frame-signs :: div"/>
+</div>
 
-                <div th:each="sign:${signs}" th:with="videoCount=${sign.videos.list().size()}">
-                    <tr>
-                        <td th:rowspan="${videoCount}"><a th:href="@{/sign/{signid}(signid=${sign.id})}" th:text="${sign.id}"/></td>
-                        <td th:rowspan="${videoCount}" th:text="${sign.name}"></td>
-                        <td><a th:href="@{/video/{videoid}(videoid=${sign.videos.list()[0].id})}" th:text="${sign.videos.list()[0].id}"/></td>
-                        <td>
-                            <iframe th:src="${sign.videos.list()[0].url}" frameborder="0" width="480" height="270" allowfullscreen=""/>
-                        </td>
-                        <td th:text="${sign.videos.list()[0].url}" ></td>
-                        <td th:text="#{created_by(${sign.videos.list()[0].user.firstName + ' ' + sign.videos.list()[0].user.lastName},${sign.videos.list()[0].createDate})}"></td>
-                    </tr>
-                    <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${!stats.first}">
-                        <tr>
-                            <td><a th:href="@{/video/{videoid}(videoid=${video.id})}" th:text="${video.id}"/></td>
-                            <td>
-                                <iframe th:src="${video.url}" frameborder="0" width="480" height="270" allowfullscreen=""/>
-                            </td>
-                            <td th:text="${video.url}" ></td>
-                            <td th:text="#{created_by(${video.user.firstName + ' ' + video.user.lastName},${video.createDate})}"></td>
-                        </tr>
-                    </div>
-                </div>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
+<div th:replace="fragments/modal-new-sign-video :: div"/>
 
 </body>
+
 </html>

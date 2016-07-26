@@ -1,0 +1,77 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div" id="add_favorite" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class=" modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="pull-left">
+                    <div class="add_favorite_signe pull-left"></div>
+                    <h4 class="pull-right" th:text="#{add_to}"/>
+                </div>
+            </div>
+            <div class="modal-body text-center">
+                <ul class="nav nav-list primary left-menu">
+                    <li class="aside_bckg_li"><a href="#" data-toggle="modal" data-target="#create">
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="pull-right add    "></div>
+                            </div>
+                        </div>
+                        <h4>Créer nouvelle liste</h4></a></li>
+
+                    <li class="aside_bckg_li"><a href="favorite.html">
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="pull-right add_favorite_signe    "></div>
+                            </div>
+                        </div>
+                        <h4>Favoris</h4></a></li>
+                    <li class="aside_bckg_li"><a href="#">
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="pull-right   "></div>
+                            </div>
+                        </div>
+                        <h4>Interfaces</h4></a></li>
+                    <li class="aside_bckg_li"><a href="#">
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="pull-right     "></div>
+                            </div>
+                        </div>
+                        <h4>Discussion</h4></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

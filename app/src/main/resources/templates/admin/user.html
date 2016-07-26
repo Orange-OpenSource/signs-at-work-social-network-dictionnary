@@ -1,0 +1,176 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+<body>
+
+<div th:replace="fragments/header-testUI :: header">&nbsp;</div>
+
+
+<section class="jumbotron text-xs-center">
+    <div class="container">
+        <h1 class="jumbotron-heading" th:text="#{user_details}">
+        </h1>
+    </div>
+    <br/>
+
+    <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
+        <thead>
+        <tr>
+            <th>#id</th>
+            <th th:text="#{user_name}"></th>
+            <th th:text="#{first_name}"></th>
+            <th th:text="#{last_name}"></th>
+            <th th:text="#{email}"></th>
+            <th th:text="#{entity}"></th>
+            <th th:text="#{activity}"></th>
+            <th th:text="#{lastConnectionDate}"></th>
+            <th th:text="#{number_of_requests}"></th>
+            <th th:text="#{requests}"></th>
+            <th th:text="#{number_of_favorites}"></th>
+            <th th:text="#{favorites}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${userProfileView.user.id}"></td>
+            <td th:text="${userProfileView.user.username}"></td>
+            <td th:text="${userProfileView.user.firstName}"></td>
+            <td th:text="${userProfileView.user.lastName}"></td>
+            <td th:text="${userProfileView.user.email}"></td>
+            <td th:text="${userProfileView.user.entity}"></td>
+            <td th:text="${userProfileView.user.activity}"></td>
+            <td th:text="${userProfileView.user.lastConnectionDate}"></td>
+            <td th:text="${#lists.size(userProfileView.userRequests.list())}"></td>
+            <td th:include="fragments/tools :: joinRequests(${userProfileView.userRequests.list()})"></td>
+            <td th:text="${#lists.size(userProfileView.userFavorites.list())}"></td>
+            <td th:include="fragments/tools :: joinFavorites(${userProfileView.userFavorites.list()})"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="jumbotron text-xs-center">
+    <div class="container">
+        <h1 class="jumbotron-heading" th:text="#{communities}">
+        </h1>
+    </div>
+    <br/>
+
+    <form id="addcommunitiesform" class="form-inline" action="#" th:action="@{/sec/admin/user/{userid}/add/communities(userid=${userProfileView.user.id})}" th:object="${userProfileView}" method="post">
+        <div class="form-group">
+            <label th:each="community : ${userProfileView.allCommunities}" th:for="${#ids.next('userCommunitiesIds')}">
+                <input type="checkbox" th:field="*{userCommunitiesIds}" th:text="${community.name}" th:value="${community.id}"/>
+            </label>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary" th:text="#{add_user_to_communities}"></button>
+    </form>
+</section>
+
+<section class="jumbotron text-xs-center">
+    <div class="container">
+        <h1 class="jumbotron-heading" th:text="#{requests}">
+        </h1>
+    </div>
+    <div th:if="${not #lists.isEmpty(userProfileView.userRequests.list())}">
+        <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
+            <thead>
+            <tr>
+                <th>#id</th>
+                <th th:text="#{name}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="request : ${userProfileView.userRequests.list()}">
+                <td><a th:href="@{/sec/testUI/request/{requestid}(requestid=${request.id})}" th:text="${request.id}"/></td>
+                <td th:text="${request.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+
+    <form id="addrequestform" class="form-inline" action="#" th:action="@{/sec/testUI/user/{userid}/add/request(userid=${userProfileView.user.id})}" th:object="${requestView}" method="post">
+        <div class="form-group">
+            <label for="requestName" th:text="#{name}"></label>
+            <input th:value="${requestView.name}" id="requestName" name="requestName" type="text" class="form-control" placeholder="chat" required="true"/>
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{add_request_to_user}"></button>
+    </form>
+</section>
+
+<section class="jumbotron text-xs-center">
+    <div class="container">
+        <h1 class="jumbotron-heading" th:text="#{favorites}">
+        </h1>
+    </div>
+    <div th:if="${not #lists.isEmpty(userProfileView.userFavorites.list())}">
+        <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
+            <thead>
+            <tr>
+                <th>#id</th>
+                <th th:text="#{name}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="favorite : ${userProfileView.userFavorites.list()}">
+                <td><a th:href="@{/sec/testUI/favorite/{favoriteid}(favoriteid=${favorite.id})}" th:text="${favorite.id}"/></td>
+                <td th:text="${favorite.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+
+    <form id="addfavoriteform" class="form-inline" action="#" th:action="@{/sec/testUI/user/{userid}/add/favorite(userid=${userProfileView.user.id})}" th:object="${favoriteView}" method="post">
+        <div class="form-group">
+            <label for="favoriteName" th:text="#{name}"></label>
+            <input th:value="${favoriteView.name}" id="favoriteName" name="favoriteName" type="text" class="form-control" placeholder="favoris" required="true"/>
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{add_favorite_to_user}"></button>
+    </form>
+</section>
+
+<section class="jumbotron text-xs-center">
+<div class="container">
+    <h1 class="jumbotron-heading" th:text="#{signs}">
+    </h1>
+</div>
+<br/>
+
+<form id="addsignform" class="form-inline" action="#" th:action="@{/sec/testUI/user/{userid}/add/sign(userid=${userProfileView.user.id})}" th:object="${signView}" method="post">
+    <div class="form-group">
+        <label for="signName" th:text="#{name}"></label>
+        <input th:field="*{name}" type="text" class="form-control" placeholder="donald" required="true"/>
+        <label for="signUrl" th:text="#{url}"></label>
+        <input th:field="*{url}" type="text" class="form-control" placeholder="http://cartoon/donald" required="true"/>
+    </div>
+    <button type="submit" class="btn btn-primary" th:text="#{add_sign}"></button>
+</form>
+</section>
+
+</body>
+</html>

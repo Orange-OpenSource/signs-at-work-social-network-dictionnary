@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-sign :: header">&nbsp;</header>
+
+<body class="container-fluid">
+
+<div th:fragment="div" class="text-center title_middle col-lg-12 col-md-8 col-xs-12 middle-col">
+    <div th:replace="fragments/frame-sign-associates :: div"/>
+</div>
+
+</body>
+
+</html>
