@@ -63,6 +63,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
             // setup login & logout
             .formLogin()
             .loginPage("/login")
+            // always redirect to home after login
+            .defaultSuccessUrl("/", true)
             .permitAll()
             .and()
             .logout()
