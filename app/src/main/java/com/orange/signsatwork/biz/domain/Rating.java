@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.domain;
  */
 
 public enum Rating {
+    NoRate,
     Negative,
     Neutral,
     Positive,

@@ -551,6 +551,16 @@ text-decoration-line: none;
 	height: 40px;
 	width: 40px;
 }
+
+.suggest_video_inverse {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1080px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
 .require {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -960px center;

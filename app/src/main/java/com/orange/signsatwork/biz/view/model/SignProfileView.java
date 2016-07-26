@@ -41,7 +41,8 @@ import java.util.stream.Collectors;
 public class SignProfileView {
   private Sign sign;
   private boolean ratePositive;
-  private boolean rateNeutral = true;
+  private boolean rateNoRate = true;
+  private boolean rateNeutral;
   private boolean rateNegative;
   private List<Long> associateSignsIds;
   private List<Sign> associateSigns;
@@ -70,6 +71,7 @@ public class SignProfileView {
 
     if (user != null) {
       Rating rating = sign.rating(user);
+      rateNoRate = rating == Rating.NoRate;
       ratePositive = rating == Rating.Positive;
       rateNeutral = rating == Rating.Neutral;
       rateNegative = rating == Rating.Negative;

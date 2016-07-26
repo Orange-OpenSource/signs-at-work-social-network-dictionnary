@@ -53,14 +53,14 @@ public class SignRatingTest {
   }
 
   @Test
-  public void defaultRatingIsNeutral() {
+  public void defaultRatingIsNoRate() {
     // given
     User user = services.user().withId(userId);
     Sign sign = services.sign().withId(signId);
     // do
     Rating rating = sign.rating(user);
     // then
-    Assertions.assertThat(rating).isEqualTo(Rating.Neutral);
+    Assertions.assertThat(rating).isEqualTo(Rating.NoRate);
   }
 
   @Test
