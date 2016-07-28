@@ -27,10 +27,7 @@ import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
-import com.orange.signsatwork.biz.view.model.AuthentModel;
-import com.orange.signsatwork.biz.view.model.SignProfileView;
-import com.orange.signsatwork.biz.view.model.SignView;
-import com.orange.signsatwork.biz.view.model.SignCreationView;
+import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -77,6 +74,8 @@ public class SignController {
     String backUrl = referer.contains(SIGNS_URL) ? SIGNS_URL : HOME_URL;
     fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
     fillModelWithSign(model, signId, principal);
+    model.addAttribute("commentCreationView", new CommentCreationView());
+
     return "sign";
   }
 

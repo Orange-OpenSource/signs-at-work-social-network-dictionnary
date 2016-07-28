@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.view.model;
  */
 
 
+import com.orange.signsatwork.biz.domain.Comment;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.SignService;
@@ -47,6 +48,7 @@ public class SignProfileView {
   private List<Long> associateSignsIds;
   private List<Sign> associateSigns;
   private List<Sign> allSignsWithoutCurrentSign;
+  private List<Comment> allComments;
 
   public SignProfileView(Sign sign, SignService signService) {
     this(sign, signService, null);
@@ -75,6 +77,8 @@ public class SignProfileView {
       ratePositive = rating == Rating.Positive;
       rateNeutral = rating == Rating.Neutral;
       rateNegative = rating == Rating.Negative;
+
+      allComments = sign.listComments().list();
     }
   }
 }

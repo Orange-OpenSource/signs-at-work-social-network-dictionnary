@@ -8,6 +8,7 @@
 
 <body class="container-fluid">
 <div class="row">
+    <div th:replace="fragments/modal-new-comment-sign :: div"/>
 
     <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
@@ -51,20 +52,43 @@
                     </li>
 
                     <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                        <a href="#">
-                            <h2 class="container_H2" th:text="#{sign.comments}"/>
+                        <a href="#" data-toggle="modal" data-target="#comment_modal">
+                            <h2 class="container_H2" th:text="#{sign.comments}"></h2>
                             <div>
                                 <div class="pull-right add_whith_chevron"/>
                             </div>
-
                         </a>
                     </li>
+                    <div th:if="${not #lists.isEmpty(signProfileView.allComments)}">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{user}"></th>
+                                    <th th:text="#{comment}"></th>
+                                    <th th:text="#{date}"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <div th:each="comment :${signProfileView.allComments}">
+                                    <tr>
+                                        <td th:text="${comment.user.firstName + ' ' + comment.user.lastName}" ></td>
+                                        <td th:text="${comment.text}"></td>
+                                        <td th:text="${comment.commentDate}"></td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </ul>
             </aside>
         </div>
     </div>
 </div>
 
+<div th:replace="fragments/modal-new-comment-sign :: div"/>
 <div th:replace="fragments/modal-rate-sign :: div"/>
 <div th:replace="fragments/modal-favorite :: div"/>
 

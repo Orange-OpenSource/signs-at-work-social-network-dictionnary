@@ -32,7 +32,7 @@ import java.util.List;
 
 public interface CommentRepository extends CrudRepository<CommentDB, Long> {
 
-    @Query("select distinct c FROM CommentDB c inner join c.video video where video = :videoDB")
+    @Query("select distinct c FROM CommentDB c inner join c.video video where video = :videoDB order by c.commentDate desc")
     List<CommentDB> findByVideo(@Param("videoDB") VideoDB videoDB);
 
 }

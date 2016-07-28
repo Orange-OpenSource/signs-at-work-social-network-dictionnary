@@ -22,39 +22,15 @@ package com.orange.signsatwork.biz.view.model;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.domain.Signs;
-import com.orange.signsatwork.biz.domain.Videos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class SignView {
-  private long id;
-  private String name;
-  private String url;
-  private Videos videos;
-
-  public Sign toSign() {
-    return new Sign(id, name, url, null, null, null, null, null);
-  }
-
-  public static SignView from(Sign sign) {
-    return new SignView(sign.id, sign.name, sign.url, sign.videos);
-  }
-
-  public static List<SignView> from(Signs signs) {
-    return signs
-            .stream()
-            .map(SignView::from)
-            .collect(Collectors.toList());
-  }
+public class CommentCreationView {
+  private String text;
 }

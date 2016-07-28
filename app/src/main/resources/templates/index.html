@@ -24,9 +24,6 @@
                 </li>
                 <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a th:href="@{/sec/suggest}">
-                    <!--
-                        <a data-target="#add_video" data-toggle="modal" href="#">
-                     -->
                         <div class="pull-left suggest"></div>
                         <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
                             <div>
@@ -54,10 +51,6 @@
 
         <div th:replace="fragments/frame-signs :: div"/>
     </div>
-
-    <!--
-    <div th:replace="fragments/modal-new-sign-video :: div"/>
-    -->
 
     <!-- Modal: add favorite or list -->
     <div th:if="${isAuthenticated}" id="add_favorite" class="modal fade" role="dialog">

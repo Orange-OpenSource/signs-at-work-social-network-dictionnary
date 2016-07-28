@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.domain;
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.service.CommentService;
 import com.orange.signsatwork.biz.persistence.service.VideoService;
 import lombok.RequiredArgsConstructor;
 
@@ -37,12 +38,13 @@ public class Sign {
     public final List<Long> referenceBySignsIds;
 
     private final VideoService videoService;
+    private final CommentService commentService;
 
     public Sign loadVideos() {
         if (videos != null) {
             return this;
         } else {
-            return new Sign(id, name, url, videoService.forSign(id), associateSignsIds, referenceBySignsIds, videoService);
+            return new Sign(id, name, url, videoService.forSign(id), associateSignsIds, referenceBySignsIds, videoService, commentService);
         }
     }
 
@@ -59,4 +61,20 @@ public class Sign {
         Video video = videosList.get(videosList.size()-1);
         return videoService.ratingFor(video, user.id);
     }
+
+    public void createUserComment(User user, String comment) {
+        Sign sign = loadVideos();
+        List<Video> videosList = sign.videos.list();
+        Video video = videosList.get(videosList.size()-1);
+        videoService.createVideoComment(video.id, user.id, comment);
+    }
+
+    public Comments listComments() {
+        Sign sign = loadVideos();
+        List<Video> videosList = sign.videos.list();
+        Video video = videosList.get(videosList.size()-1);
+        Comments comments = commentService.forVideo(video.id);
+        return comments;
+    }
+
 }
