@@ -65,6 +65,7 @@ public class SignController {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
     fillModelWithSigns(model);
     model.addAttribute("showTooltip", true);
+    model.addAttribute("requestCreationView", new RequestCreationView());
     return "signs";
   }
 
