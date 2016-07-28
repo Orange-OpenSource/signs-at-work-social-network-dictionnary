@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li class="aside_bckg_li">
-                        <a href="#">
+                        <a data-target="#replace_video" data-toggle="modal" href="#">
                             <h2 class="container_H2" th:text="#{sign.replace}"/>
                             <div>
                                 <div class="pull-right chevron_right"/>
@@ -81,6 +81,7 @@
     </div>
 </div>
 
+<div th:replace="fragments/modal-replace-sign-video :: div"/>
 <div th:replace="fragments/modal-rate-sign :: div"/>
 <div th:replace="fragments/modal-favorite :: div"/>
 

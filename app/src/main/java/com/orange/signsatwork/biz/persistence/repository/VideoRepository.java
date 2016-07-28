@@ -33,7 +33,7 @@ import java.util.List;
 
 public interface VideoRepository extends CrudRepository<VideoDB, Long> {
 
-    @Query("select distinct c FROM VideoDB c inner join c.sign sign where sign = :signDB")
+    @Query("select distinct c FROM VideoDB c inner join c.sign sign where sign = :signDB order by c.id")
     List<VideoDB> findBySign(@Param("signDB") SignDB signDB);
 
     @Query("select distinct c FROM VideoDB c inner join c.user user where user = :userDB")

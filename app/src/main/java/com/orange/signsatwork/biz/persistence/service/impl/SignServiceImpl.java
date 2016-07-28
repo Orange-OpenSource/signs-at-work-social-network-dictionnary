@@ -156,6 +156,36 @@ public class SignServiceImpl implements SignService {
     return signFrom(signDB, services);
   }
 
+
+  @Override
+  public Sign replace(long userId, long signId, String signUrl) {
+    SignDB signDB = signRepository.findOne(signId);
+    UserDB userDB = userRepository.findOne(userId);
+
+
+    Date now = new Date();
+
+    VideoDB videoDB = new VideoDB();
+    videoDB.setUrl(signUrl);
+    videoDB.setCreateDate(now);
+    videoDB.setUser(userDB);
+
+    signDB.setUrl(signUrl);
+    videoDB.setSign(signDB);
+    signDB.getVideos().add(videoDB);
+
+    videoRepository.save(videoDB);
+    signDB = signRepository.save(signDB);
+
+    userDB.getVideos().add(videoDB);
+    userRepository.save(userDB);
+
+    userRepository.findAll().forEach(userDB1 -> System.out.println("user id: " + userDB1.getId()));
+    signDB.getVideos().stream().forEach(videoDB1 -> System.out.println("video user: " + videoDB1.getUser()));
+
+    return signFrom(signDB, services);
+  }
+
   @Override
   public void delete(Sign sign) {
     SignDB signDB = signRepository.findOne(sign.id);
