@@ -40,25 +40,41 @@
                             </div>
                         </a>
                     </li>
-                    <li class="aside_bckg_li">
-                        <a href="#" data-toggle="modal" data-target="#evaluation_modal">
-                            <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
-                            <div>
-                                <div class="pull-right chevron_right"/>
-                                <div th:if="${signProfileView.ratePositive}" class="pull-right sentiment_positif"/>
-                                <div th:if="${signProfileView.rateNeutral}" class="pull-right sentiment_neutre"/>
-                                <div th:if="${signProfileView.rateNegative}" class="pull-right sentiment_negatif"/>
-                            </div>
-                        </a>
-                    </li>
+                    <div th:if="${!signProfileView.rateNoRate}">
+                        <li class="aside_bckg_li">
+                            <a href="#" data-toggle="modal" data-target="#evaluation_modal">
+                                <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
+                                <div>
+                                    <div class="pull-right chevron_right"/>
+                                    <div th:if="${signProfileView.ratePositive}" class="pull-right sentiment_positif"/>
+                                    <div th:if="${signProfileView.rateNeutral}" class="pull-right sentiment_neutre"/>
+                                    <div th:if="${signProfileView.rateNegative}" class="pull-right sentiment_negatif"/>
+                                </div>
+                            </a>
+                        </li>
+                    </div>
                     <li class="aside_bckg_li">
                         <a href="#">
                             <h2 class="container_H2" th:text="#{history}"/>
                             <div>
-                                <div class="pull-right chevron_right"/>
+                                <div class="pull-right"/>
                             </div>
                         </a>
                     </li>
+                    <div th:if="${not #lists.isEmpty(signProfileView.allVideos)}">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
+                                <tbody>
+                                <div th:each="video, stats :${signProfileView.allVideos}">
+                                    <tr>
+                                        <td th:if="${stats.first}" th:text="#{created_by(${video.user.firstName + ' ' + video.user.lastName},${video.createDate})}"></td>
+                                        <td th:if="${!stats.first}" th:text="#{updated_by(${video.user.firstName + ' ' + video.user.lastName},${video.createDate})}"></td>
+                                    </tr>
+                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </ul>
             </aside>
         </div>

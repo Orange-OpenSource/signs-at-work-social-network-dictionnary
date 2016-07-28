@@ -77,4 +77,9 @@ public class Sign {
         return comments;
     }
 
+    public Videos listVideos() {
+        Sign sign = loadVideos();
+        Videos videos = sign.videos;
+        return videos;
+    }
 }

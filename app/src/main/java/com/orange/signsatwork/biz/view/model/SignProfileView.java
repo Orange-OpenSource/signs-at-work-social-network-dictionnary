@@ -23,11 +23,8 @@ package com.orange.signsatwork.biz.view.model;
  */
 
 
-import com.orange.signsatwork.biz.domain.Comment;
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.service.SignService;
-import com.orange.signsatwork.biz.domain.Rating;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,6 +46,7 @@ public class SignProfileView {
   private List<Sign> associateSigns;
   private List<Sign> allSignsWithoutCurrentSign;
   private List<Comment> allComments;
+  private List<Video> allVideos;
 
   public SignProfileView(Sign sign, SignService signService) {
     this(sign, signService, null);
@@ -79,6 +77,7 @@ public class SignProfileView {
       rateNegative = rating == Rating.Negative;
 
       allComments = sign.listComments().list();
+      allVideos = sign.listVideos().list();
     }
   }
 }
