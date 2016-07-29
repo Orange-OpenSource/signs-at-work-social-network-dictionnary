@@ -86,6 +86,18 @@ public class FavoriteController {
     return "favorite";
   }
 
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/manage-favorite")
+  public String manageFavorite(@PathVariable long favoriteId, Principal principal, Model model)  {
+
+    Favorite favorite = services.favorite().withId(favoriteId);
+    model.addAttribute("title", messageByLocaleService.getMessage("favorite.manage"));
+    model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
+
+    return "manage-favorite";
+  }
+
   private String showFavorite(long favoriteId) {
     return "redirect:/sec/favorite/" + favoriteId;
   }
