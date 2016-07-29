@@ -24,6 +24,8 @@ package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.*;
+import com.orange.signsatwork.biz.view.model.FavoriteCreationView;
+import com.orange.signsatwork.biz.view.model.FavoriteView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -46,6 +49,15 @@ public class UserController {
     User user = services.user().withUserName(principal.getName());
     model.addAttribute("title", messageByLocaleService.getMessage("profile"));
     model.addAttribute("user", user);
+    fillModelWithFavorites(model, principal);
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+
     return "profile";
+  }
+
+  private void fillModelWithFavorites(Model model, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+    List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
+    model.addAttribute("myFavorites", myFavorites);
   }
 }

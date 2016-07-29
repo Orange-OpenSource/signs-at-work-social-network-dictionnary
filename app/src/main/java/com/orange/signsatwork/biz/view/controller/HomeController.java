@@ -22,12 +22,10 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.view.model.RequestCreationView;
-import com.orange.signsatwork.biz.view.model.SignView;
-import com.orange.signsatwork.biz.view.model.SignCreationView;
-import com.orange.signsatwork.biz.view.model.AuthentModel;
+import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +51,17 @@ public class HomeController {
     model.addAttribute("signs", signsView);
     model.addAttribute("showTooltip", true);
     model.addAttribute("signCreationView", new SignCreationView());
+    if (AuthentModel.isAuthenticated(principal)) {
+      fillModelWithFavorites(model, principal);
+    }
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 
     return "index";
+  }
+
+  private void fillModelWithFavorites(Model model, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+    List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
+    model.addAttribute("myFavorites", myFavorites);
   }
 }

@@ -112,6 +112,7 @@ public class TestUIController {
   @RequestMapping(value = "/sec/testUI/user/create", method = RequestMethod.POST)
   public String user(@ModelAttribute UserCreationView userCreationView, Model model) {
     User user = userService.create(userCreationView.toUser(), userCreationView.getPassword());
+    userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
     return userTestUIController.userDetails(user.id, model);
   }
 

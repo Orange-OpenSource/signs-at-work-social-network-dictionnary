@@ -29,6 +29,7 @@ import com.orange.signsatwork.biz.persistence.service.SignService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -36,11 +37,19 @@ import java.util.List;
 public class FavoriteProfileView {
   private Favorite favorite;
   private List<Long> favoriteSignsIds;
+  private List<Sign> favoriteSigns;
   private List<Sign> allSigns;
 
   public FavoriteProfileView(Favorite favoriteWithoutSigns, SignService signService) {
     favorite = favoriteWithoutSigns.loadSigns();
     this.favoriteSignsIds = favorite.signsIds();
     this.allSigns = signService.all().list();
+
+    Sign favoriteSign;
+    this.favoriteSigns  = new ArrayList<>();
+    for(long id:favoriteSignsIds) {
+      favoriteSign = signService.withId(id);
+      this.favoriteSigns.add(favoriteSign);
+    }
   }
 }

@@ -66,6 +66,7 @@ public class SignController {
     fillModelWithSigns(model);
     model.addAttribute("showTooltip", true);
     model.addAttribute("requestCreationView", new RequestCreationView());
+
     return "signs";
   }
 
@@ -177,4 +178,5 @@ public class SignController {
             .map(Long::parseLong)
             .collect(Collectors.toList());
   }
+
 }

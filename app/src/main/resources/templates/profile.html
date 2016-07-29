@@ -24,7 +24,7 @@
                   </a>
                 </li>
                 <li class="aside_bckg_li">
-                    <a href="#" data-toggle="modal" data-target="#add_favorite">
+                    <a href="#" data-toggle="modal" data-target="#favorite">
                         <div class="pull-left personal_favorite_signe"></div>
                         <h2 class="container_H2" th:text="#{favorites}"></h2>
                         <div ><div class="pull-right chevron_right"></div></div>
@@ -35,66 +35,8 @@
     </div>
 </div>
 
-<!--modal add favorite or list -->
-<div id="add_favorite" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class=" modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="pull-left">
-                    <div class="add_favorite_signe pull-left"></div>
-                    <h4 class="  pull-right">Ajouter à FIXME PAS TRADUIT</h4>
-                </div>
-                <!--<div   class="add_favorite_signe"><h4 class="text-center modal-title"> Ajouter à</h4></div>-->
-            </div>
-            <div class="modal-body text-center">
-                <ul class="nav nav-list primary left-menu">
-                    <li class="aside_bckg_li"><a href="#" data-toggle="modal" data-target="#create">
-                        <div class="pull-right">
-                            <div class="containerRight_signes">
-                                <div class="pull-right add    "></div>
-                            </div>
-                        </div>
-                        <h4>Créer nouvelle liste FIXME PAS TRADUIT</h4>
-                    </a>
-                    </li>
+<div th:replace="fragments/modal-favorite :: div"/>
 
-                    <li class="aside_bckg_li">
-                        <a href="favorite.html">
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
-                                    <div class="pull-right add_favorite_signe"></div>
-                                </div>
-                            </div>
-                            <h4 th:text="#{favorites}"></h4>
-                        </a>
-                    </li>
-                    <li class="aside_bckg_li">
-                        <a href="favorite.html">
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
-                                    <div class="pull-right   "></div>
-                                </div>
-                            </div>
-                            <h4>Interfaces FIXME PAS TRADUIT</h4>
-                        </a>
-                    </li>
-                    <li class="aside_bckg_li">
-                        <a href="favorite.html">
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
-                                    <div class="pull-right     "></div>
-                                </div>
-                            </div>
-                            <h4>Discussion FIXME PAS TRADUIT</h4>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>

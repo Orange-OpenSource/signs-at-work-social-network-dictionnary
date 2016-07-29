@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.repository;
+package com.orange.signsatwork.biz.view.model;
 
 /*
  * #%L
@@ -22,17 +22,15 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-
-public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
-    List<FavoriteDB> findByName(String name);
-
-    @Query("select distinct c FROM FavoriteDB c inner join c.user user where user = :userDB order by c.id")
-    List<FavoriteDB> findByUser(@Param("userDB") UserDB userDB);
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class FavoriteCreationView {
+  private String favoriteName;
 }

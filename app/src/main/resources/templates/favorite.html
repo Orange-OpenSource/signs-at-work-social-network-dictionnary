@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+<header role="banner" th:replace="fragments/header-favorite :: header">&nbsp;</header>
+
+<body class="container-fluid">
+      <div class="row ">
+
+           <div class="col-md-4 col-xs-12">
+              <aside class="sidebar">
+                <ul class="nav nav-list primary left-menu">
+                    <li class="aside_bckg_li"><a href="manage_favorite.html">
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="pull-right chevron_right"></div>
+                            </div>
+                        </div>
+                        <h2>Gérer la liste</h2></a></li>
+                </ul>
+              </aside>
+           </div>
+
+          <div th:if="${not #lists.isEmpty(favoriteProfileView.favoriteSigns)}">
+              <div th:each="sign:${favoriteProfileView.favoriteSigns}" class="col-lg-3 col-md-4 col-xs-6 col-sm-4">
+                  <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
+                      <iframe th:src="${video.url}" frameborder="0" allowfullscreen=""/>
+                  </div>
+                  <a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/>
+              </div>
+          </div>
+
+          <div th:if="${#lists.isEmpty(favoriteProfileView.favoriteSigns)}">
+              <h2 th:text="#{sign.not_available}"></h2>
+          </div>
+
+          <!--
+            <div class="text-center title_middle col-md-8 col-xs-12 middle-col ">
+              <div class="row ">
+                <div class="col-md-4 col-xs-12 col-sm-4 ">
+                        <object data="http://www.dailymotion.com/thumbnail/video/k66HURcmAzhyDaaNjFy" type="text/html"></object>
+                    <p>Enregistrer dans Contacts par telsignes</p>
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-4 ">
+                      <object allowfullscreen="true" data="http://www.dailymotion.com/thumbnail/video/k4C2xFpONVs3xkaMEi0" type="text/html"></object>
+                  <p>Architecture dans Contacts par telsignes</p>
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-4 ">
+                          <object data="http://www.dailymotion.com/thumbnail/video/k4DLlBQ8EP2LAlaNftF" type="text/html"></object>
+                      <p>Choisissez le Centre Relais par telsignes</p>
+              </div>
+            </div>
+            -->
+      </div>
+</body>
+
+</html>

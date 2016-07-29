@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.Favorites;
 import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
+import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
 import com.orange.signsatwork.biz.persistence.repository.SignRepository;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;
@@ -86,6 +87,21 @@ public class FavoriteServiceImpl implements FavoriteService {
   @Override
   public Favorite create(Favorite favorite) {
     FavoriteDB favoriteDB = favoriteRepository.save(favoriteDBFrom(favorite));
+    return favoriteFrom(favoriteDB, services);
+  }
+
+  @Override
+  public Favorite create(long userId, String favoriteName) {
+    FavoriteDB favoriteDB;
+    UserDB userDB = userRepository.findOne(userId);
+
+    favoriteDB = new FavoriteDB();
+    favoriteDB.setName(favoriteName);
+    favoriteRepository.save(favoriteDB);
+
+    userDB.getFavorites().add(favoriteDB);
+    userRepository.save(userDB);
+
     return favoriteFrom(favoriteDB, services);
   }
 
