@@ -77,6 +77,8 @@ public class SignController {
     fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
     fillModelWithSign(model, signId, principal);
     model.addAttribute("commentCreationView", new CommentCreationView());
+    fillModelWithFavorites(model, principal);
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 
     return "sign";
   }
@@ -86,6 +88,9 @@ public class SignController {
   public String signDetail(@PathVariable long signId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, signUrl(signId));
     fillModelWithSign(model, signId, principal);
+    fillModelWithFavorites(model, principal);
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+
     return "sign-detail";
   }
 
@@ -177,6 +182,12 @@ public class SignController {
       Arrays.asList(associateSignsIds).stream()
             .map(Long::parseLong)
             .collect(Collectors.toList());
+  }
+
+  private void fillModelWithFavorites(Model model, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+    List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
+    model.addAttribute("myFavorites", myFavorites);
   }
 
 }
