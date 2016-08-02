@@ -106,6 +106,16 @@ public class FavoriteServiceImpl implements FavoriteService {
   }
 
   @Override
+  public Favorite updateName(long favoriteId, String favoriteName) {
+    FavoriteDB favoriteDB = favoriteRepository.findOne(favoriteId);
+
+    favoriteDB.setName(favoriteName);
+    favoriteRepository.save(favoriteDB);
+
+    return favoriteFrom(favoriteDB, services);
+  }
+
+  @Override
   public void delete(Favorite favorite) {
     FavoriteDB favoriteDB = favoriteRepository.findOne(favorite.id);
     favoriteDB.getUser().getFavorites().remove(favoriteDB);

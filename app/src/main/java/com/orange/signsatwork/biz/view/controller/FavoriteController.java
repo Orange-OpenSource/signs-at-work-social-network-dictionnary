@@ -79,7 +79,7 @@ public class FavoriteController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}")
-  public String favorite(@PathVariable long favoriteId, Principal principal, Model model)  {
+  public String favorite(@PathVariable long favoriteId, Model model)  {
 
     Favorite favorite = services.favorite().withId(favoriteId);
     model.addAttribute("title", favorite.name);
@@ -90,10 +90,40 @@ public class FavoriteController {
     return "favorite";
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/rename")
+  public String renameFavorite(@PathVariable long favoriteId, @ModelAttribute FavoriteCreationView favoriteCreationView)  {
+    Favorite favorite = services.favorite().updateName(favoriteId, favoriteCreationView.getFavoriteName());
+
+    return showFavorite(favorite.id);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/delete")
+  public String deleteFavorite(@PathVariable long favoriteId)  {
+    Favorite favorite = services.favorite().withId(favoriteId);
+    services.favorite().delete(favorite);
+
+    return "redirect:/";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/duplicate")
+  public String duplicateFavorite(@PathVariable long favoriteId, Principal principal)  {
+    User user = services.user().withUserName(principal.getName());
+    Favorite favorite = services.favorite().withId(favoriteId);
+    Favorite duplicateFavorite = services.favorite().create(user.id, favorite.name);
+    favorite = favorite.loadSigns();
+    if (favorite.signs != null) {
+      services.favorite().changeFavoriteSigns(duplicateFavorite.id, favorite.signsIds());
+    }
+
+    return showFavorite(duplicateFavorite.id);
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/manage-favorite")
-  public String manageFavorite(@PathVariable long favoriteId, Principal principal, Model model)  {
+  public String manageFavorite(@PathVariable long favoriteId, Model model)  {
 
     Favorite favorite = services.favorite().withId(favoriteId);
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.manage"));
@@ -101,6 +131,7 @@ public class FavoriteController {
 
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
     model.addAttribute("favoriteProfileView", favoriteProfileView);
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 
     return "manage-favorite";
   }
@@ -111,7 +142,7 @@ public class FavoriteController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/associate-sign")
-  public String associateSign(@PathVariable long favoriteId, Principal principal, Model model)  {
+  public String associateSign(@PathVariable long favoriteId, Model model)  {
     Favorite favorite = services.favorite().withId(favoriteId);
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
@@ -124,7 +155,7 @@ public class FavoriteController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/add/signs", method = RequestMethod.POST)
   public String changeFavoriteSigns(
-          HttpServletRequest req, @PathVariable long favoriteId, Model model) {
+          HttpServletRequest req, @PathVariable long favoriteId) {
 
     List<Long> signsIds =
             transformSignsIdsToLong(req.getParameterMap().get("favoriteSignsIds"));

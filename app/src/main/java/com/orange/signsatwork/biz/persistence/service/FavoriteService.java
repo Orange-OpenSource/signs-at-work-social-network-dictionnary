@@ -40,6 +40,8 @@ public interface FavoriteService {
 
   Favorite create(long userId, String favoriteName);
 
+  Favorite updateName(long favoriteId, String favoriteName);
+
   Favorite changeFavoriteSigns(long favoriteId, List<Long> signsIds);
 
   void delete(Favorite favorite);
