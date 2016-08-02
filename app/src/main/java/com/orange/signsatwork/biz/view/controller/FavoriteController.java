@@ -39,8 +39,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -95,6 +99,9 @@ public class FavoriteController {
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.manage"));
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
 
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
+
     return "manage-favorite";
   }
 
@@ -102,4 +109,37 @@ public class FavoriteController {
     return "redirect:/sec/favorite/" + favoriteId;
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/associate-sign")
+  public String associateSign(@PathVariable long favoriteId, Principal principal, Model model)  {
+    Favorite favorite = services.favorite().withId(favoriteId);
+    model.addAttribute("title", favorite.name);
+    model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
+
+    return "favorite-associate-sign";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/add/signs", method = RequestMethod.POST)
+  public String changeFavoriteSigns(
+          HttpServletRequest req, @PathVariable long favoriteId, Model model) {
+
+    List<Long> signsIds =
+            transformSignsIdsToLong(req.getParameterMap().get("favoriteSignsIds"));
+
+    services.favorite().changeFavoriteSigns(favoriteId, signsIds);
+
+    return showFavorite(favoriteId);
+  }
+
+  private List<Long> transformSignsIdsToLong(String[] favoriteSignsIds) {
+    if (favoriteSignsIds == null) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(favoriteSignsIds).stream()
+            .map(Long::parseLong)
+            .collect(Collectors.toList());
+  }
 }

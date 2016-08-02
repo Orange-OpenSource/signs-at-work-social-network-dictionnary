@@ -1,24 +1,3 @@
-<!--
-  #%L
-  Signs at work
-  %%
-  Copyright (C) 2016 Orange
-  %%
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as
-  published by the Free Software Foundation, either version 2 of the
-  License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public
-  License along with this program.  If not, see
-  <http://www.gnu.org/licenses/gpl-2.0.html>.
-  #L%
-  -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
@@ -32,50 +11,120 @@
     <div class="col-md-4 col-xs-12 col-lg-12">
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
-                <li class="aside_bckg_li"><a href="#" data-toggle="modal" data-target="#add_sign_to_favorite">
-                    <div class="signe"></div>
-                    <div class="pull-right">
-                        <div class="containerRight_signes">
-                            <div class="pull-right chevron_right    "></div>
+                <li class="clear aside_bckg_li">
+                    <a th:href="@{/sec/favorite/} + ${favoriteProfileView.favorite.id} + '/associate-sign'">
+                        <div class="signe"></div>
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="pull-right chevron_right"></div>
+                            </div>
                         </div>
-                    </div>
-                    <h2>Ajouter</h2></a></li>
+                        <h2 th:text="#{favorite.add_sign}"/>
+                    </a>
+                </li>
                 <li class="aside_bckg_li"><a href="#" data-toggle="modal" data-target="#rename_favorite">
                     <div class="pull-left rename_signe"></div>
                     <div class="pull-right">
                         <div class="containerRight_signes">
-                            <div class="pull-right chevron_right    "></div>
+                            <div class="pull-right chevron_right"></div>
                         </div>
                     </div>
-                    <h2>Renommer</h2></a></li>
+                    <h2 th:text="#{favorite.rename}"></h2></a></li>
                 <li class="aside_bckg_li"><a href="#" data-toggle="modal" data-target="#duplicate_favorite">
                     <div class="pull-left duplicate_signe"></div>
                     <div class="pull-right">
                         <div class="containerRight_signes">
-                            <div class="pull-right chevron_right    "></div>
+                            <div class="pull-right chevron_right"></div>
                         </div>
                     </div>
-                    <h2 >Dupliquer</h2></a></li>
+                    <h2 th:text="#{favorite.duplicate}"></h2></a></li>
                 <li class="aside_bckg_li"><a href="#" data-toggle="modal" data-target="#delete_favorite">
                     <div class="pull-left delete_signe"></div>
                     <div class="pull-right">
                         <div class="containerRight_signes">
-                            <div class="pull-right chevron_right    "></div>
+                            <div class="pull-right chevron_right"></div>
                         </div>
                     </div>
-                    <h2>Supprimer</h2></a></li>
+                    <h2 th:text="#{favorite.delete}"></h2></a></li>
 
             </ul>
         </aside>
     </div>
 </div>
+<!-- Modal -->
+        <!--modal delete favorite-->
+        <div id="delete_favorite" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-<div th:replace="fragments/modal-delete-favorite :: div"/>
-<div th:replace="fragments/modal-duplicate-favorite :: div"/>
-<div th:replace="fragments/modal-rename-favorite :: div"/>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="pull-left">
+                            <div class="delete_signe pull-left"></div>
+                            <h4 class="pull-right" th:text="#{favorite.delete_list}">Supprimer la liste</h4>
+                        </div>
+                    </div>
+                    <div class="modal-body text-center">
+                        <span th:text="#{favorite.confirm_delete}">Confirmer la suppresion !!!!</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="" th:text="#{favorite.validate}"></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+            <!--modal rename list favorite-->
+                <div id="rename_favorite" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="pull-left">
+                                    <div class="rename_signe pull-left"></div>
+                                    <h4 class="pull-right" th:text="#{favorite.rename_list}"></h4>
+                                </div>
+                            </div>
+                            <div class="modal-body text-center">
+                                <input type="text" class="text-center border form-control" th:placeholder="#{favorite.enter_name}"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="" th:text="#{favorite.validate}"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            <!--modal duplicate list favorite-->
+            <div id="duplicate_favorite" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="pull-left">
+                                <div class="duplicate_signe pull-left"></div>
+                                <h4 class="pull-right" th:text="#{favorite.duplicate_list}"></h4>
+                            </div>
+                        </div>
+                        <div class="modal-body text-center">
+                          <span th:text="#{favorite.duplicate_text}">la liste de favoris va être dupliquée</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="" th:text="#{favorite.validate}"></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
             <!--modal add favorite or list -->
-            <div id="add_sign_to_favorite" class="modal fade" role="dialog">
+            <div id="add_favorite" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -123,6 +172,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- -modal create new list favorite&ndash;&gt;-->
+            <div id="create" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="pull-left">
+                                <div class="add pull-left"></div>
+                                <h4 class="  pull-right  ">Créer une liste</h4>
+                            </div>
+                        </div>
+                        <div class="modal-body text-center">
+                            <input type="text" class="text-center border form-control" placeholder="Saisir un nom de liste"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="">ok</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
 
 </body>
 </html>
