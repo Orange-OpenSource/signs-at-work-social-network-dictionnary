@@ -169,6 +169,27 @@ public class FavoriteController {
     return showFavorite(favoriteId);
   }
 
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/create_favorite_add_sign/{signId}")
+  public String createAndAddSign(@ModelAttribute FavoriteCreationView favoriteCreationView, Principal principal, @PathVariable long signId,  Model model)  {
+    User user = services.user().withUserName(principal.getName());
+    Favorite favorite = services.favorite().create(user.id, favoriteCreationView.getFavoriteName());
+
+    favorite = favorite.loadSigns();
+    List<Long> signsIds = favorite.signsIds();
+    signsIds.add(signId);
+    services.favorite().changeFavoriteSigns(favorite.id, signsIds);
+
+    model.addAttribute("title", favorite.name);
+    model.addAttribute("backUrl", "/sec/favorite/" + favorite.id);
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
+
+    return showFavorite(favorite.id);
+  }
+
+
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/add/signs", method = RequestMethod.POST)
   public String changeFavoriteSigns(

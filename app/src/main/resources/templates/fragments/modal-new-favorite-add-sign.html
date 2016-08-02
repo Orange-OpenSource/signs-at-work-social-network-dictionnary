@@ -36,7 +36,7 @@
                     <h4 class="pull-right" th:text="#{favorite.new}"></h4>
                 </div>
             </div>
-            <form th:action="@{/sec/favorite/create}" th:object="${favoriteCreationView}" method="post">
+            <form th:action="@{/sec/favorite/create_favorite_add_sign/{signid}(signid=${signProfileView.sign.id})}" th:object="${favoriteCreationView}" method="post">
                 <div class="modal-body text-center">
                     <input th:field="*{favoriteName}" type="text" class="text-center border form-control"
                            th:placeholder="#{favorite.enter_name}"/>
