@@ -71,8 +71,9 @@ public class SignDB {
   @ManyToMany(mappedBy="associates", fetch = FetchType.LAZY)
   private List<SignDB> referenceBy;
 
-  public SignDB(String name, String url) {
+  public SignDB(String name, String url, Date createDate) {
     this.name = name;
     this.url = url;
+    this.createDate = createDate;
   }
 }

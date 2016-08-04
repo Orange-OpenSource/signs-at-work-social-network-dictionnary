@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.persistence.service.CommentService;
 import com.orange.signsatwork.biz.persistence.service.VideoService;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class Sign {
     public final long id;
     public final String name;
     public final String url;
+    public final Date createDate;
     public final Videos videos;
     public final List<Long> associateSignsIds;
     public final List<Long> referenceBySignsIds;
@@ -44,7 +46,7 @@ public class Sign {
         if (videos != null) {
             return this;
         } else {
-            return new Sign(id, name, url, videoService.forSign(id), associateSignsIds, referenceBySignsIds, videoService, commentService);
+            return new Sign(id, name, url, createDate, videoService.forSign(id), associateSignsIds, referenceBySignsIds, videoService, commentService);
         }
     }
 

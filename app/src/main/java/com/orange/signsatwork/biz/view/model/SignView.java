@@ -30,6 +30,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,12 +42,13 @@ public class SignView {
   private long id;
   private String name;
   private String url;
+  private Date createDate;
   private Videos videos;
   private boolean hasComment;
   private boolean recent;
 
   public Sign toSign() {
-    return new Sign(id, name, url, null, null, null, null, null);
+    return new Sign(id, name, url, createDate, null, null, null, null, null);
   }
 
   public static SignView from(Sign sign) {
@@ -56,7 +58,7 @@ public class SignView {
     } else {
       hasComment = true;
     }
-    return new SignView(sign.id, sign.name, sign.url, sign.videos, hasComment, false);
+    return new SignView(sign.id, sign.name, sign.url, sign.createDate, sign.videos, hasComment, false);
   }
 
   public static List<SignView> from(Signs signs) {
@@ -73,7 +75,7 @@ public class SignView {
     } else {
       hasComment = true;
     }
-    return new SignView(sign.id, sign.name, sign.url, sign.videos, hasComment, true);
+    return new SignView(sign.id, sign.name, sign.url, sign.createDate, sign.videos, hasComment, true);
   }
 
   public static List<SignView> fromRecent(Signs signs) {

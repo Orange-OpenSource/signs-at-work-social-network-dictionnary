@@ -32,6 +32,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -53,8 +54,8 @@ public class SignRepositoryIntegrationTest {
   @Test
   public void returnAllPersisted() throws IOException {
     // given
-    entityManager.persist(new SignDB(sign1Name, sign1Url));
-    entityManager.persist(new SignDB(sign2Name, sign2Url));
+    entityManager.persist(new SignDB(sign1Name, sign1Url, new Date()));
+    entityManager.persist(new SignDB(sign2Name, sign2Url, new Date()));
 
     // do
     Iterable<SignDB> signs = signRepository.findAll();
@@ -76,7 +77,7 @@ public class SignRepositoryIntegrationTest {
   public void createSign() {
     // given
     // do
-    entityManager.persist(new SignDB(sign1Name, sign1Url));
+    entityManager.persist(new SignDB(sign1Name, sign1Url, new Date()));
     SignDB sign1 = signRepository.findByName(sign1Name).get(0);
     // then
     assertThat(sign1.getName()).isEqualTo(sign1Name);
