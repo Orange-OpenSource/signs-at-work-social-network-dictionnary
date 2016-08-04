@@ -42,13 +42,20 @@ public class SignView {
   private String name;
   private String url;
   private Videos videos;
+  private boolean hasComment;
 
   public Sign toSign() {
     return new Sign(id, name, url, null, null, null, null, null);
   }
 
   public static SignView from(Sign sign) {
-    return new SignView(sign.id, sign.name, sign.url, sign.videos);
+    boolean hasComment = false;
+    if (sign.listComments().list().isEmpty()) {
+      hasComment = false;
+    } else {
+      hasComment = true;
+    }
+    return new SignView(sign.id, sign.name, sign.url, sign.videos, hasComment);
   }
 
   public static List<SignView> from(Signs signs) {
