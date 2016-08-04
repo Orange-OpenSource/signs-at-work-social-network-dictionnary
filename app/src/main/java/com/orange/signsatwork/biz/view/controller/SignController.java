@@ -164,11 +164,16 @@ public class SignController {
 
     if (AuthentModel.isAuthenticated(principal)) {
       User user = services.user().withUserName(principal.getName());
-      List<SignView> signsRecentView, signNotRecentView;
-      signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnection(user.lastConnectionDate));
-      signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnection(user.lastConnectionDate));
-      signsView.addAll(signsRecentView);
-      signsView.addAll(signNotRecentView);
+      if (user.lastConnectionDate != null) {
+        List<SignView> signsRecentView, signNotRecentView;
+        signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnection(user.lastConnectionDate));
+        signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnection(user.lastConnectionDate));
+        signsView.addAll(signsRecentView);
+        signsView.addAll(signNotRecentView);
+      }
+      else {
+        signsView = SignView.from(services.sign().all());
+      }
     } else {
       signsView = SignView.from(services.sign().all());
     }
