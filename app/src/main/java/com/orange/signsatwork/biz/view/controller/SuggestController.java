@@ -59,7 +59,6 @@ public class SuggestController {
   public String signs(Principal principal, Model model) {
     fillModelWithContext(model, "sign.suggest", principal, HOME_URL);
     fillModelWithRequests(model, principal);
-    model.addAttribute("showTooltip", true);
     model.addAttribute("signCreationView", new SignCreationView());
 
     return "suggest";

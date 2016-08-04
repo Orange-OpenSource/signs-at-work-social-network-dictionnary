@@ -150,11 +150,10 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   @Override
   public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
     String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
-    if (!AppSecurityAdmin.isAdmin(userName)) {
-      UserDB userDB = userRepository.findByUsername(userName).get(0);
-      userDB.setLastConnectionDate(new Date());
-      userRepository.save(userDB);
-    }
+    UserDB userDB = userRepository.findByUsername(userName).get(0);
+    userDB.setLastConnectionDate(new Date());
+    userRepository.save(userDB);
+
   }
 
   private UserDB withDBId(long id) {

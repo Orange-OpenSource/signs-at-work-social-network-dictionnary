@@ -43,6 +43,7 @@ public class SignView {
   private String url;
   private Videos videos;
   private boolean hasComment;
+  private boolean recent;
 
   public Sign toSign() {
     return new Sign(id, name, url, null, null, null, null, null);
@@ -55,7 +56,7 @@ public class SignView {
     } else {
       hasComment = true;
     }
-    return new SignView(sign.id, sign.name, sign.url, sign.videos, hasComment);
+    return new SignView(sign.id, sign.name, sign.url, sign.videos, hasComment, false);
   }
 
   public static List<SignView> from(Signs signs) {
@@ -64,4 +65,22 @@ public class SignView {
             .map(SignView::from)
             .collect(Collectors.toList());
   }
+
+  public static SignView fromRecent(Sign sign) {
+    boolean hasComment = false;
+    if (sign.listComments().list().isEmpty()) {
+      hasComment = false;
+    } else {
+      hasComment = true;
+    }
+    return new SignView(sign.id, sign.name, sign.url, sign.videos, hasComment, true);
+  }
+
+  public static List<SignView> fromRecent(Signs signs) {
+    return signs
+            .stream()
+            .map(SignView::fromRecent)
+            .collect(Collectors.toList());
+  }
+
 }

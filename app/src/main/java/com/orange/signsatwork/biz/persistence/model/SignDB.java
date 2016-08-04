@@ -29,6 +29,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 // we want to save 'Sign' objects in the 'signs' DB table
@@ -50,6 +51,9 @@ public class SignDB {
 
   @NotNull
   private String url;
+
+  @NotNull
+  private Date createDate;
 
   @OneToMany(mappedBy = "sign", fetch = FetchType.LAZY)
   private List<VideoDB> videos;

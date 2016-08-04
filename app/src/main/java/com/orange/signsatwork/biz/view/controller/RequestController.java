@@ -60,7 +60,6 @@ public class RequestController {
   public String signs(Principal principal, Model model) {
     fillModelWithContext(model, "sign.request", principal, HOME_URL);
     fillModelWithRequests(model, principal);
-    model.addAttribute("showTooltip", true);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
 

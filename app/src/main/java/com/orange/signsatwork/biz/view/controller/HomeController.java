@@ -32,6 +32,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,9 +48,20 @@ public class HomeController {
     AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    List<SignView> signsView = SignView.from(services.sign().all());
+    List<SignView> signsView = new ArrayList<>();
+
+    if (AuthentModel.isAuthenticated(principal)) {
+      User user = services.user().withUserName(principal.getName());
+      List<SignView> signsRecentView, signNotRecentView;
+      signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnection(user.lastConnectionDate));
+      signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnection(user.lastConnectionDate));
+      signsView.addAll(signsRecentView);
+      signsView.addAll(signNotRecentView);
+    } else {
+      signsView = SignView.from(services.sign().all());
+    }
+
     model.addAttribute("signs", signsView);
-    model.addAttribute("showTooltip", true);
     model.addAttribute("signCreationView", new SignCreationView());
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, principal);

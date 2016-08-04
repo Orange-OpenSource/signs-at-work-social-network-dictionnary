@@ -28,6 +28,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface SignRepository extends CrudRepository<SignDB, Long> {
@@ -36,4 +37,9 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query("select distinct s FROM SignDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<SignDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
+    @Query("select distinct s FROM SignDB s where s.createDate >= :lastConnectionDate")
+    List<SignDB> findSignCreateAfterLastDateConnection(@Param("lastConnectionDate") Date lastConnectionDate);
+
+    @Query("select distinct s FROM SignDB s where s.createDate < :lastConnectionDate")
+    List<SignDB> findSignCreateBeforeLastDateConnection(@Param("lastConnectionDate") Date lastConnectionDate);
 }

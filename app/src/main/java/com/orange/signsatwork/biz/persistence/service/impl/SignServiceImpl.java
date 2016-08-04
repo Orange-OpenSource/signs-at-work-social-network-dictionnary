@@ -57,6 +57,16 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Signs createAfterLastDateConnection(Date lastConnectionDate) {
+    return signsFrom(signRepository.findSignCreateAfterLastDateConnection(lastConnectionDate));
+  }
+
+  @Override
+  public Signs createBeforeLastDateConnection(Date lastConnectionDate) {
+    return signsFrom(signRepository.findSignCreateBeforeLastDateConnection(lastConnectionDate));
+  }
+
+  @Override
   public Sign withId(long id) {
     return signFrom(signRepository.findOne(id), services);
   }
@@ -121,6 +131,7 @@ public class SignServiceImpl implements SignService {
       signDB = new SignDB();
       signDB.setName(signName);
       signDB.setUrl(signUrl);
+      signDB.setCreateDate(now);
       List<VideoDB> videoDBList = new ArrayList<>();
       videoDBList.add(videoDB);
       signDB.setVideos(videoDBList);
@@ -140,6 +151,7 @@ public class SignServiceImpl implements SignService {
       videoDB.setCreateDate(now);
       videoDB.setUser(userDB);
       signDB = signsMatches.get(0);
+      signDB.setCreateDate(now);
       signDB.setUrl(signUrl);
       videoDB.setSign(signDB);
       signDB.getVideos().add(videoDB);
@@ -171,6 +183,7 @@ public class SignServiceImpl implements SignService {
     videoDB.setUser(userDB);
 
     signDB.setUrl(signUrl);
+    signDB.setCreateDate(now);
     videoDB.setSign(signDB);
     signDB.getVideos().add(videoDB);
 

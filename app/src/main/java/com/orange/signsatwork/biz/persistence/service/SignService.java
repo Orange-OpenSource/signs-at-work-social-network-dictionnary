@@ -25,10 +25,15 @@ package com.orange.signsatwork.biz.persistence.service;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.Signs;
 
+import java.util.Date;
 import java.util.List;
 
 public interface SignService {
   Signs all();
+
+  Signs createAfterLastDateConnection(Date lastConnectionDate);
+
+  Signs createBeforeLastDateConnection(Date lastConnectionDate);
 
   Signs forFavorite(long id);
 

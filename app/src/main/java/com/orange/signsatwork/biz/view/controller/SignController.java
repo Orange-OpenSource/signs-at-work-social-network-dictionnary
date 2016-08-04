@@ -63,8 +63,7 @@ public class SignController {
   @RequestMapping(value = SIGNS_URL)
   public String signs(Principal principal, Model model) {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
-    fillModelWithSigns(model);
-    model.addAttribute("showTooltip", true);
+    fillModelWithSigns(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
 
     return "signs";
@@ -160,8 +159,19 @@ public class SignController {
     model.addAttribute("showAddFavorite", showAddFavorite && AuthentModel.isAuthenticated(principal));
   }
 
-  private void fillModelWithSigns(Model model) {
-    List<SignView> signsView = SignView.from(services.sign().all());
+  private void fillModelWithSigns(Model model, Principal principal) {
+    List<SignView> signsView = new ArrayList<>();
+
+    if (AuthentModel.isAuthenticated(principal)) {
+      User user = services.user().withUserName(principal.getName());
+      List<SignView> signsRecentView, signNotRecentView;
+      signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnection(user.lastConnectionDate));
+      signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnection(user.lastConnectionDate));
+      signsView.addAll(signsRecentView);
+      signsView.addAll(signNotRecentView);
+    } else {
+      signsView = SignView.from(services.sign().all());
+    }
     model.addAttribute("signs", signsView);
     model.addAttribute("signCreationView", new SignCreationView());
   }
