@@ -200,9 +200,11 @@ public class SignController {
   }
 
   private void fillModelWithFavorites(Model model, Principal principal) {
-    User user = services.user().withUserName(principal.getName());
-    List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
-    model.addAttribute("myFavorites", myFavorites);
+    if (AuthentModel.isAuthenticated(principal)) {
+      User user = services.user().withUserName(principal.getName());
+      List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
+      model.addAttribute("myFavorites", myFavorites);
+    }
   }
 
 }
