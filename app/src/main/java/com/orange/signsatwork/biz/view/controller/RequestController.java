@@ -82,7 +82,7 @@ public class RequestController {
 
       FieldError fieldError = new FieldError("requestCreationView","requestName", name_already_exists);
       bindingResult.addError(fieldError);
-      return "fragments/request :: request-form";
+      return "fragments/form-request :: request-form";
     }
 
   }
