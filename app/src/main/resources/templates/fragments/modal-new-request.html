@@ -36,10 +36,10 @@
                     <h4 class="pull-right" th:text="#{sign.request}"></h4>
                 </div>
             </div>
-            <form th:action="@{/sec/request/create}" th:object="${requestCreationView}" method="post">
+            <form id="requestInfo" th:action="@{/sec/request/create}" th:object="${requestCreationView}" method="post">
                 <div class="modal-body text-center">
                     <input th:field="*{requestName}" type="text" class="text-center border form-control"
-                           th:placeholder="#{request.enter_name}"/><br/>
+                           th:placeholder="#{request.enter_name}" required=""/><br/>
                 </div>
 
                 <div class="modal-footer">
@@ -49,5 +49,8 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>
+

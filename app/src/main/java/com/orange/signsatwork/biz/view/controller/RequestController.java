@@ -34,11 +34,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,14 +71,22 @@ public class RequestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/request/create", method = RequestMethod.POST)
-  public String createRequest(@ModelAttribute RequestCreationView requestCreationView, Principal principal) {
+  public String createRequest(@Valid @ModelAttribute RequestCreationView requestCreationView, BindingResult bindingResult, Principal principal) {
     User user = services.user().withUserName(principal.getName());
-    Request request = services.request().create(user.id, requestCreationView.getRequestName());
+    if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+      Request request = services.request().create(user.id, requestCreationView.getRequestName());
+      log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName());
+      return "redirect:/sec/request/";
+    } else {
+      String name_already_exists = messageByLocaleService.getMessage("request.already_exists");
 
-    log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName());
+      FieldError fieldError = new FieldError("requestCreationView","requestName", name_already_exists);
+      bindingResult.addError(fieldError);
+      return "fragments/request :: request-form";
+    }
 
-    return "redirect:/sec/request/";
   }
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/request/{requestId}/add/sign", method = RequestMethod.POST)

@@ -39,7 +39,7 @@
             <form th:action="@{/sec/favorite/create_favorite_add_sign/{signid}(signid=${signProfileView.sign.id})}" th:object="${favoriteCreationView}" method="post">
                 <div class="modal-body text-center">
                     <input th:field="*{favoriteName}" type="text" class="text-center border form-control"
-                           th:placeholder="#{favorite.enter_name}"/>
+                           th:placeholder="#{favorite.enter_name}" required=""/>
                 </div>
                 <div class="modal-footer">
                     <button th:text="#{continue}" type="submit" class="btn btn-default"
