@@ -21,6 +21,7 @@
 console.log("Cool, app.js is loaded :)");
 
 var $form = $('#requestInfo');
+var $span = $('#requestSpan');
 $form.on('submit', function(event) {
     event.preventDefault();
     $.ajax({
@@ -30,7 +31,9 @@ $form.on('submit', function(event) {
        success: function(response) {
            // if the response contains any errors, replace the form
           if ($(response).find('.has-error').length) {
-             $form.replaceWith(response);
+              var $response_span = $(response).find('#requestSpan');
+              $span.replaceWith($response_span);
+              $form.addClass('has-error');
           }
           else {
               var url = "/sec/request/";
@@ -45,7 +48,7 @@ $form.on('submit', function(event) {
 var $new_request = $('#new_request');
 $new_request.on('hidden.bs.modal', function() {
    console.log("close modal");
-    if ($('#requestInfo').find('.has-error').length) {
+    if ($('#requestInfo').find('#requestSpan').length) {
         var url = "/sec/request/";
         window.location = url;
     }
