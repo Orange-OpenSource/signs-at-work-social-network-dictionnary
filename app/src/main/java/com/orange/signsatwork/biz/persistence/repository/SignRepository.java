@@ -42,4 +42,13 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
 
     @Query("select distinct s FROM SignDB s where s.createDate < :lastConnectionDate")
     List<SignDB> findSignCreateBeforeLastDateConnection(@Param("lastConnectionDate") Date lastConnectionDate);
+
+    @Query("select distinct s FROM SignDB s where lower(s.name) like lower(concat('%',:searchTerm,'%'))")
+    List<SignDB> findAllBySearchTerm(@Param("searchTerm") String searchTerm);
+
+    @Query("select distinct s FROM SignDB s where s.createDate >= :lastConnectionDate and lower(s.name) like lower(concat('%',:searchTerm,'%'))")
+    List<SignDB> findSignCreateAfterLastDateConnectionBySearchTerm(@Param("lastConnectionDate") Date lastConnectionDate, @Param("searchTerm") String searchTerm);
+
+    @Query("select distinct s FROM SignDB s where s.createDate < :lastConnectionDate and lower(s.name) like lower(concat('%',:searchTerm,'%'))")
+    List<SignDB> findSignCreateBeforeLastDateConnectionBySearchTerm(@Param("lastConnectionDate") Date lastConnectionDate, @Param("searchTerm") String searchTerm);
 }

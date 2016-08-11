@@ -66,6 +66,22 @@ public class SignServiceImpl implements SignService {
     return signsFrom(signRepository.findSignCreateBeforeLastDateConnection(lastConnectionDate));
   }
 
+
+  @Override
+  public Signs allBySearchTerm(String searchTerm) {
+    return signsFrom(signRepository.findAllBySearchTerm(searchTerm));
+  }
+
+  @Override
+  public Signs createAfterLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm) {
+    return signsFrom(signRepository.findSignCreateAfterLastDateConnectionBySearchTerm(lastConnectionDate, searchTerm));
+  }
+
+  @Override
+  public Signs createBeforeLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm) {
+    return signsFrom(signRepository.findSignCreateBeforeLastDateConnectionBySearchTerm(lastConnectionDate, searchTerm));
+  }
+
   @Override
   public Sign withId(long id) {
     return signFrom(signRepository.findOne(id), services);

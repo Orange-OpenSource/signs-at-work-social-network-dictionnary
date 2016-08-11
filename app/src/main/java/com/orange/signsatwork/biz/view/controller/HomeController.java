@@ -29,7 +29,9 @@ import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -63,7 +65,7 @@ public class HomeController {
         signsView = SignView.from(services.sign().all());
       }
     } else {
-      signsView = SignView.from(services.sign().all());
+        signsView = SignView.from(services.sign().all());
     }
 
     model.addAttribute("signs", signsView);
@@ -72,6 +74,41 @@ public class HomeController {
       fillModelWithFavorites(model, principal);
     }
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
+
+    return "index";
+  }
+
+  @RequestMapping("/search")
+  public String search(@ModelAttribute SignCreationView signCreationView, Principal principal, Model model) {
+    AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
+
+    model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
+    List<SignView> signsView = new ArrayList<>();
+
+    if (AuthentModel.isAuthenticated(principal)) {
+      User user = services.user().withUserName(principal.getName());
+      if (user.lastConnectionDate != null) {
+        List<SignView> signsRecentView, signNotRecentView;
+        signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnectionBySearchTerm(user.lastConnectionDate, signCreationView.getSignName() ));
+        signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnectionBySearchTerm(user.lastConnectionDate, signCreationView.getSignName()));
+        signsView.addAll(signsRecentView);
+        signsView.addAll(signNotRecentView);
+      }
+      else {
+        signsView = SignView.from(services.sign().allBySearchTerm(signCreationView.getSignName()));
+      }
+    } else {
+      signsView = SignView.from(services.sign().allBySearchTerm(signCreationView.getSignName()));
+    }
+
+    model.addAttribute("signs", signsView);
+    model.addAttribute("signCreationView", new SignCreationView());
+    if (AuthentModel.isAuthenticated(principal)) {
+      fillModelWithFavorites(model, principal);
+    }
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
 
     return "index";
   }

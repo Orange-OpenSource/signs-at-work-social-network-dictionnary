@@ -35,6 +35,12 @@ public interface SignService {
 
   Signs createBeforeLastDateConnection(Date lastConnectionDate);
 
+  Signs allBySearchTerm(String searchTerm);
+
+  Signs createAfterLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm);
+
+  Signs createBeforeLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm);
+
   Signs forFavorite(long id);
 
   Sign withId(long id);
