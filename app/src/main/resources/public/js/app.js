@@ -42,3 +42,11 @@ $form.on('submit', function(event) {
           }
 })});
 
+var $new_request = $('#new_request');
+$new_request.on('hidden.bs.modal', function() {
+   console.log("close modal");
+    if ($('#requestInfo').find('.has-error').length) {
+        var url = "/sec/request/";
+        window.location = url;
+    }
+});
