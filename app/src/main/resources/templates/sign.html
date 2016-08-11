@@ -85,17 +85,17 @@
                             <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
                                 <thead>
                                 <tr>
+                                    <th th:text="#{date}"></th>
                                     <th th:text="#{user}"></th>
                                     <th th:text="#{comment}"></th>
-                                    <th th:text="#{date}"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <div th:each="comment :${signProfileView.allComments}">
                                     <tr>
+                                        <td th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy HH:mm')}"></td>
                                         <td th:text="${comment.user.firstName + ' ' + comment.user.lastName}" ></td>
                                         <td th:text="${comment.text}"></td>
-                                        <td th:text="${comment.commentDate}"></td>
                                     </tr>
                                 </div>
                                 </tbody>

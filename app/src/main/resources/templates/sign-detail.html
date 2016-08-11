@@ -88,8 +88,8 @@
                                 <tbody>
                                 <div th:each="video, stats :${signProfileView.allVideos}">
                                     <tr>
-                                        <td th:if="${stats.first}" th:text="#{created_by(${video.user.firstName + ' ' + video.user.lastName},${video.createDate})}"></td>
-                                        <td th:if="${!stats.first}" th:text="#{updated_by(${video.user.firstName + ' ' + video.user.lastName},${video.createDate})}"></td>
+                                        <td th:if="${stats.first}" th:text="#{created_by(${video.user.firstName + ' ' + video.user.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
+                                        <td th:if="${!stats.first}" th:text="#{updated_by(${video.user.firstName + ' ' + video.user.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
                                     </tr>
                                 </div>
                                 </tbody>
