@@ -27,9 +27,11 @@ import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.view.model.*;
+import com.orange.signsatwork.biz.view.model.AuthentModel;
+import com.orange.signsatwork.biz.view.model.RequestCreationView;
+import com.orange.signsatwork.biz.view.model.RequestView;
+import com.orange.signsatwork.biz.view.model.SignCreationView;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -44,7 +46,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller

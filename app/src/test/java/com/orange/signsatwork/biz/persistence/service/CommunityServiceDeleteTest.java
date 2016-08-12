@@ -47,7 +47,7 @@ public class CommunityServiceDeleteTest {
   public void canRemoveCommunity() {
     // given
     User user = testUser.get("user-CanRemoveCommunity");
-    Community community = services.community().create(Community.create("community-canRemoveCommunity", null));
+    Community community = services.community().create(Community.create("community-canRemoveCommunity"));
 
     // do/then
     services.user().changeUserCommunities(user.id, Arrays.asList(new Long[]{community.id}));

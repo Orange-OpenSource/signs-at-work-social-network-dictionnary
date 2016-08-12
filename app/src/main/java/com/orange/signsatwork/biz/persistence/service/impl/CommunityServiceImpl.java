@@ -24,7 +24,6 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
-import com.orange.signsatwork.biz.domain.Users;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;

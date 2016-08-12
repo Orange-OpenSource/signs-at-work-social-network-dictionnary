@@ -24,7 +24,6 @@ package com.orange.signsatwork.biz.view.model;
 
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
-import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

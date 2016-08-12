@@ -23,7 +23,9 @@ package com.orange.signsatwork.biz.view.controller.admin;
  */
 
 import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.persistence.service.*;
+import com.orange.signsatwork.biz.persistence.service.CommunityService;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
+import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -31,13 +33,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserAdminController {

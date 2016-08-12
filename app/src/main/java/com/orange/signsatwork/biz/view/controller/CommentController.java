@@ -22,7 +22,6 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Rating;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;

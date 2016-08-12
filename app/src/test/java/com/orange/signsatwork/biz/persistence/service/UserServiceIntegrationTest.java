@@ -96,7 +96,7 @@ public class UserServiceIntegrationTest {
   @Test
   public void changeUserCommunities() {
     //given
-    Community community = services.community().create(Community.create(communityName, null));
+    Community community = services.community().create(Community.create(communityName));
     List<Long> commmunitiesIds = new ArrayList<>();
     commmunitiesIds.add(community.id);
     User user = services.user().withId(userId);
