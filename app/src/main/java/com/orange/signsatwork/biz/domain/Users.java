@@ -34,4 +34,8 @@ public class Users {
   public Stream<User> stream() {
     return users.stream();
   }
+
+  public List<User> list() {
+    return users;
+  }
 }

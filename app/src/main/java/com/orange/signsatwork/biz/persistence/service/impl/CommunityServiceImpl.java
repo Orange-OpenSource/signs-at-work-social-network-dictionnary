@@ -24,10 +24,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.Users;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;
 import com.orange.signsatwork.biz.persistence.service.CommunityService;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,7 @@ import java.util.List;
 public class CommunityServiceImpl implements CommunityService {
   private final UserRepository userRepository;
   private final CommunityRepository communityRepository;
+  private final Services services;
 
   @Override
   public Communities all() {
@@ -58,6 +61,7 @@ public class CommunityServiceImpl implements CommunityService {
             communityRepository.findByUser(userRepository.findOne(userId))
     );
   }
+
 
   @Override
   public Community create(Community community) {
@@ -79,7 +83,7 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFrom(CommunityDB communityDB) {
-    return new Community(communityDB.getId(), communityDB.getName());
+    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()));
   }
 
   private CommunityDB communityDBFrom(Community community) {

@@ -180,6 +180,21 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(),
             userDB.getEmail(), userDB.getEntity(), userDB.getActivity(), userDB.getLastConnectionDate());
   }
+
+
+  static Users usersFromCommunityView(Iterable<UserDB> usersDB) {
+    List<User> users = new ArrayList<>();
+    usersDB.forEach(userDB -> users.add(userFromCommunityView(userDB)));
+    return new Users(users);
+  }
+
+  static User userFromCommunityView(UserDB userDB) {
+    return User.create(
+            userDB.getId(),
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getActivity(), userDB.getLastConnectionDate());
+  }
+
   /**
    * Create a transient UserDB with a hashed password and a ROLE_USER as default
    * @param user user domain object

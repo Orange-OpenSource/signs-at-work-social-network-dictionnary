@@ -22,14 +22,22 @@ package com.orange.signsatwork.biz.domain;
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.service.Services;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 public class Community {
     public final long id;
     public final String name;
+    public final Users users;
 
-    public static Community create(String name) {
-        return new Community(-1, name);
+
+    public static Community create(String name, Services services) {
+        return new Community(-1, name, null);
     }
+
+
+
 }

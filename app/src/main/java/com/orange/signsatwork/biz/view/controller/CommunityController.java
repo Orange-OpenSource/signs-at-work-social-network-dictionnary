@@ -22,8 +22,11 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Communities;
+import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.persistence.service.*;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.FavoriteCreationView;
 import com.orange.signsatwork.biz.view.model.FavoriteView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +40,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class UserController {
+public class CommunityController {
 
   @Autowired
   private Services services;
@@ -45,32 +48,26 @@ public class UserController {
   MessageByLocaleService messageByLocaleService;
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile")
-  public String userDetails(Principal principal, Model model) {
+  @RequestMapping(value = "/sec/communities")
+  public String communities(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("profile"));
-    model.addAttribute("user", user);
-    fillModelWithFavorites(model, principal);
-    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    Communities communities = services.community().forUser(user.id);
+    model.addAttribute("title", messageByLocaleService.getMessage("communities"));
+    model.addAttribute("communities", communities);
 
-    return "profile";
+    return "communities";
   }
 
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")
-  public String userDetails(@PathVariable long userId, @PathVariable long communityId, Principal principal, Model model) {
-    User user = services.user().withId(userId);
-    model.addAttribute("title", user.firstName + ' ' + user.lastName);
-    model.addAttribute("backUrl", "/sec/community/"+communityId);
-    model.addAttribute("user", user);
+  @RequestMapping(value = "/sec/community/{communityId}")
+  public String community(@PathVariable long communityId, Model model)  {
 
-    return "profile-from-community";
-  }
+    Community community = services.community().withId(communityId);
+    model.addAttribute("title", community.name);
+    model.addAttribute("backUrl", "/sec/communities");
+    model.addAttribute("community", community);
 
-  private void fillModelWithFavorites(Model model, Principal principal) {
-    User user = services.user().withUserName(principal.getName());
-    List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
-    model.addAttribute("myFavorites", myFavorites);
+    return "community";
   }
 }

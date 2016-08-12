@@ -24,6 +24,8 @@ package com.orange.signsatwork.biz.view.model;
 
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,13 +41,14 @@ import java.util.stream.Collectors;
 public class CommunityView {
   private long id;
   private String name;
+  private Users users;
 
   public Community toCommunity() {
-    return new Community(id, name);
+    return new Community(id, name, users);
   }
 
   public static CommunityView from(Community community) {
-    return new CommunityView(community.id, community.name);
+    return new CommunityView(community.id, community.name, community.users);
   }
 
   public static List<CommunityView> from(Communities communities) {
