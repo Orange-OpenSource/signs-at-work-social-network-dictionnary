@@ -39,56 +39,21 @@
             </ul>
           </aside>
        </div>
-<!--
+
             <div class="text-center title_middle col-md-8 col-xs-12 middle-col ">
-             <h2>Liste des Signes</h2>
-
+             <h2 th:text="#{video.list}"></h2>
               <div class="row ">
-                <div class="col-md-4 col-xs-12 col-sm-4 ">
-                    <iframe  src="http://www.dailymotion.com/embed/video/k66HURcmAzhyDaaNjFy" webkitallowfullscreen mozallowfullscreen allowfullscreen auto>
-                    </iframe>
-                    <p>Enregistrer dans Contacts par telsignes</p>
-                </div>
-                <div class="col-md-4 col-xs-12 col-sm-4 ">
-                    <iframe  src="http://www.dailymotion.com/embed/video/k66HURcmAzhyDaaNjFy" webkitallowfullscreen mozallowfullscreen allowfullscreen auto>
-                    </iframe>
-                    <p>Enregistrer dans Contacts par telsignes</p>
-                </div>
-                <div class="col-md-4 col-xs-12 col-sm-4 ">
-                    <iframe  src="http://www.dailymotion.com/embed/video/k66HURcmAzhyDaaNjFy" webkitallowfullscreen mozallowfullscreen allowfullscreen auto>
-                    </iframe>
-                    <p>Enregistrer dans Contacts par telsignes</p>
-                </div>
-                <div class="col-md-4 col-xs-12  col-sm-4 ">
-                    <iframe  src="http://www.dailymotion.com/embed/video/k66HURcmAzhyDaaNjFy" webkitallowfullscreen mozallowfullscreen allowfullscreen auto>
-                    </iframe>
-                    <p>Enregistrer dans Contacts par telsignes</p>
-                </div>
-                <div class="col-md-4 col-xs-12  col-sm-4 ">
-                    <iframe  src="http://www.dailymotion.com/embed/video/k66HURcmAzhyDaaNjFy" webkitallowfullscreen mozallowfullscreen allowfullscreen auto>
-                    </iframe>
-                    <p>Enregistrer dans Contacts par telsignes</p>
-                </div>
-                <div class="col-md-4 col-xs-12  col-sm-4  ">
-                    <iframe  src="http://www.dailymotion.com/embed/video/k66HURcmAzhyDaaNjFy" webkitallowfullscreen mozallowfullscreen allowfullscreen auto>
-                    </iframe>
-                    <p>Enregistrer dans Contacts par telsignes</p>
-                 </div>
-                  <iframe  src="http://www.dailymotion.com/embed/video/k66HURcmAzhyDaaNjFy" webkitallowfullscreen mozallowfullscreen allowfullscreen auto>
-                  </iframe>
-                  <p>Enregistrer dans Contacts par telsignes</p>
+                <div th:each="video:${user.videos.list()}" class="col-md-4 col-xs-12 col-sm-4 ">
+                    <iframe th:src="${video.url}" frameborder="0" allowfullscreen=""/>
+                    <p th:text="${video.url}"></p>
                 </div>
 
+                </div>
 
             </div>
-
--->
-      </div>
+        </div>
 
     </body>
-
-
-
 
 
 </html>

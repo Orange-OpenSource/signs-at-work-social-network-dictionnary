@@ -61,6 +61,7 @@ public class UserController {
   @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")
   public String userDetails(@PathVariable long userId, @PathVariable long communityId, Principal principal, Model model) {
     User user = services.user().withId(userId);
+    user = user.loadVideos();
     model.addAttribute("title", user.firstName + ' ' + user.lastName);
     model.addAttribute("backUrl", "/sec/community/"+communityId);
     model.addAttribute("user", user);
