@@ -63,7 +63,7 @@
                             </a>
                         </li>
                     </div>
-                    <li class="aside_bckg_li">
+                    <li th:if="${isAuthenticated}" class="aside_bckg_li">
                         <a th:href="@{/sign/} + ${signProfileView.sign.id} + '/associates'">
                         <h2 class="container_H2" th:text="#{sign.associated}"></h2>
                         <div>
