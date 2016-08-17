@@ -928,8 +928,29 @@ h4.container_signes .pull-right {
 		margin-top: 10px;
 	}
 	input[type="search"].border{
+		width: 16rem;
+	}
+	li[role="presentation"] {
 		margin-top: 15px;
-		width: 18rem;
+	}
+
+	.search_signe {
+		background-image: url("/img/sprite_picto_400X400.png");
+		background-position: -600px center;
+		background-repeat: no-repeat;
+		background-size: auto 40px;
+		height: 40px;
+		width: 40px;
+	}
+	button.search_signe{
+		background-color: transparent;
+		border: none;
+		width: 40px;
+		height: 40px;
+	}
+
+	li.hidden-xs:first-child {
+		margin-right: 5rem;
 	}
 }
 /* XXLarge screens min-width 1921px, xxlarge screens */

@@ -66,7 +66,7 @@
             <div class=" col-lg-12 navbar-right collapse navbar-collapse" id="orange-navbar-collapse">
                 <ul class=" nav navbar-nav" role="tablist">
                     <li role="presentation" class="hidden-xs">
-                        <input type="search" th:placeholder="#{search} + '&hellip;'" class="border form-control"/>
+                        <div> <button class="pull-right search_signe"></button><input type="search" th:placeholder="#{search} + '&hellip;'" class="border form-control"/></div>
                     </li>
                     <li th:if="${!isAuthenticated}" role="presentation" class="">
                         <a th:href="@{/login}">
