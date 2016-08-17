@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -64,10 +65,40 @@ public class SignController {
   public String signs(Principal principal, Model model) {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
     fillModelWithSigns(model, principal);
+    fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
 
     return "signs";
   }
+
+  @RequestMapping(value = "/sec/signs/{favoriteId}")
+  public String signsInFavorite(@PathVariable long favoriteId, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithSigns(model, principal);
+    Favorite favorite = services.favorite().withId(favoriteId);
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+
+    List<SignView> signsView = new ArrayList<>();
+    List<Sign> signList = favoriteProfileView.getFavoriteSigns();
+    SignView signView;
+    for (Sign sign:signList) {
+      if (sign.createDate.after(user.lastConnectionDate)) {
+        signView = SignView.fromRecent(sign);
+      } else {
+        signView = SignView.from(sign);
+      }
+      signsView.add(signView);
+    }
+
+    model.addAttribute("signs", signsView);
+    fillModelWithFavorites(model, principal);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+
+    return "signs";
+  }
+
 
   @RequestMapping(value = "/sign/{signId}")
   public String sign(HttpServletRequest req, @PathVariable long signId, Principal principal, Model model) {
