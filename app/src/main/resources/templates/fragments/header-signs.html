@@ -39,34 +39,38 @@
                 <div th:if="${isAuthenticated}" class="col-xs-1 dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Signes FIXME
                         <span class="caret"></span>
+                        <span th:text="#{sign}"></span>
                     </button>
-                    <ul class=" dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li class="active">Tout FIXME
-                            <div class="pull-right check_signe"></div>
-                        </li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li>
-                            <div class="pull-left signe"></div>
-                            Actifs FIXME
+                            <a th:href="@{/signs/}">
+                                <span th:text="#{all}"></span>
+                                <div class="pull-right check_signe"></div>
+                            </a>
                         </li>
-                        <li>
-                            <div class="pull-left sentiment_positif"></div>
-                            Notes FIXME
+                        <li class="disabled">
+                            <a th:href="@{/sec/signs/active}">
+                                <div class="pull-left signe"></div>
+                                <span th:text="#{active}"></span>
+                            </a>
                         </li>
-                        <li>
-                            <div class="pull-left favorite_signe"></div>
-                            Favoris FIXME
+                        <li class="disabled">
+                            <a th:href="@{/sec/signs/rating}">
+                                <div class="pull-left sentiment_positif"></div>
+                                <span th:text="#{rating}"></span>
+                            </a>
                         </li>
-                        <li>
-                            <div class="pull-left personal_favorite_signe"></div>
-                            Interface FIXME
+
+                        <li th:each="favorite, stats:${myFavorites}">
+                            <a th:href="@{/sec/signs/} + ${favorite.id}">
+                                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
+                                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                                <span th:text="${favorite.name}"></span>
+                            </a>
+
                         </li>
-                        <li>
-                            <div class="pull-left personal_favorite_signe"></div>
-                            Discussion FIXME
-                            <div class="pull-right check_signe"></div>
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -88,7 +92,7 @@
                     </li>
                     <li th:if="${isAuthenticated}" role=" presentation">
                         <a href="#" data-toggle="modal" data-target="#new_request">
-                            <div class="  require_video_inverse pull-left"></div>
+                            <div class="require_video_inverse pull-left"></div>
                             <div class="pull-right">
                                 <div class="containerRight_signes">
                                     <div class="hidden-lg pull-right chevron_right"></div>
