@@ -43,12 +43,8 @@
                 <ul class="nav nav-list primary left-menu">
                     <li class="aside_bckg_li">
                         <a  href="#" data-toggle="modal" data-target="#create-new-favorite">
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
-                                    <div class="pull-right add"></div>
-                                </div>
-                            </div>
-                            <h4 th:text="#{favorite.new}"/>
+                            <h2 class="container_H2" th:text="#{favorite.new}"></h2>
+                                <div><div class="pull-right add"></div></div>
                         </a>
                     </li>
 
@@ -56,13 +52,10 @@
                         <div th:each="favorite, stats:${myFavorites}">
                             <li class="aside_bckg_li">
                                 <a th:href="@{/sec/favorite/} + ${favorite.id}">
-                                    <div class="pull-right">
-                                        <div class="containerRight_signes">
-                                            <div th:if="${stats.first}" class="pull-right add_favorite_signe"></div>
+                                    <h2 class="container_H2"  th:text="${favorite.name}"></h2>
+                                        <div><div th:if="${stats.first}" class="pull-right add_favorite_signe"></div>
                                             <div th:if="${!stats.first}" class="pull-right"></div>
                                         </div>
-                                    </div>
-                                    <h4 th:text="${favorite.name}"/>
                                 </a>
                             </li>
                         </div>
