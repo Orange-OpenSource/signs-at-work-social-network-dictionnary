@@ -67,6 +67,8 @@ public class SignController {
     fillModelWithSigns(model, principal);
     fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("isAll", true);
+    model.addAttribute("isFavorite", false);
 
     return "signs";
   }
@@ -95,6 +97,8 @@ public class SignController {
     model.addAttribute("signs", signsView);
     fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("favoriteId", favoriteId);
 
     return "signs";
   }

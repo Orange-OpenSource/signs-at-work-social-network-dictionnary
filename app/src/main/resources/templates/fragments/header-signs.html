@@ -43,31 +43,38 @@
                         <span th:text="#{sign}"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li class="active">
-                            <a class="check_signe" th:href="@{/signs/}">
+                        <li>
+                            <a th:if="${isAll}" class="check_signe" th:href="@{/signs/}">
+                                <span th:text="#{all}"></span>
+                            </a>
+                            <a th:if="${!isAll}" th:href="@{/signs/}">
                                 <span th:text="#{all}"></span>
                             </a>
                         </li>
-                        <li>
+                        <li class="disabled" >
                             <a th:href="@{/sec/signs/active}">
                                 <div class="pull-left signe"></div>
                                 <span th:text="#{active}"></span>
                             </a>
                         </li>
-                        <li>
+                        <li class="disabled">
                             <a th:href="@{/sec/signs/rating}">
                                 <div class="pull-left sentiment_positif"></div>
                                 <span th:text="#{rating}"></span>
                             </a>
                         </li>
 
-                        <li th:each="favorite, stats:${myFavorites}">
-                            <a th:href="@{/sec/signs/} + ${favorite.id}">
+                        <li th:each="favorite, stats:${myFavorites}" >
+                            <a th:if="${favoriteId} == ${favorite.id}" class="check_signe" th:href="@{/sec/signs/} + ${favorite.id}">
                                 <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
                                 <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
                                 <span th:text="${favorite.name}"></span>
                             </a>
-
+                            <a th:if="${favoriteId} != ${favorite.id}" th:href="@{/sec/signs/} + ${favorite.id}">
+                                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
+                                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                                <span th:text="${favorite.name}"></span>
+                            </a>
                         </li>
 
                     </ul>
