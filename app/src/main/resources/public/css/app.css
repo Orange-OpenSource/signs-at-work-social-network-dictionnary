@@ -752,7 +752,44 @@ h4.container_signes .pull-right {
 	margin-left: 15px;
 }
 
+li[role="presentation"] {
+	margin-top: 15px;
+}
+
+
 /******* Media Query  ********/
+
+/* (1280x1024) SXGA Display */
+@media  screen and (max-width: 1280px) {
+
+
+	.navbar-collapse .navbar-nav > li {
+		width: 18rem;
+	}
+
+	input.border[type="search"] {
+		width: 14rem;
+	}
+	.search_signe {
+		background-image: url("/img/sprite_picto_400X400.png");
+		background-position: -600px center;
+		background-repeat: no-repeat;
+		background-size: auto 40px;
+		height: 40px;
+		width: 40px;
+	}
+	button.search_signe{
+		background-color: transparent;
+		border: none;
+		width: 40px;
+		height: 40px;
+	}
+
+	li.hidden-xs:first-child {
+		margin-right: 20px;
+	}
+
+}
 
 @media (min-width: 768px) {
 	.navbar-toggle-complement {
@@ -934,9 +971,7 @@ h4.container_signes .pull-right {
 	input[type="search"].border{
 		width: 16rem;
 	}
-	li[role="presentation"] {
-		margin-top: 15px;
-	}
+
 
 	.search_signe {
 		background-image: url("/img/sprite_picto_400X400.png");
