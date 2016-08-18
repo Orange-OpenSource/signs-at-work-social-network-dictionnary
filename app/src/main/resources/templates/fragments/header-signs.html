@@ -43,19 +43,18 @@
                         <span th:text="#{sign}"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <a th:href="@{/signs/}">
+                        <li class="active">
+                            <a class="check_signe" th:href="@{/signs/}">
                                 <span th:text="#{all}"></span>
-                                <div class="pull-right check_signe"></div>
                             </a>
                         </li>
-                        <li class="disabled">
+                        <li>
                             <a th:href="@{/sec/signs/active}">
                                 <div class="pull-left signe"></div>
                                 <span th:text="#{active}"></span>
                             </a>
                         </li>
-                        <li class="disabled">
+                        <li>
                             <a th:href="@{/sec/signs/rating}">
                                 <div class="pull-left sentiment_positif"></div>
                                 <span th:text="#{rating}"></span>
@@ -90,7 +89,7 @@
                             <h4 th:text="#{sign.add}"></h4>
                         </a>
                     </li>
-                    <li th:if="${isAuthenticated}" role=" presentation">
+                    <li th:if="${isAuthenticated}" role="presentation">
                         <a href="#" data-toggle="modal" data-target="#new_request">
                             <div class="require_video_inverse pull-left"></div>
                             <div class="pull-right">
