@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigInteger;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,6 +71,7 @@ public class SignController {
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("isAll", true);
     model.addAttribute("isMostCommented", false);
+    model.addAttribute("isMostRating", false);
 
     return "signs";
   }
@@ -100,6 +102,7 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
+    model.addAttribute("isMostRating", false);
     model.addAttribute("favoriteId", favoriteId);
 
     return "signs";
@@ -107,7 +110,7 @@ public class SignController {
 
 
   @RequestMapping(value = "/sec/signs/mostcommented")
-  public String signsMotCommented(Principal principal, Model model) {
+  public String signsMostCommented(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
@@ -137,6 +140,42 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", true);
+    model.addAttribute("isMostRating", false);
+
+    return "signs";
+  }
+
+  @RequestMapping(value = "/sec/signs/mostrating")
+  public String signsMostRating(Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+
+    List<Object[]> objectList = services.sign().mostRating();
+
+
+    List<SignView> signsView = new ArrayList<>();
+
+    objectList.stream()
+            .map(objectArray -> ((BigInteger)objectArray[0]).longValue())
+            .forEach(idSign -> {
+              SignView signView;
+              Sign sign = services.sign().withId(idSign);
+              if (sign.createDate.after(user.lastConnectionDate)) {
+                signView = SignView.fromRecent(sign);
+              } else {
+                signView = SignView.from(sign);
+              }
+              signsView.add(signView);
+            });
+
+    model.addAttribute("signs", signsView);
+    fillModelWithFavorites(model, principal);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isMostRating", true);
 
     return "signs";
   }

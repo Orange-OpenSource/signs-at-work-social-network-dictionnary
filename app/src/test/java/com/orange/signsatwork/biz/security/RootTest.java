@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.security;
  */
 
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -49,6 +50,9 @@ public class RootTest {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
+  @Autowired
+  Services services;
+
   private MockMvc mockMvc;
 
   @Before
@@ -58,10 +62,10 @@ public class RootTest {
             .apply(springSecurity())
             .alwaysDo(print())
             .build();
+    services.clearPersistence();
   }
 
   @Test
-  @Ignore
   public void rootAvailableForAll() throws Exception {
     mockMvc
             .perform(get("/"))

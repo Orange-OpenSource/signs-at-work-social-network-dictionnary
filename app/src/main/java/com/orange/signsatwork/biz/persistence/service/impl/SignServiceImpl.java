@@ -47,11 +47,17 @@ public class SignServiceImpl implements SignService {
   private final SignRepository signRepository;
   private final VideoRepository videoRepository;
   private final CommentRepository commentRepository;
+  private final RatingRepository ratingRepository;
   private final Services services;
 
   @Override
   public Long[] mostCommented() {
     return commentRepository.findMostCommented();
+  }
+
+  @Override
+  public List<Object[]> mostRating() {
+    return ratingRepository.findMostRating();
   }
 
   @Override

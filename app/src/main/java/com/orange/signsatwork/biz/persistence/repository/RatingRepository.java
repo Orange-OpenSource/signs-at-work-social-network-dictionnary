@@ -22,8 +22,16 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.model.CommentDB;
 import com.orange.signsatwork.biz.persistence.model.RatingDB;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-public interface RatingRepository extends CrudRepository<RatingDB, Long> {
+import java.util.List;
+
+public interface RatingRepository extends JpaRepository<RatingDB, Long> {
+
+    @Query(value="select  b.sign_id, count(*) as nbr from ratings a inner join videos b on a.video_id = b.id group by b.sign_id order by nbr desc", nativeQuery = true)
+    List<Object[]> findMostRating();
 }

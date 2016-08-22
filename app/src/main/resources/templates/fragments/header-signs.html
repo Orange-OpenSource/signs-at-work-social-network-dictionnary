@@ -61,10 +61,14 @@
                                 <span th:text="#{most_commented}"></span>
                             </a>
                         </li>
-                        <li class="disabled">
-                            <a th:href="@{/sec/signs/rating}">
+                        <li>
+                            <a th:if="${isMostRating}" class="check_signe" th:href="@{/sec/signs/mostrating}">
                                 <div class="pull-left sentiment_positif"></div>
-                                <span th:text="#{rating}"></span>
+                                <span th:text="#{most_rating}"></span>
+                            </a>
+                            <a th:if="${!isMostRating}" th:href="@{/sec/signs/mostrating}">
+                                <div class="pull-left sentiment_positif"></div>
+                                <span th:text="#{most_rating}"></span>
                             </a>
                         </li>
 

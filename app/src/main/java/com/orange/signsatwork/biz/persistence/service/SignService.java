@@ -32,6 +32,8 @@ public interface SignService {
 
   Long[] mostCommented();
 
+  List<Object[]> mostRating();
+
   Signs all();
 
   Signs createAfterLastDateConnection(Date lastConnectionDate);
