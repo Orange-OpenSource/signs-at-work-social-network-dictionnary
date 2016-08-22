@@ -43,6 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +69,7 @@ public class SignController {
     fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("isAll", true);
-    model.addAttribute("isFavorite", false);
+    model.addAttribute("isMostCommented", false);
 
     return "signs";
   }
@@ -78,7 +79,6 @@ public class SignController {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
-    fillModelWithSigns(model, principal);
     Favorite favorite = services.favorite().withId(favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
 
@@ -97,12 +97,49 @@ public class SignController {
     model.addAttribute("signs", signsView);
     fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
     model.addAttribute("favoriteId", favoriteId);
 
     return "signs";
   }
 
+
+  @RequestMapping(value = "/sec/signs/mostcommented")
+  public String signsMotCommented(Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+
+    Long[] longList = services.sign().mostCommented();
+
+
+    List<SignView> signsView = new ArrayList<>();
+    SignView signView;
+
+
+    for (int i=0; i < longList.length; i++) {
+      Long idSign = longList[i];
+      Sign sign = services.sign().withId(idSign);
+      if (sign.createDate.after(user.lastConnectionDate)) {
+        signView = SignView.fromRecent(sign);
+      } else {
+        signView = SignView.from(sign);
+      }
+      signsView.add(signView);
+    }
+
+
+    model.addAttribute("signs", signsView);
+    fillModelWithFavorites(model, principal);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", true);
+
+    return "signs";
+  }
 
   @RequestMapping(value = "/sign/{signId}")
   public String sign(HttpServletRequest req, @PathVariable long signId, Principal principal, Model model) {

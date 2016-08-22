@@ -51,10 +51,14 @@
                                 <span th:text="#{all}"></span>
                             </a>
                         </li>
-                        <li class="disabled" >
-                            <a th:href="@{/sec/signs/active}">
+                        <li>
+                            <a th:if="${isMostCommented}" class="check_signe" th:href="@{/sec/signs/mostcommented}">
                                 <div class="pull-left signe"></div>
-                                <span th:text="#{active}"></span>
+                                <span th:text="#{most_commented}"></span>
+                            </a>
+                            <a th:if="${!isMostCommented}" th:href="@{/sec/signs/mostcommented}">
+                                <div class="pull-left signe"></div>
+                                <span th:text="#{most_commented}"></span>
                             </a>
                         </li>
                         <li class="disabled">

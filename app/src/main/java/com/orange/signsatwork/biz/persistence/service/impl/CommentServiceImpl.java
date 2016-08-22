@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 
 import com.orange.signsatwork.biz.domain.Comment;
 import com.orange.signsatwork.biz.domain.Comments;
+import com.orange.signsatwork.biz.domain.Signs;
 import com.orange.signsatwork.biz.persistence.model.CommentDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.model.VideoDB;

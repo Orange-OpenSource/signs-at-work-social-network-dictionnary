@@ -22,17 +22,22 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.VideoDB;
 import com.orange.signsatwork.biz.persistence.model.CommentDB;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CommentRepository extends CrudRepository<CommentDB, Long> {
+public interface CommentRepository extends JpaRepository<CommentDB, Long> {
 
     @Query("select distinct c FROM CommentDB c inner join c.video video where video = :videoDB order by c.commentDate desc")
     List<CommentDB> findByVideo(@Param("videoDB") VideoDB videoDB);
+
+    @Query(value="select  b.sign_id, count(a.text) as nbr from comments a inner join videos b on a.video_id = b.id group by b.sign_id order by nbr desc", nativeQuery = true)
+    Long[] findMostCommented();
 
 }

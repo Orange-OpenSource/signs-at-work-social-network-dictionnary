@@ -27,10 +27,7 @@ import com.orange.signsatwork.biz.domain.Signs;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.model.VideoDB;
-import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
-import com.orange.signsatwork.biz.persistence.repository.SignRepository;
-import com.orange.signsatwork.biz.persistence.repository.UserRepository;
-import com.orange.signsatwork.biz.persistence.repository.VideoRepository;
+import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +46,13 @@ public class SignServiceImpl implements SignService {
   private final FavoriteRepository favoriteRepository;
   private final SignRepository signRepository;
   private final VideoRepository videoRepository;
+  private final CommentRepository commentRepository;
   private final Services services;
+
+  @Override
+  public Long[] mostCommented() {
+    return commentRepository.findMostCommented();
+  }
 
   @Override
   public Signs all() {

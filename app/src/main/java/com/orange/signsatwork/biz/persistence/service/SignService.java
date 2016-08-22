@@ -29,6 +29,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface SignService {
+
+  Long[] mostCommented();
+
   Signs all();
 
   Signs createAfterLastDateConnection(Date lastConnectionDate);
