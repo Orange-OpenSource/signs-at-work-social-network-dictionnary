@@ -36,7 +36,7 @@
                 <div th:if="${!sign.hasComment}" style="visibility: hidden" class="pull-right tooltip_comment"></div>
             </div>
             <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
-                <iframe th:src="${video.url}" frameborder="0" allowfullscreen=""/>
+                <iframe th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
             </div>
             <a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/>
         </div>

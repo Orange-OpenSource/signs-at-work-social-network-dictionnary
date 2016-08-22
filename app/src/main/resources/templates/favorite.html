@@ -47,7 +47,7 @@
           <div th:if="${not #lists.isEmpty(favoriteProfileView.favoriteSigns)}">
               <div th:each="sign:${favoriteProfileView.favoriteSigns}" class="col-lg-3 col-md-4 col-xs-6 col-sm-4">
                   <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
-                      <iframe th:src="${video.url}" frameborder="0" allowfullscreen=""/>
+                      <iframe th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
                   </div>
                   <a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/>
               </div>

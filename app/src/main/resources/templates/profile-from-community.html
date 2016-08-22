@@ -44,7 +44,7 @@
              <h2 th:text="#{video.list}"></h2>
               <div class="row ">
                 <div th:each="video:${user.videos.list()}" class="col-md-4 col-xs-12 col-sm-4 ">
-                    <iframe th:src="${video.url}" frameborder="0" allowfullscreen=""/>
+                    <iframe th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
                     <p th:text="${video.url}"></p>
                 </div>
 
