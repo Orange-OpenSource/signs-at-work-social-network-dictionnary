@@ -102,12 +102,11 @@ public class HomeController {
     }
 
     model.addAttribute("signs", signsView);
-    model.addAttribute("signCreationView", new SignCreationView());
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, principal);
     }
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
-    model.addAttribute("signSearchView", new SignSearchView());
+    model.addAttribute("signSearchView", signCreationView);
 
     return "index";
   }
