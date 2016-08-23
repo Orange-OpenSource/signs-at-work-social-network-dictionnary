@@ -33,4 +33,6 @@ public class RestApi {
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
   public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";
+
+  public static final String WS_SEC_REQUEST_CREATE = WS_SEC + "request/create";
 }

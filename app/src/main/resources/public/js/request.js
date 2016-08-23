@@ -18,38 +18,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-console.log("Cool, app.js is loaded :)");
+console.log("Cool, request.js is loaded :)");
 
 var $form = $('#requestInfo');
-var $span = $('#requestSpan');
+var requestSpan = document.getElementById('requestSpan');
 $form.on('submit', function(event) {
+     var requestName = {
+       requestName: $('#requestName').val()
+     };
     event.preventDefault();
     $.ajax({
        url: $form.attr('action'),
        type: 'post',
-       data: $form.serialize(),
+       data: JSON.stringify(requestName),
+       contentType: "application/json",
        success: function(response) {
-           // if the response contains any errors, replace the form
-          if ($(response).find('.has-error').length) {
-              var $response_span = $(response).find('#requestSpan');
-              $span.replaceWith($response_span);
-              $form.addClass('has-error');
-          }
-          else {
-              var url = "/sec/request/";
-              window.location = url;
-                    // in this case we can actually replace the form
-                    // with the response as well, unless we want to
-                    // show the success message a different way
-             }
-          }
+           var url = "/sec/request/";
+           window.location = url;
+           requestSpan.style.visibility="hidden";
+       },
+       error: function(response) {
+           requestSpan.style.visibility="visible";
+       }
 })});
+
+$form.on('input', function(event) {
+    document.getElementById('requestSpan').style.visibility="hidden";
+});
 
 var $new_request = $('#new_request');
 $new_request.on('hidden.bs.modal', function() {
-   console.log("close modal");
     if ($('#requestInfo').find('#requestSpan').length) {
-        var url = "/sec/request/";
-        window.location = url;
+        requestSpan.style.visibility="hidden";
+        $('#requestName').val("");
     }
 });

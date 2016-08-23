@@ -70,24 +70,6 @@ public class RequestController {
     return "request";
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/request/create", method = RequestMethod.POST)
-  public String createRequest(@Valid @ModelAttribute RequestCreationView requestCreationView, BindingResult bindingResult, Principal principal) {
-    User user = services.user().withUserName(principal.getName());
-    if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-      Request request = services.request().create(user.id, requestCreationView.getRequestName());
-      log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName());
-      return "redirect:/sec/request/";
-    } else {
-      String name_already_exists = messageByLocaleService.getMessage("request.already_exists");
-
-      FieldError fieldError = new FieldError("requestCreationView","requestName", name_already_exists);
-      bindingResult.addError(fieldError);
-      return "fragments/form-request :: request-form";
-    }
-
-  }
-
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/request/{requestId}/add/sign", method = RequestMethod.POST)

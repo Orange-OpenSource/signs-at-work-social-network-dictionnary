@@ -36,11 +36,11 @@
                     <h4 class="pull-right" th:text="#{sign.request}"></h4>
                 </div>
             </div>
-            <form id="requestInfo" th:action="@{/sec/request/create}" th:object="${requestCreationView}" method="post">
+            <form id="requestInfo" th:action="@{/ws/sec/request/create}" th:object="${requestCreationView}" method="post">
                 <div class="modal-body text-center">
-                    <input th:field="*{requestName}" type="text" class="text-center border form-control"
+                    <input th:field="*{requestName}" id="requestName" name="requestName" type="text" class="text-center border form-control"
                            th:placeholder="#{request.enter_name}" required=""/><br/>
-                    <span id="requestSpan"></span>
+                    <span id="requestSpan" th:text="#{request.already_exists}" style="visibility: hidden"></span>
                 </div>
 
                 <div class="modal-footer">
