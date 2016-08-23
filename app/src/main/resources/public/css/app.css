@@ -553,6 +553,15 @@ text-decoration-line: none;
 	width: 60px;
 }
 
+.request_signe_whith_chevron {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1460px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 60px;
+}
+
 .suggest {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1040px center;
