@@ -1,3 +1,10 @@
+#prefetch {
+	background-image: url("/img/coche.png");
+	background-repeat: no-repeat;
+}
+
+
+
 @font-face {
 	font-family: "Accessible-DfA";
 	src: url('../font/AccessibleDfA.woff');
@@ -970,8 +977,14 @@ li[role="presentation"] {
 	.open > .dropdown-menu {
 		min-width: 20rem;
 	}
+
+	.containerTooltip {
+		float: right;
+		width: 160px;
+	}
 	iframe {
 		height: 37rem;
+		width: 100%;
 	}
 	.navbar-collapse .navbar-nav > li{
 		width: 20rem;

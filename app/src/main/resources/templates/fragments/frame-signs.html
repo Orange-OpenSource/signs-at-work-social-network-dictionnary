@@ -28,17 +28,26 @@
 
 <div th:fragment="div">
     <div th:if="${not #lists.isEmpty(signs)}" class="row">
-        <div th:each="sign:${signs}" class="col-lg-3 col-md-4 col-xs-6 col-sm-4">
-            <div class="containerTooltip">
-                <div th:if="${sign.recent}" class="pull-right tooltip_newSigne"></div>
-                <div th:if="${!sign.recent}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
-                <div th:if="${sign.hasComment}" class="pull-right tooltip_comment"></div>
-                <div th:if="${!sign.hasComment}" style="visibility: hidden" class="pull-right tooltip_comment"></div>
+        <div th:each="sign:${signs}" class="text-center col-lg-2 col-md-4 col-xs-6 col-sm-4">
+            <div class="row">
+                <div class="pull-right col-lg-12">
+                    <div class="containerTooltip">
+                        <div th:if="${sign.recent}" class="pull-right tooltip_newSigne"></div>
+                        <div th:if="${!sign.recent}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
+                        <div th:if="${sign.hasComment}" class="pull-left tooltip_comment"></div>
+                        <div th:if="${!sign.hasComment}" style="visibility: hidden" class="pull-left tooltip_comment"></div>
+                    </div>
+                </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
             <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
-                <iframe th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
+                <iframe  th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
             </div>
             <a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/>
+                    </div>
+                </div>
         </div>
     </div>
 
