@@ -535,6 +535,18 @@ text-decoration-line: none;
 	color:#F16E00;
 }
 
+.dropdown-menu > li > a.checked_down{
+	background-color: #989898;
+	color:#F16E00;
+}
+
+.dropdown-menu > li > a.checked_up{
+	background-color: #989898;
+	color:#F16E00;
+}
+
+
+
 .logo_app {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1200px center;
