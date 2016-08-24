@@ -52,21 +52,21 @@
                             </a>
                         </li>
                         <li>
-                            <a th:if="${isMostCommented}" class="check_signe" th:href="@{/sec/signs/mostcommented}">
+                            <a th:if="${isMostCommented}" class="check_signe" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
                                 <div class="pull-left signe"></div>
                                 <span th:text="#{most_commented}"></span>
                             </a>
-                            <a th:if="${!isMostCommented}" th:href="@{/sec/signs/mostcommented}">
+                            <a th:if="${!isMostCommented}" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
                                 <div class="pull-left signe"></div>
                                 <span th:text="#{most_commented}"></span>
                             </a>
                         </li>
                         <li>
-                            <a th:if="${isMostRating}" class="check_signe" th:href="@{/sec/signs/mostrating}">
+                            <a th:if="${isMostRating}" class="check_signe" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
                                 <div class="pull-left sentiment_positif"></div>
                                 <span th:text="#{most_rating}"></span>
                             </a>
-                            <a th:if="${!isMostRating}" th:href="@{/sec/signs/mostrating}">
+                            <a th:if="${!isMostRating}" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
                                 <div class="pull-left sentiment_positif"></div>
                                 <span th:text="#{most_rating}"></span>
                             </a>

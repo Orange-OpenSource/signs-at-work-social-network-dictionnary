@@ -30,9 +30,13 @@ import java.util.List;
 
 public interface SignService {
 
+  Long[] lowCommented();
+
   Long[] mostCommented();
 
   List<Object[]> mostRating();
+
+  List<Object[]> lowRating();
 
   Signs all();
 

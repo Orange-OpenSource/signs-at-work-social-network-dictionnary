@@ -34,10 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
@@ -71,7 +68,9 @@ public class SignController {
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("isAll", true);
     model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
     model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
 
     return "signs";
   }
@@ -102,7 +101,9 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
     model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
     model.addAttribute("favoriteId", favoriteId);
 
     return "signs";
@@ -110,12 +111,22 @@ public class SignController {
 
 
   @RequestMapping(value = "/sec/signs/mostcommented")
-  public String signsMostCommented(Principal principal, Model model) {
+  public String signsMostCommented(@RequestParam("isMostCommented") boolean isMostCommented, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
 
-    Long[] longList = services.sign().mostCommented();
+    Long[] longList = null;
+    if (isMostCommented == true) {
+      longList = services.sign().lowCommented();
+      model.addAttribute("isLowCommented", true);
+      model.addAttribute("isMostCommented", false);
+    } else {
+      longList = services.sign().mostCommented();
+      model.addAttribute("isMostCommented", true);
+      model.addAttribute("isLowCommented", false);
+    }
+
 
 
     List<SignView> signsView = new ArrayList<>();
@@ -139,19 +150,30 @@ public class SignController {
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
-    model.addAttribute("isMostCommented", true);
     model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
 
     return "signs";
   }
 
   @RequestMapping(value = "/sec/signs/mostrating")
-  public String signsMostRating(Principal principal, Model model) {
+  public String signsMostRating(@RequestParam("isMostRating") boolean isMostRating,Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
 
-    List<Object[]> objectList = services.sign().mostRating();
+    List<Object[]> objectList;
+
+    if (isMostRating == true) {
+      objectList = services.sign().lowRating();
+      model.addAttribute("isLowRating", true);
+      model.addAttribute("isMostRating", false);
+    } else {
+      objectList = services.sign().mostRating();
+      model.addAttribute("isMostRating", true);
+      model.addAttribute("isLowRating", false);
+    }
+
 
 
     List<SignView> signsView = new ArrayList<>();
@@ -175,7 +197,7 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
-    model.addAttribute("isMostRating", true);
+    model.addAttribute("isLowCommented", false);
 
     return "signs";
   }

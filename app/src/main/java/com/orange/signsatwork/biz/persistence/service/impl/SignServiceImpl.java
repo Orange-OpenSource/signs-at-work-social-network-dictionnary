@@ -56,8 +56,18 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Long[] lowCommented() {
+    return commentRepository.findLowCommented();
+  }
+
+  @Override
   public List<Object[]> mostRating() {
     return ratingRepository.findMostRating();
+  }
+
+  @Override
+  public List<Object[]> lowRating() {
+    return ratingRepository.findLowRating();
   }
 
   @Override
