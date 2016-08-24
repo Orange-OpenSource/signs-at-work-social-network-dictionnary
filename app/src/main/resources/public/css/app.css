@@ -697,13 +697,27 @@ text-decoration-line: none;
 	width: 60px;
 }
 .check_signe {
-	background-image: url("/img/coche.png");
+	background-image: url("/img/checked.png");
 	background-position: right 20px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
 	/*height: 30px;*/
 	/*width: 40px;*/
 }
+
+.checked_down {
+	background-image: url("/img/checked_down.png");
+	background-position: right 20px top 16px;
+	background-repeat: no-repeat;
+	background-size: auto 20px;
+}
+.checked_up {
+	background-image: url("/img/checked_up.png");
+	background-position: right 20px top 16px;
+	background-repeat: no-repeat;
+	background-size: auto 20px;
+}
+
 
 #evaluate{
 	width: auto;
@@ -984,7 +998,7 @@ li[role="presentation"] {
 	}
 
 	.open > .dropdown-menu {
-		min-width: 20rem;
+		min-width: 25rem;
 	}
 
 	.containerTooltip {

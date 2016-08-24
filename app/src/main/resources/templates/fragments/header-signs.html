@@ -52,21 +52,29 @@
                             </a>
                         </li>
                         <li>
-                            <a th:if="${isMostCommented}" class="check_signe" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+                            <a th:if="${isMostCommented}" class="checked_up" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
                                 <div class="pull-left signe"></div>
                                 <span th:text="#{most_commented}"></span>
                             </a>
-                            <a th:if="${!isMostCommented}" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+                            <a th:if="${!isMostCommented and !isLowCommented}" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+                                <div class="pull-left signe"></div>
+                                <span th:text="#{most_commented}"></span>
+                            </a>
+                            <a th:if="${isLowCommented}" class="checked_down" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
                                 <div class="pull-left signe"></div>
                                 <span th:text="#{most_commented}"></span>
                             </a>
                         </li>
                         <li>
-                            <a th:if="${isMostRating}" class="check_signe" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+                            <a th:if="${isMostRating}" class="checked_up" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
                                 <div class="pull-left sentiment_positif"></div>
                                 <span th:text="#{most_rating}"></span>
                             </a>
-                            <a th:if="${!isMostRating}" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+                            <a th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+                                <div class="pull-left sentiment_positif"></div>
+                                <span th:text="#{most_rating}"></span>
+                            </a>
+                            <a th:if="${isLowRating}" class="checked_down" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
                                 <div class="pull-left sentiment_positif"></div>
                                 <span th:text="#{most_rating}"></span>
                             </a>
