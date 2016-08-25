@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.security;
  * #L%
  */
 
+import com.orange.signsatwork.AppProfile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +37,7 @@ import java.util.Arrays;
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
-  private Environment environment;
+  private AppProfile appProfile;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -81,20 +82,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private void disableSecForDBConsole(HttpSecurity http) throws Exception {
-    if (isDevProfile()) {
+    if (appProfile.isDevProfile()) {
       log.warn("Disable security to allow H2 console");
       String url = "/h2-console/**";
       http.csrf().ignoringAntMatchers(url);
       http.authorizeRequests().antMatchers(url).permitAll();
       http.headers().frameOptions().disable();
     }
-  }
-
-  private boolean isDevProfile() {
-    String[] profiles = environment.getActiveProfiles();
-    return Arrays.stream(profiles)
-            .filter(profile -> profile.equals("dev"))
-            .findAny()
-            .isPresent();
   }
 }
