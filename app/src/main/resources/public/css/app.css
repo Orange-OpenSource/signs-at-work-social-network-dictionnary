@@ -693,6 +693,8 @@ text-decoration-line: none;
 	height: 40px;
 	width: 40px;
 }
+
+
 .recent_signe{
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: 0px center;
@@ -811,6 +813,34 @@ li[role="presentation"] {
 /* (1280x1024) SXGA Display */
 @media  screen and (max-width: 1280px) {
 
+	iframe {
+		height: 37rem;
+		width: 100%;
+	}
+
+
+	.containerTooltip {
+		float: right;
+	}
+
+	.tooltip_newSigne {
+		background-image: url("/img/ajourRecent3.png");
+		background-position: right 2px top 0;
+		background-repeat: no-repeat;
+		background-size: auto 25px;
+		height: 25px;
+		width: 45px;
+	}
+
+
+	.tooltip_comment {
+		background-image: url("/img/commentaire2.png");
+		background-position: right 2px top 7px;
+		background-repeat: no-repeat;
+		background-size: auto 15px;
+		height: 25px;
+		width: 45px;
+	}
 
 	.navbar-collapse .navbar-nav > li {
 		width: 18rem;
@@ -929,6 +959,10 @@ li[role="presentation"] {
 		/*width: 40px;*/
 	/*}*/
 
+	iframe {
+		height:auto;
+	}
+
 	.tooltip_newSigne {
 		background-image: url("/img/ajourRecent3.png");
 		background-position: right 2px top 0;
@@ -1014,7 +1048,6 @@ li[role="presentation"] {
 
 	.containerTooltip {
 		float: right;
-		width: 160px;
 	}
 	iframe {
 		height: 37rem;
@@ -1058,5 +1091,24 @@ li[role="presentation"] {
 	.navbar-collapse .navbar-nav > li{
 		width: 30rem;
 	}
+
+	button.search_signe{
+		background-color: transparent;
+		border: none;
+		width: 40px;
+		height: 40px;
+	}
+	.search_signe {
+		background-image: url("/img/sprite_picto_400X400.png");
+		background-position: -600px center;
+		background-repeat: no-repeat;
+		background-size: auto 40px;
+		height: 40px;
+		width: 40px;
+	}
+	li.hidden-xs:first-child {
+		margin-right: 10rem;
+	}
+
 }
 
