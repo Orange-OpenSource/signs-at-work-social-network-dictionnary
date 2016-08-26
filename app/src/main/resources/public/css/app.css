@@ -1,5 +1,5 @@
 #prefetch {
-	background-image: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/checked.png"), url("/img/ajoutRecent3.png"), url("/img/commentaire2.png"), url("/img/sprite_picto_400X400.png");
+	background-image: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/ajoutRecent3.png"), url("/img/commentaire2.png"), url("/img/sprite_picto_400X400.png");
 	background-repeat: no-repeat;
 }
 
