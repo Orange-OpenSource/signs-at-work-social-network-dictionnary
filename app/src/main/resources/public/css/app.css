@@ -1,5 +1,5 @@
 #prefetch {
-	background-image: url("/img/coche.png");
+	background-image: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/checked.png"), url("/img/ajoutRecent3.png"), url("/img/commentaire2.png"), url("/img/sprite_picto_400X400.png");
 	background-repeat: no-repeat;
 }
 
@@ -824,7 +824,7 @@ li[role="presentation"] {
 	}
 
 	.tooltip_newSigne {
-		background-image: url("/img/ajourRecent3.png");
+		background-image: url("/img/ajoutRecent3.png");
 		background-position: right 2px top 0;
 		background-repeat: no-repeat;
 		background-size: auto 25px;
@@ -964,7 +964,7 @@ li[role="presentation"] {
 	}
 
 	.tooltip_newSigne {
-		background-image: url("/img/ajourRecent3.png");
+		background-image: url("/img/ajoutRecent3.png");
 		background-position: right 2px top 0;
 		background-repeat: no-repeat;
 		background-size: auto 25px;
@@ -1012,7 +1012,7 @@ li[role="presentation"] {
 		/*width: 30%;*/
 	/*}*/
 	.tooltip_newSigne {
-		background-image: url("/img/ajourRecent3.png");
+		background-image: url("/img/ajoutRecent3.png");
 		background-repeat: no-repeat;
 		background-size: auto 50px;
 		height: 50px;
