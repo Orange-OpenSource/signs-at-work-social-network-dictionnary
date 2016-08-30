@@ -47,14 +47,16 @@
                     </li>
                     <li class="clear aside_bckg_li">
                         <a th:href="@{/sec/sign/} + ${signProfileView.sign.id} + '/associate-form'">
+                            <div class="pull-left associate_signe"></div>
                             <h2 class="container_H2" th:text="#{sign.associate-with}"/>
                             <div>
-                                <div class="pull-right chevron_right"/>
+                                <div class="pull-right  menu_detail_with_chevron"/>
                             </div>
                         </a>
                     </li>
                     <li class="aside_bckg_li">
                         <a data-target="#replace_video" data-toggle="modal" href="#">
+                            <div class="pull-left replace_signe"></div>
                             <h2 class="container_H2" th:text="#{sign.replace}"/>
                             <div>
                                 <div class="pull-right chevron_right"/>
@@ -76,9 +78,10 @@
                     </div>
                     <li class="aside_bckg_li">
                         <a href="#">
+                            <div class="pull-left history_signe"></div>
                             <h2 class="container_H2" th:text="#{history}"/>
                             <div>
-                                <div class="pull-right"/>
+                                <div class="pull-right chevron_right"/>
                             </div>
                         </a>
                     </li>

@@ -517,6 +517,33 @@ text-decoration-line: none;
 	width: 60px;
 }
 
+.associate_signe {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1520px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
+.replace_signe {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1600px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+.history_signe {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1640px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
+
 .suggest {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1040px center;
