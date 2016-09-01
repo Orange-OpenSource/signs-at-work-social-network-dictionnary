@@ -43,7 +43,8 @@
             <div class="row">
                 <div class="col-lg-12">
             <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.last}">
-                <iframe  th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
+                <img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/>
+                <iframe th:if="${#strings.isEmpty(video.pictureUri)}" th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
             </div>
             <a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/>
                     </div>

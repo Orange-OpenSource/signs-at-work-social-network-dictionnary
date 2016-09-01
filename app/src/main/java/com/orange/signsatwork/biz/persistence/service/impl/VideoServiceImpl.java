@@ -139,10 +139,10 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFrom(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
   }
 
   static Video videoFromRatingView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getCreateDate(), null, null, null);
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(),videoDB.getCreateDate(), null, null, null);
   }
 }

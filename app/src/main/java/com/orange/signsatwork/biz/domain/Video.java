@@ -30,6 +30,7 @@ import java.util.Date;
 public class Video {
     public final long id;
     public final String url;
+    public final String pictureUri;
     public final Date createDate;
     public final User user;
     public final Sign sign;

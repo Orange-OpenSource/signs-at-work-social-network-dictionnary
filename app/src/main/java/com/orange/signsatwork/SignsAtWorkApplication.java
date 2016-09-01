@@ -22,6 +22,8 @@ package com.orange.signsatwork;
  * #L%
  */
 
+import com.vimeo.networking.Vimeo;
+import com.vimeo.networking.VimeoClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -49,6 +51,13 @@ import java.util.concurrent.TimeUnit;
 public class SignsAtWorkApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
+		String accessToken = "13ca20cd0464be6a7c74a8a473c6e8af";
+
+		com.vimeo.networking.Configuration.Builder configBuilder =  new com.vimeo.networking.Configuration.Builder(accessToken);
+		configBuilder.enableCertPinning(false);
+		configBuilder.setLogLevel(Vimeo.LogLevel.DEBUG);
+		VimeoClient.initialize(configBuilder.build());
+
 		SpringApplication.run(SignsAtWorkApplication.class, args);
 	}
 

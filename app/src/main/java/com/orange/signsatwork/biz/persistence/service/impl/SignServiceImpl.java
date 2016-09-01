@@ -30,13 +30,23 @@ import com.orange.signsatwork.biz.persistence.model.VideoDB;
 import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
+import com.vimeo.networking.Configuration;
+import com.vimeo.networking.Vimeo;
+import com.vimeo.networking.VimeoClient;
+import com.vimeo.networking.callbacks.ModelCallback;
+import com.vimeo.networking.model.PictureCollection;
+import com.vimeo.networking.model.Video;
+import com.vimeo.networking.model.error.VimeoError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 @Service
 @RequiredArgsConstructor
@@ -149,7 +159,56 @@ public class SignServiceImpl implements SignService {
     return signFrom(signDB, services);
   }
 
-  // FIXME: we append videos, but which one do we use? first, last?
+
+
+  private void waitForPictureUri(final VideoDB videoDB, final SignDB signDB, String signUrl) {
+
+    if (signUrl.startsWith("http")) {
+      URL videoUrl = null;
+      try {
+        videoUrl = new URL(signUrl);
+      } catch (MalformedURLException e) {
+        e.printStackTrace();
+      }
+
+      if (videoUrl.getHost().equals("vimeo.com")) {
+
+        String uri = "videos" + videoUrl.getPath();
+        VimeoClient.getInstance().fetchNetworkContent(uri, new ModelCallback<Video>(Video.class) {
+          @Override
+          public void success(Video video) {
+            String pictureUri = video.pictures.sizes.get(3).link; // Résolution 640x480
+            String vimeoUrl = "https://player.vimeo.com/video"+ uri.substring(6, uri.length());
+
+            synchronized (videoDB) {
+              videoDB.setPictureUri(pictureUri);
+              videoDB.setUrl(vimeoUrl);
+              signDB.setUrl(vimeoUrl);
+              videoDB.notifyAll();
+            }
+          }
+
+          @Override
+          public void failure(VimeoError error) {
+            // voice the error
+          }
+        });
+
+
+        synchronized (videoDB) {
+          try {
+            videoDB.wait(15000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+
+    return;
+  }
+
+
   @Override
   public Sign create(long userId, String signName, String signUrl) {
     SignDB signDB;
@@ -166,6 +225,9 @@ public class SignServiceImpl implements SignService {
       signDB = new SignDB();
       signDB.setName(signName);
       signDB.setUrl(signUrl);
+
+      waitForPictureUri(videoDB, signDB, signUrl);
+
       signDB.setCreateDate(now);
       List<VideoDB> videoDBList = new ArrayList<>();
       videoDBList.add(videoDB);
@@ -185,9 +247,13 @@ public class SignServiceImpl implements SignService {
       videoDB.setUrl(signUrl);
       videoDB.setCreateDate(now);
       videoDB.setUser(userDB);
+
       signDB = signsMatches.get(0);
       signDB.setCreateDate(now);
       signDB.setUrl(signUrl);
+
+      waitForPictureUri(videoDB, signDB, signUrl);
+
       videoDB.setSign(signDB);
       signDB.getVideos().add(videoDB);
 

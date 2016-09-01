@@ -51,6 +51,8 @@ public class VideoDB {
   @NotNull
   private Date createDate;
 
+  private String pictureUri;
+
   @ManyToOne
   @JoinColumn(name="sign_id")
   private SignDB sign;
