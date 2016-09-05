@@ -843,7 +843,7 @@ li[role="presentation"] {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		width: 166px;
+		width: 160px;
 	}
 
 	.text_hyphenation{
