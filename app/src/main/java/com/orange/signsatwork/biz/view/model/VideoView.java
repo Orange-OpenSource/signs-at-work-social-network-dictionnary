@@ -41,16 +41,17 @@ import java.util.stream.Collectors;
 public class VideoView {
   private long id;
   private String url;
+  private String pictureUri;
   private Date createDate;
   // TODO Transform RatingDB en Rating
   private Ratings ratings;
 
   public Video toVideo() {
-    return new Video(id, url, createDate, null, null, null);
+    return new Video(id, url, pictureUri, createDate, null, null, null);
   }
 
   public static VideoView from(Video video) {
-    return new VideoView(video.id, video.url, video.createDate, video.ratings);
+    return new VideoView(video.id, video.url, video.pictureUri, video.createDate, video.ratings);
 
   }
 
