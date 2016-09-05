@@ -19,11 +19,6 @@ body{
 .clear{
 clear: both;}
 
-h2, h4 {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
 
 h1, .h1, h2, .h2, h3, .h3 {
 	margin-bottom: 10px;
@@ -839,6 +834,20 @@ li[role="presentation"] {
 }
 
 @media only screen and (max-width: 768px){
+
+	.aside_bckg_li h2,.aside_bckg_li h4 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 166px;
+	}
+
+	.text_hyphenation{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 12rem;
+	}
 
 	.add {
 		background-image: url("/img/sprite_picto_400X400.png");
