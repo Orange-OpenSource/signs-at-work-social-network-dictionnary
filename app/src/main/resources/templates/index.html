@@ -35,30 +35,36 @@
             <ul class="nav nav-list primary left-menu">
                 <li class="aside_bckg_li">
                     <a th:href="@{/signs}">
+                        <div>
                         <div class="signe"></div>
                         <h2 class="container_H2" th:text="#{signs}"></h2>
                             <div>
                                 <div class="pull-right recent_signe " >
                                     <span id="container_badge_new_signe" th:text="${#lists.size(signs)}">2</span></div>
                             </div>
+                        </div>
                     </a>
                 </li>
                 <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a th:href="@{/sec/suggest}">
+                        <div>
                         <div class="pull-left suggest"></div>
                         <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
                             <div>
                                 <div class="pull-right add_whith_chevron"></div>
                             </div>
+                        </div>
                     </a>
                 </li>
                 <li th:if="${isAuthenticated}" class="aside_bckg_li">
                     <a th:href="@{/sec/request}">
+                        <div>
                         <div class="pull-left require"></div>
                         <h2 class="container_H2" th:text="#{sign.request}"></h2>
                             <div >
                                 <div class="pull-right request_signe_whith_chevron "></div>
                             </div>
+                        </div>
                     </a>
                 </li>
             </ul>
@@ -67,7 +73,9 @@
 
     <div class="text-center title_middle col-md-8 col-xs-12 middle-col ">
         <a th:href="@{/signs}" type="text/html">
+            <div>
             <h2 class="backgroundColor" th:text="#{sign.list}"></h2>
+            </div>
         </a>
 
         <div th:replace="fragments/frame-signs :: div"/>

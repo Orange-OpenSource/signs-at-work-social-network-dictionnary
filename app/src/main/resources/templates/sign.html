@@ -43,6 +43,7 @@
                 <ul class="nav nav-list primary left-menu">
                     <li th:if="${isAuthenticated}" id="label_sign" class="aside_bckg_li">
                         <a th:href="@{/sec/sign/} + ${signProfileView.sign.id} + '/detail'">
+                            <div>
                             <h2 class="container_H2" th:text="${signProfileView.sign.name}"/>
                             <div>
                                 <div class="pull-right menu_detail_with_chevron"/>
@@ -50,33 +51,40 @@
                                 <div th:if="${signProfileView.rateNeutral}" class="pull-right sentiment_neutre"/>
                                 <div th:if="${signProfileView.rateNegative}" class="pull-right sentiment_negatif"/>
                             </div>
+                            </div>
                         </a>
                     </li>
                     <div th:if="${signProfileView.rateNoRate}">
                         <li th:if="${isAuthenticated}" class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
+                                <div>
                                 <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
                                 <div>
                                     <div class="pull-right  chevron_right"/>
                                     <div class="pull-right sentiment_evaluation"/>
+                                </div>
                                 </div>
                             </a>
                         </li>
                     </div>
                     <li th:if="${isAuthenticated}" class="aside_bckg_li">
                         <a th:href="@{/sign/} + ${signProfileView.sign.id} + '/associates'">
-                        <h2 class="container_H2" th:text="#{sign.associated}"></h2>
+                        <div>
+                            <h2 class="container_H2" th:text="#{sign.associated}"></h2>
                         <div>
                             <div class="pull-right chevron_right"/>
+                        </div>
                         </div>
                     </a>
                     </li>
 
                     <li th:if="${isAuthenticated}" class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#comment_modal">
+                            <div>
                             <h2 class="container_H2" th:text="#{sign.comments}"></h2>
                             <div>
                                 <div class="pull-right add_whith_chevron"/>
+                            </div>
                             </div>
                         </a>
                     </li>

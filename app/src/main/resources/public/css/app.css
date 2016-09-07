@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 h2, .h2 {
-	font-size: 2rem;
+	font-size: 20px;
 }
 
 h4, .h4 {
@@ -41,7 +41,7 @@ h4, .h4 {
 
 
 .navbar-brand {
-	font-size: 2rem;
+	font-size: 20px;
 	line-height: 4rem;
 }
 
@@ -54,7 +54,7 @@ h4, .h4 {
 .navbar_title {
 	color: white;
 	cursor: default;
-	font-size: 1.8rem;
+	font-size: 20px;
 	margin-top: 10px;
 }
 
@@ -254,7 +254,7 @@ position: relative;
 }
 
 .navbar-nav > li > a {
-font-size: 1.8rem;
+font-size: 20px;
 }
 .nav > li > a {
 cursor: pointer;
@@ -284,7 +284,7 @@ text-decoration-line: none;
 }
 
 #container_badge_new_signe {
-	font-size: 2rem;
+	font-size: 20px;
 	line-height: 40px;
 	margin-left: 0.7em;
 }
@@ -710,7 +710,7 @@ text-decoration-line: none;
 }
 
 .request_whitout_answer{
-	font-size: 2rem;
+	font-size: 20px;
 	line-height:50px;
 }
 

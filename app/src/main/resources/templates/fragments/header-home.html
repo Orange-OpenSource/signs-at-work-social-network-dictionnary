@@ -68,8 +68,8 @@
                     <li role="presentation" class="hidden-xs">
                         <form id="seachForm" th:action="@{/search}" th:object="${signSearchView}" method="post">
                             <div>
-                                <button type="submit" class="pull-right search_signe"></button>
-                                <input th:value="*{signName}" id="signName" name="signName" type="search" th:placeholder="#{search} + '&hellip;'" class="border form-control"/>
+                                <button title="search sign" type="submit" class="pull-right search_signe"></button>
+                                <input title="search sign" th:value="*{signName}" id="signName" name="signName" type="search" th:placeholder="#{search} + '&hellip;'" class="border form-control"/>
                             </div>
                         </form>
                     </li>
