@@ -49,7 +49,7 @@ public class FavoriteServiceDeleteTest {
   public void canRemoveFavorite() {
     // given
     User user = testUser.get("user-canRemoveFavorite");
-    Sign sign = services.sign().create(user.id, "sign-canRemoveFavorite", "//video-canRemoveFavorite");
+    Sign sign = services.sign().create(user.id, "sign-canRemoveFavorite", "//video-canRemoveFavorite", "");
 
     // do/then
     Favorite favorite = services.user().createUserFavorite(user.id, "favorite-canRemoveFavorite");

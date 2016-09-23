@@ -143,7 +143,7 @@ public class UserServiceIntegrationTest {
   public void createUserSignVideo() {
     //given
     //do
-    services.sign().create(userId, signName, signUrl);
+    services.sign().create(userId, signName, signUrl, "");
     User user = services.user().withId(userId);
     user = user.loadVideos();
 

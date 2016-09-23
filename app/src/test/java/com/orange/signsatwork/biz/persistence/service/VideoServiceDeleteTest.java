@@ -45,7 +45,7 @@ public class VideoServiceDeleteTest {
   public void canRemoveVideo() {
     // given
     User user = testUser.get("user-canRemoveVideo");
-    Sign sign = services.sign().create(user.id, "sign-canRemoveVideo", "//video-canRemoveVideo");
+    Sign sign = services.sign().create(user.id, "sign-canRemoveVideo", "//video-canRemoveVideo", "");
     Video video = sign.loadVideos().videos.list().get(0);
     services.video().createVideoRating(video.id, user.id, Rating.Negative);
     Comment comment = services.video().createVideoComment(video.id, user.id, "comment-canRemoveVideo");

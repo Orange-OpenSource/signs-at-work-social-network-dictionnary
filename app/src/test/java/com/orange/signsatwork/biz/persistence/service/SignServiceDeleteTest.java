@@ -50,8 +50,8 @@ public class SignServiceDeleteTest {
   public void canRemoveSign() {
     // given
     User user = testUser.get("user-canRemoveSign");
-    Sign sign1 = services.sign().create(user.id, "sign-canRemoveSign", "//video-canRemoveSign");
-    Sign sign2 = services.sign().create(user.id, "sign-canRemoveSign2", "//video-canRemoveSign2");
+    Sign sign1 = services.sign().create(user.id, "sign-canRemoveSign", "//video-canRemoveSign", "");
+    Sign sign2 = services.sign().create(user.id, "sign-canRemoveSign2", "//video-canRemoveSign2", "");
     Video video = sign1.loadVideos().videos.list().get(0);
     Favorite favorite = services.user().createUserFavorite(user.id, "favorite-canRemoveSign");
 

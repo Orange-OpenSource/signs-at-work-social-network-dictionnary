@@ -49,7 +49,7 @@ public class SignRatingTest {
     services.clearPersistence();
 
     userId = testUser.get("user").id;
-    signId = services.sign().create(userId, "mySign", "//video").id;
+    signId = services.sign().create(userId, "mySign", "//video", "").id;
   }
 
   @Test

@@ -30,6 +30,7 @@
 
 
 <div th:replace="fragments/modal-new-sign-video :: div"/>
+<div th:replace="fragments/modal-new-sign-video-file :: div"/>
 
 
 <div class="row ">
@@ -45,7 +46,20 @@
                             </div>
                         </div>
                     </div>
-                    <h2 th:text="#{sign.new}"/>
+                    <h2 th:text="#{sign.new_from_url}"/>
+                    </a>
+                </li>
+
+                <li th:if="${isAuthenticated}" class="dotted-top">
+                    <a data-target="#add_video_file" data-toggle="modal" href="#">
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="containerRight_signes">
+                                    <div class="pull-right add_whith_chevron"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 th:text="#{sign.new_from_file}"/>
                     </a>
                 </li>
 

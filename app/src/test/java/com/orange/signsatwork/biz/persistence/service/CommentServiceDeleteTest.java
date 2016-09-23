@@ -23,7 +23,10 @@ package com.orange.signsatwork.biz.persistence.service;
  */
 
 import com.orange.signsatwork.biz.TestUser;
-import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.domain.Comment;
+import com.orange.signsatwork.biz.domain.Sign;
+import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.Video;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +48,7 @@ public class CommentServiceDeleteTest {
   public void canRemoveComment() {
     // given
     User user = testUser.get("user-canRemoveComment");
-    Sign sign = services.sign().create(user.id, "sign-canRemoveComment", "//video-canRemoveComment");
+    Sign sign = services.sign().create(user.id, "sign-canRemoveComment", "//video-canRemoveComment", "");
     Video video = sign.loadVideos().videos.list().get(0);
 
     // do/then
