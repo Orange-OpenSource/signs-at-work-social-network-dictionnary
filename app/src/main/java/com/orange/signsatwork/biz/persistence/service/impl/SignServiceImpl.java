@@ -37,7 +37,6 @@ import com.vimeo.networking.model.error.VimeoError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import videoadminservice.wsdl.ListVideosResponse;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -159,8 +158,6 @@ public class SignServiceImpl implements SignService {
 
 
   private void waitForPictureUri(final VideoDB videoDB, final SignDB signDB, String signUrl, String pictureUri) {
-
-    ListVideosResponse response;
 
     if (pictureUri.isEmpty()) {
 
