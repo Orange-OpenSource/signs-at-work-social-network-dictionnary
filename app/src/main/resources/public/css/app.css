@@ -757,11 +757,8 @@ li[role="presentation"] {
 /* (1280x1024) SXGA Display */
 @media  screen and (max-width: 1280px) {
 
-	img {
-		height: 37rem;
-		width: 100%;
-	}
-	iframe {
+
+	iframe , img, embed {
 		height: 37rem;
 		width: 100%;
 	}
@@ -887,10 +884,7 @@ li[role="presentation"] {
 		width: 100%;
 	}
 
-	.col-xs-12 img{
-		width: 100%;
-	}
-	.col-xs-12 iframe{
+	.col-xs-12 iframe ,.col-xs-12 img ,.col-xs-12 embed{
 		width: 100%;
 	}
 
@@ -910,12 +904,10 @@ li[role="presentation"] {
 	}
 
 
-	iframe {
+	iframe , img , embed {
 		height:auto;
 	}
-	img {
-		height:auto;
-	}
+
 
 	.tooltip_newSigne {
 		background-image: url("/img/ajoutRecent3.png");
@@ -989,11 +981,8 @@ li[role="presentation"] {
 	.containerTooltip {
 		float: right;
 	}
-	img {
-		height: 37rem;
-		width: 100%;
-	}
-	iframe {
+
+	iframe , img , embed {
 		height: 37rem;
 		width: 100%;
 	}
