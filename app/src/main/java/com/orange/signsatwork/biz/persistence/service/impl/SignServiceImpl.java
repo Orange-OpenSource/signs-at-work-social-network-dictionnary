@@ -30,11 +30,8 @@ import com.orange.signsatwork.biz.persistence.model.VideoDB;
 import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
-import com.vimeo.networking.Configuration;
-import com.vimeo.networking.Vimeo;
 import com.vimeo.networking.VimeoClient;
 import com.vimeo.networking.callbacks.ModelCallback;
-import com.vimeo.networking.model.PictureCollection;
 import com.vimeo.networking.model.Video;
 import com.vimeo.networking.model.error.VimeoError;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +43,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 @Service
 @RequiredArgsConstructor
@@ -161,56 +157,62 @@ public class SignServiceImpl implements SignService {
 
 
 
-  private void waitForPictureUri(final VideoDB videoDB, final SignDB signDB, String signUrl) {
+  private void waitForPictureUri(final VideoDB videoDB, final SignDB signDB, String signUrl, String pictureUri) {
 
-    if (signUrl.startsWith("http")) {
-      URL videoUrl = null;
-      try {
-        videoUrl = new URL(signUrl);
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-      }
+    if (pictureUri.isEmpty()) {
 
-      if (videoUrl.getHost().equals("vimeo.com")) {
+      if (signUrl.startsWith("http")) {
+        URL videoUrl = null;
+        try {
+          videoUrl = new URL(signUrl);
+        } catch (MalformedURLException e) {
+          e.printStackTrace();
+        }
 
-        String uri = "videos" + videoUrl.getPath();
-        VimeoClient.getInstance().fetchNetworkContent(uri, new ModelCallback<Video>(Video.class) {
-          @Override
-          public void success(Video video) {
-            String pictureUri = video.pictures.sizes.get(3).link; // Résolution 640x480
-            String vimeoUrl = "https://player.vimeo.com/video"+ uri.substring(6, uri.length());
+        if (videoUrl.getHost().equals("vimeo.com")) {
 
-            synchronized (videoDB) {
-              videoDB.setPictureUri(pictureUri);
-              videoDB.setUrl(vimeoUrl);
-              signDB.setUrl(vimeoUrl);
-              videoDB.notifyAll();
+          String uri = "videos" + videoUrl.getPath();
+          VimeoClient.getInstance().fetchNetworkContent(uri, new ModelCallback<Video>(Video.class) {
+            @Override
+            public void success(Video video) {
+              String pictureUri = video.pictures.sizes.get(3).link; // Résolution 640x480
+              String vimeoUrl = "https://player.vimeo.com/video" + uri.substring(6, uri.length());
+
+              synchronized (videoDB) {
+                videoDB.setPictureUri(pictureUri);
+                videoDB.setUrl(vimeoUrl);
+                signDB.setUrl(vimeoUrl);
+                videoDB.notifyAll();
+              }
             }
-          }
 
-          @Override
-          public void failure(VimeoError error) {
-            // voice the error
-          }
-        });
+            @Override
+            public void failure(VimeoError error) {
+              // voice the error
+            }
+          });
 
 
-        synchronized (videoDB) {
-          try {
-            videoDB.wait(15000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
+          synchronized (videoDB) {
+            try {
+              videoDB.wait(15000);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
           }
         }
       }
+    } else {
+      videoDB.setPictureUri(pictureUri);
     }
+
 
     return;
   }
 
 
   @Override
-  public Sign create(long userId, String signName, String signUrl) {
+  public Sign create(long userId, String signName, String signUrl, String pictureUri) {
     SignDB signDB;
     UserDB userDB = userRepository.findOne(userId);
 
@@ -226,7 +228,8 @@ public class SignServiceImpl implements SignService {
       signDB.setName(signName);
       signDB.setUrl(signUrl);
 
-      waitForPictureUri(videoDB, signDB, signUrl);
+
+      waitForPictureUri(videoDB, signDB, signUrl, pictureUri);
 
       signDB.setCreateDate(now);
       List<VideoDB> videoDBList = new ArrayList<>();
@@ -252,7 +255,7 @@ public class SignServiceImpl implements SignService {
       signDB.setCreateDate(now);
       signDB.setUrl(signUrl);
 
-      waitForPictureUri(videoDB, signDB, signUrl);
+      waitForPictureUri(videoDB, signDB, signUrl, pictureUri);
 
       videoDB.setSign(signDB);
       signDB.getVideos().add(videoDB);

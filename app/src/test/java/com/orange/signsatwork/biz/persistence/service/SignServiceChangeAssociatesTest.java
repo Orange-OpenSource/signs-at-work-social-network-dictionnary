@@ -59,9 +59,9 @@ public class SignServiceChangeAssociatesTest {
     // given
     SignService signService = services.sign();
 
-    Sign sign1 = signService.create(userId1, "s1", "//video1");
-    Sign sign2 = signService.create(userId2, "s2", "//video2");
-    Sign sign3 = signService.create(userId2, "s3", "//video3");
+    Sign sign1 = signService.create(userId1, "s1", "//video1", "");
+    Sign sign2 = signService.create(userId2, "s2", "//video2", "");
+    Sign sign3 = signService.create(userId2, "s3", "//video3", "");
 
     // do
     signService.changeSignAssociates(sign1.id, Arrays.asList(new Long[]{sign3.id}));

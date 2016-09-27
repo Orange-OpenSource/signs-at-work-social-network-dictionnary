@@ -60,7 +60,7 @@ public interface SignService {
 
   Sign create(Sign sign);
 
-  Sign create(long userId, String signName, String signUrl);
+  Sign create(long userId, String signName, String signUrl, String pictureUri);
 
   Sign replace(long userId, long signId, String signUrl);
 

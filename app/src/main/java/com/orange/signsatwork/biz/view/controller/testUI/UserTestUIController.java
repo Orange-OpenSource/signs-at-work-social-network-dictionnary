@@ -140,7 +140,7 @@ public class UserTestUIController {
 
     String signName = req.getParameter("name");
     String signUrl = req.getParameter("url");
-    signService.create(userId, signName, signUrl);
+    signService.create(userId, signName, signUrl, "");
 
     return userDetails(userId, model);
   }

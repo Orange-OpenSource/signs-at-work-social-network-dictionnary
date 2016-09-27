@@ -22,7 +22,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
     <th:block th:include="fragments/header-head :: head"></th:block>
+
+    <script type="text/javascript" src="../public/js/player.js" th:src="@{/js/player.js}"></script>
+
+    <script type='text/javascript'>
+
+        $(document).ready(function() {
+            $('video').videoPlayer({
+                'playerWidth' : 0.95,
+                'videoClass' : 'video'
+            });
+        });
+
+    </script>
+
 </head>
 
 <header role="banner" th:replace="fragments/header-sign :: header">&nbsp;</header>
@@ -34,8 +49,22 @@
     <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
         <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-            <iframe th:src="${signProfileView.sign.url} + '?autoplay=1%26wmode=transparent'" frameborder="0" allowfullscreen=""/>
+            <iframe th:if="${not #strings.contains(signProfileView.sign.url,'vod') and not #strings.contains(signProfileView.sign.url,'mp4') }" th:src="${signProfileView.sign.url} + '?autoplay=1%26wmode=transparent'" frameborder="0" allowfullscreen=""/>
+
+            <object th:if="${#strings.contains(signProfileView.sign.url,'vod')}">
+                <param name="URL"  value="http://vod.com.ftgroup/vod/content/encoded/TNwV7arE2mcAES7dFFtX.asx"/>
+                <embed type="application/x-vlc-plugin" th:src="${signProfileView.sign.url} + '?wmode=transparent'"  autostart="true" loop="false" allowfullscreen="true"></embed>
+            </object>
+
+            <div th:if="${#strings.contains(signProfileView.sign.url,'mp4')}">
+                <video width="700" height="400">
+                    <source src="'${signProfileView.sign.url}" th:src="@{${signProfileView.sign.url}}" type="video/mp4"/>
+                </video>
+                <div th:replace="fragments/frame-player :: div"/>
+            </div>
+
             <p th:text="${signProfileView.sign.name}"/>
+
         </div>
 
         <div class="col-md-4 col-xs-12">

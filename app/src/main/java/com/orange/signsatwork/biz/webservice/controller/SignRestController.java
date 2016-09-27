@@ -61,7 +61,7 @@ public class SignRestController {
   @RequestMapping(value = RestApi.WS_SEC_SIGN_CREATE, method = RequestMethod.POST)
   public SignId createSign(@RequestBody SignCreationView signCreationView, Principal principal) {
     User user = userService.withUserName(principal.getName());
-    Sign sign = signService.create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl());
+    Sign sign = signService.create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
 
     log.info("createSign: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 

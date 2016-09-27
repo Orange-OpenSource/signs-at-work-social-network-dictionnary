@@ -45,7 +45,7 @@ public class UserServiceDeleteTest {
   public void canRemoveUser() {
     // given
     User user = testUser.get("user-canRemoveUser");
-    Sign sign = services.sign().create(user.id, "sign-canRemoveUser", "//video-canRemoveUser");
+    Sign sign = services.sign().create(user.id, "sign-canRemoveUser", "//video-canRemoveUser", "");
     Video video = sign.loadVideos().videos.list().get(0);
     Favorite favorite = services.user().createUserFavorite(user.id, "favorite-canRemoveUser");
     Request request = services.user().createUserRequest(user.id, "request-canRemoveUser");
