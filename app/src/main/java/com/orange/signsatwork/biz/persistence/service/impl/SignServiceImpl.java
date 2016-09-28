@@ -22,8 +22,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * #L%
  */
 
+import com.orange.signsatwork.SpringRestClient;
+import com.orange.signsatwork.DalymotionToken;
+import com.orange.signsatwork.biz.domain.AuthTokenInfo;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.Signs;
+import com.orange.signsatwork.biz.domain.VideoDailyMotion;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.model.VideoDB;
@@ -35,12 +39,19 @@ import com.vimeo.networking.callbacks.ModelCallback;
 import com.vimeo.networking.model.Video;
 import com.vimeo.networking.model.error.VimeoError;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +66,39 @@ public class SignServiceImpl implements SignService {
   private final CommentRepository commentRepository;
   private final RatingRepository ratingRepository;
   private final Services services;
+  @Autowired
+  DalymotionToken dalymotionToken;
+
+  String REST_SERVICE_URI = "https://api.dailymotion.com";
+  String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
+  String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
+  String VIDEO_EMBED_FIELD = "embed_url";
+  String QPM_ACCESS_TOKEN = "&access_token=";
+
+  @Override
+  public String getStreamUrl(String signUrl) {
+    if (signUrl.contains("http://www.dailymotion.com/embed/video")) {
+      if ((dalymotionToken.getDailymotionCache().cacheurl.get(signUrl) == null) || (dalymotionToken.getAuthTokenInfo().isExpired())) {
+
+          URL videoUrl = null;
+          try {
+            videoUrl = new URL(signUrl);
+          } catch (MalformedURLException e) {
+            e.printStackTrace();
+          }
+
+          String path = videoUrl.getPath();
+          String id = path.substring(path.lastIndexOf('/') + 1);
+
+          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video/"+id+"?fields=" + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD);
+
+          if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
+            dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+          }
+        }
+    }
+    return dalymotionToken.getDailymotionCache().cacheurl.get(signUrl);
+  }
 
   @Override
   public Long[] mostCommented() {
@@ -200,6 +244,23 @@ public class SignServiceImpl implements SignService {
               e.printStackTrace();
             }
           }
+        } else if (videoUrl.getHost().equals("dai.ly")) {
+
+          String id=videoUrl.getFile();
+
+          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video"+id+"?fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD );
+
+          if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+            videoDB.setPictureUri(videoDailyMotion.thumbnail_360_url);
+          }
+          if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
+            dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+          }
+
+          if (!videoDailyMotion.embed_url.isEmpty()) {
+            videoDB.setUrl(videoDailyMotion.embed_url);
+            signDB.setUrl(videoDailyMotion.embed_url);
+          }
         }
       }
     } else {
@@ -210,6 +271,28 @@ public class SignServiceImpl implements SignService {
     return;
   }
 
+  private VideoDailyMotion getVideoDailyMotionDetails(String id, String url) {
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    url = url +QPM_ACCESS_TOKEN+authTokenInfo.getAccess_token();
+
+    RestTemplate restTemplate = new RestTemplate();
+    HttpEntity<String> request = new HttpEntity<String>(getHeaders());
+    ResponseEntity<VideoDailyMotion> response = restTemplate.exchange(url, HttpMethod.GET, request, VideoDailyMotion.class);
+    VideoDailyMotion videoDailyMotion = response.getBody();
+    return videoDailyMotion;
+  }
+
+  private static HttpHeaders getHeaders(){
+    HttpHeaders headers = new HttpHeaders();
+    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+    return headers;
+  }
 
   @Override
   public Sign create(long userId, String signName, String signUrl, String pictureUri) {

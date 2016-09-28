@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SignProfileView {
   private Sign sign;
+  private String url;
   private boolean ratePositive;
   private boolean rateNoRate = true;
   private boolean rateNeutral;
@@ -54,6 +55,16 @@ public class SignProfileView {
 
   public SignProfileView(Sign sign, SignService signService, User user) {
     this.sign = sign;
+
+    if (sign.url.contains("http://www.dailymotion.com/embed/video")) {
+      if (signService.getStreamUrl(sign.url) != null) {
+        this.url = signService.getStreamUrl(sign.url);
+      } else {
+        this.url = sign.url;
+      }
+    } else {
+      this.url = sign.url;
+    }
     List<Long> associateIds = sign.associateSignsIds;
     associateIds.addAll(sign.referenceBySignsIds);
     this.associateSignsIds = associateIds;

@@ -64,5 +64,7 @@ public interface SignService {
 
   Sign replace(long userId, long signId, String signUrl);
 
+  String getStreamUrl(String signUrl);
+
   void delete(Sign sign);
 }
