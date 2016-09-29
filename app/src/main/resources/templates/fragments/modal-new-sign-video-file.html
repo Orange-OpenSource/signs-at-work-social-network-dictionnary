@@ -36,7 +36,7 @@
                     <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
                 </div>
             </div>
-            <form th:action="@{/sec/sign/createfromupload}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+            <form th:action="@{/sec/sign/createfromuploadondailymotion}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
                 <div class="modal-body text-center">
                     <input th:field="*{signName}" type="text" class="text-center border form-control"
                            th:placeholder="#{sign.enter_name}" required="" /><br/>

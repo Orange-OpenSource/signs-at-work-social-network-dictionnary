@@ -22,6 +22,8 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.FileUploadDailymotion;
+import com.orange.signsatwork.biz.domain.UrlFileUploadDailymotion;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -31,12 +33,15 @@ import com.orange.signsatwork.biz.view.model.SignCreationView;
 import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -118,6 +123,55 @@ public class FileUploadController {
 
     private String showSign(long signId) {
         return "redirect:/sign/" + signId;
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/sec/sign/createfromuploadondailymotion", method = RequestMethod.POST)
+    public String createSignFromUploadondailymotion(@RequestParam("file") MultipartFile file, @ModelAttribute SignCreationView signCreationView, Principal principal) throws IOException, JCodecException {
+
+
+        User user = services.user().withUserName(principal.getName());
+
+        UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
+
+
+        MultiValueMap<String, Object> parts =  new LinkedMultiValueMap<String, Object>();
+        parts.add("file", new ByteArrayResource(file.getBytes()));
+        parts.add("filename", file.getOriginalFilename());
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
+
+        ResponseEntity<FileUploadDailymotion> response = restTemplate.exchange(urlfileUploadDailymotion.upload_url,
+                        HttpMethod.POST, requestEntity, FileUploadDailymotion.class);
+        FileUploadDailymotion fileUploadDailyMotion = response.getBody();
+
+        MultiValueMap<String, Object> body =  new LinkedMultiValueMap<String, Object>();
+        body.add("url", fileUploadDailyMotion.url);
+
+        RestTemplate restTemplate1 = new RestTemplate();
+        HttpHeaders headers1 = new HttpHeaders();
+        headers1.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
+
+        ResponseEntity<String> response1 = restTemplate1.exchange("https://api.dailymotion.com/me/videos",
+                HttpMethod.POST, requestEntity1, String.class);
+
+
+        storageService.store(file);
+        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        storageService.generateThumbnail(inputFile);
+
+        signCreationView.setVideoUrl("/files/" + file.getOriginalFilename());
+        Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "/files/" + inputFile.getName() + ".jpg");
+
+        log.info("createSignFromUpload: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
+
+        return showSign(sign.id);
     }
 }
 
