@@ -5,9 +5,6 @@ spring.profiles.active: dev
 spring.profiles: dev
 server.port: 8080
 spring.h2.console.enabled: true
-spring.datasource.url: jdbc:mysql://localhost:3306/signsatwork
-spring.datasource.username: root
-spring.datasource.password: obelix
 spring.jpa.hibernate.ddl-auto: update
 spring.http.multipart.max-file-size: 20MB
 spring.http.multipart.max-request-size: 20MB
