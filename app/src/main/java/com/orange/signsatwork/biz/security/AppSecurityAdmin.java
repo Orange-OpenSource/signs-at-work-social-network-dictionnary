@@ -60,7 +60,7 @@ public class AppSecurityAdmin {
   }
 
   private void createAndPersistAdmin(Iterable<UserRoleDB> roles) {
-    UserDB userDB = new UserDB(ADMIN_USERNAME, passwordEncoder.encode(ADMIN_PASSWORD), "", "", "", "", "");
+    UserDB userDB = new UserDB(ADMIN_USERNAME, passwordEncoder.encode(ADMIN_PASSWORD), "", "", "", "", "", "", "", "", "","");
     Set<UserRoleDB> set = new HashSet<>();
     roles.forEach(set::add);
     userDB.setUserRoles(set);

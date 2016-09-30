@@ -53,7 +53,7 @@
     </div>
     <br/>
 
-    <form class="form-inline" action="#" th:action="@{/sec/testUI/user/create}" th:object="${user}" method="post">
+    <form class="form-inline" action="#" th:action="@{/sec/testUI/user/create}"  enctype="multipart/form-data" th:object="${user}" method="post">
         <div class="form-group">
             <label for="username" th:text="#{user_name}"></label>
             <input th:field="*{username}" type="text" class="form-control" placeholder="titi" required="" autofocus=""/>
@@ -79,8 +79,22 @@
             <input th:field="*{entity}" type="text" class="form-control"/>
         </div>
         <div class="form-group">
+            <label for="job" th:text="#{job}"></label>
+            <input th:field="*{job}" type="text" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="jobTextDescription" th:text="#{jobTextDescription}"></label>
+            <input th:field="*{jobTextDescription}" type="text" class="form-control"/>
+            <input name="fileVideoJob" type="file"/>
+        </div>
+        <div class="form-group">
             <label for="activity" th:text="#{activity}"></label>
             <input th:field="*{activity}" type="text" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="activityTextDescription" th:text="#{activityTextDescription}"></label>
+            <input th:field="*{activityTextDescription}" type="text" class="form-control"/>
+            <input name="fileVideoActivity" type="file"/>
         </div>
         <br/>
         <button type="submit" class="btn btn-primary" th:text="#{add_user}"></button>

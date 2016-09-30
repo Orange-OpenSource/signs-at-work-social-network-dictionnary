@@ -36,7 +36,12 @@ public class User {
   public final String lastName;
   public final String email;
   public final String entity;
+  public final String job;
+  public final String jobTextDescription;
+  public final String jobVideoDescription;
   public final String activity;
+  public final String activityTextDescription;
+  public final String activityVideoDescription;
   public final Date lastConnectionDate;
   public final Communities communities;
   public final Requests requests;
@@ -53,7 +58,7 @@ public class User {
     return communities != null || requests != null || favorites != null ?
             this :
             new User(
-                    id, username, firstName, lastName, email, entity, activity, lastConnectionDate,
+                    id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
                     services.community().forUser(id),  services.request().requestsforUser(id), services.favorite().favoritesforUser(id), videos,
                     services);
   }
@@ -61,7 +66,7 @@ public class User {
   public User loadVideos() {
     return videos != null ? this :
             new User(
-                    id, username, firstName, lastName, email, entity, activity, lastConnectionDate,
+                    id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
                     communities, requests, favorites, services.video().forUser(id),
                     services);
   }
@@ -71,24 +76,24 @@ public class User {
   }
 
 
-  public static User create(String username, String firstName, String lastName, String email, String entity, String activity) {
-    return create(username, firstName, lastName, email, entity, activity, null);
+  public static User create(String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
+    return create(username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, null);
   }
 
-  public static User create(String username, String firstName, String lastName, String email, String entity, String activity, Date lastConnectionDate) {
-    return create(-1, username, firstName, lastName, email, entity, activity, lastConnectionDate);
+  public static User create(String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
+    return create(-1, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String email, String entity, String activity, Date lastConnectionDate) {
+  public static User create(long id, String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
     return create(
-            id, username, firstName, lastName, email, entity, activity, lastConnectionDate,
+            id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
             null);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String email, String entity, String activity, Date lastConnectionDate,
+  public static User create(long id, String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate,
                             Services services) {
     return new User(
-            id, username, firstName, lastName, email, entity, activity, lastConnectionDate,
+            id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
             null, null, null, null, services);
   }
 }

@@ -56,6 +56,27 @@ public class UserController {
     return "profile";
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/job-detail")
+  public String jobDetails(Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+    model.addAttribute("title", messageByLocaleService.getMessage("job"));
+    model.addAttribute("user", user);
+    model.addAttribute("backUrl", "/sec/profile");
+
+    return "job-detail";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/activity-detail")
+  public String activityDetails(Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+    model.addAttribute("title", messageByLocaleService.getMessage("activity"));
+    model.addAttribute("user", user);
+    model.addAttribute("backUrl", "/sec/profile");
+
+    return "activity-detail";
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")

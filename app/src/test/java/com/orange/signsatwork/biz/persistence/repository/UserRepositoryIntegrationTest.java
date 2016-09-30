@@ -52,7 +52,12 @@ public class UserRepositoryIntegrationTest {
   private String lastName1 = "Aristocats";
   private String email1 = "duchess@cats.com";
   private String entity1 = "CATS";
+  private String job1 = "Chatte au foyer";
+  private String jobTextDescription1 = "bla bla bla";
+  private String jobVideoDescription1 = "job1.mp4";
   private String activity1 = "mother";
+  private String activityTextDescription1 = "blo blo blo..";
+  private String activityVideoDescription1 = "activity1.mp4";
 
 
   private String username2 = "Thomas";
@@ -61,13 +66,18 @@ public class UserRepositoryIntegrationTest {
   private String lastName2 = "O'Malley";
   private String email2 = "gangster@cats.com";
   private String entity2 = "MOUSE";
-  private String activity2 = "gangster";
+  private String job2 = "Gangster";
+  private String jobTextDescription2 = "blu blu blu";
+  private String jobVideoDescription2 = "job2.mp4";
+  private String activity2 = "cambrioleur";
+  private String activityTextDescription2 = "bli bli bli";
+  private String activityVideoDescription2 = "activity2.mp4";
 
   @Test
   public void returnAllPersisted() throws IOException {
     // given
-    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, email1, entity1, activity1));
-    entityManager.persist(new UserDB(username2, password2, firstName2, lastName2, email2, entity2, activity2));
+    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, email1, entity1, job1, jobTextDescription1, jobVideoDescription1, activity1, activityTextDescription1, activityVideoDescription1));
+    entityManager.persist(new UserDB(username2, password2, firstName2, lastName2, email2, entity2, job2, jobTextDescription2, jobVideoDescription2, activity2, activityTextDescription2, activityVideoDescription2));
     // do
     Iterable<UserDB> users = userRepository.findAll();
     UserDB admin = userRepository.findByUsername(AppSecurityAdmin.ADMIN_USERNAME).get(0);
@@ -87,7 +97,12 @@ public class UserRepositoryIntegrationTest {
     assertThat(user1.getLastName()).isEqualTo(lastName1);
     assertThat(user1.getEmail()).isEqualTo(email1);
     assertThat(user1.getEntity()).isEqualTo(entity1);
+    assertThat(user1.getJob()).isEqualTo(job1);
+    assertThat(user1.getJobTextDescription()).isEqualTo(jobTextDescription1);
+    assertThat(user1.getJobVideoDescription()).isEqualTo(jobVideoDescription1);
     assertThat(user1.getActivity()).isEqualTo(activity1);
+    assertThat(user1.getActivityTextDescription()).isEqualTo(activityTextDescription1);
+    assertThat(user1.getActivityVideoDescription()).isEqualTo(activityVideoDescription1);
 
     assertThat(user2.getUsername()).isEqualTo(username2);
     assertThat(user2.getPasswordHash()).isEqualTo(password2);
@@ -95,14 +110,19 @@ public class UserRepositoryIntegrationTest {
     assertThat(user2.getLastName()).isEqualTo(lastName2);
     assertThat(user2.getEmail()).isEqualTo(email2);
     assertThat(user2.getEntity()).isEqualTo(entity2);
+    assertThat(user2.getJob()).isEqualTo(job2);
+    assertThat(user2.getJobTextDescription()).isEqualTo(jobTextDescription2);
+    assertThat(user2.getJobVideoDescription()).isEqualTo(jobVideoDescription2);
     assertThat(user2.getActivity()).isEqualTo(activity2);
+    assertThat(user2.getActivityTextDescription()).isEqualTo(activityTextDescription2);
+    assertThat(user2.getActivityVideoDescription()).isEqualTo(activityVideoDescription2);
   }
 
   @Test
   public void createUser() {
     // given
     // do
-    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, email1, entity1, activity1));
+    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, email1, entity1, job1, jobTextDescription1, jobVideoDescription1, activity1, activityTextDescription1, activityVideoDescription1));
     UserDB user1 = userRepository.findByUsername(username1).get(0);
     // then
     assertThat(user1.getUsername()).isEqualTo(username1);
@@ -111,6 +131,11 @@ public class UserRepositoryIntegrationTest {
     assertThat(user1.getLastName()).isEqualTo(lastName1);
     assertThat(user1.getEmail()).isEqualTo(email1);
     assertThat(user1.getEntity()).isEqualTo(entity1);
+    assertThat(user1.getJob()).isEqualTo(job1);
+    assertThat(user1.getJobTextDescription()).isEqualTo(jobTextDescription1);
+    assertThat(user1.getJobVideoDescription()).isEqualTo(jobVideoDescription1);
     assertThat(user1.getActivity()).isEqualTo(activity1);
+    assertThat(user1.getActivityTextDescription()).isEqualTo(activityTextDescription1);
+    assertThat(user1.getActivityVideoDescription()).isEqualTo(activityVideoDescription1);
   }
 }

@@ -28,23 +28,32 @@ import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
+import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.CommunityView;
 import com.orange.signsatwork.biz.view.model.UserCreationView;
 import com.orange.signsatwork.biz.view.model.UserView;
+import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
 public class TestUIController {
+
+  private final StorageService storageService;
+
+  @Autowired
+  public TestUIController(StorageService storageService) {
+    this.storageService = storageService;
+  }
 
   @Autowired
   private UserTestUIController userTestUIController;
@@ -110,7 +119,15 @@ public class TestUIController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/testUI/user/create", method = RequestMethod.POST)
-  public String user(@ModelAttribute UserCreationView userCreationView, Model model) {
+  public String user(@RequestParam("fileVideoJob") MultipartFile fileVideoJob, @RequestParam("fileVideoActivity") MultipartFile fileVideoActivity,  @ModelAttribute UserCreationView userCreationView, Model model) throws IOException, JCodecException {
+    storageService.store(fileVideoJob);
+    //File inputFileVideoJob = storageService.load(fileVideoJob.getOriginalFilename()).toFile();
+    storageService.store(fileVideoActivity);
+    //File inputfileVideoActivity = storageService.load(fileVideoActivity.getOriginalFilename()).toFile();
+
+    userCreationView.setJobVideoDescription("/files/" + fileVideoJob.getOriginalFilename());
+    userCreationView.setActivityVideoDescription("/files/" + fileVideoActivity.getOriginalFilename());
+
     User user = userService.create(userCreationView.toUser(), userCreationView.getPassword());
     userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
     return userTestUIController.userDetails(user.id, model);

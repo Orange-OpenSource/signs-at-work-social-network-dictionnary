@@ -58,7 +58,17 @@ public class UserDB {
 
   private String entity;
 
+  private String job;
+
+  private String jobTextDescription;
+
+  private String jobVideoDescription;
+
   private String activity;
+
+  private String activityTextDescription;
+
+  private String activityVideoDescription;
 
   private Date lastConnectionDate;
 
@@ -96,13 +106,18 @@ public class UserDB {
   @NotNull
   private String passwordHash;
 
-  public UserDB(String username, String passwordHash, String firstName, String lastName, String email, String entity, String activity) {
+  public UserDB(String username, String passwordHash, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
     this.username = username;
     this.passwordHash = passwordHash;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.entity = entity;
+    this.job = job;
+    this.jobTextDescription = jobTextDescription;
+    this.jobVideoDescription = jobVideoDescription;
     this.activity = activity;
+    this.activityTextDescription = activityTextDescription;
+    this.activityVideoDescription = activityVideoDescription;
   }
 }

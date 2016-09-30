@@ -38,17 +38,22 @@ public class UserView {
   public final String lastName;
   public final String email;
   public final String entity;
+  public final String job;
+  public final String jobTextDescription;
+  public final String jobVideoDescription;
   public final String activity;
+  public final String activityTextDescription;
+  public final String activityVideoDescription;
   public final Date lastConnectionDate;
 
   public User toUser() {
-    return User.create(username, firstName, lastName, email, entity, activity, lastConnectionDate);
+    return User.create(username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate);
   }
 
   public static UserView from(User user) {
     return new UserView(
             user.id, user.username, user.firstName, user.lastName,
-            user.email, user.entity, user.activity, user.lastConnectionDate);
+            user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription, user.activity, user.activityTextDescription, user.activityVideoDescription, user.lastConnectionDate);
   }
 
   public static List<UserView> from(Users users) {
