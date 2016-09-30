@@ -35,6 +35,10 @@ h2, .h2 {
 	font-size: 20px;
 }
 
+.label_sign > a H2{
+	font-weight: bold;
+}
+
 h4, .h4 {
 	font-size: 17px;
 }
@@ -290,6 +294,10 @@ text-decoration-line: none;
 	margin-left: 0.7em;
 }
 
+#Sign_List{
+	background-color: #515151;
+	color: white;
+}
 
 .dropdown-menu > li {
 	clear: both;
@@ -752,6 +760,9 @@ li[role="presentation"] {
 	margin-top: 15px;
 }
 
+textarea{
+	width: 100%;
+}
 
 /******* Media Query  ********/
 

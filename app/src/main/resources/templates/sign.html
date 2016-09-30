@@ -65,10 +65,10 @@
         <div class="col-md-4 col-xs-12">
             <aside class="sidebar">
                 <ul class="nav nav-list primary left-menu">
-                    <li th:if="${isAuthenticated}" id="label_sign" class="aside_bckg_li">
+                    <li th:if="${isAuthenticated}" id="label_sign" class="label_sign aside_bckg_li">
                         <a th:href="@{/sec/sign/} + ${signProfileView.sign.id} + '/detail'">
                             <div>
-                            <h2 class="container_H2" th:text="${signProfileView.sign.name}"/>
+                            <em><h2 class="container_H2" th:text="${signProfileView.sign.name}"/></em>
                             <div>
                                 <div class="pull-right menu_detail_with_chevron"/>
                                 <div th:if="${signProfileView.ratePositive}" class="pull-right sentiment_positif"/>
