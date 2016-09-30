@@ -24,10 +24,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.DalymotionToken;
-import com.orange.signsatwork.biz.domain.AuthTokenInfo;
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.domain.Signs;
-import com.orange.signsatwork.biz.domain.VideoDailyMotion;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.model.VideoDB;
@@ -74,6 +71,22 @@ public class SignServiceImpl implements SignService {
   String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
   String QPM_ACCESS_TOKEN = "&access_token=";
+
+  @Override
+  public UrlFileUploadDailymotion getUrlFileUpload() {
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    RestTemplate restTemplate = new RestTemplate();
+    HttpEntity<String> request = new HttpEntity<String>(getHeaders());
+    ResponseEntity<UrlFileUploadDailymotion> response = restTemplate.exchange(REST_SERVICE_URI + "/file/upload"+QPM_ACCESS_TOKEN+authTokenInfo.getAccess_token(), HttpMethod.GET, request, UrlFileUploadDailymotion.class);
+    UrlFileUploadDailymotion urlfileUploadDailyMotion = response.getBody();
+    return urlfileUploadDailyMotion;
+  }
+
 
   @Override
   public String getStreamUrl(String signUrl) {

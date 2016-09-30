@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.UrlFileUploadDailymotion;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.Signs;
 
@@ -65,6 +66,8 @@ public interface SignService {
   Sign replace(long userId, long signId, String signUrl);
 
   String getStreamUrl(String signUrl);
+
+  UrlFileUploadDailymotion getUrlFileUpload();
 
   void delete(Sign sign);
 }
