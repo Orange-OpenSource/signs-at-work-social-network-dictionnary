@@ -38,6 +38,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -119,6 +120,25 @@ public class FileUploadController {
         log.info("createSignFromUpload: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 
         return showSign(sign.id);
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/sec/request/{requestId}/add/signfromupload", method = RequestMethod.POST)
+    public String changeSignRequest(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute SignCreationView signCreationView, Principal principal) throws IOException, JCodecException {
+
+        User user = services.user().withUserName(principal.getName());
+        storageService.store(file);
+        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+
+        storageService.generateThumbnail(inputFile);
+
+        signCreationView.setVideoUrl("/files/" + file.getOriginalFilename());
+
+        Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "/files/" + inputFile.getName() + ".jpg");
+        services.request().changeSignRequest(requestId, sign.id);
+        log.info("createSignFromUpload: username = {} / sign name = {} / video url = {} and associate to request = {} ", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl(),requestId);
+
+        return "redirect:/sign/" + sign.id;
     }
 
     private String showSign(long signId) {
