@@ -50,7 +50,7 @@
         <div class="pull-right col-md-8 col-xs-12 col-sm-4">
             <div>
                 <video>
-                    <source src="'${user.jobVideoDescription}" th:src="${user.jobVideoDescription}" type="video/mp4"/>
+                    <source src="'${user.activityVideoDescription}" th:src="${user.activityVideoDescription}" type="video/mp4"/>
                 </video>
                 <div th:replace="fragments/frame-player :: div"/>
             </div>
@@ -60,8 +60,8 @@
         <div class="col-md-4 col-xs-12">
             <aside class="sidebar">
                 <ul class="nav nav-list primary left-menu">
-                    <li class="aside_bckg_li"><h2 th:text="${user.job}"></h2></li>
-                    <li class="aside_bckg_li"><span th:text="${user.jobTextDescription}"></span></li>
+                    <li class="aside_bckg_li"><h2 th:text="${user.activity}"></h2></li>
+                    <li class="aside_bckg_li"><span th:text="${user.activityTextDescription}"></span></li>
                 </ul>
             </aside>
         </div>
