@@ -139,7 +139,7 @@ public class RestApiSecurityTest {
     ObjectMapper mapper = new ObjectMapper();
     return mapper.writeValueAsString(
             new UserCreationView(
-                    "Thomas", "4321","Thomas", "O'Malley", "gangster@cats.com",
+                    "Thomas", "4321","Thomas", "O'Malley", "name2.mp4", "gangster@cats.com",
                     "MOUSE", "Gangster", "blu blu blu", "job2.mp4", "cambrioleur", "bli bli bli", "activity2.mp4" ));
   }
 }

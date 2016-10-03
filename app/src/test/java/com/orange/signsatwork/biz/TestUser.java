@@ -37,7 +37,7 @@ public class TestUser {
   UserService userService;
 
   public User get(String username) {
-    return userService.create(User.create(username, "titi", "toto", "titi@toto.org", "entity", "job", "jobTextDescription", "jobVideoDescription", "activity", "activityTextDescription", "activityVideoDescription"), PASSWORD);
+    return userService.create(User.create(username, "titi", "toto", "nameVideo", "titi@toto.org", "entity", "job", "jobTextDescription", "jobVideoDescription", "activity", "activityTextDescription", "activityVideoDescription"), PASSWORD);
   }
 
   public User get() {

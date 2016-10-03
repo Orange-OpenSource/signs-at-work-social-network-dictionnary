@@ -39,6 +39,7 @@ public class UserCreationView {
   private String password;
   private String firstName;
   private String lastName;
+  private String nameVideo;
   private String email;
   private String entity;
   private String job;
@@ -49,6 +50,6 @@ public class UserCreationView {
   private String activityVideoDescription;
 
   public User toUser() {
-    return User.create(username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription);
+    return User.create(username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription);
   }
 }

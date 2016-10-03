@@ -34,6 +34,7 @@ public class User {
   public final String username;
   public final String firstName;
   public final String lastName;
+  public final String nameVideo;
   public final String email;
   public final String entity;
   public final String job;
@@ -58,7 +59,7 @@ public class User {
     return communities != null || requests != null || favorites != null ?
             this :
             new User(
-                    id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+                    id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
                     services.community().forUser(id),  services.request().requestsforUser(id), services.favorite().favoritesforUser(id), videos,
                     services);
   }
@@ -66,7 +67,7 @@ public class User {
   public User loadVideos() {
     return videos != null ? this :
             new User(
-                    id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+                    id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
                     communities, requests, favorites, services.video().forUser(id),
                     services);
   }
@@ -76,24 +77,24 @@ public class User {
   }
 
 
-  public static User create(String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
-    return create(username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, null);
+  public static User create(String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
+    return create(username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, null);
   }
 
-  public static User create(String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
-    return create(-1, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate);
+  public static User create(String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
+    return create(-1, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
+  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
     return create(
-            id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+            id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
             null);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate,
+  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate,
                             Services services) {
     return new User(
-            id, username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+            id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
             null, null, null, null, services);
   }
 }

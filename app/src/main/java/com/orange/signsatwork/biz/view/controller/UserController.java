@@ -79,6 +79,17 @@ public class UserController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/name-detail")
+  public String nameDetails(Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+    model.addAttribute("title", user.firstName + ' ' + user.lastName);
+    model.addAttribute("user", user);
+    model.addAttribute("backUrl", "/sec/profile");
+
+    return "name-detail";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")
   public String userDetails(@PathVariable long userId, @PathVariable long communityId, Principal principal, Model model) {
     User user = services.user().withId(userId);
