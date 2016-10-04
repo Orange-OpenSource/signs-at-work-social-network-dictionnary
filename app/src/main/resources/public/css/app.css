@@ -943,6 +943,14 @@ textarea{
 	.navbar-nav > li > a {
 		padding-right: 10px;
 	}
+
+	[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before{
+		width: 15px;
+		height: 15px;
+	}
+	label{
+		font-size: 12px;
+	}
 }
 @media only screen and (min-width: 1300px) and (max-width: 1920px){
 
@@ -1026,6 +1034,15 @@ textarea{
 
 	li.hidden-xs:first-child {
 		margin-right: 5rem;
+	}
+
+
+	[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before{
+		width: 30px;
+		height: 30px;
+	}
+	label{
+		font-size: 30px;
 	}
 }
 /* XXLarge screens min-width 1921px, xxlarge screens */
