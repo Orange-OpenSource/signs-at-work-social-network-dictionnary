@@ -1056,3 +1056,52 @@ textarea{
 	}
 
 }
+
+/****************************button radio************************/
+
+/*  see here the subtlety for Thymeleaf https://github.com/Dogfalo/materialize/issues/1582 */
+
+/* HTML5 Boilerplate accessible hidden styles */
+input[type="checkbox"] {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px; margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/* One radio button per line */
+label {
+	display: block;
+	cursor: pointer;
+	line-height: 2.5;
+	font-weight: normal;
+}
+
+[type="checkbox"] + span,
+[type="checkbox"] + [type="hidden"] + span{
+	display: block;
+}
+
+/* the basic, unchecked style */
+[type="checkbox"] + span:before,
+[type="checkbox"] + [type="hidden"] + span:before  {
+	content: '';
+	display: inline-block;
+	vertical-align: -0.25em;
+	border-radius: 1em;
+	border: 0.125em solid #fff;
+	box-shadow: 0 0 0 4px #000;
+	margin-right: 0.75em;
+	transition: 0.5s ease all;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="checkbox"]:checked + span:before ,
+[type="checkbox"]:checked + [type="hidden"] + span:before {
+	background: #f16e00;
+	/*box-shadow: 0 0 0 0.25em #000;*/
+}
+
