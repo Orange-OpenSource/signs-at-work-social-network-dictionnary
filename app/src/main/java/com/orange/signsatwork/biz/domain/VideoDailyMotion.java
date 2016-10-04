@@ -2,7 +2,10 @@ package com.orange.signsatwork.biz.domain;
 
 public class VideoDailyMotion {
 
-    private String thumbnail_url;
+    public String id;
+    public String title;
+    public String channel;
+    public String thumbnail_url;
     public String thumbnail_60_url;
     public String thumbnail_120_url;
     public String thumbnail_180_url;

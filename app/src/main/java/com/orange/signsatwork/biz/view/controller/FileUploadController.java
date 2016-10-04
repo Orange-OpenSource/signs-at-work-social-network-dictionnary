@@ -22,10 +22,8 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.FileUploadDailymotion;
-import com.orange.signsatwork.biz.domain.UrlFileUploadDailymotion;
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.DalymotionToken;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageFileNotFoundException;
 import com.orange.signsatwork.biz.storage.StorageService;
@@ -48,6 +46,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 
 @Slf4j
 @Controller
@@ -61,6 +60,12 @@ public class FileUploadController {
     }
     @Autowired
     private Services services;
+    @Autowired
+    DalymotionToken dalymotionToken;
+    String REST_SERVICE_URI = "https://api.dailymotion.com";
+    String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
+    String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
+    String VIDEO_EMBED_FIELD = "embed_url";
 
 //    @GetMapping("/")
 //    public String listUploadedFiles(Model model) throws IOException {
@@ -149,6 +154,11 @@ public class FileUploadController {
     @RequestMapping(value = "/sec/sign/createfromuploadondailymotion", method = RequestMethod.POST)
     public String createSignFromUploadondailymotion(@RequestParam("file") MultipartFile file, @ModelAttribute SignCreationView signCreationView, Principal principal) throws IOException, JCodecException {
 
+        AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+        if (authTokenInfo.isExpired()) {
+            dalymotionToken.retrieveToken();
+            authTokenInfo = dalymotionToken.getAuthTokenInfo();
+        }
 
         User user = services.user().withUserName(principal.getName());
 
@@ -171,16 +181,27 @@ public class FileUploadController {
 
         MultiValueMap<String, Object> body =  new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
+        body.add("title", signCreationView.getSignName());
+        body.add("tags", "dailymotion,api,sdk,test");
+        body.add("channel","videogames");
+        body.add("published", true);
 
         RestTemplate restTemplate1 = new RestTemplate();
         HttpHeaders headers1 = new HttpHeaders();
-        headers1.setContentType(MediaType.APPLICATION_JSON);
+        headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers1.set("Authorization", "Bearer "+ authTokenInfo.getAccess_token());
+        headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
 
-        ResponseEntity<String> response1 = restTemplate1.exchange("https://api.dailymotion.com/me/videos",
-                HttpMethod.POST, requestEntity1, String.class);
+        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+                HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
+        VideoDailyMotion videoDailyMotion= response1.getBody();
 
+
+        String url= REST_SERVICE_URI+"/video/"+videoDailyMotion.id+"?fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD;
+
+        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url );
 
         storageService.store(file);
         File inputFile = storageService.load(file.getOriginalFilename()).toFile();

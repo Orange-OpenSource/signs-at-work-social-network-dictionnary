@@ -70,19 +70,13 @@ public class SignServiceImpl implements SignService {
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
-  String QPM_ACCESS_TOKEN = "&access_token=";
 
   @Override
   public UrlFileUploadDailymotion getUrlFileUpload() {
-    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
-    if (authTokenInfo.isExpired()) {
-      dalymotionToken.retrieveToken();
-      authTokenInfo = dalymotionToken.getAuthTokenInfo();
-    }
 
     RestTemplate restTemplate = new RestTemplate();
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
-    ResponseEntity<UrlFileUploadDailymotion> response = restTemplate.exchange(REST_SERVICE_URI + "/file/upload"+QPM_ACCESS_TOKEN+authTokenInfo.getAccess_token(), HttpMethod.GET, request, UrlFileUploadDailymotion.class);
+    ResponseEntity<UrlFileUploadDailymotion> response = restTemplate.exchange(REST_SERVICE_URI + "/file/upload", HttpMethod.GET, request, UrlFileUploadDailymotion.class);
     UrlFileUploadDailymotion urlfileUploadDailyMotion = response.getBody();
     return urlfileUploadDailyMotion;
   }
@@ -284,15 +278,9 @@ public class SignServiceImpl implements SignService {
     return;
   }
 
-  private VideoDailyMotion getVideoDailyMotionDetails(String id, String url) {
+  @Override
+  public VideoDailyMotion getVideoDailyMotionDetails(String id, String url) {
 
-    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
-    if (authTokenInfo.isExpired()) {
-      dalymotionToken.retrieveToken();
-      authTokenInfo = dalymotionToken.getAuthTokenInfo();
-    }
-
-    url = url +QPM_ACCESS_TOKEN+authTokenInfo.getAccess_token();
 
     RestTemplate restTemplate = new RestTemplate();
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
@@ -301,9 +289,17 @@ public class SignServiceImpl implements SignService {
     return videoDailyMotion;
   }
 
-  private static HttpHeaders getHeaders(){
+  private HttpHeaders getHeaders(){
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+    headers.set("Authorization", "Bearer "+ authTokenInfo.getAccess_token());
     return headers;
   }
 

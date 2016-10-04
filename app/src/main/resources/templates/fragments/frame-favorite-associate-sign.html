@@ -39,7 +39,8 @@
                    th:for="${#ids.next('favoriteSignsIds')}">
 
                 <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
-                    <iframe th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
+                    <img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/>
+                    <iframe th:if="${#strings.isEmpty(video.pictureUri)}" th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
                 </div>
 
                 <input type="checkbox" th:field="*{favoriteSignsIds}" th:text="${sign.name}" th:value="${sign.id}"/>

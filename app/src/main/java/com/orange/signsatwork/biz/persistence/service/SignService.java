@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.persistence.service;
 import com.orange.signsatwork.biz.domain.UrlFileUploadDailymotion;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.Signs;
+import com.orange.signsatwork.biz.domain.VideoDailyMotion;
 
 import java.util.Date;
 import java.util.List;
@@ -68,6 +69,8 @@ public interface SignService {
   String getStreamUrl(String signUrl);
 
   UrlFileUploadDailymotion getUrlFileUpload();
+
+  VideoDailyMotion getVideoDailyMotionDetails(String id, String url);
 
   void delete(Sign sign);
 }
