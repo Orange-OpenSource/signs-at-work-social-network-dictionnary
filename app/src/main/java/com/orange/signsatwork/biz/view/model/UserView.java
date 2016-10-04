@@ -36,6 +36,7 @@ public class UserView {
   public final String username;
   public final String firstName;
   public final String lastName;
+  public final String nameVideo;
   public final String email;
   public final String entity;
   public final String job;
@@ -47,12 +48,12 @@ public class UserView {
   public final Date lastConnectionDate;
 
   public User toUser() {
-    return User.create(username, firstName, lastName, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate);
+    return User.create(username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate);
   }
 
   public static UserView from(User user) {
     return new UserView(
-            user.id, user.username, user.firstName, user.lastName,
+            user.id, user.username, user.firstName, user.lastName, user.nameVideo,
             user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription, user.activity, user.activityTextDescription, user.activityVideoDescription, user.lastConnectionDate);
   }
 

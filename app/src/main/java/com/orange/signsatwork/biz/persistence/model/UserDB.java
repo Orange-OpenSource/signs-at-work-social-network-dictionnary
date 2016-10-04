@@ -53,6 +53,8 @@ public class UserDB {
   @NotNull
   private String lastName;
 
+  private String nameVideo;
+
   @NotNull
   private String email;
 
@@ -106,11 +108,12 @@ public class UserDB {
   @NotNull
   private String passwordHash;
 
-  public UserDB(String username, String passwordHash, String firstName, String lastName, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
+  public UserDB(String username, String passwordHash, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
     this.username = username;
     this.passwordHash = passwordHash;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.nameVideo = nameVideo;
     this.email = email;
     this.entity = entity;
     this.job = job;

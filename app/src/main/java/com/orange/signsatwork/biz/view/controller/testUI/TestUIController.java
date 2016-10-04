@@ -119,12 +119,15 @@ public class TestUIController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/testUI/user/create", method = RequestMethod.POST)
-  public String user(@RequestParam("fileVideoJob") MultipartFile fileVideoJob, @RequestParam("fileVideoActivity") MultipartFile fileVideoActivity,  @ModelAttribute UserCreationView userCreationView, Model model) throws IOException, JCodecException {
+  public String user(@RequestParam("fileVideoName") MultipartFile fileVideoName, @RequestParam("fileVideoJob") MultipartFile fileVideoJob, @RequestParam("fileVideoActivity") MultipartFile fileVideoActivity,  @ModelAttribute UserCreationView userCreationView, Model model) throws IOException, JCodecException {
+    storageService.store(fileVideoName);
+
     storageService.store(fileVideoJob);
     //File inputFileVideoJob = storageService.load(fileVideoJob.getOriginalFilename()).toFile();
     storageService.store(fileVideoActivity);
     //File inputfileVideoActivity = storageService.load(fileVideoActivity.getOriginalFilename()).toFile();
 
+    userCreationView.setNameVideo("/files/" + fileVideoName.getOriginalFilename());
     userCreationView.setJobVideoDescription("/files/" + fileVideoJob.getOriginalFilename());
     userCreationView.setActivityVideoDescription("/files/" + fileVideoActivity.getOriginalFilename());
 

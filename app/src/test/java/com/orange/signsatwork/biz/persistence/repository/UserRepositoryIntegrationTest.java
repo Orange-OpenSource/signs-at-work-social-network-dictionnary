@@ -50,6 +50,7 @@ public class UserRepositoryIntegrationTest {
   private String password1 = "1234";
   private String firstName1 = "Duchess";
   private String lastName1 = "Aristocats";
+  private String nameVideo1 = "name1.mp4";
   private String email1 = "duchess@cats.com";
   private String entity1 = "CATS";
   private String job1 = "Chatte au foyer";
@@ -64,6 +65,7 @@ public class UserRepositoryIntegrationTest {
   private String password2 = "4321";
   private String firstName2 = "Thomas";
   private String lastName2 = "O'Malley";
+  private String nameVideo2 = "name2.mp4";
   private String email2 = "gangster@cats.com";
   private String entity2 = "MOUSE";
   private String job2 = "Gangster";
@@ -76,8 +78,8 @@ public class UserRepositoryIntegrationTest {
   @Test
   public void returnAllPersisted() throws IOException {
     // given
-    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, email1, entity1, job1, jobTextDescription1, jobVideoDescription1, activity1, activityTextDescription1, activityVideoDescription1));
-    entityManager.persist(new UserDB(username2, password2, firstName2, lastName2, email2, entity2, job2, jobTextDescription2, jobVideoDescription2, activity2, activityTextDescription2, activityVideoDescription2));
+    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, nameVideo1, email1, entity1, job1, jobTextDescription1, jobVideoDescription1, activity1, activityTextDescription1, activityVideoDescription1));
+    entityManager.persist(new UserDB(username2, password2, firstName2, lastName2, nameVideo2, email2, entity2, job2, jobTextDescription2, jobVideoDescription2, activity2, activityTextDescription2, activityVideoDescription2));
     // do
     Iterable<UserDB> users = userRepository.findAll();
     UserDB admin = userRepository.findByUsername(AppSecurityAdmin.ADMIN_USERNAME).get(0);
@@ -95,6 +97,7 @@ public class UserRepositoryIntegrationTest {
     assertThat(user1.getPasswordHash()).isEqualTo(password1);
     assertThat(user1.getFirstName()).isEqualTo(firstName1);
     assertThat(user1.getLastName()).isEqualTo(lastName1);
+    assertThat(user1.getNameVideo()).isEqualTo(nameVideo1);
     assertThat(user1.getEmail()).isEqualTo(email1);
     assertThat(user1.getEntity()).isEqualTo(entity1);
     assertThat(user1.getJob()).isEqualTo(job1);
@@ -108,6 +111,7 @@ public class UserRepositoryIntegrationTest {
     assertThat(user2.getPasswordHash()).isEqualTo(password2);
     assertThat(user2.getFirstName()).isEqualTo(firstName2);
     assertThat(user2.getLastName()).isEqualTo(lastName2);
+    assertThat(user2.getNameVideo()).isEqualTo(nameVideo2);
     assertThat(user2.getEmail()).isEqualTo(email2);
     assertThat(user2.getEntity()).isEqualTo(entity2);
     assertThat(user2.getJob()).isEqualTo(job2);
@@ -122,13 +126,14 @@ public class UserRepositoryIntegrationTest {
   public void createUser() {
     // given
     // do
-    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, email1, entity1, job1, jobTextDescription1, jobVideoDescription1, activity1, activityTextDescription1, activityVideoDescription1));
+    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, nameVideo1, email1, entity1, job1, jobTextDescription1, jobVideoDescription1, activity1, activityTextDescription1, activityVideoDescription1));
     UserDB user1 = userRepository.findByUsername(username1).get(0);
     // then
     assertThat(user1.getUsername()).isEqualTo(username1);
     assertThat(user1.getPasswordHash()).isEqualTo(password1);
     assertThat(user1.getFirstName()).isEqualTo(firstName1);
     assertThat(user1.getLastName()).isEqualTo(lastName1);
+    assertThat(user1.getNameVideo()).isEqualTo(nameVideo1);
     assertThat(user1.getEmail()).isEqualTo(email1);
     assertThat(user1.getEntity()).isEqualTo(entity1);
     assertThat(user1.getJob()).isEqualTo(job1);

@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   private User userFrom(UserDB userDB) {
     return User.create(
             userDB.getId(),
-            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(),
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
             userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getActivity(), userDB.getActivityTextDescription(), userDB.getActivityVideoDescription(), userDB.getLastConnectionDate(),
             services);
   }
@@ -177,7 +177,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   static User userFromSignView(UserDB userDB) {
     return User.create(
             userDB.getId(),
-            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(),
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
             userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getActivity(), userDB.getActivityTextDescription(), userDB.getActivityVideoDescription(), userDB.getLastConnectionDate());
   }
 
@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
   static User userFromCommunityView(UserDB userDB) {
     return User.create(
             userDB.getId(),
-            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(),
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
             userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getActivity(), userDB.getActivityTextDescription(), userDB.getActivityVideoDescription(), userDB.getLastConnectionDate());
   }
 
@@ -202,7 +202,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
    * @return the UserDB object to persist
    */
   private UserDB userDBFrom(User user, String password) {
-    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription, user.activity, user.activityTextDescription, user.activityVideoDescription);
+    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription, user.activity, user.activityTextDescription, user.activityVideoDescription);
     addUserRole(userDB);
     return userDB;
   }
