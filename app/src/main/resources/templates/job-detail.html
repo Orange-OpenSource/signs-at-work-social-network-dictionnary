@@ -48,8 +48,8 @@
     <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
         <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-            <div th:if="${user.jobVideoDescription} != ''">
-                <video>
+            <div th:if="${user.jobVideoDescription} != null">
+                <video th:autoplay="autoplay">
                     <source src="${user.jobVideoDescription}" th:src="${user.jobVideoDescription}" type="video/mp4"/>
                 </video>
                 <div th:replace="fragments/frame-player :: div"/>

@@ -49,7 +49,7 @@
 
         <div class="pull-right col-md-8 col-xs-12 col-sm-4">
             <div th:if="${user.nameVideo} != null">
-                <video>
+                <video th:autoplay="autoplay">
                     <source src="${user.nameVideo}" th:src="${user.nameVideo}" type="video/mp4"/>
                 </video>
                 <div th:replace="fragments/frame-player :: div"/>

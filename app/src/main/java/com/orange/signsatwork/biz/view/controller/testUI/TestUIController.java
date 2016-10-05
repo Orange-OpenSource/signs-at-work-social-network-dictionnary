@@ -120,16 +120,21 @@ public class TestUIController {
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/testUI/user/create", method = RequestMethod.POST)
   public String user(@RequestParam("fileVideoName") MultipartFile fileVideoName, @RequestParam("fileVideoJob") MultipartFile fileVideoJob, @RequestParam("fileVideoActivity") MultipartFile fileVideoActivity,  @ModelAttribute UserCreationView userCreationView, Model model) throws IOException, JCodecException {
-    storageService.store(fileVideoName);
+    if (!fileVideoName.isEmpty()) {
+      storageService.store(fileVideoName);
+      userCreationView.setNameVideo("/files/" + fileVideoName.getOriginalFilename());
+    }
 
-    storageService.store(fileVideoJob);
-    //File inputFileVideoJob = storageService.load(fileVideoJob.getOriginalFilename()).toFile();
-    storageService.store(fileVideoActivity);
-    //File inputfileVideoActivity = storageService.load(fileVideoActivity.getOriginalFilename()).toFile();
+    if (!fileVideoJob.isEmpty()) {
+      storageService.store(fileVideoJob);
+      userCreationView.setJobVideoDescription("/files/" + fileVideoJob.getOriginalFilename());
+    }
 
-    userCreationView.setNameVideo("/files/" + fileVideoName.getOriginalFilename());
-    userCreationView.setJobVideoDescription("/files/" + fileVideoJob.getOriginalFilename());
-    userCreationView.setActivityVideoDescription("/files/" + fileVideoActivity.getOriginalFilename());
+    if (!fileVideoActivity.isEmpty()) {
+      storageService.store(fileVideoActivity);
+      userCreationView.setActivityVideoDescription("/files/" + fileVideoActivity.getOriginalFilename());
+    }
+
 
     User user = userService.create(userCreationView.toUser(), userCreationView.getPassword());
     userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
