@@ -30,11 +30,11 @@
 
 				
 				// Width of the video
-				$videoWidth = $this.width();
-				$that.width($videoWidth+'px');
+				// $videoWidth = $this.width();
+				// $that.width($videoWidth+'px');
 				
 				// Set width of the player based on previously noted settings
-				$that.find('.player').css({'width' : ($settings.playerWidth*100)+'%', 'left' : ((100-$settings.playerWidth*100)/2)+'%'});
+				// $that.find('.player').css({'width' : ($settings.playerWidth*100)+'%', 'left' : ((100-$settings.playerWidth*100)/2)+'%'});
 				
 				
 				// Video information

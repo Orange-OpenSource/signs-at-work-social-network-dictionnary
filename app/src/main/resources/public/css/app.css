@@ -764,6 +764,10 @@ textarea{
 	width: 100%;
 }
 
+video{
+	width: 100%;
+}
+
 /******* Media Query  ********/
 
 /* (1280x1024) SXGA Display */
@@ -848,6 +852,73 @@ textarea{
 
 @media only screen and (max-width: 768px){
 
+	/*start customisation player*/
+	.player .fullscreen a{
+		top: 2px;
+		width: 20px;
+	}
+
+	.speed_icon{
+		background-position: -360px center;
+		width: 20px;
+		height: 20px;
+		background-size:auto 20px;
+		margin-top:2px;
+	}
+
+	.player{
+		height: 25px;
+		width: 100%;
+		font-size: 25px;
+		bottom: 10px;
+	}
+
+	.player .volume-icon span::before{
+		border-width: 10px 10px 10px medium;
+		top:-6px;
+	}
+
+	.player .pause-button{
+		padding: 2px ;
+	}
+	.player .play-pause{
+		padding: 0px;
+	}
+	.player .play-pause{
+		font-size: 25px;
+		margin-top:-6px ;
+	}
+
+	.player .progress{
+		margin: 2px 0px 0px;
+	}
+
+	.player .v-change-11 span:after { top: -3px;}
+	.player .v-change-10 span:after { top: -2px;}
+	.player .v-change-9 span:after  { top: -2px;}
+	.player .v-change-8 span:after 	{ top: -1px;}
+	.player .v-change-7 span:after  { top: -1px;}
+	.player .v-change-6 span:after  { top: 0px;}
+	.player .v-change-5 span:after	{ top: 0px;}
+	.player .v-change-4 span:after 	{ top: 1px;}
+	.player .v-change-3 span:after  { top: 1px;}
+	.player .v-change-2 span:after  { top: 2px;}
+
+
+	.player .v-change-1 span::after {
+		color: #f16e00 !important;
+		content: "+";
+		font-size: 45px;
+		left: 21px;
+		top: -30px;
+		z-index: 2;
+	}
+
+	.player .v-change-11 span::after{
+		top:-3px;
+	}
+	/*end customisation player*/
+
 	.aside_bckg_li h2,.aside_bckg_li h4 {
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -900,6 +971,11 @@ textarea{
 		width: 100%;
 	}
 
+	.video video {
+		height: 56%;
+		width: 100%;
+	}
+
 	.form-control {
 	padding-left: 0;
 	padding-right: 0;
@@ -916,7 +992,7 @@ textarea{
 	}
 
 
-	iframe , img , embed {
+	iframe , img , embed , video{
 		height:auto;
 	}
 
@@ -953,6 +1029,12 @@ textarea{
 	}
 }
 @media only screen and (min-width: 1300px) and (max-width: 1920px){
+
+	.player {
+		left: 12.5%;
+		width: 75%;
+	}
+
 
 	.dropdown-toggle {
 		width: 10em;
