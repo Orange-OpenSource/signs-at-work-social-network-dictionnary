@@ -28,7 +28,7 @@
 
 <body class="container-fluid">
 
-
+<div th:replace="fragments/modal-new-sign-video-file-dailymotion :: div"/>
 <div th:replace="fragments/modal-new-sign-video-file :: div"/>
 <div th:replace="fragments/modal-new-sign-video :: div"/>
 
@@ -50,6 +50,19 @@
                 </li>
 
                 <li th:if="${isAuthenticated}" class="dotted-top">
+                    <a data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
+                        <div class="pull-right">
+                            <div class="containerRight_signes">
+                                <div class="containerRight_signes">
+                                    <div class="pull-right add_whith_chevron"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2 th:text="#{sign.new_from_file_dailymotion}"/>
+                    </a>
+                </li>
+
+                <li th:if="${isAuthenticated}" class="dotted-top">
                     <a data-target="#add_video" data-toggle="modal" href="#">
                         <div class="pull-right">
                             <div class="containerRight_signes">
@@ -61,6 +74,7 @@
                         <h2 th:text="#{sign.new_from_url}"/>
                     </a>
                 </li>
+
 
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >

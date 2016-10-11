@@ -31,12 +31,11 @@ import com.orange.signsatwork.biz.view.model.SignCreationView;
 import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -67,19 +66,6 @@ public class FileUploadController {
     String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
     String VIDEO_EMBED_FIELD = "embed_url";
 
-//    @GetMapping("/")
-//    public String listUploadedFiles(Model model) throws IOException {
-//
-//        model.addAttribute("files", storageService
-//                .loadAll()
-//                .map(path ->
-//                        MvcUriComponentsBuilder
-//                                .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
-//                                .build().toString())
-//                .collect(Collectors.toList()));
-//
-//        return "uploadForm";
-//    }
 
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
@@ -92,16 +78,6 @@ public class FileUploadController {
                 .body(file);
     }
 
-//    @PostMapping("/")
-//    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-//                                   RedirectAttributes redirectAttributes) {
-//
-//        storageService.store(file);
-//        redirectAttributes.addFlashAttribute("message",
-//                "You successfully uploaded " + file.getOriginalFilename() + "!");
-//
-//        return "redirect:/";
-//    }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity handleStorageFileNotFound(StorageFileNotFoundException exc) {
@@ -161,17 +137,21 @@ public class FileUploadController {
         }
 
         User user = services.user().withUserName(principal.getName());
+        storageService.store(file);
+        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
 
+        Resource resource = new FileSystemResource(inputFile.getAbsolutePath());
         MultiValueMap<String, Object> parts =  new LinkedMultiValueMap<String, Object>();
-        parts.add("file", new ByteArrayResource(file.getBytes()));
-        parts.add("filename", file.getOriginalFilename());
+        parts.add("file", resource);
 
         RestTemplate restTemplate = new RestTemplate();
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
 
@@ -182,9 +162,9 @@ public class FileUploadController {
         MultiValueMap<String, Object> body =  new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         body.add("title", signCreationView.getSignName());
-        body.add("tags", "dailymotion,api,sdk,test");
-        body.add("channel","videogames");
+        body.add("channel","Tech");
         body.add("published", true);
+
 
         RestTemplate restTemplate1 = new RestTemplate();
         HttpHeaders headers1 = new HttpHeaders();
@@ -193,7 +173,6 @@ public class FileUploadController {
         headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-
         ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
                 HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
         VideoDailyMotion videoDailyMotion= response1.getBody();
@@ -203,12 +182,20 @@ public class FileUploadController {
 
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url );
 
-        storageService.store(file);
-        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
-        storageService.generateThumbnail(inputFile);
+        String pictureUri = null;
+        if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+            pictureUri = videoDailyMotion.thumbnail_360_url;
+        }
+        if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
+            dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+        }
 
-        signCreationView.setVideoUrl("/files/" + file.getOriginalFilename());
-        Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "/files/" + inputFile.getName() + ".jpg");
+        if (!videoDailyMotion.embed_url.isEmpty()) {
+            signCreationView.setVideoUrl(videoDailyMotion.embed_url);
+        }
+
+
+        Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
 
         log.info("createSignFromUpload: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 
