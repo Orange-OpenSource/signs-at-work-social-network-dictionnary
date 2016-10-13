@@ -128,7 +128,7 @@ public class FileUploadController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/sec/sign/createfromuploadondailymotion", method = RequestMethod.POST)
-    public String createSignFromUploadondailymotion(@RequestParam("file") MultipartFile file, @ModelAttribute SignCreationView signCreationView, Principal principal) throws IOException, JCodecException {
+    public String createSignFromUploadondailymotion(@RequestParam("file") MultipartFile file, @ModelAttribute SignCreationView signCreationView, Principal principal) throws IOException, JCodecException, InterruptedException {
 
         AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
         if (authTokenInfo.isExpired()) {
@@ -159,6 +159,7 @@ public class FileUploadController {
                         HttpMethod.POST, requestEntity, FileUploadDailymotion.class);
         FileUploadDailymotion fileUploadDailyMotion = response.getBody();
 
+
         MultiValueMap<String, Object> body =  new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         body.add("title", signCreationView.getSignName());
@@ -179,8 +180,13 @@ public class FileUploadController {
 
 
         String url= REST_SERVICE_URI+"/video/"+videoDailyMotion.id+"?fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD;
+        do {
+            videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url );
+            Thread.sleep(2*1000);
+        } while ((videoDailyMotion.stream_h264_url == null) || (videoDailyMotion.thumbnail_360_url == null)  || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
-        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url );
+
+
 
         String pictureUri = null;
         if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
