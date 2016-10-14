@@ -23,23 +23,29 @@ package com.orange.signsatwork;
  */
 
 import com.orange.signsatwork.biz.domain.AuthTokenInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.LinkedHashMap;
 
+
 public class SpringRestClient {
- 
+
 
     
     public static final String AUTH_SERVER_URI = "https://api.dailymotion.com/oauth/token";
     
     public static final String QPM_PASSWORD_GRANT = "?grant_type=password&client_id=accfab055d184ff9bcf3&client_secret=3dcd460d28d887fa25bc29c8031039a7edf52187&username=telsignes@gmail.com&password=?TelSignes!";
-    
 
 
     /*
@@ -68,8 +74,12 @@ public class SpringRestClient {
      * Send a POST request [on /oauth/token] to get an access-token, which will then be send with each request.
      */
     @SuppressWarnings({ "unchecked"})
-	public static AuthTokenInfo sendTokenRequest(){
-        RestTemplate restTemplate = new RestTemplate();
+	public AuthTokenInfo sendTokenRequest(){
+        SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+        clientHttpRequestFactory.setProxy(proxy);
+
+        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
         body.add("grant_type", "password");

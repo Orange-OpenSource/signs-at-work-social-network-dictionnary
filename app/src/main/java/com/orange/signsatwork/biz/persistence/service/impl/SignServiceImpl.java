@@ -38,6 +38,7 @@ import com.vimeo.networking.model.error.VimeoError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +46,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,7 +77,11 @@ public class SignServiceImpl implements SignService {
   @Override
   public UrlFileUploadDailymotion getUrlFileUpload() {
 
-    RestTemplate restTemplate = new RestTemplate();
+    SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+    clientHttpRequestFactory.setProxy(proxy);
+
+    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
     ResponseEntity<UrlFileUploadDailymotion> response = restTemplate.exchange(REST_SERVICE_URI + "/file/upload", HttpMethod.GET, request, UrlFileUploadDailymotion.class);
     UrlFileUploadDailymotion urlfileUploadDailyMotion = response.getBody();
@@ -281,8 +288,11 @@ public class SignServiceImpl implements SignService {
   @Override
   public VideoDailyMotion getVideoDailyMotionDetails(String id, String url) {
 
+    SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+    clientHttpRequestFactory.setProxy(proxy);
 
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
     ResponseEntity<VideoDailyMotion> response = restTemplate.exchange(url, HttpMethod.GET, request, VideoDailyMotion.class);
     VideoDailyMotion videoDailyMotion = response.getBody();

@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -44,6 +45,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.security.Principal;
 import java.util.Arrays;
 
@@ -136,6 +139,10 @@ public class FileUploadController {
             authTokenInfo = dalymotionToken.getAuthTokenInfo();
         }
 
+        SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+        clientHttpRequestFactory.setProxy(proxy);
+
         User user = services.user().withUserName(principal.getName());
         storageService.store(file);
         File inputFile = storageService.load(file.getOriginalFilename()).toFile();
@@ -147,7 +154,7 @@ public class FileUploadController {
         MultiValueMap<String, Object> parts =  new LinkedMultiValueMap<String, Object>();
         parts.add("file", resource);
 
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -167,7 +174,7 @@ public class FileUploadController {
         body.add("published", true);
 
 
-        RestTemplate restTemplate1 = new RestTemplate();
+        RestTemplate restTemplate1 = new RestTemplate(clientHttpRequestFactory);
         HttpHeaders headers1 = new HttpHeaders();
         headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers1.set("Authorization", "Bearer "+ authTokenInfo.getAccess_token());
