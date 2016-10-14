@@ -158,6 +158,16 @@ a.form-control{
 	text-align: left;
 }
 
+.divider {
+	height: 3px;
+	width:100%;
+	display:block; /* for use on default inline elements like span */
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #333333;
+}
+
+
 #discussion{
 	border-bottom: none;
 }
@@ -512,6 +522,15 @@ text-decoration-line: none;
 	width: 60px;
 }
 
+.pen_whith_chevron {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1680px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 60px;
+}
+
 .request_signe_whith_chevron {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1460px center;
@@ -851,6 +870,19 @@ video{
 }
 
 @media only screen and (max-width: 768px){
+
+
+	li[role="presentation"] {
+		margin-top: 5px;
+	}
+
+	li[role="presentation"] > a > div{
+		height: 30px;
+	}
+
+	.navbar-collapse .navbar-nav > li {
+		width: 27rem;
+	}
 
 	/*start customisation player*/
 	.player .fullscreen a{
@@ -1203,4 +1235,5 @@ label {
 	background: #f16e00;
 	/*box-shadow: 0 0 0 0.25em #000;*/
 }
+
 

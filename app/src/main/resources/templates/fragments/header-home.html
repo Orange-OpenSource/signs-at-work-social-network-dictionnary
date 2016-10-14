@@ -78,49 +78,51 @@
                             <h4 th:text="#{signin}"/>
                         </a>
                     </li>
-                    <li th:if="${isAuthenticated}" role="presentation" class="active">
+                    <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">
                         <a th:href="@{/sec/profile}">
-                            <div class="  profil_signe pull-left"></div>
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
+                            <div>
+                                <div class="pull-left profil_signe "></div>
+                                <h4 class="container_H2" th:text="#{profile}"></h4>
+                                <div>
                                     <div class="hidden-lg pull-right chevron_right"></div>
                                 </div>
                             </div>
-                            <h4 th:text="#{profile}"></h4>
                         </a>
                     </li>
-                    <li th:if="${isAuthenticated}" role="presentation">
+                    <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
                         <a th:href="@{/sec/communities}">
-                            <div class="  community_signe pull-left"></div>
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
+                            <div>
+                                <div class="pull-left community_signe "></div>
+                                <h4 class="container_H2" th:text="#{communities}"></h4>
+                                <div>
                                     <div class="hidden-lg pull-right chevron_right"></div>
                                 </div>
                             </div>
-                            <h4 th:text="#{communities}"></h4>
+
                         </a>
                     </li>
-                    <li th:if="${isAuthenticated}" role="presentation">
+                    <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
                         <a href="#" data-toggle="modal"
                            data-target="#favorite">
-                            <div class="  favorite_signe pull-left"></div>
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
+                            <div>
+                                <div class="pull-left favorite_signe "></div>
+                                <h4 class="container_H2" th:text="#{favorites}"></h4>
+                                <div>
                                     <div class="hidden-lg pull-right chevron_right"></div>
                                 </div>
                             </div>
-                            <h4 th:text="#{favorites}"></h4>
+
                         </a>
                     </li>
-                    <li th:if="${isAuthenticated}" role="presentation">
+                    <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
                         <a href="#">
-                            <div class="  parameters_signe pull-left"></div>
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
+                            <div>
+                                <div class="pull-left parameters_signe "></div>
+                                <h4 class="container_H2" th:text="#{settings}"></h4>
+                                <div>
                                     <div class="hidden-lg pull-right chevron_right"></div>
                                 </div>
                             </div>
-                            <h4 th:text="#{settings}"></h4>
                         </a>
                     </li>
                 </ul>
