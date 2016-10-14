@@ -41,31 +41,32 @@
 				var $spc = $(this)[0], // Specific video
 					$duration = $spc.duration, // Video Duration
 					$volume = $spc.volume, // Video volume
-					$speed = $spc.playbackRate, // Video speed
+					$speed = $spc.playbackRate,
 					currentTime;
 				
 				// Some other misc variables to check when things are happening
 				var $mclicking = false, 
-				    $vclicking = false, 
-				    $speedclicking = false,
+				    $vclicking = false,
+					$sclicking = false,
 				    $vidhover = false,
-				    $volhover = false, 
-				    $speedhover = false,
+				    $volhover = false,
+					$speedhover = false,
 				    $playing = false,
 				    $drop = false,
 				    $begin = false,
 				    $draggingProgess = false,
 				    $storevol,
-					$storespeed,
 				    x = 0, 
 				    y = 0, 
 				    vtime = 0, 
 				    updProgWidth = 0, 
 				    volume = 0,
 					speed = 0;
+
 				    
 				// Setting the width, etc of the player
 				var $volume = $spc.volume;
+				var $speed = $spc.playbackRate;
 				
 				// So the user cant select text in the player
 				$that.bind('selectstart', function() { return false; });
@@ -240,32 +241,8 @@
 
 				});
 
-				// When the user clicks on the speed bar holder, initiate the speed change event
-				$that.find('.speed-bar-holder').bind('mousedown', function(e) {
 
-					// Clicking of speed is true
-					$speedclicking = true;
 
-					// Y position of mouse in volume slider
-					y = $that.find('.speed-bar-holder').height() - (e.pageY - $that.find('.speed-bar-holder').offset().top);
-
-					// Return false if user tries to click outside speed area
-					if(y < 0 || y > $(this).height()) {
-						$vclicking = false;
-						return false;
-					}
-
-					// Update CSS to reflect what's happened
-					$that.find('.speed-bar').css({'height' : y+'px'});
-					$that.find('.speed-button').css({'top' : (y-($that.find('.speed-button').height()/2))+'px'});
-
-					// Update some variables
-					$spc.playbackRate = $that.find('.speed-bar').height() / $(this).height();
-					$storespeed = $that.find('.speed-bar').height() / $(this).height();
-					$speed = $that.find('.speed-bar').height() / $(this).height();
-
-				});
-				
 				// A quick function for binding the animation of the volume icon
 				var volanim = function() {
 				
@@ -299,7 +276,6 @@
 						
 					}
 				}
-				// A quick function for binding the animation of the speed icon
 
 				
 				// Check if the user is hovering over the volume button
@@ -308,6 +284,70 @@
 				}, function() {
 					$volhover = false;
 				});
+
+				// When the user clicks on the speed bar holder, initiate the speed change event
+				$that.find('.speed-bar-holder').bind('mousedown', function(e) {
+
+					// Clicking of speed is true
+					$sclicking = true;
+
+					// Y position of mouse in speed slider
+					y = $that.find('.speed-bar-holder').height() - (e.pageY - $that.find('.speed-bar-holder').offset().top);
+
+					// Return false if user tries to click outside speed area
+					if(y < 0 || y > $(this).height()) {
+						$sclicking = false;
+						return false;
+					}
+
+					// Update CSS to reflect what's happened
+					$that.find('.speed-bar').css({'height' : y+'px'});
+					$that.find('.speed-button').css({'top' : (y-($that.find('.speed-button').height()/2))+'px'});
+
+					// Update some variables
+					$spc.playbackRate = $that.find('.speed-bar').height() / $(this).height();
+					$storespeed = $that.find('.speed-bar').height() / $(this).height();
+					$speed = $that.find('.speed-bar').height() / $(this).height();
+
+					// Run a little animation for the speed icon.
+					speedanim();
+
+				});
+
+				// A quick function for binding the animation of the speed icon
+				var speedanim = function() {
+
+					// Check where speed is and update class depending on that.
+					for(var i = 0; i < 1; i += 0.1) {
+
+						var fi = parseInt(Math.floor(i*10)) / 10;
+						var speedid = (fi * 10)+1;
+
+						if($speed == 1) {
+							if($speedhover == true) {
+								$that.find('.speed-icon').removeClass().addClass('speed-icon speed-icon-hover s-change-11');
+							} else {
+								$that.find('.speed-icon').removeClass().addClass('speed-icon s-change-11');
+							}
+						}
+						else if($speed == 0) {
+							if($speedhover == true) {
+								$that.find('.speed-icon').removeClass().addClass('speed-icon speed-icon-hover s-change-1');
+							} else {
+								$that.find('.speed-icon').removeClass().addClass('speed-icon v-change-1');
+							}
+						}
+						else if($speed > (fi-0.1) && speed < fi && !$that.find('.speed-icon').hasClass('s-change-'+speedid)) {
+							if($speedhover == true) {
+								$that.find('.speed-icon').removeClass().addClass('speed-icon speed-icon-hover s-change-'+speedid);
+							} else {
+								$that.find('.speed-icon').removeClass().addClass('speed-icon v-change-'+speedid);
+							}
+						}
+
+					}
+				}
+
 
 				// Check if the user is hovering over the speed button
 				$that.find('.speed').hover(function() {
@@ -374,8 +414,8 @@
 					}
 					
 					// For the volume controls
-					if($vclicking == true) {	
-						
+					if($vclicking == true) {
+
 						// The position of the mouse on the volume slider
 						y = $that.find('.volume-bar-holder').height() - (e.pageY - $that.find('.volume-bar-holder').offset().top);
 						
@@ -432,63 +472,7 @@
 
 					}
 
-					// For the speed controls
-					if($speedclicking == true) {
 
-						// The position of the mouse on the speed slider
-						y = $that.find('.speed-bar-holder').height() - (e.pageY - $that.find('.speed-bar-holder').offset().top);
-
-						// The position the user is moving to on the slider.
-						var speedMove = 0;
-
-						// If the speed holder box is hidden then just return false
-						if($that.find('.speed-holder').css('display') == 'none') {
-							$speedclicking = false;
-							return false;
-						}
-
-						// Add the hover class to the speed icon
-						if(!$that.find('.speed-icon').hasClass('speed-icon-hover')) {
-							$that.find('.speed-icon').addClass('speed-icon-hover');
-						}
-
-
-						if(y < 0 || y == 0) { // If y is less than 0 or equal to 0 then volMove is 0.
-
-							$speed = 0;
-							speedMove = 0;
-
-							//$that.find('.speed-icon').removeClass().addClass('speed-icon speed-icon-hover speed-change-11');
-
-						} else if(y > $(this).find('.speed-bar-holder').height() || (y / $that.find('.speed-bar-holder').height()) == 1) { // If y is more than the height then speedMove is equal to the height
-
-							$speed = 1;
-							speedMove = $that.find('.speed-bar-holder').height();
-
-							//$that.find('.speed-icon').removeClass().addClass('speed-icon speed-icon-hover speed-change-1');
-
-						} else { // Otherwise volMove is just y
-
-							$speed = $that.find('.speed-bar').height() / $that.find('.speed-bar-holder').height();
-							speedMove = y;
-
-						}
-
-						// Adjust the CSS based on the previous conditional statmeent
-						$that.find('.speed-bar').css({'height' : speedMove+'px'});
-						$that.find('.speed-button').css({'top' : (speedMove+$that.find('.speed-button').height())+'px'});
-
-
-
-						// Change the speed and store speed
-						// Store speed is the speed the user last had in place
-						// in case they want to mute the video, unmuting will then
-						// return the user to their previous speed.
-						$spc.playbackRate = $speed;
-						$storespeed = $speed;
-
-
-					}
 					
 					// If the user hovers over the volume controls, then fade in or out the volume
 					// icon hover class
@@ -504,6 +488,69 @@
 						$that.find('.volume-icon').addClass('volume-icon-hover');
 						$that.find('.volume-holder').fadeIn(100);
 					}
+
+					// For the speed controls
+					if($sclicking == true) {
+						;
+						// The position of the mouse on the speed slider
+						y = $that.find('.speed-bar-holder').height() - (e.pageY - $that.find('.speed-bar-holder').offset().top);
+
+						// The position the user is moving to on the slider.
+						var speedMove = 0;
+
+						// If the speed holder box is hidden then just return false
+						if($that.find('.speed-holder').css('display') == 'none') {
+							$sclicking = false;
+							return false;
+						}
+
+						// Add the hover class to the speed icon
+						if(!$that.find('.speed-icon').hasClass('speed-icon-hover')) {
+							$that.find('.speed-icon').addClass('speed-icon-hover');
+						}
+
+
+						if(y < 0 || y == 0) { // If y is less than 0 or equal to 0 then speedMove is 0.
+
+							$speed = 0;
+							speedMove = 0;
+
+							$that.find('.speed-icon').removeClass().addClass('speed-icon speed-icon-hover s-change-11');
+
+						} else if(y > $(this).find('.speed-bar-holder').height() || (y / $that.find('.speed-bar-holder').height()) == 1) { // If y is more than the height then volMove is equal to the height
+
+							$speed = 1;
+							speedMove = $that.find('.speed-bar-holder').height();
+
+							$that.find('.speed-icon').removeClass().addClass('speed-icon speed-icon-hover s-change-1');
+
+						} else { // Otherwise volMove is just y
+
+							$speed = $that.find('.speed-bar').height() / $that.find('.speed-bar-holder').height();
+							speedMove = y;
+
+						}
+
+						// Adjust the CSS based on the previous conditional statmeent
+						$that.find('.speed-bar').css({'height' : speedMove+'px'});
+						$that.find('.speed-button').css({'top' : (speedMove+$that.find('.speed-button').height())+'px'});
+
+						// Run the animation function
+						speedanim();
+
+						// Change the speed and store speed
+						// Store speed is the speed the user last had in place
+						// in case they want to mute the video, unmuting will then
+						// return the user to their previous speed.
+
+						$spc.playbackRate = $speed;
+						$storespeed = $speed;
+
+
+					}
+
+
+
 					// If the user hovers over the speed controls, then fade in or out the speed
 					// icon hover class
 
@@ -518,7 +565,6 @@
 						$that.find('.speed-icon').addClass('speed-icon-hover');
 						$that.find('.speed-holder').fadeIn(100);
 					}
-					
 
 				})	
 				
@@ -542,13 +588,13 @@
 					
 					// If volume is undefined then the store volume is the current volume
 					if(typeof $storevol == 'undefined') {
-						 $storevol = $spc.volume;
+						$storevol = $spc.volume;
 					}
 					
 					// If volume is more than 0
 					if($volume > 0) {
 						// then the user wants to mute the video, so volume will become 0
-						$spc.volume = 0; 
+						$spc.volume = 0;
 						$volume = 0;
 						$that.find('.volume-bar').css({'height' : '0'});
 						volanim();
@@ -563,7 +609,37 @@
 					
 					
 				});
-				
+
+				// If the user clicks on the speed icon, stop the video, store previous speed, and then
+				// show previous speed should they click on it again.
+				$that.find('.speed-icon').bind('mousedown', function() {
+
+
+					$speed = $spc.playbackRate;
+
+					// If speed is undefined then the store speed is the current speed
+					if(typeof $storespeed == 'undefined') {
+						$storespeed = $spc.playbackRate;
+					}
+
+					// If speed is more than 0
+					if($speed > 0) {
+						// then the user wants to stop the video, so speed will become 0
+						$spc.playbackRate = 0;
+						$speed = 0;
+						$that.find('.speed-bar').css({'height' : '0'});
+						speedanim();
+					}
+					else {
+						// Otherwise user is unstopping video, so speed is now store speed.
+						$spc.playbackRate = $storespeed;
+						$speed = $storespeed;
+						$that.find('.speed-bar').css({'height' : ($storespeed*100)+'%'});
+						speedanim();
+					}
+
+
+				});
 				
 				// If the user lets go of the mouse, clicking is false for both volume and progress.
 				// Also the video will begin playing if it was playing before the drag process began.
@@ -572,6 +648,7 @@
 					
 					$mclicking = false;
 					$vclicking = false;
+					$sclicking = false;
 					$draggingProgress = false;
 					
 					if($playing == true) {	

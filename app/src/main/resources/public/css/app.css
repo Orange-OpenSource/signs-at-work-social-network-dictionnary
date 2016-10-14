@@ -890,13 +890,6 @@ video{
 		width: 20px;
 	}
 
-	.speed_icon{
-		background-position: -360px center;
-		width: 20px;
-		height: 20px;
-		background-size:auto 20px;
-		margin-top:2px;
-	}
 
 	.player{
 		height: 25px;
