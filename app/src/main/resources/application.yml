@@ -1,29 +1,10 @@
-server.port: 7070
 spring.profiles.active: dev
----
 
-spring.profiles: dev
-server.port: 8080
-spring.h2.console.enabled: true
-spring.jpa.hibernate.ddl-auto: update
-spring.http.multipart.max-file-size: 500MB
-spring.http.multipart.max-request-size: 500MB
-
-
----
-
-spring.profiles: prod
-server.port: 8443
+server.port: 7070
 
 # MySQL config described here:
 # https://springframework.guru/configuring-spring-boot-for-mysql
 spring.h2.console.enabled: true
-
-spring.datasource.url: jdbc:mysql://localhost:3306/signsatwork
-spring.datasource.username: asterix
-spring.datasource.password: obelix
-spring.http.multipart.max-file-size: 500MB
-spring.http.multipart.max-request-size: 500MB
 
 # NOTE: If this was actually a production database, you not tell Hibernate
 # to use the create-drop option. This tells Hibernate to recreate the database on startup.
@@ -33,3 +14,26 @@ spring.http.multipart.max-request-size: 500MB
 # If this was actually a production database, you probably would want to use validate.
 #spring.jpa.hibernate.ddl-auto: create-drop
 spring.jpa.hibernate.ddl-auto: update
+
+spring.http.multipart.max-file-size: 500MB
+spring.http.multipart.max-request-size: 500MB
+
+---
+
+spring.profiles: dev
+server.port: 8080
+
+---
+
+spring.profiles: prod
+server.port: 8443
+
+spring.datasource.url: jdbc:mysql://localhost:3306/signsatwork
+spring.datasource.username: asterix
+spring.datasource.password: obelix
+
+---
+
+spring.profiles: kermit
+server.port: 8443
+
