@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.AppProfile;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -54,16 +55,16 @@ import java.util.Arrays;
 @Controller
 public class FileUploadController {
 
-    private final StorageService storageService;
-
     @Autowired
-    public FileUploadController(StorageService storageService) {
-        this.storageService = storageService;
-    }
+    private StorageService storageService;
+
     @Autowired
     private Services services;
     @Autowired
     DalymotionToken dalymotionToken;
+    @Autowired
+    AppProfile appProfile;
+
     String REST_SERVICE_URI = "https://api.dailymotion.com";
     String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
     String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
@@ -140,7 +141,7 @@ public class FileUploadController {
         }
 
         SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(appProfile.proxyServer, appProfile.proxyPort));
         clientHttpRequestFactory.setProxy(proxy);
 
         User user = services.user().withUserName(principal.getName());

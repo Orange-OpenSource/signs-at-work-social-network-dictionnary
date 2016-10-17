@@ -24,6 +24,8 @@ package com.orange.signsatwork.biz.persistence.repository;
 
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.repository.SignRepository;
+import com.orange.signsatwork.biz.persistence.service.Services;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SignRepositoryIntegrationTest {
 
   @Autowired
+  Services services;
+
+  @Autowired
   private TestEntityManager entityManager;
 
   @Autowired
@@ -50,6 +55,12 @@ public class SignRepositoryIntegrationTest {
   private String sign1Url ="//www.dailymotion.com/embed/video/x2mnl8q";
   private String sign2Name = "chat";
   private String sign2Url ="//www.dailymotion.com/embed/video/k4h7GSlUDZQUvkaMF5s";
+
+  @Before
+  public void setup() {
+    services.clearPersistence();
+
+  }
 
   @Test
   public void returnAllPersisted() throws IOException {

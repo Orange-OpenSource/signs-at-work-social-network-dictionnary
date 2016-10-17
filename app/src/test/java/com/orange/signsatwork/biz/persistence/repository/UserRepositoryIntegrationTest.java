@@ -24,7 +24,9 @@ package com.orange.signsatwork.biz.persistence.repository;
 
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,8 @@ public class UserRepositoryIntegrationTest {
 
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  Services services;
 
   private String username1 = "Duchess";
   private String password1 = "1234";
@@ -74,6 +78,13 @@ public class UserRepositoryIntegrationTest {
   private String activity2 = "cambrioleur";
   private String activityTextDescription2 = "bli bli bli";
   private String activityVideoDescription2 = "activity2.mp4";
+
+
+  @Before
+  public void setup() {
+    services.clearPersistence();
+
+  }
 
   @Test
   public void returnAllPersisted() throws IOException {

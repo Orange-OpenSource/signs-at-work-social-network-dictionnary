@@ -25,6 +25,7 @@ package com.orange.signsatwork;
 
 import com.orange.signsatwork.biz.domain.AuthTokenInfo;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -35,10 +36,10 @@ public class DalymotionToken {
 
     private AuthTokenInfo authTokenInfo;
     private DailymotionCache dailymotionCache;
+    @Autowired private SpringRestClient springRestClient;
 
     @PostConstruct
     public void retrieveToken() {
-        SpringRestClient springRestClient = new SpringRestClient();
         try {
             this.authTokenInfo = springRestClient.sendTokenRequest();
             this.dailymotionCache = new DailymotionCache();

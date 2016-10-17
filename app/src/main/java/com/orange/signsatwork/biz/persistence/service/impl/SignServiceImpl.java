@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * #L%
  */
 
+import com.orange.signsatwork.AppProfile;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.biz.domain.*;
@@ -68,6 +69,8 @@ public class SignServiceImpl implements SignService {
   private final Services services;
   @Autowired
   DalymotionToken dalymotionToken;
+  @Autowired
+  AppProfile appProfile;
 
   String REST_SERVICE_URI = "https://api.dailymotion.com";
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
@@ -78,7 +81,7 @@ public class SignServiceImpl implements SignService {
   public UrlFileUploadDailymotion getUrlFileUpload() {
 
     SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(appProfile.proxyServer, appProfile.proxyPort));
     clientHttpRequestFactory.setProxy(proxy);
 
     RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
@@ -289,7 +292,7 @@ public class SignServiceImpl implements SignService {
   public VideoDailyMotion getVideoDailyMotionDetails(String id, String url) {
 
     SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(appProfile.proxyServer, appProfile.proxyPort));
     clientHttpRequestFactory.setProxy(proxy);
 
     RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);

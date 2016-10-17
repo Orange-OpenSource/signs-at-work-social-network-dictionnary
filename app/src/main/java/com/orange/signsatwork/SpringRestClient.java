@@ -28,6 +28,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -38,11 +39,12 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.LinkedHashMap;
 
-
+@Component
 public class SpringRestClient {
 
+    @Autowired
+    private AppProfile appProfile;
 
-    
     public static final String AUTH_SERVER_URI = "https://api.dailymotion.com/oauth/token";
     
     public static final String QPM_PASSWORD_GRANT = "?grant_type=password&client_id=accfab055d184ff9bcf3&client_secret=3dcd460d28d887fa25bc29c8031039a7edf52187&username=telsignes@gmail.com&password=?TelSignes!";
@@ -76,7 +78,7 @@ public class SpringRestClient {
     @SuppressWarnings({ "unchecked"})
 	public AuthTokenInfo sendTokenRequest(){
         SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 3128));
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(appProfile.proxyServer, appProfile.proxyPort));
         clientHttpRequestFactory.setProxy(proxy);
 
         RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
