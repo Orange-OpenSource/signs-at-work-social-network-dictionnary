@@ -69,6 +69,9 @@ public class SignServiceImpl implements SignService {
   private final CommentRepository commentRepository;
   private final RatingRepository ratingRepository;
   private final Services services;
+
+  @Autowired
+  SpringRestClient springRestClient;
   @Autowired
   DalymotionToken dalymotionToken;
   @Autowired
@@ -81,12 +84,7 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public UrlFileUploadDailymotion getUrlFileUpload() {
-
-    SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(appProfile.proxyServer, appProfile.proxyPort));
-    clientHttpRequestFactory.setProxy(proxy);
-
-    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
     ResponseEntity<UrlFileUploadDailymotion> response = restTemplate.exchange(REST_SERVICE_URI + "/file/upload", HttpMethod.GET, request, UrlFileUploadDailymotion.class);
     UrlFileUploadDailymotion urlfileUploadDailyMotion = response.getBody();
@@ -111,7 +109,7 @@ public class SignServiceImpl implements SignService {
 
           VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video/"+id+"?fields=" + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD);
 
-          if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
+          if (isUrlValid(videoDailyMotion.stream_h264_url) && isUrlValid(videoDailyMotion.embed_url)) {
             dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
             log.warn("getSreamUrl : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
           }
@@ -270,16 +268,16 @@ public class SignServiceImpl implements SignService {
 
           VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video"+id+"?fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD );
 
-          if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+          if (isUrlValid(videoDailyMotion.thumbnail_360_url)) {
             videoDB.setPictureUri(videoDailyMotion.thumbnail_360_url);
             log.warn("waitForPictureUri : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
           }
-          if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
+          if (isUrlValid(videoDailyMotion.stream_h264_url) && isUrlValid(videoDailyMotion.embed_url)) {
             dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
             log.warn("waitForPictureUri : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
           }
 
-          if (!videoDailyMotion.embed_url.isEmpty()) {
+          if (isUrlValid(videoDailyMotion.embed_url)) {
             log.warn("waitForPictureUri : embed_url = {}", videoDailyMotion.embed_url);
             videoDB.setUrl(videoDailyMotion.embed_url);
             signDB.setUrl(videoDailyMotion.embed_url);
@@ -289,22 +287,23 @@ public class SignServiceImpl implements SignService {
     } else {
       videoDB.setPictureUri(pictureUri);
     }
+  }
 
-
-    return;
+  private boolean isUrlValid(String url) {
+    return url != null && !url.isEmpty();
   }
 
   @Override
   public VideoDailyMotion getVideoDailyMotionDetails(String id, String url) {
+    log.info("get video details for id {} with url {}", id, url);
 
-    SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(appProfile.proxyServer, appProfile.proxyPort));
-    clientHttpRequestFactory.setProxy(proxy);
-
-    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();;
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
     ResponseEntity<VideoDailyMotion> response = restTemplate.exchange(url, HttpMethod.GET, request, VideoDailyMotion.class);
     VideoDailyMotion videoDailyMotion = response.getBody();
+
+    log.info("videoDailyMotion: " + videoDailyMotion.toString());
+
     return videoDailyMotion;
   }
 

@@ -22,8 +22,6 @@ spring.http.multipart.max-request-size: 500MB
 
 spring.profiles: travis
 server.port: 8080
-app.proxy.server: localhost
-app.proxy.port : 3128
 
 ---
 
@@ -52,3 +50,14 @@ spring.profiles: kermit
 server.port: 8443
 app.proxy.server: proxy-internet.internal.fr
 app.proxy.port : 3128
+
+---
+
+spring.profiles: debug-https
+server.port: 8443
+app.proxy.server:
+app.proxy.port :
+server.ssl.key-store: debug-https-keystore.p12
+server.ssl.key-store-password: password
+server.ssl.keyStoreType: PKCS12
+server.ssl.keyAlias: tomcat

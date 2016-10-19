@@ -37,22 +37,34 @@ public class AppProfile {
 
   private boolean devProfile;
 
-  public String proxyServer;
-  public int proxyPort;
+  private Proxy proxy;
 
+
+  public boolean isDevProfile() {
+    return devProfile;
+  }
+
+  public Proxy proxy() {
+    return proxy;
+  }
 
   @PostConstruct
   private void init() {
+    initDevProfile();
+    initProxy();
+  }
+
+  private void initProxy() {
+    String proxyServer = environment.getProperty("app.proxy.server");
+    String proxyPort = environment.getProperty("app.proxy.port");
+    proxy = new Proxy(proxyServer, proxyPort);
+  }
+
+  private void initDevProfile() {
     String[] profiles = environment.getActiveProfiles();
     devProfile = Arrays.stream(profiles)
             .filter(profile -> profile.equals("dev"))
             .findAny()
             .isPresent();
-    proxyServer = environment.getProperty("app.proxy.server");
-    proxyPort = Integer.parseInt(environment.getProperty("app.proxy.port"));
-  }
-
-  public boolean isDevProfile() {
-    return devProfile;
   }
 }

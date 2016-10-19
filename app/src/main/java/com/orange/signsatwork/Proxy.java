@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.domain;
+package com.orange.signsatwork;
 
 /*
  * #%L
@@ -22,28 +22,16 @@ package com.orange.signsatwork.biz.domain;
  * #L%
  */
 
-import lombok.ToString;
+public class Proxy {
+  public final String proxyHost;
+  public final int proxyPort;
+  public final boolean noProxy;
 
-@ToString
-public class VideoDailyMotion {
-
-    public String id;
-    public String title;
-    public String channel;
-    public String thumbnail_url;
-    public String thumbnail_60_url;
-    public String thumbnail_120_url;
-    public String thumbnail_180_url;
-    public String thumbnail_240_url;
-    public String thumbnail_360_url;
-    public String thumbnail_480_url;
-    public String thumbnail_720_url;
-    public String stream_h264_hd1080_url;
-    public String stream_h264_hd_url;
-    public String stream_h264_hq_url;
-    public String stream_h264_qhd_url;
-    public String stream_h264_uhd_url;
-    public String stream_h264_url;
-    public String embed_url;
-
+  public Proxy(String proxyHost, String proxyPort) {
+    this.proxyHost = proxyHost;
+    noProxy = proxyHost == null || proxyHost.isEmpty();
+    this.proxyPort = noProxy ?
+            0 :
+            Integer.parseInt(proxyPort);
+  }
 }

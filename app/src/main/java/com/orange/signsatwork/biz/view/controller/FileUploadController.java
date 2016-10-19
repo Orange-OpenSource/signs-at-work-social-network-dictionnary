@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.AppProfile;
 import com.orange.signsatwork.DalymotionToken;
+import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageFileNotFoundException;
@@ -54,6 +55,9 @@ import java.util.Arrays;
 @Slf4j
 @Controller
 public class FileUploadController {
+
+    @Autowired
+    private SpringRestClient springRestClient;
 
     @Autowired
     private StorageService storageService;
@@ -140,10 +144,6 @@ public class FileUploadController {
             authTokenInfo = dalymotionToken.getAuthTokenInfo();
         }
 
-        SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(appProfile.proxyServer, appProfile.proxyPort));
-        clientHttpRequestFactory.setProxy(proxy);
-
         User user = services.user().withUserName(principal.getName());
         storageService.store(file);
         File inputFile = storageService.load(file.getOriginalFilename()).toFile();
@@ -155,7 +155,7 @@ public class FileUploadController {
         MultiValueMap<String, Object> parts =  new LinkedMultiValueMap<String, Object>();
         parts.add("file", resource);
 
-        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+        RestTemplate restTemplate = springRestClient.buildRestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -175,7 +175,7 @@ public class FileUploadController {
         body.add("published", true);
 
 
-        RestTemplate restTemplate1 = new RestTemplate(clientHttpRequestFactory);
+        RestTemplate restTemplate1 = springRestClient.buildRestTemplate();
         HttpHeaders headers1 = new HttpHeaders();
         headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers1.set("Authorization", "Bearer "+ authTokenInfo.getAccess_token());
