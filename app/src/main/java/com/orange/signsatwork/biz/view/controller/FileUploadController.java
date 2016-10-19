@@ -199,19 +199,22 @@ public class FileUploadController {
         String pictureUri = null;
         if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
             pictureUri = videoDailyMotion.thumbnail_360_url;
+            log.warn("createSignFromUploadondailymotion : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
         }
         if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
             dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+            log.warn("createSignFromUploadondailymotion : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
         }
 
         if (!videoDailyMotion.embed_url.isEmpty()) {
             signCreationView.setVideoUrl(videoDailyMotion.embed_url);
+            log.warn("createSignFromUploadondailymotion : embed_url = {}", videoDailyMotion.embed_url);
         }
 
 
         Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
 
-        log.info("createSignFromUpload: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
+        log.info("createSignFromUploadondailymotion : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 
         return showSign(sign.id);
     }

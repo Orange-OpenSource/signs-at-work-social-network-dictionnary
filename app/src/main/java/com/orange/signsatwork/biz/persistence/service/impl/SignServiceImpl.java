@@ -37,6 +37,7 @@ import com.vimeo.networking.callbacks.ModelCallback;
 import com.vimeo.networking.model.Video;
 import com.vimeo.networking.model.error.VimeoError;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -56,6 +57,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -111,6 +113,7 @@ public class SignServiceImpl implements SignService {
 
           if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
             dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+            log.warn("getSreamUrl : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
           }
         }
     }
@@ -269,12 +272,15 @@ public class SignServiceImpl implements SignService {
 
           if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
             videoDB.setPictureUri(videoDailyMotion.thumbnail_360_url);
+            log.warn("waitForPictureUri : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
           }
           if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
             dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+            log.warn("waitForPictureUri : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
           }
 
           if (!videoDailyMotion.embed_url.isEmpty()) {
+            log.warn("waitForPictureUri : embed_url = {}", videoDailyMotion.embed_url);
             videoDB.setUrl(videoDailyMotion.embed_url);
             signDB.setUrl(videoDailyMotion.embed_url);
           }

@@ -23,6 +23,7 @@ package com.orange.signsatwork;
  */
 
 import com.orange.signsatwork.biz.domain.AuthTokenInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +40,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.LinkedHashMap;
 
+@Slf4j
 @Component
 public class SpringRestClient {
 
@@ -107,6 +109,7 @@ public class SpringRestClient {
         	System.out.println(tokenInfo);
         	//System.out.println("access_token ="+map.get("access_token")+", token_type="+map.get("token_type")+", refresh_token="+map.get("refresh_token")
         	//+", expires_in="+map.get("expires_in")+", scope="+map.get("scope"));;
+            log.warn("sendTokenRequest : authTokenInfo = {}", tokenInfo.getAccess_token());
         }else{
             System.out.println("No user exist----------");
             
