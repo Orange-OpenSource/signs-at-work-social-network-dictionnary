@@ -46,8 +46,20 @@ app.proxy.port : 3128
 
 ---
 
-spring.profiles: kermit
+spring.profiles: kermit-h2
 server.port: 8443
+app.proxy.server: proxy-internet.internal.fr
+app.proxy.port : 3128
+
+---
+
+spring.profiles: kermit-mysql
+server.port: 8443
+
+spring.datasource.url: jdbc:mysql://localhost:3306/signsatwork
+spring.datasource.username: asterix
+spring.datasource.password: obelix
+
 app.proxy.server: proxy-internet.internal.fr
 app.proxy.port : 3128
 
