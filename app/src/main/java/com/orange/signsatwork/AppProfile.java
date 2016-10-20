@@ -36,7 +36,6 @@ public class AppProfile {
   private Environment environment;
 
   private boolean devProfile;
-
   private Proxy proxy;
 
 
@@ -66,5 +65,9 @@ public class AppProfile {
             .filter(profile -> profile.equals("dev"))
             .findAny()
             .isPresent();
+  }
+
+  public boolean isHttps() {
+    return environment.getProperty("server.port").equals("8443");
   }
 }
