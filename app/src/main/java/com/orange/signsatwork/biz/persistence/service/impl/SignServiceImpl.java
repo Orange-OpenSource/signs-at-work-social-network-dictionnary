@@ -94,7 +94,7 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public String getStreamUrl(String signUrl) {
-    if (signUrl.contains("http://www.dailymotion.com/embed/video")) {
+    if (signUrl.contains("www.dailymotion.com/embed/video")) {
       if ((dalymotionToken.getDailymotionCache().cacheurl.get(signUrl) == null) || (dalymotionToken.getAuthTokenInfo().isExpired())) {
 
           URL videoUrl = null;
@@ -107,7 +107,7 @@ public class SignServiceImpl implements SignService {
           String path = videoUrl.getPath();
           String id = path.substring(path.lastIndexOf('/') + 1);
 
-          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video/"+id+"?fields=" + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD);
+          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video/"+id+"?ssl_assets=true&fields=" + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD);
 
           if (isUrlValid(videoDailyMotion.stream_h264_url) && isUrlValid(videoDailyMotion.embed_url)) {
             dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
@@ -266,7 +266,7 @@ public class SignServiceImpl implements SignService {
 
           String id=videoUrl.getFile();
 
-          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video"+id+"?fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD );
+          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video"+id+"?ssl_assets=true&fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD );
 
           if (isUrlValid(videoDailyMotion.thumbnail_360_url)) {
             videoDB.setPictureUri(videoDailyMotion.thumbnail_360_url);

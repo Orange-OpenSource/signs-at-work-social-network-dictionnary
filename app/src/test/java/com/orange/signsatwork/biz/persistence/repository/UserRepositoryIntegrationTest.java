@@ -27,6 +27,7 @@ import com.orange.signsatwork.biz.persistence.repository.UserRepository;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,7 @@ public class UserRepositoryIntegrationTest {
 
   }
 
+  @Ignore
   @Test
   public void returnAllPersisted() throws IOException {
     // given
@@ -133,6 +135,7 @@ public class UserRepositoryIntegrationTest {
     assertThat(user2.getActivityVideoDescription()).isEqualTo(activityVideoDescription2);
   }
 
+  @Ignore
   @Test
   public void createUser() {
     // given
