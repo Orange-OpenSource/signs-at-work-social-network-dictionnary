@@ -56,7 +56,7 @@ public class SignProfileView {
   public SignProfileView(Sign sign, SignService signService, User user) {
     this.sign = sign;
 
-    if (sign.url.contains("http://www.dailymotion.com/embed/video")) {
+    if (sign.url.contains("www.dailymotion.com/embed/video")) {
       if (signService.getStreamUrl(sign.url) != null) {
         this.url = signService.getStreamUrl(sign.url);
       } else {
