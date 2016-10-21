@@ -18,6 +18,8 @@ spring.jpa.hibernate.ddl-auto: update
 spring.http.multipart.max-file-size: 500MB
 spring.http.multipart.max-request-size: 500MB
 
+management.security.enabled: true
+
 ---
 
 spring.profiles: travis
