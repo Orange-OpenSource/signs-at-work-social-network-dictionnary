@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -66,12 +66,6 @@ public class UserDB {
 
   private String jobVideoDescription;
 
-  private String activity;
-
-  private String activityTextDescription;
-
-  private String activityVideoDescription;
-
   private Date lastConnectionDate;
 
   @NotNull
@@ -108,7 +102,7 @@ public class UserDB {
   @NotNull
   private String passwordHash;
 
-  public UserDB(String username, String passwordHash, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
+  public UserDB(String username, String passwordHash, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription) {
     this.username = username;
     this.passwordHash = passwordHash;
     this.firstName = firstName;
@@ -119,8 +113,5 @@ public class UserDB {
     this.job = job;
     this.jobTextDescription = jobTextDescription;
     this.jobVideoDescription = jobVideoDescription;
-    this.activity = activity;
-    this.activityTextDescription = activityTextDescription;
-    this.activityVideoDescription = activityVideoDescription;
   }
 }

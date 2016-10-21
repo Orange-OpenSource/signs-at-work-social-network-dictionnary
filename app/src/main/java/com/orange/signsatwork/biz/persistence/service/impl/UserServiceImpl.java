@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getActivity(), userDB.getActivityTextDescription(), userDB.getActivityVideoDescription(), userDB.getLastConnectionDate(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastConnectionDate(),
             services);
   }
 
@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getActivity(), userDB.getActivityTextDescription(), userDB.getActivityVideoDescription(), userDB.getLastConnectionDate());
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastConnectionDate());
   }
 
 
@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getActivity(), userDB.getActivityTextDescription(), userDB.getActivityVideoDescription(), userDB.getLastConnectionDate());
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastConnectionDate());
   }
 
   /**
@@ -202,7 +202,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
    * @return the UserDB object to persist
    */
   private UserDB userDBFrom(User user, String password) {
-    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription, user.activity, user.activityTextDescription, user.activityVideoDescription);
+    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription);
     addUserRole(userDB);
     return userDB;
   }
