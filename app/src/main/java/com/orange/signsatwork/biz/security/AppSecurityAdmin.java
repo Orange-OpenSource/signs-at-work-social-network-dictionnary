@@ -38,7 +38,7 @@ import java.util.Set;
 @Component
 public class AppSecurityAdmin {
   public static final String ADMIN_USERNAME = "admin";
-  public static final String ADMIN_PASSWORD = "admin";
+  public static final String ADMIN_PASSWORD = "?TelSignes!";
 
   @Autowired
   UserRepository userRepository;
