@@ -47,8 +47,6 @@
             <th th:text="#{entity}"></th>
             <th th:text="#{job}"></th>
             <th th:text="#{jobTextDescription}"></th>
-            <th th:text="#{activity}"></th>
-            <th th:text="#{activityTextDescription}"></th>
             <th th:text="#{lastConnectionDate}"></th>
             <th th:text="#{number_of_requests}"></th>
             <th th:text="#{requests}"></th>
@@ -66,8 +64,6 @@
             <td th:text="${userProfileView.user.entity}"></td>
             <td th:text="${userProfileView.user.job}"></td>
             <td th:text="${userProfileView.user.jobTextDescription}"></td>
-            <td th:text="${userProfileView.user.activity}"></td>
-            <td th:text="${userProfileView.user.activityTextDescription}"></td>
             <td th:text="${userProfileView.user.lastConnectionDate}"></td>
             <td th:text="${#lists.size(userProfileView.userRequests.list())}"></td>
             <td th:include="fragments/tools :: joinRequests(${userProfileView.userRequests.list()})"></td>

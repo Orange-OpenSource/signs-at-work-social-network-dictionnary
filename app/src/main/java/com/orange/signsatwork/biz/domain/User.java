@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.domain;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -40,9 +40,6 @@ public class User {
   public final String job;
   public final String jobTextDescription;
   public final String jobVideoDescription;
-  public final String activity;
-  public final String activityTextDescription;
-  public final String activityVideoDescription;
   public final Date lastConnectionDate;
   public final Communities communities;
   public final Requests requests;
@@ -59,7 +56,7 @@ public class User {
     return communities != null || requests != null || favorites != null ?
             this :
             new User(
-                    id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+                    id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, lastConnectionDate,
                     services.community().forUser(id),  services.request().requestsforUser(id), services.favorite().favoritesforUser(id), videos,
                     services);
   }
@@ -67,7 +64,7 @@ public class User {
   public User loadVideos() {
     return videos != null ? this :
             new User(
-                    id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+                    id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, lastConnectionDate,
                     communities, requests, favorites, services.video().forUser(id),
                     services);
   }
@@ -77,24 +74,24 @@ public class User {
   }
 
 
-  public static User create(String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription) {
-    return create(username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, null);
+  public static User create(String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription) {
+    return create(username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription,  null);
   }
 
-  public static User create(String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
-    return create(-1, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate);
+  public static User create(String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, Date lastConnectionDate) {
+    return create(-1, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, lastConnectionDate);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate) {
+  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, Date lastConnectionDate) {
     return create(
-            id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+            id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, lastConnectionDate,
             null);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, String activity, String activityTextDescription, String activityVideoDescription, Date lastConnectionDate,
+  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription, Date lastConnectionDate,
                             Services services) {
     return new User(
-            id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, activity, activityTextDescription, activityVideoDescription, lastConnectionDate,
+            id, username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, lastConnectionDate,
             null, null, null, null, services);
   }
 }
