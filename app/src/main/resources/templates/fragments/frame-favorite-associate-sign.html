@@ -35,7 +35,7 @@
           method="post">
 
         <div class="form-group">
-            <label th:each="sign : ${favoriteProfileView.allSigns}"
+            <label class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4" th:each="sign : ${favoriteProfileView.allSigns}"
                    th:for="${#ids.next('favoriteSignsIds')}">
 
                 <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
