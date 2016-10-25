@@ -43,7 +43,8 @@
                     <iframe th:if="${#strings.isEmpty(video.pictureUri)}" th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
                 </div>
 
-                <input type="checkbox" th:field="*{favoriteSignsIds}" th:text="${sign.name}" th:value="${sign.id}"/>
+                <input type="checkbox" th:field="*{favoriteSignsIds}" th:value="${sign.id}"/>
+                <span th:text="${sign.name}"></span>
             </label>
         </div>
         <br/>
