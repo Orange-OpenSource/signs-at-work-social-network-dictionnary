@@ -30,7 +30,7 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private String location = "/tmp";
+    private String location = "/data";
 
     //private String location = "src/main/resources/public/video";
 
