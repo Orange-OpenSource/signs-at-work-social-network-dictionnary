@@ -1023,6 +1023,7 @@ video{
 
 	iframe , img , embed , video{
 		height:auto;
+    height: 100px;
 	}
 
 
