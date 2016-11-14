@@ -33,8 +33,9 @@
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
                 <li class="aside_bckg_li">
-                    <a th:href="@{/sec/name-detail}">
-                        <h2 class="container_H2" th:text="${user.name()}"></h2>
+                  <a  th:href="@{/sec/name-detail/}">
+
+                        <h2 class="container_H2"  th:text="${user.name()}"></h2>
                         <div><div class="pull-right chevron_right"></div></div>
                     </a>
                 </li>
@@ -42,6 +43,12 @@
                     <a th:href="@{/sec/job-detail}">
                         <h2 class="container_H2" th:text="#{job}"></h2>
                         <div><div class="pull-right chevron_right"></div></div>
+                  </a>
+                </li>
+                <li class="aside_bckg_li">
+                  <a th:href="@{/sec/description-detail}">
+                    <h2 class="container_H2" th:text="#{description}"></h2>
+                    <div><div class="pull-right chevron_right"></div></div>
                   </a>
                 </li>
                 <li class="aside_bckg_li">

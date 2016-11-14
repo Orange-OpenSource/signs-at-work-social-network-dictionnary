@@ -156,6 +156,7 @@ a.form-control{
 .aside_bckg_li {
 	border-bottom: medium solid;
 	text-align: left;
+  overflow: auto;
 }
 
 .divider {
@@ -263,6 +264,9 @@ position: relative;
 
 }
 
+span.container_H2 {
+  max-width: 85%;
+}
 
 .container_H2{
 	float: left;
@@ -780,7 +784,7 @@ li[role="presentation"] {
 }
 
 textarea{
-	width: 100%;
+	/*width: 100%;*/
 }
 
 video{

@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -145,6 +145,69 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     userDB.getCommunities().forEach(c -> c.getUsers().remove(userDB));
 
     userRepository.delete(userDB);
+  }
+
+  @Override
+  public void createProfile(User user, String lastName, String firstName, String nameVideo, String job, String entity, String jobTextDescription, String jobVideoDescription) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setLastName(lastName);
+    userDB.setFirstName(firstName);
+    userDB.setNameVideo(nameVideo);
+    userDB.setJob(job);
+    userDB.setEntity(entity);
+    userDB.setJobTextDescription(jobTextDescription);
+    userDB.setJobVideoDescription(jobVideoDescription);
+    userRepository.save(userDB);
+  }
+
+  @Override
+  public void changeLastName(User user, String lastName) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setLastName(lastName);
+    userRepository.save(userDB);
+  }
+
+
+  @Override
+  public void changeFirstName(User user, String firstName) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setFirstName(firstName);
+    userRepository.save(userDB);
+  }
+
+  @Override
+  public void changeJob(User user, String job) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setJob(job);
+    userRepository.save(userDB);
+  }
+
+  @Override
+  public void changeEntity(User user, String entity) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setEntity(entity);
+    userRepository.save(userDB);
+  }
+
+  @Override
+  public void changeDescription(User user, String jobTextDescription) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setJobTextDescription(jobTextDescription);
+    userRepository.save(userDB);
+  }
+
+  @Override
+  public void changeNameVideoUrl(User user, String videoWebPath) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setNameVideo(videoWebPath);
+    userRepository.save(userDB);
+  }
+
+  @Override
+  public void changeDescriptionVideoUrl(User user, String videoWebPath) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setJobVideoDescription(videoWebPath);
+    userRepository.save(userDB);
   }
 
   @Override

@@ -47,15 +47,13 @@ public class UserDB {
   @Column(unique = true)
   private String username;
 
-  @NotNull
   private String firstName;
 
-  @NotNull
+
   private String lastName;
 
   private String nameVideo;
 
-  @NotNull
   private String email;
 
   private String entity;
