@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class HomeController {
 
   @Autowired
@@ -46,6 +48,14 @@ public class HomeController {
 
   @RequestMapping("/")
   public String index(Principal principal, Model model) {
+    long t0 = System.currentTimeMillis();
+    String pageName = doIndex(principal, model);
+    long dt = System.currentTimeMillis() - t0;
+    log.info("[PERF] took " + dt + " ms to process root page request");
+    return pageName;
+  }
+
+  private String doIndex(Principal principal, Model model) {
     AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
@@ -71,7 +81,7 @@ public class HomeController {
         signsView = SignView.from(services.sign().all());
       }
     } else {
-        signsView = SignView.from(services.sign().all());
+      signsView = SignView.from(services.sign().all());
     }
 
     model.addAttribute("signs", signsView);
@@ -84,6 +94,7 @@ public class HomeController {
 
     return "index";
   }
+
 
   @RequestMapping("/search")
   public String search(@ModelAttribute SignCreationView signCreationView, Principal principal, Model model) {

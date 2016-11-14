@@ -21,6 +21,8 @@ spring.http.multipart.max-request-size: 500MB
 management.security.enabled: true
 management.context-path: /admin/
 
+spring.jpa.properties.hibernate.generate_statistics: true
+
 ---
 
 spring.profiles: travis
