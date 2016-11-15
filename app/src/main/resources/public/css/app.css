@@ -1025,7 +1025,20 @@ video{
 		height:auto;
     height: 100px;
 	}
+  input.container_H2[type="text"]{
+    width: 200px;
+  }
+  input.container_H2[type="file"]{
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
+  textarea{
+    width:200px ;
+    margin-bottom: 10px;
+  }
 
 	.tooltip_newSigne {
 		background-image: url("/img/ajoutRecent3.png");
