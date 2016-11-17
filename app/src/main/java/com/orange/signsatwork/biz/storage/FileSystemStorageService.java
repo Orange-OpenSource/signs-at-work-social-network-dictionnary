@@ -65,7 +65,8 @@ public class FileSystemStorageService implements StorageService {
         FileChannelWrapper ch = null;
         try {
             ch = NIOUtils.readableFileChannel(file);
-            return ((FrameGrab) new FrameGrab(ch).seekToSecondPrecise(sec)).getFrame();
+            BufferedImage frameGrab = ((FrameGrab) new FrameGrab(ch).seekToSecondPrecise(sec)).getFrame();
+            return frameGrab;
         } finally {
             NIOUtils.closeQuietly(ch);
         }

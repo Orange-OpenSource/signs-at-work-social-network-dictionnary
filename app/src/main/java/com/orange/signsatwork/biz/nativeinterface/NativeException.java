@@ -1,5 +1,4 @@
-package com.orange.signsatwork.biz.webservice.controller;
-
+package com.orange.signsatwork.biz.nativeinterface;
 /*
  * #%L
  * Signs at work
@@ -22,19 +21,8 @@ package com.orange.signsatwork.biz.webservice.controller;
  * #L%
  */
 
-public class RestApi {
-  public static final String WS_ROOT = "/ws/";
-  public static final String WS_OPEN = WS_ROOT + "open/";
-  public static final String WS_SEC = WS_ROOT + "sec/";
-  public static final String WS_ADMIN = WS_ROOT + "admin/";
-
-  public static final String WS_SEC_GET_USERS = WS_SEC + "users";
-  public static final String WS_ADMIN_USER_CREATE = WS_ADMIN + "user/create";
-
-  public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
-  public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";
-
-  public static final String WS_SEC_REQUEST_CREATE = WS_SEC + "request/create";
-
-  public static final String WS_SEC_FILE_UPLOAD = WS_SEC + "upload";
+public class NativeException extends RuntimeException {
+  public NativeException(String msg) {
+    super(msg);
+  }
 }

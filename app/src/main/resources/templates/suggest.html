@@ -23,11 +23,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <th:block th:include="fragments/header-head :: head"></th:block>
+    <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
+    <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
 </head>
 <header role="banner" th:replace="fragments/header-suggest :: header">&nbsp;</header>
 
 <body class="container-fluid">
 
+<div th:replace="fragments/modal-new-sign-video-file-recording :: div"/>
 <div th:replace="fragments/modal-new-sign-video-file-dailymotion :: div"/>
 <div th:replace="fragments/modal-new-sign-video-file :: div"/>
 <div th:replace="fragments/modal-new-sign-video :: div"/>
@@ -36,7 +39,20 @@
     <div class="col-md-4 col-xs-12 col-lg-12">
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
-                <li th:if="${isAuthenticated}" class="dotted-top">
+              <li th:if="${isAuthenticated}" class="dotted-top">
+                <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                  <div class="pull-right">
+                    <div class="containerRight_signes">
+                      <div class="containerRight_signes">
+                        <div class="pull-right add_whith_chevron"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2 th:text="#{sign.new_from_file_recording}"/>
+                </a>
+              </li>
+
+               <li th:if="${isAuthenticated}" class="dotted-top">
                     <a data-target="#add_video_file" data-toggle="modal" href="#">
                         <div class="pull-right">
                             <div class="containerRight_signes">
@@ -129,7 +145,7 @@
 
 </body>
 
-
+<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
 
 
 </html>
