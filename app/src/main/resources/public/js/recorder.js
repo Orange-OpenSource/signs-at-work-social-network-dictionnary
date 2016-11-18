@@ -129,6 +129,7 @@ function generateRandomString() {
 
 var $form = $('#uploadVideoFile');
 $form.on('submit', function(event) {
+  document.getElementById('continue').disabled = true;
   videoFile.signNameRecording = $('#signNameRecording').val();
     event.preventDefault();
     $.ajax({
@@ -165,6 +166,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById('video').removeAttribute("controls");
   document.getElementById('video').pause();
   document.getElementById('video').style.visibility="hidden";
+  document.getElementById('continue').disabled = true;
   if ($('#uploadVideoFile').find('#errorSpan').length) {
     errorSpan.style.visibility="hidden";
     $('#signNameRecording').val("");
