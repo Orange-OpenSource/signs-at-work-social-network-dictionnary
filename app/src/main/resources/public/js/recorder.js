@@ -42,12 +42,12 @@ startRecording.onclick = function() {
   document.getElementById('start-recording').disabled = true;
   document.getElementById('stop-recording').disabled = false;
 
-
   captureUserMedia00(function(stream) {
     window.audioVideoRecorder = window.RecordRTC(stream, {
       type: 'video',
       disableLogs: false
     });
+    document.getElementById('video').style.visibility="visible";
     window.audioVideoRecorder.startRecording();
   });
 };
@@ -164,6 +164,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById('video').removeAttribute("src");
   document.getElementById('video').removeAttribute("controls");
   document.getElementById('video').pause();
+  document.getElementById('video').style.visibility="hidden";
   if ($('#uploadVideoFile').find('#errorSpan').length) {
     errorSpan.style.visibility="hidden";
     $('#signNameRecording').val("");

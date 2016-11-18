@@ -87,7 +87,12 @@ public class FileUploadRestController {
     String fileOutput = file.replace(".webm", ".mp4");
 
    log.info("taille fichier "+videoFile.contents.length());
-   log.info("taille max "+environment.getProperty("spring.http.multipart.max-file-size"));
+   log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorFileSize");
+    }
 
 
     try {
@@ -204,4 +209,14 @@ public class FileUploadRestController {
     }
   }
 
+  public static long parseSize(String text) {
+    double d = Double.parseDouble(text.replaceAll("[GMK]B$", ""));
+    long l = Math.round(d * 1024 * 1024 * 1024L);
+    switch (text.charAt(Math.max(0, text.length() - 2))) {
+      default:  l /= 1024;
+      case 'K': l /= 1024;
+      case 'M': l /= 1024;
+      case 'G': return l;
+    }
+  }
 }
