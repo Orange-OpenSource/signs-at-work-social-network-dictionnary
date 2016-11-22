@@ -1,5 +1,8 @@
 language: java
 
+# enable container based build
+sudo: false
+
 # we need java 8
 jdk:
 - oraclejdk8
