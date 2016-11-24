@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -63,6 +63,14 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
+  public Comments forVideoHomeView(long videoId) {
+    return commentsFromHomeView(
+      commentRepository.findByVideo(videoRepository.findOne(videoId))
+    );
+  }
+
+
+  @Override
   public Comment create(Comment comment) {
     CommentDB commentDB = commentRepository.save(commentDBFrom(comment));
     return commentFrom(commentDB);
@@ -86,6 +94,16 @@ public class CommentServiceImpl implements CommentService {
 
   static Comment commentFrom(CommentDB commentDB) {
     return new Comment(commentDB.getId(), commentDB.getCommentDate(), commentDB.getText(), UserServiceImpl.userFromSignView(commentDB.getUser()));
+  }
+
+  Comments commentsFromHomeView(Iterable<CommentDB> commentsDB) {
+    List<Comment> comments = new ArrayList<>();
+    commentsDB.forEach(commentDB -> comments.add(commentFromHomeView(commentDB)));
+    return new Comments(comments);
+  }
+
+  static Comment commentFromHomeView(CommentDB commentDB) {
+    return new Comment(commentDB.getId(), commentDB.getCommentDate(), commentDB.getText(), null);
   }
 
   private CommentDB commentDBFrom(Comment comment) {

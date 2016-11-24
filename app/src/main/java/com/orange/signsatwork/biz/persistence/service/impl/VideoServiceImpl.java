@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -61,6 +61,11 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
+  public Video withIdFromHomeView(long videoId) {
+    return videoFromHomeView(videoRepository.findOne(videoId));
+  }
+
+  @Override
   public Comment createVideoComment(long videoId, long userId, String commentText) {
     VideoDB videoDB = videoRepository.findOne(videoId);
     UserDB userDB = userRepository.findOne(userId);
@@ -90,6 +95,11 @@ public class VideoServiceImpl implements VideoService {
     ratingRepository.save(ratingDB);
 
     return RatingServiceImpl.ratingFrom(ratingDB);
+  }
+
+  @Override
+  public Videos forSignHomeView(long signId) {
+    return videosFromHomeView(videoRepository.findBySign(signRepository.findOne(signId)));
   }
 
   @Override
@@ -142,7 +152,18 @@ public class VideoServiceImpl implements VideoService {
     return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
   }
 
+
   static Video videoFromRatingView(VideoDB videoDB) {
     return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(),videoDB.getCreateDate(), null, null, null);
+  }
+
+  static Videos videosFromHomeView(Iterable<VideoDB> videosDB) {
+    List<Video> videos = new ArrayList<>();
+    videosDB.forEach(videoDB -> videos.add(videoFromHomeView(videoDB)));
+    return new Videos(videos);
+  }
+
+  static Video videoFromHomeView(VideoDB videoDB) {
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), videoDB.getCreateDate(), null, null, null);
   }
 }

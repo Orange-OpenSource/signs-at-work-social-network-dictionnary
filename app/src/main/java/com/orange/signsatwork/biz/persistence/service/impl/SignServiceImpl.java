@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -142,6 +142,12 @@ public class SignServiceImpl implements SignService {
   public Signs all() {
     return signsFrom(signRepository.findAll());
   }
+
+  @Override
+  public Signs allOrderByCreateDateAsc() {
+    return signsFromHomeView(signRepository.findByOrderByCreateDateDesc());
+  }
+
 
   @Override
   public Signs createAfterLastDateConnection(Date lastConnectionDate) {
@@ -348,6 +354,7 @@ public class SignServiceImpl implements SignService {
       videoDB.setSign(signDB);
 
       videoRepository.save(videoDB);
+      signDB.setLastVideoId(videoDB.getId());
       signDB = signRepository.save(signDB);
 
       userDB.getVideos().add(videoDB);
@@ -370,7 +377,9 @@ public class SignServiceImpl implements SignService {
       videoDB.setSign(signDB);
       signDB.getVideos().add(videoDB);
 
+
       videoRepository.save(videoDB);
+      signDB.setLastVideoId(videoDB.getId());
       signDB = signRepository.save(signDB);
 
       userDB.getVideos().add(videoDB);
@@ -438,15 +447,26 @@ public class SignServiceImpl implements SignService {
 
   static Sign signFrom(SignDB signDB, Services services) {
     return signDB == null ? null :
-      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), VideoServiceImpl.videosFrom(signDB.getVideos()), null, null, services.video(), services.comment());
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), VideoServiceImpl.videosFrom(signDB.getVideos()), null, null, services.video(), services.comment());
   }
 
   Sign signFromWithAssociates(SignDB signDB) {
     return signDB == null ? null :
-      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids(), services.video(), services.comment());
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids(), services.video(), services.comment());
   }
 
   private SignDB signDBFrom(Sign sign) {
     return new SignDB(sign.name, sign.url, sign.createDate);
+  }
+
+  Signs signsFromHomeView(Iterable<SignDB> signsDB) {
+    List<Sign> signs = new ArrayList<>();
+    signsDB.forEach(signDB -> signs.add(signFromHomeView(signDB, services)));
+    return new Signs(signs);
+  }
+
+  static Sign signFromHomeView(SignDB signDB, Services services) {
+    return signDB == null ? null :
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, null, null, services.video(), services.comment());
   }
 }

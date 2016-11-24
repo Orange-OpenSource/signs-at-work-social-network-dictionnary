@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -34,8 +34,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @Slf4j
@@ -59,8 +58,8 @@ public class HomeController {
     AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    List<SignView> signsView = new ArrayList<>();
-
+    //List<SignView> signsView = new ArrayList<>();
+    List<SignHomeView> signsHomeView = new ArrayList<>();
 
     if (AuthentModel.isAuthenticated(principal)) {
       User user = services.user().withUserName(principal.getName());
@@ -71,20 +70,80 @@ public class HomeController {
       }
 
       if (user.lastConnectionDate != null) {
-        List<SignView> signsRecentView, signNotRecentView;
-        signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnection(user.lastConnectionDate));
-        signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnection(user.lastConnectionDate));
-        signsView.addAll(signsRecentView);
-        signsView.addAll(signNotRecentView);
+
+        signsHomeView = SignHomeView.from(services.sign().allOrderByCreateDateAsc(), services, user.lastConnectionDate);
+
+//        List<SignView> signsRecentView, signNotRecentView;
+//        signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnection(user.lastConnectionDate));
+//        signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnection(user.lastConnectionDate));
+//        signsView.addAll(signsRecentView);
+//        signsView.addAll(signNotRecentView);
       }
       else {
-        signsView = SignView.from(services.sign().all());
+        //signsView = SignView.from(services.sign().all());
+        signsHomeView = SignHomeView.from(services.sign().allOrderByCreateDateAsc(), services, null);
       }
     } else {
-      signsView = SignView.from(services.sign().all());
+      //signsView = SignView.from(services.sign().all());
+      signsHomeView = SignHomeView.from(services.sign().allOrderByCreateDateAsc(), services, null);
     }
 
-    model.addAttribute("signs", signsView);
+    Collections.sort(signsHomeView, new Comparator<SignHomeView>() {
+      @Override
+      public int compare(SignHomeView signHomeView1, SignHomeView signHomeView2) {
+        boolean signCreateAfterLastDateConnection1 = signHomeView1.isSignCreateAfterLastDateConnection();
+        boolean videoHasComment1 = signHomeView1.isVideoHasComment();
+        boolean signCreateAfterLastDateConnection2 = signHomeView2.isSignCreateAfterLastDateConnection();
+        boolean videoHasComment2 = signHomeView2.isVideoHasComment();
+
+        if (signCreateAfterLastDateConnection1 == true && videoHasComment1 == true) {
+          if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
+            return +1;
+          } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
+            return -1;
+          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
+            return -1;
+          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
+            return -1;
+          }
+        } else if (signCreateAfterLastDateConnection1 == true && videoHasComment1 == false) {
+          if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
+            return -1;
+          } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
+            return +1;
+          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
+            return -1;
+          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
+            return -1;
+          }
+        } else if (signCreateAfterLastDateConnection1 == false && videoHasComment1 == false) {
+          if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
+            return +1;
+          } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
+            return +1;
+          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
+            return +1;
+          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
+            return +1;
+          }
+        } else if (signCreateAfterLastDateConnection1 == false && videoHasComment1 == true) {
+            if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
+              return +1;
+            } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
+              return +1;
+            } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
+              return -1;
+            } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
+              return +1;
+            }
+          }
+          return 0;
+      }
+
+    });
+
+    //model.addAttribute("signs", signsView);
+    model.addAttribute("signsHomeView", signsHomeView);
     model.addAttribute("signCreationView", new SignCreationView());
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, principal);

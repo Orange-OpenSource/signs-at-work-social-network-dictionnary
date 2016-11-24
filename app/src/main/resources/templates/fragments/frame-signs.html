@@ -27,32 +27,30 @@
 <body>
 
 <div th:fragment="div">
-    <div th:if="${not #lists.isEmpty(signs)}" class="row">
-        <div th:each="sign:${signs}" class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4">
+    <div th:if="${not #lists.isEmpty(signsHomeView)}" class="row">
+        <div th:each="signHomeView:${signsHomeView}" class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4">
             <div class="row">
                 <div class="pull-right col-lg-12">
                     <div class="containerTooltip">
-                        <div th:if="${sign.recent}" class="pull-right tooltip_newSigne"></div>
-                        <div th:if="${!sign.recent}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
-                        <div th:if="${sign.hasComment}" class="pull-left tooltip_comment"></div>
-                        <div th:if="${!sign.hasComment}" style="visibility: hidden" class="pull-left tooltip_comment"></div>
+                        <div th:if="${signHomeView.signCreateAfterLastDateConnection}" class="pull-right tooltip_newSigne"></div>
+                        <div th:if="${!signHomeView.signCreateAfterLastDateConnection}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
+                        <div th:if="${signHomeView.videoHasComment}" class="pull-left tooltip_comment"></div>
+                        <div th:if="${!signHomeView.videoHasComment}" style="visibility: hidden" class="pull-left tooltip_comment"></div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-            <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.last}">
-                <img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/>
-                <iframe th:if="${#strings.isEmpty(video.pictureUri)}" th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
-            </div>
-            <div class="text_hyphenation"><a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/></div>
-                    </div>
+                  <img th:if="${!#strings.isEmpty(signHomeView.lastVideo.pictureUri)}" th:src="${signHomeView.lastVideo.pictureUri}"/>
+                  <iframe th:if="${#strings.isEmpty(signHomeView.lastVideo.pictureUri)}" th:src="${signHomeView.lastVideo.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
+                  <div class="text_hyphenation"><a th:href="@{/sign/} + ${signHomeView.id}" th:text="${signHomeView.name}" type="text/html"/></div>
                 </div>
+            </div>
         </div>
     </div>
 
-    <div th:if="${#lists.isEmpty(signs)}">
+    <div th:if="${#lists.isEmpty(signsHomeView)}">
         <h2 th:text="#{sign.not_available}"></h2>
     </div>
 </div>
