@@ -10,19 +10,19 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.SignsSort;
+import com.orange.signsatwork.biz.view.model.SignsViewSort;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -59,7 +59,7 @@ public class HomeController {
     AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    List<SignsView> signsView = new ArrayList<>();
+    List<SignsView> signsView;
 
     if (AuthentModel.isAuthenticated(principal)) {
       User user = services.user().withUserName(principal.getName());
@@ -79,8 +79,8 @@ public class HomeController {
       signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
     }
 
-    SignsSort signsSort = new SignsSort();
-    signsView = (List<SignsView>) signsSort.sort(signsView);
+    SignsViewSort signsViewSort = new SignsViewSort();
+    signsView = (List<SignsView>) signsViewSort.sort(signsView);
 
     model.addAttribute("signsView", signsView);
     model.addAttribute("signCreationView", new SignCreationView());
@@ -119,8 +119,8 @@ public class HomeController {
       signsView = SignsView.from(services.sign().allBySearchTermOrderByCreateDateDesc(signCreationView.getSignName()), services, null);
     }
 
-    SignsSort signsSort = new SignsSort();
-    signsView = (List<SignsView>) signsSort.sort(signsView);
+    SignsViewSort signsViewSort = new SignsViewSort();
+    signsView = (List<SignsView>) signsViewSort.sort(signsView);
 
 
     model.addAttribute("signsView", signsView);
