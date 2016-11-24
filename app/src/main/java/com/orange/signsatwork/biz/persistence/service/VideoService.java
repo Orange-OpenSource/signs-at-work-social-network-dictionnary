@@ -29,7 +29,7 @@ public interface VideoService {
 
   Video withId(long videoId);
 
-  Video withIdFromHomeView(long videoId);
+  Video withIdFromSignsView(long videoId);
 
   Comment createVideoComment(long videoId, long userId, String commentText);
 
@@ -37,7 +37,7 @@ public interface VideoService {
 
   Videos forSign(long signId);
 
-  Videos forSignHomeView(long signId);
+  Videos forSignSignsView(long signId);
 
   Rating ratingFor(Video video, long userId);
 

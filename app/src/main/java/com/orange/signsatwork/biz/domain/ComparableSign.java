@@ -1,9 +1,9 @@
-package com.orange.signsatwork.biz.sandboxremoveafteruse;
+package com.orange.signsatwork.biz.domain;
 
 /** interface which describes methods required to sort a signs' list */
 public interface ComparableSign {
   /** sign unique id */
-  int id();
+  long id();
 
   boolean createdSinceLastConnexion();
 

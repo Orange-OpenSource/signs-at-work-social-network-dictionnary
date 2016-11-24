@@ -36,6 +36,9 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
 
     List<SignDB> findByOrderByCreateDateDesc();
 
+    @Query("select distinct s FROM SignDB s where lower(s.name) like lower(concat('%',:searchTerm,'%')) order by s.createDate desc")
+    List<SignDB> findAllBySearchTermOrderByCreateDateDesc(@Param("searchTerm") String searchTerm);
+
     @Query("select distinct s FROM SignDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<SignDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 

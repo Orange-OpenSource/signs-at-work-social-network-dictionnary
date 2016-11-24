@@ -63,10 +63,8 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
-  public Comments forVideoHomeView(long videoId) {
-    return commentsFromHomeView(
-      commentRepository.findByVideo(videoRepository.findOne(videoId))
-    );
+  public long forVideoSignsView(long videoId) {
+    return commentRepository.countByVideo(videoRepository.findOne(videoId));
   }
 
 
@@ -96,13 +94,13 @@ public class CommentServiceImpl implements CommentService {
     return new Comment(commentDB.getId(), commentDB.getCommentDate(), commentDB.getText(), UserServiceImpl.userFromSignView(commentDB.getUser()));
   }
 
-  Comments commentsFromHomeView(Iterable<CommentDB> commentsDB) {
+  Comments commentsFromSignsView(Iterable<CommentDB> commentsDB) {
     List<Comment> comments = new ArrayList<>();
-    commentsDB.forEach(commentDB -> comments.add(commentFromHomeView(commentDB)));
+    commentsDB.forEach(commentDB -> comments.add(commentFromSignsView(commentDB)));
     return new Comments(comments);
   }
 
-  static Comment commentFromHomeView(CommentDB commentDB) {
+  static Comment commentFromSignsView(CommentDB commentDB) {
     return new Comment(commentDB.getId(), commentDB.getCommentDate(), commentDB.getText(), null);
   }
 

@@ -61,8 +61,8 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
-  public Video withIdFromHomeView(long videoId) {
-    return videoFromHomeView(videoRepository.findOne(videoId));
+  public Video withIdFromSignsView(long videoId) {
+    return videoFromSignsView(videoRepository.findOne(videoId));
   }
 
   @Override
@@ -98,8 +98,8 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
-  public Videos forSignHomeView(long signId) {
-    return videosFromHomeView(videoRepository.findBySign(signRepository.findOne(signId)));
+  public Videos forSignSignsView(long signId) {
+    return videosFromSignsView(videoRepository.findBySign(signRepository.findOne(signId)));
   }
 
   @Override
@@ -157,13 +157,13 @@ public class VideoServiceImpl implements VideoService {
     return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(),videoDB.getCreateDate(), null, null, null);
   }
 
-  static Videos videosFromHomeView(Iterable<VideoDB> videosDB) {
+  static Videos videosFromSignsView(Iterable<VideoDB> videosDB) {
     List<Video> videos = new ArrayList<>();
-    videosDB.forEach(videoDB -> videos.add(videoFromHomeView(videoDB)));
+    videosDB.forEach(videoDB -> videos.add(videoFromSignsView(videoDB)));
     return new Videos(videos);
   }
 
-  static Video videoFromHomeView(VideoDB videoDB) {
+  static Video videoFromSignsView(VideoDB videoDB) {
     return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), videoDB.getCreateDate(), null, null, null);
   }
 }

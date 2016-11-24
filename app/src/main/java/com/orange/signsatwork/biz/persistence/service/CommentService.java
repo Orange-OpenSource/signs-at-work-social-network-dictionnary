@@ -30,7 +30,7 @@ public interface CommentService {
 
   Comments forVideo(long id);
 
-  Comments forVideoHomeView(long videoId);
+  long forVideoSignsView(long videoId);
 
   Comment withId(long id);
 

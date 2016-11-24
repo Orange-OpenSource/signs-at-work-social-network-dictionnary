@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.sandboxremoveafteruse;
+package com.orange.signsatwork.biz.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class SignsSort {
    * @param signs to sort
    * @return sorted signs
    */
-  public List<ComparableSign> sort(List<ComparableSign> signs) {
+  public List<? extends ComparableSign> sort(List<? extends ComparableSign> signs) {
     List<ComparableSign> createdSinceLastConnexion = signs.stream()
       .filter(ComparableSign::createdSinceLastConnexion)
       .collect(Collectors.toList());

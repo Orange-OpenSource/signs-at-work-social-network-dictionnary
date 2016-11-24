@@ -50,6 +50,8 @@ public interface SignService {
 
   Signs allBySearchTerm(String searchTerm);
 
+  Signs allBySearchTermOrderByCreateDateDesc(String searchTerm);
+
   Signs createAfterLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm);
 
   Signs createBeforeLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm);
@@ -57,6 +59,8 @@ public interface SignService {
   Signs forFavorite(long id);
 
   Sign withId(long id);
+
+  Sign withIdSignsView(long id);
 
   Sign withIdLoadAssociates(long id);
 

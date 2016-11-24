@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.sandboxremoveafteruse;
+package com.orange.signsatwork.biz.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -11,11 +11,11 @@ public class SignListSortTest {
   @Test
   public void signs_created_since_last_connexion_appears_first_then_signs_modified() {
     // Given
-    List<ComparableSign> signs = buildTestSigns();
+    List<? extends ComparableSign> signs = buildTestSigns();
     SignsSort signsSort = new SignsSort();
 
     // When
-    List<ComparableSign> signsSorted = signsSort.sort(signs);
+    List<? extends ComparableSign> signsSorted = signsSort.sort(signs);
 
     // Then
     Assertions.assertThat(signsSorted.get(0).id()).isEqualTo(3);
@@ -25,7 +25,7 @@ public class SignListSortTest {
     Assertions.assertThat(signsSorted.get(4).id()).isEqualTo(2);
   }
 
-  private List<ComparableSign> buildTestSigns() {
+  private List<? extends ComparableSign> buildTestSigns() {
     List<ComparableSign> signs = new ArrayList<>();
     signs.add(buildComparableSignWith(0, false, false));
     signs.add(buildComparableSignWith(1, false, true));
@@ -40,7 +40,7 @@ public class SignListSortTest {
 
     return new ComparableSign() {
       @Override
-      public int id() {
+      public long id() {
         return id;
       }
       @Override

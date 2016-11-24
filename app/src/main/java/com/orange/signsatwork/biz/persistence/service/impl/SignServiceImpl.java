@@ -145,7 +145,7 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public Signs allOrderByCreateDateAsc() {
-    return signsFromHomeView(signRepository.findByOrderByCreateDateDesc());
+    return signsFromSignsView(signRepository.findByOrderByCreateDateDesc());
   }
 
 
@@ -166,6 +166,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Signs allBySearchTermOrderByCreateDateDesc(String searchTerm) {
+    return signsFrom(signRepository.findAllBySearchTermOrderByCreateDateDesc(searchTerm));
+  }
+
+  @Override
   public Signs createAfterLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm) {
     return signsFrom(signRepository.findSignCreateAfterLastDateConnectionBySearchTerm(lastConnectionDate, searchTerm));
   }
@@ -178,6 +183,11 @@ public class SignServiceImpl implements SignService {
   @Override
   public Sign withId(long id) {
     return signFrom(signRepository.findOne(id), services);
+  }
+
+  @Override
+  public Sign withIdSignsView(long id) {
+    return signFromSignsView(signRepository.findOne(id), services);
   }
 
   @Override
@@ -459,13 +469,13 @@ public class SignServiceImpl implements SignService {
     return new SignDB(sign.name, sign.url, sign.createDate);
   }
 
-  Signs signsFromHomeView(Iterable<SignDB> signsDB) {
+  Signs signsFromSignsView(Iterable<SignDB> signsDB) {
     List<Sign> signs = new ArrayList<>();
-    signsDB.forEach(signDB -> signs.add(signFromHomeView(signDB, services)));
+    signsDB.forEach(signDB -> signs.add(signFromSignsView(signDB, services)));
     return new Signs(signs);
   }
 
-  static Sign signFromHomeView(SignDB signDB, Services services) {
+  static Sign signFromSignsView(SignDB signDB, Services services) {
     return signDB == null ? null :
       new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, null, null, services.video(), services.comment());
   }

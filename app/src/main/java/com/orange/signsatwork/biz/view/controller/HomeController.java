@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.SignsSort;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -58,8 +59,7 @@ public class HomeController {
     AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    //List<SignView> signsView = new ArrayList<>();
-    List<SignHomeView> signsHomeView = new ArrayList<>();
+    List<SignsView> signsView = new ArrayList<>();
 
     if (AuthentModel.isAuthenticated(principal)) {
       User user = services.user().withUserName(principal.getName());
@@ -70,80 +70,19 @@ public class HomeController {
       }
 
       if (user.lastConnectionDate != null) {
-
-        signsHomeView = SignHomeView.from(services.sign().allOrderByCreateDateAsc(), services, user.lastConnectionDate);
-
-//        List<SignView> signsRecentView, signNotRecentView;
-//        signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnection(user.lastConnectionDate));
-//        signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnection(user.lastConnectionDate));
-//        signsView.addAll(signsRecentView);
-//        signsView.addAll(signNotRecentView);
+        signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, user.lastConnectionDate);
       }
       else {
-        //signsView = SignView.from(services.sign().all());
-        signsHomeView = SignHomeView.from(services.sign().allOrderByCreateDateAsc(), services, null);
+        signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
       }
     } else {
-      //signsView = SignView.from(services.sign().all());
-      signsHomeView = SignHomeView.from(services.sign().allOrderByCreateDateAsc(), services, null);
+      signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
     }
 
-    Collections.sort(signsHomeView, new Comparator<SignHomeView>() {
-      @Override
-      public int compare(SignHomeView signHomeView1, SignHomeView signHomeView2) {
-        boolean signCreateAfterLastDateConnection1 = signHomeView1.isSignCreateAfterLastDateConnection();
-        boolean videoHasComment1 = signHomeView1.isVideoHasComment();
-        boolean signCreateAfterLastDateConnection2 = signHomeView2.isSignCreateAfterLastDateConnection();
-        boolean videoHasComment2 = signHomeView2.isVideoHasComment();
+    SignsSort signsSort = new SignsSort();
+    signsView = (List<SignsView>) signsSort.sort(signsView);
 
-        if (signCreateAfterLastDateConnection1 == true && videoHasComment1 == true) {
-          if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
-            return +1;
-          } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
-            return -1;
-          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
-            return -1;
-          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
-            return -1;
-          }
-        } else if (signCreateAfterLastDateConnection1 == true && videoHasComment1 == false) {
-          if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
-            return -1;
-          } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
-            return +1;
-          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
-            return -1;
-          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
-            return -1;
-          }
-        } else if (signCreateAfterLastDateConnection1 == false && videoHasComment1 == false) {
-          if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
-            return +1;
-          } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
-            return +1;
-          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
-            return +1;
-          } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
-            return +1;
-          }
-        } else if (signCreateAfterLastDateConnection1 == false && videoHasComment1 == true) {
-            if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == true) {
-              return +1;
-            } else if (signCreateAfterLastDateConnection2 == true && videoHasComment2 == false) {
-              return +1;
-            } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == false) {
-              return -1;
-            } else if (signCreateAfterLastDateConnection2 == false && videoHasComment2 == true) {
-              return +1;
-            }
-          }
-          return 0;
-      }
-
-    });
-
-    //model.addAttribute("signs", signsView);
-    model.addAttribute("signsHomeView", signsHomeView);
+    model.addAttribute("signsView", signsView);
     model.addAttribute("signCreationView", new SignCreationView());
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, principal);
@@ -160,25 +99,31 @@ public class HomeController {
     AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    List<SignView> signsView = new ArrayList<>();
+    List<SignsView> signsView = new ArrayList<>();
 
     if (AuthentModel.isAuthenticated(principal)) {
       User user = services.user().withUserName(principal.getName());
+      if (user.firstName.isEmpty() && user.lastName.isEmpty() && user.job.isEmpty() && user.entity.isEmpty() && user.jobTextDescription.isEmpty() ){
+        model.addAttribute("isUserEmpty", true);
+      } else {
+        model.addAttribute("isUserEmpty", false);
+      }
+
       if (user.lastConnectionDate != null) {
-        List<SignView> signsRecentView, signNotRecentView;
-        signsRecentView = SignView.fromRecent(services.sign().createAfterLastDateConnectionBySearchTerm(user.lastConnectionDate, signCreationView.getSignName() ));
-        signNotRecentView = SignView.from(services.sign().createBeforeLastDateConnectionBySearchTerm(user.lastConnectionDate, signCreationView.getSignName()));
-        signsView.addAll(signsRecentView);
-        signsView.addAll(signNotRecentView);
+        signsView = SignsView.from(services.sign().allBySearchTermOrderByCreateDateDesc(signCreationView.getSignName()), services, user.lastConnectionDate);
       }
       else {
-        signsView = SignView.from(services.sign().allBySearchTerm(signCreationView.getSignName()));
+        signsView = SignsView.from(services.sign().allBySearchTermOrderByCreateDateDesc(signCreationView.getSignName()), services, null);
       }
     } else {
-      signsView = SignView.from(services.sign().allBySearchTerm(signCreationView.getSignName()));
+      signsView = SignsView.from(services.sign().allBySearchTermOrderByCreateDateDesc(signCreationView.getSignName()), services, null);
     }
 
-    model.addAttribute("signs", signsView);
+    SignsSort signsSort = new SignsSort();
+    signsView = (List<SignsView>) signsSort.sort(signsView);
+
+
+    model.addAttribute("signsView", signsView);
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, principal);
     }
