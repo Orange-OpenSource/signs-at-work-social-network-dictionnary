@@ -5,8 +5,7 @@ sudo: false
 
 # we need java 8
 jdk:
-- openjdk8
-#- oraclejdk8
+- oraclejdk8
 
 # skip build without tests
 install: true
