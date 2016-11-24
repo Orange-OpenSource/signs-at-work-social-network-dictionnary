@@ -35,6 +35,16 @@
 <div th:replace="fragments/modal-new-sign-video-file :: div"/>
 <div th:replace="fragments/modal-new-sign-video :: div"/>
 
+<script>
+  function displaySpinner() {
+    $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+    $(".spinner").css("z-index","1500").css("opacity","1").visibility="visible";
+  }
+
+  var submitButtonFileDailymotion = document.getElementById('submitButtonFileDailymotion');
+  submitButtonFileDailymotion.addEventListener('click', displaySpinner, false);
+</script>
+
 <div class="row ">
     <div class="col-md-4 col-xs-12 col-lg-12">
         <aside class="sidebar">

@@ -130,6 +130,10 @@ function generateRandomString() {
 var $form = $('#uploadVideoFile');
 $form.on('submit', function(event) {
   document.getElementById('continue').disabled = true;
+  $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+  $("video").css("z-index","-1").css("opacity","0.40");
+  $("video").removeAttr("controls");
+  $(".spinner").css("z-index","1500").visibility="visible";
   videoFile.signNameRecording = $('#signNameRecording').val();
     event.preventDefault();
     $.ajax({
@@ -141,11 +145,16 @@ $form.on('submit', function(event) {
         var url = "/sign/"+response;
         window.location = url;
         errorSpan.style.visibility="hidden";
+        $(".spinner").visibility="hidden";
+        $("video").css("z-index","1500").css("opacity","1");
         console.log("Success " + response);
       },
       error: function(response) {
         errorSpan.textContent = response.responseText;
         errorSpan.style.visibility="visible";
+        $(".spinner").css("z-index","-1").css("opacity","0.1");
+        $(".spinner").visibility="hidden";
+        $("video").css("z-index","1500").css("opacity","1");
         console.log("Erreur " + response.responseText);
       }
     })

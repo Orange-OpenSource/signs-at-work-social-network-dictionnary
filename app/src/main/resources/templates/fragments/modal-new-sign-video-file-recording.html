@@ -30,14 +30,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                     <div class="suggest pull-left"></div>
                     <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
                 </div>
             </div>
-
-            <video id="video"></video>
+          <div class="spinner spinner_hidden"></div>
+          <video id="video"></video>
             <button id="start-recording">Record Audio+Video</button>
             <button id="stop-recording" disabled="">Stop</button>
 
