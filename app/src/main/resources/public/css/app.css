@@ -353,7 +353,6 @@ text-decoration-line: none;
 
 .signe {
 	float: left;
-	margin-right: 8px;
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1300px center;
 	background-repeat: no-repeat;
