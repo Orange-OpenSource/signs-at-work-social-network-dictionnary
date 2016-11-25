@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="col-lg-12">
                   <a th:href="@{/sign/} + ${signView.id}" ><img th:if="${!#strings.isEmpty(signView.lastVideo.pictureUri)}" th:src="${signView.lastVideo.pictureUri}"/></a>
-                  <iframe th:if="${#strings.isEmpty(signView.lastVideo.pictureUri)}" th:src="${signView.lastVideo.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
+                  <iframe th:if="${#strings.isEmpty(signView.lastVideo.pictureUri) and !#strings.isEmpty(signView.lastVideo.url)}" th:src="${signView.lastVideo.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
                   <div class="text_hyphenation"><a th:href="@{/sign/} + ${signView.id}" th:text="${signView.name}" type="text/html"/></div>
                 </div>
             </div>
