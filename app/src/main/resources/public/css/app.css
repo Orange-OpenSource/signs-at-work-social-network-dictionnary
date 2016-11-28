@@ -194,6 +194,9 @@ a.form-control{
 	color:#f16e00;
 }
 
+#backtoHomepage {
+  width: 50%;
+}
 
 .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
 	background-color: #f16e00;
