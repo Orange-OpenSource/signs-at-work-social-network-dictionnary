@@ -37,6 +37,9 @@ spring.datasource.username: root
 spring.datasource.password: obelix
 app.proxy.server: localhost
 app.proxy.port : 3128
+spring:
+  jpa:
+    show-sql: true
 
 ---
 

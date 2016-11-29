@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -56,13 +56,13 @@ public class HomeController {
   }
 
   private String doIndex(Principal principal, Model model) {
-    AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
+    User user = AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
     List<SignsView> signsView;
 
     if (AuthentModel.isAuthenticated(principal)) {
-      User user = services.user().withUserName(principal.getName());
+      //User user = services.user().withUserName(principal.getName());
       if (user.firstName.isEmpty() && user.lastName.isEmpty() && user.job.isEmpty() && user.entity.isEmpty() && user.jobTextDescription.isEmpty() ){
         model.addAttribute("isUserEmpty", true);
       } else {
@@ -79,13 +79,14 @@ public class HomeController {
       signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
     }
 
+
     SignsViewSort signsViewSort = new SignsViewSort();
     signsView = (List<SignsView>) signsViewSort.sort(signsView);
 
     model.addAttribute("signsView", signsView);
     model.addAttribute("signCreationView", new SignCreationView());
     if (AuthentModel.isAuthenticated(principal)) {
-      fillModelWithFavorites(model, principal);
+      fillModelWithFavorites(model, user);
     }
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     model.addAttribute("signSearchView", new SignSearchView());
@@ -96,13 +97,13 @@ public class HomeController {
 
   @RequestMapping("/search")
   public String search(@ModelAttribute SignCreationView signCreationView, Principal principal, Model model) {
-    AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
+    User user =  AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
     List<SignsView> signsView = new ArrayList<>();
 
     if (AuthentModel.isAuthenticated(principal)) {
-      User user = services.user().withUserName(principal.getName());
+      //User user = services.user().withUserName(principal.getName());
       if (user.firstName.isEmpty() && user.lastName.isEmpty() && user.job.isEmpty() && user.entity.isEmpty() && user.jobTextDescription.isEmpty() ){
         model.addAttribute("isUserEmpty", true);
       } else {
@@ -125,7 +126,7 @@ public class HomeController {
 
     model.addAttribute("signsView", signsView);
     if (AuthentModel.isAuthenticated(principal)) {
-      fillModelWithFavorites(model, principal);
+      fillModelWithFavorites(model, user);
     }
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     model.addAttribute("signSearchView", signCreationView);
@@ -133,8 +134,7 @@ public class HomeController {
     return "index";
   }
 
-  private void fillModelWithFavorites(Model model, Principal principal) {
-    User user = services.user().withUserName(principal.getName());
+  private void fillModelWithFavorites(Model model, User user) {
     List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
     model.addAttribute("myFavorites", myFavorites);
   }

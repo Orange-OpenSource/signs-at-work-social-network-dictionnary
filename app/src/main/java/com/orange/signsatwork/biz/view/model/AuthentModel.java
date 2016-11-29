@@ -10,18 +10,19 @@ package com.orange.signsatwork.biz.view.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import org.springframework.ui.Model;
@@ -40,15 +41,18 @@ public class AuthentModel {
     model.addAllAttributes(authenticatedModel(isAuthenticated));
   }
 
-  public static void addAuthentModelWithUserDetails(Model model, Principal principal, UserService userService) {
+  public static User addAuthentModelWithUserDetails(Model model, Principal principal, UserService userService) {
     boolean authenticated = isAuthenticated(principal);
+    User user = null;
     addAuthenticatedModel(model, authenticated);
     model.addAttribute("authenticatedUsername",
             authenticated ? principal.getName() : "Please sign in");
     model.addAttribute("isAdmin", authenticated && isAdmin(principal));
     if (authenticated && !isAdmin(principal)) {
-      model.addAttribute("user", userService.withUserName(principal.getName()));
+      user = userService.withUserName(principal.getName());
+      model.addAttribute("user", user);
     }
+    return user;
   }
 
   private static Map<String, Object> authenticatedModel(boolean isAuthenticated) {
