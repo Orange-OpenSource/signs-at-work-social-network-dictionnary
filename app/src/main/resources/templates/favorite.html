@@ -44,14 +44,17 @@
               </aside>
            </div>
 
-          <div th:if="${not #lists.isEmpty(favoriteProfileView.favoriteSigns)}">
-              <div th:each="sign:${favoriteProfileView.favoriteSigns}" class="col-lg-3 col-md-4 col-xs-6 col-sm-4">
+          <div  class="text-center title_middle col-md-8 col-xs-12 middle-col "><br/>
+            <div class="row">
+              <div th:each="sign:${favoriteProfileView.favoriteSigns}" class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4">
                   <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
-                    <img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/>
+                    <a th:href="@{/sign/} + ${sign.id}" type="text/html"><img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/></a>
                     <iframe th:if="${#strings.isEmpty(video.pictureUri)}" th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
                   </div>
-                  <a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/>
+                <div class="text_hyphenation"><a th:href="@{/sign/} + ${sign.id}" th:text="${sign.name}" type="text/html"/></div>
               </div>
+            </div>
+
           </div>
 
           <div th:if="${#lists.isEmpty(favoriteProfileView.favoriteSigns)}">
