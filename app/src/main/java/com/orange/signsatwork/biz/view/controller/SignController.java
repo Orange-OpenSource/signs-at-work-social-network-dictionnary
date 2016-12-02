@@ -82,21 +82,25 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
     Favorite favorite = services.favorite().withId(favoriteId);
-    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+    List<Object[]> querySigns = services.sign().SignsForFavoriteView(favoriteId);
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
 
-    List<SignsView> signsView = new ArrayList<>();
-    SignsView signView;
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
-    List<Sign> signList = favoriteProfileView.getFavoriteSigns();
-    for (Sign sign:signList) {
-      signView = SignsView.from(sign, services, user.lastConnectionDate);
-      signsView.add(signView);
-    }
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> new SignView2(
+        signViewData,
+        signWithCommentList.contains(signViewData.id),
+        SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate))
+      )
+      .collect(Collectors.toList());
 
-    SignsViewSort signsViewSort = new SignsViewSort();
-    signsView = signsViewSort.sort(signsView);
+    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+    signViews = signsViewSort2.sort(signViews);
 
-    model.addAttribute("signsView", signsView);
+    model.addAttribute("signsView", signViews);
     fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
