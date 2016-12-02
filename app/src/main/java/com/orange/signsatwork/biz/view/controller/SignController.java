@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -24,7 +24,8 @@ package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.view.model.SignsViewSort;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
+import com.orange.signsatwork.biz.view.model.SignsViewSort2;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -281,23 +282,31 @@ public class SignController {
   }
 
   private void fillModelWithSigns(Model model, Principal principal) {
-    List<SignsView> signsView = new ArrayList<>();
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
-    if (AuthentModel.isAuthenticated(principal)) {
-      User user = services.user().withUserName(principal.getName());
-      if (user.lastConnectionDate != null) {
-        signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, user.lastConnectionDate);
-      }
-      else {
-        signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
-      }
-    } else {
-      signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
-    }
-    SignsViewSort signsViewSort = new SignsViewSort();
-    signsView = (List<SignsView>) signsViewSort.sort(signsView);
-    model.addAttribute("signsView", signsView);
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, user))
+      .collect(Collectors.toList());
+
+    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+    signViews = signsViewSort2.sort(signViews);
+
+    model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
+  }
+
+  private SignView2 buildSignView(SignViewData signViewData, List<Long> signWithCommentList, User user) {
+    return new SignView2(
+      signViewData,
+      signWithCommentList.contains(signViewData.id),
+      SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate));
   }
 
   private void fillModelWithSign(Model model, long signId, Principal principal) {
@@ -321,7 +330,7 @@ public class SignController {
   private void fillModelWithFavorites(Model model, Principal principal) {
     if (AuthentModel.isAuthenticated(principal)) {
       User user = services.user().withUserName(principal.getName());
-      List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
+      List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
       model.addAttribute("myFavorites", myFavorites);
     }
   }

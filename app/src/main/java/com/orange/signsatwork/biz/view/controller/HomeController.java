@@ -22,7 +22,8 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.view.model.SignsViewSort;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
+import com.orange.signsatwork.biz.view.model.SignsViewSort2;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -59,31 +61,38 @@ public class HomeController {
     User user = AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    List<SignsView> signsView;
+
 
     if (AuthentModel.isAuthenticated(principal)) {
-      //User user = services.user().withUserName(principal.getName());
       if (user.firstName.isEmpty() && user.lastName.isEmpty() && user.job.isEmpty() && user.entity.isEmpty() && user.jobTextDescription.isEmpty() ){
         model.addAttribute("isUserEmpty", true);
       } else {
         model.addAttribute("isUserEmpty", false);
       }
-
-      if (user.lastConnectionDate != null) {
-        signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, user.lastConnectionDate);
-      }
-      else {
-        signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
-      }
-    } else {
-      signsView = SignsView.from(services.sign().allOrderByCreateDateAsc(), services, null);
     }
 
 
-    SignsViewSort signsViewSort = new SignsViewSort();
-    signsView = (List<SignsView>) signsViewSort.sort(signsView);
 
-    model.addAttribute("signsView", signsView);
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> new SignView2(
+          signViewData,
+          signWithCommentList.contains(signViewData.id),
+          SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate))
+      )
+      .collect(Collectors.toList());
+
+    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+    signViews = signsViewSort2.sort(signViews);
+
+
+    model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, user);
@@ -100,31 +109,34 @@ public class HomeController {
     User user =  AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    List<SignsView> signsView = new ArrayList<>();
 
     if (AuthentModel.isAuthenticated(principal)) {
-      //User user = services.user().withUserName(principal.getName());
       if (user.firstName.isEmpty() && user.lastName.isEmpty() && user.job.isEmpty() && user.entity.isEmpty() && user.jobTextDescription.isEmpty() ){
         model.addAttribute("isUserEmpty", true);
       } else {
         model.addAttribute("isUserEmpty", false);
       }
-
-      if (user.lastConnectionDate != null) {
-        signsView = SignsView.from(services.sign().allBySearchTermOrderByCreateDateDesc(signCreationView.getSignName()), services, user.lastConnectionDate);
-      }
-      else {
-        signsView = SignsView.from(services.sign().allBySearchTermOrderByCreateDateDesc(signCreationView.getSignName()), services, null);
-      }
-    } else {
-      signsView = SignsView.from(services.sign().allBySearchTermOrderByCreateDateDesc(signCreationView.getSignName()), services, null);
     }
 
-    SignsViewSort signsViewSort = new SignsViewSort();
-    signsView = (List<SignsView>) signsViewSort.sort(signsView);
+    List<Object[]> querySigns = services.sign().SignsForSignsViewBySearchTerm(signCreationView.getSignName());
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
 
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
-    model.addAttribute("signsView", signsView);
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> new SignView2(
+        signViewData,
+        signWithCommentList.contains(signViewData.id),
+        SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate))
+      )
+      .collect(Collectors.toList());
+
+    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+    signViews = signsViewSort2.sort(signViews);
+
+    model.addAttribute("signsView", signViews);
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, user);
     }
@@ -135,7 +147,7 @@ public class HomeController {
   }
 
   private void fillModelWithFavorites(Model model, User user) {
-    List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
+    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
     model.addAttribute("myFavorites", myFavorites);
   }
 }

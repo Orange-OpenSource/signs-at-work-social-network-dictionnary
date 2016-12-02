@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SignsViewSort {
+public class SignsViewSort2 {
 
   /**
    * Sort criteria:
@@ -36,20 +36,20 @@ public class SignsViewSort {
    * @param signs to sort
    * @return sorted signs
    */
-  public List<SignsView> sort(List<SignsView> signs) {
-    List<SignsView> createdSinceLastConnexion = signs.stream()
-      .filter(SignsView::createdSinceLastConnexion)
+  public List<SignView2> sort(List<SignView2> signs) {
+    List<SignView2> createdSinceLastConnexion = signs.stream()
+      .filter(SignView2::createdSinceLastConnexion)
       .collect(Collectors.toList());
 
     signs.removeAll(createdSinceLastConnexion);
 
-    List<SignsView> commentAddedSinceLastConnexion = signs.stream()
-      .filter(SignsView::modifiedSinceLastConnexion)
+    List<SignView2> commentAddedSinceLastConnexion = signs.stream()
+      .filter(SignView2::modifiedSinceLastConnexion)
       .collect(Collectors.toList());
 
     signs.removeAll(commentAddedSinceLastConnexion);
 
-    List<SignsView> sortedSigns = new ArrayList<>();
+    List<SignView2> sortedSigns = new ArrayList<>();
     sortedSigns.addAll(createdSinceLastConnexion);
     sortedSigns.addAll(commentAddedSinceLastConnexion);
     sortedSigns.addAll(signs);

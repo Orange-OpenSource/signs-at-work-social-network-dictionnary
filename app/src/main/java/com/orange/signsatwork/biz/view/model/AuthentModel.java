@@ -48,7 +48,11 @@ public class AuthentModel {
     model.addAttribute("authenticatedUsername",
             authenticated ? principal.getName() : "Please sign in");
     model.addAttribute("isAdmin", authenticated && isAdmin(principal));
-    if (authenticated && !isAdmin(principal)) {
+//    if (authenticated && !isAdmin(principal)) {
+//      user = userService.withUserName(principal.getName());
+//      model.addAttribute("user", user);
+//    }
+    if (authenticated) {
       user = userService.withUserName(principal.getName());
       model.addAttribute("user", user);
     }

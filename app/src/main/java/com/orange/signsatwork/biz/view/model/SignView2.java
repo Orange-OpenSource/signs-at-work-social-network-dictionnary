@@ -22,8 +22,7 @@ package com.orange.signsatwork.biz.view.model;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.*;
-import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,44 +30,33 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignsView implements ComparableSign {
+public class SignView2 implements ComparableSign {
   private long id;
   private String name;
   private Date createDate;
+  private long lastVideoId;
   private String url;
   private String pictureUri;
   private boolean signCreateAfterLastDateConnection;
   private boolean videoHasComment;
 
-  public static SignsView from(Sign sign, Services services, Date lastConnectionDate) {
-    boolean signCreateAfterLastDateConnection = false;
-    boolean videoHasComment = false;
+  public SignView2(SignViewData signViewData, boolean videoHasComment, boolean createdAfterLastConnection) {
+    id = signViewData.id;
+    name = signViewData.name;
+    createDate = signViewData.createDate;
+    lastVideoId = signViewData.lastVideoId;
+    url = signViewData.url;
+    pictureUri = signViewData.pictureUri;
+    signCreateAfterLastDateConnection = createdAfterLastConnection;
 
-    Video lastVideo = services.video().withIdFromSignsView(sign.lastVideoId);
-    long nbComments = services.comment().forVideoSignsView(lastVideo.id);
-    if (nbComments > 0) {
-      videoHasComment = true;
-    }
-     if (lastConnectionDate != null) {
-       if (sign.createDate.compareTo(lastConnectionDate) >= 0) {
-         signCreateAfterLastDateConnection = true;
-       }
-     }
-    return new SignsView(sign.id, sign.name, sign.createDate, lastVideo.url, lastVideo.pictureUri, signCreateAfterLastDateConnection, videoHasComment);
+    this.videoHasComment = videoHasComment;
   }
 
-  public static List<SignsView> from(Signs signs, Services services, Date lastConnectionDate) {
-    return signs
-      .stream()
-      .map(sign -> from(sign, services, lastConnectionDate))
-      .collect(Collectors.toList());
-  }
 
   @Override
   public long id() {
@@ -83,5 +71,9 @@ public class SignsView implements ComparableSign {
   @Override
   public boolean modifiedSinceLastConnexion() {
     return videoHasComment;
+  }
+
+  public static boolean createdAfterLastConnection(Date createDate, Date lastConnection) {
+    return (lastConnection != null) && createDate.compareTo(lastConnection) >= 0;
   }
 }

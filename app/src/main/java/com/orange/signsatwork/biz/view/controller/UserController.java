@@ -10,27 +10,25 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.FavoriteCreationView;
-import com.orange.signsatwork.biz.view.model.FavoriteView;
-import com.orange.signsatwork.biz.view.model.SignCreationView;
+import com.orange.signsatwork.biz.view.model.FavoriteModalView;
 import com.orange.signsatwork.biz.view.model.UserCreationView;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +38,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
@@ -63,7 +60,7 @@ public class UserController {
 
     model.addAttribute("title", messageByLocaleService.getMessage("profile"));
     model.addAttribute("user", user);
-    fillModelWithFavorites(model, principal);
+    fillModelWithFavorites(model, user);
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 
     return "profile";
@@ -267,9 +264,8 @@ public class UserController {
     return "profile-from-community";
   }
 
-  private void fillModelWithFavorites(Model model, Principal principal) {
-    User user = services.user().withUserName(principal.getName());
-    List<FavoriteView> myFavorites = FavoriteView.from(services.favorite().favoritesforUser(user.id));
+  private void fillModelWithFavorites(Model model, User user) {
+    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
     model.addAttribute("myFavorites", myFavorites);
   }
 

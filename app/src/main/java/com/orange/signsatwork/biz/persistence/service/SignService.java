@@ -42,6 +42,8 @@ public interface SignService {
 
   List<Object[]> SignsForSignsView();
 
+  List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm);
+
   Signs allOrderByCreateDateAsc();
 
   Signs all();

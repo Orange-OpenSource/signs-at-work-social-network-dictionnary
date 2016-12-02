@@ -144,6 +144,12 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm) {
+    return signRepository.findSignsForSignsViewBySearchTerm(searchTerm);
+  }
+
+
+  @Override
   public Signs all() {
     return signsFrom(signRepository.findAll());
   }
@@ -202,7 +208,7 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public Signs forFavorite(long favoriteId) {
-    return signsFrom(
+    return signsFromSignsView(
             signRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
     );
   }

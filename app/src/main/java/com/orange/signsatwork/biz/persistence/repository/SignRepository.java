@@ -57,7 +57,10 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query("select distinct s FROM SignDB s where s.createDate < :lastConnectionDate and lower(s.name) like lower(concat('%',:searchTerm,'%'))")
     List<SignDB> findSignCreateBeforeLastDateConnectionBySearchTerm(@Param("lastConnectionDate") Date lastConnectionDate, @Param("searchTerm") String searchTerm);
 
-    @Query(value="select b.id, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsView();
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id and lower(b.name) like lower(concat('%', :searchTerm,'%')) order by b.create_date desc", nativeQuery = true)
+    List<Object[]> findSignsForSignsViewBySearchTerm(@Param("searchTerm") String searchTerm);
 
 }
