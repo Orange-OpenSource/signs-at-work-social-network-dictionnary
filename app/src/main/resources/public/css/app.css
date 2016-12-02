@@ -43,7 +43,12 @@ body{
 }
 
 .clear{
-clear: both;}
+clear: both;
+}
+
+.sign-view-hidden {
+  display: none;
+}
 
 
 h1, .h1, h2, .h2, h3, .h3 {
