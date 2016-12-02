@@ -34,33 +34,16 @@ import java.util.List;
 public interface SignRepository extends CrudRepository<SignDB, Long> {
     List<SignDB> findByName(String name);
 
-    List<SignDB> findByOrderByCreateDateDesc();
-
-    @Query("select distinct s FROM SignDB s where lower(s.name) like lower(concat('%',:searchTerm,'%')) order by s.createDate desc")
-    List<SignDB> findAllBySearchTermOrderByCreateDateDesc(@Param("searchTerm") String searchTerm);
-
     @Query("select distinct s FROM SignDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<SignDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
-
-    @Query("select distinct s FROM SignDB s where s.createDate >= :lastConnectionDate")
-    List<SignDB> findSignCreateAfterLastDateConnection(@Param("lastConnectionDate") Date lastConnectionDate);
-
-    @Query("select distinct s FROM SignDB s where s.createDate < :lastConnectionDate")
-    List<SignDB> findSignCreateBeforeLastDateConnection(@Param("lastConnectionDate") Date lastConnectionDate);
-
-    @Query("select distinct s FROM SignDB s where lower(s.name) like lower(concat('%',:searchTerm,'%'))")
-    List<SignDB> findAllBySearchTerm(@Param("searchTerm") String searchTerm);
-
-    @Query("select distinct s FROM SignDB s where s.createDate >= :lastConnectionDate and lower(s.name) like lower(concat('%',:searchTerm,'%'))")
-    List<SignDB> findSignCreateAfterLastDateConnectionBySearchTerm(@Param("lastConnectionDate") Date lastConnectionDate, @Param("searchTerm") String searchTerm);
-
-    @Query("select distinct s FROM SignDB s where s.createDate < :lastConnectionDate and lower(s.name) like lower(concat('%',:searchTerm,'%'))")
-    List<SignDB> findSignCreateBeforeLastDateConnectionBySearchTerm(@Param("lastConnectionDate") Date lastConnectionDate, @Param("searchTerm") String searchTerm);
 
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsView();
 
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id and lower(b.name) like lower(concat('%', :searchTerm,'%')) order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsViewBySearchTerm(@Param("searchTerm") String searchTerm);
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b inner join favorites_signs c on a.id = b.last_video_id and c.signs_id = b.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)
+    List<Object[]> findSignsForFavoriteView(@Param("favoriteId") long favoriteId);
 
 }

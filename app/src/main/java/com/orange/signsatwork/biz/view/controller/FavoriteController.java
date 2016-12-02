@@ -24,10 +24,13 @@ package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.FavoriteCreationView;
 import com.orange.signsatwork.biz.view.model.FavoriteProfileView;
+import com.orange.signsatwork.biz.view.model.SignView2;
+import com.orange.signsatwork.biz.view.model.SignsViewSort2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -78,13 +81,33 @@ public class FavoriteController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}")
-  public String favorite(@PathVariable long favoriteId, Model model)  {
+  public String favorite(@PathVariable long favoriteId, Principal principal, Model model)  {
+    User user = services.user().withUserName(principal.getName());
 
     Favorite favorite = services.favorite().withId(favoriteId);
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/");
-    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
-    model.addAttribute("favoriteProfileView", favoriteProfileView);
+    model.addAttribute("favoriteView", favorite);
+
+    List<Object[]> querySigns = services.sign().SignsForFavoriteView(favoriteId);
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> new SignView2(
+        signViewData,
+        signWithCommentList.contains(signViewData.id),
+        SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate))
+      )
+      .collect(Collectors.toList());
+
+    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+    signViews = signsViewSort2.sort(signViews);
+
+    model.addAttribute("signsView", signViews);
 
     return "favorite";
   }
@@ -128,9 +151,9 @@ public class FavoriteController {
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.manage"));
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
 
-    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
-    model.addAttribute("favoriteProfileView", favoriteProfileView);
+    model.addAttribute("favoriteManageView", favorite);
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+
 
     return "manage-favorite";
   }

@@ -33,7 +33,7 @@
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
                 <li class="clear aside_bckg_li">
-                    <a th:href="@{/sec/favorite/} + ${favoriteProfileView.favorite.id} + '/associate-sign'">
+                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} + '/associate-sign'">
                         <div class="signe"></div>
                         <h2 class="container_H2"  th:text="#{favorite.add_sign}"></h2>
                         <div><div class="pull-right chevron_right"></div></div>
@@ -82,7 +82,7 @@
                         <span th:text="#{favorite.confirm_delete}"></span>
                     </div>
                     <div class="modal-footer">
-                        <form th:action="@{/sec/favorite/} + ${favoriteProfileView.favorite.id} + '/delete'" method="post">
+                        <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/delete'" method="post">
                             <button type="submit" class="btn btn-warning" data-dismiss="" th:text="#{favorite.validate}"/>
                         </form>
                     </div>
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
 
-                            <form th:action="@{/sec/favorite/} + ${favoriteProfileView.favorite.id} + '/rename'" th:object="${favoriteCreationView}" method="post">
+                            <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/rename'" th:object="${favoriteCreationView}" method="post">
                                 <div class="modal-body text-center">
                                     <input th:field="*{favoriteName}" type="text" class="text-center border form-control"
                                            th:placeholder="#{favorite.enter_name}" required=""/><br/>
@@ -134,7 +134,7 @@
                           <span th:text="#{favorite.duplicate_text}"></span>
                         </div>
                         <div class="modal-footer">
-                            <form th:action="@{/sec/favorite/} + ${favoriteProfileView.favorite.id} + '/duplicate'" method="post">
+                            <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/duplicate'" method="post">
                                 <button type="submit" class="btn btn-warning" data-dismiss="" th:text="#{favorite.validate}"/>
                             </form>
                         </div>

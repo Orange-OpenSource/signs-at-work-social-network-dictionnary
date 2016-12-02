@@ -144,6 +144,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> SignsForFavoriteView(long favoriteId) {
+    return signRepository.findSignsForFavoriteView(favoriteId);
+  }
+
+  @Override
   public List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm) {
     return signRepository.findSignsForSignsViewBySearchTerm(searchTerm);
   }
@@ -154,42 +159,6 @@ public class SignServiceImpl implements SignService {
     return signsFrom(signRepository.findAll());
   }
 
-  @Override
-  public Signs allOrderByCreateDateAsc() {
-    return signsFromSignsView(signRepository.findByOrderByCreateDateDesc());
-  }
-
-
-  @Override
-  public Signs createAfterLastDateConnection(Date lastConnectionDate) {
-    return signsFrom(signRepository.findSignCreateAfterLastDateConnection(lastConnectionDate));
-  }
-
-  @Override
-  public Signs createBeforeLastDateConnection(Date lastConnectionDate) {
-    return signsFrom(signRepository.findSignCreateBeforeLastDateConnection(lastConnectionDate));
-  }
-
-
-  @Override
-  public Signs allBySearchTerm(String searchTerm) {
-    return signsFrom(signRepository.findAllBySearchTerm(searchTerm));
-  }
-
-  @Override
-  public Signs allBySearchTermOrderByCreateDateDesc(String searchTerm) {
-    return signsFrom(signRepository.findAllBySearchTermOrderByCreateDateDesc(searchTerm));
-  }
-
-  @Override
-  public Signs createAfterLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm) {
-    return signsFrom(signRepository.findSignCreateAfterLastDateConnectionBySearchTerm(lastConnectionDate, searchTerm));
-  }
-
-  @Override
-  public Signs createBeforeLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm) {
-    return signsFrom(signRepository.findSignCreateBeforeLastDateConnectionBySearchTerm(lastConnectionDate, searchTerm));
-  }
 
   @Override
   public Sign withId(long id) {

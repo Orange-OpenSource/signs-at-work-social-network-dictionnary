@@ -42,23 +42,11 @@ public interface SignService {
 
   List<Object[]> SignsForSignsView();
 
+  List<Object[]> SignsForFavoriteView(long favoriteId);
+
   List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm);
 
-  Signs allOrderByCreateDateAsc();
-
   Signs all();
-
-  Signs createAfterLastDateConnection(Date lastConnectionDate);
-
-  Signs createBeforeLastDateConnection(Date lastConnectionDate);
-
-  Signs allBySearchTerm(String searchTerm);
-
-  Signs allBySearchTermOrderByCreateDateDesc(String searchTerm);
-
-  Signs createAfterLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm);
-
-  Signs createBeforeLastDateConnectionBySearchTerm(Date lastConnectionDate, String searchTerm);
 
   Signs forFavorite(long id);
 
