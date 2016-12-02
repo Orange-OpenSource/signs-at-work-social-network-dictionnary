@@ -28,30 +28,28 @@
 
 <div th:fragment="div">
 
-    <form th:if="${not #lists.isEmpty(favoriteProfileView.allSigns)}"
+    <form th:if="${not #lists.isEmpty(signsView)}"
           class="row"
           th:action="@{/sec/favorite/{favoriteid}/add/signs(favoriteid=${favoriteProfileView.favorite.id})}"
           th:object="${favoriteProfileView}"
           method="post">
 
         <div class="form-group">
-            <label class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4" th:each="sign : ${favoriteProfileView.allSigns}"
+            <label class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4" th:each="signView : ${signsView}"
                    th:for="${#ids.next('favoriteSignsIds')}">
 
-                <div th:remove="tag" th:each="video, stats:${sign.videos.list()}" th:if="${stats.first}">
-                    <img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/>
-                    <iframe th:if="${#strings.isEmpty(video.pictureUri)}" th:src="${video.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
-                </div>
+                 <img th:if="${!#strings.isEmpty(signView.pictureUri)}" th:src="${signView.pictureUri}"/>
+                  <iframe th:if="${#strings.isEmpty(signView.pictureUri) and !#strings.isEmpty(signView.url)}" th:src="${signView.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
 
-                <input type="checkbox" th:field="*{favoriteSignsIds}" th:value="${sign.id}"/>
-                <span th:text="${sign.name}"></span>
+                <input type="checkbox" th:field="*{favoriteSignsIds}" th:value="${signView.id}"/>
+                <span th:text="${signView.name}"></span>
             </label>
         </div>
         <br/>
         <button type="submit" class="btn btn-default" th:text="#{favorite.add_sign}"></button>
     </form>
 
-    <div th:if="${#lists.isEmpty(favoriteProfileView.allSigns)}">
+    <div th:if="${#lists.isEmpty(signsView)}">
         <h2 th:text="#{sign.not_available}"></h2>
     </div>
 </div>

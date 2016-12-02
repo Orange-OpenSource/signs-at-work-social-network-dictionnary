@@ -168,8 +168,14 @@ public class FavoriteController {
     Favorite favorite = services.favorite().withId(favoriteId);
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
-    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
+
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+    model.addAttribute("signsView", signViewsData);
 
     return "favorite-associate-sign";
   }
@@ -185,7 +191,7 @@ public class FavoriteController {
 
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
-    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
 
     return showFavorite(favoriteId);
@@ -205,7 +211,7 @@ public class FavoriteController {
 
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favorite.id);
-    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite, services.sign());
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
 
     return showFavorite(favorite.id);
