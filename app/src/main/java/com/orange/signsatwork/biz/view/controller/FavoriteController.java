@@ -28,7 +28,6 @@ import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.FavoriteCreationView;
 import com.orange.signsatwork.biz.view.model.FavoriteProfileView;
-import com.orange.signsatwork.biz.view.model.FavoriteView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
