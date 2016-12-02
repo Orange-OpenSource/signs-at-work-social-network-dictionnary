@@ -1,0 +1,12 @@
+# Run mysql in docker
+docker run --name mysql-signsatwork -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=signsatwork -e MYSQL_USER=asterix -e MYSQL_PASSWORD=obelix -d mysql:latest
+
+# Run mysql client from docker container, with host volume mounted to share sql dumps
+docker run -v /tmp:/host-tmp -it --rm mysql mysql -h 192.168.1.12 --user asterix --database signsatwork --password
+
+# Remove and recreate DB
+drop database signsatwork
+create database signsatwork
+
+# Import dump.sql
+mysql> source /host-tmp/dump.sql
