@@ -1,4 +1,4 @@
-spring.profiles.active: dev
+spring.profiles.active: travis
 
 server.port: 7070
 
