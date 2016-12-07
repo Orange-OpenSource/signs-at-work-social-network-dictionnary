@@ -36,7 +36,7 @@
                     <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
                 </div>
             </div>
-            <form th:action="@{/sec/sign/} + ${signProfileView.sign.id} + '/replace'" th:object="${signCreationView}" method="post">
+            <form th:action="@{/sec/sign/} + ${signView.id} + '/replace'" th:object="${signCreationView}" method="post">
                 <div class="modal-body text-center">
                     <input th:field="*{videoUrl}" type="text" class="text-center border form-control"
                            th:placeholder="#{sign.enter_video_url}" required=""/>

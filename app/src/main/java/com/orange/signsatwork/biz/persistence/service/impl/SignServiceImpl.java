@@ -149,6 +149,22 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Object[] RatingForSignByUser(long signId, long userId) {
+    return signRepository.findRatingForSignByUser(signId, userId);
+  }
+
+
+  @Override
+  public List<Object[]> AllCommentsForSign(long signId) {
+    return signRepository.findAllCommentsForSign(signId);
+  }
+
+  @Override
+  public List<Object[]> AllVideosHistoryForSign(long signId) {
+    return signRepository.findAllVideosHistoryForSign(signId);
+  }
+
+  @Override
   public List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm) {
     return signRepository.findSignsForSignsViewBySearchTerm(searchTerm);
   }

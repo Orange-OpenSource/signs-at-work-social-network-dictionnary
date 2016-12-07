@@ -47,11 +47,11 @@
     <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
         <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-            <iframe th:if="${not #strings.contains(signProfileView.url,'mp4') and not #strings.contains(signProfileView.url,'mov')}" th:src="${signProfileView.url} + '?autoplay=1%26wmode=transparent'" frameborder="0" allowfullscreen=""/>
+            <iframe th:if="${not #strings.contains(signView.url,'mp4') and not #strings.contains(signView.url,'mov')}" th:src="${signView.url} + '?autoplay=1%26wmode=transparent'" frameborder="0" allowfullscreen=""/>
 
-            <div th:if="${#strings.contains(signProfileView.url,'mp4') or #strings.contains(signProfileView.url,'mov')}">
+            <div th:if="${#strings.contains(signView.url,'mp4') or #strings.contains(signView.url,'mov')}">
                 <video>
-                    <source src="'${signProfileView.url}" th:src="@{${signProfileView.url}}" type="video/mp4"/>
+                    <source src="'${signView.url}" th:src="@{${signView.url}}" type="video/mp4"/>
                 </video>
                 <div th:replace="fragments/frame-player :: div"/>
             </div>
@@ -63,11 +63,11 @@
                 <ul class="nav nav-list primary left-menu">
                     <li class="label_sign aside_bckg_li">
                         <a href="#">
-                            <em><h2 class="text-center" th:text="${signProfileView.sign.name}"/></em>
+                            <em><h2 class="text-center" th:text="${signView.name}"/></em>
                         </a>
                     </li>
                     <li class="clear aside_bckg_li">
-                        <a th:href="@{/sec/sign/} + ${signProfileView.sign.id} + '/associate-form'">
+                        <a th:href="@{/sec/sign/} + ${signView.id} + '/associate-form'">
                             <div class="pull-left associate_signe"></div>
                             <h2 class="container_H2" th:text="#{sign.associate-with}"/>
                             <div>
@@ -84,15 +84,15 @@
                             </div>
                         </a>
                     </li>
-                    <div th:if="${!signProfileView.rateNoRate}">
+                    <div th:if="${!ratingData.rateNoRate}">
                         <li class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                                 <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
                                 <div>
                                     <div class="pull-right chevron_right"/>
-                                    <div th:if="${signProfileView.ratePositive}" class="pull-right sentiment_positif"/>
-                                    <div th:if="${signProfileView.rateNeutral}" class="pull-right sentiment_neutre"/>
-                                    <div th:if="${signProfileView.rateNegative}" class="pull-right sentiment_negatif"/>
+                                    <div th:if="${ratingData.ratePositive}" class="pull-right sentiment_positif"/>
+                                    <div th:if="${ratingData.rateNeutral}" class="pull-right sentiment_neutre"/>
+                                    <div th:if="${ratingData.rateNegative}" class="pull-right sentiment_negatif"/>
                                 </div>
                             </a>
                         </li>
@@ -106,14 +106,15 @@
                             </div>
                         </a>
                     </li>
-                    <div th:if="${not #lists.isEmpty(signProfileView.allVideos)}">
+
+                    <div th:if="${not #lists.isEmpty(videoHistoryDatas)}">
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
                                 <tbody>
-                                <div th:each="video, stats :${signProfileView.allVideos}">
+                                <div th:each="video, stats :${videoHistoryDatas}">
                                     <tr>
-                                        <td th:if="${stats.first}" th:text="#{created_by(${video.user.firstName + ' ' + video.user.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
-                                        <td th:if="${!stats.first}" th:text="#{updated_by(${video.user.firstName + ' ' + video.user.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
+                                        <td th:if="${stats.first}" th:text="#{created_by(${video.firstName + ' ' + video.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
+                                        <td th:if="${!stats.first}" th:text="#{updated_by(${video.firstName + ' ' + video.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
                                     </tr>
                                 </div>
                                 </tbody>

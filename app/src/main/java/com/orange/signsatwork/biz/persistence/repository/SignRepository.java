@@ -46,4 +46,13 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b inner join favorites_signs c on a.id = b.last_video_id and c.signs_id = b.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForFavoriteView(@Param("favoriteId") long favoriteId);
 
+    @Query(value="select a.rating  from ratings a inner join signs b on a.video_id = b.last_video_id and b.id = :signId and user_id = :userId", nativeQuery = true)
+    Object[] findRatingForSignByUser(@Param("signId") long signId, @Param("userId") long userId );
+
+    @Query(value="select a.text, a.comment_date, c.first_name, c.last_name  from comments a inner join signs b inner join userdb c on a.video_id = b.last_video_id and b.id = :signId and a.user_id=c.id order by comment_date desc;", nativeQuery = true)
+    List<Object[]> findAllCommentsForSign(@Param("signId") long signId);
+
+    @Query(value="select a.create_date, b.first_name, b.last_name from videos a inner join userdb b on a.sign_id = :signId and a.user_id = b.id order by a.create_date desc;", nativeQuery = true)
+    List<Object[]> findAllVideosHistoryForSign(@Param("signId") long signId);
+
 }

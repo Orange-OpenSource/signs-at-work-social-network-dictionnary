@@ -24,7 +24,10 @@ package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.Sign;
+import com.orange.signsatwork.biz.persistence.model.CommentData;
+import com.orange.signsatwork.biz.persistence.model.RatingData;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
+import com.orange.signsatwork.biz.persistence.model.VideoHistoryData;
 import com.orange.signsatwork.biz.view.model.SignsViewSort2;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -200,10 +203,24 @@ public class SignController {
     String referer = req.getHeader("Referer");
     String backUrl = referer != null && referer.contains(SIGNS_URL) ? SIGNS_URL : HOME_URL;
     fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
-    fillModelWithSign(model, signId, principal);
     model.addAttribute("commentCreationView", new CommentCreationView());
     fillModelWithFavorites(model, principal);
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+
+    Sign sign = services.sign().withIdSignsView(signId);
+    if (principal != null) {
+      User user = services.user().withUserName(principal.getName());
+      Object[] queryRating = services.sign().RatingForSignByUser(signId, user.id);
+      RatingData ratingData = new RatingData(queryRating);
+      model.addAttribute("ratingData", ratingData);
+      List<Object[]> queryAllComments = services.sign().AllCommentsForSign(signId);
+      List<CommentData> commentDatas = queryAllComments.stream()
+        .map(objectArray -> new CommentData(objectArray))
+        .collect(Collectors.toList());
+      model.addAttribute("commentDatas", commentDatas);
+    }
+    model.addAttribute("signView", sign);
+
 
     return "sign";
   }
@@ -212,9 +229,28 @@ public class SignController {
   @RequestMapping(value = "/sec/sign/{signId}/detail")
   public String signDetail(@PathVariable long signId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, signUrl(signId));
-    fillModelWithSign(model, signId, principal);
     fillModelWithFavorites(model, principal);
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    Sign sign = services.sign().withIdSignsView(signId);
+    if (principal != null) {
+      User user = services.user().withUserName(principal.getName());
+      Object[] queryRating = services.sign().RatingForSignByUser(signId, user.id);
+      RatingData ratingData = new RatingData(queryRating);
+      model.addAttribute("ratingData", ratingData);
+      List<Object[]> queryAllComments = services.sign().AllCommentsForSign(signId);
+      List<CommentData> commentDatas = queryAllComments.stream()
+        .map(objectArray -> new CommentData(objectArray))
+        .collect(Collectors.toList());
+      model.addAttribute("commentDatas", commentDatas);
+    }
+    List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
+    List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
+      .map(objectArray -> new VideoHistoryData(objectArray))
+      .collect(Collectors.toList());
+    model.addAttribute("videoHistoryDatas", videoHistoryDatas);
+
+    model.addAttribute("signView", sign);
+    model.addAttribute("signCreationView", new SignCreationView());
 
     return "sign-detail";
   }

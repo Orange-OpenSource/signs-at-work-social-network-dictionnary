@@ -46,6 +46,12 @@ public interface SignService {
 
   List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm);
 
+  List<Object[]> AllVideosHistoryForSign(long signId);
+
+  Object[] RatingForSignByUser(long signId, long userId);
+
+  List<Object[]> AllCommentsForSign(long signId);
+
   Signs all();
 
   Signs forFavorite(long id);

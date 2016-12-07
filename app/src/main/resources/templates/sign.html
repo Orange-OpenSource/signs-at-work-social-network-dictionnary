@@ -49,11 +49,11 @@
     <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
         <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-            <iframe th:if="${not #strings.contains(signProfileView.url,'mp4') and not #strings.contains(signProfileView.url,'mov')}" th:src="${signProfileView.url} + '?autoplay=1%26wmode=transparent'" frameborder="0" allowfullscreen=""/>
+            <iframe th:if="${not #strings.contains(signView.url,'mp4') and not #strings.contains(signView.url,'mov')}" th:src="${signView.url} + '?autoplay=1%26wmode=transparent'" frameborder="0" allowfullscreen=""/>
 
-            <div th:if="${#strings.contains(signProfileView.url,'mp4') or #strings.contains(signProfileView.url,'mov')}">
+            <div th:if="${#strings.contains(signView.url,'mp4') or #strings.contains(signView.url,'mov')}">
                 <video>
-                    <source src="'${signProfileView.url}" th:src="@{${signProfileView.url}}" type="video/mp4"/>
+                    <source src="'${signView.url}" th:src="@{${signView.url}}" type="video/mp4"/>
                 </video>
                 <div th:replace="fragments/frame-player :: div"/>
             </div>
@@ -65,20 +65,20 @@
             <aside class="sidebar">
                 <ul class="nav nav-list primary left-menu">
                     <li th:if="${isAuthenticated}" id="label_sign" class="label_sign aside_bckg_li">
-                        <a th:href="@{/sec/sign/} + ${signProfileView.sign.id} + '/detail'">
+                        <a th:href="@{/sec/sign/} + ${signView.id} + '/detail'">
                             <div>
-                            <em><h2 class="container_H2" th:text="${signProfileView.sign.name}"/></em>
+                            <em><h2 class="container_H2" th:text="${signView.name}"/></em>
                             <div>
                                 <div class="pull-right menu_detail_with_chevron"/>
-                                <div th:if="${signProfileView.ratePositive}" class="pull-right sentiment_positif"/>
-                                <div th:if="${signProfileView.rateNeutral}" class="pull-right sentiment_neutre"/>
-                                <div th:if="${signProfileView.rateNegative}" class="pull-right sentiment_negatif"/>
+                                <div th:if="${ratingData.ratePositive}" class="pull-right sentiment_positif"/>
+                                <div th:if="${ratingData.rateNeutral}" class="pull-right sentiment_neutre"/>
+                                <div th:if="${ratingData.rateNegative}" class="pull-right sentiment_negatif"/>
                             </div>
                             </div>
                         </a>
                     </li>
-                    <div th:if="${signProfileView.rateNoRate}">
-                        <li th:if="${isAuthenticated}" class="aside_bckg_li">
+
+                        <li th:if="${isAuthenticated and ratingData.rateNoRate}" class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                                 <div>
                                 <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
@@ -89,9 +89,8 @@
                                 </div>
                             </a>
                         </li>
-                    </div>
                     <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                        <a th:href="@{/sign/} + ${signProfileView.sign.id} + '/associates'">
+                        <a th:href="@{/sign/} + ${signView.id} + '/associates'">
                         <div>
                             <h2 class="container_H2" th:text="#{sign.associated}"></h2>
                         <div>
@@ -111,7 +110,7 @@
                             </div>
                         </a>
                     </li>
-                    <div th:if="${not #lists.isEmpty(signProfileView.allComments)}">
+                    <div th:if="${not #lists.isEmpty(commentDatas)}">
                         <div class="table-responsive">
                             <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
                                 <thead>
@@ -122,10 +121,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <div th:each="comment :${signProfileView.allComments}">
+                                <div th:each="comment :${commentDatas}">
                                     <tr>
                                         <td th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy HH:mm')}"></td>
-                                        <td th:text="${comment.user.firstName + ' ' + comment.user.lastName}" ></td>
+                                        <td th:text="${comment.firstName + ' ' + comment.lastName}" ></td>
                                         <td th:text="${comment.text}"></td>
                                     </tr>
                                 </div>

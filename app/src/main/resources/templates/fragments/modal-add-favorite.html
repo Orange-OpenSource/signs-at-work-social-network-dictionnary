@@ -51,7 +51,7 @@
                     <div th:if="${not #lists.isEmpty(myFavorites)}">
                         <div th:each="favorite, stats:${myFavorites}">
                             <li class="aside_bckg_li">
-                                <a th:href="@{/sec/favorite/} + ${favorite.id} + '/add/sign/' + ${signProfileView.sign.id}">
+                                <a th:href="@{/sec/favorite/} + ${favorite.id} + '/add/sign/' + ${signView.id}">
                                     <h2 class="container_H2" th:text="${favorite.name}"></h2>
                                         <div>
                                             <div th:if="${stats.first}" class="pull-right add_favorite_signe"></div>
