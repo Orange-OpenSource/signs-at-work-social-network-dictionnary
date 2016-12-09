@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -38,10 +38,7 @@ import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +47,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.OptionalLong;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -80,14 +78,25 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD, method = RequestMethod.POST)
   public String uploadFile(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
+    return handleFileUpload(videoFile, OptionalLong.empty(), principal, response);
+  }
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
+  public String uploadFileFromRequest(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
+    return handleFileUpload(videoFile, OptionalLong.of(requestId), principal, response);
+  }
+
+  private String handleFileUpload(VideoFile videoFile, OptionalLong requestId, Principal principal, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
     String videoUrl = null;
     String file = "/data/" + videoFile.name;
     String fileOutput = file.replace(".webm", ".mp4");
 
-   log.info("taille fichier "+videoFile.contents.length());
-   log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+    log.info("taille fichier "+videoFile.contents.length());
+    log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
 
     if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -116,10 +125,10 @@ public class FileUploadRestController {
       NativeInterface.launch(cmd, null, cmdFilterLog);
     }
     catch(Exception errorEncondingFile)
-      {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorEncondingFile");
-      }
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorEncondingFile");
+    }
 
     try {
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
@@ -199,6 +208,10 @@ public class FileUploadRestController {
 
       log.info("createSignFromUploadondailymotion : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
 
+      if (requestId.isPresent()) {
+        services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+      }
+
       response.setStatus(HttpServletResponse.SC_OK);
       return Long.toString(sign.id);
     }
@@ -208,6 +221,8 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorDailymotionUploadFile");
     }
   }
+
+
 
   public static long parseSize(String text) {
     double d = Double.parseDouble(text.replaceAll("[GMK]B$", ""));

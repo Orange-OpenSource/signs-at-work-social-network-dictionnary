@@ -3,6 +3,15 @@
 	background-repeat: no-repeat;
 }
 
+.glyphicon-record,.glyphicon-stop{
+  font-size: 150%;
+}
+
+.glyphicon-record{
+  color: red;
+}
+
+
 .spinner_hidden{
   visibility: hidden;
 }
@@ -1040,9 +1049,9 @@ video{
 	}
 
 
-	iframe , img , embed , video{
-		height:auto;
-    height: 100px;
+	 img {
+		height:50%;
+    /*height: 100px;*/
 	}
   input.container_H2[type="text"]{
     width: 200px;

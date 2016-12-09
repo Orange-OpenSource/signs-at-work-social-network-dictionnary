@@ -30,10 +30,8 @@
 
 <body class="container-fluid">
 
-<div th:replace="fragments/modal-new-sign-video-file-recording :: div"/>
-<div th:replace="fragments/modal-new-sign-video-file-dailymotion :: div"/>
-<div th:replace="fragments/modal-new-sign-video-file :: div"/>
-<div th:replace="fragments/modal-new-sign-video :: div"/>
+<div th:replace="fragments/modal-suggest :: div"/>
+
 
 <script>
   function displaySpinner() {
@@ -50,7 +48,7 @@
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li th:if="${isAuthenticated}" class="dotted-top">
-                <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                <a data-target="#suggest" data-toggle="modal" href="#">
                   <div class="pull-right">
                     <div class="containerRight_signes">
                       <div class="containerRight_signes">
@@ -58,80 +56,15 @@
                       </div>
                     </div>
                   </div>
-                  <h2 th:text="#{sign.new_from_file_recording}"/>
+                  <h2 th:text="#{sign.new}"/>
                 </a>
               </li>
 
-               <li th:if="${isAuthenticated}" class="dotted-top">
-                    <a data-target="#add_video_file" data-toggle="modal" href="#">
-                        <div class="pull-right">
-                            <div class="containerRight_signes">
-                                <div class="containerRight_signes">
-                                    <div class="pull-right add_whith_chevron"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 th:text="#{sign.new_from_file}"/>
-                    </a>
-                </li>
-
-                <li th:if="${isAuthenticated}" class="dotted-top">
-                    <a data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
-                        <div class="pull-right">
-                            <div class="containerRight_signes">
-                                <div class="containerRight_signes">
-                                    <div class="pull-right add_whith_chevron"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 th:text="#{sign.new_from_file_dailymotion}"/>
-                    </a>
-                </li>
-
-                <li th:if="${isAuthenticated}" class="dotted-top">
-                    <a data-target="#add_video" data-toggle="modal" href="#">
-                        <div class="pull-right">
-                            <div class="containerRight_signes">
-                                <div class="containerRight_signes">
-                                    <div class="pull-right add_whith_chevron"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 th:text="#{sign.new_from_url}"/>
-                    </a>
-                </li>
-
-
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >
-                        <div th:id="add_video_from_suggest_associate_to_request + ${request.id}" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <div class="pull-left">
-                                            <div class="suggest pull-left"></div>
-                                            <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
-                                        </div>
-                                    </div>
-                                    <form th:action="@{/sec/request/{requestid}/add/sign(requestid=${request.id})}" th:object="${signCreationView}" method="post">
-                                        <div class="modal-body text-center">
-                                            <input th:field="*{signName}" type="text" class="text-center border form-control"
-                                                   th:placeholder="#{sign.enter_name}" required=""/><br/>
-                                            <input th:field="*{videoUrl}" type="text" class="text-center border form-control"
-                                                   th:placeholder="#{sign.enter_video_url}" required=""/>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button th:text="#{continue}" type="submit" class="btn btn-default"
-                                                    data-dismiss=""></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
                         <li class="dotted-top">
-                            <a th:attr="data-target='#add_video_from_suggest_associate_to_request' + ${request.id}" data-toggle="modal" href="#">
+                            <a th:attr="data-target='#suggest' " th:onclick="'javascript:requestId('+ ${request.id} +')'" data-toggle="modal" href="#">
                                 <div class="pull-right">
                                     <div class="containerRight_signes">
                                         <div class="containerRight_signes">
@@ -156,6 +89,8 @@
 </body>
 
 <script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
+<script type="text/javascript" src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}"></script>
+
 
 
 </html>

@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -218,5 +218,94 @@ public class FileUploadController {
 
         return showSign(sign.id);
     }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/createfromuploadondailymotion/{requestId}", method = RequestMethod.POST)
+  public String createSignFromUploadondailymotion(@RequestParam("file") MultipartFile file, @ModelAttribute SignCreationView signCreationView,@PathVariable long requestId, Principal principal) throws IOException, JCodecException, InterruptedException {
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    User user = services.user().withUserName(principal.getName());
+    storageService.store(file);
+    File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+
+    UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
+
+
+    Resource resource = new FileSystemResource(inputFile.getAbsolutePath());
+    MultiValueMap<String, Object> parts =  new LinkedMultiValueMap<String, Object>();
+    parts.add("file", resource);
+
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+
+    HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
+
+    ResponseEntity<FileUploadDailymotion> response = restTemplate.exchange(urlfileUploadDailymotion.upload_url,
+      HttpMethod.POST, requestEntity, FileUploadDailymotion.class);
+    FileUploadDailymotion fileUploadDailyMotion = response.getBody();
+
+
+    MultiValueMap<String, Object> body =  new LinkedMultiValueMap<String, Object>();
+    body.add("url", fileUploadDailyMotion.url);
+    body.add("title", signCreationView.getSignName());
+    body.add("channel","Tech");
+    body.add("published", true);
+
+
+    RestTemplate restTemplate1 = springRestClient.buildRestTemplate();
+    HttpHeaders headers1 = new HttpHeaders();
+    headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
+    headers1.set("Authorization", "Bearer "+ authTokenInfo.getAccess_token());
+    headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+    HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
+    ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
+    VideoDailyMotion videoDailyMotion= response1.getBody();
+
+
+    String url= REST_SERVICE_URI+"/video/"+videoDailyMotion.id+"?ssl_assets=true&fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD;
+    do {
+      videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url );
+      Thread.sleep(2*1000);
+    } while ((videoDailyMotion.stream_h264_url == null) || (videoDailyMotion.thumbnail_360_url == null)  || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
+
+
+
+
+    String pictureUri = null;
+    if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+      pictureUri = videoDailyMotion.thumbnail_360_url;
+      log.warn("createSignFromUploadondailymotion : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+    }
+    if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
+      dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+      log.warn("createSignFromUploadondailymotion : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
+    }
+
+    if (!videoDailyMotion.embed_url.isEmpty()) {
+      signCreationView.setVideoUrl(videoDailyMotion.embed_url);
+      log.warn("createSignFromUploadondailymotion : embed_url = {}", videoDailyMotion.embed_url);
+    }
+
+
+    Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
+
+    log.info("createSignFromUploadondailymotion : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
+
+    services.request().changeSignRequest(requestId, sign.id);
+
+
+    return showSign(sign.id);
+  }
+
 }
 
