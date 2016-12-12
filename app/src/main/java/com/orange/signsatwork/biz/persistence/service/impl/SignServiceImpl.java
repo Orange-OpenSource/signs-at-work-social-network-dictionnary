@@ -149,6 +149,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> AssociateSigns(long signId, long associateSignId) {
+    return signRepository.findAssociateSigns(signId, associateSignId);
+  }
+
+  @Override
   public Object[] RatingForSignByUser(long signId, long userId) {
     return signRepository.findRatingForSignByUser(signId, userId);
   }
@@ -458,7 +463,7 @@ public class SignServiceImpl implements SignService {
 
   Sign signFromWithAssociates(SignDB signDB) {
     return signDB == null ? null :
-      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, signsFrom(signDB.getAssociates()).ids(), signsFrom(signDB.getReferenceBy()).ids(), services.video(), services.comment());
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, signsFromSignsView(signDB.getAssociates()).ids(), signsFromSignsView(signDB.getReferenceBy()).ids(), services.video(), services.comment());
   }
 
   private SignDB signDBFrom(Sign sign) {

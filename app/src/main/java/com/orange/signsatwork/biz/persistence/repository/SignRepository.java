@@ -55,4 +55,6 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select a.create_date, b.first_name, b.last_name from videos a inner join userdb b on a.sign_id = :signId and a.user_id = b.id order by a.create_date desc;", nativeQuery = true)
     List<Object[]> findAllVideosHistoryForSign(@Param("signId") long signId);
 
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b inner join associate_sign c on a.id = b.last_video_id and c.associate_sign_id = b.id and c.sign_id = ? union select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b inner join associate_sign c on a.id = b.last_video_id and c.sign_id = b.id and c.associate_sign_id = ?;", nativeQuery = true)
+    List<Object[]> findAssociateSigns(long signId, long associateSignId);
 }

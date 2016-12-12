@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -30,7 +30,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -38,59 +40,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SignProfileView {
   private Sign sign;
-  private String url;
-  private boolean ratePositive;
-  private boolean rateNoRate = true;
-  private boolean rateNeutral;
-  private boolean rateNegative;
-  private List<Long> associateSignsIds;
-  private List<Sign> associateSigns;
-  private List<Sign> allSignsWithoutCurrentSign;
-  private List<Comment> allComments;
-  private List<Video> allVideos;
+  private Set<Long> associateSignsIds;
 
-  public SignProfileView(Sign sign, SignService signService) {
-    this(sign, signService, null);
-  }
-
-  public SignProfileView(Sign sign, SignService signService, User user) {
+  public SignProfileView(Sign sign) {
     this.sign = sign;
-    this.url = sign.url;
-
-//    This part allowed getStreamUrl without this code we have embed video and video put in iframe in the html code
-//    if (sign.url.contains("www.dailymotion.com/embed/video")) {
-//      if (signService.getStreamUrl(sign.url) != null) {
-//        this.url = signService.getStreamUrl(sign.url);
-//      } else {
-//        this.url = sign.url;
-//      }
-//    } else {
-//      this.url = sign.url;
-//    }
-    List<Long> associateIds = sign.associateSignsIds;
+    Set<Long> associateIds = new HashSet<Long>(sign.associateSignsIds);
     associateIds.addAll(sign.referenceBySignsIds);
     this.associateSignsIds = associateIds;
-    Sign associateSign;
-
-    this.associateSigns = new ArrayList<>();
-    for(long id:associateIds) {
-      associateSign = signService.withId(id);
-      this.associateSigns.add(associateSign);
-    }
-
-    this.allSignsWithoutCurrentSign = signService.all().list().stream()
-            .filter(s -> s.id != sign.id)
-            .collect(Collectors.toList());
-
-    if (user != null) {
-      Rating rating = sign.rating(user);
-      rateNoRate = rating == Rating.NoRate;
-      ratePositive = rating == Rating.Positive;
-      rateNeutral = rating == Rating.Neutral;
-      rateNegative = rating == Rating.Negative;
-
-      allComments = sign.listComments().list();
-      allVideos = sign.listVideos().list();
-    }
   }
 }

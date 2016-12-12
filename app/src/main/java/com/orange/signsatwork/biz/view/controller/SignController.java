@@ -259,7 +259,28 @@ public class SignController {
   @RequestMapping(value = "/sign/{signId}/associates")
   public String associates(@PathVariable long signId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.associated", principal, HIDE_ADD_FAVORITE, signUrl(signId));
-    fillModelWithSign(model, signId, principal);
+    //fillModelWithSign(model, signId, principal);
+
+    List<Object[]> querySigns = services.sign().AssociateSigns(signId, signId);
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> new SignView2(
+        signViewData,
+        signWithCommentList.contains(signViewData.id),
+        SignView2.createdAfterLastConnection(signViewData.createDate, services.user().withUserName(principal.getName()) == null ? null : services.user().withUserName(principal.getName()).lastConnectionDate))
+      )
+      .collect(Collectors.toList());
+
+    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+    signViews = signsViewSort2.sort(signViews);
+
+    model.addAttribute("signsView", signViews);
+
     return "sign-associates";
   }
 
@@ -268,6 +289,14 @@ public class SignController {
   public String associate(@PathVariable long signId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.associate-with", principal, HIDE_ADD_FAVORITE, signUrl(signId));
     fillModelWithSign(model, signId, principal);
+
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .filter(s -> s.id != signId)
+      .collect(Collectors.toList());
+    model.addAttribute("signsView", signViewsData);
+
     return "sign-associate-form";
   }
 
@@ -353,9 +382,7 @@ public class SignController {
     SignService signService = services.sign();
     Sign sign = signService.withIdLoadAssociates(signId);
 
-    SignProfileView signProfileView = AuthentModel.isAuthenticated(principal) ?
-            new SignProfileView(sign, signService, services.user().withUserName(principal.getName())) :
-            new SignProfileView(sign, signService);
+    SignProfileView signProfileView = new SignProfileView(sign);
     model.addAttribute("signProfileView", signProfileView);
     model.addAttribute("signCreationView", new SignCreationView());
   }

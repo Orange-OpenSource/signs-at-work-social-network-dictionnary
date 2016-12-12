@@ -44,6 +44,8 @@ public interface SignService {
 
   List<Object[]> SignsForFavoriteView(long favoriteId);
 
+  List<Object[]> AssociateSigns(long signId, long associateSignId);
+
   List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm);
 
   List<Object[]> AllVideosHistoryForSign(long signId);
