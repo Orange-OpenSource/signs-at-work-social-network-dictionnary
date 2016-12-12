@@ -22,12 +22,17 @@
 
 
 
-function requestId(id){
+function onRequestClick(id, name){
   var formUploadFile = document.getElementById("uploadVideoFile");
   formUploadFile.action = "/ws/sec/upload/" + id;
+  var signNameRecording = document.getElementById("signNameRecording");
+  signNameRecording.value =name;
 
   var formuploadVideoFileDailymotion =document.getElementById("uploadVideoFileDailymotion");
   formuploadVideoFileDailymotion.action ="/sec/sign/createfromuploadondailymotion/" +id;
+
+  var signNameRecording = document.getElementById("signNameDaylimotion");
+  signNameRecording.value =name;
 
   console.log("request id =" + id );
 }

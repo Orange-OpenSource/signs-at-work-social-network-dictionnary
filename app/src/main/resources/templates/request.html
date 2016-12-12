@@ -98,7 +98,7 @@
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >
                         <li class="dotted-top">
-                            <a th:attr="data-target='#suggest' " th:onclick="'javascript:requestId('+ ${request.id} +')'" data-toggle="modal" href="#">
+                            <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', '+ ${request.name} + ')'" data-toggle="modal" href="#">
                                 <div class="pull-right">
                                     <div class="containerRight_signes">
                                         <div class="containerRight_signes">
