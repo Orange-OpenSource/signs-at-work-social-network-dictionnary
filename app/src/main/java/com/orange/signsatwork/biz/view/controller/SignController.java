@@ -124,29 +124,37 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
 
-    Long[] longList = null;
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList;
     if (isMostCommented == true) {
-      longList = services.sign().lowCommented();
+      signWithCommentList = Arrays.asList(services.sign().lowCommented());
       model.addAttribute("isLowCommented", true);
       model.addAttribute("isMostCommented", false);
     } else {
-      longList = services.sign().mostCommented();
+      signWithCommentList = Arrays.asList(services.sign().mostCommented());
       model.addAttribute("isMostCommented", true);
       model.addAttribute("isLowCommented", false);
     }
 
-    List<SignsView> signsView = new ArrayList<>();
-    SignsView signView;
+    List<SignViewData> notCommented = signViewsData.stream()
+      .filter(signViewData -> !signWithCommentList.contains(signViewData.id))
+      .collect(Collectors.toList());
 
-    for (int i=0; i < longList.length; i++) {
-      Long idSign = longList[i];
-      Sign sign = services.sign().withIdSignsView(idSign);
-      signView = SignsView.from(sign, services, user.lastConnectionDate);
-      signsView.add(signView);
-    }
+    List<SignViewData> commented = signViewsData.stream()
+      .filter(signViewData -> signWithCommentList.contains(signViewData.id))
+      .sorted(new CommentOrderComparator(signWithCommentList))
+      .collect(Collectors.toList());
+
+    List<SignView2> signViews = commented.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, user))
+      .collect(Collectors.toList());
 
 
-    model.addAttribute("signsView", signsView);
+    model.addAttribute("signsView", signViews);
     fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
@@ -163,31 +171,37 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
 
-    List<Object[]> objectList;
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
 
+    List<Long> signWithRatingList;
     if (isMostRating == true) {
-      objectList = services.sign().lowRating();
+      signWithRatingList = Arrays.asList(services.sign().lowRating());
       model.addAttribute("isLowRating", true);
       model.addAttribute("isMostRating", false);
     } else {
-      objectList = services.sign().mostRating();
+      signWithRatingList = Arrays.asList(services.sign().mostRating());
       model.addAttribute("isMostRating", true);
       model.addAttribute("isLowRating", false);
     }
 
+    List<SignViewData> rating = signViewsData.stream()
+      .filter(signViewData -> signWithRatingList.contains(signViewData.id))
+      .sorted(new CommentOrderComparator(signWithRatingList))
+      .collect(Collectors.toList());
 
-    List<SignsView> signsView = new ArrayList<>();
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
-    objectList.stream()
-            .map(objectArray -> ((BigInteger)objectArray[0]).longValue())
-            .forEach(idSign -> {
-              SignsView signView;
-              Sign sign = services.sign().withIdSignsView(idSign);
-              signView = SignsView.from(sign, services, user.lastConnectionDate);
-              signsView.add(signView);
-            });
+    List<SignView2> signViews = rating.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, user))
+      .collect(Collectors.toList());
 
-    model.addAttribute("signsView", signsView);
+
+    model.addAttribute("signsView", signViews);
+
+
     fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
@@ -259,7 +273,6 @@ public class SignController {
   @RequestMapping(value = "/sign/{signId}/associates")
   public String associates(@PathVariable long signId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.associated", principal, HIDE_ADD_FAVORITE, signUrl(signId));
-    //fillModelWithSign(model, signId, principal);
 
     List<Object[]> querySigns = services.sign().AssociateSigns(signId, signId);
     List<SignViewData> signViewsData = querySigns.stream()

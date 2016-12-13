@@ -36,9 +36,9 @@ public interface SignService {
 
   Long[] mostCommented();
 
-  List<Object[]> mostRating();
+  Long[] mostRating();
 
-  List<Object[]> lowRating();
+  Long[] lowRating();
 
   List<Object[]> SignsForSignsView();
 

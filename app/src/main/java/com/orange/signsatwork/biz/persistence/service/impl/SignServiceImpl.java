@@ -129,12 +129,12 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
-  public List<Object[]> mostRating() {
+  public Long[] mostRating() {
     return ratingRepository.findMostRating();
   }
 
   @Override
-  public List<Object[]> lowRating() {
+  public Long[] lowRating() {
     return ratingRepository.findLowRating();
   }
 

@@ -10,12 +10,12 @@ package com.orange.signsatwork;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -46,7 +46,7 @@ public class SpringRestClient {
 
     public static final String AUTH_SERVER_URI = "https://api.dailymotion.com/oauth/token";
 
-    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&client_id=accfab055d184ff9bcf3&client_secret=3dcd460d28d887fa25bc29c8031039a7edf52187&username=telsignes@gmail.com&password=?TelSignes!";
+    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&client_id=accfab055d184ff9bcf3&client_secret=3dcd460d28d887fa25bc29c8031039a7edf52187&username=SignsAtWork&password=DMtelsignes1617";
 
 
     /*
@@ -82,8 +82,8 @@ public class SpringRestClient {
         body.add("grant_type", "password");
         body.add("client_id", "accfab055d184ff9bcf3");
         body.add("client_secret", "3dcd460d28d887fa25bc29c8031039a7edf52187");
-        body.add("username","telsignes@gmail.com");
-        body.add("password","?TelSignes!");
+        body.add("username","SignsAtWork");
+        body.add("password","DMtelsignes1617");
 
         HttpEntity<?> request = new HttpEntity<Object>(body, getHeadersWithClientCredentials());
 
