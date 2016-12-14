@@ -905,7 +905,8 @@ video{
 
 
 	li[role="presentation"] {
-		margin-top: 5px;
+		margin-top: -15px;
+    margin-right: 15px;
 	}
 
 	li[role="presentation"] > a > div{
