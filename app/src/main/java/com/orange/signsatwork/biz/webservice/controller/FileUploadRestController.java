@@ -78,17 +78,23 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD, method = RequestMethod.POST)
   public String uploadFile(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
-    return handleFileUpload(videoFile, OptionalLong.empty(), principal, response);
+    return handleFileUpload(videoFile, OptionalLong.empty(), OptionalLong.empty(),  principal, response);
   }
 
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
   public String uploadFileFromRequest(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
-    return handleFileUpload(videoFile, OptionalLong.of(requestId), principal, response);
+    return handleFileUpload(videoFile, OptionalLong.of(requestId), OptionalLong.empty(),  principal, response);
   }
 
-  private String handleFileUpload(VideoFile videoFile, OptionalLong requestId, Principal principal, HttpServletResponse response) {
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
+  public String uploadFileFromSign(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
+    return handleFileUpload(videoFile, OptionalLong.empty(), OptionalLong.of(signId),  principal, response);
+  }
+
+  private String handleFileUpload(VideoFile videoFile, OptionalLong requestId,OptionalLong signId, Principal principal, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
     String videoUrl = null;
@@ -144,7 +150,7 @@ public class FileUploadRestController {
 
       File fileMp4 = new File(fileOutput);
       Resource resource = new FileSystemResource(fileMp4.getAbsolutePath());
-      MultiValueMap<String, Object> parts =  new LinkedMultiValueMap<String, Object>();
+      MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
       parts.add("file", resource);
 
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
@@ -160,32 +166,31 @@ public class FileUploadRestController {
       FileUploadDailymotion fileUploadDailyMotion = responseDailymmotion.getBody();
 
 
-      MultiValueMap<String, Object> body =  new LinkedMultiValueMap<String, Object>();
+      MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
       body.add("title", videoFile.signNameRecording);
-      body.add("channel","Tech");
+      body.add("channel", "Tech");
       body.add("published", true);
 
 
       RestTemplate restTemplate1 = springRestClient.buildRestTemplate();
       HttpHeaders headers1 = new HttpHeaders();
       headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
-      headers1.set("Authorization", "Bearer "+ authTokenInfo.getAccess_token());
+      headers1.set("Authorization", "Bearer " + authTokenInfo.getAccess_token());
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
       ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
-      VideoDailyMotion videoDailyMotion= response1.getBody();
+      VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-      String url= REST_SERVICE_URI+"/video/"+videoDailyMotion.id+"?ssl_assets=true&fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD;
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD;
       do {
-        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url );
-        Thread.sleep(2*1000);
-      } while ((videoDailyMotion.stream_h264_url == null) || (videoDailyMotion.thumbnail_360_url == null)  || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
-
-
+        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+        Thread.sleep(2 * 1000);
+      }
+      while ((videoDailyMotion.stream_h264_url == null) || (videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
 
       String pictureUri = null;
@@ -203,17 +208,19 @@ public class FileUploadRestController {
         log.warn("createSignFromUploadondailymotion : embed_url = {}", videoDailyMotion.embed_url);
       }
 
-
-      Sign sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
-
+      if (signId.isPresent()) {
+          services.sign().replace(user.id, signId.getAsLong(), videoUrl, pictureUri);
+      }else{
+         services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
+          }
       log.info("createSignFromUploadondailymotion : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
 
       if (requestId.isPresent()) {
-        services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+        services.request().changeSignRequest(requestId.getAsLong(), signId.getAsLong());
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
-      return Long.toString(sign.id);
+      return Long.toString(signId.getAsLong());
     }
     catch(Exception errorDailymotionUploadFile)
     {

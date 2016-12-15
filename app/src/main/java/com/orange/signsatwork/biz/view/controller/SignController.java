@@ -337,17 +337,6 @@ public class SignController {
     return showSign(sign.id);
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/replace", method = RequestMethod.POST)
-  public String replaceSign(@PathVariable long signId, @ModelAttribute SignCreationView signCreationView, Principal principal) {
-    User user = services.user().withUserName(principal.getName());
-    Sign sign = services.sign().replace(user.id, signId, signCreationView.getVideoUrl());
-
-    log.info("replaceSign: username = {} / sign id = {} / video url = {}", user.username, signId, signCreationView.getVideoUrl());
-
-    return showSign(sign.id);
-  }
-
   private String signUrl(long signId) {
     return "/sign/" + signId;
   }

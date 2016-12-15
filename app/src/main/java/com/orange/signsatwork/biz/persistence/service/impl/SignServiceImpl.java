@@ -404,7 +404,7 @@ public class SignServiceImpl implements SignService {
 
 
   @Override
-  public Sign replace(long userId, long signId, String signUrl) {
+  public Sign replace(long userId, long signId, String signUrl, String pictureUri) {
     SignDB signDB = signRepository.findOne(signId);
     UserDB userDB = userRepository.findOne(userId);
 
@@ -418,10 +418,13 @@ public class SignServiceImpl implements SignService {
 
     signDB.setUrl(signUrl);
     signDB.setCreateDate(now);
+    waitForPictureUri(videoDB, signDB, signUrl, pictureUri);
+
     videoDB.setSign(signDB);
     signDB.getVideos().add(videoDB);
 
     videoRepository.save(videoDB);
+    signDB.setLastVideoId(videoDB.getId());
     signDB = signRepository.save(signDB);
 
     userDB.getVideos().add(videoDB);

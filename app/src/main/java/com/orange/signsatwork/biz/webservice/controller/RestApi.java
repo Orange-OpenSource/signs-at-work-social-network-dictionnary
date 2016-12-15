@@ -39,4 +39,6 @@ public class RestApi {
   public static final String WS_SEC_FILE_UPLOAD = WS_SEC + "upload";
 
   public static final String WS_SEC_FILE_UPLOAD_FROM_REQUEST = WS_SEC + "upload/{requestId}";
+
+  public static final String WS_SEC_FILE_UPLOAD_FROM_SIGN = WS_SEC + "uploadFromSign/{signId}";
 }
