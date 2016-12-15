@@ -57,7 +57,7 @@
                 <a href="/" class="text-center">
                     <div class="logo_app pull-left"></div>
                 </a>
-                <a class="hidden-xs pull-left" th:if="${isAuthenticated}" href="">
+                <a class="hidden-xs pull-left" th:if="${isAuthenticated and isDevProfile}" href="">
                     <form th:action="@{/logout}" method = "post">
                     <button style="background-color: red" class="btn btn-secondary" type="submit" th:text="#{logout}"></button>
                     </form>

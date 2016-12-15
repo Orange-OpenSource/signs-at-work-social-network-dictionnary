@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.AppProfile;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.view.model.SignsViewSort2;
 import com.orange.signsatwork.biz.domain.User;
@@ -43,6 +44,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class HomeController {
 
+  @Autowired
+  private AppProfile appProfile;
   @Autowired
   private Services services;
   @Autowired
@@ -99,6 +102,7 @@ public class HomeController {
     }
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     model.addAttribute("signSearchView", new SignSearchView());
+    model.addAttribute("isDevProfile", appProfile.isDevProfile());
 
     return "index";
   }
@@ -142,6 +146,7 @@ public class HomeController {
     }
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     model.addAttribute("signSearchView", signCreationView);
+    model.addAttribute("isDevProfile", appProfile.isDevProfile());
 
     return "index";
   }
