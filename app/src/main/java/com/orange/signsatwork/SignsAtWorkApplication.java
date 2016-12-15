@@ -10,12 +10,12 @@ package com.orange.signsatwork;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -23,19 +23,10 @@ package com.orange.signsatwork;
  */
 
 import com.orange.signsatwork.biz.storage.StorageProperties;
-import com.vimeo.networking.Vimeo;
-import com.vimeo.networking.VimeoClient;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.Context;
-import org.apache.catalina.connector.Connector;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -58,13 +49,6 @@ import java.util.concurrent.TimeUnit;
 public class SignsAtWorkApplication extends WebMvcConfigurerAdapter {
 
   public static void main(String[] args) {
-    String accessToken = "13ca20cd0464be6a7c74a8a473c6e8af";
-
-    com.vimeo.networking.Configuration.Builder configBuilder =  new com.vimeo.networking.Configuration.Builder(accessToken);
-    configBuilder.enableCertPinning(false);
-    configBuilder.setLogLevel(Vimeo.LogLevel.DEBUG);
-    VimeoClient.initialize(configBuilder.build());
-
     SpringApplication.run(SignsAtWorkApplication.class, args);
   }
 

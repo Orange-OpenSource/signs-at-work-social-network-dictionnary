@@ -23,8 +23,8 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  */
 
 import com.orange.signsatwork.AppProfile;
-import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.DalymotionToken;
+import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
@@ -32,25 +32,15 @@ import com.orange.signsatwork.biz.persistence.model.VideoDB;
 import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
-import com.vimeo.networking.VimeoClient;
-import com.vimeo.networking.callbacks.ModelCallback;
-import com.vimeo.networking.model.Video;
-import com.vimeo.networking.model.error.VimeoError;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
-import java.net.Proxy;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -247,39 +237,7 @@ public class SignServiceImpl implements SignService {
         } catch (MalformedURLException e) {
           e.printStackTrace();
         }
-
-        if (videoUrl.getHost().equals("vimeo.com")) {
-
-          String uri = "videos" + videoUrl.getPath();
-          VimeoClient.getInstance().fetchNetworkContent(uri, new ModelCallback<Video>(Video.class) {
-            @Override
-            public void success(Video video) {
-              String pictureUri = video.pictures.sizes.get(3).link; // Résolution 640x480
-              String vimeoUrl = "https://player.vimeo.com/video" + uri.substring(6, uri.length());
-
-              synchronized (videoDB) {
-                videoDB.setPictureUri(pictureUri);
-                videoDB.setUrl(vimeoUrl);
-                signDB.setUrl(vimeoUrl);
-                videoDB.notifyAll();
-              }
-            }
-
-            @Override
-            public void failure(VimeoError error) {
-              // voice the error
-            }
-          });
-
-
-          synchronized (videoDB) {
-            try {
-              videoDB.wait(15000);
-            } catch (InterruptedException e) {
-              e.printStackTrace();
-            }
-          }
-        } else if (videoUrl.getHost().equals("dai.ly")) {
+        if (videoUrl.getHost().equals("dai.ly")) {
 
           String id=videoUrl.getFile();
 
