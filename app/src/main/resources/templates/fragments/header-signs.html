@@ -27,103 +27,111 @@
 <body>
 
 <header role="banner" th:fragment="header">
-    <!-- Primary navigation bar -->
-    <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a href="/" class="col-lg-5" id="backtoHomepage">
-                    <div class="chevron_left pull-left"/>
-                    <h1 class="navbar_title pull-left" th:text="#{home}"/>
-                </a>
-                <div th:if="${isAuthenticated}" class="col-xs-1 dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span class="caret"></span>
-                        <span th:text="#{sign}"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <a th:if="${isAll}" class="check_signe" th:href="@{/signs/}">
-                                <span th:text="#{all}"></span>
-                            </a>
-                            <a th:if="${!isAll}" th:href="@{/signs/}">
-                                <span th:text="#{all}"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:if="${isMostCommented}" class="checked_up" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
-                                <div class="pull-left signe"></div>
-                                <span th:text="#{most_commented}"></span>
-                            </a>
-                            <a th:if="${!isMostCommented and !isLowCommented}" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
-                                <div class="pull-left signe"></div>
-                                <span th:text="#{most_commented}"></span>
-                            </a>
-                            <a th:if="${isLowCommented}" class="checked_down" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
-                                <div class="pull-left signe"></div>
-                                <span th:text="#{most_commented}"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:if="${isMostRating}" class="checked_up" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
-                                <div class="pull-left sentiment_positif"></div>
-                                <span th:text="#{most_rating}"></span>
-                            </a>
-                            <a th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
-                                <div class="pull-left sentiment_positif"></div>
-                                <span th:text="#{most_rating}"></span>
-                            </a>
-                            <a th:if="${isLowRating}" class="checked_down" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
-                                <div class="pull-left sentiment_positif"></div>
-                                <span th:text="#{most_rating}"></span>
-                            </a>
-                        </li>
+  <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="col-lg-12 navbar-header">
+        <a href="/" class="col-lg-1" id="backtoHomepage">
+          <div class="chevron_left pull-left"/>
+          <h1 class="hidden-xs navbar_title pull-left" th:text="#{home}"/>
+        </a>
+        <div th:if="${isAuthenticated}" class="navbar-header col-xs-1 dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="caret"></span>
+            <span th:text="#{sign}"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li>
+              <a th:if="${isAll}" class="check_signe" th:href="@{/signs/}">
+                <span th:text="#{all}"></span>
+              </a>
+              <a th:if="${!isAll}" th:href="@{/signs/}">
+                <span th:text="#{all}"></span>
+              </a>
+            </li>
+            <li>
+              <a th:if="${isMostCommented}" class="checked_up" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+                <div class="pull-left signe"></div>
+                <span th:text="#{most_commented}"></span>
+              </a>
+              <a th:if="${!isMostCommented and !isLowCommented}" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+                <div class="pull-left signe"></div>
+                <span th:text="#{most_commented}"></span>
+              </a>
+              <a th:if="${isLowCommented}" class="checked_down" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+                <div class="pull-left signe"></div>
+                <span th:text="#{most_commented}"></span>
+              </a>
+            </li>
+            <li>
+              <a th:if="${isMostRating}" class="checked_up" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+                <div class="pull-left sentiment_positif"></div>
+                <span th:text="#{most_rating}"></span>
+              </a>
+              <a th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+                <div class="pull-left sentiment_positif"></div>
+                <span th:text="#{most_rating}"></span>
+              </a>
+              <a th:if="${isLowRating}" class="checked_down" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+                <div class="pull-left sentiment_positif"></div>
+                <span th:text="#{most_rating}"></span>
+              </a>
+            </li>
 
-                        <li th:each="favorite, stats:${myFavorites}" >
-                            <a th:if="${favoriteId} == ${favorite.id}" class="check_signe" th:href="@{/sec/signs/} + ${favorite.id}">
-                                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
-                                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
-                                <span th:text="${favorite.name}"></span>
-                            </a>
-                            <a th:if="${favoriteId} != ${favorite.id}" th:href="@{/sec/signs/} + ${favorite.id}">
-                                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
-                                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
-                                <span th:text="${favorite.name}"></span>
-                            </a>
-                        </li>
+            <li th:each="favorite, stats:${myFavorites}" >
+              <a th:if="${favoriteId} == ${favorite.id}" class="check_signe" th:href="@{/sec/signs/} + ${favorite.id}">
+                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
+                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                <span th:text="${favorite.name}"></span>
+              </a>
+              <a th:if="${favoriteId} != ${favorite.id}" th:href="@{/sec/signs/} + ${favorite.id}">
+                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
+                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                <span th:text="${favorite.name}"></span>
+              </a>
+            </li>
 
-                    </ul>
-                </div>
-            </div>
-            <div class=" col-lg-12 navbar-right collapse navbar-collapse" id="orange-navbar-collapse">
-                <ul class=" nav navbar-nav" role="tablist">
-                    <li th:if="${isAuthenticated}" role="presentation" class="active">
-                        <a href="#" data-toggle="modal" data-target="#suggest">
-                            <div class="add pull-left"></div>
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
-                                    <div class="hidden-lg pull-right chevron_right"></div>
-                                </div>
-                            </div>
-                            <h4 th:text="#{sign.add}"></h4>
-                        </a>
-                    </li>
-                    <li th:if="${isAuthenticated}" role="presentation">
-                        <a href="#" data-toggle="modal" data-target="#new_request">
-                            <div class="require_video_inverse pull-left"></div>
-                            <div class="pull-right">
-                                <div class="containerRight_signes">
-                                    <div class="hidden-lg pull-right chevron_right"></div>
-                                </div>
-                            </div>
-                            <h4 th:text="#{sign.request}"></h4>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+          </ul>
         </div>
-    </nav>
+          <ul th:if="${isAuthenticated}" role="tablist" class="navbar-toggle-complement nav navbar-nav">
+            <li role="presentation">
+              <a data-target="#suggest" data-toggle="modal" href="#" title="add signe">
+                <div class="add text-center"></div>
+                <span th:text="#{sign.add}" class="text-hide"></span></a>
+            </li>
+            <li role="presentation">
+              <a href="#" data-toggle="modal" data-target="#new_request">
+                <div class="require_video_inverse text-center"></div>
+                <span th:text="#{sign.request}" class="text-hide"></span></a>
+            </li>
+          </ul>
+          <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
+            <li th:if="${isAuthenticated}" role="presentation" >
+              <a href="#" data-toggle="modal" data-target="#suggest">
+                <div class="add pull-left"></div>
+                <div class="pull-right">
+                  <div class="containerRight_signes">
+                    <div class="hidden-lg pull-right chevron_right"></div>
+                  </div>
+                </div>
+                <h4 th:text="#{sign.add}"></h4>
+              </a>
+            </li>
+            <li th:if="${isAuthenticated}" role="presentation">
+              <a href="#" data-toggle="modal" data-target="#new_request">
+                <div class="require_video_inverse pull-left"></div>
+                <div class="pull-right">
+                  <div class="containerRight_signes">
+                    <div class="hidden-lg pull-right chevron_right"></div>
+                  </div>
+                </div>
+                <h4 th:text="#{sign.request}"></h4>
+              </a>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </nav>
 </header>
 
 </body>

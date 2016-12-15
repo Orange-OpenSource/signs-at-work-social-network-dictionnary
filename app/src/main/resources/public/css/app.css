@@ -203,9 +203,9 @@ a.form-control{
 	color:#f16e00;
 }
 
-#backtoHomepage {
-  width: 50%;
-}
+/*#backtoHomepage {*/
+  /*width: 50%;*/
+/*}*/
 
 .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
 	background-color: #f16e00;
@@ -351,9 +351,9 @@ text-decoration-line: none;
 	min-width: 20rem;
 }
 
-.navbar-header{
-	margin: 15px 0px 0px 0px;
-}
+/*.navbar-header{*/
+	/*margin: 15px 0px 0px 0px;*/
+/*}*/
 
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
 	margin-left: -30px;
@@ -807,9 +807,13 @@ h4.container_signes .pull-right {
 	margin-left: 15px;
 }
 
-li[role="presentation"] {
-	margin-top: 15px;
+ul#orange-navbar-collapse >li {
+  width: 200px;
 }
+
+/*li[role="presentation"] {*/
+	/*margin-top: 15px;*/
+/*}*/
 
 textarea{
 	/*width: 100%;*/
@@ -914,7 +918,7 @@ video{
 	}
 
 	.navbar-collapse .navbar-nav > li {
-		width: 27rem;
+		width: 100%;
 	}
 
 	/*start customisation player*/
@@ -994,6 +998,15 @@ video{
 	.add {
 		background-image: url("/img/sprite_picto_400X400.png");
 		background-position: -1004px center;
+		background-repeat: no-repeat;
+		background-size: auto 30px;
+		height: 30px;
+		width: 30px;
+	}
+
+  .require_video_inverse {
+		background-image: url("/img/sprite_picto_400X400.png");
+		background-position: -750px center;
 		background-repeat: no-repeat;
 		background-size: auto 30px;
 		height: 30px;
@@ -1102,6 +1115,11 @@ video{
 
   .spinner_show{
     height: 24%;
+  }
+
+  ul.navbar-toggle-complement.nav.navbar-nav {
+    margin-top: 0px;
+    margin-right: -15px;
   }
 
 }
