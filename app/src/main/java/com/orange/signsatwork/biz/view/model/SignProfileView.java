@@ -23,17 +23,13 @@ package com.orange.signsatwork.biz.view.model;
  */
 
 
-import com.orange.signsatwork.biz.domain.*;
-import com.orange.signsatwork.biz.persistence.service.SignService;
+import com.orange.signsatwork.biz.domain.Sign;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor

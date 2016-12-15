@@ -22,13 +22,12 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
+import com.orange.signsatwork.biz.persistence.model.SignDB;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Date;
 import java.util.List;
 
 public interface SignRepository extends CrudRepository<SignDB, Long> {

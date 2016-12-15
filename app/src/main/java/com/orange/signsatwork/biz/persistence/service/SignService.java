@@ -22,12 +22,11 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.UrlFileUploadDailymotion;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.Signs;
+import com.orange.signsatwork.biz.domain.UrlFileUploadDailymotion;
 import com.orange.signsatwork.biz.domain.VideoDailyMotion;
 
-import java.util.Date;
 import java.util.List;
 
 public interface SignService {

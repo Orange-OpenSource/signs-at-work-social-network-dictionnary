@@ -23,9 +23,8 @@ package com.orange.signsatwork.biz.view.controller;
  */
 
 import com.orange.signsatwork.AppProfile;
-import com.orange.signsatwork.biz.persistence.model.SignViewData;
-import com.orange.signsatwork.biz.view.model.SignsViewSort2;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.*;
@@ -37,7 +36,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller

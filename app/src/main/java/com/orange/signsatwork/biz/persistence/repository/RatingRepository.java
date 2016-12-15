@@ -22,13 +22,9 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.model.CommentDB;
 import com.orange.signsatwork.biz.persistence.model.RatingDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 public interface RatingRepository extends JpaRepository<RatingDB, Long> {
 

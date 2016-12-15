@@ -28,7 +28,6 @@ import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

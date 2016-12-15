@@ -24,12 +24,11 @@ package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.Sign;
+import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.CommentData;
 import com.orange.signsatwork.biz.persistence.model.RatingData;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoHistoryData;
-import com.orange.signsatwork.biz.view.model.SignsViewSort2;
-import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
@@ -42,7 +41,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigInteger;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;

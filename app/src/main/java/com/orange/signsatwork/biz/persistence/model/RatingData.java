@@ -2,10 +2,6 @@ package com.orange.signsatwork.biz.persistence.model;
 
 import com.orange.signsatwork.biz.domain.Rating;
 
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class RatingData {
   public String ratingString;
   public boolean ratePositive;

@@ -24,12 +24,9 @@ package com.orange.signsatwork.biz.view.model;
 
 
 import com.orange.signsatwork.biz.domain.Favorite;
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.persistence.service.SignService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
