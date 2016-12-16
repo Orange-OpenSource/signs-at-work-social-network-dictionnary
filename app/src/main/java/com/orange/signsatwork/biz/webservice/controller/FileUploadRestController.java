@@ -167,7 +167,11 @@ public class FileUploadRestController {
 
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
-      body.add("title", videoFile.signNameRecording);
+      if (signId.isPresent()){
+        body.add("title",services.sign().withId(signId.getAsLong()).name);
+      }else{
+        body.add("title", videoFile.signNameRecording);
+      }
       body.add("channel", "Tech");
       body.add("published", true);
 
@@ -206,20 +210,21 @@ public class FileUploadRestController {
         videoUrl = videoDailyMotion.embed_url;
         log.warn("createSignFromUploadondailymotion : embed_url = {}", videoDailyMotion.embed_url);
       }
-
+      Sign sign;
       if (signId.isPresent()) {
-          services.sign().replace(user.id, signId.getAsLong(), videoUrl, pictureUri);
+          sign = services.sign().replace(user.id, signId.getAsLong(), videoUrl, pictureUri);
       }else{
-         services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
+         sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
+        log.info("createSignFromUploadondailymotion : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
           }
-      log.info("createSignFromUploadondailymotion : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
+
 
       if (requestId.isPresent()) {
-        services.request().changeSignRequest(requestId.getAsLong(), signId.getAsLong());
+        services.request().changeSignRequest(requestId.getAsLong(), sign.id);
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
-      return Long.toString(signId.getAsLong());
+      return Long.toString(sign.id);
     }
     catch(Exception errorDailymotionUploadFile)
     {

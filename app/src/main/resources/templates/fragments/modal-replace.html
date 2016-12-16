@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="uploadVideoFileDailymotion" th:action="@{/sec/sign/createfromuploadondailymotionFromSign} + ${signView.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+      <form id="uploadVideoFileDailymotion" th:action="@{/sec/sign/createfromuploadondailymotionFromSign/} + ${signView.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
           <input name="file" type="file"/>
         </div>

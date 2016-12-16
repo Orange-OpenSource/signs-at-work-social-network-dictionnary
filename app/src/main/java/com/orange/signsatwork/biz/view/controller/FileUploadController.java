@@ -184,7 +184,11 @@ public class FileUploadController {
 
     MultiValueMap<String, Object> body =  new LinkedMultiValueMap<String, Object>();
     body.add("url", fileUploadDailyMotion.url);
-    body.add("title", signCreationView.getSignName());
+    if (signId.isPresent()){
+      body.add("title",services.sign().withId(signId.getAsLong()).name);
+    }else{
+      body.add("title", signCreationView.getSignName());
+    }
     body.add("channel","Tech");
     body.add("published", true);
 
