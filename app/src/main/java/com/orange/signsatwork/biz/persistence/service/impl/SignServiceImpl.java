@@ -441,4 +441,9 @@ public class SignServiceImpl implements SignService {
     return signDB == null ? null :
       new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, null, null, services.video(), services.comment());
   }
+
+  static Sign signFromRequestsView(SignDB signDB, Services services) {
+    return signDB == null ? null :
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), 0, null, null, null, services.video(), services.comment());
+  }
 }
