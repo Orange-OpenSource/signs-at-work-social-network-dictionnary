@@ -66,7 +66,6 @@ public class SignController {
   public String signs(Principal principal, Model model) {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
     fillModelWithSigns(model, principal);
-    fillModelWithFavorites(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("isAll", true);
     model.addAttribute("isMostCommented", false);
@@ -102,7 +101,7 @@ public class SignController {
     signViews = signsViewSort2.sort(signViews);
 
     model.addAttribute("signsView", signViews);
-    fillModelWithFavorites(model, principal);
+    fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -153,7 +152,7 @@ public class SignController {
 
 
     model.addAttribute("signsView", signViews);
-    fillModelWithFavorites(model, principal);
+    fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -200,7 +199,7 @@ public class SignController {
     model.addAttribute("signsView", signViews);
 
 
-    fillModelWithFavorites(model, principal);
+    fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -216,7 +215,6 @@ public class SignController {
     String backUrl = referer != null && referer.contains(SIGNS_URL) ? SIGNS_URL : HOME_URL;
     fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
     model.addAttribute("commentCreationView", new CommentCreationView());
-    fillModelWithFavorites(model, principal);
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 
     Sign sign = services.sign().withIdSignsView(signId);
@@ -230,6 +228,7 @@ public class SignController {
         .map(objectArray -> new CommentData(objectArray))
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
+      fillModelWithFavorites(model, user);
     }
     model.addAttribute("signView", sign);
 
@@ -241,7 +240,6 @@ public class SignController {
   @RequestMapping(value = "/sec/sign/{signId}/detail")
   public String signDetail(@PathVariable long signId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, signUrl(signId));
-    fillModelWithFavorites(model, principal);
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     Sign sign = services.sign().withIdSignsView(signId);
     if (principal != null) {
@@ -254,6 +252,7 @@ public class SignController {
         .map(objectArray -> new CommentData(objectArray))
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
+      fillModelWithFavorites(model, user);
     }
     List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
     List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
@@ -367,6 +366,7 @@ public class SignController {
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
     signViews = signsViewSort2.sort(signViews);
 
+    fillModelWithFavorites(model, user);
     model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
   }
@@ -394,9 +394,8 @@ public class SignController {
             .collect(Collectors.toList());
   }
 
-  private void fillModelWithFavorites(Model model, Principal principal) {
-    if (AuthentModel.isAuthenticated(principal)) {
-      User user = services.user().withUserName(principal.getName());
+  private void fillModelWithFavorites(Model model, User user) {
+    if (user != null) {
       List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
       model.addAttribute("myFavorites", myFavorites);
     }
