@@ -225,45 +225,6 @@ public class SignServiceImpl implements SignService {
   }
 
 
-
-  private void waitForPictureUri(final VideoDB videoDB, final SignDB signDB, String signUrl, String pictureUri) {
-
-    if (pictureUri.isEmpty()) {
-
-      if (signUrl.startsWith("http")) {
-        URL videoUrl = null;
-        try {
-          videoUrl = new URL(signUrl);
-        } catch (MalformedURLException e) {
-          e.printStackTrace();
-        }
-        if (videoUrl.getHost().equals("dai.ly")) {
-
-          String id=videoUrl.getFile();
-
-          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video"+id+"?ssl_assets=true&fields="+VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD );
-
-          if (isUrlValid(videoDailyMotion.thumbnail_360_url)) {
-            videoDB.setPictureUri(videoDailyMotion.thumbnail_360_url);
-            log.warn("waitForPictureUri : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
-          }
-          if (isUrlValid(videoDailyMotion.stream_h264_url) && isUrlValid(videoDailyMotion.embed_url)) {
-            dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
-            log.warn("waitForPictureUri : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
-          }
-
-          if (isUrlValid(videoDailyMotion.embed_url)) {
-            log.warn("waitForPictureUri : embed_url = {}", videoDailyMotion.embed_url);
-            videoDB.setUrl(videoDailyMotion.embed_url);
-            signDB.setUrl(videoDailyMotion.embed_url);
-          }
-        }
-      }
-    } else {
-      videoDB.setPictureUri(pictureUri);
-    }
-  }
-
   private boolean isUrlValid(String url) {
     return url != null && !url.isEmpty();
   }
@@ -313,8 +274,7 @@ public class SignServiceImpl implements SignService {
       signDB.setName(signName);
       signDB.setUrl(signUrl);
 
-
-      waitForPictureUri(videoDB, signDB, signUrl, pictureUri);
+      videoDB.setPictureUri(pictureUri);
 
       signDB.setCreateDate(now);
       List<VideoDB> videoDBList = new ArrayList<>();
@@ -341,7 +301,7 @@ public class SignServiceImpl implements SignService {
       signDB.setCreateDate(now);
       signDB.setUrl(signUrl);
 
-      waitForPictureUri(videoDB, signDB, signUrl, pictureUri);
+      videoDB.setPictureUri(pictureUri);
 
       videoDB.setSign(signDB);
       signDB.getVideos().add(videoDB);
@@ -376,7 +336,8 @@ public class SignServiceImpl implements SignService {
 
     signDB.setUrl(signUrl);
     signDB.setCreateDate(now);
-    waitForPictureUri(videoDB, signDB, signUrl, pictureUri);
+
+    videoDB.setPictureUri(pictureUri);
 
     videoDB.setSign(signDB);
     signDB.getVideos().add(videoDB);
