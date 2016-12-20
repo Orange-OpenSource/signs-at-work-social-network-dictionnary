@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -71,7 +71,6 @@ public class FileUploadRestController {
 
   String REST_SERVICE_URI = "https://api.dailymotion.com";
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
-  String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
 
   @Secured("ROLE_USER")
@@ -188,22 +187,18 @@ public class FileUploadRestController {
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD;
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
       }
-      while ((videoDailyMotion.stream_h264_url == null) || (videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
+      while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
 
       String pictureUri = null;
       if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
         pictureUri = videoDailyMotion.thumbnail_360_url;
         log.warn("createSignFromUploadondailymotion : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
-      }
-      if ((!videoDailyMotion.stream_h264_url.isEmpty()) && (!videoDailyMotion.embed_url.isEmpty())) {
-        dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
-        log.warn("createSignFromUploadondailymotion : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
       }
 
       if (!videoDailyMotion.embed_url.isEmpty()) {

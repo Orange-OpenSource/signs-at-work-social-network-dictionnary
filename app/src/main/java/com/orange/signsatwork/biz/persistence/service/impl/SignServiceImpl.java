@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -81,32 +81,6 @@ public class SignServiceImpl implements SignService {
     return urlfileUploadDailyMotion;
   }
 
-
-  @Override
-  public String getStreamUrl(String signUrl) {
-    if (signUrl.contains("www.dailymotion.com/embed/video")) {
-      if ((dalymotionToken.getDailymotionCache().cacheurl.get(signUrl) == null) || (dalymotionToken.getAuthTokenInfo().isExpired())) {
-
-          URL videoUrl = null;
-          try {
-            videoUrl = new URL(signUrl);
-          } catch (MalformedURLException e) {
-            e.printStackTrace();
-          }
-
-          String path = videoUrl.getPath();
-          String id = path.substring(path.lastIndexOf('/') + 1);
-
-          VideoDailyMotion videoDailyMotion = getVideoDailyMotionDetails(id, REST_SERVICE_URI+"/video/"+id+"?ssl_assets=true&fields=" + VIDEO_STREAM_FIELDS + VIDEO_EMBED_FIELD);
-
-          if (isUrlValid(videoDailyMotion.stream_h264_url) && isUrlValid(videoDailyMotion.embed_url)) {
-            dalymotionToken.getDailymotionCache().append(videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
-            log.warn("getSreamUrl : embed_url = {} / stream_h264_url = {}", videoDailyMotion.embed_url, videoDailyMotion.stream_h264_url);
-          }
-        }
-    }
-    return dalymotionToken.getDailymotionCache().cacheurl.get(signUrl);
-  }
 
   @Override
   public Long[] mostCommented() {

@@ -20,13 +20,7 @@ management.context-path: /admin/
 spring.jpa.properties.hibernate.generate_statistics: false
 spring.jpa.show-sql: false
 
-#
-#app.dailymotion.grant_type:
-#app.dailymotion.client_id:
-#app.dailymotion.client_secret:
-#app.dailymotion.username:
-#app.dailymotion.password:
-#
+
 app.admin.username: "admin"
 app.admin.password: "adminpassword"
 
