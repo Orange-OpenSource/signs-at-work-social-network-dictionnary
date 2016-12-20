@@ -41,17 +41,13 @@ public class AuthentModel {
     model.addAllAttributes(authenticatedModel(isAuthenticated));
   }
 
-  public static User addAuthentModelWithUserDetails(Model model, Principal principal, UserService userService) {
+  public static User addAuthentModelWithUserDetails(Model model, Principal principal, boolean admin, UserService userService) {
     boolean authenticated = isAuthenticated(principal);
     User user = null;
     addAuthenticatedModel(model, authenticated);
     model.addAttribute("authenticatedUsername",
             authenticated ? principal.getName() : "Please sign in");
-    model.addAttribute("isAdmin", authenticated && isAdmin(principal));
-//    if (authenticated && !isAdmin(principal)) {
-//      user = userService.withUserName(principal.getName());
-//      model.addAttribute("user", user);
-//    }
+    model.addAttribute("isAdmin", authenticated && admin);
     if (authenticated) {
       user = userService.withUserName(principal.getName());
       model.addAttribute("user", user);
@@ -63,9 +59,5 @@ public class AuthentModel {
     Map<String, Object> modelMap = new HashMap<>();
     modelMap.put("isAuthenticated", isAuthenticated);
     return modelMap;
-  }
-
-  private static boolean isAdmin(Principal principal) {
-    return AppSecurityAdmin.isAdmin(principal.getName());
   }
 }

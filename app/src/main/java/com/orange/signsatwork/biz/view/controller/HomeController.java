@@ -27,6 +27,7 @@ import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ import java.util.stream.Collectors;
 public class HomeController {
 
   @Autowired
+  private AppSecurityAdmin appSecurityAdmin;
+  @Autowired
   private AppProfile appProfile;
   @Autowired
   private Services services;
@@ -61,7 +64,8 @@ public class HomeController {
   }
 
   private String doIndex(Principal principal, Model model) {
-    User user = AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
+    boolean admin = appSecurityAdmin.isAdmin(principal);
+    User user = AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
 
@@ -110,7 +114,8 @@ public class HomeController {
 
   @RequestMapping("/search")
   public String search(@ModelAttribute SignCreationView signCreationView, Principal principal, Model model) {
-    User user =  AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
+    boolean admin = appSecurityAdmin.isAdmin(principal);
+    User user =  AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
 

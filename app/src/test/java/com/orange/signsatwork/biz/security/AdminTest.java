@@ -76,7 +76,7 @@ public class AdminTest {
   }
 
   @Test
-  @WithMockUser(username = AppSecurityAdmin.ADMIN_USERNAME, password = AppSecurityAdmin.ADMIN_PASSWORD, roles = "ADMIN")
+  @WithMockUser(username = "admin", password = "adminpassword", roles = "ADMIN")
   public void adminAvailableForAdmin() throws Exception {
     mockMvc
             .perform(get("/sec/admin"))
@@ -116,7 +116,7 @@ public class AdminTest {
   }
 
   @Test
-  @WithMockUser(username = AppSecurityAdmin.ADMIN_USERNAME, password = AppSecurityAdmin.ADMIN_PASSWORD, roles = "ADMIN")
+  @WithMockUser(username = "admin", password = "adminpassword", roles = "ADMIN")
   public void adminIsAuthorizedToCreateUser() throws Exception {
     // given
     mockMvc

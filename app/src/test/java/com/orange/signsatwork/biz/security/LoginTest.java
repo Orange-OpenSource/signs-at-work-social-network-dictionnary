@@ -69,10 +69,10 @@ public class LoginTest {
   @Test
   public void adminCanLog() throws Exception {
     mockMvc
-            .perform(formLogin().user(AppSecurityAdmin.ADMIN_USERNAME).password(AppSecurityAdmin.ADMIN_PASSWORD))
+            .perform(formLogin().user("admin").password("adminpassword"))
             .andExpect(status().isFound())
             .andExpect(redirectedUrl("/"))
-            .andExpect(authenticated().withUsername(AppSecurityAdmin.ADMIN_USERNAME));
+            .andExpect(authenticated().withUsername("admin"));
 
     mockMvc
             .perform(logout())

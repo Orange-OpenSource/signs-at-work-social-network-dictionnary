@@ -127,7 +127,7 @@ public class RestApiSecurityTest {
     mockMvc
             // do
             .perform(
-                    post(RestApi.WS_ADMIN_USER_CREATE).with(httpBasic(AppSecurityAdmin.ADMIN_USERNAME, AppSecurityAdmin.ADMIN_PASSWORD))
+                    post(RestApi.WS_ADMIN_USER_CREATE).with(httpBasic("admin", "adminpassword"))
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(bodyForUserCreation())
             )

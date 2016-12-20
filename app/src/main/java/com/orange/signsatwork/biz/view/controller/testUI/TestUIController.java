@@ -28,6 +28,7 @@ import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
+import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.CommunityView;
@@ -50,15 +51,14 @@ public class TestUIController {
   private final StorageService storageService;
 
   @Autowired
-  public TestUIController(StorageService storageService) {
-    this.storageService = storageService;
-  }
+  AppSecurityAdmin appSecurityAdmin;
+
 
   @Autowired
   private UserTestUIController userTestUIController;
-
   @Autowired
   private Services services;
+
   @Autowired
   private UserService userService;
   @Autowired
@@ -66,11 +66,16 @@ public class TestUIController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
+  @Autowired
+  public TestUIController(StorageService storageService) {
+    this.storageService = storageService;
+  }
+
   @Secured("ROLE_USER")
   @RequestMapping("/sec/testUI")
   public String testUI(Principal principal, Model model) {
-
-    AuthentModel.addAuthentModelWithUserDetails(model, principal, services.user());
+    boolean admin = appSecurityAdmin.isAdmin(principal);
+    AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
     model.addAttribute("title", messageByLocaleService.getMessage("testUI_page"));
 
     return "testUI/index";

@@ -37,6 +37,7 @@ public class AppProfile {
 
   private boolean devProfile;
   private Proxy proxy;
+  private DailymotionAccess dailymotionAccess;
 
 
   public boolean isDevProfile() {
@@ -47,10 +48,26 @@ public class AppProfile {
     return proxy;
   }
 
+  public DailymotionAccess dailymotionAccess() {
+    return dailymotionAccess;
+  }
+
+
   @PostConstruct
   private void init() {
     initDevProfile();
     initProxy();
+    initDailyMotion();
+  }
+
+
+  private void initDailyMotion() {
+    String grantType = environment.getProperty("app.dailymotion.grant_type");
+    String clientId = environment.getProperty("app.dailymotion.client_id");
+    String clientSecret = environment.getProperty("app.dailymotion.client_secret");
+    String username = environment.getProperty("app.dailymotion.username");
+    String password = environment.getProperty("app.dailymotion.password");
+    dailymotionAccess = new DailymotionAccess(grantType, clientId, clientSecret, username, password );
   }
 
   private void initProxy() {

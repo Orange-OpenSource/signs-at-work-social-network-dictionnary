@@ -76,7 +76,7 @@ public class UserTest {
   }
 
   @Test
-  @WithMockUser(username = AppSecurityAdmin.ADMIN_USERNAME, password = AppSecurityAdmin.ADMIN_PASSWORD, roles = "ADMIN")
+  @WithMockUser(username = "admin", password = "adminpassword", roles = "ADMIN")
   public void usersAvailableForAdmin() throws Exception {
     // given
     mockMvc

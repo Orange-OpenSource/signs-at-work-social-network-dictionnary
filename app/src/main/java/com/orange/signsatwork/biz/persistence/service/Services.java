@@ -27,6 +27,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,6 +44,9 @@ public class Services {
   private UserService user;
   private VideoService video;
 
+  @Autowired
+  private AppSecurityAdmin appSecurityAdmin;
+
   public void clearPersistence() {
     comment.all().stream().forEach(c -> comment.delete(c));
     community.all().stream().forEach(c -> community.delete(c));
@@ -51,6 +55,6 @@ public class Services {
     video.all().stream().forEach(v -> video.delete(v));
     request.all().stream().forEach(r -> request.delete(r));
     sign.all().stream().forEach(s -> sign.delete(s));
-    user.all().stream().filter(u -> !u.username.equals(AppSecurityAdmin.ADMIN_USERNAME)).forEach(u -> user.delete(u));
+    user.all().stream().filter(u -> !appSecurityAdmin.isAdmin(u.username)).forEach(u -> user.delete(u));
   }
 }

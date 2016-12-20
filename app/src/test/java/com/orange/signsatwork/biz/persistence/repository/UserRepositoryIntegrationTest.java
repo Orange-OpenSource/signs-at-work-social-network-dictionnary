@@ -81,7 +81,6 @@ public class UserRepositoryIntegrationTest {
 
   }
 
-  @Ignore
   @Test
   public void returnAllPersisted() throws IOException {
     // given
@@ -89,7 +88,7 @@ public class UserRepositoryIntegrationTest {
     entityManager.persist(new UserDB(username2, password2, firstName2, lastName2, nameVideo2, email2, entity2, job2, jobTextDescription2, jobVideoDescription2));
     // do
     Iterable<UserDB> users = userRepository.findAll();
-    UserDB admin = userRepository.findByUsername(AppSecurityAdmin.ADMIN_USERNAME).get(0);
+    UserDB admin = userRepository.findByUsername("admin").get(0);
     UserDB user1 = userRepository.findByUsername(username1).get(0);
     UserDB user2 = userRepository.findByUsername(username2).get(0);
     // then
@@ -98,7 +97,7 @@ public class UserRepositoryIntegrationTest {
     assertThat(users).contains(user1);
     assertThat(users).contains(user2);
 
-    assertThat(admin.getUsername()).isEqualTo(AppSecurityAdmin.ADMIN_USERNAME);
+    assertThat(admin.getUsername()).isEqualTo("admin");
 
     assertThat(user1.getUsername()).isEqualTo(username1);
     assertThat(user1.getPasswordHash()).isEqualTo(password1);
@@ -123,7 +122,6 @@ public class UserRepositoryIntegrationTest {
     assertThat(user2.getJobVideoDescription()).isEqualTo(jobVideoDescription2);
   }
 
-  @Ignore
   @Test
   public void createUser() {
     // given

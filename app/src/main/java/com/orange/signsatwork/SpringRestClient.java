@@ -46,7 +46,6 @@ public class SpringRestClient {
 
     public static final String AUTH_SERVER_URI = "https://api.dailymotion.com/oauth/token";
 
-    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&client_id=accfab055d184ff9bcf3&client_secret=3dcd460d28d887fa25bc29c8031039a7edf52187&username=SignsAtWork&password=DMtelsignes1617";
 
 
     /*
@@ -62,12 +61,10 @@ public class SpringRestClient {
      * Add HTTP Authorization header, using Basic-Authentication to send client-credentials.
      */
     private static HttpHeaders getHeadersWithClientCredentials(){
-    	String plainClientCredentials="my-trusted-client:secret";
-    	//String base64ClientCredentials = new String(Base64.encodeBase64(plainClientCredentials.getBytes()));
 
     	HttpHeaders headers = getHeaders();
-    	//headers.add("Authorization", "Basic " + base64ClientCredentials);
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+      headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
     	return headers;
     }
 
@@ -79,11 +76,11 @@ public class SpringRestClient {
         RestTemplate restTemplate = buildRestTemplate();
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-        body.add("grant_type", "password");
-        body.add("client_id", "accfab055d184ff9bcf3");
-        body.add("client_secret", "3dcd460d28d887fa25bc29c8031039a7edf52187");
-        body.add("username","SignsAtWork");
-        body.add("password","DMtelsignes1617");
+        body.add("grant_type", appProfile.dailymotionAccess().grantType);
+        body.add("client_id", appProfile.dailymotionAccess().clientId);
+        body.add("client_secret", appProfile.dailymotionAccess().clientSecret);
+        body.add("username", appProfile.dailymotionAccess().username);
+        body.add("password",appProfile.dailymotionAccess().password);
 
         HttpEntity<?> request = new HttpEntity<Object>(body, getHeadersWithClientCredentials());
 

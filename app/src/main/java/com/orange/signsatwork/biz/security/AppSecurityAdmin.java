@@ -27,18 +27,24 @@ import com.orange.signsatwork.biz.persistence.repository.UserRepository;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
 @Component
 public class AppSecurityAdmin {
-  public static final String ADMIN_USERNAME = "admin";
-  public static final String ADMIN_PASSWORD = "?TelSignes!";
+
+  @Value("${app.admin.username}")
+  String adminUsername;
+
+  @Value("${app.admin.password}")
+  String adminPassword;
 
   @Autowired
   UserRepository userRepository;
@@ -51,7 +57,7 @@ public class AppSecurityAdmin {
 
   @PostConstruct
   private void init() {
-    boolean dbNotInitialised = userRepository.findByUsername(ADMIN_USERNAME).isEmpty();
+    boolean dbNotInitialised = userRepository.findByUsername(adminUsername).isEmpty();
     if (dbNotInitialised) {
       Iterable<UserRoleDB> roles = appSecurityRoles.createAndPersistRoles();
       createAndPersistAdmin(roles);
@@ -60,14 +66,18 @@ public class AppSecurityAdmin {
   }
 
   private void createAndPersistAdmin(Iterable<UserRoleDB> roles) {
-    UserDB userDB = new UserDB(ADMIN_USERNAME, passwordEncoder.encode(ADMIN_PASSWORD), "", "", "", "", "", "", "", "");
+    UserDB userDB = new UserDB(adminUsername, passwordEncoder.encode(adminPassword), "", "", "", "", "", "", "", "");
     Set<UserRoleDB> set = new HashSet<>();
     roles.forEach(set::add);
     userDB.setUserRoles(set);
     userRepository.save(userDB);
   }
 
-  public static boolean isAdmin(String username) {
-    return username.equals(ADMIN_USERNAME);
+  public boolean isAdmin(String username) {
+    return username.equals(adminUsername);
+  }
+
+  public boolean isAdmin(Principal principal) {
+    return principal != null && isAdmin(principal.getName());
   }
 }
