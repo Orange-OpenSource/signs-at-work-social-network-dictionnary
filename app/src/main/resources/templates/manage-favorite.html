@@ -105,8 +105,8 @@
 
                             <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/rename'" th:object="${favoriteCreationView}" method="post">
                                 <div class="modal-body text-center">
-                                    <input th:field="*{favoriteName}" type="text" class="text-center border form-control"
-                                           th:placeholder="#{favorite.enter_name}" required=""/><br/>
+                                    <input th:value="${favoriteManageView.name}" type="text" class="text-center border form-control"
+                                           name="favoriteName" th:autofocus="true" /><br/>
                                 </div>
                                 <div class="modal-footer">
                                     <button th:text="#{favorite.validate}" type="submit" class="btn btn-default"
