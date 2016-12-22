@@ -40,8 +40,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -68,9 +66,6 @@ public class SignServiceImpl implements SignService {
   AppProfile appProfile;
 
   String REST_SERVICE_URI = "https://api.dailymotion.com";
-  String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
-  String VIDEO_STREAM_FIELDS = "stream_h264_hd1080_url,stream_h264_hd_url,stream_h264_hq_url,stream_h264_qhd_url,stream_h264_uhd_url,stream_h264_url,";
-  String VIDEO_EMBED_FIELD = "embed_url";
 
   @Override
   public UrlFileUploadDailymotion getUrlFileUpload() {
@@ -198,10 +193,6 @@ public class SignServiceImpl implements SignService {
     return signFrom(signDB, services);
   }
 
-
-  private boolean isUrlValid(String url) {
-    return url != null && !url.isEmpty();
-  }
 
   @Override
   public VideoDailyMotion getVideoDailyMotionDetails(String id, String url) {
