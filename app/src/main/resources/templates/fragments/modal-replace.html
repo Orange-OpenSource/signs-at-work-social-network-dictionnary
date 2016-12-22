@@ -97,7 +97,7 @@
           <button id="start-recording" class="glyphicon glyphicon-record" title="Cliquer pour enregistrer" ></button>
           <button id="stop-recording" class="glyphicon glyphicon-stop" title="Arrêter l'enregistrement" disabled=""></button>
         </div>
-        <form id="uploadVideoFile" th:action="@{/ws/sec/uploadFromSign/} + ${signView.id}" th:object="${signCreationView}" method="post">
+        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${signView.id}" th:object="${signCreationView}" method="post">
           <div class="modal-body text-center">
             <span id="errorSpan"  style="visibility: hidden"></span>
           </div>

@@ -23,8 +23,8 @@
 
 
 function onRequestClick(id, name){
-  var formUploadFile = document.getElementById("uploadVideoFile");
-  formUploadFile.action = "/ws/sec/upload/" + id;
+  var formUploadFile = document.getElementById("uploadRecordedVideoFile");
+  formUploadFile.action = "/ws/sec/uploadRecordedVideoFile/" + id;
   var signNameRecording = document.getElementById("signNameRecording");
   signNameRecording.value =name;
 

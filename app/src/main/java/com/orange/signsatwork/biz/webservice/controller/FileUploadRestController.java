@@ -74,21 +74,21 @@ public class FileUploadRestController {
   String VIDEO_EMBED_FIELD = "embed_url";
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD, method = RequestMethod.POST)
-  public String uploadFile(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
+  @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD, method = RequestMethod.POST)
+  public String uploadRecordedVideoFile(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
     return handleFileUpload(videoFile, OptionalLong.empty(), OptionalLong.empty(),  principal, response);
   }
 
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
-  public String uploadFileFromRequest(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
+  @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
+  public String uploadRecordedVideoFileFromRequest(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
     return handleFileUpload(videoFile, OptionalLong.of(requestId), OptionalLong.empty(),  principal, response);
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
-  public String uploadFileFromSign(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
+  @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
+  public String uploadRecordedVideoFileFromSign(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
     return handleFileUpload(videoFile, OptionalLong.empty(), OptionalLong.of(signId),  principal, response);
   }
 
