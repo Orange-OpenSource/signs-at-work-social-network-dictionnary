@@ -33,15 +33,6 @@
 
 <div th:replace="fragments/modal-suggest :: div"/>
 
-<script>
-  function displaySpinner() {
-    $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
-    $(".spinner").css("z-index","1500").css("opacity","1").visibility="visible";
-  }
-
-  var submitButtonFileDailymotion = document.getElementById('submitButtonFileDailymotion');
-  submitButtonFileDailymotion.addEventListener('click', displaySpinner, false);
-</script>
 
 <div th:fragment="div" class="text-center title_middle col-lg-12 col-md-8 col-xs-12 middle-col">
     <h1 th:text="#{sign.list}"></h1>
@@ -53,6 +44,7 @@
 
 </body>
 <script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
+<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
 <script type="text/javascript" src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}"></script>
 <script type="text/javascript" src="../public/js/lazy-loading.js" th:src="@{/js/lazy-loading.js}"></script>
 </html>

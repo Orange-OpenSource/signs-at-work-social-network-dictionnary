@@ -47,14 +47,6 @@
     });
   });
 
-  function displaySpinner() {
-    $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
-    $(".spinner").css("z-index","1500").css("opacity","1").visibility="visible";
-  }
-
-  var submitButtonFileDailymotion = document.getElementById('submitButtonFileDailymotion');
-  submitButtonFileDailymotion.addEventListener('click', displaySpinner, false);
-
 </script>
 
 <div class="row">
@@ -149,5 +141,6 @@
 </body>
 
 <script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
+<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
 
 </html>

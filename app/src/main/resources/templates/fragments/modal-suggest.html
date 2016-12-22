@@ -26,17 +26,6 @@
 </head>
 <body>
 
-
-<script>
-  function displaySpinner() {
-    $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
-    $(".spinner").css("z-index","1500").css("opacity","1").visibility="visible";
-  }
-
-  var submitButtonFileDailymotion = document.getElementById('submitButtonFileDailymotion');
-  submitButtonFileDailymotion.addEventListener('click', displaySpinner, false);
-</script>
-
 <div th:fragment="div" id="suggest" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -126,13 +115,14 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="uploadVideoFileDailymotion" th:action="@{/sec/sign/createfromuploadondailymotion}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFile}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
-          <input th:field="*{signName}" id="signNameDaylimotion"  type="text" class="text-center border form-control" required="" /><br/>
+          <input th:field="*{signName}" id="signNameSelected"  type="text" class="text-center border form-control" required="" /><br/>
           <input name="file" type="file"/>
+          <span id="errorSelectedSpan"  style="visibility: hidden"></span>
         </div>
         <div class="modal-footer">
-          <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"
+          <button id="continue" th:text="#{continue}" type="submit" class="btn btn-default"
                   data-dismiss=""></button>
         </div>
       </form>
@@ -144,10 +134,6 @@
 
 </body>
 
-
-
-<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
-<script type="text/javascript" src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}"></script>
 
 
 </html>

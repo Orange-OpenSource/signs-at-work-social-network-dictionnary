@@ -23,16 +23,15 @@
 
 
 function onRequestClick(id, name){
-  var formUploadFile = document.getElementById("uploadRecordedVideoFile");
-  formUploadFile.action = "/ws/sec/uploadRecordedVideoFile/" + id;
+  var uploadRecordedVideoFile = document.getElementById("uploadRecordedVideoFile");
+  uploadRecordedVideoFile.action = "/ws/sec/uploadRecordedVideoFile/" + id;
   var signNameRecording = document.getElementById("signNameRecording");
   signNameRecording.value =name;
 
-  var formuploadVideoFileDailymotion =document.getElementById("uploadVideoFileDailymotion");
-  formuploadVideoFileDailymotion.action ="/sec/sign/createfromuploadondailymotion/" +id;
-
-  var signNameRecording = document.getElementById("signNameDaylimotion");
-  signNameRecording.value =name;
+  var uploadSelectedVideoFile = document.getElementById("uploadSelectedVideoFile");
+  uploadSelectedVideoFile.action = "/ws/sec/uploadSelectedVideoFile/" + id;
+  var signNameSelected = document.getElementById("signNameSelected");
+  signNameSelected.value =name;
 
   console.log("request id =" + id );
 }
