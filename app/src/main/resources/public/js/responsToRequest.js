@@ -26,12 +26,12 @@ function onRequestClick(id, name){
   var uploadRecordedVideoFile = document.getElementById("uploadRecordedVideoFile");
   uploadRecordedVideoFile.action = "/ws/sec/uploadRecordedVideoFile/" + id;
   var signNameRecording = document.getElementById("signNameRecording");
-  signNameRecording.value =name;
+  signNameRecording.value =$.trim(name);
 
   var uploadSelectedVideoFile = document.getElementById("uploadSelectedVideoFile");
   uploadSelectedVideoFile.action = "/ws/sec/uploadSelectedVideoFile/" + id;
   var signNameSelected = document.getElementById("signNameSelected");
-  signNameSelected.value =name;
+  signNameSelected.value =$.trim(name);
 
   console.log("request id =" + id );
 }
