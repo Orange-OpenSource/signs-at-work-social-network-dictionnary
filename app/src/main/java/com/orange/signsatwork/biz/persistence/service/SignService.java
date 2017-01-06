@@ -39,6 +39,8 @@ public interface SignService {
 
   Long[] lowRating();
 
+  Long[] NbCommentForAllVideoBySign(long signId);
+
   List<Object[]> SignsForSignsView();
 
   List<Object[]> SignsForFavoriteView(long favoriteId);
@@ -48,6 +50,8 @@ public interface SignService {
   List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm);
 
   List<Object[]> AllVideosHistoryForSign(long signId);
+
+  List<Object[]> AllVideosForSign(long signId);
 
   Object[] RatingForSignByUser(long signId, long userId);
 

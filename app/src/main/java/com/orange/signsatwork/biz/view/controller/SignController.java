@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -25,10 +25,8 @@ package com.orange.signsatwork.biz.view.controller;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.persistence.model.CommentData;
-import com.orange.signsatwork.biz.persistence.model.RatingData;
-import com.orange.signsatwork.biz.persistence.model.SignViewData;
-import com.orange.signsatwork.biz.persistence.model.VideoHistoryData;
+import com.orange.signsatwork.biz.domain.Video;
+import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
@@ -55,6 +53,8 @@ public class SignController {
 
   private static final String HOME_URL = "/";
   private static final String SIGNS_URL = "/signs";
+  private static final String SIGN_URL = "/sign";
+
 
   @Autowired
   private Services services;
@@ -214,16 +214,69 @@ public class SignController {
     String referer = req.getHeader("Referer");
     String backUrl = referer != null && referer.contains(SIGNS_URL) ? SIGNS_URL : HOME_URL;
     fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
+
+    List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
+    List<VideoViewData> videoViewsData = querySigns.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+    if (videoViewsData.size() == 1) {
+      return showVideo(signId, videoViewsData.get(0).videoId);
+    } else {
+      model.addAttribute("title", videoViewsData.get(0).signName);
+
+
+      List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
+      List<VideoView2> videoViews = videoViewsData.stream()
+        .map(videoViewData -> new VideoView2(
+          videoViewData,
+          videoWithCommentList.contains(videoViewData.videoId),
+          VideoView2.createdAfterLastConnection(videoViewData.createDate, services.user().withUserName(principal.getName()) == null ? null : services.user().withUserName(principal.getName()).lastConnectionDate))
+        )
+        .collect(Collectors.toList());
+
+      VideosViewSort videosViewSort = new VideosViewSort();
+      videoViews = videosViewSort.sort(videoViews);
+
+      model.addAttribute("videosView", videoViews);
+    }
+
+
+
+
+
+
+    return "videos";
+  }
+
+  @RequestMapping(value = "/sign/{signId}/{videoId}")
+  public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+    String referer = req.getHeader("Referer");
+    String backUrl;
+    if (referer != null ) {
+      if (referer.contains(SIGNS_URL)) {
+        backUrl = SIGNS_URL;
+      }  else if (referer.contains(SIGN_URL)) {
+        backUrl = signUrl(signId);
+      } else {
+        backUrl = HOME_URL;
+      }
+
+    } else {
+      backUrl = HOME_URL;
+    }
+    fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
     model.addAttribute("commentCreationView", new CommentCreationView());
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 
+
     Sign sign = services.sign().withIdSignsView(signId);
+    Video video = services.video().withId(videoId);
     if (principal != null) {
       User user = services.user().withUserName(principal.getName());
-      Object[] queryRating = services.sign().RatingForSignByUser(signId, user.id);
+      Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);
       RatingData ratingData = new RatingData(queryRating);
       model.addAttribute("ratingData", ratingData);
-      List<Object[]> queryAllComments = services.sign().AllCommentsForSign(signId);
+      List<Object[]> queryAllComments = services.video().AllCommentsForVideo(videoId);
       List<CommentData> commentDatas = queryAllComments.stream()
         .map(objectArray -> new CommentData(objectArray))
         .collect(Collectors.toList());
@@ -231,7 +284,7 @@ public class SignController {
       fillModelWithFavorites(model, user);
     }
     model.addAttribute("signView", sign);
-
+    model.addAttribute("videoView", video);
 
     return "sign";
   }
@@ -262,6 +315,39 @@ public class SignController {
 
     model.addAttribute("signView", sign);
     model.addAttribute("signCreationView", new SignCreationView());
+
+    return "sign-detail";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/{signId}/{videoId}/detail")
+  public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
+    fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, videoUrl(signId, videoId));
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    Sign sign = services.sign().withIdSignsView(signId);
+    Video video = services.video().withId(videoId);
+    if (principal != null) {
+      User user = services.user().withUserName(principal.getName());
+      Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);
+      RatingData ratingData = new RatingData(queryRating);
+      model.addAttribute("ratingData", ratingData);
+      List<Object[]> queryAllComments = services.video().AllCommentsForVideo(videoId);
+      List<CommentData> commentDatas = queryAllComments.stream()
+        .map(objectArray -> new CommentData(objectArray))
+        .collect(Collectors.toList());
+      model.addAttribute("commentDatas", commentDatas);
+      fillModelWithFavorites(model, user);
+    }
+    List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
+    List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
+      .map(objectArray -> new VideoHistoryData(objectArray))
+      .collect(Collectors.toList());
+    model.addAttribute("videoHistoryDatas", videoHistoryDatas);
+
+    model.addAttribute("signView", sign);
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("videoView", video);
+
 
     return "sign-detail";
   }
@@ -338,8 +424,16 @@ public class SignController {
     return "/sign/" + signId;
   }
 
+  private String videoUrl(long signId, long videoId) {
+    return "/sign/" + signId + "/" + videoId;
+  }
+
   private String showSign(long signId) {
     return "redirect:/sign/" + signId;
+  }
+
+  private String showVideo(long signId, long videoId) {
+    return "redirect:/sign/" + signId + "/" + videoId;
   }
 
   private void fillModelWithContext(Model model, String messageEntry, Principal principal, boolean showAddFavorite, String backUrl) {

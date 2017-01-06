@@ -93,6 +93,15 @@ public class VideoServiceImpl implements VideoService {
     return RatingServiceImpl.ratingFrom(ratingDB);
   }
 
+  @Override
+  public Object[] RatingForVideoByUser(long videoId, long userId) {
+    return videoRepository.findRatingForVideoByUser(videoId, userId);
+  }
+
+  @Override
+  public List<Object[]> AllCommentsForVideo(long videoId) {
+    return videoRepository.findAllCommentsForVideo(videoId);
+  }
 
   @Override
   public Videos forSign(long signId) {

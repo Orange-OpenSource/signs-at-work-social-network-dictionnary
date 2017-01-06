@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.service;
+package com.orange.signsatwork.biz.view.model;
 
 /*
  * #%L
@@ -22,28 +22,13 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.*;
+/** interface which describes methods required to sort a signs' list */
+public interface ComparableVideo {
+  /** video unique id */
+  long videoId();
 
-import java.util.List;
+  boolean createdSinceLastConnexion();
 
-public interface VideoService {
-  Videos all();
-
-  Video withId(long videoId);
-
-  Comment createVideoComment(long videoId, long userId, String commentText);
-
-  RatingDat createVideoRating(long videoId, long userId, Rating rating);
-
-  Object[] RatingForVideoByUser(long videoId, long userId);
-
-  List<Object[]> AllCommentsForVideo(long videoId);
-
-  Videos forSign(long signId);
-
-  Rating ratingFor(Video video, long userId);
-
-  Videos forUser(long userId);
-
-  void delete(Video video);
+  /** modified means: a comment was added, or the video changed */
+  boolean modifiedSinceLastConnexion();
 }

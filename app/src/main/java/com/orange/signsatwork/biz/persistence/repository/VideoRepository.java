@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.repository;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -38,4 +38,11 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
 
     @Query("select distinct c FROM VideoDB c inner join c.user user where user = :userDB")
     List<VideoDB> findByUser(@Param("userDB") UserDB userDB);
+
+    @Query(value="select a.rating  from ratings a where a.video_id = :videoId and a.user_id = :userId", nativeQuery = true)
+    Object[] findRatingForVideoByUser(@Param("videoId") long signId, @Param("userId") long userId );
+
+    @Query(value="select a.text, a.comment_date, c.first_name, c.last_name  from comments a inner join userdb c on a.video_id = :videoId and a.user_id=c.id order by comment_date desc", nativeQuery = true)
+    List<Object[]> findAllCommentsForVideo(@Param("videoId") long videoId);
+
 }

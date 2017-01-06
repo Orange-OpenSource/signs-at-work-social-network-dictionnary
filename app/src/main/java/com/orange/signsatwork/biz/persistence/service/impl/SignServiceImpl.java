@@ -124,8 +124,18 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Long[] NbCommentForAllVideoBySign(long signId) {
+    return signRepository.findNbCommentForAllVideoBySign(signId);
+  }
+
+  @Override
   public List<Object[]> AllVideosHistoryForSign(long signId) {
     return signRepository.findAllVideosHistoryForSign(signId);
+  }
+
+  @Override
+  public List<Object[]> AllVideosForSign(long signId) {
+    return signRepository.findAllVideosForSign(signId);
   }
 
   @Override
