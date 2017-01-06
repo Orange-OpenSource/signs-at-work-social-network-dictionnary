@@ -211,6 +211,8 @@ public class SignController {
 
   @RequestMapping(value = "/sign/{signId}")
   public String sign(HttpServletRequest req, @PathVariable long signId, Principal principal, Model model) {
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+
     String referer = req.getHeader("Referer");
     String backUrl = referer != null && referer.contains(SIGNS_URL) ? SIGNS_URL : HOME_URL;
     fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
@@ -226,13 +228,11 @@ public class SignController {
 
 
       List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
+
       List<VideoView2> videoViews = videoViewsData.stream()
-        .map(videoViewData -> new VideoView2(
-          videoViewData,
-          videoWithCommentList.contains(videoViewData.videoId),
-          VideoView2.createdAfterLastConnection(videoViewData.createDate, services.user().withUserName(principal.getName()) == null ? null : services.user().withUserName(principal.getName()).lastConnectionDate))
-        )
+        .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, user))
         .collect(Collectors.toList());
+
 
       VideosViewSort videosViewSort = new VideosViewSort();
       videoViews = videosViewSort.sort(videoViews);
@@ -470,6 +470,13 @@ public class SignController {
       signViewData,
       signWithCommentList.contains(signViewData.id),
       SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate));
+  }
+
+  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, User user) {
+    return new VideoView2(
+      videoViewData,
+      videoWithCommentList.contains(videoViewData.videoId),
+      VideoView2.createdAfterLastConnection(videoViewData.createDate, user == null ? null : user.lastConnectionDate));
   }
 
   private void fillModelWithSign(Model model, long signId, Principal principal) {
