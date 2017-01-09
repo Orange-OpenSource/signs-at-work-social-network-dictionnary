@@ -24,6 +24,8 @@
 <head>
   <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
   <th:block th:include="fragments/header-head :: head"></th:block>
+  <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
+  <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
 
   <script type="text/javascript" src="../public/js/player.js" th:src="@{/js/player.js}"></script>
 
@@ -43,7 +45,7 @@
 <header role="banner" th:replace="fragments/header-profil-detail :: header">&nbsp;</header>
 
 <body class="container-fluid">
-<div th:replace="fragments/modal-inputNameLSF :: div"/>
+<div th:replace="fragments/modal-input-name-LSF :: div"/>
 <div th:replace="fragments/modal-input-lastName :: div"/>
 <div th:replace="fragments/modal-input-firstName :: div"/>
 
@@ -53,10 +55,14 @@
 
     <div class="pull-right col-md-8 col-xs-12 col-sm-4">
       <div th:if="${user.nameVideo} != null">
-        <video th:autoplay="autoplay">
-          <source src="${user.nameVideo}" th:src="${user.nameVideo}" type="video/mp4"/>
-        </video>
-        <div th:replace="fragments/frame-player :: div"/>
+        <iframe th:if="${not #strings.contains(user.nameVideo,'mp4') and not #strings.contains(user.nameVideo,'mov')}" th:src="${user.nameVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+
+        <div th:if="${#strings.contains(user.nameVideo,'mp4') or #strings.contains(user.nameVideo,'mov')}">
+          <video>
+            <source src="'${user.nameVideo}" th:src="@{${user.nameVideo}}" type="video/mp4"/>
+          </video>
+          <div th:replace="fragments/frame-player :: div"/>
+        </div>
       </div>
 
     </div>
@@ -100,6 +106,7 @@
 
 
 </body>
-
+<script type="text/javascript" src="../public/js/inputProfilLSF.js" th:src="@{/js/inputProfilLSF.js}"></script>
+<script type="text/javascript" src="../public/js/recorderProfilLSF.js" th:src="@{/js/recorderProfilLSF.js}"></script>
 
 </html>

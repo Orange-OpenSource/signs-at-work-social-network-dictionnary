@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -218,38 +218,6 @@ public class UserController {
 
     return "input-description";
   }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/changeNameLSFfromupload", method = RequestMethod.POST)
-  public String changeNameLSF(@RequestParam("file") MultipartFile file, Principal principal, Model model) throws IOException, JCodecException {
-    User user = services.user().withUserName(principal.getName());
-    storageService.store(file);
-
-    String videoWebPath = "/files/" + file.getOriginalFilename();
-    services.user().changeNameVideoUrl(user, videoWebPath);
-    if (user.firstName.isEmpty() && user.lastName.isEmpty() && user.job.isEmpty() && user.entity.isEmpty() && user.jobTextDescription.isEmpty() ){
-      model.addAttribute("isUserEmpty", true);
-      return inputProfile(principal,model);
-    } else {
-      model.addAttribute("isUserEmpty", false);
-    }
-
-    return nameDetails(principal,model);
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/changeDescriptionLSFfromupload", method = RequestMethod.POST)
-  public String changeDescriptionLSF(@RequestParam("file") MultipartFile file, Principal principal, Model model) throws IOException, JCodecException {
-    User user = services.user().withUserName(principal.getName());
-    storageService.store(file);
-
-    String videoWebPath = "/files/" + file.getOriginalFilename();
-    services.user().changeDescriptionVideoUrl(user, videoWebPath);
-
-
-    return descriptionDetails(principal,model);
-  }
-
 
 
   @Secured("ROLE_USER")
