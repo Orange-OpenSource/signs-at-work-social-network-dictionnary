@@ -37,7 +37,7 @@
         <!--start input name-->
         <div>
           <H2 th:text="#{last_name}"></H2>
-          <input   type="text" th:value="${user.lastName}"  class="container_H2 text-center border " name="lastName" th:autofocus="true" />
+          <input type="text" th:value="${user.lastName}"  class="container_H2 text-center border " name="lastName" th:autofocus="true" required=""/>
           <div>
             <div class="pull-right add_whith_chevron" ></div>
           </div>
@@ -45,27 +45,19 @@
         <div class="divider"></div>
         <div>
           <H2 th:text="#{first_name}"></H2>
-          <input   type="text" th:value="${user.firstName}"  class="container_H2 text-center border " name="firstName" />
+          <input type="text" th:value="${user.firstName}"  class="container_H2 text-center border " name="firstName" required=""/>
           <div>
             <div class="pull-right add_whith_chevron"></div>
           </div>
         </div>
         <div class="divider"></div>
-        <ul class="nav nav-list primary left-menu">
-          <li  class="aside_bckg_li">
-            <h2 th:text="#{name_LSF}"></h2>
-            <input  class="container_H2 text-center" name="fileVideoName" type="file"/>
-              <div>
-                <div class="pull-right add_whith_chevron"></div>
-              </div>
-          </li>
-        </ul>
+
         <!--end input name-->
 
         <!--start input job-->
         <div>
           <H2 th:text="#{job}"></H2>
-          <input   type="text" th:value="${user.job}"  class="container_H2 text-center border " name="job" />
+          <input type="text" th:value="${user.job}"  class="container_H2 text-center border " name="job" required=""/>
           <div>
             <div class="pull-right add_whith_chevron"></div>
           </div>
@@ -73,7 +65,7 @@
         <div class="divider"></div>
         <div>
           <H2 th:text="#{entity}"></H2>
-          <input   type="text" th:value="${user.entity}"  class="container_H2 text-center border " name="entity" />
+          <input type="text" th:value="${user.entity}"  class="container_H2 text-center border " name="entity" required=""/>
           <div>
             <div class="pull-right add_whith_chevron"></div>
           </div>
@@ -81,25 +73,6 @@
         <div class="divider"></div>
         <!--end input job-->
 
-        <!--start input description-->
-        <div>
-          <H2 th:text="#{jobTextDescription}"></H2>
-          <textarea class="pull-left"  name="jobTextDescription" rows="3" cols="40"></textarea><br/>
-          <div>
-            <div class="pull-right add_whith_chevron"></div>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <ul class="nav nav-list primary left-menu">
-          <li class="aside_bckg_li">
-            <h2 th:text="#{description_LSF}"></h2>
-            <input  class="container_H2 text-center" name="fileVideoJob" type="file"/>
-            <div>
-              <div class="pull-right add_whith_chevron"></div>
-            </div>
-          </li>
-        </ul>
-        <!--end input description-->
         <br/>
         <div class="text-center"><button class="btn btn-default" type="submit" th:text="#{continue}"></button></div>
       </form>

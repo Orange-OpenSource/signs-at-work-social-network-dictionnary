@@ -149,24 +149,12 @@ public class UserController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/profile/profileEmpty", method = RequestMethod.POST)
-  public String createUserProfile(
-    @RequestParam("fileVideoName") MultipartFile fileVideoName, @RequestParam("fileVideoJob") MultipartFile fileVideoJob,
-    @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-
-    if (!fileVideoName.isEmpty()) {
-      storageService.store(fileVideoName);
-      userCreationView.setNameVideo("/files/" + fileVideoName.getOriginalFilename());
-    }
-
-    if (!fileVideoJob.isEmpty()) {
-      storageService.store(fileVideoJob);
-      userCreationView.setJobVideoDescription("/files/" + fileVideoJob.getOriginalFilename());
-    }
+  public String createUserProfile(@ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
 
     UserService userService = services.user();
 
     User user = userService.withUserName(principal.getName());
-    userService.createProfile(user, userCreationView.getLastName(), userCreationView.getFirstName(), userCreationView.getNameVideo(), userCreationView.getJob(), userCreationView.getEntity(), userCreationView.getJobTextDescription(), userCreationView.getJobVideoDescription());
+    userService.createProfile(user, userCreationView.getLastName(), userCreationView.getFirstName(), null, userCreationView.getJob(), userCreationView.getEntity(), null, null);
     return userDetails(principal, model);
   }
 
