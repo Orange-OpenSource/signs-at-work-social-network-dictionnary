@@ -227,7 +227,8 @@ public class FileUploadRestController {
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
-      return Long.toString(sign.id);
+      //return Long.toString(sign.id);
+      return "/sec/sign/" + Long.toString(sign.id) + "/" + Long.toString(sign.lastVideoId) + "/detail";
     }
     catch(Exception errorDailymotionUploadFile)
     {
@@ -356,7 +357,8 @@ public class FileUploadRestController {
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
-      return (Long.toString(sign.id));
+      //return (Long.toString(sign.id));
+      return "/sec/sign/" + Long.toString(sign.id) + "/" + Long.toString(sign.lastVideoId) + "/detail";
     } catch (Exception errorDailymotionUploadFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorDailymotionUploadFile");

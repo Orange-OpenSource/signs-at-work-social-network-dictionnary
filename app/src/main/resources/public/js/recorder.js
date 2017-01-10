@@ -143,7 +143,8 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       data: JSON.stringify(videoFile),
       contentType: "application/json",
       success: function(response) {
-        var url = "/sign/"+response;
+        //var url = "/sign/"+response;
+        var url = response;
         window.location = url;
         errorSpan.style.visibility="hidden";
         $(".spinner").visibility="hidden";

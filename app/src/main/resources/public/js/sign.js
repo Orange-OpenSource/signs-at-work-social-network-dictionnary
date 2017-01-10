@@ -39,9 +39,10 @@ $formUploadSelectedVideoFile.on('submit', function(event) {
       data: data,
       contentType:false,
       processData: false,
-      dataType: 'json',
+      //dataType: 'json',
       success: function(response) {
-        var url = "/sign/"+response;
+        //var url = "/sign/"+response;
+        var url = response;
         window.location = url;
         errorSelectedSpan.style.visibility="hidden";
         $(".spinner").visibility="hidden";

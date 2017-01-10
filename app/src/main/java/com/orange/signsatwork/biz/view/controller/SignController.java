@@ -238,14 +238,9 @@ public class SignController {
       videoViews = videosViewSort.sort(videoViews);
 
       model.addAttribute("videosView", videoViews);
+      return "videos";
     }
 
-
-
-
-
-
-    return "videos";
   }
 
   @RequestMapping(value = "/sign/{signId}/{videoId}")
@@ -256,11 +251,18 @@ public class SignController {
       if (referer.contains(SIGNS_URL)) {
         backUrl = SIGNS_URL;
       }  else if (referer.contains(SIGN_URL)) {
-        backUrl = signUrl(signId);
+        List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
+        List<VideoViewData> videoViewsData = querySigns.stream()
+          .map(objectArray -> new VideoViewData(objectArray))
+          .collect(Collectors.toList());
+        if (videoViewsData.size() == 1) {
+          backUrl = HOME_URL;
+        } else {
+          backUrl = signUrl(signId);
+        }
       } else {
         backUrl = HOME_URL;
       }
-
     } else {
       backUrl = HOME_URL;
     }
@@ -289,35 +291,7 @@ public class SignController {
     return "sign";
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/detail")
-  public String signDetail(@PathVariable long signId, Principal principal, Model model)  {
-    fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, signUrl(signId));
-    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
-    Sign sign = services.sign().withIdSignsView(signId);
-    if (principal != null) {
-      User user = services.user().withUserName(principal.getName());
-      Object[] queryRating = services.sign().RatingForSignByUser(signId, user.id);
-      RatingData ratingData = new RatingData(queryRating);
-      model.addAttribute("ratingData", ratingData);
-      List<Object[]> queryAllComments = services.sign().AllCommentsForSign(signId);
-      List<CommentData> commentDatas = queryAllComments.stream()
-        .map(objectArray -> new CommentData(objectArray))
-        .collect(Collectors.toList());
-      model.addAttribute("commentDatas", commentDatas);
-      fillModelWithFavorites(model, user);
-    }
-    List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
-    List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
-      .map(objectArray -> new VideoHistoryData(objectArray))
-      .collect(Collectors.toList());
-    model.addAttribute("videoHistoryDatas", videoHistoryDatas);
 
-    model.addAttribute("signView", sign);
-    model.addAttribute("signCreationView", new SignCreationView());
-
-    return "sign-detail";
-  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/detail")
