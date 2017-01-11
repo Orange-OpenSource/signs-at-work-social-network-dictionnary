@@ -46,31 +46,6 @@ public class RatingController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/rate-positive", method = RequestMethod.POST)
-  public String ratePositive(@PathVariable long signId, Principal principal) {
-    return doRate(signId, principal, Rating.Positive);
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/rate-neutral", method = RequestMethod.POST)
-  public String rateNeutral(@PathVariable long signId, Principal principal) {
-    return doRate(signId, principal, Rating.Neutral);
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/rate-negative", method = RequestMethod.POST)
-  public String rateNegative(@PathVariable long signId, Principal principal) {
-    return doRate(signId, principal, Rating.Negative);
-  }
-
-  private String doRate(long signId, Principal principal, Rating rating) {
-    User user = services.user().withUserName(principal.getName());
-    Sign sign = services.sign().withId(signId);
-    sign.changeUserRating(user, rating);
-
-    return "redirect:/sign/" + signId;
-  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/rate-positive", method = RequestMethod.POST)

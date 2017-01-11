@@ -35,21 +35,21 @@
             </div>
             <div class="modal-body">
                 <div class="sentiment_In_Modal">
-                    <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${signView.lastVideoId} + '/rate-positive'" method="post">
+                    <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/rate-positive'" method="post">
                         <button type="submit" class="containerRight_signes sentiment_positif"/>
                     </form>
                 </div>
             </div>
             <div class="modal-body text-center ">
                 <div class="sentiment_In_Modal">
-                    <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${signView.lastVideoId} + '/rate-neutral'" method="post">
+                    <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/rate-neutral'" method="post">
                         <button type="submit" class="containerRight_signes sentiment_neutre"/>
                     </form>
                 </div>
             </div>
             <div class="modal-body text-center ">
                 <div class="sentiment_In_Modal">
-                    <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${signView.lastVideoId} + '/rate-negative'" method="post">
+                    <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/rate-negative'" method="post">
                         <button type="submit" class="containerRight_signes sentiment_negatif"/>
                     </form>
                 </div>
