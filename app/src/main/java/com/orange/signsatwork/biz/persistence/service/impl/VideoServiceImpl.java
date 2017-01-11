@@ -23,10 +23,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  */
 
 import com.orange.signsatwork.biz.domain.*;
-import com.orange.signsatwork.biz.persistence.model.CommentDB;
-import com.orange.signsatwork.biz.persistence.model.RatingDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
-import com.orange.signsatwork.biz.persistence.model.VideoDB;
+import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.VideoService;
@@ -141,6 +138,16 @@ public class VideoServiceImpl implements VideoService {
     videoDB.getSign().getVideos().remove(videoDB);
 
     videoRepository.delete(videoDB);
+
+    SignDB signDB = videoDB.getSign();
+    if ((signDB.getLastVideoId() == video.id) && (signDB.getVideos().size() > 1)) {
+      VideoDB lastVideoDB = signDB.getVideos().get(signDB.getVideos().size()-1);
+      long lastVideoId = lastVideoDB.getId();
+      signDB.setLastVideoId(lastVideoId);
+      signDB.setCreateDate(lastVideoDB.getCreateDate());
+      signDB.setUrl(lastVideoDB.getUrl());
+      signRepository.save(signDB);
+    }
   }
 
   static Videos videosFrom(Iterable<VideoDB> videosDB) {

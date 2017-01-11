@@ -368,13 +368,13 @@ public class FileUploadRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION, method = RequestMethod.POST)
-  public String uploadSelectedVideoFileForJobDescription(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+  public String uploadSelectedVideoFileForJobDescription(@RequestParam("file") MultipartFile file, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
     return handleSelectedVideoFileUploadForProfil(file, principal, "JobDescription", response);
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME, method = RequestMethod.POST)
-  public String uploadSelectedVideoFileForName(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+  public String uploadSelectedVideoFileForName(@RequestParam("file") MultipartFile file, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
     return handleSelectedVideoFileUploadForProfil(file, principal, "Name", response);
   }
 
@@ -468,13 +468,13 @@ public class FileUploadRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION, method = RequestMethod.POST)
-  public String uploadRecordedVideoFileForJobDescription(@RequestBody VideoFile videoFile, Principal principal, String inputType, HttpServletResponse response) {
+  public String uploadRecordedVideoFileForJobDescription(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
     return handleRecordedVideoFileForProfil(videoFile, principal, "JobDescription", response);
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NAME, method = RequestMethod.POST)
-  public String uploadRecordedVideoFileForName(@RequestBody VideoFile videoFile, Principal principal, String inputType, HttpServletResponse response) {
+  public String uploadRecordedVideoFileForName(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
     return handleRecordedVideoFileForProfil(videoFile, principal, "Name", response);
   }
 

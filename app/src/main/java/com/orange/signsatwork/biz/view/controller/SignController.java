@@ -296,6 +296,8 @@ public class SignController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/detail")
   public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
+    Boolean isVideoCreatedByMe = false;
+
     fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, videoUrl(signId, videoId));
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     Sign sign = services.sign().withIdSignsView(signId);
@@ -311,6 +313,9 @@ public class SignController {
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
       fillModelWithFavorites(model, user);
+      if (video.user.id == user.id) {
+        isVideoCreatedByMe = true;
+      }
     }
     List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
     List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
@@ -321,7 +326,7 @@ public class SignController {
     model.addAttribute("signView", sign);
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("videoView", video);
-
+    model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
 
     return "sign-detail";
   }

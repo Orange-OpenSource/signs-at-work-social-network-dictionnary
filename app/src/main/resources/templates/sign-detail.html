@@ -91,7 +91,7 @@
                             </div>
                         </a>
                     </li>
-                    <div th:if="${!ratingData.rateNoRate}">
+                    <div th:if="${!ratingData.rateNoRate and !isVideoCreatedByMe}">
                         <li class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                                 <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
@@ -103,6 +103,17 @@
                                 </div>
                             </a>
                         </li>
+                    </div>
+                    <div th:if="${isVideoCreatedByMe}">
+                      <li class="aside_bckg_li">
+                        <a href="#" data-toggle="modal" data-target="#video_delete_modal">
+                          <div class="pull-left delete_picto"></div>
+                          <h2 class="container_H2" th:text="#{video.delete}"/>
+                          <div>
+                            <div class="pull-right chevron_right"/>
+                          </div>
+                        </a>
+                      </li>
                     </div>
                     <li class="aside_bckg_li">
                         <a href="#">
@@ -136,11 +147,13 @@
 
 <div th:replace="fragments/modal-rate-sign :: div"/>
 <div th:replace="fragments/modal-add-favorite :: div"/>
+<div th:replace="fragments/modal-delete-video :: div"/>
 
 
 </body>
 
 <script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
 <script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
+<script type="text/javascript" src="../public/js/video.js" th:src="@{/js/video.js}"></script>
 
 </html>

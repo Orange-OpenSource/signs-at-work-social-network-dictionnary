@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -24,6 +24,8 @@ package com.orange.signsatwork.biz.webservice.controller;
 
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.Video;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.view.model.SignCreationView;
@@ -34,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
 /**
@@ -46,25 +49,39 @@ import java.security.Principal;
 public class SignRestController {
 
   @Autowired
-  UserService userService;
+  Services services;
 
-  @Autowired
-  SignService signService;
 
   @RequestMapping(value = RestApi.WS_OPEN_SIGN + "/{id}")
   public SignView sign(@PathVariable long id) {
-    Sign sign = signService.withIdLoadAssociates(id);
+    Sign sign = services.sign().withIdLoadAssociates(id);
     return new SignView(sign);
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SIGN_CREATE, method = RequestMethod.POST)
   public SignId createSign(@RequestBody SignCreationView signCreationView, Principal principal) {
-    User user = userService.withUserName(principal.getName());
-    Sign sign = signService.create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
+    User user = services.user().withUserName(principal.getName());
+    Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
 
     log.info("createSign: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 
     return new SignId(sign.id);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEO_DELETE, method = RequestMethod.POST)
+  public String deleteVideo(@PathVariable long signId, @PathVariable long videoId, HttpServletResponse response) {
+    Sign sign = services.sign().withId(signId);
+    if (sign.videos.list().size() == 1) {
+      services.sign().delete(sign);
+      response.setStatus(HttpServletResponse.SC_OK);
+      return "/";
+    } else {
+      Video video = services.video().withId(videoId);
+      services.video().delete(video);
+      response.setStatus(HttpServletResponse.SC_OK);
+      return "/sign/" + signId;
+    }
   }
 }
