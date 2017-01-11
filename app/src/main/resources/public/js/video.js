@@ -25,9 +25,10 @@ var errorDeletedSpan = document.getElementById('errorDeletedSpan');
 
 var $formDeleteVideo = $('#deleteVideo');
 $formDeleteVideo.on('submit', function(event) {
-  document.getElementById('continue').disabled = true;
+  document.getElementById('submitButtonDelete').disabled = true;
   $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
   $(".spinner").css("z-index","1500").visibility="visible";
+  $("#submitButtonDelete").css("color","black");
   var $form = $(this);
   var formdata = new FormData($form[0]);
   var data = (formdata !== null) ? formdata : $form.serialize();
@@ -65,7 +66,7 @@ $formDeleteVideo.on('input', function(event) {
 var $video_delete_modal = $('#video_delete_modal');
 $video_delete_modal.on('hidden.bs.modal', function() {
  console.log("hidden video_delete_modal modal");
-  document.getElementById('continue').disabled = true;
+  document.getElementById('submitButtonDelete').disabled = true;
   if ($('#deleteVideo').find('#errorDeletedSpan').length) {
     errorDeletedSpan.style.visibility="hidden";
   }
