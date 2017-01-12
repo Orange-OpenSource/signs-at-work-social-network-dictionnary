@@ -343,7 +343,9 @@ public class SignServiceImpl implements SignService {
     signDB.getFavorites().forEach(favoriteDB -> favoriteDB.getSigns().remove(signDB));
     signDB.getReferenceBy().forEach(s -> s.getAssociates().remove(signDB));
     RequestDB requestDB = requestRepository.findBySign(signDB);
-    requestDB.setSign(null);
+    if (requestDB != null) {
+      requestDB.setSign(null);
+    }
 
     signRepository.delete(signDB);
   }
