@@ -26,6 +26,7 @@ import com.orange.signsatwork.AppProfile;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.model.VideoDB;
@@ -56,6 +57,7 @@ public class SignServiceImpl implements SignService {
   private final VideoRepository videoRepository;
   private final CommentRepository commentRepository;
   private final RatingRepository ratingRepository;
+  private final RequestRepository requestRepository;
   private final Services services;
 
   @Autowired
@@ -340,6 +342,9 @@ public class SignServiceImpl implements SignService {
             .forEach(video -> services.video().delete(video));
     signDB.getFavorites().forEach(favoriteDB -> favoriteDB.getSigns().remove(signDB));
     signDB.getReferenceBy().forEach(s -> s.getAssociates().remove(signDB));
+    RequestDB requestDB = requestRepository.findBySign(signDB);
+    requestDB.setSign(null);
+
     signRepository.delete(signDB);
   }
 
