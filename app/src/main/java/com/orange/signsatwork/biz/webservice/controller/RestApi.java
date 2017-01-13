@@ -46,7 +46,7 @@ public class RestApi {
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_REQUEST = WS_SEC + "uploadRecordedVideoFile/{requestId}";
 
-  public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_SIGN = WS_SEC + "uploadRecordedVideoFileFromSign/{signId}";
+  public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_SIGN = WS_SEC + "uploadRecordedVideoFileFromSign/{signId}/{videoId}";
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION = WS_SEC + "uploadRecordedVideoFileForJobDescription";
 
@@ -56,7 +56,7 @@ public class RestApi {
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_REQUEST = WS_SEC + "uploadSelectedVideoFile/{requestId}";
 
-  public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_SIGN = WS_SEC + "uploadSelectedVideoFileFromSign/{signId}";
+  public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_SIGN = WS_SEC + "uploadSelectedVideoFileFromSign/{signId}/{videoId}";
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION = WS_SEC + "uploadSelectedVideoFileForJobDescription";
 

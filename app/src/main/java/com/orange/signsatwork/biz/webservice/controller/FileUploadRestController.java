@@ -84,23 +84,23 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD, method = RequestMethod.POST)
   public String uploadRecordedVideoFile(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.empty(),  principal, response);
+    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), principal, response);
   }
 
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
   public String uploadRecordedVideoFileFromRequest(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFile(videoFile, OptionalLong.of(requestId), OptionalLong.empty(),  principal, response);
+    return handleRecordedVideoFile(videoFile, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), principal, response);
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
-  public String uploadRecordedVideoFileFromSign(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId),  principal, response);
+  public String uploadRecordedVideoFileFromSign(@RequestBody VideoFile videoFile, @PathVariable long signId, @PathVariable long videoId, Principal principal, HttpServletResponse response) {
+    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), principal, response);
   }
 
-  private String handleRecordedVideoFile(VideoFile videoFile, OptionalLong requestId,OptionalLong signId, Principal principal, HttpServletResponse response) {
+  private String handleRecordedVideoFile(VideoFile videoFile, OptionalLong requestId,OptionalLong signId, OptionalLong videoId, Principal principal, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
     String videoUrl = null;
@@ -215,7 +215,7 @@ public class FileUploadRestController {
       }
       Sign sign;
       if (signId.isPresent()) {
-          sign = services.sign().replace(user.id, signId.getAsLong(), videoUrl, pictureUri);
+          sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
       }else{
          sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
         log.info("handleFileUpload : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
@@ -253,23 +253,23 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD, method = RequestMethod.POST)
   public String uploadSelectedVideoFile(@RequestParam("file") MultipartFile file, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
+    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
   public String createSignFromUploadondailymotion(@RequestParam("file") MultipartFile file,@PathVariable long requestId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUpload(file, OptionalLong.of(requestId), OptionalLong.empty(), signCreationView, principal, response);
+    return handleSelectedVideoFileUpload(file, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
 
   }
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
-  public String createSignFromUploadondailymotionFromSign(@RequestParam("file") MultipartFile file,@PathVariable long signId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), signCreationView, principal, response);
+  public String createSignFromUploadondailymotionFromSign(@RequestParam("file") MultipartFile file,@PathVariable long signId, @PathVariable long videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationView, principal, response);
 
   }
 
-  private String handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private String handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
 
     try {
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
@@ -346,7 +346,7 @@ public class FileUploadRestController {
 
       Sign sign;
       if (signId.isPresent()) {
-        sign = services.sign().replace(user.id, signId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
+        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
       } else {
         sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
       }

@@ -87,7 +87,7 @@
           <button id="start-recording" class="glyphicon glyphicon-record" title="Cliquer pour enregistrer" ></button>
           <button id="stop-recording" class="glyphicon glyphicon-stop" title="Arrêter l'enregistrement" disabled=""></button>
         </div>
-        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${signView.id}" th:object="${signCreationView}" method="post">
+        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.id}" th:object="${signCreationView}" method="post">
           <div class="modal-body text-center">
             <span id="errorSpan"  style="visibility: hidden"></span>
           </div>
@@ -115,7 +115,7 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${signView.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
           <input name="file" type="file"/>
           <span id="errorSelectedSpan"  style="visibility: hidden"></span>

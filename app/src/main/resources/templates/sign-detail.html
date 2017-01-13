@@ -82,15 +82,17 @@
                             </div>
                         </a>
                     </li>
-                    <li class="aside_bckg_li">
-                        <a data-target="#replace"    data-toggle="modal" href="#">
-                            <div class="pull-left replace_signe"></div>
-                            <h2 class="container_H2" th:text="#{sign.replace}"/>
-                            <div>
-                                <div class="pull-right chevron_right"/>
-                            </div>
-                        </a>
-                    </li>
+                    <div th:if="${isVideoCreatedByMe}">
+                      <li class="aside_bckg_li">
+                          <a data-target="#replace"    data-toggle="modal" href="#">
+                              <div class="pull-left replace_signe"></div>
+                              <h2 class="container_H2" th:text="#{sign.replace}"/>
+                              <div>
+                                  <div class="pull-right chevron_right"/>
+                              </div>
+                          </a>
+                      </li>
+                    </div>
                     <div th:if="${!ratingData.rateNoRate and !isVideoCreatedByMe}">
                         <li class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
