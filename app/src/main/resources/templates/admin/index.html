@@ -26,12 +26,14 @@
 </head>
 <body>
 
-<div th:replace="fragments/header-testUI :: header">&nbsp;</div>
+<div th:replace="fragments/header-admin :: header">&nbsp;</div>
 
 <section class="jumbotron text-xs-center">
     <div th:if="${isAuthenticated}" class="container">
         <h2 th:text="#{welcome_admin}" class="jumbotron-heading"></h2>
         <a th:href="@{/sec/admin/users}" th:text="#{see_users}" class="btn btn-secondary"></a>
+        <a th:href="@{/sec/admin/communities}" th:text="#{see_communities}" class="btn btn-secondary"></a>
+        <a th:href="@{/sec/admin/manage_communities_users}" th:text="#{manage_communities_users}" class="btn btn-secondary"></a>
     </div>
     <div th:if="${!isAuthenticated}" class="container">
         <h2 class="jumbotron-heading" th:text="#{invite_message}"></h2>

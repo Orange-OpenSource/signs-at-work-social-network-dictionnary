@@ -26,42 +26,28 @@
 </head>
 <body>
 
-<div th:replace="fragments/header-testUI :: header">&nbsp;</div>
+<div th:replace="fragments/header-admin :: header">&nbsp;</div>
 
 
 <section class="jumbotron text-xs-center">
     <div class="container">
-        <h1 class="jumbotron-heading" th:text="#{users}">
+        <h1 class="jumbotron-heading" th:text="#{communities}">
         </h1>
     </div>
     <br/>
 
-    <div th:if="${not #lists.isEmpty(users)}">
+    <div th:if="${not #lists.isEmpty(communities)}">
         <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
             <thead>
             <tr>
                 <th>#id</th>
-                <th th:text="#{user_name}"></th>
-                <th th:text="#{first_name}"></th>
-                <th th:text="#{last_name}"></th>
-                <th th:text="#{email}"></th>
-                <th th:text="#{entity}"></th>
-                <th th:text="#{job}"></th>
-                <th th:text="#{jobTextDescription}"></th>
-                <th th:text="#{lastConnectionDate}"></th>
+                <th th:text="#{name}"></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${users}">
-                <td><a th:href="@{/sec/testUI/user/{userid}(userid=${user.id})}" th:text="${user.id}"/></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.entity}"></td>
-                <td th:text="${user.job}"></td>
-                <td th:text="${user.jobTextDescription}"></td>
-                <td th:text="${user.lastConnectionDate}"></td>
+            <tr th:each="community : ${communities}">
+                <td th:text="${community.id}"></td>
+                <td th:text="${community.name}"></td>
             </tr>
             </tbody>
         </table>

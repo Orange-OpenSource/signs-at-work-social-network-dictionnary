@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header-testUI :: header">&nbsp;</div>
+<div th:replace="fragments/header-admin :: header">&nbsp;</div>
 
 <section class="jumbotron text-xs-center">
     <div class="container">
@@ -35,7 +35,7 @@
     </div>
     <br/>
 
-    <form class="form-inline" action="#" th:action="@{/sec/testUI/community/create}" th:object="${community}" method="post">
+    <form class="form-inline" action="#" th:action="@{/sec/admin/community/create}" th:object="${community}" method="post">
         <div class="form-group">
             <label for="name" th:text="#{name}"></label>
             <input th:field="*{name}" type="text" class="form-control" placeholder="canari" required="" autofocus=""/>
@@ -53,7 +53,7 @@
     </div>
     <br/>
 
-    <form class="form-inline" action="#" th:action="@{/sec/testUI/user/create}"  enctype="multipart/form-data" th:object="${user}" method="post">
+    <form class="form-inline" action="#" th:action="@{/sec/admin/user/create}"  enctype="multipart/form-data" th:object="${user}" method="post">
         <div class="form-group">
             <label for="username" th:text="#{user_name}"></label>
             <input th:field="*{username}" type="text" class="form-control" placeholder="titi" required="" autofocus=""/>
@@ -61,30 +61,6 @@
         <div class="form-group">
             <label for="password" th:text="#{password}"></label>
             <input th:field="*{password}" type="password" class="form-control" required="" />
-        </div>
-        <div class="form-group">
-            <label for="firstName" th:text="#{first_name}"></label>
-            <input th:field="*{firstName}" type="text" class="form-control"  />
-            <label for="lastName" th:text="#{last_name}"></label>
-            <input th:field="*{lastName}" type="text" class="form-control"  />
-            <input name="fileVideoName" type="file"/>
-        </div>
-        <div class="form-group">
-            <label for="email" th:text="#{email}"></label>
-            <input th:field="*{email}" type="text" class="form-control"  />
-        </div>
-        <div class="form-group">
-            <label for="entity" th:text="#{entity}"></label>
-            <input th:field="*{entity}" type="text" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="job" th:text="#{job}"></label>
-            <input th:field="*{job}" type="text" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="jobTextDescription" th:text="#{jobTextDescription}"></label>
-            <input th:field="*{jobTextDescription}" type="text" class="form-control"/>
-            <input name="fileVideoJob" type="file"/>
         </div>
         <br/>
         <button type="submit" class="btn btn-primary" th:text="#{add_user}"></button>

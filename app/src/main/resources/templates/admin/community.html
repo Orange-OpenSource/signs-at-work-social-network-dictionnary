@@ -22,37 +22,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 <body>
 
-<div th:replace="fragments/header-testUI :: header">&nbsp;</div>
+<div th:replace="fragments/header-admin :: header">&nbsp;</div>
 
 
 <section class="jumbotron text-xs-center">
-    <div class="container">
-        <h1 class="jumbotron-heading" th:text="#{communities}">
-        </h1>
-    </div>
-    <br/>
+  <div class="container">
+    <h1 class="jumbotron-heading" th:text="#{community_details}"/>
+  </div>
+  <br/>
 
-    <div th:if="${not #lists.isEmpty(communities)}">
-        <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
-            <thead>
-            <tr>
-                <th>#id</th>
-                <th th:text="#{name}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="community : ${communities}">
-                <td><a th:href="@{/sec/testUI/community/{communityid}(communityid=${community.id})}" th:text="${community.id}"/></td>
-                <td th:text="${community.name}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
+  <table class="table table-sm table-striped table-bordered" style="margin-top: 1%">
+    <thead>
+    <tr>
+      <th>#id</th>
+      <th th:text="#{name}"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td th:text="${community.id}"></td>
+      <td th:text="${community.name}"></td>
+    </tr>
+    </tbody>
+  </table>
 </section>
+
 </body>
 </html>
