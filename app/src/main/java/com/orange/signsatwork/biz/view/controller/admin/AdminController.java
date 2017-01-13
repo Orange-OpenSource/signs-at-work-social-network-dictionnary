@@ -52,9 +52,6 @@ import java.util.stream.Collectors;
 @Controller
 public class AdminController {
 
-//  @Autowired
-//  private UserTestUIController userTestUIController;
-
   @Autowired
   private UserAdminController userAdminController;
 
