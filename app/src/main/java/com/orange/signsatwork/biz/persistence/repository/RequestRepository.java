@@ -39,7 +39,7 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB")
     List<RequestDB> findByUser(@Param("userDB") UserDB userDB);
 
-    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB and c.sign is null")
+    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB and c.sign is null order by c.requestDate desc ")
     List<RequestDB> findByUserWithoutSignAssociate(@Param("userDB") UserDB userDB);
 
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB and c.sign is not null")

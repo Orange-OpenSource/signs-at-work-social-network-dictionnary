@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -29,10 +29,7 @@ import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
@@ -59,6 +56,40 @@ public class RequestRestController {
     } else {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
     }
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_REQUEST_RENAME, method = RequestMethod.POST)
+  public void renameRequest(@RequestBody RequestCreationView requestCreationView, @PathVariable long requestId, HttpServletResponse response) {
+
+
+    if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+      services.request().rename(requestId, requestCreationView.getRequestName());
+
+      log.info("renameRequest:  request name = {}", requestCreationView.getRequestName());
+    } else {
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+    }
+  }
+
+
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_REQUEST_PRIORISE, method = RequestMethod.POST)
+  public void  requestPriorised(@PathVariable long requestId) {
+    services.request().priorise(requestId);
+
+    return;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_REQUEST_DELETE, method = RequestMethod.POST)
+  public void  requestDeleted(@PathVariable long requestId, Principal principal) {
+    Request request = services.request().withId(requestId);
+    services.request().delete(request);
+
+    return;
   }
 
 }

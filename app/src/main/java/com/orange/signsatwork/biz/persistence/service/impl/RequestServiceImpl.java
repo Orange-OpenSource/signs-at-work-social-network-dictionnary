@@ -113,6 +113,17 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
+  public Request priorise(long requestId) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setRequestDate(new Date());
+    requestRepository.save(requestDB);
+
+
+    return requestFrom(requestDB, services);
+  }
+
+  @Override
   public Request create(long userId, String requestName) {
     RequestDB requestDB;
     UserDB userDB = userRepository.findOne(userId);
@@ -124,6 +135,16 @@ public class RequestServiceImpl implements RequestService {
 
     userDB.getRequests().add(requestDB);
     userRepository.save(userDB);
+
+    return requestFrom(requestDB, services);
+  }
+
+  @Override
+  public Request rename(long requestId, String requestName) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setName(requestName);
+    requestRepository.save(requestDB);
 
     return requestFrom(requestDB, services);
   }

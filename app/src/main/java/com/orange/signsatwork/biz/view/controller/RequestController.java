@@ -10,18 +10,19 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -64,6 +65,22 @@ public class RequestController {
     model.addAttribute("signCreationView", new SignCreationView());
 
     return "request";
+  }
+
+
+
+
+  @RequestMapping(value = "/sec/request-detail/{requestId}")
+  public String requestDetails(@PathVariable long requestId, Principal principal, Model model) {
+    Request request = services.request().withId(requestId);
+    model.addAttribute("title", request.name);
+    model.addAttribute("backUrl", REQUEST_URL );
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+
+    model.addAttribute("requestView", request);
+
+
+    return "request-detail";
   }
 
 

@@ -45,7 +45,11 @@ public interface RequestService {
 
   Request create(Request request);
 
+  Request rename(long requestId, String requestName);
+
   Request create(long userId, String requestName);
+
+  Request priorise(long requestId);
 
   void delete(Request request);
 }

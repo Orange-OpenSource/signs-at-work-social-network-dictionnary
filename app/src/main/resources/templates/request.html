@@ -56,13 +56,22 @@
                     <div class="text-center" th:text="#{request.mine}"></div>
                 </li>
 
-                <div th:if="${not #lists.isEmpty(myRequestsWithoutSignAssociate)}">
-                    <div th:each="request:${myRequestsWithoutSignAssociate}" >
-                    <li class="request_whitout_answer">
-                        <div class="text-center" th:text="${request.name}"></div>
-                    </li>
-                    </div>
+              <div th:if="${not #lists.isEmpty(myRequestsWithoutSignAssociate)}">
+                <div th:each="request:${myRequestsWithoutSignAssociate}" >
+                  <li class="dotted-top">
+                    <a th:href="@{/sec/request-detail/} + ${request.id}">
+                      <div class="pull-right">
+                        <div class="containerRight_signes">
+                          <div class="containerRight_signes">
+                            <div class="pull-right chevron_right"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <h2 class="text-center" th:text="${request.name}"></h2>
+                    </a>
+                  </li>
                 </div>
+              </div>
 
 
                 <div th:if="${not #lists.isEmpty(myRequestsWithSignAssociate)}">

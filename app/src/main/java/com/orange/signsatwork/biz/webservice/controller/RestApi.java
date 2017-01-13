@@ -36,6 +36,12 @@ public class RestApi {
 
   public static final String WS_SEC_REQUEST_CREATE = WS_SEC + "request/create";
 
+  public static final String WS_SEC_REQUEST_RENAME = WS_SEC + "request/{requestId}/rename";
+
+  public static final String WS_SEC_REQUEST_PRIORISE = WS_SEC + "request/{requestId}/priorise";
+
+  public static final String WS_SEC_REQUEST_DELETE = WS_SEC + "request/{requestId}/delete";
+
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD = WS_SEC + "uploadRecordedVideoFile";
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_REQUEST = WS_SEC + "uploadRecordedVideoFile/{requestId}";
