@@ -76,7 +76,7 @@
                             </div>
                         </a>
                     </li>
-
+                    <div th:if="${!isVideoCreatedByMe}">
                         <li th:if="${isAuthenticated and ratingData.rateNoRate}" class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                                 <div>
@@ -88,6 +88,7 @@
                                 </div>
                             </a>
                         </li>
+                    </div>
                     <li th:if="${isAuthenticated}" class="aside_bckg_li">
                         <a th:href="@{/sign/} + ${signView.id} + '/associates'">
                         <div>

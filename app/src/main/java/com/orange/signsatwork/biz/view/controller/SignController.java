@@ -245,6 +245,7 @@ public class SignController {
 
   @RequestMapping(value = "/sign/{signId}/{videoId}")
   public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+    Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
     String backUrl;
     if (referer != null ) {
@@ -284,9 +285,13 @@ public class SignController {
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
       fillModelWithFavorites(model, user);
+      if (video.user.id == user.id) {
+        isVideoCreatedByMe = true;
+      }
     }
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", video);
+    model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
 
     return "sign";
   }
