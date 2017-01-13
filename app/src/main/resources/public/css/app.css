@@ -357,12 +357,10 @@ text-decoration-line: none;
 
 
 .open > .dropdown-menu {
-	min-width: 20rem;
+	min-width: 29rem;
+  left:-10px;
 }
 
-/*.navbar-header{*/
-	/*margin: 15px 0px 0px 0px;*/
-/*}*/
 
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
 	margin-left: -30px;
