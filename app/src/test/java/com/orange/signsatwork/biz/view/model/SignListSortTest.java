@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -34,7 +34,7 @@ import java.util.List;
 public class SignListSortTest {
 
   @Test
-  public void signs_created_since_last_connexion_appears_first_then_signs_modified() {
+  public void signs_created_since_last_connection_appears_first_then_signs_modified() {
     // Given
     List<SignView2> signs = buildTestSigns();
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
@@ -61,7 +61,7 @@ public class SignListSortTest {
   }
 
   private SignView2 buildComparableSignWith(
-    int id, boolean videoHasComment, boolean createdAfterLastConnection) {
+    int id, boolean videoHasComment, boolean createdAfterLastDeconnection) {
 
     Object[] queryItem = {
       BigInteger.valueOf(id),
@@ -72,6 +72,6 @@ public class SignListSortTest {
       ""
     };
 
-    return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastConnection);
+    return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastDeconnection);
   }
 }

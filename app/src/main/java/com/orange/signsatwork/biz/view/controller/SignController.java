@@ -93,7 +93,7 @@ public class SignController {
       .map(signViewData -> new SignView2(
         signViewData,
         signWithCommentList.contains(signViewData.id),
-        SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate))
+        SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate))
       )
       .collect(Collectors.toList());
 
@@ -352,7 +352,7 @@ public class SignController {
       .map(signViewData -> new SignView2(
         signViewData,
         signWithCommentList.contains(signViewData.id),
-        SignView2.createdAfterLastConnection(signViewData.createDate, services.user().withUserName(principal.getName()) == null ? null : services.user().withUserName(principal.getName()).lastConnectionDate))
+        SignView2.createdAfterLastDeconnection(signViewData.createDate, services.user().withUserName(principal.getName()) == null ? null : services.user().withUserName(principal.getName()).lastDeconnectionDate))
       )
       .collect(Collectors.toList());
 
@@ -453,14 +453,14 @@ public class SignController {
     return new SignView2(
       signViewData,
       signWithCommentList.contains(signViewData.id),
-      SignView2.createdAfterLastConnection(signViewData.createDate, user == null ? null : user.lastConnectionDate));
+      SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate));
   }
 
   private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, User user) {
     return new VideoView2(
       videoViewData,
       videoWithCommentList.contains(videoViewData.videoId),
-      VideoView2.createdAfterLastConnection(videoViewData.createDate, user == null ? null : user.lastConnectionDate));
+      VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate));
   }
 
   private void fillModelWithSign(Model model, long signId, Principal principal) {

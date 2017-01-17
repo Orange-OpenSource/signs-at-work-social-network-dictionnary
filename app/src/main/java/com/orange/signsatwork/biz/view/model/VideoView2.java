@@ -42,17 +42,17 @@ public class VideoView2 implements ComparableVideo {
   private long videoId;
   private String url;
   private String pictureUri;
-  private boolean videoCreateAfterLastDateConnection;
+  private boolean videoCreateAfterLastDateDeconnection;
   private boolean videoHasComment;
 
-  public VideoView2(VideoViewData videoViewData, boolean videoHasComment, boolean createdAfterLastConnection) {
+  public VideoView2(VideoViewData videoViewData, boolean videoHasComment, boolean createdAfterLastDeconnection) {
     signId = videoViewData.signId;
     signName = videoViewData.signName;
     createDate = videoViewData.createDate;
     videoId = videoViewData.videoId;
     url = videoViewData.url;
     pictureUri = videoViewData.pictureUri;
-    videoCreateAfterLastDateConnection = createdAfterLastConnection;
+    videoCreateAfterLastDateDeconnection = createdAfterLastDeconnection;
 
     this.videoHasComment = videoHasComment;
   }
@@ -63,16 +63,16 @@ public class VideoView2 implements ComparableVideo {
   }
 
   @Override
-  public boolean createdSinceLastConnexion() {
-    return videoCreateAfterLastDateConnection;
+  public boolean createdSinceLastDeconnection() {
+    return videoCreateAfterLastDateDeconnection;
   }
 
   @Override
-  public boolean modifiedSinceLastConnexion() {
+  public boolean modifiedSinceLastDeconnection() {
     return videoHasComment;
   }
 
-  public static boolean createdAfterLastConnection(Date createDate, Date lastConnection) {
-    return (lastConnection != null) && createDate.compareTo(lastConnection) >= 0;
+  public static boolean createdAfterLastDeconnection(Date createDate, Date lastDeconnection) {
+    return (lastDeconnection != null) && createDate.compareTo(lastDeconnection) >= 0;
   }
 }

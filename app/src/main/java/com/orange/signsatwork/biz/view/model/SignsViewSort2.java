@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -30,28 +30,28 @@ public class SignsViewSort2 {
 
   /**
    * Sort criteria:
-   *  - created since last connexion first, then
-   *  - modified (comment added or video changed) since last connexion, then
+   *  - created since last connection first, then
+   *  - modified (comment added or video changed) since last connection, then
    *  - the rest
    * @param signs to sort
    * @return sorted signs
    */
   public List<SignView2> sort(List<SignView2> signs) {
-    List<SignView2> createdSinceLastConnexion = signs.stream()
-      .filter(SignView2::createdSinceLastConnexion)
+    List<SignView2> createdSinceLastDeconnection = signs.stream()
+      .filter(SignView2::createdSinceLastDeconnection)
       .collect(Collectors.toList());
 
-    signs.removeAll(createdSinceLastConnexion);
+    signs.removeAll(createdSinceLastDeconnection);
 
-    List<SignView2> commentAddedSinceLastConnexion = signs.stream()
-      .filter(SignView2::modifiedSinceLastConnexion)
+    List<SignView2> commentAddedSinceLastDeconnection = signs.stream()
+      .filter(SignView2::modifiedSinceLastDeconnection)
       .collect(Collectors.toList());
 
-    signs.removeAll(commentAddedSinceLastConnexion);
+    signs.removeAll(commentAddedSinceLastDeconnection);
 
     List<SignView2> sortedSigns = new ArrayList<>();
-    sortedSigns.addAll(createdSinceLastConnexion);
-    sortedSigns.addAll(commentAddedSinceLastConnexion);
+    sortedSigns.addAll(createdSinceLastDeconnection);
+    sortedSigns.addAll(commentAddedSinceLastDeconnection);
     sortedSigns.addAll(signs);
 
     return sortedSigns;

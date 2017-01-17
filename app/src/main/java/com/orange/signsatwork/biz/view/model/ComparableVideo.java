@@ -27,8 +27,8 @@ public interface ComparableVideo {
   /** video unique id */
   long videoId();
 
-  boolean createdSinceLastConnexion();
+  boolean createdSinceLastDeconnection();
 
   /** modified means: a comment was added, or the video changed */
-  boolean modifiedSinceLastConnexion();
+  boolean modifiedSinceLastDeconnection();
 }

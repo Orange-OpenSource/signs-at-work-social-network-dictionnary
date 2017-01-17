@@ -39,8 +39,8 @@
       <div class="row">
         <div class="pull-right col-lg-12">
           <div class="containerTooltip">
-            <div th:if="${videoView.videoCreateAfterLastDateConnection}" class="pull-right tooltip_newSigne"></div>
-            <div th:if="${!videoView.videoCreateAfterLastDateConnection}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
+            <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="pull-right tooltip_newSigne"></div>
+            <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
             <div th:if="${videoView.videoHasComment}" class="pull-left tooltip_comment"></div>
             <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="pull-left tooltip_comment"></div>
           </div>

@@ -31,28 +31,28 @@ public class VideosViewSort {
 
   /**
    * Sort criteria:
-   *  - created since last connexion first, then
-   *  - modified (comment added or video changed) since last connexion, then
+   *  - created since last connection first, then
+   *  - modified (comment added or video changed) since last connection, then
    *  - the rest
    * @param videos to sort
    * @return sorted videos
    */
   public List<VideoView2> sort(List<VideoView2> videos) {
-    List<VideoView2> createdSinceLastConnexion = videos.stream()
-      .filter(VideoView2::createdSinceLastConnexion)
+    List<VideoView2> createdSinceLastDeconnection = videos.stream()
+      .filter(VideoView2::createdSinceLastDeconnection)
       .collect(Collectors.toList());
 
-    videos.removeAll(createdSinceLastConnexion);
+    videos.removeAll(createdSinceLastDeconnection);
 
-    List<VideoView2> commentAddedSinceLastConnexion = videos.stream()
-      .filter(VideoView2::modifiedSinceLastConnexion)
+    List<VideoView2> commentAddedSinceLastDeconnection = videos.stream()
+      .filter(VideoView2::modifiedSinceLastDeconnection)
       .collect(Collectors.toList());
 
-    videos.removeAll(commentAddedSinceLastConnexion);
+    videos.removeAll(commentAddedSinceLastDeconnection);
 
     List<VideoView2> sortedvideos = new ArrayList<>();
-    sortedvideos.addAll(createdSinceLastConnexion);
-    sortedvideos.addAll(commentAddedSinceLastConnexion);
+    sortedvideos.addAll(createdSinceLastDeconnection);
+    sortedvideos.addAll(commentAddedSinceLastDeconnection);
     sortedvideos.addAll(videos);
 
     return sortedvideos;

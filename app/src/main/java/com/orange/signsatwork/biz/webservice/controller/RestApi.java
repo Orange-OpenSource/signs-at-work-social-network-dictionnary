@@ -31,6 +31,8 @@ public class RestApi {
   public static final String WS_SEC_GET_USERS = WS_SEC + "users";
   public static final String WS_ADMIN_USER_CREATE = WS_ADMIN + "user/create";
 
+  public static final String WS_SEC_CLOSE = WS_SEC + "close";
+
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
   public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";
 

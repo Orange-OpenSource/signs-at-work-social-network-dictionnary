@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -48,7 +48,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserServiceImpl implements UserService, ApplicationListener<AuthenticationSuccessEvent> {
+public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
   private final UserRoleRepository userRoleRepository;
   private final CommunityRepository communityRepository;
@@ -210,13 +210,20 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     userRepository.save(userDB);
   }
 
-  @Override
-  public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
-    String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
-    UserDB userDB = userRepository.findByUsername(userName).get(0);
-    userDB.setLastConnectionDate(new Date());
-    userRepository.save(userDB);
+//  @Override
+//  public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
+//    String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
+//    UserDB userDB = userRepository.findByUsername(userName).get(0);
+//    userDB.setLastDeconnectionDate(new Date());
+//    userRepository.save(userDB);
+//
+//  }
 
+  @Override
+  public void changeLastDeconnectionDate(String userName) {
+    UserDB userDB = userRepository.findByUsername(userName).get(0);
+    userDB.setLastDeconnectionDate(new Date());
+    userRepository.save(userDB);
   }
 
   private UserDB withDBId(long id) {
@@ -233,7 +240,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastConnectionDate(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastDeconnectionDate(),
             services);
   }
 
@@ -241,7 +248,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastConnectionDate());
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastDeconnectionDate());
   }
 
 
@@ -255,7 +262,7 @@ public class UserServiceImpl implements UserService, ApplicationListener<Authent
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastConnectionDate());
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastDeconnectionDate());
   }
 
   /**

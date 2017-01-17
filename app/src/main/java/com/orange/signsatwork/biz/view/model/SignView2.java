@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -41,17 +41,17 @@ public class SignView2 implements ComparableSign {
   private long lastVideoId;
   private String url;
   private String pictureUri;
-  private boolean signCreateAfterLastDateConnection;
+  private boolean signCreateAfterLastDateDeconnection;
   private boolean videoHasComment;
 
-  public SignView2(SignViewData signViewData, boolean videoHasComment, boolean createdAfterLastConnection) {
+  public SignView2(SignViewData signViewData, boolean videoHasComment, boolean createdAfterLastDeconnection) {
     id = signViewData.id;
     name = signViewData.name;
     createDate = signViewData.createDate;
     lastVideoId = signViewData.lastVideoId;
     url = signViewData.url;
     pictureUri = signViewData.pictureUri;
-    signCreateAfterLastDateConnection = createdAfterLastConnection;
+    signCreateAfterLastDateDeconnection = createdAfterLastDeconnection;
 
     this.videoHasComment = videoHasComment;
   }
@@ -63,16 +63,16 @@ public class SignView2 implements ComparableSign {
   }
 
   @Override
-  public boolean createdSinceLastConnexion() {
-    return signCreateAfterLastDateConnection;
+  public boolean createdSinceLastDeconnection() {
+    return signCreateAfterLastDateDeconnection;
   }
 
   @Override
-  public boolean modifiedSinceLastConnexion() {
+  public boolean modifiedSinceLastDeconnection() {
     return videoHasComment;
   }
 
-  public static boolean createdAfterLastConnection(Date createDate, Date lastConnection) {
-    return (lastConnection != null) && createDate.compareTo(lastConnection) >= 0;
+  public static boolean createdAfterLastDeconnection(Date createDate, Date lastDeconnection) {
+    return (lastDeconnection != null) && createDate.compareTo(lastDeconnection) >= 0;
   }
 }
