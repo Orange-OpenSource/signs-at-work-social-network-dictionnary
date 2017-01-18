@@ -357,7 +357,7 @@ public class FileUploadRestController {
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
-      //return (Long.toString(sign.id));
+
       return "/sec/sign/" + Long.toString(sign.id) + "/" + Long.toString(sign.lastVideoId) + "/detail";
     } catch (Exception errorDailymotionUploadFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -381,6 +381,7 @@ public class FileUploadRestController {
   private String handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
       try {
+        String dailymotionId;
         AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
         if (authTokenInfo.isExpired()) {
           dalymotionToken.retrieveToken();
@@ -444,8 +445,28 @@ public class FileUploadRestController {
 
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (inputType.equals("JobDescription")) {
+            if (user.jobVideoDescription != null) {
+              dailymotionId = user.jobVideoDescription.substring(user.jobVideoDescription.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              }
+              catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              }
+            }
             services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url);
           } else {
+            if (user.nameVideo != null) {
+              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              }
+              catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              }
+            }
             services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url);
           }
 
@@ -521,6 +542,8 @@ public class FileUploadRestController {
     }
 
     try {
+      String dailymotionId;
+
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
         dalymotionToken.retrieveToken();
@@ -584,10 +607,31 @@ public class FileUploadRestController {
 
       if (!videoDailyMotion.embed_url.isEmpty()) {
         if (inputType.equals("JobDescription")) {
+          if (user.jobVideoDescription != null) {
+            dailymotionId = user.jobVideoDescription.substring(user.jobVideoDescription.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            }
+            catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            }
+          }
           services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url);
         } else {
+          if (user.nameVideo != null) {
+            dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            }
+            catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            }
+          }
           services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url);
         }
+
         log.warn("handleRecordedVideoFileForProfil : embed_url = {}", videoDailyMotion.embed_url);
       }
 
@@ -606,5 +650,25 @@ public class FileUploadRestController {
     }
   }
 
+  private void DeleteVideoOnDailyMotion(String dailymotionId) {
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    final String uri = "https://api.dailymotion.com/video/"+dailymotionId;
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+    MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    headers.add("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+
+    HttpEntity<?> request = new HttpEntity<Object>(headers);
+
+    restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
+
+    return;
+  }
 
 }

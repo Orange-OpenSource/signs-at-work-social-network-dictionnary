@@ -22,9 +22,10 @@ package com.orange.signsatwork.biz.webservice.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.domain.Video;
+import com.orange.signsatwork.DalymotionToken;
+import com.orange.signsatwork.SpringRestClient;
+import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import com.orange.signsatwork.biz.persistence.service.UserService;
@@ -33,11 +34,18 @@ import com.orange.signsatwork.biz.webservice.model.SignId;
 import com.orange.signsatwork.biz.webservice.model.SignView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -50,6 +58,12 @@ public class SignRestController {
 
   @Autowired
   Services services;
+  @Autowired
+  DalymotionToken dalymotionToken;
+  @Autowired
+  private SpringRestClient springRestClient;
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
 
 
   @RequestMapping(value = RestApi.WS_OPEN_SIGN + "/{id}")
@@ -72,16 +86,55 @@ public class SignRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEO_DELETE, method = RequestMethod.POST)
   public String deleteVideo(@PathVariable long signId, @PathVariable long videoId, HttpServletResponse response) {
+    String dailymotionId;
     Sign sign = services.sign().withId(signId);
     if (sign.videos.list().size() == 1) {
       services.sign().delete(sign);
+      dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
       response.setStatus(HttpServletResponse.SC_OK);
       return "/";
+
     } else {
       Video video = services.video().withId(videoId);
       services.video().delete(video);
+      dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
       response.setStatus(HttpServletResponse.SC_OK);
       return "/sign/" + signId;
     }
+  }
+
+  private void DeleteVideoOnDailyMotion(String dailymotionId) {
+
+      AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+      if (authTokenInfo.isExpired()) {
+        dalymotionToken.retrieveToken();
+        authTokenInfo = dalymotionToken.getAuthTokenInfo();
+      }
+
+      final String uri = "https://api.dailymotion.com/video/"+dailymotionId;
+      RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+      MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+      headers.add("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+
+      HttpEntity<?> request = new HttpEntity<Object>(headers);
+
+      restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
+
+      return;
   }
 }
