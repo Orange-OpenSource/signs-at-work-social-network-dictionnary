@@ -39,7 +39,7 @@
             <form id="profileDescription" th:action="@{/sec/profile/description}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
                 <!--<H2 th:text="#{job}"></H2>-->
-                <textarea   type="text"   class="testinput  border form-control" name="jobTextDescription" rows="3" cols="40" th:autofocus="true"/>
+                <textarea  th:text="${user.jobTextDescription}"  type="text"   class="testinput  border form-control" name="jobTextDescription" rows="3" cols="40" th:autofocus="true"/>
                 <!--<div>-->
                   <!--<div class="pull-right pen_whith_chevron"></div>-->
                   <!--<div class="pull-right chevron_right" style="display:none "></div>-->
