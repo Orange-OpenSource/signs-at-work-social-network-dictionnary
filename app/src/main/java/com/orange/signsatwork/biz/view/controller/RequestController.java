@@ -70,7 +70,7 @@ public class RequestController {
 
 
 
-  @RequestMapping(value = "/sec/request-detail/{requestId}")
+  @RequestMapping(value = "/sec/my-request-detail/{requestId}")
   public String requestDetails(@PathVariable long requestId, Principal principal, Model model) {
     Request request = services.request().withId(requestId);
     model.addAttribute("title", request.name);
@@ -80,7 +80,7 @@ public class RequestController {
     model.addAttribute("requestView", request);
 
 
-    return "request-detail";
+    return "my-request-detail";
   }
 
 

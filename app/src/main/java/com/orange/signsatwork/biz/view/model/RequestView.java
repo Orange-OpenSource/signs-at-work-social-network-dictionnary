@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -41,15 +41,16 @@ import java.util.stream.Collectors;
 public class RequestView {
   private long id;
   private String name;
+  private String requestTextDescription;
   private Date requestDate;
   private Sign sign;
 
   public Request toRequest() {
-    return new Request(id, name, requestDate, null);
+    return new Request(id, name, requestTextDescription, requestDate, null);
   }
 
   public static RequestView from(Request request) {
-    return new RequestView(request.id, request.name, request.requestDate, request.sign);
+    return new RequestView(request.id, request.name, request.requestTextDescription, request.requestDate, request.sign);
   }
 
   public static List<RequestView> from(Requests requests) {

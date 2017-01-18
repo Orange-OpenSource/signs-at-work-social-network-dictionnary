@@ -24,7 +24,6 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 
 import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.domain.Requests;
-import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
@@ -124,13 +123,14 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
-  public Request create(long userId, String requestName) {
+  public Request create(long userId, String requestName, String requestTextDescription) {
     RequestDB requestDB;
     UserDB userDB = userRepository.findOne(userId);
 
     requestDB = new RequestDB();
     requestDB.setRequestDate(new Date());
     requestDB.setName(requestName);
+    requestDB.setRequestTextDescription(requestTextDescription);
     requestRepository.save(requestDB);
 
     userDB.getRequests().add(requestDB);
@@ -140,10 +140,11 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
-  public Request rename(long requestId, String requestName) {
+  public Request rename(long requestId, String requestName, String requestTextDescription) {
     RequestDB requestDB = requestRepository.findOne(requestId);
 
     requestDB.setName(requestName);
+    requestDB.setRequestTextDescription(requestTextDescription);
     requestRepository.save(requestDB);
 
     return requestFrom(requestDB, services);
@@ -164,7 +165,7 @@ public class RequestServiceImpl implements RequestService {
   }
 
   static Request requestFrom(RequestDB requestDB, Services services) {
-    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(), services));
+    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services));
   }
 
   private RequestDB requestDBFrom(Request request) {

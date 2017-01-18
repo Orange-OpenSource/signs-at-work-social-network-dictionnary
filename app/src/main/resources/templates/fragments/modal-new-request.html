@@ -41,6 +41,8 @@
                     <input th:field="*{requestName}" id="requestName" name="requestName" type="text" class="text-center border form-control"
                            th:placeholder="#{request.enter_name}" required=""/><br/>
                     <span id="requestSpan" th:text="#{request.already_exists}" style="visibility: hidden"></span>
+                  <!--<input th:field="*{requestTextDescription}" id="requestTextDescription" name="requestTextDescription" type="text" class="text-center border form-control"/><br/>-->
+                  <textarea  th:field="*{requestTextDescription}" id="requestTextDescription" name="requestTextDescription" type="text" class="text-center border form-control" rows="3" cols="40"/><br/>
 
                 </div>
 

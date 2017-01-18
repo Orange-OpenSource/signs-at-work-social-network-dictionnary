@@ -51,8 +51,8 @@ public class RequestRestController {
   public void createRequest(@RequestBody RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) {
     User user = services.user().withUserName(principal.getName());
     if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-      Request request = services.request().create(user.id, requestCreationView.getRequestName());
-      log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName());
+      Request request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+      log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
     } else {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
     }
@@ -61,14 +61,20 @@ public class RequestRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_RENAME, method = RequestMethod.POST)
   public void renameRequest(@RequestBody RequestCreationView requestCreationView, @PathVariable long requestId, HttpServletResponse response) {
+  Request request = services.request().withId(requestId);
+    if (!request.name.equals(requestCreationView.getRequestName()) ) {
 
+     if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+      services.request().rename(requestId, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
 
-    if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-      services.request().rename(requestId, requestCreationView.getRequestName());
-
-      log.info("renameRequest:  request name = {}", requestCreationView.getRequestName());
-    } else {
+      log.info("renameRequest:  request name  = {} / request requestTextDescription = {} ", requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+      } else {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
+      }
+    } else {
+      if (!request.requestTextDescription.equals(requestCreationView.getRequestTextDescription())) {
+        services.request().rename(requestId, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+      }
     }
   }
 

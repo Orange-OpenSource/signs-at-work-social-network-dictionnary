@@ -20,17 +20,21 @@
  */
 console.log("Cool, request.js is loaded :)");
 
+
+
+
 var $formRequest = $('#requestInfo');
 var requestSpan = document.getElementById('requestSpan');
 $formRequest.on('submit', function(event) {
-     var requestName = {
-       requestName: $('#requestName').val()
-     };
     event.preventDefault();
+    request = {
+      requestName: $('#requestName').val(),
+      requestTextDescription: $('#requestTextDescription').val()
+    };
     $.ajax({
        url: $formRequest.attr('action'),
        type: 'post',
-       data: JSON.stringify(requestName),
+       data: JSON.stringify(request),
        contentType: "application/json",
        success: function(response) {
            var url = "/sec/request/";
@@ -51,5 +55,6 @@ $new_request.on('hidden.bs.modal', function() {
     if ($('#requestInfo').find('#requestSpan').length) {
         requestSpan.style.visibility="hidden";
         $('#requestName').val("");
+        $('#requestTextDescription').val("");
     }
 });

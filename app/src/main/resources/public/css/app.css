@@ -367,6 +367,9 @@ text-decoration-line: none;
 	position: absolute;
 }
 
+#requestTextDescription{
+  margin:0 auto;
+}
 
 /************picto***********/
 
