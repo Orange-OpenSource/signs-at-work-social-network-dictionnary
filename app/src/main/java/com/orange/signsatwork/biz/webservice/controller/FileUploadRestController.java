@@ -143,6 +143,7 @@ public class FileUploadRestController {
     }
 
     try {
+      String dailymotionId;
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
         dalymotionToken.retrieveToken();
@@ -215,6 +216,15 @@ public class FileUploadRestController {
       }
       Sign sign;
       if (signId.isPresent()) {
+          sign = services.sign().withId(signId.getAsLong());
+          dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          }
+          catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          }
           sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
       }else{
          sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
@@ -272,6 +282,8 @@ public class FileUploadRestController {
   private String handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
 
     try {
+      String dailymotionId;
+
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
         dalymotionToken.retrieveToken();
@@ -346,6 +358,15 @@ public class FileUploadRestController {
 
       Sign sign;
       if (signId.isPresent()) {
+        sign = services.sign().withId(signId.getAsLong());
+        dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        }
+        catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
         sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
       } else {
         sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
