@@ -131,6 +131,7 @@ public class RequestServiceImpl implements RequestService {
     requestDB.setRequestDate(new Date());
     requestDB.setName(requestName);
     requestDB.setRequestTextDescription(requestTextDescription);
+    requestDB.setUser(userDB);
     requestRepository.save(requestDB);
 
     userDB.getRequests().add(requestDB);
@@ -165,7 +166,7 @@ public class RequestServiceImpl implements RequestService {
   }
 
   static Request requestFrom(RequestDB requestDB, Services services) {
-    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services));
+    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services), UserServiceImpl.userFromSignView(requestDB.getUser()));
   }
 
   private RequestDB requestDBFrom(Request request) {

@@ -76,11 +76,28 @@ public class RequestController {
     model.addAttribute("title", request.name);
     model.addAttribute("backUrl", REQUEST_URL );
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    RequestView requestView = RequestView.from(request);
 
-    model.addAttribute("requestView", request);
+    model.addAttribute("requestView", requestView);
 
 
     return "my-request-detail";
+  }
+
+  @RequestMapping(value = "/sec/other-request-detail/{requestId}")
+  public String OtherRequestDetails(@PathVariable long requestId, Principal principal, Model model) {
+    Request request = services.request().withId(requestId);
+    model.addAttribute("title", request.name);
+    model.addAttribute("backUrl", REQUEST_URL );
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    RequestView requestView = RequestView.from(request);
+
+    model.addAttribute("requestView", requestView);
+
+    model.addAttribute("signCreationView", new SignCreationView());
+
+
+    return "other-request-detail";
   }
 
 

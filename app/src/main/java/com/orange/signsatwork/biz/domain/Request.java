@@ -33,5 +33,6 @@ public class Request {
     public final String requestTextDescription;
     public final Date requestDate;
     public final Sign sign;
+    public final User user;
 
 }
