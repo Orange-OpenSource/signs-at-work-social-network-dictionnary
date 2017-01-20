@@ -81,7 +81,7 @@
                                 <div class="pull-right">
                                     <div class="containerRight_signes">
                                         <div class="containerRight_signes">
-                                            <div class="pull-right recent_signe"></div>
+                                            <div class="pull-right replyToRequest-with-chevron_picto"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >
                         <li class="dotted-top">
-                            <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', \' '+ ${request.name} + ' \')'" data-toggle="modal" href="#">
+                          <a th:href="@{/sec/other-request-detail/} + ${request.id}">
                                 <div class="pull-right">
                                     <div class="containerRight_signes">
                                         <div class="containerRight_signes">

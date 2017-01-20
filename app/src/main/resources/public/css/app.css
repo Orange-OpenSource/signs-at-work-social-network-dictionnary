@@ -713,6 +713,24 @@ text-decoration-line: none;
   width: 40px;
 }
 
+.replyToRequest_picto {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1900px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+.replyToRequest-with-chevron_picto {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1940px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 60px;
+}
+
+
 .priorise_request {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1860px center;
