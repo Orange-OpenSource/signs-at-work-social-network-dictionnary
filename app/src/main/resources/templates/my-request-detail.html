@@ -110,7 +110,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="suggest pull-left"></div>
           <h4 class="pull-right" th:text="${requestView.name}"/>
@@ -133,7 +133,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" th:onclick="'javascript:onContinue()'" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="suggest pull-left"></div>
           <h4 class="pull-right" th:text="${requestView.name}"/>
