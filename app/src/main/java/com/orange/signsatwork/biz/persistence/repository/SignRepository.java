@@ -28,6 +28,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface SignRepository extends CrudRepository<SignDB, Long> {
@@ -63,6 +64,16 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select  b.id, count(a.text) as nbr from comments a inner join videos b on a.video_id = b.id  and b.sign_id = :signId group by b.id order by nbr asc", nativeQuery = true)
     Long[] findNbCommentForAllVideoBySign(@Param("signId") long signId);
 
-    @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr desc;", nativeQuery = true)
+    @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr desc", nativeQuery = true)
     Long[] findMostViewed();
+
+    @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr asc", nativeQuery = true)
+    Long[] findLowViewed();
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date desc", nativeQuery = true)
+    List<Object[]> findMostRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date asc", nativeQuery = true)
+    List<Object[]> findLowRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
+
 }

@@ -72,6 +72,10 @@ public class SignController {
     model.addAttribute("isLowCommented", false);
     model.addAttribute("isMostRating", false);
     model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
 
     return "signs";
   }
@@ -112,6 +116,10 @@ public class SignController {
     model.addAttribute("isLowCommented", false);
     model.addAttribute("isMostRating", false);
     model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
     model.addAttribute("favoriteId", favoriteId);
 
     return "signs";
@@ -163,6 +171,10 @@ public class SignController {
     model.addAttribute("isAll", false);
     model.addAttribute("isMostRating", false);
     model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
 
     return "signs";
   }
@@ -212,6 +224,122 @@ public class SignController {
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
     model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+
+    return "signs";
+  }
+
+  @RequestMapping(value = "/sec/signs/mostviewed")
+  public String signsMostViewed(@RequestParam("isMostViewed") boolean isMostViewed, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithViewedList;
+    if (isMostViewed == true) {
+      signWithViewedList = Arrays.asList(services.sign().lowViewed());
+      model.addAttribute("isLowViewed", true);
+      model.addAttribute("isMostViewed", false);
+    } else {
+      signWithViewedList = Arrays.asList(services.sign().mostViewed());
+      model.addAttribute("isMostViewed", true);
+      model.addAttribute("isLowViewed", false);
+    }
+
+    List<SignViewData> viewed = signViewsData.stream()
+      .filter(signViewData -> signWithViewedList.contains(signViewData.id))
+      .sorted(new CommentOrderComparator(signWithViewedList))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<SignView2> signViews = viewed.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, user))
+      .collect(Collectors.toList());
+
+
+    model.addAttribute("signsView", signViews);
+
+
+    fillModelWithFavorites(model, user);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+
+    return "signs";
+  }
+
+  @RequestMapping(value = "/sec/signs/mostrecent")
+  public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+
+//    List<Object[]> querySigns = services.sign().SignsForSignsView();
+//    List<SignViewData> signViewsData = querySigns.stream()
+//      .map(objectArray -> new SignViewData(objectArray))
+//      .collect(Collectors.toList());
+
+    List<Long> signWithViewedList;
+    List<Object[]> querySigns;
+    if (isMostRecent == true) {
+      querySigns = services.sign().lowRecent(user.lastDeconnectionDate);
+      //signWithViewedList = Arrays.asList(services.sign().lowViewed());
+      model.addAttribute("isLowRecent", true);
+      model.addAttribute("isMostRecent", false);
+    } else {
+      //signWithViewedList = Arrays.asList(services.sign().mostViewed());
+     querySigns = services.sign().mostRecent(user.lastDeconnectionDate);
+      model.addAttribute("isMostRecent", true);
+      model.addAttribute("isLowRecent", false);
+    }
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+//    List<SignViewData> rating = signViewsData.stream()
+//      .filter(signViewData -> signWithViewedList.contains(signViewData.id))
+//      .sorted(new CommentOrderComparator(signWithViewedList))
+//      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, user))
+      .collect(Collectors.toList());
+
+
+    model.addAttribute("signsView", signViews);
+
+
+    fillModelWithFavorites(model, user);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
 
     return "signs";
   }

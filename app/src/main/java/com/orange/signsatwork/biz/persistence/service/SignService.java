@@ -27,11 +27,18 @@ import com.orange.signsatwork.biz.domain.Signs;
 import com.orange.signsatwork.biz.domain.UrlFileUploadDailymotion;
 import com.orange.signsatwork.biz.domain.VideoDailyMotion;
 
+import java.util.Date;
 import java.util.List;
 
 public interface SignService {
 
+  List<Object[]> mostRecent(Date lastConnectionDate);
+
+  List<Object[]> lowRecent(Date lastConnectionDate);
+
   Long[] mostViewed();
+
+  Long[] lowViewed();
 
   Long[] lowCommented();
 

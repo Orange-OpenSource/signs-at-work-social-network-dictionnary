@@ -78,11 +78,27 @@ public class SignServiceImpl implements SignService {
     return urlfileUploadDailyMotion;
   }
 
+  @Override
+  public List<Object[]>  mostRecent(Date lastConnectionDate) {
+    return signRepository.findMostRecent(lastConnectionDate);
+  }
+
+  @Override
+  public List<Object[]>  lowRecent(Date lastConnectionDate) {
+    return signRepository.findLowRecent(lastConnectionDate);
+  }
+
 
   @Override
   public Long[] mostViewed() {
     return signRepository.findMostViewed();
   }
+
+  @Override
+  public Long[] lowViewed() {
+    return signRepository.findLowViewed();
+  }
+
 
   @Override
   public Long[] mostCommented() {
