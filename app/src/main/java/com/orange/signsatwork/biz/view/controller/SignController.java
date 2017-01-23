@@ -475,7 +475,8 @@ public class SignController {
     return new VideoView2(
       videoViewData,
       videoWithCommentList.contains(videoViewData.videoId),
-      VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate));
+      VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+      videoViewData.nbView > 0);
   }
 
   private void fillModelWithSign(Model model, long signId, Principal principal) {

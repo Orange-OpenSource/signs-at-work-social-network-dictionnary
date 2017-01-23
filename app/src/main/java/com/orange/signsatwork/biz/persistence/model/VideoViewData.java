@@ -34,6 +34,7 @@ public class VideoViewData {
   public final long videoId;
   public final String url;
   public final String pictureUri;
+  public final long nbView;
 
 
   public VideoViewData(Object[] queryResultItem) {
@@ -43,6 +44,7 @@ public class VideoViewData {
     videoId = toLong(queryResultItem[3]);
     url = toString(queryResultItem[4]);
     pictureUri = toString(queryResultItem[5]);
+    nbView = toLong(queryResultItem[6]);
   }
 
   private String toString(Object o) {
@@ -52,6 +54,7 @@ public class VideoViewData {
   private long toLong(Object o) {
     return ((BigInteger)o).longValue();
   }
+
 
   private Date toDate(Object o) {
     Timestamp timestamp = ((Timestamp)o);

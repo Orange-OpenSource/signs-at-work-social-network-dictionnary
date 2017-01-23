@@ -53,7 +53,7 @@ public class VideoDB {
 
   private String pictureUri;
 
-  private double nbView;
+  private long nbView;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="sign_id")

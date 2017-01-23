@@ -31,4 +31,6 @@ public interface ComparableVideo {
 
   /** modified means: a comment was added, or the video changed */
   boolean modifiedSinceLastDeconnection();
+
+  boolean viewedSinceLastDeconnection();
 }

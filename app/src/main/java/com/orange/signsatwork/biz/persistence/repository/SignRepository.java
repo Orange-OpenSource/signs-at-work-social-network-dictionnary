@@ -57,7 +57,7 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b inner join associate_sign c on a.id = b.last_video_id and c.associate_sign_id = b.id and c.sign_id = ? union select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b inner join associate_sign c on a.id = b.last_video_id and c.sign_id = b.id and c.associate_sign_id = ?;", nativeQuery = true)
     List<Object[]> findAssociateSigns(long signId, long associateSignId);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri from videos a inner join signs b on b.id = a.sign_id and a.sign_id = :signId order by a.create_date desc", nativeQuery = true)
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view from videos a inner join signs b on b.id = a.sign_id and a.sign_id = :signId order by a.create_date desc", nativeQuery = true)
     List<Object[]> findAllVideosForSign(@Param("signId") long signId);
 
     @Query(value="select  b.id, count(a.text) as nbr from comments a inner join videos b on a.video_id = b.id  and b.sign_id = :signId group by b.id order by nbr asc", nativeQuery = true)

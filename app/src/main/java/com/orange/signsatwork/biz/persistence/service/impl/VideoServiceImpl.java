@@ -61,7 +61,7 @@ public class VideoServiceImpl implements VideoService {
   @Override
   public void increaseNbView(long videoId) {
     VideoDB videoDB = videoRepository.findOne(videoId);
-    double nbView = videoDB.getNbView();
+    long nbView = videoDB.getNbView();
     videoDB.setNbView(nbView+1);
     videoRepository.save(videoDB);
     return;

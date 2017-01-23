@@ -50,9 +50,16 @@ public class VideosViewSort {
 
     videos.removeAll(commentAddedSinceLastDeconnection);
 
+    List<VideoView2> viewAddedSinceLastDeconnection = videos.stream()
+      .filter(VideoView2::viewedSinceLastDeconnection)
+      .collect(Collectors.toList());
+
+    videos.removeAll(viewAddedSinceLastDeconnection);
+
     List<VideoView2> sortedvideos = new ArrayList<>();
     sortedvideos.addAll(createdSinceLastDeconnection);
     sortedvideos.addAll(commentAddedSinceLastDeconnection);
+    sortedvideos.addAll(viewAddedSinceLastDeconnection);
     sortedvideos.addAll(videos);
 
     return sortedvideos;
