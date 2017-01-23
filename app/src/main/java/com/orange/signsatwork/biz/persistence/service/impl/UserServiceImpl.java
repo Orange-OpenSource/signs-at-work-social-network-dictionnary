@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
     RequestDB requestDB = new RequestDB();
     requestDB.setRequestDate(new Date());
     requestDB.setName(requestName);
+    requestDB.setUser(userDB);
     requestRepository.save(requestDB);
 
     userDB.getRequests().add(requestDB);
