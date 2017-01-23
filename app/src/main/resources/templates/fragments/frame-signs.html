@@ -39,12 +39,12 @@
       <div class="row">
         <div class="col-lg-12">
           <a th:href="@{/sign/} + ${signView.id}" >
-            <div th:if="${signView.signCreateAfterLastDateDeconnection}" class=" tooltip_newSigne"></div>
+            <div th:if="${signView.signCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
             <div th:if="${!signView.signCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
-            <div th:if="${signView.videoHasComment}" class=" tooltip_comment"></div>
-            <div th:if="${!signView.videoHasComment}" style="visibility: hidden" class=" tooltip_comment"></div>
-            <div th:if="${signView.videoHasView}" class=" tooltip_eye"></div>
-            <div th:if="${!signView.videoHasView}" style="visibility: hidden" class=" tooltip_eye"></div>
+            <div th:if="${signView.videoHasComment}" class="tooltip_comment"></div>
+            <div th:if="${!signView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
+            <div th:if="${signView.videoHasView}" class="tooltip_eye"></div>
+            <div th:if="${!signView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
             <img th:attr="data-src=${signView.pictureUri}"/>
           </a>
           <div class="text_hyphenation"><a th:href="@{/sign/} + ${signView.id}" th:text="${signView.name}" type="text/html"/></div>

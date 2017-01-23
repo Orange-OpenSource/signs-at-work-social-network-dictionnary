@@ -37,26 +37,20 @@
       class="video-view-hidden text-center col-lg-5 col-md-4 col-xs-6 col-sm-4">
 
       <div class="row">
-        <div class="pull-right col-lg-12">
-          <div class="containerTooltip">
-            <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="pull-right tooltip_newSigne"></div>
-            <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
-            <div th:if="${videoView.videoHasComment}" class="pull-left tooltip_comment"></div>
-            <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="pull-left tooltip_comment"></div>
-            <div th:if="${videoView.videoHasView}" class="pull-left tooltip_eye"></div>
-            <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="pull-left tooltip_eye"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
         <div class="col-lg-12">
           <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
+            <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
+            <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
+            <div th:if="${videoView.videoHasComment}" class="tooltip_comment"></div>
+            <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
+            <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
+            <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
             <img th:attr="data-src=${videoView.pictureUri}"/>
           </a>
           <div class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.signName}" type="text/html"/></div>
-        </div>
+          </div>
       </div>
+
     </div>
   </div>
 
