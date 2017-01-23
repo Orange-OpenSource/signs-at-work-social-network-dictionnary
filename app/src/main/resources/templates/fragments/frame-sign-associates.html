@@ -33,10 +33,12 @@
           <div class="row">
             <div class="pull-right col-lg-12">
               <div class="containerTooltip">
-                <div th:if="${signView.signCreateAfterLastDateDecConnection}" class="pull-right tooltip_newSigne"></div>
+                <div th:if="${signView.signCreateAfterLastDateDeconnection}" class="pull-right tooltip_newSigne"></div>
                 <div th:if="${!signView.signCreateAfterLastDateDeconnection}" style="visibility: hidden" class="pull-right tooltip_newSigne"></div>
                 <div th:if="${signView.videoHasComment}" class="pull-left tooltip_comment"></div>
                 <div th:if="${!signView.videoHasComment}" style="visibility: hidden" class="pull-left tooltip_comment"></div>
+                <div th:if="${signView.videoHasView}" class="pull-left tooltip_eye"></div>
+                <div th:if="${!signView.videoHasView}" style="visibility: hidden" class="pull-left tooltip_eye"></div>
               </div>
             </div>
           </div>

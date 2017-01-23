@@ -31,6 +31,8 @@ import java.util.List;
 
 public interface SignService {
 
+  Long[] mostViewed();
+
   Long[] lowCommented();
 
   Long[] mostCommented();

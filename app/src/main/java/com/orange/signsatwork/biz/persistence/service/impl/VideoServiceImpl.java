@@ -59,6 +59,15 @@ public class VideoServiceImpl implements VideoService {
 
 
   @Override
+  public void increaseNbView(long videoId) {
+    VideoDB videoDB = videoRepository.findOne(videoId);
+    double nbView = videoDB.getNbView();
+    videoDB.setNbView(nbView+1);
+    videoRepository.save(videoDB);
+    return;
+  }
+
+  @Override
   public Comment createVideoComment(long videoId, long userId, String commentText) {
     VideoDB videoDB = videoRepository.findOne(videoId);
     UserDB userDB = userRepository.findOne(userId);
@@ -157,12 +166,12 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFrom(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
   }
 
 
   static Video videoFromRatingView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(),videoDB.getCreateDate(), null, null, null);
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
   }
 
   static Videos videosFromSignsView(Iterable<VideoDB> videosDB) {
@@ -172,6 +181,6 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFromSignsView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), videoDB.getCreateDate(), null, null, null);
+    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
   }
 }

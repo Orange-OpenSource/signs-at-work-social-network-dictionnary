@@ -52,16 +52,16 @@ public class SignListSortTest {
 
   private List<SignView2> buildTestSigns() {
     List<SignView2> signs = new ArrayList<>();
-    signs.add(buildComparableSignWith(0, false, false));
-    signs.add(buildComparableSignWith(1, true, false));
-    signs.add(buildComparableSignWith(2, false, false));
-    signs.add(buildComparableSignWith(3, false, true));
-    signs.add(buildComparableSignWith(4, true, true));
+    signs.add(buildComparableSignWith(0, false, false, false));
+    signs.add(buildComparableSignWith(1, true, false, false));
+    signs.add(buildComparableSignWith(2, false, false, false));
+    signs.add(buildComparableSignWith(3, false, true, false));
+    signs.add(buildComparableSignWith(4, true, true, false));
     return signs;
   }
 
   private SignView2 buildComparableSignWith(
-    int id, boolean videoHasComment, boolean createdAfterLastDeconnection) {
+    int id, boolean videoHasComment,  boolean createdAfterLastDeconnection, boolean videoHasView) {
 
     Object[] queryItem = {
       BigInteger.valueOf(id),
@@ -72,6 +72,6 @@ public class SignListSortTest {
       ""
     };
 
-    return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastDeconnection);
+    return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastDeconnection, videoHasView);
   }
 }

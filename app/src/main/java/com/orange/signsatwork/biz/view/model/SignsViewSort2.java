@@ -49,9 +49,16 @@ public class SignsViewSort2 {
 
     signs.removeAll(commentAddedSinceLastDeconnection);
 
+    List<SignView2> viewAddedSinceLastDeconnection = signs.stream()
+      .filter(SignView2::viewedSinceLastDeconnection)
+      .collect(Collectors.toList());
+
+    signs.removeAll(viewAddedSinceLastDeconnection);
+
     List<SignView2> sortedSigns = new ArrayList<>();
     sortedSigns.addAll(createdSinceLastDeconnection);
     sortedSigns.addAll(commentAddedSinceLastDeconnection);
+    sortedSigns.addAll(viewAddedSinceLastDeconnection);
     sortedSigns.addAll(signs);
 
     return sortedSigns;

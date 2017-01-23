@@ -31,6 +31,8 @@ public interface VideoService {
 
   Video withId(long videoId);
 
+  void increaseNbView(long videoId);
+
   Comment createVideoComment(long videoId, long userId, String commentText);
 
   RatingDat createVideoRating(long videoId, long userId, Rating rating);

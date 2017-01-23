@@ -89,11 +89,14 @@ public class SignController {
 
     List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
     List<SignView2> signViews = signViewsData.stream()
       .map(signViewData -> new SignView2(
         signViewData,
         signWithCommentList.contains(signViewData.id),
-        SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate))
+        SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+        signWithView.contains((signViewData.id)))
       )
       .collect(Collectors.toList());
 
@@ -137,6 +140,8 @@ public class SignController {
       model.addAttribute("isLowCommented", false);
     }
 
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
     List<SignViewData> notCommented = signViewsData.stream()
       .filter(signViewData -> !signWithCommentList.contains(signViewData.id))
       .collect(Collectors.toList());
@@ -147,7 +152,7 @@ public class SignController {
       .collect(Collectors.toList());
 
     List<SignView2> signViews = commented.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, user))
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, user))
       .collect(Collectors.toList());
 
 
@@ -191,8 +196,10 @@ public class SignController {
 
     List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
     List<SignView2> signViews = rating.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, user))
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, user))
       .collect(Collectors.toList());
 
 
@@ -289,6 +296,8 @@ public class SignController {
         isVideoCreatedByMe = true;
       }
     }
+    services.video().increaseNbView(videoId);
+
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", video);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
@@ -348,11 +357,14 @@ public class SignController {
 
     List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
     List<SignView2> signViews = signViewsData.stream()
       .map(signViewData -> new SignView2(
         signViewData,
         signWithCommentList.contains(signViewData.id),
-        SignView2.createdAfterLastDeconnection(signViewData.createDate, services.user().withUserName(principal.getName()) == null ? null : services.user().withUserName(principal.getName()).lastDeconnectionDate))
+        SignView2.createdAfterLastDeconnection(signViewData.createDate, services.user().withUserName(principal.getName()) == null ? null : services.user().withUserName(principal.getName()).lastDeconnectionDate),
+        signWithView.contains(signViewData.id))
       )
       .collect(Collectors.toList());
 
@@ -437,8 +449,10 @@ public class SignController {
 
     List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
     List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, user))
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, user))
       .collect(Collectors.toList());
 
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
@@ -449,11 +463,12 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
   }
 
-  private SignView2 buildSignView(SignViewData signViewData, List<Long> signWithCommentList, User user) {
+  private SignView2 buildSignView(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, User user) {
     return new SignView2(
       signViewData,
       signWithCommentList.contains(signViewData.id),
-      SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate));
+      SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+      signWithView.contains(signViewData.id));
   }
 
   private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, User user) {

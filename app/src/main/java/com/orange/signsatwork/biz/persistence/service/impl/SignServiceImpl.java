@@ -80,6 +80,11 @@ public class SignServiceImpl implements SignService {
 
 
   @Override
+  public Long[] mostViewed() {
+    return signRepository.findMostViewed();
+  }
+
+  @Override
   public Long[] mostCommented() {
     return commentRepository.findMostCommented();
   }
