@@ -687,6 +687,37 @@ text-decoration-line: none;
 	height: 40px;
 	width: 40px;
 }
+
+.most_viewed{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2080px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
+
+.most_recent{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2000px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.most_active{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2040px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
+
+
 .personal_favorite_signe {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -420px center;
