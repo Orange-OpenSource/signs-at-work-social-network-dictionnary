@@ -40,7 +40,7 @@ public class SignListSortTest {
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
 
     // When
-    List<? extends ComparableSign> signsSorted = signsViewSort2.sort(signs);
+    List<? extends ComparableSign> signsSorted = signsViewSort2.sort(signs, false);
 
     // Then
     Assertions.assertThat(signsSorted.get(0).id()).isEqualTo(3);

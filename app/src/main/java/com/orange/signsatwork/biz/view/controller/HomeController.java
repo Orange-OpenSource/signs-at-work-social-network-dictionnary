@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,9 +100,13 @@ public class HomeController {
       .collect(Collectors.toList());
 
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-    signViews = signsViewSort2.sort(signViews);
+    signViews = signsViewSort2.sort(signViews, true);
 
+    List<SignView2> createdSinceLastDeconnection = signViews.stream()
+      .filter(SignView2::createdSinceLastDeconnection)
+      .collect(Collectors.toList());
 
+    model.addAttribute("nbRecentSign", createdSinceLastDeconnection.size());
     model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
     if (AuthentModel.isAuthenticated(principal)) {
@@ -149,8 +154,13 @@ public class HomeController {
       .collect(Collectors.toList());
 
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-    signViews = signsViewSort2.sort(signViews);
+    signViews = signsViewSort2.sort(signViews, true);
 
+    List<SignView2> createdSinceLastDeconnection = signViews.stream()
+      .filter(SignView2::createdSinceLastDeconnection)
+      .collect(Collectors.toList());
+
+    model.addAttribute("nbRecentSign", createdSinceLastDeconnection.size());
     model.addAttribute("signsView", signViews);
     if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, user);

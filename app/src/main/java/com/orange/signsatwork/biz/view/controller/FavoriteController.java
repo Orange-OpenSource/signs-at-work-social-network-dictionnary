@@ -108,7 +108,7 @@ public class FavoriteController {
       .collect(Collectors.toList());
 
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-    signViews = signsViewSort2.sort(signViews);
+    signViews = signsViewSort2.sort(signViews, false);
 
     model.addAttribute("signsView", signViews);
 

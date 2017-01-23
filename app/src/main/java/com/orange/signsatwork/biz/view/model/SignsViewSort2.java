@@ -36,7 +36,7 @@ public class SignsViewSort2 {
    * @param signs to sort
    * @return sorted signs
    */
-  public List<SignView2> sort(List<SignView2> signs) {
+  public List<SignView2> sort(List<SignView2> signs, boolean onlyActiveSign) {
     List<SignView2> createdSinceLastDeconnection = signs.stream()
       .filter(SignView2::createdSinceLastDeconnection)
       .collect(Collectors.toList());
@@ -59,7 +59,9 @@ public class SignsViewSort2 {
     sortedSigns.addAll(createdSinceLastDeconnection);
     sortedSigns.addAll(commentAddedSinceLastDeconnection);
     sortedSigns.addAll(viewAddedSinceLastDeconnection);
-    sortedSigns.addAll(signs);
+    if (!onlyActiveSign) {
+      sortedSigns.addAll(signs);
+    }
 
     return sortedSigns;
   }
