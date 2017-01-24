@@ -134,6 +134,16 @@ public class VideoServiceImpl implements VideoService {
   @Override
   public void delete(Video video) {
     VideoDB videoDB = videoRepository.findOne(video.id);
+    SignDB signDB = videoDB.getSign();
+    if ((signDB.getLastVideoId() == video.id) && (signDB.getVideos().size() > 1)) {
+      int taille = signDB.getVideos().size();
+      VideoDB lastVideoDB = signDB.getVideos().get(taille - 2);
+      long lastVideoId = lastVideoDB.getId();
+      signDB.setLastVideoId(lastVideoId);
+      signDB.setCreateDate(lastVideoDB.getCreateDate());
+      signDB.setUrl(lastVideoDB.getUrl());
+      signRepository.save(signDB);
+    }
 
     List<CommentDB> commentDBs = new ArrayList<>();
     commentDBs.addAll(videoDB.getComments());
@@ -148,15 +158,6 @@ public class VideoServiceImpl implements VideoService {
 
     videoRepository.delete(videoDB);
 
-    SignDB signDB = videoDB.getSign();
-    if ((signDB.getLastVideoId() == video.id) && (signDB.getVideos().size() > 1)) {
-      VideoDB lastVideoDB = signDB.getVideos().get(signDB.getVideos().size()-1);
-      long lastVideoId = lastVideoDB.getId();
-      signDB.setLastVideoId(lastVideoId);
-      signDB.setCreateDate(lastVideoDB.getCreateDate());
-      signDB.setUrl(lastVideoDB.getUrl());
-      signRepository.save(signDB);
-    }
   }
 
   static Videos videosFrom(Iterable<VideoDB> videosDB) {
