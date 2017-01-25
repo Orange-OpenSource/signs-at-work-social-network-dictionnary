@@ -424,7 +424,9 @@ public class SignController {
         isVideoCreatedByMe = true;
       }
     }
-    services.video().increaseNbView(videoId);
+    if (!isVideoCreatedByMe && !referer.contains("detail")) {
+      services.video().increaseNbView(videoId);
+    }
 
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", video);
