@@ -76,6 +76,7 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
 
     return "signs";
   }
@@ -121,6 +122,7 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("favoriteId", favoriteId);
+    model.addAttribute("dropdownTitle", favorite.name);
 
     return "signs";
   }
@@ -175,6 +177,7 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_commented"));
 
     return "signs";
   }
@@ -228,6 +231,7 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
 
     return "signs";
   }
@@ -281,6 +285,7 @@ public class SignController {
     model.addAttribute("isLowRating", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_viewed"));
 
     return "signs";
   }
@@ -291,20 +296,12 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
 
-//    List<Object[]> querySigns = services.sign().SignsForSignsView();
-//    List<SignViewData> signViewsData = querySigns.stream()
-//      .map(objectArray -> new SignViewData(objectArray))
-//      .collect(Collectors.toList());
-
-    List<Long> signWithViewedList;
     List<Object[]> querySigns;
     if (isMostRecent == true) {
       querySigns = services.sign().lowRecent(user.lastDeconnectionDate);
-      //signWithViewedList = Arrays.asList(services.sign().lowViewed());
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
     } else {
-      //signWithViewedList = Arrays.asList(services.sign().mostViewed());
      querySigns = services.sign().mostRecent(user.lastDeconnectionDate);
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
@@ -312,11 +309,6 @@ public class SignController {
     List<SignViewData> signViewsData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
       .collect(Collectors.toList());
-
-//    List<SignViewData> rating = signViewsData.stream()
-//      .filter(signViewData -> signWithViewedList.contains(signViewData.id))
-//      .sorted(new CommentOrderComparator(signWithViewedList))
-//      .collect(Collectors.toList());
 
     List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
 
@@ -340,6 +332,7 @@ public class SignController {
     model.addAttribute("isLowRating", false);
     model.addAttribute("isMostViewed", false);
     model.addAttribute("isLowViewed", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
 
     return "signs";
   }
@@ -380,18 +373,25 @@ public class SignController {
 
   @RequestMapping(value = "/sign/{signId}/{videoId}")
   public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+
     Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
     String backUrl;
+
+
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
+    model.addAttribute("commentCreationView", new CommentCreationView());
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+
+
+    Sign sign = services.sign().withIdSignsView(signId);
     if (referer != null ) {
       if (referer.contains(SIGNS_URL)) {
         backUrl = SIGNS_URL;
       }  else if (referer.contains(SIGN_URL)) {
-        List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
-        List<VideoViewData> videoViewsData = querySigns.stream()
-          .map(objectArray -> new VideoViewData(objectArray))
-          .collect(Collectors.toList());
-        if (videoViewsData.size() == 1) {
+
+        if (sign.nbVideo == 1) {
           backUrl = HOME_URL;
         } else {
           backUrl = signUrl(signId);
@@ -402,12 +402,8 @@ public class SignController {
     } else {
       backUrl = HOME_URL;
     }
-    fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
-    model.addAttribute("commentCreationView", new CommentCreationView());
-    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    model.addAttribute("backUrl", backUrl);
 
-
-    Sign sign = services.sign().withIdSignsView(signId);
     Video video = services.video().withId(videoId);
     if (principal != null) {
       User user = services.user().withUserName(principal.getName());
@@ -428,6 +424,15 @@ public class SignController {
       services.video().increaseNbView(videoId);
     }
 
+    if ((video.idForName == 0) || (sign.nbVideo == 1 )){
+      model.addAttribute("title", sign.name + " / " + messageByLocaleService.getMessage("info"));
+      model.addAttribute("videoName", sign.name);
+    } else {
+      model.addAttribute("title", sign.name + " (" + video.idForName + ")" + " / " + messageByLocaleService.getMessage("info"));
+      model.addAttribute("videoName", sign.name + " (" + video.idForName + ")");
+    }
+
+
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", video);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
@@ -442,7 +447,12 @@ public class SignController {
   public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
     Boolean isVideoCreatedByMe = false;
 
-    fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, videoUrl(signId, videoId));
+    //fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, videoUrl(signId, videoId));
+
+    model.addAttribute("backUrl", videoUrl(signId, videoId));
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
+
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     Sign sign = services.sign().withIdSignsView(signId);
     Video video = services.video().withId(videoId);
@@ -466,6 +476,14 @@ public class SignController {
       .map(objectArray -> new VideoHistoryData(objectArray))
       .collect(Collectors.toList());
     model.addAttribute("videoHistoryDatas", videoHistoryDatas);
+
+    if ((video.idForName == 0) || (sign.nbVideo == 1 )){
+      model.addAttribute("title", sign.name + " / " + messageByLocaleService.getMessage("détail"));
+      model.addAttribute("videoName", sign.name);
+    } else {
+      model.addAttribute("title", sign.name + " (" + video.idForName + ")" + " / " + messageByLocaleService.getMessage("détail"));
+      model.addAttribute("videoName", sign.name + " (" + video.idForName + ")");
+    }
 
     model.addAttribute("signView", sign);
     model.addAttribute("signCreationView", new SignCreationView());
@@ -509,7 +527,7 @@ public class SignController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/associate-form")
   public String associate(@PathVariable long signId, Principal principal, Model model)  {
-    fillModelWithContext(model, "sign.associate-with", principal, HIDE_ADD_FAVORITE, signUrl(signId));
+    fillModelWithContext(model, "sign.associate-form", principal, HIDE_ADD_FAVORITE, signUrl(signId));
     fillModelWithSign(model, signId, principal);
 
     List<Object[]> querySigns = services.sign().SignsForSignsView();

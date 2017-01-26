@@ -35,7 +35,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                   <div class="add pull-left"></div>
-                  <h4 class="pull-right" th:text="#{append}"></h4>
+                  <h4 class="pull-right" th:text="#{description_LSF_title}"></h4>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -117,6 +117,7 @@
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForJobDescription}"  enctype="multipart/form-data" method="post">
         <div class="modal-body text-center">
+          <span th:text="#{sign.join_video}"></span>
           <input name="file" type="file"/>
           <span id="errorSelectedSpan"  style="visibility: hidden"></span>
         </div>

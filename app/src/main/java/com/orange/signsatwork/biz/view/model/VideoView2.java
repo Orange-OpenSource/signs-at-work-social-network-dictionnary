@@ -38,6 +38,7 @@ import java.util.Date;
 public class VideoView2 implements ComparableVideo {
   private long signId;
   private String signName;
+  private String videoName;
   private Date createDate;
   private long videoId;
   private String url;
@@ -49,6 +50,7 @@ public class VideoView2 implements ComparableVideo {
   public VideoView2(VideoViewData videoViewData, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView) {
     signId = videoViewData.signId;
     signName = videoViewData.signName;
+    videoName = videoViewData.signName + " (" + videoViewData.idForName + ")";
     createDate = videoViewData.createDate;
     videoId = videoViewData.videoId;
     url = videoViewData.url;

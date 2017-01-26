@@ -271,12 +271,14 @@ public class SignServiceImpl implements SignService {
       signDB = new SignDB();
       signDB.setName(signName);
       signDB.setUrl(signUrl);
+      signDB.setNbVideo(1L);
 
       videoDB.setPictureUri(pictureUri);
 
       signDB.setCreateDate(now);
       List<VideoDB> videoDBList = new ArrayList<>();
       videoDBList.add(videoDB);
+      videoDB.setIdForName(1L);
       signDB.setVideos(videoDBList);
       videoDB.setSign(signDB);
 
@@ -298,12 +300,16 @@ public class SignServiceImpl implements SignService {
       signDB = signsMatches.get(0);
       signDB.setCreateDate(now);
       signDB.setUrl(signUrl);
+      long nbVideo = signDB.getNbVideo();
+      signDB.setNbVideo(nbVideo+1L);
+      long idForName = signDB.getVideos().get((int) nbVideo-1).getIdForName();
 
       videoDB.setPictureUri(pictureUri);
 
       videoDB.setSign(signDB);
       signDB.getVideos().add(videoDB);
 
+      videoDB.setIdForName(idForName+1);
 
       videoRepository.save(videoDB);
       signDB.setLastVideoId(videoDB.getId());
@@ -372,12 +378,12 @@ public class SignServiceImpl implements SignService {
 
   static Sign signFrom(SignDB signDB, Services services) {
     return signDB == null ? null :
-      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), VideoServiceImpl.videosFrom(signDB.getVideos()), null, null, services.video(), services.comment());
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), signDB.getNbVideo(),VideoServiceImpl.videosFrom(signDB.getVideos()), null, null, services.video(), services.comment());
   }
 
   Sign signFromWithAssociates(SignDB signDB) {
     return signDB == null ? null :
-      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, signsFromSignsView(signDB.getAssociates()).ids(), signsFromSignsView(signDB.getReferenceBy()).ids(), services.video(), services.comment());
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), signDB.getNbVideo(), null, signsFromSignsView(signDB.getAssociates()).ids(), signsFromSignsView(signDB.getReferenceBy()).ids(), services.video(), services.comment());
   }
 
   private SignDB signDBFrom(Sign sign) {
@@ -392,11 +398,11 @@ public class SignServiceImpl implements SignService {
 
   static Sign signFromSignsView(SignDB signDB, Services services) {
     return signDB == null ? null :
-      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), null, null, null, services.video(), services.comment());
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), signDB.getLastVideoId(), signDB.getNbVideo(), null, null, null, services.video(), services.comment());
   }
 
   static Sign signFromRequestsView(SignDB signDB, Services services) {
     return signDB == null ? null :
-      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), 0, null, null, null, services.video(), services.comment());
+      new Sign(signDB.getId(), signDB.getName(), signDB.getUrl(), signDB.getCreateDate(), 0, signDB.getNbVideo(), null, null, null, services.video(), services.comment());
   }
 }

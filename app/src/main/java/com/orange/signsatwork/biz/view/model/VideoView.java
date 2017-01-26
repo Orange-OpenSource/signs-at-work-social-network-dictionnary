@@ -40,6 +40,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class VideoView {
   private long id;
+  private long idForName;
   private String url;
   private String pictureUri;
   private Date createDate;
@@ -47,11 +48,11 @@ public class VideoView {
   private Ratings ratings;
 
   public Video toVideo() {
-    return new Video(id, url, pictureUri, 0, createDate, null, null, null);
+    return new Video(id, idForName, url, pictureUri, 0, createDate, null, null, null);
   }
 
   public static VideoView from(Video video) {
-    return new VideoView(video.id, video.url, video.pictureUri, video.createDate, video.ratings);
+    return new VideoView(video.id, video.idForName, video.url, video.pictureUri, video.createDate, video.ratings);
 
   }
 

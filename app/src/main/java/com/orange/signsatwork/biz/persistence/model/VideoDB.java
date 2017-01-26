@@ -45,6 +45,8 @@ public class VideoDB {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  private Long idForName;
+
   @NotNull
   private String url;
 

@@ -29,6 +29,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class Video {
     public final long id;
+    public final long idForName;
     public final String url;
     public final String pictureUri;
     public final long nbView;

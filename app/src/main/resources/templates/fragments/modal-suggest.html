@@ -34,7 +34,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                     <div class="suggest pull-left"></div>
-                    <h4 class="pull-right" th:text="#{sign.suggest}"/>
+                    <h4 class="pull-right" th:text="#{sign.modal.suggest}"/>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -77,7 +77,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <div class="pull-left">
             <div class="suggest pull-left"></div>
-            <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
+            <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
           </div>
         <!--</div>-->
         <div class="spinner spinner_hidden"></div>
@@ -88,7 +88,7 @@
           </div>
         <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFile}" th:object="${signCreationView}" method="post">
           <div class="modal-body text-center">
-            <input th:field="*{signName}"  id="signNameRecording" name="signNameRecording" type="text" class="text-center border form-control" required="" /><br/>
+            <input th:field="*{signName}"  id="signNameRecording" name="signNameRecording" type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" required="" /><br/>
             <span id="errorSpan"  style="visibility: hidden"></span>
           </div>
           <div class="modal-footer">
@@ -111,13 +111,14 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="suggest pull-left"></div>
-          <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
+          <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFile}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
-          <input th:field="*{signName}" id="signNameSelected"  type="text" class="text-center border form-control" required="" /><br/>
+          <input th:field="*{signName}" id="signNameSelected"  type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" required="" /><br/>
+          <span th:text="#{sign.join_video}"></span>
           <input name="file" type="file"/>
           <span id="errorSelectedSpan"  style="visibility: hidden"></span>
         </div>

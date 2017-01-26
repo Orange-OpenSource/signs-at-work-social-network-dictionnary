@@ -35,7 +35,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                     <div class="suggest pull-left"></div>
-                    <h4 class="pull-right" th:text="#{sign.suggest}"/>
+                    <h4 class="pull-right" th:text="#{sign.modal.replace}"/>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -78,7 +78,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="suggest pull-left"></div>
-          <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
+          <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
         </div>
         <!--</div>-->
         <div class="spinner spinner_hidden"></div>
@@ -111,12 +111,13 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="suggest pull-left"></div>
-          <h4 class="pull-right" th:text="#{sign.suggest}"></h4>
+          <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
+          <span th:text="#{sign.join_video}"></span>
           <input name="file" type="file"/>
           <span id="errorSelectedSpan"  style="visibility: hidden"></span>
         </div>

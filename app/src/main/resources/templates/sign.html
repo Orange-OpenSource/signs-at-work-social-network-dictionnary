@@ -66,7 +66,7 @@
                     <li th:if="${isAuthenticated}" id="label_sign" class="label_sign aside_bckg_li">
                         <a th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} +'/detail'">
                             <div>
-                            <em><h2 class="container_H2" th:text="${signView.name}"/></em>
+                            <em><h2 class="container_H2" th:text="${videoName}"/></em>
                             <div>
                                 <div class="pull-right menu_detail_with_chevron"/>
                                 <div th:if="${ratingData.ratePositive}" class="pull-right sentiment_positif"/>

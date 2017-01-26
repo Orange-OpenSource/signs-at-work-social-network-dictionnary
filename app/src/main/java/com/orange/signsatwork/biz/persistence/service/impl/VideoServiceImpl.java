@@ -135,15 +135,16 @@ public class VideoServiceImpl implements VideoService {
   public void delete(Video video) {
     VideoDB videoDB = videoRepository.findOne(video.id);
     SignDB signDB = videoDB.getSign();
-    if ((signDB.getLastVideoId() == video.id) && (signDB.getVideos().size() > 1)) {
-      int taille = signDB.getVideos().size();
-      VideoDB lastVideoDB = signDB.getVideos().get(taille - 2);
+    if ((signDB.getLastVideoId() == video.id) && (signDB.getNbVideo() > 1)) {
+      VideoDB lastVideoDB = signDB.getVideos().get((int) signDB.getNbVideo() - 2);
       long lastVideoId = lastVideoDB.getId();
       signDB.setLastVideoId(lastVideoId);
       signDB.setCreateDate(lastVideoDB.getCreateDate());
       signDB.setUrl(lastVideoDB.getUrl());
-      signRepository.save(signDB);
     }
+
+    signDB.setNbVideo(signDB.getNbVideo()-1);
+    signRepository.save(signDB);
 
     List<CommentDB> commentDBs = new ArrayList<>();
     commentDBs.addAll(videoDB.getComments());
@@ -167,12 +168,12 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFrom(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
   }
 
 
   static Video videoFromRatingView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
   }
 
   static Videos videosFromSignsView(Iterable<VideoDB> videosDB) {
@@ -182,6 +183,6 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFromSignsView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
   }
 }
