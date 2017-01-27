@@ -50,6 +50,8 @@ public class RestApi {
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_SIGN = WS_SEC + "uploadRecordedVideoFileFromSign/{signId}/{videoId}";
 
+  public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NEW_VIDEO = WS_SEC + "uploadRecordedVideoFileForNewVideo/{signId}";
+
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION = WS_SEC + "uploadRecordedVideoFileForJobDescription";
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NAME = WS_SEC + "uploadRecordedVideoFileForName";
@@ -60,9 +62,17 @@ public class RestApi {
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_SIGN = WS_SEC + "uploadSelectedVideoFileFromSign/{signId}/{videoId}";
 
+  public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NEW_VIDEO = WS_SEC + "uploadSelectedVideoFileForNewVideo/{signId}";
+
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION = WS_SEC + "uploadSelectedVideoFileForJobDescription";
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME = WS_SEC + "uploadSelectedVideoFileForName";
 
   public static final String WS_SEC_VIDEO_DELETE = WS_SEC + "sign/{signId}/{videoId}/delete";
+
+  public static final String WS_SEC_VIDEO_RATE_POSITIVE = WS_SEC + "sign/{signId}/{videoId}/rate-positive";
+
+  public static final String WS_SEC_VIDEO_RATE_NEUTRAL = WS_SEC + "sign/{signId}/{videoId}/rate-neutral";
+
+  public static final String WS_SEC_VIDEO_RATE_NEGATIVE = WS_SEC + "sign/{signId}/{videoId}/rate-negative";
 }

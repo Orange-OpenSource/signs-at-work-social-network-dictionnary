@@ -100,6 +100,12 @@ public class FileUploadRestController {
     return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), principal, response);
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NEW_VIDEO, method = RequestMethod.POST)
+  public String uploadRecordedVideoFileForNewVideo(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
+    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), principal, response);
+  }
+
   private String handleRecordedVideoFile(VideoFile videoFile, OptionalLong requestId,OptionalLong signId, OptionalLong videoId, Principal principal, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
@@ -215,7 +221,7 @@ public class FileUploadRestController {
         log.warn("handleFileUpload : embed_url = {}", videoDailyMotion.embed_url);
       }
       Sign sign;
-      if (signId.isPresent()) {
+      if (signId.isPresent() && (videoId.isPresent())) {
           sign = services.sign().withId(signId.getAsLong());
           dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
           try {
@@ -226,7 +232,9 @@ public class FileUploadRestController {
             return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
           }
           sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
-      }else{
+      } else if (signId.isPresent() && !(videoId.isPresent())) {
+        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
+      } else {
          sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
         log.info("handleFileUpload : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
           }
@@ -276,6 +284,13 @@ public class FileUploadRestController {
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
   public String createSignFromUploadondailymotionFromSign(@RequestParam("file") MultipartFile file,@PathVariable long signId, @PathVariable long videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
     return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationView, principal, response);
+
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NEW_VIDEO, method = RequestMethod.POST)
+  public String createSignFromUploadondailymotionForNewVideo(@RequestParam("file") MultipartFile file,@PathVariable long signId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationView, principal, response);
 
   }
 
@@ -357,7 +372,7 @@ public class FileUploadRestController {
       }
 
       Sign sign;
-      if (signId.isPresent()) {
+      if (signId.isPresent() && (videoId.isPresent())) {
         sign = services.sign().withId(signId.getAsLong());
         dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
         try {
@@ -368,9 +383,12 @@ public class FileUploadRestController {
           return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
         }
         sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
+      } else if (signId.isPresent() && !(videoId.isPresent())) {
+        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
       } else {
         sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
       }
+
       log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 
       if (requestId.isPresent()) {

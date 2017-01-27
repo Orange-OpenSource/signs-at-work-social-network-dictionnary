@@ -35,7 +35,7 @@
 
 
 <body class="container-fluid">
-<div th:replace="fragments/modal-replace :: div"/>
+
 
 
 <script type='text/javascript'>
@@ -147,15 +147,18 @@
     </div>
 </div>
 
-<div th:replace="fragments/modal-rate-sign :: div"/>
+<div th:replace="fragments/modal-re-rate-sign :: div"/>
 <div th:replace="fragments/modal-add-favorite :: div"/>
 <div th:replace="fragments/modal-delete-video :: div"/>
+<div th:replace="fragments/modal-replace :: div"/>
 
 
 </body>
 
+<script type="text/javascript" src="../public/js/rate.js" th:src="@{/js/rate.js}"></script>
 <script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
 <script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
 <script type="text/javascript" src="../public/js/video.js" th:src="@{/js/video.js}"></script>
+<script type="text/javascript" src="../public/js/new-video.js" th:src="@{/js/new-video.js}"></script>
 
 </html>
