@@ -50,6 +50,10 @@
                 </a>
               </li>
 
+              <li class="request_whitout_answer  aside_bckg_li">
+                <div class="text-center" th:text="#{request.answer}"></div>
+              </li>
+
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >
 
@@ -58,7 +62,7 @@
                                 <div class="pull-right">
                                     <div class="containerRight_signes">
                                         <div class="containerRight_signes">
-                                            <div class="pull-right chevron_right"></div>
+                                            <div class="pull-right request_signe_whith_chevron"></div>
                                         </div>
                                     </div>
                                 </div>
