@@ -33,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -72,7 +73,7 @@ public class HomeController {
 
 
     if (AuthentModel.isAuthenticated(principal)) {
-      if (user.firstName.isEmpty() && user.lastName.isEmpty() && user.job.isEmpty() && user.entity.isEmpty() && user.jobTextDescription.isEmpty() ){
+      if ((user.firstName == null) && (user.lastName == null) && (user.job == null) && (user.entity == null) && user.jobTextDescription == null ){
         model.addAttribute("isUserEmpty", true);
       } else {
         model.addAttribute("isUserEmpty", false);
