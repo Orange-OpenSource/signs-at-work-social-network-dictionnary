@@ -24,8 +24,10 @@ package com.orange.signsatwork.biz.webservice.controller;
 
 import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
+import com.orange.signsatwork.biz.webservice.model.RequestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -46,36 +48,69 @@ public class RequestRestController {
   @Autowired
   Services services;
 
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_CREATE, method = RequestMethod.POST)
-  public void createRequest(@RequestBody RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) {
+  public RequestResponse createRequest(@RequestBody RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) {
+    Request request;
+    RequestResponse requestResponse = new RequestResponse();
     User user = services.user().withUserName(principal.getName());
-    if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-      Request request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
-      log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+    if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+      if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+         request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+        log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+      } else {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          requestResponse.errorType = 1;
+          requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+          return requestResponse;
+      }
     } else {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
+      requestResponse.errorType = 2;
+      requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+      requestResponse.signId = services.sign().withName(requestCreationView.getRequestName()).list().get(0).id;
+      return requestResponse;
     }
+
+    requestResponse.requestId = request.id;
+    return requestResponse;
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_RENAME, method = RequestMethod.POST)
-  public void renameRequest(@RequestBody RequestCreationView requestCreationView, @PathVariable long requestId, HttpServletResponse response) {
-  Request request = services.request().withId(requestId);
-    if (!request.name.equals(requestCreationView.getRequestName()) ) {
+  public RequestResponse renameRequest(@RequestBody RequestCreationView requestCreationView, @PathVariable long requestId, HttpServletResponse response) {
+    RequestResponse requestResponse = new RequestResponse();
+    Request request = services.request().withId(requestId);
+    if (!request.name.equals(requestCreationView.getRequestName())) {
+      if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+        if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+          services.request().rename(requestId, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+          log.info("renameRequest:  request name  = {} / request requestTextDescription = {} ", requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
 
-     if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-      services.request().rename(requestId, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
-
-      log.info("renameRequest:  request name  = {} / request requestTextDescription = {} ", requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+        } else {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          requestResponse.errorType = 1;
+          requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+          return requestResponse;
+        }
       } else {
-      response.setStatus(HttpServletResponse.SC_CONFLICT);
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        requestResponse.errorType = 2;
+        requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+        requestResponse.signId = services.sign().withName(requestCreationView.getRequestName()).list().get(0).id;
+        return requestResponse;
       }
+
     } else {
       if (!request.requestTextDescription.equals(requestCreationView.getRequestTextDescription())) {
         services.request().rename(requestId, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
       }
     }
+    requestResponse.requestId = request.id;
+    return requestResponse;
   }
 
 

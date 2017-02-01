@@ -189,6 +189,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Signs withName(String name) {
+    return signsFromSignsView(signRepository.findByName(name));
+  }
+
+  @Override
   public Signs forFavorite(long favoriteId) {
     return signsFromSignsView(
             signRepository.findByFavorite(favoriteRepository.findOne(favoriteId))

@@ -89,8 +89,9 @@
         <div class="modal-body text-center">
           <input th:value="${requestView.name}" id="requestName" name="requestName" type="text" class="text-center border form-control"
                   required=""/><br/>
-          <span id="requestSpan" th:text="#{request.already_exists}" style="visibility: hidden"></span>
+          <span id="requestSpan" style="visibility: hidden"></span>
           <textarea  th:text="${requestView.requestTextDescription}" id="requestTextDescription" name="requestTextDescription" type="text" class=" border form-control" rows="3" cols="40"/><br/>
+          <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
 
         </div>
 

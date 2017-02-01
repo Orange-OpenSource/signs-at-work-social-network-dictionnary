@@ -24,6 +24,7 @@ console.log("Cool, request.js is loaded :)");
 
 
 var $formRequest = $('#requestInfo');
+var seeSignButton = document.getElementById('seeSignButton');
 var requestSpan = document.getElementById('requestSpan');
 $formRequest.on('submit', function(event) {
     event.preventDefault();
@@ -42,7 +43,13 @@ $formRequest.on('submit', function(event) {
            requestSpan.style.visibility="hidden";
        },
        error: function(response) {
-           requestSpan.style.visibility="visible";
+         var returnedData = JSON.parse(response.responseText);
+         requestSpan.textContent = returnedData.errorMessage;
+         if (returnedData.errorType == 2) {
+           seeSignButton.style.visibility="visible";
+           seeSignButton.href="/sign/"+returnedData.signId;
+         }
+         requestSpan.style.visibility="visible";
        }
 })});
 
@@ -54,7 +61,16 @@ var $new_request = $('#new_request');
 $new_request.on('hidden.bs.modal', function() {
     if ($('#requestInfo').find('#requestSpan').length) {
         requestSpan.style.visibility="hidden";
+        seeSignButton.style.visibility="hidden";
         $('#requestName').val("");
         $('#requestTextDescription').val("");
     }
+});
+
+var $modify_request = $('#modify_request');
+$modify_request.on('hidden.bs.modal', function() {
+  if ($('#requestInfo').find('#requestSpan').length) {
+    requestSpan.style.visibility="hidden";
+    seeSignButton.style.visibility="hidden";
+  }
 });

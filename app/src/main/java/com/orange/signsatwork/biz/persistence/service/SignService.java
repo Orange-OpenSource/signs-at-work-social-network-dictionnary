@@ -76,6 +76,8 @@ public interface SignService {
 
   Sign withIdLoadAssociates(long id);
 
+  Signs withName(String name);
+
   Sign changeSignAssociates(long signId, List<Long> associateSignsIds);
 
   Sign create(Sign sign);
