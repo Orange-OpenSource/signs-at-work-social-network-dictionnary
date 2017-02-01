@@ -24,20 +24,6 @@
 <head>
   <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
   <th:block th:include="fragments/header-head :: head"></th:block>
-
-  <script type="text/javascript" src="../public/js/player.js" th:src="@{/js/player.js}"></script>
-
-  <script type='text/javascript'>
-
-    $(document).ready(function() {
-      $('video').videoPlayer({
-        'playerWidth' : 0.95,
-        'videoClass' : 'video'
-      });
-    });
-
-  </script>
-
 </head>
 
 <header role="banner" th:replace="fragments/header-profil-detail :: header">&nbsp;</header>

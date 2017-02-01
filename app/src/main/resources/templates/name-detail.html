@@ -27,19 +27,6 @@
   <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
   <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
 
-  <script type="text/javascript" src="../public/js/player.js" th:src="@{/js/player.js}"></script>
-
-  <script type='text/javascript'>
-
-    $(document).ready(function() {
-      $('video').videoPlayer({
-        'playerWidth' : 0.95,
-        'videoClass' : 'video'
-      });
-    });
-
-  </script>
-
 </head>
 
 <header role="banner" th:replace="fragments/header-profil-detail :: header">&nbsp;</header>
@@ -55,16 +42,8 @@
 
     <div class="pull-right col-md-8 col-xs-12 col-sm-4">
       <div th:if="${user.nameVideo} != null">
-        <iframe th:if="${not #strings.contains(user.nameVideo,'mp4') and not #strings.contains(user.nameVideo,'mov')}" th:src="${user.nameVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
-
-        <div th:if="${#strings.contains(user.nameVideo,'mp4') or #strings.contains(user.nameVideo,'mov')}">
-          <video>
-            <source src="'${user.nameVideo}" th:src="@{${user.nameVideo}}" type="video/mp4"/>
-          </video>
-          <div th:replace="fragments/frame-player :: div"/>
-        </div>
+        <iframe th:src="${user.nameVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
       </div>
-
     </div>
 
     <div class="col-md-4 col-xs-12">

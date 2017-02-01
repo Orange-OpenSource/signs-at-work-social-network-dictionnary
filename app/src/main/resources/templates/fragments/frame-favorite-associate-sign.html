@@ -39,7 +39,6 @@
                    th:for="${#ids.next('favoriteSignsIds')}">
 
                  <img th:if="${!#strings.isEmpty(signView.pictureUri)}" th:src="${signView.pictureUri}"/>
-                  <iframe th:if="${#strings.isEmpty(signView.pictureUri) and !#strings.isEmpty(signView.url)}" th:src="${signView.url} + '?wmode=transparent'" frameborder="0" allowfullscreen=""/>
 
                 <input type="checkbox" th:field="*{favoriteSignsIds}" th:value="${signView.id}"/>
                 <span th:text="${signView.name}"></span>

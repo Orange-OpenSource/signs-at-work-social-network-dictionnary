@@ -27,8 +27,6 @@
   <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
   <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
 
-    <script type="text/javascript" src="../public/js/player.js" th:src="@{/js/player.js}"></script>
-
 </head>
 
 <header role="banner" th:replace="fragments/header-sign :: header">&nbsp;</header>
@@ -37,32 +35,12 @@
 <body class="container-fluid">
 
 
-
-<script type='text/javascript'>
-
-  $(document).ready(function() {
-    $('video').videoPlayer({
-      'playerWidth' : 0.95,
-      'videoClass' : 'video'
-    });
-  });
-
-</script>
-
 <div class="row">
 
     <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
         <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-            <iframe th:if="${not #strings.contains(videoView.url,'mp4') and not #strings.contains(videoView.url,'mov')}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
-
-            <div th:if="${#strings.contains(videoView.url,'mp4') or #strings.contains(videoView.url,'mov')}">
-                <video>
-                    <source src="'${videoView.url}" th:src="@{${videoView.url}}" type="video/mp4"/>
-                </video>
-                <div th:replace="fragments/frame-player :: div"/>
-            </div>
-
+            <iframe th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
         </div>
 
         <div class="col-md-4 col-xs-12">
