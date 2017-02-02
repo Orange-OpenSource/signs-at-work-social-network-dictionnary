@@ -117,7 +117,7 @@
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForJobDescription}"  enctype="multipart/form-data" method="post">
         <div class="modal-body text-center">
-          <span th:text="#{sign.join_video}"></span>
+          <span class="pull-left" th:text="#{sign.join_video}"></span><br/>
           <input name="file" type="file"/>
           <span id="errorSelectedSpan"  style="visibility: hidden"></span>
         </div>
