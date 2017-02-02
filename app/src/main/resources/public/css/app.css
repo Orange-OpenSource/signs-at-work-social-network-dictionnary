@@ -194,6 +194,10 @@ a.form-control{
   overflow: auto;
 }
 
+.re-rate{
+  border-top: medium solid;
+}
+
 .divider {
 	height: 3px;
 	width:100%;
@@ -910,11 +914,28 @@ video{
 	width: 100%;
 }
 
+.containerRight_signes.sentiment_positif,
+.containerRight_signes.sentiment_negatif,
+.containerRight_signes.sentiment_neutre{
+  margin: 0 auto;
+}
+
+.container_thumbnail{
+  position: absolute;
+}
+
+
 /******* Media Query  ********/
 
 /* (1280x1024) SXGA Display */
 @media  screen and (max-width: 1280px) {
 
+  .navbar_title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 12em;
+  }
 
 	iframe , img, embed {
 		height: 37rem;
@@ -987,7 +1008,7 @@ video{
 	}
 
 	.dropdown-toggle {
-		width: 10em;
+		width: 12em;
 	}
 
 	.dropdown-menu > li > a {
@@ -1087,7 +1108,7 @@ video{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		width: 160px;
+		/*width: 160px;*/
 	}
 
 	.text_hyphenation{
@@ -1247,6 +1268,18 @@ video{
     margin-right: -15px;
   }
 
+
+
+  #button-top{
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  #button-bottom{
+    position: relative;
+  }
+
+
 }
 @media only screen and (min-width: 1300px) and (max-width: 1920px){
 
@@ -1257,7 +1290,7 @@ video{
 
 
 	.dropdown-toggle {
-		width: 10em;
+		width: 12em;
 	}
 	.dropdown-menu > li > a {
 		display: block;

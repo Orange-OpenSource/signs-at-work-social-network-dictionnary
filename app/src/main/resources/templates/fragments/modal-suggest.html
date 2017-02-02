@@ -118,7 +118,7 @@
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFile}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
           <input th:field="*{signName}" id="signNameSelected"  type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" required="" /><br/>
-          <span th:text="#{sign.join_video}"></span>
+          <span class="pull-left" th:text="#{sign.join_video}"></span><br/>
           <input name="file" type="file"/>
           <span id="errorSelectedSpan"  style="visibility: hidden"></span>
         </div>
