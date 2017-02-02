@@ -90,8 +90,8 @@
                         </a>
                     </li>
                     <div th:if="${not #lists.isEmpty(commentDatas)}">
-                        <div class="table-responsive">
-                            <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
+                        <div class="">
+                            <table class="table-responsive table table-sm table-bordered table-hover" style="margin-top: 1%">
                                 <thead>
                                 <tr>
                                     <th th:text="#{date}"></th>
@@ -100,14 +100,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <div th:each="comment :${commentDatas}">
-                                    <tr>
-                                        <td th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy HH:mm')}"></td>
-                                        <td th:text="${comment.firstName + ' ' + comment.lastName}" ></td>
-                                        <td th:text="${comment.text}"></td>
+
+                                <!--<div >-->
+                                    <tr th:each="comment :${commentDatas}">
+                                        <td id="table-date"  th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></td>
+                                        <td  th:text="${comment.firstName + ' ' + comment.lastName}" ></td>
+                                        <td  th:text="${comment.text}"></td>
                                     </tr>
-                                </div>
+                                <!--</div>-->
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

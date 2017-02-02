@@ -925,6 +925,10 @@ video{
 }
 
 
+#table-date{
+  min-width: 101px;
+}
+
 /******* Media Query  ********/
 
 /* (1280x1024) SXGA Display */
@@ -1029,7 +1033,6 @@ video{
 }
 
 @media only screen and (max-width: 768px){
-
 
 	li[role="presentation"] {
 		margin-top: -15px;
