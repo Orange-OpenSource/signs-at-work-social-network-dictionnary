@@ -420,8 +420,11 @@ public class SignController {
         isVideoCreatedByMe = true;
       }
     }
-    if (!isVideoCreatedByMe && !referer.contains("detail")) {
-      services.video().increaseNbView(videoId);
+
+    if (referer != null) {
+      if (!isVideoCreatedByMe && !referer.contains("detail")) {
+        services.video().increaseNbView(videoId);
+      }
     }
 
     if ((video.idForName == 0) || (sign.nbVideo == 1 )){
