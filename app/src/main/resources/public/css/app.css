@@ -929,6 +929,19 @@ video{
   min-width: 101px;
 }
 
+
+#button-top{
+  position: relative;
+}
+
+#button-bottom{
+  position: relative;
+  visibility: hidden;
+
+}
+
+
+
 /******* Media Query  ********/
 
 /* (1280x1024) SXGA Display */
@@ -1255,8 +1268,11 @@ video{
 	}
 
 	[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before{
-		width: 15px;
-		height: 15px;
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
 	}
 	label{
 		font-size: 12px;
@@ -1280,6 +1296,7 @@ video{
 
   #button-bottom{
     position: relative;
+    /*visibility: hidden;*/
   }
 
 

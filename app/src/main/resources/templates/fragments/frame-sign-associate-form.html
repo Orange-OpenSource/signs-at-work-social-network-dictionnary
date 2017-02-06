@@ -28,26 +28,27 @@
 
 <div th:fragment="div">
 
-    <form th:if="${not #lists.isEmpty(signsView)}"
-          class="row container_thumbnail"
+    <form  id="signsAssociates-container" th:if="${not #lists.isEmpty(signsView)}"
+          class="row container_thumbnail "
           th:action="@{/sec/sign/{signid}/associate(signid=${signProfileView.sign.id})}"
           th:object="${signProfileView}"
           method="post">
 
-        <div class="form-group">
+        <div  class="form-group">
           <button id="button-top" type="submit" class="btn btn-default" th:text="#{sign.associate}"></button><br/>
-            <label class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4" th:each="signView : ${signsView}"
+            <label class="sign-view-hidden text-center col-lg-6 col-md-4 col-xs-6 col-sm-4" th:each="signView : ${signsView}"
                    th:for="${#ids.next('associateSignsIds')}">
-
-                    <img th:if="${!#strings.isEmpty(signView.pictureUri)}" th:src="${signView.pictureUri}"/>
+                  <img th:attr="data-src=${signView.pictureUri}"/>
 
                 <input type="checkbox" th:field="*{associateSignsIds}"  th:value="${signView.id}"/>
                 <span class="text_hyphenation" th:text="${signView.name}"></span>
             </label>
-        </div>
-        <br/>
+            <br/>
+          <button id="button-bottom" type="submit" class="btn btn-default" th:text="#{sign.associate}"></button>
 
-        <button id="button-bottom" type="submit" class="btn btn-default" th:text="#{sign.associate}"></button>
+        </div>
+
+
     </form>
 
     <div th:if="${#lists.isEmpty(signsView)}">
