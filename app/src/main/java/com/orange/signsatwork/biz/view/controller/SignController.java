@@ -421,8 +421,9 @@ public class SignController {
       }
     }
 
-    if (referer != null) {
-      if (!isVideoCreatedByMe && !referer.contains("detail")) {
+    if (!isVideoCreatedByMe) {
+      if ((referer != null) && referer.contains("detail")) {
+      } else {
         services.video().increaseNbView(videoId);
       }
     }
