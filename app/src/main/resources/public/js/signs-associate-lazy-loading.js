@@ -49,6 +49,10 @@
       showSignView(viewsToReveal[i]);
       displayedSignsCount++;
     }
+    if ((signViewsHidden.length === 0) && scrollBarVisible()){
+      $("#button-bottom").css("visibility", "visible");
+      $("#button-bottom").show();
+    }
     console.log("total: " + signsCount + ", hidden: " + signViewsHidden.length + ", displayedSignsCount: " + displayedSignsCount);
   }
 
@@ -57,8 +61,7 @@
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
     if(!noMoreHiddenSigns && closeToBottom) {
       showNextSignViews();
-      $("#button-bottom").css("visibility", "visible");
-      $("#button-bottom").show();
+
     }
   }
 

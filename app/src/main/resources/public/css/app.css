@@ -932,6 +932,7 @@ video{
 
 #button-top{
   position: relative;
+  margin-bottom: 15px;
 }
 
 #button-bottom{
@@ -1296,7 +1297,7 @@ video{
 
   #button-bottom{
     position: relative;
-    /*visibility: hidden;*/
+    visibility: hidden;
   }
 
 
@@ -1371,6 +1372,11 @@ video{
 	.containerTooltip {
 		float: right;
 	}
+
+  #signsAssociates-container iframe, #signsAssociates-container img,
+  #signsAssociates-container embed{
+    width: auto;
+  }
 
 	iframe , img , embed {
 		height: 37rem;
