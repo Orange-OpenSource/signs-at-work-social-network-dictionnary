@@ -361,7 +361,7 @@ text-decoration-line: none;
 
 
 .open > .dropdown-menu {
-	min-width: 29rem;
+	min-width: 24rem;
   left:-10px;
 }
 
@@ -1135,6 +1135,74 @@ video{
 		width: 12rem;
 	}
 
+  /*start dropdown*/
+
+  .col-xs-1 .dropdown-toggle{
+    width: auto;
+  }
+
+ .col-xs-1 .caret{
+    position: absolute;
+    left: 15px;
+    position: absolute;
+    top: 14px;
+  }
+
+  .col-sm-1 .caret{ /* for iphone6*/
+    position: absolute;
+    left: 15px;
+    position: absolute;
+    top: 14px;
+  }
+
+
+
+  .btn .most_recent.pull-left{
+    background-position: -1000px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .btn .favorite_signe.pull-left{
+    background-position: -170px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .btn .most_viewed.pull-left{
+    background-position: -1040px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .btn .most_active.pull-left{
+    background-position: -1020px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .btn .sentiment_positif.pull-left{
+    background-position: -120px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .btn .signe.pull-left{
+    background-position: -650px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+
+/*end dropdown*/
+
+
 	.add {
 		background-image: url("/img/sprite_picto_400X400.png");
 		background-position: -1004px center;
@@ -1304,13 +1372,36 @@ video{
 }
 @media only screen and (min-width: 1300px) and (max-width: 1920px){
 
+.col-lg-2 btn{
+  width: 20rem;
+}
+
+.col-lg-2 span.caret{
+  position: absolute;
+  left: 12px;
+  top: 24px;
+}
+
+.col-lg-2 span.most_recent.pull-left{
+  margin-left: 15px;
+}
+
+.col-lg-2  span.hidden-xs{
+  width: 100%;
+  position: relative;
+  top: 10px;
+  margin-left: 15px;
+  }
+
+
+
 	.player {
 		left: 12.5%;
 		width: 75%;
 	}
 
 
-	.dropdown-toggle {
+	col-lg-* .dropdown-toggle {
 		width: 12em;
 	}
 	.dropdown-menu > li > a {

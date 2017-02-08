@@ -34,11 +34,12 @@
           <div class="chevron_left pull-left"/>
           <h1 class="hidden-xs navbar_title pull-left" th:text="#{home}"/>
         </a>
-        <div th:if="${isAuthenticated}" class="navbar-header col-xs-1 dropdown">
+        <div th:if="${isAuthenticated}" class="navbar-header col-xs-1 col-lg-2 dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <span class="caret"></span>
-            <span th:text="${dropdownTitle}"></span>
+            <span th:attr="class=${classDropdownTitle}"></span>
+            <span class="hidden-xs " th:text="${dropdownTitle}"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li>
@@ -124,6 +125,11 @@
         </div>
           <ul th:if="${isAuthenticated}" role="tablist" class="navbar-toggle-complement nav navbar-nav">
             <li role="presentation">
+              <a title="Search signe" href="#" data-toggle="modal" data-target="#search_modal">
+                <div class="search_signe text-center"></div>
+                <span class="text-hide" th:text="#{sign.search}"></span></a>
+            </li>
+            <li role="presentation">
               <a data-target="#suggest" data-toggle="modal" href="#" title="add signe">
                 <div class="add text-center"></div>
                 <span th:text="#{sign.add}" class="text-hide"></span></a>
@@ -135,6 +141,14 @@
             </li>
           </ul>
           <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
+            <li role="presentation" class="hidden-xs">
+              <form id="seachForm" th:action="@{/search}" th:object="${signSearchView}" method="post">
+                <div>
+                  <button title="search sign" type="submit" class="pull-right search_signe"></button>
+                  <input title="search sign"  id="signName" name="signName" type="search" th:placeholder="#{search} + '&hellip;'" class="border form-control"/>
+                </div>
+              </form>
+            </li>
             <li th:if="${isAuthenticated}" role="presentation" >
               <a href="#" data-toggle="modal" data-target="#suggest">
                 <div class="add pull-left"></div>

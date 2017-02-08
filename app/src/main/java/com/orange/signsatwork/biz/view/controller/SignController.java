@@ -67,6 +67,7 @@ public class SignController {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
     fillModelWithSigns(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isAll", true);
     model.addAttribute("isMostCommented", false);
     model.addAttribute("isLowCommented", false);
@@ -77,6 +78,7 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
+    model.addAttribute("classDropdownTitle", " signe pull-left");
 
     return "signs";
   }
@@ -112,6 +114,7 @@ public class SignController {
     fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
     model.addAttribute("isLowCommented", false);
@@ -123,6 +126,8 @@ public class SignController {
     model.addAttribute("isLowRecent", false);
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
+    model.addAttribute("classDropdownTitle", " favorite_signe pull-left");
+
 
     return "signs";
   }
@@ -170,6 +175,7 @@ public class SignController {
     fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostRating", false);
     model.addAttribute("isLowRating", false);
@@ -178,6 +184,8 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_commented"));
+    model.addAttribute("classDropdownTitle", " most_active pull-left");
+
 
     return "signs";
   }
@@ -224,6 +232,7 @@ public class SignController {
     fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
     model.addAttribute("isLowCommented", false);
@@ -232,6 +241,8 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
+    model.addAttribute("classDropdownTitle", " sentiment_positif pull-left");
+
 
     return "signs";
   }
@@ -278,6 +289,7 @@ public class SignController {
     fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
     model.addAttribute("isLowCommented", false);
@@ -286,6 +298,8 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_viewed"));
+    model.addAttribute("classDropdownTitle", " most_viewed pull-left");
+
 
     return "signs";
   }
@@ -325,6 +339,7 @@ public class SignController {
     fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isAll", false);
     model.addAttribute("isMostCommented", false);
     model.addAttribute("isLowCommented", false);
@@ -333,7 +348,7 @@ public class SignController {
     model.addAttribute("isMostViewed", false);
     model.addAttribute("isLowViewed", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
-
+    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
     return "signs";
   }
 
@@ -383,6 +398,7 @@ public class SignController {
     model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
     model.addAttribute("commentCreationView", new CommentCreationView());
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
 
 
     Sign sign = services.sign().withIdSignsView(signId);
