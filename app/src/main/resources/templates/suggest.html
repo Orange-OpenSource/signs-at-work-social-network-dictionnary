@@ -58,16 +58,15 @@
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >
 
                         <li class="dotted-top">
-                            <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', \' '+ ${request.name} + ' \')'" data-toggle="modal" href="#">
-                                <div class="pull-right">
-                                    <div class="containerRight_signes">
-                                        <div class="containerRight_signes">
-                                            <div class="pull-right request_signe_whith_chevron"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h2 th:text="${request.name}"/>
-                            </a>
+                          <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', \' '+ ${request.name} + ' \')'" data-toggle="modal" href="#">
+                            <div>
+                              <div class="pull-left request_signe"></div>
+                              <h2 class="container_H2" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                              <div >
+                                <div class="pull-right chevron_right "></div>
+                              </div>
+                            </div>
+                          </a>
                         </li>
 
                     </div>
