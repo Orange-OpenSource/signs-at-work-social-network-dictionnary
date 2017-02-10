@@ -87,7 +87,7 @@
                   <div class="pull-left request_signe"></div>
                   <h2 class="container_H2" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                   <div >
-                    <div class="pull-right chevron_right "></div>
+                    <div class="pull-right replyToRequest-with-chevron_picto "></div>
                   </div>
                 </div>
               </a>
@@ -105,7 +105,7 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="dotted-top">
-              <a th:href="@{/sec/my-request-detail/} + ${request.id}">
+              <a th:href="@{/sec/other-request-detail/} + ${request.id}">
                 <div>
                   <div class="pull-left request_signe"></div>
                   <h2 class="container_H2" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
