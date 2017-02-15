@@ -119,6 +119,7 @@ input[type="search"] ,.border{
 	border: 2px solid ;
 	border-radius: 11px;
 	box-sizing: border-box;
+  margin: 0 auto;
 }
 input[type="text"],[type="email"],[type="password"] {
 	margin:0 auto;
@@ -954,7 +955,9 @@ video{
 
 }
 
-
+#signs-container{
+  margin-top: 15px;
+}
 
 /******* Media Query  ********/
 
@@ -1017,8 +1020,10 @@ video{
 	}
 
 	input.border[type="search"] {
-		width: 14rem;
+		/*width: 14rem;*/
+    margin: 0 auto;
 	}
+
 	.search_signe {
 		background-image: url("/img/sprite_picto_400X400.png");
 		background-position: -600px center;
@@ -1138,7 +1143,7 @@ video{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		/*width: 160px;*/
+		width: 160px;
 	}
 
 	.text_hyphenation{
@@ -1493,8 +1498,11 @@ video{
 		margin-top: 10px;
 	}
 	input[type="search"].border{
-		width: 16rem;
+		/*width: 16rem;*/
+  margin: 0 auto;
 	}
+
+
 
 
 	.search_signe {
