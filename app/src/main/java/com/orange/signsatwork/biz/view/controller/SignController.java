@@ -361,7 +361,7 @@ public class SignController {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
     String referer = req.getHeader("Referer");
-    String backUrl = referer != null && referer.contains(SIGNS_URL) ? SIGNS_URL : HOME_URL;
+    String backUrl = referer != null && referer.contains(SIGNS_URL) ? SIGNS_URL + "/?isSearch=false" : HOME_URL;
     fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
 
     List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
@@ -408,7 +408,7 @@ public class SignController {
     Sign sign = services.sign().withIdSignsView(signId);
     if (referer != null ) {
       if (referer.contains(SIGNS_URL)) {
-        backUrl = SIGNS_URL;
+        backUrl = SIGNS_URL + "/?isSearch=false";
       }  else if (referer.contains(SIGN_URL)) {
 
         if (sign.nbVideo == 1) {
