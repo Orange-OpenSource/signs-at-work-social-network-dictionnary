@@ -86,7 +86,7 @@ public class SignController {
 
 
   @RequestMapping(value = "/sec/signs/{favoriteId}")
-  public String signsInFavorite(@PathVariable long favoriteId, Principal principal, Model model) {
+  public String signsInFavorite(@PathVariable long favoriteId, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
@@ -129,6 +129,7 @@ public class SignController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
     model.addAttribute("classDropdownTitle", " favorite_signe pull-left");
+    model.addAttribute("isSearch", isSearch);
 
 
     return "signs";
