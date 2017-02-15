@@ -38,6 +38,8 @@ function onSearch(){
   var signsCount = signsContainer.children.length;
 
   var displayedSignsCount = 0;
+  var modeSearch = new Boolean(false);
+
   function showSignView(signView) {
     signView.style.opacity = "0";
     signView.className = signView.className.replace(HIDDEN_CLASS, '');
@@ -73,24 +75,35 @@ function onSearch(){
     console.log("search");
     var g = $(this).val();
 
-    $("#signs-container").children("div").each( function() {
-     var s = $(this).attr("id");
-     var img = $(this).find("img")[0];
-     if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
-       if ($(this).hasClass("sign-view-hidden")) {
-         $(this).removeClass('sign-view-hidden');
-         var thumbnailUrl = img.dataset.src;
-         img.src=thumbnailUrl;
-         displayedSignsCount++;
-       }
-     //if (s.indexOf(g)!=-1) {
-       $(this).show();
+    if (g!="") {
+      $("#signs-container").children("div").each(function () {
+        var s = $(this).attr("id");
+        var img = $(this).find("img")[0];
+        if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
+          if ($(this).hasClass("sign-view-hidden")) {
+            $(this).removeClass('sign-view-hidden');
+            var thumbnailUrl = img.dataset.src;
+            img.src = thumbnailUrl;
+            displayedSignsCount++;
+          }
+          $(this).show();
 
-     }
-     else {
-       $(this).hide();
-     }
-    });
+        }
+        else {
+          $(this).hide();
+        }
+      });
+    } else {
+      if (modeSearch == true) {
+        $("#signs-container").children("div").each(function () {
+          $(this).hide();
+        });
+      } else {
+        $("#signs-container").children("div").each(function () {
+          $(this).show();
+        });
+      }
+    }
   }
 
   function scrollBarVisible() {
@@ -110,6 +123,9 @@ function onSearch(){
     search_criteria.addEventListener('keyup', search);
     if (search_criteria.classList.contains("search-hidden")) {
       initWithFirstSigns();
+      modeSearch=false;
+    } else {
+      modeSearch = true;
     }
 
     // then wait to reach the page bottom to load next views
