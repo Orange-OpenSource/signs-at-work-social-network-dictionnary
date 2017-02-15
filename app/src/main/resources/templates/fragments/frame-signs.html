@@ -27,8 +27,13 @@
 <body>
 
 <div th:fragment="div">
+  <div>
+    <input th:if="${!isSearch}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="border form-control search-hidden"/>
+    <input th:if="${isSearch}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="border form-control"/>
+  </div>
+
   <div  th:if="${not #lists.isEmpty(signsView)}" id="signs-container" class="row" >
-    <div      th:each="signView:${signsView}"
+    <div th:id="${signView.name}" th:each="signView:${signsView}"
       class="sign-view-hidden text-center col-lg-6 col-md-4 col-xs-6 col-sm-4">
 
       <div class="row">

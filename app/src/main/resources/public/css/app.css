@@ -50,6 +50,10 @@ clear: both;
   display: none;
 }
 
+.search-hidden {
+  display: none;
+}
+
 .video-view-hidden {
   display: none;
 }

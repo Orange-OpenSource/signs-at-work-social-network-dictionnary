@@ -43,66 +43,66 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li>
-              <a th:if="${isAll}" class="check_signe" th:href="@{/signs/}">
+              <a th:if="${isAll}" class="check_signe" th:href="@{/signs(isSearch=${isSearch})}">
                 <span th:text="#{all}"></span>
               </a>
-              <a th:if="${!isAll}" th:href="@{/signs/}">
+              <a th:if="${!isAll}" th:href="@{/signs(isSearch=${isSearch})}">
                 <span th:text="#{all}"></span>
               </a>
             </li>
             <li>
-              <a th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent})}">
+              <a th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent}, iisSearch=${isSearch})}">
                 <div class="pull-left most_recent"></div>
                 <span th:text="#{most_recent}"></span>
               </a>
-              <a th:if="${!isMostRecent and !isLowRecent}" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent})}">
+              <a th:if="${!isMostRecent and !isLowRecent}" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
                 <div class="pull-left most_recent"></div>
                 <span th:text="#{most_recent}"></span>
               </a>
-              <a th:if="${isLowRecent}" class="checked_down" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent})}">
+              <a th:if="${isLowRecent}" class="checked_down" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
                 <div class="pull-left most_recent"></div>
                 <span th:text="#{most_recent}"></span>
               </a>
             </li>
             <li>
-              <a th:if="${isMostCommented}" class="checked_up" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+              <a th:if="${isMostCommented}" class="checked_up" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented}, isSearch=${isSearch})}">
                 <div class="pull-left most_active"></div>
                 <span th:text="#{most_commented}"></span>
               </a>
-              <a th:if="${!isMostCommented and !isLowCommented}" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+              <a th:if="${!isMostCommented and !isLowCommented}" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented}, isSearch=${isSearch})}">
                 <div class="pull-left most_active"></div>
                 <span th:text="#{most_commented}"></span>
               </a>
-              <a th:if="${isLowCommented}" class="checked_down" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented})}">
+              <a th:if="${isLowCommented}" class="checked_down" th:href="@{/sec/signs/mostcommented(isMostCommented=${isMostCommented}, isSearch=${isSearch})}">
                 <div class="pull-left most_active"></div>
                 <span th:text="#{most_commented}"></span>
               </a>
             </li>
             <li>
-              <a th:if="${isMostRating}" class="checked_up" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+              <a th:if="${isMostRating}" class="checked_up" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating}, isSearch=${isSearch})}">
                 <div class="pull-left sentiment_positif"></div>
                 <span th:text="#{most_rating}"></span>
               </a>
-              <a th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+              <a th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating}, isSearch=${isSearch})}">
                 <div class="pull-left sentiment_positif"></div>
                 <span th:text="#{most_rating}"></span>
               </a>
-              <a th:if="${isLowRating}" class="checked_down" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating})}">
+              <a th:if="${isLowRating}" class="checked_down" th:href="@{/sec/signs/mostrating(isMostRating=${isMostRating}, isSearch=${isSearch})}">
                 <div class="pull-left sentiment_positif"></div>
                 <span th:text="#{most_rating}"></span>
               </a>
             </li>
 
             <li>
-              <a th:if="${isMostViewed}" class="checked_up" th:href="@{/sec/signs/mostviewed(isMostViewed=${isMostViewed})}">
+              <a th:if="${isMostViewed}" class="checked_up" th:href="@{/sec/signs/mostviewed(isMostViewed=${isMostViewed}, isSearch=${isSearch})}">
                 <div class="pull-left most_viewed"></div>
                 <span th:text="#{most_viewed}"></span>
               </a>
-              <a th:if="${!isMostViewed and !isLowViewed}" th:href="@{/sec/signs/mostviewed(isMostViewed=${isMostViewed})}">
+              <a th:if="${!isMostViewed and !isLowViewed}" th:href="@{/sec/signs/mostviewed(isMostViewed=${isMostViewed}, isSearch=${isSearch})}">
                 <div class="pull-left most_viewed"></div>
                 <span th:text="#{most_viewed}"></span>
               </a>
-              <a th:if="${isLowViewed}" class="checked_down" th:href="@{/sec/signs/mostviewed(isMostViewed=${isMostViewed})}">
+              <a th:if="${isLowViewed}" class="checked_down" th:href="@{/sec/signs/mostviewed(isMostViewed=${isMostViewed}, isSearch=${isSearch})}">
                 <div class="pull-left most_viewed"></div>
                 <span th:text="#{most_viewed}"></span>
               </a>
@@ -123,31 +123,34 @@
 
           </ul>
         </div>
-          <ul th:if="${isAuthenticated}" role="tablist" class="navbar-toggle-complement nav navbar-nav">
-            <li role="presentation">
-              <a title="Search signe" href="#" data-toggle="modal" data-target="#search_modal">
+          <ul role="tablist" class="navbar-toggle-complement nav navbar-nav">
+            <li th:if="${!isSearch}" role="presentation">
+              <a title="Search signe" href="#" th:onclick="'javascript:onSearch()'">
                 <div class="search_signe text-center"></div>
                 <span class="text-hide" th:text="#{sign.search}"></span></a>
             </li>
-            <li role="presentation">
+            <li th:if="${isAuthenticated}" role="presentation">
               <a data-target="#suggest" data-toggle="modal" href="#" title="add signe">
                 <div class="add text-center"></div>
                 <span th:text="#{sign.add}" class="text-hide"></span></a>
             </li>
-            <li role="presentation">
+            <li th:if="${isAuthenticated}" role="presentation">
               <a href="#" data-toggle="modal" data-target="#new_request">
                 <div class="require_video_inverse text-center"></div>
                 <span th:text="#{sign.request}" class="text-hide"></span></a>
             </li>
           </ul>
           <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
-            <li role="presentation" class="hidden-xs">
-              <form id="seachForm" th:action="@{/search}" th:object="${signSearchView}" method="post">
-                <div>
-                  <button title="search sign" type="submit" class="pull-right search_signe"></button>
-                  <input title="search sign"  id="signName" name="signName" type="search" th:placeholder="#{search} + '&hellip;'" class="border form-control"/>
+            <li th:if="${!isSearch}" role="presentation" >
+              <a href="#" th:onclick="'javascript:onSearch()'">
+                <div class="search_signe pull-left"></div>
+                <div class="pull-right">
+                  <div class="containerRight_signes">
+                    <div class="hidden-lg pull-right chevron_right"></div>
+                  </div>
                 </div>
-              </form>
+                <h4 th:text="#{search}"></h4>
+              </a>
             </li>
             <li th:if="${isAuthenticated}" role="presentation" >
               <a href="#" data-toggle="modal" data-target="#suggest">

@@ -19,9 +19,16 @@
  * #L%
  */
 
+function onSearch(){
+  $("#search-criteria").show();
+  console.log("onSearch");
+}
+
+
 (function signViewsLazyLoading($) {
   var HIDDEN_CLASS = 'sign-view-hidden';
-  var NB_SIGN_VIEWS_INC = 16;
+  //var NB_SIGN_VIEWS_INC = 16;
+  var NB_SIGN_VIEWS_INC = 6;
   var REVEAL_DURATION_MS = 1000;
 
   var signsContainer = document.getElementById("signs-container");
@@ -55,9 +62,35 @@
   function onScroll(event) {
     var noMoreHiddenSigns = signViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
-    if(!noMoreHiddenSigns && closeToBottom) {
+    var search_criteria = document.getElementById("search-criteria");
+    console.log("search_criteria " + search_criteria.value)
+    if(!noMoreHiddenSigns && closeToBottom && search_criteria.value == "") {
       showNextSignViews();
     }
+  }
+
+  function search(event) {
+    console.log("search");
+    var g = $(this).val();
+
+    $("#signs-container").children("div").each( function() {
+     var s = $(this).attr("id");
+     var img = $(this).find("img")[0];
+     if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
+       if ($(this).hasClass("sign-view-hidden")) {
+         $(this).removeClass('sign-view-hidden');
+         var thumbnailUrl = img.dataset.src;
+         img.src=thumbnailUrl;
+         displayedSignsCount++;
+       }
+     //if (s.indexOf(g)!=-1) {
+       $(this).show();
+
+     }
+     else {
+       $(this).hide();
+     }
+    });
   }
 
   function scrollBarVisible() {
@@ -72,10 +105,16 @@
 
   function main() {
     // show first signs at load
-    initWithFirstSigns();
+
+    var search_criteria = document.getElementById("search-criteria");
+    search_criteria.addEventListener('keyup', search);
+    if (search_criteria.classList.contains("search-hidden")) {
+      initWithFirstSigns();
+    }
 
     // then wait to reach the page bottom to load next views
     document.addEventListener('scroll', onScroll);
+
   }
 
   main();

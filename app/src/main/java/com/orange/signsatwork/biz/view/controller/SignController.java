@@ -63,7 +63,7 @@ public class SignController {
   MessageByLocaleService messageByLocaleService;
 
   @RequestMapping(value = SIGNS_URL)
-  public String signs(Principal principal, Model model) {
+  public String signs(@RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
     fillModelWithSigns(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
@@ -79,9 +79,11 @@ public class SignController {
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
     model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("isSearch", isSearch);
 
     return "signs";
   }
+
 
   @RequestMapping(value = "/sec/signs/{favoriteId}")
   public String signsInFavorite(@PathVariable long favoriteId, Principal principal, Model model) {
@@ -134,7 +136,7 @@ public class SignController {
 
 
   @RequestMapping(value = "/sec/signs/mostcommented")
-  public String signsMostCommented(@RequestParam("isMostCommented") boolean isMostCommented, Principal principal, Model model) {
+  public String signsMostCommented(@RequestParam("isMostCommented") boolean isMostCommented, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
@@ -185,13 +187,13 @@ public class SignController {
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_commented"));
     model.addAttribute("classDropdownTitle", " most_active pull-left");
-
+    model.addAttribute("isSearch", isSearch);
 
     return "signs";
   }
 
   @RequestMapping(value = "/sec/signs/mostrating")
-  public String signsMostRating(@RequestParam("isMostRating") boolean isMostRating,Principal principal, Model model) {
+  public String signsMostRating(@RequestParam("isMostRating") boolean isMostRating, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
@@ -242,13 +244,13 @@ public class SignController {
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
     model.addAttribute("classDropdownTitle", " sentiment_positif pull-left");
-
+    model.addAttribute("isSearch", isSearch);
 
     return "signs";
   }
 
   @RequestMapping(value = "/sec/signs/mostviewed")
-  public String signsMostViewed(@RequestParam("isMostViewed") boolean isMostViewed, Principal principal, Model model) {
+  public String signsMostViewed(@RequestParam("isMostViewed") boolean isMostViewed, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
@@ -299,13 +301,13 @@ public class SignController {
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_viewed"));
     model.addAttribute("classDropdownTitle", " most_viewed pull-left");
-
+    model.addAttribute("isSearch", isSearch);
 
     return "signs";
   }
 
   @RequestMapping(value = "/sec/signs/mostrecent")
-  public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, Principal principal, Model model) {
+  public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
@@ -349,6 +351,8 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
     model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("isSearch", isSearch);
+
     return "signs";
   }
 

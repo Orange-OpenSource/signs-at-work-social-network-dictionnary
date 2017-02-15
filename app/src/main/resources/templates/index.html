@@ -33,8 +33,19 @@
     <div class="col-md-4 col-xs-12">
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
+                <li class="clear aside_bckg_li">
+                  <a th:href="@{/signs(isSearch=true)}">
+                    <div>
+                      <div class="pull-left suggest"></div>
+                      <h2  class="container_H2" th:text="#{search}"></h2>
+                      <div>
+                        <div class="pull-right chevron_right"></div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
                 <li class="aside_bckg_li">
-                    <a th:href="@{/signs}">
+                    <a th:href="@{/signs(isSearch=false)}">
                         <div>
                         <div class="signe"></div>
                         <h2 class="container_H2" th:text="#{sign.advise}"></h2>
@@ -71,24 +82,11 @@
         </aside>
     </div>
 
-    <div class="text-center title_middle col-md-8 col-xs-12 middle-col ">
-        <a th:href="@{/signs}" type="text/html">
-            <div>
-            <h2 id="Sign_List" class="backgroundColor" th:text="#{sign.list}"></h2>
-            </div>
-        </a>
-
-        <div th:replace="fragments/frame-signs :: div"/>
-    </div>
-
 </div>
 
-<div th:replace="fragments/modal-favorite :: div"/>
-<div th:replace="fragments/modal-search :: div"/>
 <div id="prefetch" style="visibility:hidden;">
 </div>
 </body>
 
-<script type="text/javascript" src="../public/js/lazy-loading.js" th:src="@{/js/lazy-loading.js}"></script>
 
 </html>
