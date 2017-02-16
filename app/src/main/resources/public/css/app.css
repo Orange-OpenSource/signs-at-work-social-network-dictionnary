@@ -221,9 +221,7 @@ a.form-control{
 	color:#f16e00;
 }
 
-/*#backtoHomepage {*/
-  /*width: 50%;*/
-/*}*/
+
 
 .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
 	background-color: #f16e00;
@@ -627,6 +625,15 @@ text-decoration-line: none;
 }
 
 
+.search_signe {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1120px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
 .suggest {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1040px center;
@@ -916,13 +923,7 @@ ul#orange-navbar-collapse >li {
   width: 200px;
 }
 
-/*li[role="presentation"] {*/
-	/*margin-top: 15px;*/
-/*}*/
 
-textarea{
-	/*width: 100%;*/
-}
 
 video{
 	width: 100%;
@@ -1020,18 +1021,9 @@ video{
 	}
 
 	input.border[type="search"] {
-		/*width: 14rem;*/
     margin: 0 auto;
 	}
 
-	.search_signe {
-		background-image: url("/img/sprite_picto_400X400.png");
-		background-position: -600px center;
-		background-repeat: no-repeat;
-		background-size: auto 40px;
-		height: 40px;
-		width: 40px;
-	}
 	button.search_signe{
 		background-color: transparent;
 		border: none;
@@ -1248,7 +1240,7 @@ video{
 		width: 30px;
 	}
 
-	.search_signe{
+	.search_signe_header{
 		background-image: url("/img/sprite_picto_400X400.png");
 		background-position: -450px center;
 		background-repeat: no-repeat;
@@ -1300,7 +1292,6 @@ video{
 
 	 img {
 		height:50%;
-    /*height: 100px;*/
 	}
   input.container_H2[type="text"]{
     width: 200px;
@@ -1498,14 +1489,19 @@ video{
 		margin-top: 10px;
 	}
 	input[type="search"].border{
-		/*width: 16rem;*/
   margin: 0 auto;
 	}
 
+  .search_signe {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1120px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+  }
 
-
-
-	.search_signe {
+	.search_signe_header {
 		background-image: url("/img/sprite_picto_400X400.png");
 		background-position: -600px center;
 		background-repeat: no-repeat;
@@ -1607,7 +1603,6 @@ label {
 [type="checkbox"]:checked + span:before ,
 [type="checkbox"]:checked + [type="hidden"] + span:before {
 	background: #f16e00;
-	/*box-shadow: 0 0 0 0.25em #000;*/
 }
 
 

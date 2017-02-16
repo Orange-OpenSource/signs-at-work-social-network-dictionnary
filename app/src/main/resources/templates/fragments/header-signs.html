@@ -126,7 +126,7 @@
           <ul role="tablist" class="navbar-toggle-complement nav navbar-nav">
             <li th:if="${!isSearch}" role="presentation">
               <a title="Search signe" href="#" th:onclick="'javascript:onSearch()'">
-                <div class="search_signe text-center"></div>
+                <div class="search_signe_header text-center"></div>
                 <span class="text-hide" th:text="#{sign.search}"></span></a>
             </li>
             <li th:if="${isAuthenticated}" role="presentation">
@@ -143,7 +143,7 @@
           <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
             <li th:if="${!isSearch}" role="presentation" >
               <a href="#" th:onclick="'javascript:onSearch()'">
-                <div class="search_signe pull-left"></div>
+                <div class="search_signe_header pull-left"></div>
                 <div class="pull-right">
                   <div class="containerRight_signes">
                     <div class="hidden-lg pull-right chevron_right"></div>
