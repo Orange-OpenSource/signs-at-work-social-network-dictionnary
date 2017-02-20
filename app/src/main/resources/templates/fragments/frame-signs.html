@@ -27,9 +27,10 @@
 <body>
 
 <div th:fragment="div">
-  <div>
+  <div id="myform" >
     <input th:if="${!isSearch}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
     <input th:if="${isSearch}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>
+    <input type='button' id='reset' value='x' />
   </div>
 
   <div  th:if="${not #lists.isEmpty(signsView)}" id="signs-container" class="row" >

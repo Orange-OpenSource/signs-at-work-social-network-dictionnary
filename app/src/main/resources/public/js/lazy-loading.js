@@ -77,6 +77,8 @@ function onSearch(){
 
     if (g!="") {
       $("#signs-container").children("div").each(function () {
+        $("#reset").css("visibility", "visible");
+        $("#reset").show();
         var s = $(this).attr("id");
         var img = $(this).find("img")[0];
         if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
@@ -116,6 +118,28 @@ function onSearch(){
     } while(!scrollBarVisible() && displayedSignsCount != signsCount);
   }
 
+  function onReset(event) {
+
+      $(':input', '#myform')
+        .not(':button, :submit, :reset, :hidden')
+        .val('');
+      $("#reset").css("visibility", "hidden");
+      $("#reset").hide();
+      if (modeSearch == true) {
+        $("#signs-container").children("div").each(function () {
+          $(this).hide();
+        });
+      } else {
+        $("#signs-container").children("div").each(function () {
+          $(this).show();
+        });
+      }
+
+  }
+
+
+
+
   function main() {
     // show first signs at load
 
@@ -130,7 +154,8 @@ function onSearch(){
 
     // then wait to reach the page bottom to load next views
     document.addEventListener('scroll', onScroll);
-
+    var button_reset = document.getElementById("reset");
+    button_reset.addEventListener('click', onReset);
   }
 
   main();

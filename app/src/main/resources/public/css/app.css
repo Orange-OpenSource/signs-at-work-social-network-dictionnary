@@ -120,6 +120,7 @@ input[type="search"] ,.border{
 	border-radius: 11px;
 	box-sizing: border-box;
   margin: 0 auto;
+  width: 100%;
 }
 input[type="text"],[type="email"],[type="password"] {
 	margin:0 auto;
@@ -955,15 +956,48 @@ video{
   visibility: hidden;
 
 }
+#reset{
+  visibility: hidden;
+}
 
 #signs-container{
   margin-top: 15px;
 }
 
+#reset{
+  position: absolute;
+  top: 4px;
+  right: 40%;
+  background-color: transparent;
+  border:none;
+}
+
+
+#myform{
+  width: 50%;
+  margin: 0 auto;
+}
+
+
 /******* Media Query  ********/
 
 /* (1280x1024) SXGA Display */
 @media  screen and (max-width: 1280px) {
+
+
+
+#reset{
+  position: absolute;
+  top: 4px;
+  right:10%;
+  background-color: transparent;
+  border:none;
+}
+
+  #myform{
+    width: 100%;
+    margin: 0 auto;
+  }
 
   .navbar_title{
   white-space: nowrap;
@@ -1381,7 +1415,12 @@ video{
 }
 @media only screen and (min-width: 1300px) and (max-width: 1920px){
 
-.col-lg-2 btn{
+
+  input[type="search"], .border{
+    width: 50%;
+  }
+
+  .col-lg-2 btn{
   width: 20rem;
 }
 
@@ -1485,9 +1524,11 @@ video{
 	.navbar-collapse .navbar-nav > li{
 		width: 20rem;
 	}
+
 	.navbar-collapse .navbar-nav .containerLeft_signes{
 		margin-top: 10px;
 	}
+
 	input[type="search"].border{
   margin: 0 auto;
 	}
