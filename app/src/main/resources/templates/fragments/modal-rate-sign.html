@@ -60,25 +60,8 @@
     </div>
 </div>
 
-<div th:fragment="div" id="after-rate-sign-positive" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="backgroundColor modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center" th:text="#{sign.modal.after.rate}"/>
-      </div>
-      <div class="modal-body text-center">
-        <div class="containerRight_signes sentiment_positif">
-        </div>
-      </div>
-      <div class="modal-body text-center ">
-        <button th:text="#{continue}" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " class="btn btn-default"></button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div th:fragment="div" id="after-rate-sign-neutral-or-negative" class="modal fade" role="dialog">
+<div th:fragment="div" id="after-rate-sign" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="backgroundColor modal-header">

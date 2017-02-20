@@ -26,7 +26,9 @@ function onRatePositif(signId, videoId){
     url: "/ws/sec/sign/"+ signId +"/"+ videoId + "/rate-positive",
     type: 'post',
     success: function(response) {
-       $("#after-rate-sign-positive").modal('show');
+       // $("#after-rate-sign-positive").modal('show');
+      $("#after-rate-sign").modal('show');
+      $("#sentiment-after-rate").addClass("containerRight_signes sentiment_positif")
     },
     error: function(response) {
       }
@@ -39,7 +41,7 @@ function onRateNeutre(signId, videoId){
     url: "/ws/sec/sign/"+ signId +"/"+ videoId + "/rate-neutral",
     type: 'post',
     success: function(response) {
-      $("#after-rate-sign-neutral-or-negative").modal('show');
+      $("#after-rate-sign").modal('show');
       $("#sentiment-after-rate").addClass("containerRight_signes sentiment_neutre")
     },
     error: function(response) {
@@ -53,7 +55,7 @@ function onRateNegatif(signId, videoId){
     url: "/ws/sec/sign/"+ signId +"/"+ videoId + "/rate-negative",
     type: 'post',
     success: function(response) {
-      $("#after-rate-sign-neutral-or-negative").modal('show');
+      $("#after-rate-sign").modal('show');
       $("#sentiment-after-rate").addClass("containerRight_signes sentiment_negatif")
     },
     error: function(response) {
