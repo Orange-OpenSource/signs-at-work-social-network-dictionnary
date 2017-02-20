@@ -42,10 +42,11 @@ public class SignView2 implements ComparableSign {
   private String url;
   private String pictureUri;
   private boolean signCreateAfterLastDateDeconnection;
-  private boolean videoHasComment;
-  private boolean videoHasView;
+  private boolean videoHaveComment;
+  private boolean videoHaveView;
 
-  public SignView2(SignViewData signViewData, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView) {
+
+  public SignView2(SignViewData signViewData, boolean videoHaveComment, boolean createdAfterLastDeconnection, boolean videoHaveView) {
     id = signViewData.id;
     name = signViewData.name;
     createDate = signViewData.createDate;
@@ -54,8 +55,8 @@ public class SignView2 implements ComparableSign {
     pictureUri = signViewData.pictureUri;
     signCreateAfterLastDateDeconnection = createdAfterLastDeconnection;
 
-    this.videoHasComment = videoHasComment;
-    this.videoHasView = videoHasView;
+    this.videoHaveComment = videoHaveComment;
+    this.videoHaveView = videoHaveView;
   }
 
 
@@ -71,12 +72,12 @@ public class SignView2 implements ComparableSign {
 
   @Override
   public boolean modifiedSinceLastDeconnection() {
-    return videoHasComment;
+    return videoHaveComment;
   }
 
   @Override
   public boolean viewedSinceLastDeconnection() {
-    return videoHasView; }
+    return videoHaveView; }
 
   public static boolean createdAfterLastDeconnection(Date createDate, Date lastDeconnection) {
     return (lastDeconnection != null) && createDate.compareTo(lastDeconnection) >= 0;

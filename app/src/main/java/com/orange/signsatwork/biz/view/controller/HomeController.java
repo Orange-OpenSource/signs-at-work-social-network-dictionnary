@@ -116,6 +116,9 @@ public class HomeController {
 //    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 //    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isDevProfile", appProfile.isDevProfile());
+    model.addAttribute("isAlphabeticAsc", true);
+    model.addAttribute("isSearch", true);
+
 
     return "index";
   }

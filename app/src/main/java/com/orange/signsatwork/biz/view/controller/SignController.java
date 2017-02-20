@@ -77,6 +77,8 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
     model.addAttribute("classDropdownTitle", " signe pull-left");
     model.addAttribute("isSearch", isSearch);
@@ -84,6 +86,59 @@ public class SignController {
     return "signs";
   }
 
+
+  @RequestMapping(value = "/sec/signs/alphabetic")
+  public String signsAndRequestInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+    List<Object[]> querySigns;
+
+    if (isAlphabeticAsc == true) {
+      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderDescSignsView(user.id);
+      model.addAttribute("isAlphabeticDesc", true);
+      model.addAttribute("isAlphabeticAsc", false);
+    } else {
+      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderAscSignsView(user.id);
+      model.addAttribute("isAlphabeticAsc", true);
+      model.addAttribute("isAlphabeticDesc", false);
+    }
+
+
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, user))
+      .collect(Collectors.toList());
+
+//    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+//    signViews = signsViewSort2.sort(signViews, false);
+
+    fillModelWithFavorites(model, user);
+    model.addAttribute("signsView", signViews);
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signSearchView", new SignSearchView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
+    model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("isSearch", isSearch);
+
+    return "signs";
+  }
 
   @RequestMapping(value = "/sec/signs/{favoriteId}")
   public String signsInFavorite(@PathVariable long favoriteId, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
@@ -126,6 +181,8 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
     model.addAttribute("classDropdownTitle", " favorite_signe pull-left");
@@ -186,6 +243,8 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_commented"));
     model.addAttribute("classDropdownTitle", " most_active pull-left");
     model.addAttribute("isSearch", isSearch);
@@ -243,6 +302,8 @@ public class SignController {
     model.addAttribute("isLowViewed", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
     model.addAttribute("classDropdownTitle", " sentiment_positif pull-left");
     model.addAttribute("isSearch", isSearch);
@@ -300,6 +361,8 @@ public class SignController {
     model.addAttribute("isLowRating", false);
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_viewed"));
     model.addAttribute("classDropdownTitle", " most_viewed pull-left");
     model.addAttribute("isSearch", isSearch);
@@ -350,6 +413,8 @@ public class SignController {
     model.addAttribute("isLowRating", false);
     model.addAttribute("isMostViewed", false);
     model.addAttribute("isLowViewed", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
     model.addAttribute("classDropdownTitle", "  most_recent pull-left");
     model.addAttribute("isSearch", isSearch);

@@ -40,7 +40,14 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsView();
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id and lower(b.name) like lower(concat('%', :searchTerm,'%')) order by b.create_date desc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/request.jpg\" from requests where sign_id is null and user_id= :userId union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\" from requests where sign_id is null and user_id != :userId order by name asc", nativeQuery = true)
+    List<Object[]> findSignsAndRequestsAlphabeticalOrderAscForSignsView(@Param("userId") long userId);
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/request.jpg\" from requests where sign_id is null and user_id= :userId union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\" from requests where sign_id is null and user_id != :userId order by name desc", nativeQuery = true)
+    List<Object[]> findSignsAndRequestsAlphabeticalOrderDescForSignsView(@Param("userId") long userId);
+
+
+  @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id and lower(b.name) like lower(concat('%', :searchTerm,'%')) order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsViewBySearchTerm(@Param("searchTerm") String searchTerm);
 
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b inner join favorites_signs c on a.id = b.last_video_id and c.signs_id = b.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)

@@ -52,6 +52,10 @@ public interface SignService {
 
   List<Object[]> SignsForSignsView();
 
+  List<Object[]> SignsAndRequestsAlphabeticalOrderAscSignsView(long userId);
+
+  List<Object[]> SignsAndRequestsAlphabeticalOrderDescSignsView(long userId);
+
   List<Object[]> SignsForFavoriteView(long favoriteId);
 
   List<Object[]> AssociateSigns(long signId, long associateSignId);

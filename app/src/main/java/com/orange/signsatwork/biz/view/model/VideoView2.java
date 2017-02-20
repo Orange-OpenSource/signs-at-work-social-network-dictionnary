@@ -22,7 +22,6 @@ package com.orange.signsatwork.biz.view.model;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,10 +43,10 @@ public class VideoView2 implements ComparableVideo {
   private String url;
   private String pictureUri;
   private boolean videoCreateAfterLastDateDeconnection;
-  private boolean videoHasComment;
-  private boolean videoHasView;
+  private boolean videoHaveComment;
+  private boolean videoHaveView;
 
-  public VideoView2(VideoViewData videoViewData, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView) {
+  public VideoView2(VideoViewData videoViewData, boolean videoHaveComment, boolean createdAfterLastDeconnection, boolean videoHaveView) {
     signId = videoViewData.signId;
     signName = videoViewData.signName;
     videoName = videoViewData.signName + " (" + videoViewData.idForName + ")";
@@ -57,8 +56,8 @@ public class VideoView2 implements ComparableVideo {
     pictureUri = videoViewData.pictureUri;
     videoCreateAfterLastDateDeconnection = createdAfterLastDeconnection;
 
-    this.videoHasComment = videoHasComment;
-    this.videoHasView = videoHasView;
+    this.videoHaveComment = videoHaveComment;
+    this.videoHaveView = videoHaveView;
   }
 
   @Override
@@ -73,12 +72,12 @@ public class VideoView2 implements ComparableVideo {
 
   @Override
   public boolean modifiedSinceLastDeconnection() {
-    return videoHasComment;
+    return videoHaveComment;
   }
 
   @Override
   public boolean viewedSinceLastDeconnection() {
-    return videoHasView; }
+    return videoHaveView; }
 
   public static boolean createdAfterLastDeconnection(Date createDate, Date lastDeconnection) {
     return (lastDeconnection != null) && createDate.compareTo(lastDeconnection) >= 0;

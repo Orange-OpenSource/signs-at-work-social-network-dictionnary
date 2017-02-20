@@ -34,7 +34,16 @@
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
                 <li class="clear aside_bckg_li">
-                  <a th:href="@{/signs(isSearch=true)}">
+                  <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+                    <div>
+                      <div class="pull-left search_signe"></div>
+                      <h2  class="container_H2" th:text="#{search}"></h2>
+                      <div>
+                        <div class="pull-right chevron_right"></div>
+                      </div>
+                    </div>
+                  </a>
+                  <a th:if="${!isAuthenticated}" th:href="@{/signs(isSearch=true)}">
                     <div>
                       <div class="pull-left search_signe"></div>
                       <h2  class="container_H2" th:text="#{search}"></h2>

@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
 </head>
 <body>
 
@@ -51,7 +51,21 @@
               </a>
             </li>
             <li>
-              <a th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent}, iisSearch=${isSearch})}">
+              <a th:if="${isAlphabeticAsc}" class="checked_up" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+                <div class="pull-left most_recent"></div>
+                <span th:text="#{alphabetic}"></span>
+              </a>
+              <a th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+                <div class="pull-left most_recent"></div>
+                <span th:text="#{alphabetic}"></span>
+              </a>
+              <a th:if="${isAlphabeticDesc}" class="checked_down" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+                <div class="pull-left most_recent"></div>
+                <span th:text="#{alphabetic}"></span>
+              </a>
+            </li>
+            <li>
+              <a th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/signs/mostrecent(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
                 <div class="pull-left most_recent"></div>
                 <span th:text="#{most_recent}"></span>
               </a>
@@ -123,58 +137,70 @@
 
           </ul>
         </div>
-          <ul role="tablist" class="navbar-toggle-complement nav navbar-nav">
-            <li th:if="${!isSearch}" role="presentation">
-              <a title="Search signe" href="#" th:onclick="'javascript:onSearch()'">
-                <div class="search_signe_header text-center"></div>
-                <span class="text-hide" th:text="#{sign.search}"></span></a>
-            </li>
-            <li th:if="${isAuthenticated}" role="presentation">
-              <a data-target="#suggest" data-toggle="modal" href="#" title="add signe">
-                <div class="add text-center"></div>
-                <span th:text="#{sign.add}" class="text-hide"></span></a>
-            </li>
-            <li th:if="${isAuthenticated}" role="presentation">
-              <a href="#" data-toggle="modal" data-target="#new_request">
-                <div class="request_signe text-center"></div>
-                <span th:text="#{sign.request}" class="text-hide"></span></a>
-            </li>
-          </ul>
-          <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
-            <li th:if="${!isSearch}" role="presentation" >
-              <a href="#" th:onclick="'javascript:onSearch()'">
-                <div class="search_signe_header pull-left"></div>
-                <div class="pull-right">
-                  <div class="containerRight_signes">
-                    <div class="hidden-lg pull-right chevron_right"></div>
-                  </div>
+        <ul role="tablist" class="navbar-toggle-complement nav navbar-nav">
+          <li th:if="${!isSearch}" role="presentation">
+            <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=true)}">
+              <div class="search_signe_header text-center"></div>
+              <span class="text-hide" th:text="#{sign.search}"></span></a>
+            <a th:if="${!isAuthenticated}" th:href="@{/signs(isSearch=true)}">
+              <div class="search_signe_header text-center"></div>
+              <span class="text-hide" th:text="#{sign.search}"></span></a>
+          </li>
+          <li th:if="${isAuthenticated}" role="presentation">
+            <a data-target="#suggest" data-toggle="modal" href="#" title="add signe">
+              <div class="add text-center"></div>
+              <span th:text="#{sign.add}" class="text-hide"></span></a>
+          </li>
+          <li th:if="${isAuthenticated}" role="presentation">
+            <a href="#" data-toggle="modal" data-target="#new_request">
+              <div class="request_signe text-center"></div>
+              <span th:text="#{sign.request}" class="text-hide"></span></a>
+          </li>
+        </ul>
+        <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
+          <li th:if="${!isSearch}" role="presentation" >
+            <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=true)}">
+              <div class="search_signe_header pull-left"></div>
+              <div class="pull-right">
+                <div class="containerRight_signes">
+                  <div class="hidden-lg pull-right chevron_right"></div>
                 </div>
-                <h4 th:text="#{search}"></h4>
-              </a>
-            </li>
-            <li th:if="${isAuthenticated}" role="presentation" >
-              <a href="#" data-toggle="modal" data-target="#suggest">
-                <div class="add pull-left"></div>
-                <div class="pull-right">
-                  <div class="containerRight_signes">
-                    <div class="hidden-lg pull-right chevron_right"></div>
-                  </div>
+              </div>
+              <h4 th:text="#{search}"></h4>
+            </a>
+            <a th:if="${!isAuthenticated}" th:href="@{/signs(isSearch=true)}">
+              <div class="search_signe_header pull-left"></div>
+              <div class="pull-right">
+                <div class="containerRight_signes">
+                  <div class="hidden-lg pull-right chevron_right"></div>
                 </div>
-                <h4 th:text="#{sign.add}"></h4>
-              </a>
-            </li>
-            <li th:if="${isAuthenticated}" role="presentation">
-              <a href="#" data-toggle="modal" data-target="#new_request">
-                <div class="request_signe pull-left"></div>
-                <div class="pull-right">
-                  <div class="containerRight_signes">
-                    <div class="hidden-lg pull-right chevron_right"></div>
-                  </div>
+              </div>
+              <h4 th:text="#{search}"></h4>
+            </a>
+          </li>
+          <li th:if="${isAuthenticated}" role="presentation" >
+            <a href="#" data-toggle="modal" data-target="#suggest">
+              <div class="add pull-left"></div>
+              <div class="pull-right">
+                <div class="containerRight_signes">
+                  <div class="hidden-lg pull-right chevron_right"></div>
                 </div>
-                <h4 th:text="#{sign.request}"></h4>
-              </a>
-            </li>
-          </ul>
+              </div>
+              <h4 th:text="#{sign.add}"></h4>
+            </a>
+          </li>
+          <li th:if="${isAuthenticated}" role="presentation">
+            <a href="#" data-toggle="modal" data-target="#new_request">
+              <div class="request_signe pull-left"></div>
+              <div class="pull-right">
+                <div class="containerRight_signes">
+                  <div class="hidden-lg pull-right chevron_right"></div>
+                </div>
+              </div>
+              <h4 th:text="#{sign.request}"></h4>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
