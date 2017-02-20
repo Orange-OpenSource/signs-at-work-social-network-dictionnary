@@ -116,8 +116,6 @@ public class SignController {
       .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, user))
       .collect(Collectors.toList());
 
-//    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-//    signViews = signsViewSort2.sort(signViews, false);
 
     fillModelWithFavorites(model, user);
     model.addAttribute("signsView", signViews);
@@ -536,8 +534,6 @@ public class SignController {
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/detail")
   public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
     Boolean isVideoCreatedByMe = false;
-
-    //fillModelWithContext(model, "sign.detail", principal, SHOW_ADD_FAVORITE, videoUrl(signId, videoId));
 
     model.addAttribute("backUrl", videoUrl(signId, videoId));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));

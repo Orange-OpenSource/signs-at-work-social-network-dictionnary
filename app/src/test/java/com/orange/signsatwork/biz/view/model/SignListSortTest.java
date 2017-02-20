@@ -61,7 +61,7 @@ public class SignListSortTest {
   }
 
   private SignView2 buildComparableSignWith(
-    int id, boolean videoHaveComment,  boolean createdAfterLastDeconnection, boolean videoHaveView) {
+    int id, boolean videoHasComment,  boolean createdAfterLastDeconnection, boolean videoHasView) {
 
     Object[] queryItem = {
       BigInteger.valueOf(id),
@@ -72,6 +72,6 @@ public class SignListSortTest {
       ""
     };
 
-    return new SignView2( new SignViewData(queryItem), videoHaveComment, createdAfterLastDeconnection, videoHaveView);
+    return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastDeconnection, videoHasView);
   }
 }
