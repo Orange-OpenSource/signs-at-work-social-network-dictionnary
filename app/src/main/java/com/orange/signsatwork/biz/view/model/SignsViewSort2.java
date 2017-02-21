@@ -43,22 +43,36 @@ public class SignsViewSort2 {
 
     signs.removeAll(createdSinceLastDeconnection);
 
-    List<SignView2> commentAddedSinceLastDeconnection = signs.stream()
-      .filter(SignView2::modifiedSinceLastDeconnection)
+    List<SignView2> commentAdded = signs.stream()
+      .filter(SignView2::hasComment)
       .collect(Collectors.toList());
 
-    signs.removeAll(commentAddedSinceLastDeconnection);
+    signs.removeAll(commentAdded);
 
-    List<SignView2> viewAddedSinceLastDeconnection = signs.stream()
-      .filter(SignView2::viewedSinceLastDeconnection)
+    List<SignView2> viewAdded = signs.stream()
+      .filter(SignView2::hasView)
       .collect(Collectors.toList());
 
-    signs.removeAll(viewAddedSinceLastDeconnection);
+    signs.removeAll(viewAdded);
+
+    List<SignView2> positiveRateAdded = signs.stream()
+      .filter(SignView2::hasPositiveRate)
+      .collect(Collectors.toList());
+
+    signs.removeAll(positiveRateAdded);
+
+    List<SignView2> favoriteAdded = signs.stream()
+      .filter(SignView2::belowToFavorite)
+      .collect(Collectors.toList());
+
+    signs.removeAll(favoriteAdded);
 
     List<SignView2> sortedSigns = new ArrayList<>();
     sortedSigns.addAll(createdSinceLastDeconnection);
-    sortedSigns.addAll(commentAddedSinceLastDeconnection);
-    sortedSigns.addAll(viewAddedSinceLastDeconnection);
+    sortedSigns.addAll(commentAdded);
+    sortedSigns.addAll(viewAdded);
+    sortedSigns.addAll(positiveRateAdded);
+    sortedSigns.addAll(favoriteAdded);
     if (!onlyActiveSign) {
       sortedSigns.addAll(signs);
     }

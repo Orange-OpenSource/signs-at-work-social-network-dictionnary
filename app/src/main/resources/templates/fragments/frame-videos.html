@@ -45,6 +45,10 @@
             <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
             <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
             <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
+            <div th:if="${videoView.videoHasPositiveRate}" class="tooltip_positif"></div>
+            <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
+            <div th:if="${videoView.signBelowToFavorite}" class="tooltip_favorite"></div>
+            <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
             <img th:attr="data-src=${videoView.pictureUri}"/>
           </a>
           <div class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>

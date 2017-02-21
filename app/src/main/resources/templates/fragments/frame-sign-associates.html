@@ -39,6 +39,10 @@
                 <div th:if="${!signView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
                 <div th:if="${signView.videoHasView}" class="tooltip_eye"></div>
                 <div th:if="${!signView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
+                <div th:if="${signView.videoHasPositiveRate}" class="tooltip_positif"></div>
+                <div th:if="${!signView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
+                <div th:if="${signView.signBelowToFavorite}" class="tooltip_favorite"></div>
+                <div th:if="${!signView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
                 <img th:src="${signView.pictureUri}"/>
               </a>
               <div class="text_hyphenation"><a th:href="@{/sign/} + ${signView.id}" th:text="${signView.name}" type="text/html"/></div>

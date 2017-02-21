@@ -94,16 +94,20 @@ public class FavoriteController {
       .map(objectArray -> new SignViewData(objectArray))
       .collect(Collectors.toList());
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
 
     List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
 
     List<SignView2> signViews = signViewsData.stream()
       .map(signViewData -> new SignView2(
         signViewData,
         signWithCommentList.contains(signViewData.id),
         SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
-        signWithView.contains(signViewData.id))
+        signWithView.contains(signViewData.id),
+        signWithPositiveRate.contains(signViewData.id),
+        true)
       )
       .collect(Collectors.toList());
 

@@ -52,16 +52,16 @@ public class SignListSortTest {
 
   private List<SignView2> buildTestSigns() {
     List<SignView2> signs = new ArrayList<>();
-    signs.add(buildComparableSignWith(0, false, false, false));
-    signs.add(buildComparableSignWith(1, true, false, false));
-    signs.add(buildComparableSignWith(2, false, false, false));
-    signs.add(buildComparableSignWith(3, false, true, false));
-    signs.add(buildComparableSignWith(4, true, true, false));
+    signs.add(buildComparableSignWith(0, false, false, false, false, false));
+    signs.add(buildComparableSignWith(1, true, false, false, false, false));
+    signs.add(buildComparableSignWith(2, false, false, false, false, false));
+    signs.add(buildComparableSignWith(3, false, true, false, false, false));
+    signs.add(buildComparableSignWith(4, true, true, false, false, false));
     return signs;
   }
 
   private SignView2 buildComparableSignWith(
-    int id, boolean videoHasComment,  boolean createdAfterLastDeconnection, boolean videoHasView) {
+    int id, boolean videoHasComment,  boolean createdAfterLastDeconnection, boolean videoHasView, boolean videoHasPositiveRate, boolean signBelowToFavorite) {
 
     Object[] queryItem = {
       BigInteger.valueOf(id),
@@ -72,6 +72,6 @@ public class SignListSortTest {
       ""
     };
 
-    return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastDeconnection, videoHasView);
+    return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastDeconnection, videoHasView, videoHasPositiveRate, signBelowToFavorite);
   }
 }

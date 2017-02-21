@@ -80,25 +80,47 @@ public class HomeController {
       }
     }
 
-
+    List<Long> signInFavorite = null;
 
     List<Object[]> querySigns = services.sign().SignsForSignsView();
     List<SignViewData> signViewsData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
       .collect(Collectors.toList());
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().lowCommented());
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
 
     List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
 
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> new SignView2(
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+    List<SignView2> signViews;
+
+    if (user != null) {
+      signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+      List<Long> finalSignInFavorite = signInFavorite;
+      signViews = signViewsData.stream()
+        .map(signViewData -> new SignView2(
           signViewData,
           signWithCommentList.contains(signViewData.id),
           SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
-          signWithView.contains(signViewData.id))
-      )
-      .collect(Collectors.toList());
+          signWithView.contains(signViewData.id),
+          signWithPositiveRate.contains(signViewData.id),
+          finalSignInFavorite.contains(signViewData.id))
+        )
+        .collect(Collectors.toList());
+    } else {
+      signViews = signViewsData.stream()
+        .map(signViewData -> new SignView2(
+          signViewData,
+          signWithCommentList.contains(signViewData.id),
+          SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+          signWithView.contains(signViewData.id),
+          signWithPositiveRate.contains(signViewData.id),
+          false)
+        )
+        .collect(Collectors.toList());
+    }
+
+
 
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
     signViews = signsViewSort2.sort(signViews, true);

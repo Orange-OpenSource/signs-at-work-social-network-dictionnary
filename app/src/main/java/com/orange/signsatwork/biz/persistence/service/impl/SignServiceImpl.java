@@ -151,6 +151,10 @@ public class SignServiceImpl implements SignService {
     return signRepository.findRatingForSignByUser(signId, userId);
   }
 
+  @Override
+  public Long[] SignsForAllFavoriteByUser(long userId) {
+    return signRepository.findSignsForAllFavoriteByUser(userId);
+  }
 
   @Override
   public List<Object[]> AllCommentsForSign(long signId) {
@@ -160,6 +164,11 @@ public class SignServiceImpl implements SignService {
   @Override
   public Long[] NbCommentForAllVideoBySign(long signId) {
     return signRepository.findNbCommentForAllVideoBySign(signId);
+  }
+
+  @Override
+  public Long[] NbPositiveRateForAllVideoBySign(long signId) {
+    return signRepository.findNbPositiveRateForAllVideoBySign(signId);
   }
 
   @Override

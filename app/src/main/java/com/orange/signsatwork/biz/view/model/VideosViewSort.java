@@ -44,23 +44,37 @@ public class VideosViewSort {
 
     videos.removeAll(createdSinceLastDeconnection);
 
-    List<VideoView2> commentAddedSinceLastDeconnection = videos.stream()
-      .filter(VideoView2::modifiedSinceLastDeconnection)
+    List<VideoView2> commentAdded = videos.stream()
+      .filter(VideoView2::hasComment)
       .collect(Collectors.toList());
 
-    videos.removeAll(commentAddedSinceLastDeconnection);
+    videos.removeAll(commentAdded);
 
-    List<VideoView2> viewAddedSinceLastDeconnection = videos.stream()
-      .filter(VideoView2::viewedSinceLastDeconnection)
+    List<VideoView2> viewAdded = videos.stream()
+      .filter(VideoView2::hasView)
       .collect(Collectors.toList());
 
-    videos.removeAll(viewAddedSinceLastDeconnection);
+    videos.removeAll(viewAdded);
+
+    List<VideoView2> positiveRateAdded = videos.stream()
+      .filter(VideoView2::hasPositiveRate)
+      .collect(Collectors.toList());
+
+    videos.removeAll(positiveRateAdded);
+
+    List<VideoView2> favoriteAdded = videos.stream()
+      .filter(VideoView2::belowToFavorite)
+      .collect(Collectors.toList());
+
+    videos.removeAll(favoriteAdded);
 
     List<VideoView2> sortedvideos = new ArrayList<>();
     sortedvideos.addAll(createdSinceLastDeconnection);
-    sortedvideos.addAll(commentAddedSinceLastDeconnection);
-    sortedvideos.addAll(viewAddedSinceLastDeconnection);
+    sortedvideos.addAll(commentAdded);
+    sortedvideos.addAll(viewAdded);
     sortedvideos.addAll(videos);
+    sortedvideos.addAll(positiveRateAdded);
+    sortedvideos.addAll(favoriteAdded);
 
     return sortedvideos;
   }

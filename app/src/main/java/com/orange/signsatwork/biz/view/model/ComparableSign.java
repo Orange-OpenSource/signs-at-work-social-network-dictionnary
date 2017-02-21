@@ -30,7 +30,11 @@ public interface ComparableSign {
   boolean createdSinceLastDeconnection();
 
   /** modified means: a comment was added, or the video changed */
-  boolean modifiedSinceLastDeconnection();
+  boolean hasComment();
 
-  boolean viewedSinceLastDeconnection();
+  boolean hasView();
+
+  boolean hasPositiveRate();
+
+  boolean belowToFavorite();
 }
