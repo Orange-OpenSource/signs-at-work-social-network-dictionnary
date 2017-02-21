@@ -1,5 +1,5 @@
 #prefetch {
-	background-image: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/PlusVues2_Blanc.png"), url("/img/ajourRecent2_Blanc.png"), url("/img/Commentaire_Blanc.png"), url("/img/sprite_picto_400X400.png");
+	background-image:url("/img/favoris.png"); url("/img/positif.png"), url("/img/request.jpg"), url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/PlusVues2_Blanc.png"), url("/img/ajourRecent2_Blanc.png"), url("/img/Commentaire_Blanc.png"), url("/img/sprite_picto_400X400.png");
 	background-repeat: no-repeat;
 }
 
@@ -1024,7 +1024,7 @@ video{
 		height: 25px;
 		width: 45px;
     position: absolute;
-    right: 31px;
+    right: 83px;
 	}
 
 
@@ -1036,7 +1036,7 @@ video{
 		height: 25px;
 		width: 45px;
     position: absolute;
-    right: 48px;
+    right: 66px;
 	}
 
   .tooltip_eye {
@@ -1047,8 +1047,31 @@ video{
     height: 25px;
     width: 45px;
     position: absolute;
+    right: 49px;
+  }
+
+  .tooltip_positif {
+    background-image: url("/img/positif.png");
+    background-position: right 2px top 0px;
+    background-repeat: no-repeat;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    position: absolute;
+    right: 32px;
+  }
+
+  .tooltip_favorite {
+    background-image: url("/img/favoris.png");
+    background-position: right 2px top 0px;
+    background-repeat: no-repeat;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    position: absolute;
     right: 15px;
   }
+
 
 	.navbar-collapse .navbar-nav > li {
 		width: 18rem;
@@ -1352,38 +1375,38 @@ video{
     margin-bottom: 10px;
   }
 
-	.tooltip_newSigne {
-		background-image: url("/img/ajourRecent2_Blanc.png");
-		background-position: right 2px top 0;
-		background-repeat: no-repeat;
-		background-size: auto 15px;
-		height: 25px;
-		width: 45px;
-    position: absolute;
-    right: 28px;
-	}
+	/*.tooltip_newSigne {*/
+		/*background-image: url("/img/ajourRecent2_Blanc.png");*/
+		/*background-position: right 2px top 0;*/
+		/*background-repeat: no-repeat;*/
+		/*background-size: auto 15px;*/
+		/*height: 25px;*/
+		/*width: 45px;*/
+    /*position: absolute;*/
+    /*right: 28px;*/
+	/*}*/
 
 
-	.tooltip_comment {
-		background-image: url("/img/Commentaire_Blanc.png");
-		background-position: right 2px top 0px;
-		background-size: auto 15px;
-		height: 25px;
-		width: 45px;
-    position: absolute;
-    right: 45px;
-	}
+	/*.tooltip_comment {*/
+		/*background-image: url("/img/Commentaire_Blanc.png");*/
+		/*background-position: right 2px top 0px;*/
+		/*background-size: auto 15px;*/
+		/*height: 25px;*/
+		/*width: 45px;*/
+    /*position: absolute;*/
+    /*right: 45px;*/
+	/*}*/
 
-  .tooltip_eye {
-    background-image: url("/img/PlusVues2_Blanc.png");
-    background-position: right 2px top 0px;
-    background-repeat: no-repeat;
-    background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    position: absolute;
-    right: 14px;
-  }
+  /*.tooltip_eye {*/
+    /*background-image: url("/img/PlusVues2_Blanc.png");*/
+    /*background-position: right 2px top 0px;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: auto 15px;*/
+    /*height: 25px;*/
+    /*width: 45px;*/
+    /*position: absolute;*/
+    /*right: 14px;*/
+  /*}*/
 
 	.navbar-nav > li > a {
 		padding-right: 10px;
@@ -1484,7 +1507,7 @@ video{
 		width: 83px;
 		background-position: 5px;
     position: absolute;
-    right: 31px;
+    right: 210px;
 	}
 
 	.tooltip_comment {
@@ -1496,7 +1519,7 @@ video{
     height: 72px;
     width: 83px;
     position: absolute;
-    right: 81px;
+    right: 146px;
 	}
 
   .tooltip_eye {
@@ -1507,8 +1530,32 @@ video{
     height: 50px;
     width: 83px;
     position: absolute;
-    right: 0px;
+    right: 120px;
   }
+
+  .tooltip_positif {
+    background-image: url("/img/positif.png");
+    background-position: right 2px top 0px;
+    background-repeat: no-repeat;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    position: absolute;
+    right: 70px;
+  }
+
+  .tooltip_favorite {
+    background-image: url("/img/favoris.png");
+    background-position: right 2px top 0px;
+    background-repeat: no-repeat;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    position: absolute;
+    right: 20px;
+  }
+
+
 
 	#label_signe{
 		border-top-style:none;
