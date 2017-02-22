@@ -80,6 +80,7 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
     model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
     return "signs";
@@ -96,10 +97,13 @@ public class SignController {
       querySigns = services.sign().SignsAndRequestsAlphabeticalOrderDescSignsView(user.id);
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+
     } else {
       querySigns = services.sign().SignsAndRequestsAlphabeticalOrderAscSignsView(user.id);
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
     }
 
 
@@ -135,6 +139,7 @@ public class SignController {
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
     model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
     return "signs";
@@ -191,6 +196,7 @@ public class SignController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
     model.addAttribute("classDropdownTitle", " favorite_signe pull-left");
+    model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
 
@@ -214,10 +220,13 @@ public class SignController {
       signWithCommentList = Arrays.asList(services.sign().lowCommented());
       model.addAttribute("isLowCommented", true);
       model.addAttribute("isMostCommented", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+
     } else {
       signWithCommentList = Arrays.asList(services.sign().mostCommented());
       model.addAttribute("isMostCommented", true);
       model.addAttribute("isLowCommented", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
     }
 
     List<SignViewData> commented = signViewsData.stream()
@@ -253,6 +262,7 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_commented"));
     model.addAttribute("classDropdownTitle", " most_active pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
     return "signs";
@@ -274,10 +284,14 @@ public class SignController {
       signWithRatingList = Arrays.asList(services.sign().lowRating());
       model.addAttribute("isLowRating", true);
       model.addAttribute("isMostRating", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+
     } else {
       signWithRatingList = Arrays.asList(services.sign().mostRating());
       model.addAttribute("isMostRating", true);
       model.addAttribute("isLowRating", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+
     }
 
     List<SignViewData> rating = signViewsData.stream()
@@ -315,6 +329,7 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
     model.addAttribute("classDropdownTitle", " sentiment_positif pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
     return "signs";
@@ -336,10 +351,12 @@ public class SignController {
       signWithViewedList = Arrays.asList(services.sign().lowViewed());
       model.addAttribute("isLowViewed", true);
       model.addAttribute("isMostViewed", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     } else {
       signWithViewedList = Arrays.asList(services.sign().mostViewed());
       model.addAttribute("isMostViewed", true);
       model.addAttribute("isLowViewed", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
     }
 
     List<SignViewData> viewed = signViewsData.stream()
@@ -377,6 +394,7 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_viewed"));
     model.addAttribute("classDropdownTitle", " most_viewed pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
     return "signs";
@@ -393,10 +411,12 @@ public class SignController {
       querySigns = services.sign().lowRecent(user.lastDeconnectionDate);
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     } else {
      querySigns = services.sign().mostRecent(user.lastDeconnectionDate);
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
     }
     List<SignViewData> signViewsData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
@@ -432,6 +452,7 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
     model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
     return "signs";

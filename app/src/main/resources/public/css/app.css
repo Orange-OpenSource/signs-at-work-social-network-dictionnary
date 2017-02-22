@@ -365,7 +365,7 @@ text-decoration-line: none;
 
 
 .open > .dropdown-menu {
-	min-width: 24rem;
+	min-width: 28rem;
   left:-10px;
 }
 
@@ -742,6 +742,24 @@ text-decoration-line: none;
   width: 40px;
 }
 
+.direction_down{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2120px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.direction_up{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2160px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
 
 
 .personal_favorite_signe {
@@ -982,7 +1000,7 @@ video{
 /******* Media Query  ********/
 
 /* (1280x1024) SXGA Display */
-@media  screen and (max-width: 1280px) {
+@media only screen and (min-width: 769px) and (max-width: 1280px){
 
 
 
@@ -999,12 +1017,25 @@ video{
     margin: 0 auto;
   }
 
-  .navbar_title{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 11em;
+  .col-lg-3 span.caret{
+    position: absolute;
+    left: 12px;
+    top: 24px;
   }
+
+  .col-lg-3  span.hidden-xs{
+    width: 100%;
+    position: relative;
+    top: 10px;
+    margin-left: 15px;
+  }
+
+  /*.navbar_title{*/
+  /*white-space: nowrap;*/
+  /*overflow: hidden;*/
+  /*text-overflow: ellipsis;*/
+  /*width: 11em;*/
+  /*}*/
 
 	iframe , img, embed {
 		height: 37rem;
@@ -1090,10 +1121,6 @@ video{
 
 	li.hidden-xs:first-child {
 		margin-right: 20px;
-	}
-
-	.dropdown-toggle {
-		width: 12em;
 	}
 
 	.dropdown-menu > li > a {
@@ -1204,8 +1231,12 @@ video{
 
   /*start dropdown*/
 
-  .col-xs-1 .dropdown-toggle{
+  .col-xs-1 .adjust_size.dropdown-toggle{
     width: auto;
+  }
+
+  .col-xs-1 .dropdown-toggle{
+    width: 6em;
   }
 
  .col-xs-1 .caret{
@@ -1252,6 +1283,21 @@ video{
     width: 20px;
     margin-left: 5px;
   }
+
+  .btn .direction_up{
+    background-position: -1080px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .btn .direction_down{
+    background-position: -1060px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
   .btn .sentiment_positif.pull-left{
     background-position: -120px center;
     background-size: auto 20px;
@@ -1267,7 +1313,16 @@ video{
     margin-left: 5px;
   }
 
-/*end dropdown*/
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+
+  /*end dropdown*/
 
 
 	.add {
@@ -1375,39 +1430,6 @@ video{
     margin-bottom: 10px;
   }
 
-	/*.tooltip_newSigne {*/
-		/*background-image: url("/img/ajourRecent2_Blanc.png");*/
-		/*background-position: right 2px top 0;*/
-		/*background-repeat: no-repeat;*/
-		/*background-size: auto 15px;*/
-		/*height: 25px;*/
-		/*width: 45px;*/
-    /*position: absolute;*/
-    /*right: 28px;*/
-	/*}*/
-
-
-	/*.tooltip_comment {*/
-		/*background-image: url("/img/Commentaire_Blanc.png");*/
-		/*background-position: right 2px top 0px;*/
-		/*background-size: auto 15px;*/
-		/*height: 25px;*/
-		/*width: 45px;*/
-    /*position: absolute;*/
-    /*right: 45px;*/
-	/*}*/
-
-  /*.tooltip_eye {*/
-    /*background-image: url("/img/PlusVues2_Blanc.png");*/
-    /*background-position: right 2px top 0px;*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: auto 15px;*/
-    /*height: 25px;*/
-    /*width: 45px;*/
-    /*position: absolute;*/
-    /*right: 14px;*/
-  /*}*/
-
 	.navbar-nav > li > a {
 		padding-right: 10px;
 	}
@@ -1457,7 +1479,7 @@ video{
   width: 20rem;
 }
 
-.col-lg-2 span.caret{
+.col-lg-3 span.caret{
   position: absolute;
   left: 12px;
   top: 24px;
@@ -1467,7 +1489,7 @@ video{
   margin-left: 15px;
 }
 
-.col-lg-2  span.hidden-xs{
+.col-lg-3  span.hidden-xs{
   width: 100%;
   position: relative;
   top: 10px;
@@ -1562,7 +1584,7 @@ video{
 	}
 
 	.open > .dropdown-menu {
-		min-width: 25rem;
+		min-width: 28rem;
 	}
 
 	.containerTooltip {
@@ -1629,7 +1651,34 @@ video{
 }
 /* XXLarge screens min-width 1921px, xxlarge screens */
 @media only screen and (min-width: 120.063em) {
-	.col-lg-12.container-fluid {
+
+  .col-lg-3 span.hidden-xs{
+    width: 100%;
+    position: relative;
+    top: 10px;
+    margin-left: 15px;
+  }
+
+
+
+
+  .col-lg-3 span.caret{
+    position: absolute;
+    left: 12px;
+    top: 24px;
+  }
+
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+
+  .col-lg-12.container-fluid {
 		width: 110%;
 	}
 	.navbar-collapse .navbar-nav > li{
