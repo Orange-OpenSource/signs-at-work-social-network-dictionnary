@@ -19,6 +19,8 @@ notifications:
     on_failure: always
     recipients:
     - christophe.maldivi@orange.com
+    - denis.boisset@orange.com
+    - manuel1.sanchez@orange.com
 
 deploy:
   provider: releases
