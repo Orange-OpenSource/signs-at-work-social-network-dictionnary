@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -40,8 +40,9 @@ public class SignViewDataTest {
     long lastVideoId = 34;
     String url = "http://obelix";
     String pictureUri = "http://obelix.jpg";
+    int nbVideos = 2;
 
-    Object[] queryResultItem = buildQueryResult(id, name, createDate, lastVideoId, url, pictureUri);
+    Object[] queryResultItem = buildQueryResult(id, name, createDate, lastVideoId, url, pictureUri, nbVideos);
 
     // When
     SignViewData signViewData = new SignViewData(queryResultItem);
@@ -55,14 +56,15 @@ public class SignViewDataTest {
     Assertions.assertThat(signViewData.pictureUri).isEqualTo(pictureUri);
   }
 
-  private Object[] buildQueryResult(long id, String name, Date createDate, long lastVideoId, String url, String pictureUri) {
+  private Object[] buildQueryResult(long id, String name, Date createDate, long lastVideoId, String url, String pictureUri, int nbVideos) {
     Object[] queryItem = {
       BigInteger.valueOf(id),
       name,
       new Timestamp(createDate.getTime()),
       BigInteger.valueOf(lastVideoId),
       url,
-      pictureUri
+      pictureUri,
+      BigInteger.valueOf(nbVideos)
     };
     return queryItem;
   }
