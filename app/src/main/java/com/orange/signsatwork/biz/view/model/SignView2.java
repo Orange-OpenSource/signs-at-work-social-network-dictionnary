@@ -41,6 +41,7 @@ public class SignView2 implements ComparableSign {
   private long lastVideoId;
   private String url;
   private String pictureUri;
+  private long nbVideo;
   private boolean signCreateAfterLastDateDeconnection;
   private boolean videoHasComment;
   private boolean videoHasView;
@@ -55,6 +56,7 @@ public class SignView2 implements ComparableSign {
     lastVideoId = signViewData.lastVideoId;
     url = signViewData.url;
     pictureUri = signViewData.pictureUri;
+    nbVideo = signViewData.nbVideo;
     signCreateAfterLastDateDeconnection = createdAfterLastDeconnection;
 
     this.videoHasComment = videoHasComment;

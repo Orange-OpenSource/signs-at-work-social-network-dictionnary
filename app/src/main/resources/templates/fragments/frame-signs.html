@@ -50,7 +50,7 @@
             <div th:if="${!signView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
             <div th:if="${signView.signBelowToFavorite}" class="tooltip_favorite"></div>
             <div th:if="${!signView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
-            <img th:attr="data-src=${signView.pictureUri}"/>
+            <img th:attr="data-src=${signView.pictureUri}"><div th:if="${signView.nbVideo >1}" class="tooltip_variante" th:text="${signView.nbVideo}"></div></img>
           </a>
           <a th:if="${signView.id == 0}" th:href="@{${signView.url} + ${signView.lastVideoId}}" >
             <div th:if="${signView.signCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
