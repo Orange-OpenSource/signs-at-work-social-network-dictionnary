@@ -8,7 +8,7 @@ jdk:
 
 install: true
 
-script: cd app && mvn install && ls && ls app && ls app/target && ls app/target/signs-at-work-0.0.1-SNAPSHOT.jar
+script: (cd app && mvn install) && ls && ls app && ls app/target && ls app/target/signs-at-work-0.0.1-SNAPSHOT.jar
 
 cache:
   directories: $HOME/.m2
