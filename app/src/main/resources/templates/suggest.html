@@ -56,7 +56,8 @@
 
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
                     <div th:each="request:${otherRequestsWithoutSignAssociate}" >
-
+                      <aside class="sidebar">
+                        <ul class="nav nav-list primary left-menu">
                         <li class="dotted-top">
                           <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', \' '+ ${request.name} + ' \')'" data-toggle="modal" href="#">
                             <div>
@@ -68,6 +69,8 @@
                             </div>
                           </a>
                         </li>
+                          </ul>
+                        </aside>
 
                     </div>
                 </div>
