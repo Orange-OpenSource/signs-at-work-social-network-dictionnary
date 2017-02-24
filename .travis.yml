@@ -19,8 +19,8 @@ notifications:
     on_failure: always
     recipients:
     - christophe.maldivi@orange.com
-    #- denis.boisset@orange.com
-    #- manuel1.sanchez@orange.com
+    - denis.boisset@orange.com
+    - manuel1.sanchez@orange.com
 
 before_deploy:
 - export ARTEFACT=$(ls *.jar)
