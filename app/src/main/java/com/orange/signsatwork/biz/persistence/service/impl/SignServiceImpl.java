@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -182,6 +183,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> AllVideosForAllSigns() {
+    return signRepository.findAllVideosForAllSigns();
+  }
+
+  @Override
   public List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm) {
     return signRepository.findSignsForSignsViewBySearchTerm(searchTerm);
   }
@@ -244,6 +250,7 @@ public class SignServiceImpl implements SignService {
 
     return signFrom(signDB, services);
   }
+
 
   @Override
   public Sign create(Sign sign) {
@@ -373,7 +380,6 @@ public class SignServiceImpl implements SignService {
     signDB.getVideos().add(videoDB);
 
     videoDB.setIdForName(idForName+1);
-
     videoRepository.save(videoDB);
     signDB.setLastVideoId(videoDB.getId());
     signDB = signRepository.save(signDB);

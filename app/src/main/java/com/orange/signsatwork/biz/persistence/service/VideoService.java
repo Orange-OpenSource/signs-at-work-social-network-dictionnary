@@ -48,4 +48,9 @@ public interface VideoService {
   Videos forUser(long userId);
 
   void delete(Video video);
+
+  Video changeVideoAssociates(long signId, List<Long> associateVideosIds);
+
+  Video withIdLoadAssociates(long id);
+
 }

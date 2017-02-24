@@ -68,6 +68,8 @@ public interface SignService {
 
   List<Object[]> AllVideosForSign(long signId);
 
+  List<Object[]> AllVideosForAllSigns();
+
   Object[] RatingForSignByUser(long signId, long userId);
 
   Long[] SignsForAllFavoriteByUser(long userId);

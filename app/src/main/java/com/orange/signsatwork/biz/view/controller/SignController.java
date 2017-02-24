@@ -30,6 +30,7 @@ import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
+import com.orange.signsatwork.biz.persistence.service.VideoService;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -675,6 +676,46 @@ public class SignController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associate-form")
+  public String associateVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
+    fillModelWithContext(model, "sign.associate-form", principal, HIDE_ADD_FAVORITE, signUrl(signId));
+    //fillModelWithVideo(model, videoId, principal);
+    VideoService videoService = services.video();
+    Video video = videoService.withIdLoadAssociates(videoId);
+
+    VideoProfileView videoProfileView = new VideoProfileView(video);
+    model.addAttribute("videoProfileView", videoProfileView);
+
+    List<Object[]> querySigns = services.sign().AllVideosForAllSigns();
+    List<VideoViewData> videoViewsData = querySigns.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .filter(v -> v.videoId != videoId)
+      .collect(Collectors.toList());
+
+    List<VideoViewData> videoForSameSigne = videoViewsData.stream()
+      .filter(v -> v.signId == signId)
+      .collect(Collectors.toList());
+
+    videoViewsData.removeAll(videoForSameSigne);
+
+    List<VideoViewData> videoAssociate = videoViewsData.stream()
+      .filter(v -> video.associateVideosIds.contains(v.videoId))
+      .collect(Collectors.toList());
+
+    videoViewsData.removeAll(videoAssociate);
+
+
+    List<VideoViewData> sortedVideos = new ArrayList<>();
+    sortedVideos.addAll(videoForSameSigne);
+    sortedVideos.addAll(videoAssociate);
+    sortedVideos.addAll(videoViewsData);
+
+    model.addAttribute("videosView", sortedVideos);
+    model.addAttribute("signId", signId);
+    return "video-associate-form";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/associate", method = RequestMethod.POST)
   public String changeAssociates(HttpServletRequest req, @PathVariable long signId, Principal principal)  {
     List<Long> associateSignsIds =
@@ -686,6 +727,20 @@ public class SignController {
 
     return showSign(signId);
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/{signId}/{videoId}/associate", method = RequestMethod.POST)
+  public String changeVideoAssociates(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal)  {
+    List<Long> associateVideosIds =
+      transformAssociateVideosIdsToLong(req.getParameterMap().get("associateVideosIds"));
+
+    services.video().changeVideoAssociates(videoId, associateVideosIds);
+
+    log.info("Change video (id={}) associates, ids={}", videoId, associateVideosIds);
+
+    return showSign(signId);
+  }
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/create", method = RequestMethod.POST)
@@ -793,11 +848,27 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
   }
 
+  private void fillModelWithVideo(Model model, long videoId, Principal principal) {
+    VideoService videoService = services.video();
+    Video video = videoService.withIdLoadAssociates(videoId);
+
+    VideoProfileView videoProfileView = new VideoProfileView(video);
+    model.addAttribute("videoProfileView", videoProfileView);
+  }
+
+
   private List<Long> transformAssociateSignsIdsToLong(String[] associateSignsIds) {
     return associateSignsIds == null ? new ArrayList<>() :
       Arrays.asList(associateSignsIds).stream()
             .map(Long::parseLong)
             .collect(Collectors.toList());
+  }
+
+  private List<Long> transformAssociateVideosIdsToLong(String[] associateVideosIds) {
+    return associateVideosIds == null ? new ArrayList<>() :
+      Arrays.asList(associateVideosIds).stream()
+        .map(Long::parseLong)
+        .collect(Collectors.toList());
   }
 
   private void fillModelWithFavorites(Model model, User user) {

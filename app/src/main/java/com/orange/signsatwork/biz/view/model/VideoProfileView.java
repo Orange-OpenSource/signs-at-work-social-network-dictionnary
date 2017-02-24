@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.domain;
+package com.orange.signsatwork.biz.view.model;
 
 /*
  * #%L
@@ -22,22 +22,27 @@ package com.orange.signsatwork.biz.domain;
  * #L%
  */
 
-import lombok.RequiredArgsConstructor;
 
-import java.util.Date;
-import java.util.List;
+import com.orange.signsatwork.biz.domain.Sign;
+import com.orange.signsatwork.biz.domain.Video;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
-public class Video {
-    public final long id;
-    public final long idForName;
-    public final String url;
-    public final String pictureUri;
-    public final long nbView;
-    public final Date createDate;
-    public final User user;
-    public final Sign sign;
-    public final Ratings ratings;
-    public final List<Long> associateVideosIds;
-    public final List<Long> referenceByVideosIds;
+import java.util.HashSet;
+import java.util.Set;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class VideoProfileView {
+  private Video video;
+  private Set<Long> associateVideosIds;
+
+  public VideoProfileView(Video video) {
+    this.video = video;
+    Set<Long> associateIds = new HashSet<Long>(video.associateVideosIds);
+    associateIds.addAll(video.referenceByVideosIds);
+    this.associateVideosIds = associateIds;
+  }
 }

@@ -48,7 +48,7 @@ public class VideoView {
   private Ratings ratings;
 
   public Video toVideo() {
-    return new Video(id, idForName, url, pictureUri, 0, createDate, null, null, null);
+    return new Video(id, idForName, url, pictureUri, 0, createDate, null, null, null, null, null);
   }
 
   public static VideoView from(Video video) {

@@ -168,12 +168,12 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFrom(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()));
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()),null,null);
   }
 
 
   static Video videoFromRatingView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null, null, null);
   }
 
   static Videos videosFromSignsView(Iterable<VideoDB> videosDB) {
@@ -183,6 +183,41 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFromSignsView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null);
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null, null, null);
+  }
+
+  @Override
+  public Video changeVideoAssociates(long videoId, List<Long> associateVideosIds) {
+    VideoDB videoDB = videoRepository.findOne(videoId);
+    List<VideoDB> videoRefrenceBy = videoDB.getReferenceBy();
+
+    videoRefrenceBy.stream()
+      .filter(R -> !associateVideosIds.contains(R.getId()))
+      .forEach(R -> {
+        R.getAssociates().remove(videoDB);
+        videoRepository.save(R);
+      });
+
+    List<VideoDB> newVideoAssociates = new ArrayList<>();
+    for (Long id : associateVideosIds ) {
+      VideoDB videoDB1 = videoRepository.findOne(id);
+      newVideoAssociates.add(videoDB1);
+    }
+
+    videoDB.setAssociates(newVideoAssociates);
+    videoDB.setReferenceBy(new ArrayList<>());
+    videoRepository.save(videoDB);
+
+    return videoFrom(videoDB);
+  }
+
+  @Override
+  public Video withIdLoadAssociates(long id) {
+    return videoFromWithAssociates(videoRepository.findOne(id));
+  }
+
+  Video videoFromWithAssociates(VideoDB videoDB) {
+    return videoDB == null ? null :
+      new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null, videosFromSignsView(videoDB.getAssociates()).ids(), videosFromSignsView(videoDB.getReferenceBy()).ids());
   }
 }

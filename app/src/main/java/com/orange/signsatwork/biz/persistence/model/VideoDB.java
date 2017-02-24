@@ -71,6 +71,16 @@ public class VideoDB {
   @OneToMany(mappedBy = "primaryKey.video", fetch = FetchType.LAZY)
   private List<RatingDB> ratings = new ArrayList<>();
 
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name="associate_video",
+    joinColumns={@JoinColumn(name="video_id")},
+    inverseJoinColumns={@JoinColumn(name="associate_video_id")})
+  private List<VideoDB> associates;
+
+  @ManyToMany(mappedBy="associates", fetch = FetchType.LAZY)
+  private List<VideoDB> referenceBy;
+
+
   public VideoDB(String url, Date createDate) {
     this.url = url;
     this.createDate = createDate;
