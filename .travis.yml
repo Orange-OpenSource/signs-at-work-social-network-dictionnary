@@ -1,28 +1,31 @@
 language: java
 
-# enable container based build
+dist: trusty
 sudo: false
 
-# we need java 8
 jdk:
 - oraclejdk8
 
-# skip build without tests
 install: true
+
 script: cd app && mvn install
 
-# avoid downloading each time maven dependencies
 cache:
-  directories:
-    $HOME/.m2
+  directories: $HOME/.m2
 
-# say 'go to hell' when there is a pb
 notifications:
   email:
     on_success: change
     on_failure: always
     recipients:
-      - christophe.maldivi@orange.com
-      #- denis.boisset@orange.com
-      #- manuel1.sanchez@orange.com
-      #- gilles.zanolin@orange.com
+    - christophe.maldivi@orange.com
+
+deploy:
+  provider: releases
+  api_key:
+    secure: XwFQS96AvxNX2W4F0DUVDVtwzmltkSmFeH3XUP8M9fThoLO6mVJOH47/GiouVFh2muyCv23Dz+w4qfzHgqIMyJiDO0TzP6Htq1QHVAulmZXYUP8lKvVo9oRm4cSIC0gwfpGJ5JPFA98vSVSDz2xMCN1mlzxVD2Lc2z0EKgKZEa4IfYQ0wftsYqAWeGVEGWAvimp96GDnxZqD00nI7J5zoR1DmgmAylBROMxP2qZCvyfb82x0FnhIleT8YnO0SWZ0/LV0qi6+mjTMzcAu2EnGB/XyOelNUK0EwEXtB4yB+W+oTHg4EShDE5zWiUcNESWBSe0BohNo3P2wwI4BghlQDFYFkTxxzjwqS5EFCqXgtXMJdEDIPlurbuBbxYfVi+40nlAnOQtCTYNmOTpdg4F+k4+DGt+ydZLkNlBGyZnucEnJGObmQu/CjcnuZa1mOZGon6R0hyk2ssTIFixKgCihwFdADn53eohEsStGbaN5j84bTfmIJ6YVFKaIPq+LWzLgnUxBtlZe0cofqrIChXMCTr0DZjvTKkZexyazLLJl6y65y8HZ0OxkdCsr9+MwdiCGxADBX/DOxr5Py3GmsHLkOu2aYOovtEpHGTPYjAvxN5bMeItfUjw91dfazEizl4k7eximS+pnUvWvtax21w4X9PXjPq07Zg7X9lq8xrvWcvU=
+  file: app/target/signs-at-work-0.0.1-SNAPSHOT.jar
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: Orange-OpenSource/signs-at-work-social-network-dictionnary
