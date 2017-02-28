@@ -67,15 +67,6 @@ public class SignDB {
   @JsonBackReference
   private List<FavoriteDB> favorites;
 
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name="associate_sign",
-          joinColumns={@JoinColumn(name="sign_id")},
-          inverseJoinColumns={@JoinColumn(name="associate_sign_id")})
-  private List<SignDB> associates;
-
-  @ManyToMany(mappedBy="associates", fetch = FetchType.LAZY)
-  private List<SignDB> referenceBy;
-
   public SignDB(String name, String url, Date createDate) {
     this.name = name;
     this.url = url;

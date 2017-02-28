@@ -60,21 +60,13 @@ public interface SignService {
 
   List<Object[]> SignsForFavoriteView(long favoriteId);
 
-  List<Object[]> AssociateSigns(long signId, long associateSignId);
-
-  List<Object[]> SignsForSignsViewBySearchTerm(String searchTerm);
-
   List<Object[]> AllVideosHistoryForSign(long signId);
 
   List<Object[]> AllVideosForSign(long signId);
 
   List<Object[]> AllVideosForAllSigns();
 
-  Object[] RatingForSignByUser(long signId, long userId);
-
   Long[] SignsForAllFavoriteByUser(long userId);
-
-  List<Object[]> AllCommentsForSign(long signId);
 
   Signs all();
 
@@ -84,11 +76,7 @@ public interface SignService {
 
   Sign withIdSignsView(long id);
 
-  Sign withIdLoadAssociates(long id);
-
   Signs withName(String name);
-
-  Sign changeSignAssociates(long signId, List<Long> associateSignsIds);
 
   Sign create(Sign sign);
 

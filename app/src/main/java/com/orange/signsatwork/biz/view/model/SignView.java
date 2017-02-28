@@ -48,7 +48,7 @@ public class SignView {
   private boolean recent;
 
   public Sign toSign() {
-    return new Sign(id, name, url, createDate, 0, 0, null, null, null, null, null);
+    return new Sign(id, name, url, createDate, 0, 0, null, null, null);
   }
 
   public static SignView from(Sign sign) {

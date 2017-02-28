@@ -38,8 +38,6 @@ public class Sign {
     public final long lastVideoId;
     public final long nbVideo;
     public final Videos videos;
-    public final List<Long> associateSignsIds;
-    public final List<Long> referenceBySignsIds;
 
     private final VideoService videoService;
     private final CommentService commentService;
@@ -48,7 +46,7 @@ public class Sign {
         if (videos != null) {
             return this;
         } else {
-            return new Sign(id, name, url, createDate, lastVideoId, nbVideo, videoService.forSign(id), associateSignsIds, referenceBySignsIds, videoService, commentService);
+            return new Sign(id, name, url, createDate, lastVideoId, nbVideo, videoService.forSign(id), videoService, commentService);
         }
     }
 

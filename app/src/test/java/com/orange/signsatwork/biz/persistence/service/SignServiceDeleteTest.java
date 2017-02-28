@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -55,13 +55,11 @@ public class SignServiceDeleteTest {
     Video video = sign1.loadVideos().videos.list().get(0);
     Favorite favorite = services.user().createUserFavorite(user.id, "favorite-canRemoveSign");
 
-    services.sign().changeSignAssociates(sign2.id, Arrays.asList(new Long[]{sign1.id}));
     services.favorite().changeFavoriteSigns(favorite.id, Arrays.asList(new Long[]{sign1.id}));
 
     // then, check we have a correct testing context
     Assertions.assertThat(services.sign().withId(sign1.id)).isNotNull();
     Assertions.assertThat(services.video().withId(video.id)).isNotNull();
-    Assertions.assertThat(services.sign().withIdLoadAssociates(sign2.id).associateSignsIds).contains(sign1.id);
     Assertions.assertThat(services.favorite().withId(favorite.id).loadSigns().signsIds()).contains(sign1.id);
 
     // do
@@ -70,7 +68,6 @@ public class SignServiceDeleteTest {
     // then
     Assertions.assertThat(services.sign().withId(sign1.id)).isNull();
     Assertions.assertThat(services.video().all().stream().filter(v -> v.id == video.id).count()).isEqualTo(0);
-    Assertions.assertThat(services.sign().withIdLoadAssociates(sign2.id).associateSignsIds).doesNotContain(sign1.id);
     Assertions.assertThat(services.favorite().withId(favorite.id).loadSigns().signsIds()).doesNotContain(sign1.id);
   }
 }

@@ -621,43 +621,6 @@ public class SignController {
     return "sign-detail";
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/associates")
-  public String associates(@PathVariable long signId, Principal principal, Model model)  {
-    fillModelWithContext(model, "sign.associated", principal, HIDE_ADD_FAVORITE, signUrl(signId));
-    User user = services.user().withUserName(principal.getName());
-
-    List<Object[]> querySigns = services.sign().AssociateSigns(signId, signId);
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
-      .collect(Collectors.toList());
-
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
-
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
-
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
-
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
-
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> new SignView2(
-        signViewData,
-        signWithCommentList.contains(signViewData.id),
-        SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
-        signWithView.contains(signViewData.id),
-        signWithPositiveRate.contains(signViewData.id),
-        signInFavorite.contains(signViewData.id))
-      )
-      .collect(Collectors.toList());
-
-    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-    signViews = signsViewSort2.sort(signViews, false);
-
-    model.addAttribute("signsView", signViews);
-
-    return "sign-associates";
-  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associates")
@@ -689,27 +652,11 @@ public class SignController {
     return "video-associates";
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/associate-form")
-  public String associate(@PathVariable long signId, Principal principal, Model model)  {
-    fillModelWithContext(model, "sign.associate-form", principal, HIDE_ADD_FAVORITE, signUrl(signId));
-    fillModelWithSign(model, signId, principal);
-
-    List<Object[]> querySigns = services.sign().SignsForSignsView();
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
-      .filter(s -> s.id != signId)
-      .collect(Collectors.toList());
-    model.addAttribute("signsView", signViewsData);
-
-    return "sign-associate-form";
-  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associate-form")
   public String associateVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.associate-form", principal, HIDE_ADD_FAVORITE, signUrl(signId));
-    //fillModelWithVideo(model, videoId, principal);
     VideoService videoService = services.video();
     Video video = videoService.withIdLoadAssociates(videoId);
 
@@ -745,18 +692,6 @@ public class SignController {
     return "video-associate-form";
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/sign/{signId}/associate", method = RequestMethod.POST)
-  public String changeAssociates(HttpServletRequest req, @PathVariable long signId, Principal principal)  {
-    List<Long> associateSignsIds =
-            transformAssociateSignsIdsToLong(req.getParameterMap().get("associateSignsIds"));
-
-    services.sign().changeSignAssociates(signId, associateSignsIds);
-
-    log.info("Change sign (id={}) associates, ids={}", signId, associateSignsIds);
-
-    return showSign(signId);
-  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/associate", method = RequestMethod.POST)
@@ -869,30 +804,6 @@ public class SignController {
       signBelowToFavorite.contains(videoViewData.signId));
   }
 
-  private void fillModelWithSign(Model model, long signId, Principal principal) {
-    SignService signService = services.sign();
-    Sign sign = signService.withIdLoadAssociates(signId);
-
-    SignProfileView signProfileView = new SignProfileView(sign);
-    model.addAttribute("signProfileView", signProfileView);
-    model.addAttribute("signCreationView", new SignCreationView());
-  }
-
-  private void fillModelWithVideo(Model model, long videoId, Principal principal) {
-    VideoService videoService = services.video();
-    Video video = videoService.withIdLoadAssociates(videoId);
-
-    VideoProfileView videoProfileView = new VideoProfileView(video);
-    model.addAttribute("videoProfileView", videoProfileView);
-  }
-
-
-  private List<Long> transformAssociateSignsIdsToLong(String[] associateSignsIds) {
-    return associateSignsIds == null ? new ArrayList<>() :
-      Arrays.asList(associateSignsIds).stream()
-            .map(Long::parseLong)
-            .collect(Collectors.toList());
-  }
 
   private List<Long> transformAssociateVideosIdsToLong(String[] associateVideosIds) {
     return associateVideosIds == null ? new ArrayList<>() :
