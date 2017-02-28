@@ -44,7 +44,8 @@
               <!--<input th:attrappend="disabled=${videoView.signId == signId}?'disabled'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>-->
               <!--<input th:attrappend="onclick=${videoView.signId == signId}?'event.preventDefault();'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>-->
               <input th:attrappend="onclick=${videoView.signId == signId}?'this.checked=true'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>
-              <span class="text_hyphenation" th:text="${videoView.signName}"></span>
+              <span th:if="${videoView.signId != signId}" class="text_hyphenation" th:text="${videoView.signName}"></span>
+              <span th:if="${videoView.signId == signId}" class="text_hyphenation" th:text="${videoView.signName} + ' (' + ${videoView.idForName} +')'"></span>
           </label>
       </div>
           <br/>

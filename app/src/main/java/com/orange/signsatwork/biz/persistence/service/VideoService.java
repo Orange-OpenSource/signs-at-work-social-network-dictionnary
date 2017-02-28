@@ -49,7 +49,7 @@ public interface VideoService {
 
   void delete(Video video);
 
-  Video changeVideoAssociates(long signId, List<Long> associateVideosIds);
+  Video changeVideoAssociates(long videoId, List<Long> associateVideosIds);
 
   Video withIdLoadAssociates(long id);
 

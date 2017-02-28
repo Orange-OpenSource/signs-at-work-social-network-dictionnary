@@ -189,14 +189,16 @@ public class VideoServiceImpl implements VideoService {
   @Override
   public Video changeVideoAssociates(long videoId, List<Long> associateVideosIds) {
     VideoDB videoDB = videoRepository.findOne(videoId);
-    List<VideoDB> videoRefrenceBy = videoDB.getReferenceBy();
+    List<VideoDB> videoReferenceBy = videoDB.getReferenceBy();
 
-    videoRefrenceBy.stream()
-      .filter(R -> !associateVideosIds.contains(R.getId()))
-      .forEach(R -> {
-        R.getAssociates().remove(videoDB);
-        videoRepository.save(R);
-      });
+    if (videoReferenceBy != null) {
+      videoReferenceBy.stream()
+        .filter(R -> !associateVideosIds.contains(R.getId()))
+        .forEach(R -> {
+          R.getAssociates().remove(videoDB);
+          videoRepository.save(R);
+        });
+    }
 
     List<VideoDB> newVideoAssociates = new ArrayList<>();
     for (Long id : associateVideosIds ) {

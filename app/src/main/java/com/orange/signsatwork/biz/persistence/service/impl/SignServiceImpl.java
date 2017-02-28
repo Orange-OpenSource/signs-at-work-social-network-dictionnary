@@ -390,6 +390,12 @@ public class SignServiceImpl implements SignService {
     userRepository.findAll().forEach(userDB1 -> System.out.println("user id: " + userDB1.getId()));
     signDB.getVideos().stream().forEach(videoDB1 -> System.out.println("video user: " + videoDB1.getUser()));
 
+    List<Long> associatesVideoDBId = signDB.getVideos().stream()
+      .map(video -> video.getId())
+      .collect(Collectors.toList());
+    associatesVideoDBId.remove(videoDB.getId());
+    services.video().changeVideoAssociates(videoDB.getId(), associatesVideoDBId);
+
     return signFrom(signDB, services);
   }
 
