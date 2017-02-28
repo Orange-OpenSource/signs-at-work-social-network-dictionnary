@@ -36,6 +36,7 @@ public class VideoViewData {
   public final String pictureUri;
   public final long nbView;
   public final long idForName;
+  public final long nbVideo;
 
 
   public VideoViewData(Object[] queryResultItem) {
@@ -47,6 +48,7 @@ public class VideoViewData {
     pictureUri = toString(queryResultItem[5]);
     nbView = toLong(queryResultItem[6]);
     idForName = toLong(queryResultItem[7]);
+    nbVideo = toLong(queryResultItem[8]);
   }
 
   private String toString(Object o) {

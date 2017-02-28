@@ -31,6 +31,8 @@ public interface VideoService {
 
   Video withId(long videoId);
 
+  List<Object[]> AssociateVideos(long videoId, long associateVideoId);
+
   void increaseNbView(long videoId);
 
   Comment createVideoComment(long videoId, long userId, String commentText);

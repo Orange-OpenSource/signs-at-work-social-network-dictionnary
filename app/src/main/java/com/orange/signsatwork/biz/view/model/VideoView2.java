@@ -42,6 +42,7 @@ public class VideoView2 implements ComparableVideo {
   private long videoId;
   private String url;
   private String pictureUri;
+  private long nbVideo;
   private boolean videoCreateAfterLastDateDeconnection;
   private boolean videoHasComment;
   private boolean videoHasView;
@@ -51,7 +52,11 @@ public class VideoView2 implements ComparableVideo {
   public VideoView2(VideoViewData videoViewData, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView, boolean videoHasPositiveRate, boolean signBelowToFavorite) {
     signId = videoViewData.signId;
     signName = videoViewData.signName;
-    videoName = videoViewData.signName + " (" + videoViewData.idForName + ")";
+    if (videoViewData.nbVideo > 1) {
+      videoName = videoViewData.signName + " (" + videoViewData.idForName + ")";
+    } else {
+      videoName = videoViewData.signName;
+    }
     createDate = videoViewData.createDate;
     videoId = videoViewData.videoId;
     url = videoViewData.url;

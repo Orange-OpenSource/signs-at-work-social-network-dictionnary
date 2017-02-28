@@ -45,4 +45,8 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select a.text, a.comment_date, c.first_name, c.last_name  from comments a inner join userdb c on a.video_id = :videoId and a.user_id=c.id order by comment_date desc", nativeQuery = true)
     List<Object[]> findAllCommentsForVideo(@Param("videoId") long videoId);
 
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, a.nb_view, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id = b.id and c.associate_video_id = a.id and c.video_id = ? union select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, a.nb_view, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id=b.id and c.video_id = a.id and c.associate_video_id = ?" , nativeQuery = true)
+    List<Object[]> findAssociateVideos(long videoId, long associateVideoId);
+
+
 }

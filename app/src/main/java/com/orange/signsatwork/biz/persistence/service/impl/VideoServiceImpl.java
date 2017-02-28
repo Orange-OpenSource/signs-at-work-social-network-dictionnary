@@ -59,6 +59,11 @@ public class VideoServiceImpl implements VideoService {
 
 
   @Override
+  public List<Object[]> AssociateVideos(long videoId, long associateVideoId) {
+    return videoRepository.findAssociateVideos(videoId, associateVideoId);
+  }
+
+  @Override
   public void increaseNbView(long videoId) {
     VideoDB videoDB = videoRepository.findOne(videoId);
     long nbView = videoDB.getNbView();

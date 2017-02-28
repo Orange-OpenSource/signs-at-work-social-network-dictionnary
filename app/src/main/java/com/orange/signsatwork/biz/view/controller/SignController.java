@@ -660,6 +660,36 @@ public class SignController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associates")
+  public String associatesVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
+    fillModelWithContext(model, "sign.associated", principal, HIDE_ADD_FAVORITE, signUrl(signId));
+    User user = services.user().withUserName(principal.getName());
+
+    List<Object[]> queryVideos = services.video().AssociateVideos(videoId, videoId);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
+
+    List<Long> videoWithPostiveRateList = Arrays.asList(services.sign().NbPositiveRateForAllVideoBySign(signId));
+
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, signInFavorite, user))
+      .collect(Collectors.toList());
+
+
+    VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);
+
+    model.addAttribute("videosView", videoViews);
+
+    return "video-associates";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/associate-form")
   public String associate(@PathVariable long signId, Principal principal, Model model)  {
     fillModelWithContext(model, "sign.associate-form", principal, HIDE_ADD_FAVORITE, signUrl(signId));
