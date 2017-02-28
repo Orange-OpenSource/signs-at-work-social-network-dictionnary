@@ -69,7 +69,8 @@ public class SignListSortTest {
       new Timestamp(1234),
       BigInteger.valueOf(56),
       "",
-      ""
+      "",
+      BigInteger.valueOf(1)
     };
 
     return new SignView2( new SignViewData(queryItem), videoHasComment, createdAfterLastDeconnection, videoHasView, videoHasPositiveRate, signBelowToFavorite);
