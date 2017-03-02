@@ -75,4 +75,6 @@ public class RestApi {
   public static final String WS_SEC_VIDEO_RATE_NEUTRAL = WS_SEC + "sign/{signId}/{videoId}/rate-neutral";
 
   public static final String WS_SEC_VIDEO_RATE_NEGATIVE = WS_SEC + "sign/{signId}/{videoId}/rate-negative";
+
+  public static final String WS_SEC_VIDEO_ASSOCIATE = WS_SEC + "sign/{signId}/{videoId}/associate";
 }

@@ -43,9 +43,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -137,4 +136,14 @@ public class SignRestController {
 
       return;
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEO_ASSOCIATE, method = RequestMethod.POST)
+  public String associateVideo(@RequestBody List<Long> associateVideosIds, @PathVariable long signId, @PathVariable long videoId) {
+    services.video().changeVideoAssociates(videoId, associateVideosIds);
+
+    log.info("Change video (id={}) associates, ids={}", videoId, associateVideosIds);
+      return "/sign/" + signId + "/" + videoId;
+  }
+
 }

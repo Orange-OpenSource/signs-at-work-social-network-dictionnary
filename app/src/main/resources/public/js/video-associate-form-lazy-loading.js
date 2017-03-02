@@ -19,6 +19,76 @@
  * #L%
  */
 
+function onSearch(){
+  $("#search-criteria").show();
+  console.log("onSearch");
+  $("#signs-container").children("label").each(function () {
+    $(this).hide();
+  });
+}
+
+function onBack(signId, videoId){
+  console.log("onBack");
+  if ($("#associateForm").isChanged()) {
+    console.log("data change");
+    $("#validate_modif").modal('show');
+  } else {
+    var url = "/sign/"+signId+"/"+videoId;
+    window.location = url;
+  }
+
+
+}
+
+function onContinue(signId, videoId) {
+  var url = "/sign/"+signId+"/"+videoId;
+  window.location = url;
+};
+
+
+function onAssociateRequest(signId, videoId) {
+  var associateVideosIds = [];
+  i=1;
+  $("#signs-container").children("label").each(function () {
+    if (document.getElementById("associateVideosIds"+i).checked) {
+      var selectedVideoId = document.getElementById("associateVideosIds"+i).value;
+      console.log(i + " true "+ selectedVideoId);
+      associateVideosIds.push(selectedVideoId);
+    }
+    i= i+1;
+  });
+
+  $.ajax({
+    url: "/ws/sec/sign/" + signId + "/" + videoId + "/associate",
+    type: 'post',
+    data: JSON.stringify(associateVideosIds),
+    contentType: "application/json",
+    success: function(response) {
+      var url = "/sign/"+signId+"/"+videoId;
+      window.location = url;
+    },
+    error: function(response) {
+    }
+  })
+
+
+
+};
+
+
+$.fn.extend({
+  trackChanges: function() {
+    $(":input",this).change(function() {
+      $(this.form).data("changed", true);
+    });
+  }
+  ,
+  isChanged: function() {
+    return this.data("changed");
+  }
+});
+
+
 (function signViewsLazyLoading($) {
   var HIDDEN_CLASS = 'sign-view-hidden';
   //var NB_SIGN_VIEWS_INC = 16;
@@ -32,7 +102,6 @@
   var signsCount = signsContainer.children.length;
 
   var displayedSignsCount = 0;
-  var modeSearch = new Boolean(false);
 
   function showSignView(signView) {
     signView.style.opacity = "0";
@@ -59,7 +128,6 @@
     var noMoreHiddenSigns = signViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
     var search_criteria = document.getElementById("search-criteria");
-    console.log("search_criteria " + search_criteria.value)
     if(!noMoreHiddenSigns && closeToBottom && search_criteria.value == "") {
       showNextSignViews();
     }
@@ -70,7 +138,7 @@
     var g = $(this).val();
 
     if (g!="") {
-      $("#signs-container").children("div").each(function () {
+      $("#signs-container").children("label").each(function () {
         $("#reset").css("visibility", "visible");
         $("#reset").show();
         var s = $(this).attr("id");
@@ -90,15 +158,9 @@
         }
       });
     } else {
-      if (modeSearch == true) {
-        $("#signs-container").children("div").each(function () {
+        $("#signs-container").children("label").each(function () {
           $(this).hide();
         });
-      } else {
-        $("#signs-container").children("div").each(function () {
-          $(this).show();
-        });
-      }
     }
   }
 
@@ -119,19 +181,13 @@
         .val('');
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
-      if (modeSearch == true) {
-        $("#signs-container").children("div").each(function () {
+
+        $("#signs-container").children("label").each(function () {
           $(this).hide();
         });
-      } else {
-        $("#signs-container").children("div").each(function () {
-          $(this).show();
-        });
-      }
+
 
   }
-
-
 
 
   function main() {
@@ -139,17 +195,15 @@
 
     var search_criteria = document.getElementById("search-criteria");
     search_criteria.addEventListener('keyup', search);
-    if (search_criteria.classList.contains("search-hidden")) {
-      initWithFirstSigns();
-      modeSearch=false;
-    } else {
-      modeSearch = true;
-    }
+
+    initWithFirstSigns()
 
     // then wait to reach the page bottom to load next views
     document.addEventListener('scroll', onScroll);
     var button_reset = document.getElementById("reset");
     button_reset.addEventListener('click', onReset);
+
+    $("#associateForm").trackChanges();
   }
 
   main();

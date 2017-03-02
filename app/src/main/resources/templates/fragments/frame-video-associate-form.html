@@ -27,30 +27,27 @@
 <body>
 
 <div th:fragment="div">
+  <div id="myform" >
+    <input type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
+    <input type='button' id='reset' value='x' />
+  </div>
 
-    <form   th:if="${not #lists.isEmpty(videosView)}"
+    <form id="associateForm" th:if="${not #lists.isEmpty(videosView)}"
           class="row container_thumbnail "
           th:action="@{/sec/sign/{signId}/{videoId}/associate(signId = ${signId}, videoId = ${videoProfileView.video.id})}"
           th:object="${videoProfileView}"
           method="post">
 
         <div  class="form-group">
-          <button id="button-top" type="submit" class="btn btn-default" th:text="#{sign.associate}"></button><br/>
-          <div id="signsAssociates-container">
-            <label class="sign-view-hidden text-center col-lg-6 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
+          <div id="signs-container">
+            <label th:id="${videoView.signName}" class="sign-view-hidden text-center col-lg-6 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
                    th:for="${#ids.next('associateVideosIds')}">
                   <img th:attr="data-src=${videoView.pictureUri}"/>
-
-              <!--<input th:attrappend="disabled=${videoView.signId == signId}?'disabled'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>-->
-              <!--<input th:attrappend="onclick=${videoView.signId == signId}?'event.preventDefault();'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>-->
-              <input th:attrappend="onclick=${videoView.signId == signId}?'this.checked=true'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>
+              <input th:attrappend="onclick=${videoView.signId == signId}?'event.preventDefault();'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>>
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>
               <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + ' (' + ${videoView.idForName} +')'"></span>
           </label>
       </div>
-          <br/>
-        <button id="button-bottom" type="submit" class="btn btn-default" th:text="#{sign.associate}"></button>
-
       </div>
 
 
@@ -58,6 +55,26 @@
 
   <div th:if="${#lists.isEmpty(videosView)}">
       <h2 th:text="#{sign.not_available}"></h2>
+  </div>
+</div>
+
+<div  id="validate_modif" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" th:onclick="'javascript:onContinue('+ ${signId}  + ',' +  ${videoProfileView.video.id} +')' " data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="pull-left associate_signe"></div>
+          <h4 class="pull-right" th:text="#{sign.associate}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <span th:text="#{confirmSave}"/>
+      </div>
+      <div class="modal-footer">
+        <button id="button-top" type="submit" class="btn btn-default" th:onclick="'javascript:onAssociateRequest('+ ${signId}  + ',' +  ${videoProfileView.video.id} +')' " th:text="#{save}"></button><br/>
+      </div>
+    </div>
   </div>
 </div>
 
