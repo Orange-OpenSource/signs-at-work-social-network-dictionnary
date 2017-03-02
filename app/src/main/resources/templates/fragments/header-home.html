@@ -96,6 +96,19 @@
 
                         </a>
                     </li>
+                  <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
+                    <a href="#" data-toggle="modal"
+                       data-target="#favorite">
+                      <div>
+                        <div class="pull-left favorite_signe "></div>
+                        <h4 class="container_H2" th:text="#{favorites}"></h4>
+                        <div>
+                          <div class="hidden-lg pull-right chevron_right"></div>
+                        </div>
+                      </div>
+
+                    </a>
+                  </li>
                     <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
                         <a href="#">
                             <div>
