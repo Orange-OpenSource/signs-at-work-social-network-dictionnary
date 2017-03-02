@@ -158,6 +158,8 @@ $.fn.extend({
         }
       });
     } else {
+        $("#reset").css("visibility", "hidden");
+        $("#reset").hide();
         $("#signs-container").children("label").each(function () {
           $(this).hide();
         });

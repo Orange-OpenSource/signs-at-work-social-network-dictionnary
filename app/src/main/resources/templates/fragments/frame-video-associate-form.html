@@ -43,7 +43,7 @@
             <label th:id="${videoView.signName}" class="sign-view-hidden text-center col-lg-6 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
                    th:for="${#ids.next('associateVideosIds')}">
                   <img th:attr="data-src=${videoView.pictureUri}"/>
-              <input th:attrappend="onclick=${videoView.signId == signId}?'event.preventDefault();'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>>
+              <input th:attrappend="onclick=${videoView.signId == signId}?'event.preventDefault();'" type="checkbox" th:field="*{associateVideosIds}"  th:value="${videoView.videoId}"/>
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>
               <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + ' (' + ${videoView.idForName} +')'"></span>
           </label>

@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -481,11 +481,20 @@ public class SignController {
 
       List<Long> videoWithPostiveRateList = Arrays.asList(services.sign().NbPositiveRateForAllVideoBySign(signId));
 
-      List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
-
-      List<VideoView2> videoViews = videoViewsData.stream()
-        .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, signInFavorite, user))
-        .collect(Collectors.toList());
+      List<VideoView2> videoViews;
+      List<Long> signInFavorite = new ArrayList<>();
+      if (user != null) {
+        signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+        List<Long> finalSignInFavorite = signInFavorite;
+        videoViews = videoViewsData.stream()
+          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalSignInFavorite, user))
+          .collect(Collectors.toList());
+      } else {
+        List<Long> finalSignInFavorite1 = signInFavorite;
+        videoViews = videoViewsData.stream()
+          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalSignInFavorite1, user))
+          .collect(Collectors.toList());
+      }
 
 
       VideosViewSort videosViewSort = new VideosViewSort();

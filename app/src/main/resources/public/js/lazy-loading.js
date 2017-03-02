@@ -90,6 +90,8 @@
         }
       });
     } else {
+      $("#reset").css("visibility", "hidden");
+      $("#reset").hide();
       if (modeSearch == true) {
         $("#signs-container").children("div").each(function () {
           $(this).hide();
