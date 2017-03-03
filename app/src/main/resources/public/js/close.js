@@ -19,24 +19,71 @@
  * #L%
  */
 
-(function close($) {
 
-  function main() {
 
-    // then wait to reach the page bottom to load next views
-    window.addEventListener('beforeunload', function (event) {
-      console.log("close");
-      $.ajax({
-        url: "/ws/sec/close",
-        type: 'post',
-        success: function(response) {
-        },
-        error: function(response) {
-        }
-      })
-    });
-  }
+var validNavigation = 0;
 
-  main();
+function endSession()
+{
+  // Browser or Broswer tab is closed
+  // Write code here
 
-})($);
+       $.ajax({
+         url: "/ws/sec/close",
+         type: 'post',
+         success: function(response) {
+         },
+         error: function(response) {
+         }
+       })
+}
+
+function bindDOMEvents() {
+  /*
+
+   * unload works on both closing tab and on refreshing tab.
+
+   */
+  $(window).bind('beforeunload', function()
+  {
+    if (validNavigation==0)
+    {
+      endSession();
+    }
+  });
+
+// Attach the event keypress to exclude the F5 refresh
+  $(document).keydown(function(e)
+  {
+    var key=e.which || e.keyCode;
+    if (key == 116)
+    {
+      validNavigation = 1;
+    }
+  });
+
+// Attach the event click for all links in the page
+  $("a").bind("click", function()
+  {
+    validNavigation = 1;
+  });
+
+  // Attach the event submit for all forms in the page
+  $("form").bind("submit", function()
+  {
+    validNavigation = 1;
+  });
+
+  // Attach the event click for all inputs in the page
+  $("input[type=submit]").bind("click", function()
+  {
+    validNavigation = 1;
+  });
+
+}
+
+// Wire up the events as soon as the DOM tree is ready
+$(document).ready(function()
+{
+  bindDOMEvents();
+});

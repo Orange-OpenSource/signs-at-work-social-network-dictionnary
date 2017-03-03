@@ -43,7 +43,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     configureRoutes(http);
-    http.headers().addHeaderWriter(new StaticHeadersWriter("Referrer-Policy","same-origin"));
   }
 
   private void configureRoutes(HttpSecurity http) throws Exception {
