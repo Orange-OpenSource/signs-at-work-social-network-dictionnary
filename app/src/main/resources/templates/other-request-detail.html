@@ -50,9 +50,9 @@
         </li>
 
          <li class="aside_bckg_li">
-           <a th:attr="data-target='#suggest'" th:onclick="'javascript:onRequestClick('+ ${requestView.id} +', \' '+ ${requestView.name} + ' \')'" data-toggle="modal" href="#">
+           <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
            <h2 class="container_H2" th:text="#{request.propose_your_sign}"/>
-            <div ><div class="pull-right chevron_right"></div></div>
+           <div ><div class="pull-right chevron_right"></div></div>
           </a>
         </li>
       </ul>

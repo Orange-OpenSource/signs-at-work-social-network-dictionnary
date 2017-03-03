@@ -59,7 +59,8 @@
                       <aside class="sidebar">
                         <ul class="nav nav-list primary left-menu">
                         <li class="dotted-top">
-                          <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', \' '+ ${request.name} + ' \')'" data-toggle="modal" href="#">
+                          <!--<a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', \' '+ ${request.name} + ' \')'" data-toggle="modal" href="#">-->
+                          <a th:if="${isAuthenticated}" th:href="@{/sec/signs-suggest(name=${request.name}, id=${request.id})}">
                             <div>
                               <div class="pull-left request_signe"></div>
                               <h2 class="container_H2" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>

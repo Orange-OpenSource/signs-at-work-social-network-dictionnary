@@ -726,13 +726,16 @@ public class SignController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/search")
-  public String searchSign(@ModelAttribute SignCreationView signCreationView) {
-    return "redirect:/sec/signs-suggest?name="+signCreationView.getSignName();
+  public String searchSign(@ModelAttribute SignCreationView signCreationView, @RequestParam("id") Long requestId) {
+    if (requestId == null) {
+      requestId = 0L;
+    }
+    return "redirect:/sec/signs-suggest?name="+signCreationView.getSignName()+"&id="+requestId;
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/signs-suggest")
-  public String showSignsSuggest(Model model,@RequestParam("name") String name, Principal principal) {
+  public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, Principal principal) {
     model.addAttribute("backUrl", "/sec/suggest");
     model.addAttribute("title", messageByLocaleService.getMessage("sign.new"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
@@ -757,6 +760,7 @@ public class SignController {
     SignCreationView signCreationView = new SignCreationView();
     signCreationView.setSignName(name);
     model.addAttribute("signCreationView", signCreationView);
+    model.addAttribute("requestId", requestId);
 
     return "signs-suggest";
   }

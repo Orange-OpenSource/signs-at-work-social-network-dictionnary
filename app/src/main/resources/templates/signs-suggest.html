@@ -57,8 +57,16 @@
             </div>
           </a>
         </li>
-        <li th:if="${!isSignAlreadyExist}" class="aside_bckg_li">
-          <a data-target="#suggest" data-toggle="modal" href="#">
+        <li th:if="${!isSignAlreadyExist and requestId != 0}" class="aside_bckg_li">
+          <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} + ' \')'" data-toggle="modal" href="#">
+            <h2 class="container_H2" th:text="#{sign.create}"/>
+            <div>
+              <div class="pull-right add_whith_chevron"></div>
+            </div>
+          </a>
+        </li>
+        <li th:if="${!isSignAlreadyExist and requestId == 0}" class="aside_bckg_li">
+          <a th:if="${requestId == 0}" data-target="#suggest" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="#{sign.create}"/>
             <div>
               <div class="pull-right add_whith_chevron"></div>
@@ -97,5 +105,6 @@
 
 <script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
 <script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
+<script type="text/javascript" src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}"></script>
 
 </html>
