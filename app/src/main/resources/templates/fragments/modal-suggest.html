@@ -88,7 +88,7 @@
           </div>
         <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFile}" th:object="${signCreationView}" method="post">
           <div class="modal-body text-center">
-            <input th:field="*{signName}"  id="signNameRecording" name="signNameRecording" type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" required="" /><br/>
+            <input th:field="*{signName}"  id="signNameRecording" name="signNameRecording" type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" style="display: none" /><br/>
             <span id="errorSpan"  style="visibility: hidden"></span>
           </div>
           <div class="modal-footer">
@@ -117,7 +117,7 @@
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFile}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
-          <input th:field="*{signName}" id="signNameSelected"  type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" required="" /><br/>
+          <input th:field="*{signName}" id="signNameSelected"  type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
           <span class="pull-left" th:text="#{sign.join_video}"></span><br/>
           <input name="file" type="file"/>
           <span id="errorSelectedSpan"  style="visibility: hidden"></span>
