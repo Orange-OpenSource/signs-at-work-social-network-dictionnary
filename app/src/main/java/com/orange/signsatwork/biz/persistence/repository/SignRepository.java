@@ -87,10 +87,10 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr asc", nativeQuery = true)
     Long[] findLowViewed();
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date desc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date desc", nativeQuery = true)
     List<Object[]> findMostRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date asc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date asc", nativeQuery = true)
     List<Object[]> findLowRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
 
 }
