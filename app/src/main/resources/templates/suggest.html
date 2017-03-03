@@ -31,14 +31,14 @@
 <body class="container-fluid">
 
 <div th:replace="fragments/modal-suggest :: div"/>
-
+<div th:replace="fragments/modal-new-suggest :: div"/>
 
 <div class="row ">
     <div class="col-md-4 col-xs-12 col-lg-12">
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li th:if="${isAuthenticated}" class="dotted-top">
-                <a data-target="#suggest" data-toggle="modal" href="#">
+                <a data-target="#new-suggest" data-toggle="modal" href="#">
                   <div class="pull-right">
                     <div class="containerRight_signes">
                       <div class="containerRight_signes">

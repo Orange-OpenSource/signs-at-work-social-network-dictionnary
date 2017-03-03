@@ -22,10 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Favorite;
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.domain.Video;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -725,6 +722,43 @@ public class SignController {
     log.info("createSign: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 
     return showSign(sign.id);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/search")
+  public String searchSign(@ModelAttribute SignCreationView signCreationView) {
+    return "redirect:/sec/signs-suggest?name="+signCreationView.getSignName();
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/signs-suggest")
+  public String showSignsSuggest(Model model,@RequestParam("name") String name, Principal principal) {
+    model.addAttribute("backUrl", "/sec/suggest");
+    model.addAttribute("title", messageByLocaleService.getMessage("sign.new"));
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    User user = services.user().withUserName(principal.getName());
+    Signs signs = services.sign().search(name);
+
+
+    model.addAttribute("signName", name);
+    model.addAttribute("isSignAlreadyExist", false);
+    List<Sign> signsWithSameName = new ArrayList<>();
+    for (Sign sign: signs.list()) {
+      if (sign.name.equals(name) ) {
+        model.addAttribute("isSignAlreadyExist", true);
+        model.addAttribute("signMatche", sign);
+      } else {
+        signsWithSameName.add(sign);
+      }
+    }
+
+    model.addAttribute("signsWithSameName", signsWithSameName);
+
+    SignCreationView signCreationView = new SignCreationView();
+    signCreationView.setSignName(name);
+    model.addAttribute("signCreationView", signCreationView);
+
+    return "signs-suggest";
   }
 
   private String signUrl(long signId) {

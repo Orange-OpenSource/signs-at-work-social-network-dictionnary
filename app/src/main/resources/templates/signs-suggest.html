@@ -1,0 +1,101 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+  <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
+  <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
+</head>
+<header role="banner" th:replace="fragments/header-signs-suggest :: header">&nbsp;</header>
+
+<body class="container-fluid">
+
+<div th:replace="fragments/modal-suggest :: div"/>
+<div th:replace="fragments/modal-new-suggest :: div"/>
+
+
+<div class="row ">
+  <div class="col-md-4 col-xs-12 col-lg-12">
+    <aside class="sidebar">
+      <ul class="nav nav-list primary left-menu">
+        <li class="aside_bckg_li">
+          <a data-target="#new-suggest" data-toggle="modal" href="#">
+            <h2 class="container_H2" th:text="${signName}"/>
+            <div>
+              <div class="pull-right  pen_whith_chevron"/>
+            </div>
+            <span th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>
+          </a>
+        </li>
+        <li th:if="${isSignAlreadyExist}" class="dotted-top">
+          <a th:href="@{/sign/} + ${signMatche.id}">
+            <div>
+              <h2 class="container_H2" th:text="#{see_sign}"></h2>
+              <div>
+                <div class="pull-right chevron_right "></div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li th:if="${!isSignAlreadyExist}" class="aside_bckg_li">
+          <a data-target="#suggest" data-toggle="modal" href="#">
+            <h2 class="container_H2" th:text="#{sign.create}"/>
+            <div>
+              <div class="pull-right add_whith_chevron"></div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <div class="request_whitout_answer  aside_bckg_li">
+      <div class="text-center" th:text="#{sign.with-same-name}"></div>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(signsWithSameName)}">
+      <div th:each="sign:${signsWithSameName}">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="dotted-top">
+              <a th:href="@{/sign/} + ${sign.id}">
+                <div>
+                  <h2 class="container_H2" th:text="${sign.name}"></h2>
+                  <div>
+                    <div class="pull-right chevron_right "></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
+<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
+
+</html>

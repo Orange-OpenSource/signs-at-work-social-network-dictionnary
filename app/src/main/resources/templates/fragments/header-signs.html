@@ -180,7 +180,7 @@
             </a>
           </li>
           <li th:if="${isAuthenticated}" role="presentation" >
-            <a href="#" data-toggle="modal" data-target="#suggest">
+            <a th:href="@{/sec/suggest}">
               <div class="add pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
