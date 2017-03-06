@@ -200,6 +200,10 @@ a.form-control{
   overflow: auto;
 }
 
+.aside_bckg_li .aside_bckg_li >li {
+	border-bottom: none;
+}
+
 .re-rate{
   border-top: medium solid;
 }
@@ -644,6 +648,15 @@ text-decoration-line: none;
 	width: 40px;
 }
 
+.newSigne {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1740px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
 .suggest_video_inverse {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1080px center;
@@ -909,6 +922,13 @@ text-decoration-line: none;
 	background-color:#CCCCCC ;
 	border-bottom: medium solid;
 	border-top: medium solid;
+}
+
+.other_name_nearby.aside_bckg_li{
+	background-color:#CCCCCC ;
+	border-bottom: medium solid;
+  font-size: 20px;
+  line-height:50px
 }
 
 .dotted-bottom{

@@ -44,10 +44,10 @@
             <div>
               <div class="pull-right  pen_whith_chevron"/>
             </div>
-            <span th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>
+            <span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>
           </a>
         </li>
-        <li th:if="${isSignAlreadyExist}" class="dotted-top">
+        <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sign/} + ${signMatche.id}">
             <div>
               <h2 class="container_H2" th:text="#{see_sign}"></h2>
@@ -76,7 +76,7 @@
       </ul>
     </aside>
 
-    <div class="request_whitout_answer  aside_bckg_li">
+    <div class="other_name_nearby  aside_bckg_li">
       <div class="text-center" th:text="#{sign.with-same-name}"></div>
     </div>
 
