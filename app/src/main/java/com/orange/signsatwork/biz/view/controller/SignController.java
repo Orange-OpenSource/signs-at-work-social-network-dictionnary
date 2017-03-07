@@ -37,6 +37,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -730,24 +732,26 @@ public class SignController {
     if (requestId == null) {
       requestId = 0L;
     }
-    return "redirect:/sec/signs-suggest?name="+signCreationView.getSignName()+"&id="+requestId;
+    String name = signCreationView.getSignName();
+    return "redirect:/sec/signs-suggest?name="+ URLEncoder.encode(name)+"&id="+requestId;
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/signs-suggest")
   public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, Principal principal) {
+    String decodeName = URLDecoder.decode(name);
     model.addAttribute("backUrl", "/sec/suggest");
     model.addAttribute("title", messageByLocaleService.getMessage("sign.new"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
-    Signs signs = services.sign().search(name);
+    Signs signs = services.sign().search(decodeName);
 
 
-    model.addAttribute("signName", name);
+    model.addAttribute("signName", decodeName);
     model.addAttribute("isSignAlreadyExist", false);
     List<Sign> signsWithSameName = new ArrayList<>();
     for (Sign sign: signs.list()) {
-      if (sign.name.equals(name) ) {
+      if (sign.name.equals(decodeName) ) {
         model.addAttribute("isSignAlreadyExist", true);
         model.addAttribute("signMatche", sign);
       } else {
@@ -758,7 +762,7 @@ public class SignController {
     model.addAttribute("signsWithSameName", signsWithSameName);
 
     SignCreationView signCreationView = new SignCreationView();
-    signCreationView.setSignName(name);
+    signCreationView.setSignName(decodeName);
     model.addAttribute("signCreationView", signCreationView);
     model.addAttribute("requestId", requestId);
 

@@ -34,6 +34,27 @@
   var displayedSignsCount = 0;
   var modeSearch = new Boolean(false);
 
+  var accentMap = {
+    "é": "e",
+    "è": "e",
+    "ê": "e",
+    "à": "a",
+    "â": "a",
+    "î": "i",
+    "ô": "o",
+    "ù": "u",
+    "î": "i",
+    "ç": "c"
+  };
+
+  var normalize = function( term ) {
+    var ret = "";
+    for ( var i = 0; i < term.length; i++ ) {
+      ret += accentMap[ term.charAt(i) ] || term.charAt(i);
+    }
+    return ret;
+  };
+
   function showSignView(signView) {
     signView.style.opacity = "0";
     signView.className = signView.className.replace(HIDDEN_CLASS, '');
@@ -67,13 +88,13 @@
 
   function search(event) {
     console.log("search");
-    var g = $(this).val();
+    var g = normalize($(this).val());
 
     if (g!="") {
       $("#signs-container").children("div").each(function () {
         $("#reset").css("visibility", "visible");
         $("#reset").show();
-        var s = $(this).attr("id");
+        var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
         if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
           if ($(this).hasClass("sign-view-hidden")) {
