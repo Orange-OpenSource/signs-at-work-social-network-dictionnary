@@ -148,7 +148,7 @@
               <span class="text-hide" th:text="#{sign.search}"></span></a>
           </li>
           <li th:if="${isAuthenticated}" role="presentation">
-            <a data-target="#suggest" data-toggle="modal" href="#" title="add signe">
+            <a th:href="@{/sec/suggest}">
               <div class="add text-center"></div>
               <span th:text="#{sign.add}" class="text-hide"></span></a>
           </li>
