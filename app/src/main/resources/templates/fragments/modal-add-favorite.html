@@ -36,31 +36,38 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                     <div class="add_favorite_signe pull-left"></div>
-                    <h4 class="pull-right" th:text="#{favorites}"/>
+                    <h4 class="pull-right" th:text="#{add_sign_to_list_favorite}"/>
                 </div>
             </div>
             <div class="modal-body text-center">
                 <ul class="nav nav-list primary left-menu">
-                    <li class="aside_bckg_li">
-                        <a  href="#" data-toggle="modal" data-target="#create-new-favorite_add_sign">
-                            <h2 class="container_H2" th:text="#{favorite.new}"></h2>
-                                <div><div class="pull-right add"></div></div>
-                        </a>
-                    </li>
-
-                    <div th:if="${not #lists.isEmpty(myFavorites)}">
-                        <div th:each="favorite, stats:${myFavorites}">
-                            <li class="aside_bckg_li">
-                                <a th:href="@{/sec/favorite/} + ${favorite.id} + '/add/sign/' + ${signView.id}">
-                                    <h2 class="container_H2" th:text="${favorite.name}"></h2>
-                                        <div>
-                                            <div th:if="${stats.first}" class="pull-right add_favorite_signe"></div>
-                                            <div th:if="${!stats.first}" class="pull-right"></div>
-                                        </div>
-                                </a>
-                            </li>
+                  <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+                    <a  href="#" data-toggle="modal" data-target="#create-new-favorite_add_sign">
+                      <div>
+                        <h2  class="container_H2" th:text="#{favorite.new}"></h2>
+                        <div>
+                          <div class="pull-right add_whith_chevron"></div>
                         </div>
+                      </div>
+                    </a>
+                  </li>
+                  <div th:if="${not #lists.isEmpty(myFavorites)}">
+                    <div th:each="favorite, stats:${myFavorites}">
+                      <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+                        <a th:href="@{/sec/favorite/} + ${favorite.id} + '/add/sign/' + ${signView.id}">
+                          <div>
+                            <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
+                            <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                            <h2 class="container_H2" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></h2>
+                            <div>
+                              <div th:if="${stats.first}" class="pull-right chevron_right"></div>
+                              <div th:if="${!stats.first}" class="pull-right chevron_right"></div>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
                     </div>
+                  </div>
                 </ul>
             </div>
         </div>

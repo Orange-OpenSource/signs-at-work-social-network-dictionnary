@@ -1253,6 +1253,9 @@ video{
 		width: 160px;
 	}
 
+  h2{
+    font-size: 15px;
+  }
 	.text_hyphenation{
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -1361,14 +1364,14 @@ video{
 
 	.add {
 		background-image: url("/img/sprite_picto_400X400.png");
-		background-position: -1004px center;
+		background-position: -1006px center;
 		background-repeat: no-repeat;
 		background-size: auto 30px;
 		height: 30px;
 		width: 30px;
 	}
 
-.add_favorite_signe {
+.add_favorite_signe_header {
 		background-image: url("/img/sprite_picto_400X400.png");
 		background-position: -285px center;
 		background-repeat: no-repeat;
@@ -1376,6 +1379,15 @@ video{
 		height: 30px;
 		width: 30px;
 	}
+
+  .newSigne {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -1305px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
 
   .require_video_inverse {
 		background-image: url("/img/sprite_picto_400X400.png");

@@ -44,20 +44,26 @@
                     <li class="aside_bckg_li">
                         <a  href="#" data-toggle="modal" data-target="#create-new-favorite">
                             <h2 class="container_H2" th:text="#{favorite.new}"></h2>
-                                <div><div class="pull-right add"></div></div>
+                                <div><div class="pull-right add_whith_chevron"></div></div>
                         </a>
                     </li>
 
                     <div th:if="${not #lists.isEmpty(myFavorites)}">
                         <div th:each="favorite, stats:${myFavorites}">
-                            <li class="aside_bckg_li">
-                                <a th:href="@{/sec/favorite/} + ${favorite.id}">
-                                    <h2 class="container_H2"  th:text="${favorite.name}"></h2>
-                                        <div><div th:if="${stats.first}" class="pull-right add_favorite_signe"></div>
-                                            <div th:if="${!stats.first}" class="pull-right"></div>
-                                        </div>
-                                </a>
-                            </li>
+                          <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+                            <a th:href="@{/sec/favorite/} + ${favorite.id}">
+                              <div>
+                                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
+                                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                                <h2 class="container_H2" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></h2>
+                                <div>
+                                  <div th:if="${stats.first}" class="pull-right chevron_right"></div>
+                                  <div th:if="${!stats.first}" class="pull-right chevron_right"></div>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+
                         </div>
                     </div>
                 </ul>
