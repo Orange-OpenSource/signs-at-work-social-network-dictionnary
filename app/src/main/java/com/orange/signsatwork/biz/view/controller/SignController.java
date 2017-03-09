@@ -80,6 +80,7 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
     model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("all"));
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -98,12 +99,14 @@ public class SignController {
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("alphabetic"));
 
     } else {
       querySigns = services.sign().SignsAndRequestsAlphabeticalOrderAscSignsView(user.id);
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("alphabetic"));
     }
 
 
@@ -196,6 +199,7 @@ public class SignController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
     model.addAttribute("classDropdownTitle", " favorite_signe pull-left");
+    model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("default_favorite"));
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -221,12 +225,15 @@ public class SignController {
       model.addAttribute("isLowCommented", true);
       model.addAttribute("isMostCommented", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_commented"));
+
 
     } else {
       signWithCommentList = Arrays.asList(services.sign().mostCommented());
       model.addAttribute("isMostCommented", true);
       model.addAttribute("isLowCommented", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_commented"));
     }
 
     List<SignViewData> commented = signViewsData.stream()
@@ -285,12 +292,14 @@ public class SignController {
       model.addAttribute("isLowRating", true);
       model.addAttribute("isMostRating", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_rating"));
 
     } else {
       signWithRatingList = Arrays.asList(services.sign().mostRating());
       model.addAttribute("isMostRating", true);
       model.addAttribute("isLowRating", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_rating"));
 
     }
 
@@ -352,11 +361,13 @@ public class SignController {
       model.addAttribute("isLowViewed", true);
       model.addAttribute("isMostViewed", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_viewed"));
     } else {
       signWithViewedList = Arrays.asList(services.sign().mostViewed());
       model.addAttribute("isMostViewed", true);
       model.addAttribute("isLowViewed", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_viewed"));
     }
 
     List<SignViewData> viewed = signViewsData.stream()
@@ -412,11 +423,13 @@ public class SignController {
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_recent"));
     } else {
      querySigns = services.sign().mostRecent(user.lastDeconnectionDate);
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_recent"));
     }
     List<SignViewData> signViewsData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
