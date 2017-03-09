@@ -32,8 +32,8 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
-                    <div class="suggest pull-left"></div>
-                    <h4 class="pull-right" th:text="#{favorite.new}"></h4>
+                    <div class="personal_favorite_signe pull-left"></div>
+                    <h4 class="pull-right" th:text="#{favorite.modal.new}"></h4>
                 </div>
             </div>
             <form th:action="@{/sec/favorite/create_favorite_add_sign/{signid}(signid=${signView.id})}" th:object="${favoriteCreationView}" method="post">
