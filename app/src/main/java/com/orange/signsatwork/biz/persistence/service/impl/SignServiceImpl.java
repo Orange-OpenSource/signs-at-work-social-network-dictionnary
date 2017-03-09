@@ -148,6 +148,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Long NbFavoriteBelowSignForUser(long signId, long userId) {
+    return signRepository.findNbFavoriteBelowSignForUser(signId, userId);
+  }
+
+  @Override
   public Long[] NbCommentForAllVideoBySign(long signId) {
     return signRepository.findNbCommentForAllVideoBySign(signId);
   }

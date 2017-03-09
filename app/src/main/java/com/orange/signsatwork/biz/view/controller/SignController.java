@@ -511,6 +511,7 @@ public class SignController {
     Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
     String backUrl;
+    model.addAttribute("signBelowToFavorite", false);
 
 
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
@@ -553,6 +554,17 @@ public class SignController {
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
       }
+      Long nbFavorite = services.sign().NbFavoriteBelowSignForUser(signId, user.id);
+      if (nbFavorite > 1) {
+        model.addAttribute("signBelowToFavorite", true);
+      }
+    }
+
+    Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
+    if (nbPositiveRate > 1) {
+      model.addAttribute("videoHasPositiveRate", true);
+    } else {
+      model.addAttribute("videoHasPositiveRate", false);
     }
 
     if (!isVideoCreatedByMe) {

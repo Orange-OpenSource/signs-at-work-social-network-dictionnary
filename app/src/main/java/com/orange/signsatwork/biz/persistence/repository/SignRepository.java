@@ -57,6 +57,9 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select a.signs_id from favorites_signs a inner join favorites b on a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)
     Long[] findSignsForAllFavoriteByUser(@Param("userId") long userId);
 
+    @Query(value="select count(a.favorites_id) from favorites_signs a inner join favorites b on a.favorites_id = b.id and a.signs_id = :signId and b.user_id = :userId", nativeQuery = true)
+    Long findNbFavoriteBelowSignForUser(@Param("signId") long signId, @Param("userId") long userId);
+
     @Query(value="select a.rating  from ratings a inner join signs b on a.video_id = b.last_video_id and b.id = :signId and user_id = :userId", nativeQuery = true)
     Object[] findRatingForSignByUser(@Param("signId") long signId, @Param("userId") long userId );
 

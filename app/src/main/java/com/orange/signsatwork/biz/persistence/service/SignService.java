@@ -68,6 +68,8 @@ public interface SignService {
 
   Long[] SignsForAllFavoriteByUser(long userId);
 
+  Long NbFavoriteBelowSignForUser(long signId, long userId);
+
   Signs all();
 
   Signs forFavorite(long id);
