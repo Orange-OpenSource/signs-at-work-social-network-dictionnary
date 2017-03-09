@@ -568,13 +568,13 @@ public class SignController {
         isVideoCreatedByMe = true;
       }
       Long nbFavorite = services.sign().NbFavoriteBelowSignForUser(signId, user.id);
-      if (nbFavorite > 1) {
+      if (nbFavorite >= 1) {
         model.addAttribute("signBelowToFavorite", true);
       }
     }
 
     Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
-    if (nbPositiveRate > 1) {
+    if (nbPositiveRate >= 1) {
       model.addAttribute("videoHasPositiveRate", true);
     } else {
       model.addAttribute("videoHasPositiveRate", false);
@@ -631,7 +631,18 @@ public class SignController {
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
       }
+      Long nbFavorite = services.sign().NbFavoriteBelowSignForUser(signId, user.id);
+      if (nbFavorite >= 1) {
+        model.addAttribute("signBelowToFavorite", true);
+      }
     }
+    Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
+    if (nbPositiveRate >= 1) {
+      model.addAttribute("videoHasPositiveRate", true);
+    } else {
+      model.addAttribute("videoHasPositiveRate", false);
+    }
+
     List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
     List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
       .map(objectArray -> new VideoHistoryData(objectArray))

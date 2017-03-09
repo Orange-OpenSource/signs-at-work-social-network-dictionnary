@@ -34,8 +34,14 @@
 <div class="row">
 
     <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
+      <div id="tooltipInframe" class="pull-right" >
+        <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="pull-right tooltip_positif"></div>
+        <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="pull-right tooltip_positif"></div>
+        <div th:if="${signBelowToFavorite}"  style="z-index: 100" class="tooltip_favorite"></div>
+        <div th:if="${!signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
+      </div>
 
-        <div class="pull-right col-md-8 col-xs-12 col-sm-4">
+      <div class="pull-right col-md-8 col-xs-12 col-sm-4">
             <iframe th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
         </div>
 
@@ -68,10 +74,10 @@
                             </a>
                         </li>
                     </div>
-                    <li th:if="${isAuthenticated}" class="aside_bckg_li">
+                    <li th:if="${isAuthenticated}"   class="aside_bckg_li">
                       <a th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/video-associates'">
                         <div>
-                          <h2 class="container_H2" th:text="#{sign.associated}"></h2>
+                          <h2 class="container_H2" th:text="#{sign.associated}" ></h2>
                           <div>
                             <div class="pull-right chevron_right"/>
                           </div>

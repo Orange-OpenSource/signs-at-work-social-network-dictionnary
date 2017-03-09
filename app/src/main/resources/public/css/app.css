@@ -3,6 +3,12 @@
 	background-repeat: no-repeat;
 }
 
+#tooltipInframe{
+  position: absolute;
+  right: 15px;
+}
+
+
 .glyphicon-record,.glyphicon-stop{
   font-size: 150%;
 }
@@ -1253,9 +1259,6 @@ video{
 		width: 160px;
 	}
 
-  h2{
-    font-size: 15px;
-  }
 	.text_hyphenation{
 		overflow: hidden;
 		text-overflow: ellipsis;
