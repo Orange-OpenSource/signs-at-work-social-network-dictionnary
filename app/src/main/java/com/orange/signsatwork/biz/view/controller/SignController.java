@@ -199,7 +199,7 @@ public class SignController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
     model.addAttribute("classDropdownTitle", " favorite_signe pull-left");
-    model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("default_favorite"));
+    model.addAttribute("sortOrderBy", "Liste «"  + favorite.name +"»" );
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
