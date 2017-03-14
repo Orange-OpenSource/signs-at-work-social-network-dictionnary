@@ -66,7 +66,7 @@ public interface SignService {
 
   List<Object[]> AllVideosForAllSigns();
 
-  Long[] SignsForAllFavoriteByUser(long userId);
+  Long[] SignsBellowToFavoriteByUser(long userId);
 
   Long NbFavoriteBelowSignForUser(long signId, long userId);
 

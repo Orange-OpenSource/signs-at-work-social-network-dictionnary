@@ -120,7 +120,7 @@ public class SignController {
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
     List<SignView2> signViews = signViewsData.stream()
       .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
@@ -154,34 +154,31 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
     Favorite favorite = services.favorite().withId(favoriteId);
-    List<Object[]> querySigns = services.sign().SignsForFavoriteView(favoriteId);
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
+    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+    List<Long> videoWithCommentList = Arrays.asList(services.favorite().NbCommentForAllVideoByFavorite(favoriteId));
 
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+    List<Long> videoWithPostiveRateList = Arrays.asList(services.favorite().NbPositiveRateForAllVideoByFavorite(favoriteId));
 
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
-
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
-
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> new SignView2(
-        signViewData,
-        signWithCommentList.contains(signViewData.id),
-        SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
-        signWithView.contains((signViewData.id)),
-        signWithPositiveRate.contains(signViewData.id),
-        signInFavorite.contains(signViewData.id))
-      )
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> new VideoView2(
+        videoViewData,
+        videoWithCommentList.contains(videoViewData.videoId),
+        VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+        videoViewData.nbView > 0,
+        videoWithPostiveRateList.contains(videoViewData.videoId),
+        true))
       .collect(Collectors.toList());
 
-    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-    signViews = signsViewSort2.sort(signViews, false);
 
-    model.addAttribute("signsView", signViews);
+    VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);
+
+    model.addAttribute("videosView", videoViews);
+
     fillModelWithFavorites(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
@@ -246,7 +243,7 @@ public class SignController {
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
 
     List<SignView2> signViews = commented.stream()
@@ -314,7 +311,7 @@ public class SignController {
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
     List<SignView2> signViews = rating.stream()
       .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
@@ -381,7 +378,7 @@ public class SignController {
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
     List<SignView2> signViews = viewed.stream()
       .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
@@ -441,7 +438,7 @@ public class SignController {
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
     List<SignView2> signViews = signViewsData.stream()
       .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
@@ -494,17 +491,17 @@ public class SignController {
       List<Long> videoWithPostiveRateList = Arrays.asList(services.sign().NbPositiveRateForAllVideoBySign(signId));
 
       List<VideoView2> videoViews;
-      List<Long> signInFavorite = new ArrayList<>();
+      List<Long> videoInFavorite = new ArrayList<>();
       if (user != null) {
-        signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
-        List<Long> finalSignInFavorite = signInFavorite;
+        videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
+        List<Long> finalVideoInFavorite = videoInFavorite;
         videoViews = videoViewsData.stream()
-          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalSignInFavorite, user))
+          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalVideoInFavorite, user))
           .collect(Collectors.toList());
       } else {
-        List<Long> finalSignInFavorite1 = signInFavorite;
+        List<Long> finalVideoInFavorite1 = videoInFavorite;
         videoViews = videoViewsData.stream()
-          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalSignInFavorite1, user))
+          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalVideoInFavorite1, user))
           .collect(Collectors.toList());
       }
 
@@ -524,7 +521,7 @@ public class SignController {
     Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
     String backUrl;
-    model.addAttribute("signBelowToFavorite", false);
+    model.addAttribute("videoBelowToFavorite", false);
 
 
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
@@ -567,9 +564,9 @@ public class SignController {
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
       }
-      Long nbFavorite = services.sign().NbFavoriteBelowSignForUser(signId, user.id);
+      Long nbFavorite = services.video().NbFavoriteBelowVideoForUser(videoId, user.id);
       if (nbFavorite >= 1) {
-        model.addAttribute("signBelowToFavorite", true);
+        model.addAttribute("videoBelowToFavorite", true);
       }
     }
 
@@ -613,6 +610,7 @@ public class SignController {
     model.addAttribute("backUrl", videoUrl(signId, videoId));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
+    model.addAttribute("videoBelowToFavorite", false);
 
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     Sign sign = services.sign().withIdSignsView(signId);
@@ -631,9 +629,9 @@ public class SignController {
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
       }
-      Long nbFavorite = services.sign().NbFavoriteBelowSignForUser(signId, user.id);
+      Long nbFavorite = services.video().NbFavoriteBelowVideoForUser(videoId, user.id);
       if (nbFavorite >= 1) {
-        model.addAttribute("signBelowToFavorite", true);
+        model.addAttribute("videoBelowToFavorite", true);
       }
     }
     Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
@@ -677,14 +675,16 @@ public class SignController {
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
 
+    // TODO Il faut reprendre cette partie
     List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
 
+    // TODO Il faut reprendre cette partie
     List<Long> videoWithPostiveRateList = Arrays.asList(services.sign().NbPositiveRateForAllVideoBySign(signId));
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+    List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
 
     List<VideoView2> videoViews = videoViewsData.stream()
-      .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, signInFavorite, user))
+      .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, videoInFavorite, user))
       .collect(Collectors.toList());
 
 
@@ -845,7 +845,7 @@ public class SignController {
     List<SignView2> signViews;
     List<Long> signInFavorite = null;
     if (user != null) {
-      signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+      signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
       List<Long> finalSignInFavorite = signInFavorite;
       signViews = signViewsData.stream()
         .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite, user))
@@ -881,14 +881,14 @@ public class SignController {
       signInFavorite.contains(signViewData.id));
   }
 
-  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, List<Long> videoWithPositiveRate, List<Long> signBelowToFavorite, User user) {
+  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, List<Long> videoWithPositiveRate, List<Long> videoBelowToFavorite, User user) {
     return new VideoView2(
       videoViewData,
       videoWithCommentList.contains(videoViewData.videoId),
       VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
       videoViewData.nbView > 0,
       videoWithPositiveRate.contains(videoViewData.videoId),
-      signBelowToFavorite.contains(videoViewData.signId));
+      videoBelowToFavorite.contains(videoViewData.videoId));
   }
 
 

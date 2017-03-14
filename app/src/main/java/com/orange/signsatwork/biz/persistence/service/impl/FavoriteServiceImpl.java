@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -27,9 +27,11 @@ import com.orange.signsatwork.biz.domain.Favorites;
 import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
+import com.orange.signsatwork.biz.persistence.model.VideoDB;
 import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
 import com.orange.signsatwork.biz.persistence.repository.SignRepository;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;
+import com.orange.signsatwork.biz.persistence.repository.VideoRepository;
 import com.orange.signsatwork.biz.persistence.service.FavoriteService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +48,7 @@ public class FavoriteServiceImpl implements FavoriteService {
   private final UserRepository userRepository;
   private final FavoriteRepository favoriteRepository;
   private final SignRepository signRepository;
+  private final VideoRepository videoRepository;
   private final Services services;
 
   @Override
@@ -79,6 +82,17 @@ public class FavoriteServiceImpl implements FavoriteService {
     favoriteDB = favoriteRepository.save(favoriteDB);
     return favoriteFrom(favoriteDB, services);
   }
+
+  @Override
+  public Favorite changeFavoriteVideos(long favoriteId, List<Long> videosIds) {
+    FavoriteDB favoriteDB = withDBId(favoriteId);
+    List<VideoDB> favoriteVideos = favoriteDB.getVideos();
+    favoriteVideos.clear();
+    videoRepository.findAll(videosIds).forEach(favoriteVideos::add);
+    favoriteDB = favoriteRepository.save(favoriteDB);
+    return favoriteFrom(favoriteDB, services);
+  }
+
 
   private FavoriteDB withDBId(long id) {
     return favoriteRepository.findOne(id);
@@ -130,10 +144,20 @@ public class FavoriteServiceImpl implements FavoriteService {
   }
 
   static Favorite favoriteFrom(FavoriteDB favoriteDB, Services services) {
-    return new Favorite(favoriteDB.getId(), favoriteDB.getName(), null, services.sign());
+    return new Favorite(favoriteDB.getId(), favoriteDB.getName(), null, null, services);
   }
 
   private FavoriteDB favoriteDBFrom(Favorite favorite) {
     return new FavoriteDB(favorite.name);
+  }
+
+  @Override
+  public Long[] NbCommentForAllVideoByFavorite(long favoriteId) {
+    return favoriteRepository.findNbCommentForAllVideoByFavorite(favoriteId);
+  }
+
+  @Override
+  public Long[] NbPositiveRateForAllVideoByFavorite(long favoriteId) {
+    return favoriteRepository.findNbPositiveRateForAllVideoByFavorite(favoriteId);
   }
 }

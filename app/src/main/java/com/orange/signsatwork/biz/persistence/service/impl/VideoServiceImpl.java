@@ -45,6 +45,7 @@ public class VideoServiceImpl implements VideoService {
   private final UserRepository userRepository;
   private final RatingRepository ratingRepository;
   private final SignRepository signRepository;
+  private final FavoriteRepository favoriteRepository;
   private final Services services;
 
   @Override
@@ -232,5 +233,27 @@ public class VideoServiceImpl implements VideoService {
   Video videoFromWithAssociates(VideoDB videoDB) {
     return videoDB == null ? null :
       new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null, videosFromSignsView(videoDB.getAssociates()).ids(), videosFromSignsView(videoDB.getReferenceBy()).ids());
+  }
+
+  @Override
+  public Videos forFavorite(long favoriteId) {
+    return videosFromSignsView(
+      videoRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
+    );
+  }
+
+  @Override
+  public List<Object[]> VideosForFavoriteView(long favoriteId) {
+    return videoRepository.findVideosForFavoriteView(favoriteId);
+  }
+
+  @Override
+  public Long[] VideosForAllFavoriteByUser(long userId) {
+    return videoRepository.findVideosForAllFavoriteByUser(userId);
+  }
+
+  @Override
+  public Long NbFavoriteBelowVideoForUser(long videoId, long userId) {
+    return videoRepository.findNbFavoriteBelowVideoForUser(videoId, userId);
   }
 }

@@ -54,8 +54,8 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join favorites_signs c on a.id = b.last_video_id and c.signs_id = b.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForFavoriteView(@Param("favoriteId") long favoriteId);
 
-    @Query(value="select a.signs_id from favorites_signs a inner join favorites b on a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)
-    Long[] findSignsForAllFavoriteByUser(@Param("userId") long userId);
+    @Query(value="select distinct(c.sign_id) from favorites_videos a inner join favorites b inner join videos c on c.id = a.videos_id and a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)
+    Long[] findSignsBellowToFavoriteByUser(@Param("userId") long userId);
 
     @Query(value="select count(a.favorites_id) from favorites_signs a inner join favorites b on a.favorites_id = b.id and a.signs_id = :signId and b.user_id = :userId", nativeQuery = true)
     Long findNbFavoriteBelowSignForUser(@Param("signId") long signId, @Param("userId") long userId);

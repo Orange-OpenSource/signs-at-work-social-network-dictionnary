@@ -57,4 +57,12 @@ public interface VideoService {
 
   Video withIdLoadAssociates(long id);
 
+  Videos forFavorite(long favoriteId);
+
+  List<Object[]> VideosForFavoriteView(long favoriteId);
+
+  Long[] VideosForAllFavoriteByUser(long userId);
+
+  Long NbFavoriteBelowVideoForUser(long videoId, long userId);
+
 }

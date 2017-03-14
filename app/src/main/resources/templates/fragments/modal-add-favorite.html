@@ -54,7 +54,8 @@
                   <div th:if="${not #lists.isEmpty(myFavorites)}">
                     <div th:each="favorite, stats:${myFavorites}">
                       <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
-                        <a th:href="@{/sec/favorite/} + ${favorite.id} + '/add/sign/' + ${signView.id}">
+                        <!--<a th:href="@{/sec/favorite/} + ${favorite.id} + '/add/sign/' + ${signView.id}">-->
+                        <a th:href="@{/sec/favorite/} + ${favorite.id} + '/add/video/' + ${videoView.id}">
                           <div>
                             <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
                             <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>

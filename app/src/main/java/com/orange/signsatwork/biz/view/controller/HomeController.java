@@ -95,7 +95,7 @@ public class HomeController {
     List<SignView2> signViews;
 
     if (user != null) {
-      signInFavorite = Arrays.asList(services.sign().SignsForAllFavoriteByUser(user.id));
+      signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
       List<Long> finalSignInFavorite = signInFavorite;
       signViews = signViewsData.stream()
         .map(signViewData -> new SignView2(

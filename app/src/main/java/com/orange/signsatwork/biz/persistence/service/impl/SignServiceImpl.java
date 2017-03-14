@@ -143,8 +143,8 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
-  public Long[] SignsForAllFavoriteByUser(long userId) {
-    return signRepository.findSignsForAllFavoriteByUser(userId);
+  public Long[] SignsBellowToFavoriteByUser(long userId) {
+    return signRepository.findSignsBellowToFavoriteByUser(userId);
   }
 
   @Override

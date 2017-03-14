@@ -10,18 +10,19 @@ package com.orange.signsatwork.biz.domain;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
 
@@ -32,16 +33,28 @@ public class Favorite {
     public final long id;
     public final String name;
     public final Signs signs;
+    public final Videos videos;
 
-    private final SignService signService;
+    private final Services services;
+
 
     public Favorite loadSigns() {
         return signs != null ?
                 this :
-                new Favorite(id, name, signService.forFavorite(id), signService);
+                new Favorite(id, name, services.sign().forFavorite(id), null, services);
     }
 
     public List<Long> signsIds() {
         return signs.ids();
     }
+
+  public Favorite loadVideos() {
+    return signs != null ?
+      this :
+      new Favorite(id, name, null, services.video().forFavorite(id), services);
+  }
+
+  public List<Long> videosIds() {
+    return videos.ids();
+  }
 }

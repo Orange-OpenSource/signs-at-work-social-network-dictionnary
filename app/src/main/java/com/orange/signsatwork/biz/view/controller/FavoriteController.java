@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -25,12 +25,10 @@ package com.orange.signsatwork.biz.view.controller;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
+import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.view.model.FavoriteCreationView;
-import com.orange.signsatwork.biz.view.model.FavoriteProfileView;
-import com.orange.signsatwork.biz.view.model.SignView2;
-import com.orange.signsatwork.biz.view.model.SignsViewSort2;
+import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -89,32 +87,30 @@ public class FavoriteController {
     model.addAttribute("backUrl", "/");
     model.addAttribute("favoriteView", favorite);
 
-    List<Object[]> querySigns = services.sign().SignsForFavoriteView(favoriteId);
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
+    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+    List<Long> videoWithCommentList = Arrays.asList(services.favorite().NbCommentForAllVideoByFavorite(favoriteId));
 
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+    List<Long> videoWithPostiveRateList = Arrays.asList(services.favorite().NbPositiveRateForAllVideoByFavorite(favoriteId));
 
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
-
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> new SignView2(
-        signViewData,
-        signWithCommentList.contains(signViewData.id),
-        SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
-        signWithView.contains(signViewData.id),
-        signWithPositiveRate.contains(signViewData.id),
-        true)
-      )
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> new VideoView2(
+        videoViewData,
+        videoWithCommentList.contains(videoViewData.videoId),
+        VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+        videoViewData.nbView > 0,
+        videoWithPostiveRateList.contains(videoViewData.videoId),
+        true))
       .collect(Collectors.toList());
 
-    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-    signViews = signsViewSort2.sort(signViews, false);
 
-    model.addAttribute("signsView", signViews);
+    VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);
+
+    model.addAttribute("videosView", videoViews);
 
     return "favorite";
   }
@@ -142,9 +138,9 @@ public class FavoriteController {
     User user = services.user().withUserName(principal.getName());
     Favorite favorite = services.favorite().withId(favoriteId);
     Favorite duplicateFavorite = services.favorite().create(user.id, favorite.name);
-    favorite = favorite.loadSigns();
-    if (favorite.signs != null) {
-      services.favorite().changeFavoriteSigns(duplicateFavorite.id, favorite.signsIds());
+    favorite = favorite.loadVideos();
+    if (favorite.videos != null) {
+      services.favorite().changeFavoriteVideos(duplicateFavorite.id, favorite.videosIds());
     }
 
     return showFavorite(duplicateFavorite.id);
@@ -178,11 +174,24 @@ public class FavoriteController {
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
 
-    List<Object[]> querySigns = services.sign().SignsForSignsView();
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
+    List<Object[]> querySigns = services.sign().AllVideosForAllSigns();
+    List<VideoViewData> videoViewsData = querySigns.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
-    model.addAttribute("signsView", signViewsData);
+
+    List<VideoViewData> videoInFavorite = videoViewsData.stream()
+      .filter(v -> favoriteProfileView.getFavoriteVideosIds().contains(v.videoId))
+      .collect(Collectors.toList());
+
+    videoViewsData.removeAll(videoInFavorite);
+
+    List<VideoViewData> sortedVideos = new ArrayList<>();
+    sortedVideos.addAll(videoInFavorite);
+    sortedVideos.addAll(videoViewsData);
+
+
+
+    model.addAttribute("videosView", sortedVideos);
 
     return "favorite-associate-sign";
   }
@@ -195,6 +204,23 @@ public class FavoriteController {
     List<Long> signsIds = favorite.signsIds();
     signsIds.add(signId);
     services.favorite().changeFavoriteSigns(favorite.id, signsIds);
+
+    model.addAttribute("title", favorite.name);
+    model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
+
+    return showFavorite(favoriteId);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/add/video/{videoId}")
+  public String addVideon(@PathVariable long favoriteId, @PathVariable long videoId,  Model model)  {
+    Favorite favorite = services.favorite().withId(favoriteId);
+    favorite = favorite.loadVideos();
+    List<Long> videosIds = favorite.videosIds();
+    videosIds.add(videoId);
+    services.favorite().changeFavoriteVideos(favorite.id, videosIds);
 
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
@@ -226,6 +252,25 @@ public class FavoriteController {
 
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/create_favorite_add_video/{videoId}")
+  public String createAndAddVideo(@ModelAttribute FavoriteCreationView favoriteCreationView, Principal principal, @PathVariable long videoId,  Model model)  {
+    User user = services.user().withUserName(principal.getName());
+    Favorite favorite = services.favorite().create(user.id, favoriteCreationView.getFavoriteName());
+
+    favorite = favorite.loadVideos();
+    List<Long> videosIds = favorite.videosIds();
+    videosIds.add(videoId);
+    services.favorite().changeFavoriteVideos(favorite.id, videosIds);
+
+    model.addAttribute("title", favorite.name);
+    model.addAttribute("backUrl", "/sec/favorite/" + favorite.id);
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
+
+    return showFavorite(favorite.id);
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/add/signs", method = RequestMethod.POST)
   public String changeFavoriteSigns(
           HttpServletRequest req, @PathVariable long favoriteId) {
@@ -245,5 +290,27 @@ public class FavoriteController {
     return Arrays.asList(favoriteSignsIds).stream()
             .map(Long::parseLong)
             .collect(Collectors.toList());
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/add/videos", method = RequestMethod.POST)
+  public String changeFavoriteVideos(
+    HttpServletRequest req, @PathVariable long favoriteId) {
+
+    List<Long> videosIds =
+      transformVideosIdsToLong(req.getParameterMap().get("favoriteVideosIds"));
+
+    services.favorite().changeFavoriteVideos(favoriteId, videosIds);
+
+    return showFavorite(favoriteId);
+  }
+
+  private List<Long> transformVideosIdsToLong(String[] favoriteVideosIds) {
+    if (favoriteVideosIds == null) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(favoriteVideosIds).stream()
+      .map(Long::parseLong)
+      .collect(Collectors.toList());
   }
 }
