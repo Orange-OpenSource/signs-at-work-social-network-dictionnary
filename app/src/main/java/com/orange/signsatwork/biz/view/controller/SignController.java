@@ -571,7 +571,8 @@ public class SignController {
     }
 
     Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
-    if (nbPositiveRate >= 1) {
+    Long nbNegativeRate = services.video().NbNegativeRateForVideo(videoId);
+    if (nbPositiveRate - nbNegativeRate >= 1) {
       model.addAttribute("videoHasPositiveRate", true);
     } else {
       model.addAttribute("videoHasPositiveRate", false);
@@ -635,7 +636,8 @@ public class SignController {
       }
     }
     Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
-    if (nbPositiveRate >= 1) {
+    Long nbNegativeRate = services.video().NbNegativeRateForVideo(videoId);
+    if (nbPositiveRate - nbNegativeRate >= 1) {
       model.addAttribute("videoHasPositiveRate", true);
     } else {
       model.addAttribute("videoHasPositiveRate", false);

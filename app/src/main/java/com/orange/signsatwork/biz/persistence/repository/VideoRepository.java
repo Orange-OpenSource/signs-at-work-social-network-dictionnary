@@ -52,6 +52,9 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select count(a.rating) as nbr from ratings a inner join videos b on a.video_id = b.id and b.id = :videoId  and a.rating='Positive'", nativeQuery = true)
     Long findNbPostiveRateForVideo(@Param("videoId") long videoId);
 
+    @Query(value="select count(a.rating) as nbr from ratings a inner join videos b on a.video_id = b.id and b.id = :videoId  and a.rating='Negative'", nativeQuery = true)
+    Long findNbNegativeRateForVideo(@Param("videoId") long videoId);
+
     @Query("select distinct s FROM VideoDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<VideoDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
