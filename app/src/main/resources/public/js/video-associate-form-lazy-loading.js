@@ -24,6 +24,10 @@ function onSearch(){
   console.log("onSearch");
   $("#signs-container").children("label").each(function () {
     $(this).hide();
+    $("#button-top").css("visibility", "hidden");
+    $("#button-top").hide();
+    $("#button-bottom").css("visibility", "hidden");
+    $("#button-bottom").hide();
   });
 }
 
@@ -123,6 +127,8 @@ $.fn.extend({
   trackChanges: function() {
     $(":input",this).change(function() {
       $(this.form).data("changed", true);
+      $("#button-top").css("visibility", "visible");
+      $("#button-top").show();
     });
   }
   ,
@@ -228,6 +234,12 @@ $.fn.extend({
     } else {
         $("#reset").css("visibility", "hidden");
         $("#reset").hide();
+        if (!$("#associateForm").isChanged()) {
+          $("#button-top").css("visibility", "hidden");
+          $("#button-top").hide();
+          $("#button-bottom").css("visibility", "hidden");
+          $("#button-bottom").hide();
+        }
         $("#signs-container").children("label").each(function () {
           $(this).hide();
         });
@@ -251,6 +263,12 @@ $.fn.extend({
         .val('');
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
+      if (!$("#associateForm").isChanged()) {
+        $("#button-top").css("visibility", "hidden");
+        $("#button-top").hide();
+        $("#button-bottom").css("visibility", "hidden");
+        $("#button-bottom").hide();
+      }
 
         $("#signs-container").children("label").each(function () {
           $(this).hide();
