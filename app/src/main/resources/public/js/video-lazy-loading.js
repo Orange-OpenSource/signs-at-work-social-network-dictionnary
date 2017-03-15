@@ -156,13 +156,19 @@
     //initWithFirstVideos();
 
     var search_criteria = document.getElementById("search-criteria");
-    search_criteria.addEventListener('keyup', search);
-    if (search_criteria.classList.contains("search-hidden")) {
+    if (search_criteria == null) {
       initWithFirstVideos();
-      modeSearch=false;
+      modeSearch = false;
     } else {
-      modeSearch = true;
+      search_criteria.addEventListener('keyup', search);
+      if (search_criteria.classList.contains("search-hidden")) {
+        initWithFirstVideos();
+        modeSearch = false;
+      } else {
+        modeSearch = true;
+      }
     }
+
 
     // then wait to reach the page bottom to load next views
     document.addEventListener('scroll', onScroll);

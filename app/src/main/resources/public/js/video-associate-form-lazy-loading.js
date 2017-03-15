@@ -40,8 +40,26 @@ function onBack(signId, videoId){
 
 }
 
+function onBackFavorite(backUrl){
+  console.log("onBackFavorite");
+  if ($("#associateForm").isChanged()) {
+    console.log("data change");
+    $("#validate_favorite_modif").modal('show');
+  } else {
+    var url = backUrl;
+    window.location = url;
+  }
+
+
+}
+
 function onContinue(signId, videoId) {
   var url = "/sign/"+signId+"/"+videoId;
+  window.location = url;
+};
+
+function onContinueFavorite(backUrl) {
+  var url = backUrl;
   window.location = url;
 };
 
@@ -71,7 +89,32 @@ function onAssociateRequest(signId, videoId) {
     }
   })
 
+};
 
+function onAssociateFavoriteRequest(favoriteId) {
+  var favoriteVideosIds = [];
+  i=1;
+  $("#signs-container").children("label").each(function () {
+    if (document.getElementById("favoriteVideosIds"+i).checked) {
+      var selectedVideoId = document.getElementById("favoriteVideosIds"+i).value;
+      console.log(i + " true "+ selectedVideoId);
+      favoriteVideosIds.push(selectedVideoId);
+    }
+    i= i+1;
+  });
+
+  $.ajax({
+    url: "/ws/sec/favorite/" + favoriteId + "/add/videos",
+    type: 'post',
+    data: JSON.stringify(favoriteVideosIds),
+    contentType: "application/json",
+    success: function(response) {
+      var url = "/sec/favorite/"+favoriteId;
+      window.location = url;
+    },
+    error: function(response) {
+    }
+  })
 
 };
 
@@ -141,6 +184,10 @@ $.fn.extend({
     for (var i = 0; i < viewsToReveal.length; i++) {
       showSignView(viewsToReveal[i]);
       displayedSignsCount++;
+    }
+    if ((signViewsHidden.length === 0) && scrollBarVisible()){
+      $("#button-bottom").css("visibility", "visible");
+      $("#button-bottom").show();
     }
     console.log("total: " + signsCount + ", hidden: " + signViewsHidden.length + ", displayedSignsCount: " + displayedSignsCount);
   }

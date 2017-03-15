@@ -39,6 +39,7 @@
           method="post">
 
         <div  class="form-group">
+          <button id="button-top" type="submit" class="btn btn-default" th:text="#{validate}"></button><br/>
           <div id="signs-container">
             <label th:id="${videoView.signName}" class="sign-view-hidden text-center col-lg-6 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
                    th:for="${#ids.next('associateVideosIds')}">
@@ -48,6 +49,8 @@
               <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + ' (' + ${videoView.idForName} +')'"></span>
           </label>
       </div>
+          <br/>
+          <button id="button-bottom" type="submit" class="btn btn-default" th:text="#{validate}"></button>
       </div>
 
 
