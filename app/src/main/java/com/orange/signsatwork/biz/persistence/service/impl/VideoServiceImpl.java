@@ -168,6 +168,7 @@ public class VideoServiceImpl implements VideoService {
     videoDB.getUser().getVideos().remove(videoDB);
     videoDB.getSign().getVideos().remove(videoDB);
     videoDB.getReferenceBy().forEach(s -> s.getAssociates().remove(videoDB));
+    videoDB.getFavorites().forEach(favoriteDB -> favoriteDB.getVideos().remove(videoDB));
 
     videoRepository.delete(videoDB);
 
