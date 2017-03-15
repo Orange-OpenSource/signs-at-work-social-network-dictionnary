@@ -84,7 +84,6 @@
   }
 
   function search(event) {
-    console.log("search");
     var g = normalize($(this).val());
 
     if (g!="") {
@@ -173,7 +172,9 @@
     // then wait to reach the page bottom to load next views
     document.addEventListener('scroll', onScroll);
     var button_reset = document.getElementById("reset");
-    button_reset.addEventListener('click', onReset);
+    if (button_reset != null) {
+      button_reset.addEventListener('click', onReset);
+    }
   }
 
   main();

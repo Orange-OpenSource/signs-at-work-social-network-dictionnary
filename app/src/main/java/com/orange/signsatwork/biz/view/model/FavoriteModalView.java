@@ -41,7 +41,7 @@ public class FavoriteModalView {
   private String name;
 
   public Favorite toFavorite() {
-    return new Favorite(id, name, null, null, null);
+    return new Favorite(id, name, null, null);
   }
 
   public static FavoriteModalView from(Favorite favorite) {

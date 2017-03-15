@@ -80,14 +80,12 @@
     var noMoreHiddenSigns = signViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
     var search_criteria = document.getElementById("search-criteria");
-    console.log("search_criteria " + search_criteria.value)
     if(!noMoreHiddenSigns && closeToBottom && search_criteria.value == "") {
       showNextSignViews();
     }
   }
 
   function search(event) {
-    console.log("search");
     var g = normalize($(this).val());
 
     if (g!="") {

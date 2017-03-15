@@ -144,7 +144,7 @@ public class FavoriteServiceImpl implements FavoriteService {
   }
 
   static Favorite favoriteFrom(FavoriteDB favoriteDB, Services services) {
-    return new Favorite(favoriteDB.getId(), favoriteDB.getName(), null, null, services);
+    return new Favorite(favoriteDB.getId(), favoriteDB.getName(), null, services);
   }
 
   private FavoriteDB favoriteDBFrom(Favorite favorite) {

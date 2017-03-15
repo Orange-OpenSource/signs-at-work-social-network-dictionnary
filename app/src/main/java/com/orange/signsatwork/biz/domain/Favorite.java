@@ -32,26 +32,15 @@ import java.util.List;
 public class Favorite {
     public final long id;
     public final String name;
-    public final Signs signs;
     public final Videos videos;
 
     private final Services services;
 
 
-    public Favorite loadSigns() {
-        return signs != null ?
-                this :
-                new Favorite(id, name, services.sign().forFavorite(id), null, services);
-    }
-
-    public List<Long> signsIds() {
-        return signs.ids();
-    }
-
   public Favorite loadVideos() {
-    return signs != null ?
+    return videos != null ?
       this :
-      new Favorite(id, name, null, services.video().forFavorite(id), services);
+      new Favorite(id, name, services.video().forFavorite(id), services);
   }
 
   public List<Long> videosIds() {

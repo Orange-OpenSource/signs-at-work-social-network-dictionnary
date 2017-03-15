@@ -21,7 +21,6 @@
 
 function onSearch(){
   $("#search-criteria").show();
-  console.log("onSearch");
   $("#signs-container").children("label").each(function () {
     $(this).hide();
     $("#button-top").css("visibility", "hidden");
@@ -32,9 +31,7 @@ function onSearch(){
 }
 
 function onBack(signId, videoId){
-  console.log("onBack");
   if ($("#associateForm").isChanged()) {
-    console.log("data change");
     $("#validate_modif").modal('show');
   } else {
     var url = "/sign/"+signId+"/"+videoId;
@@ -45,9 +42,7 @@ function onBack(signId, videoId){
 }
 
 function onBackFavorite(backUrl){
-  console.log("onBackFavorite");
   if ($("#associateForm").isChanged()) {
-    console.log("data change");
     $("#validate_favorite_modif").modal('show');
   } else {
     var url = backUrl;
@@ -74,7 +69,6 @@ function onAssociateRequest(signId, videoId) {
   $("#signs-container").children("label").each(function () {
     if (document.getElementById("associateVideosIds"+i).checked) {
       var selectedVideoId = document.getElementById("associateVideosIds"+i).value;
-      console.log(i + " true "+ selectedVideoId);
       associateVideosIds.push(selectedVideoId);
     }
     i= i+1;
@@ -101,7 +95,6 @@ function onAssociateFavoriteRequest(favoriteId) {
   $("#signs-container").children("label").each(function () {
     if (document.getElementById("favoriteVideosIds"+i).checked) {
       var selectedVideoId = document.getElementById("favoriteVideosIds"+i).value;
-      console.log(i + " true "+ selectedVideoId);
       favoriteVideosIds.push(selectedVideoId);
     }
     i= i+1;
@@ -208,7 +201,6 @@ $.fn.extend({
   }
 
   function search(event) {
-    console.log("search");
     var g = normalize($(this).val());
 
     if (g!="") {
