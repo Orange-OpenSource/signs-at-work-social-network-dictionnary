@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.view.model;
  */
 
 import com.orange.signsatwork.biz.domain.Favorite;
+import com.orange.signsatwork.biz.domain.FavoriteType;
 import com.orange.signsatwork.biz.domain.Favorites;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,13 +40,14 @@ import java.util.stream.Collectors;
 public class FavoriteModalView {
   private long id;
   private String name;
+  private FavoriteType type;
 
   public Favorite toFavorite() {
-    return new Favorite(id, name, null, null);
+    return new Favorite(id, name, type, null, null);
   }
 
   public static FavoriteModalView from(Favorite favorite) {
-    return new FavoriteModalView(favorite.id, favorite.name);
+    return new FavoriteModalView(favorite.id, favorite.name, favorite.type);
   }
 
   public static List<FavoriteModalView> from(Favorites favorites) {

@@ -123,15 +123,15 @@
               </a>
             </li>
 
-            <li th:each="favorite, stats:${myFavorites}" >
+            <li th:each="favorite :${myFavorites}" >
               <a th:if="${favoriteId} == ${favorite.id}" class="check_signe" th:href="@{/sec/signs/{id}(id=${favorite.id}, isSearch=${isSearch})}">
-                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
-                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
+                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
                 <span th:text="${favorite.name}"></span>
               </a>
               <a th:if="${favoriteId} != ${favorite.id}" th:href="@{/sec/signs/{id}(id=${favorite.id}, isSearch=${isSearch})}">
-                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
-                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
+                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
                 <span th:text="${favorite.name}"></span>
               </a>
             </li>

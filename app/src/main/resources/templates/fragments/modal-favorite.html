@@ -49,16 +49,15 @@
                     </li>
 
                     <div th:if="${not #lists.isEmpty(myFavorites)}">
-                        <div th:each="favorite, stats:${myFavorites}">
+                        <div th:each="favorite :${myFavorites}">
                           <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
                             <a th:href="@{/sec/favorite/} + ${favorite.id}">
                               <div>
-                                <div th:if="${stats.first}" class="pull-left favorite_signe"></div>
-                                <div th:if="${!stats.first}" class="pull-left personal_favorite_signe"></div>
+                                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
+                                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
                                 <h2 class="container_H2" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></h2>
                                 <div>
-                                  <div th:if="${stats.first}" class="pull-right chevron_right"></div>
-                                  <div th:if="${!stats.first}" class="pull-right chevron_right"></div>
+                                  <div class="pull-right chevron_right"></div>
                                 </div>
                               </div>
                             </a>

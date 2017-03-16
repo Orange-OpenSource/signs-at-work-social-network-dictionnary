@@ -22,29 +22,8 @@ package com.orange.signsatwork.biz.domain;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.persistence.service.SignService;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
-@RequiredArgsConstructor
-public class Favorite {
-    public final long id;
-    public final String name;
-    public final FavoriteType type;
-    public final Videos videos;
-
-    private final Services services;
-
-
-  public Favorite loadVideos() {
-    return videos != null ?
-      this :
-      new Favorite(id, name, type, services.video().forFavorite(id), services);
-  }
-
-  public List<Long> videosIds() {
-    return videos.ids();
-  }
+public enum FavoriteType {
+    Default,
+    Share,
+    Individual,
 }

@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.persistence.service;
 
 import com.orange.signsatwork.biz.TestUser;
 import com.orange.signsatwork.biz.domain.Favorite;
+import com.orange.signsatwork.biz.domain.FavoriteType;
 import com.orange.signsatwork.biz.domain.Signs;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -44,6 +45,8 @@ public class FavoriteServiceIntegrationTest {
   private Services services;
 
   private String favoriteName = "favoris";
+  private FavoriteType favoriteType = FavoriteType.Individual;
+
 
   private String sign1Name = "cloud";
   private String sign1Url = "//www.dailymotion.com/embed/video/x2mnl8q";
@@ -71,7 +74,7 @@ public class FavoriteServiceIntegrationTest {
     signService.create(userId, sign2Name, sign2Url, "");
     Signs signs = signService.all();
 
-    Favorite favorite = favoriteService.create(new Favorite(-1, favoriteName, null, services));
+    Favorite favorite = favoriteService.create(new Favorite(-1, favoriteName, favoriteType, null, services));
 
     // do
     favoriteService.changeFavoriteSigns(favorite.id, signs.ids());

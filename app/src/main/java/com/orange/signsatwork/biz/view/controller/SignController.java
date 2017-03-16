@@ -193,9 +193,9 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
-    if(favorite.name.equals(messageByLocaleService.getMessage("default_favorite"))) {
+    if(favorite.type.equals(FavoriteType.Default)) {
       model.addAttribute("classDropdownTitle", "favorite_signe pull-left");
-    } else {
+    } else if (favorite.type.equals(FavoriteType.Individual)){
       model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
     }
     model.addAttribute("sortOrderBy", "Liste «"  + favorite.name +"»" );

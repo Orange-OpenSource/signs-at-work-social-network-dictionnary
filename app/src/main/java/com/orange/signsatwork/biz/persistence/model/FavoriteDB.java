@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.persistence.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.orange.signsatwork.biz.domain.FavoriteType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,6 +50,9 @@ public class FavoriteDB {
 
     @NotNull
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private FavoriteType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDB user;
