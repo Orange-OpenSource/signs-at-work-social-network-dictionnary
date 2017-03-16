@@ -161,15 +161,13 @@ public class SignController {
 
     List<Long> videoWithCommentList = Arrays.asList(services.favorite().NbCommentForAllVideoByFavorite(favoriteId));
 
-    List<Long> videoWithPostiveRateList = Arrays.asList(services.favorite().NbPositiveRateForAllVideoByFavorite(favoriteId));
-
     List<VideoView2> videoViews = videoViewsData.stream()
       .map(videoViewData -> new VideoView2(
         videoViewData,
         videoWithCommentList.contains(videoViewData.videoId),
         VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
         videoViewData.nbView > 0,
-        videoWithPostiveRateList.contains(videoViewData.videoId),
+        videoViewData.averageRate > 0,
         true))
       .collect(Collectors.toList());
 
@@ -488,20 +486,18 @@ public class SignController {
 
       List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
 
-      List<Long> videoWithPostiveRateList = Arrays.asList(services.sign().NbPositiveRateForAllVideoBySign(signId));
-
       List<VideoView2> videoViews;
       List<Long> videoInFavorite = new ArrayList<>();
       if (user != null) {
         videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
         List<Long> finalVideoInFavorite = videoInFavorite;
         videoViews = videoViewsData.stream()
-          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalVideoInFavorite, user))
+          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, finalVideoInFavorite, user))
           .collect(Collectors.toList());
       } else {
         List<Long> finalVideoInFavorite1 = videoInFavorite;
         videoViews = videoViewsData.stream()
-          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, finalVideoInFavorite1, user))
+          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, finalVideoInFavorite1, user))
           .collect(Collectors.toList());
       }
 
@@ -570,9 +566,7 @@ public class SignController {
       }
     }
 
-    Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
-    Long nbNegativeRate = services.video().NbNegativeRateForVideo(videoId);
-    if (nbPositiveRate - nbNegativeRate >= 1) {
+    if (video.averageRate > 0) {
       model.addAttribute("videoHasPositiveRate", true);
     } else {
       model.addAttribute("videoHasPositiveRate", false);
@@ -635,9 +629,8 @@ public class SignController {
         model.addAttribute("videoBelowToFavorite", true);
       }
     }
-    Long nbPositiveRate = services.video().NbPostiveRateForVideo(videoId);
-    Long nbNegativeRate = services.video().NbNegativeRateForVideo(videoId);
-    if (nbPositiveRate - nbNegativeRate >= 1) {
+
+    if (video.averageRate > 0) {
       model.addAttribute("videoHasPositiveRate", true);
     } else {
       model.addAttribute("videoHasPositiveRate", false);
@@ -680,13 +673,10 @@ public class SignController {
     // TODO Il faut reprendre cette partie
     List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
 
-    // TODO Il faut reprendre cette partie
-    List<Long> videoWithPostiveRateList = Arrays.asList(services.sign().NbPositiveRateForAllVideoBySign(signId));
-
     List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
 
     List<VideoView2> videoViews = videoViewsData.stream()
-      .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoWithPostiveRateList, videoInFavorite, user))
+      .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoInFavorite, user))
       .collect(Collectors.toList());
 
 
@@ -883,13 +873,13 @@ public class SignController {
       signInFavorite.contains(signViewData.id));
   }
 
-  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, List<Long> videoWithPositiveRate, List<Long> videoBelowToFavorite, User user) {
+  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, List<Long> videoBelowToFavorite, User user) {
     return new VideoView2(
       videoViewData,
       videoWithCommentList.contains(videoViewData.videoId),
       VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
       videoViewData.nbView > 0,
-      videoWithPositiveRate.contains(videoViewData.videoId),
+      videoViewData.averageRate > 0,
       videoBelowToFavorite.contains(videoViewData.videoId));
   }
 

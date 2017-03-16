@@ -57,7 +57,6 @@ public class SignServiceImpl implements SignService {
   private final SignRepository signRepository;
   private final VideoRepository videoRepository;
   private final CommentRepository commentRepository;
-  private final RatingRepository ratingRepository;
   private final RequestRepository requestRepository;
   private final Services services;
 
@@ -113,12 +112,12 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public Long[] mostRating() {
-    return ratingRepository.findMostRating();
+    return signRepository.findMostRating();
   }
 
   @Override
   public Long[] lowRating() {
-    return ratingRepository.findLowRating();
+    return signRepository.findLowRating();
   }
 
   @Override
@@ -137,30 +136,18 @@ public class SignServiceImpl implements SignService {
     return signRepository.findSignsAndRequestsAlphabeticalOrderDescForSignsView(userId);
   }
 
-  @Override
-  public List<Object[]> SignsForFavoriteView(long favoriteId) {
-    return signRepository.findSignsForFavoriteView(favoriteId);
-  }
 
   @Override
   public Long[] SignsBellowToFavoriteByUser(long userId) {
     return signRepository.findSignsBellowToFavoriteByUser(userId);
   }
 
-  @Override
-  public Long NbFavoriteBelowSignForUser(long signId, long userId) {
-    return signRepository.findNbFavoriteBelowSignForUser(signId, userId);
-  }
 
   @Override
   public Long[] NbCommentForAllVideoBySign(long signId) {
     return signRepository.findNbCommentForAllVideoBySign(signId);
   }
 
-  @Override
-  public Long[] NbPositiveRateForAllVideoBySign(long signId) {
-    return signRepository.findNbPositiveRateForAllVideoBySign(signId);
-  }
 
   @Override
   public List<Object[]> AllVideosHistoryForSign(long signId) {
@@ -198,13 +185,6 @@ public class SignServiceImpl implements SignService {
   @Override
   public Signs withName(String name) {
     return signsFromSignsView(signRepository.findByName(name));
-  }
-
-  @Override
-  public Signs forFavorite(long favoriteId) {
-    return signsFromSignsView(
-            signRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
-    );
   }
 
 

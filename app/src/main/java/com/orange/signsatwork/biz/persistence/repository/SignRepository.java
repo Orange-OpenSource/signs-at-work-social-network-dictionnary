@@ -36,9 +36,6 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
 
     List<SignDB> findByNameStartingWith(String name);
 
-    @Query("select distinct s FROM SignDB s inner join s.favorites favorite where favorite = :favoriteDB")
-    List<SignDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
-
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsView();
 
@@ -48,29 +45,20 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id= :userId union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId order by name desc", nativeQuery = true)
     List<Object[]> findSignsAndRequestsAlphabeticalOrderDescForSignsView(@Param("userId") long userId);
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join favorites_signs c on a.id = b.last_video_id and c.signs_id = b.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)
-    List<Object[]> findSignsForFavoriteView(@Param("favoriteId") long favoriteId);
-
     @Query(value="select distinct(c.sign_id) from favorites_videos a inner join favorites b inner join videos c on c.id = a.videos_id and a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)
     Long[] findSignsBellowToFavoriteByUser(@Param("userId") long userId);
 
-    @Query(value="select count(a.favorites_id) from favorites_signs a inner join favorites b on a.favorites_id = b.id and a.signs_id = :signId and b.user_id = :userId", nativeQuery = true)
-    Long findNbFavoriteBelowSignForUser(@Param("signId") long signId, @Param("userId") long userId);
-
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id order by b.name", nativeQuery = true)
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id order by b.name", nativeQuery = true)
     List<Object[]> findAllVideosForAllSigns();
 
     @Query(value="select a.create_date, b.first_name, b.last_name from videos a inner join userdb b on a.sign_id = :signId and a.user_id = b.id order by a.create_date desc", nativeQuery = true)
     List<Object[]> findAllVideosHistoryForSign(@Param("signId") long signId);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id and a.sign_id = :signId order by a.create_date desc", nativeQuery = true)
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id and a.sign_id = :signId order by a.create_date desc", nativeQuery = true)
     List<Object[]> findAllVideosForSign(@Param("signId") long signId);
 
     @Query(value="select  b.id, count(a.text) as nbr from comments a inner join videos b on a.video_id = b.id  and b.sign_id = :signId group by b.id order by nbr asc", nativeQuery = true)
     Long[] findNbCommentForAllVideoBySign(@Param("signId") long signId);
-
-    @Query(value=" select  b.id, count(a.rating) as nbr from ratings a inner join videos b on a.video_id = b.id  and a.rating='Positive' and b.sign_id = :signId group by b.id order by nbr asc", nativeQuery = true)
-    Long[] findNbPositiveRateForAllVideoBySign(@Param("signId") long signId);
 
     @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr desc", nativeQuery = true)
     Long[] findMostViewed();
@@ -83,5 +71,12 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
 
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date asc", nativeQuery = true)
     List<Object[]> findLowRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
+
+    @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr != 0 order by nbr desc\n", nativeQuery = true)
+    Long[] findMostRating();
+
+    @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr != 0 order by nbr asc\n", nativeQuery = true)
+    Long[] findLowRating();
+
 
 }

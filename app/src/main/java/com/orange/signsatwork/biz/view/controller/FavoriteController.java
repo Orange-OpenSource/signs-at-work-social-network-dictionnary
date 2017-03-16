@@ -94,7 +94,6 @@ public class FavoriteController {
 
     List<Long> videoWithCommentList = Arrays.asList(services.favorite().NbCommentForAllVideoByFavorite(favoriteId));
 
-    List<Long> videoWithPostiveRateList = Arrays.asList(services.favorite().NbPositiveRateForAllVideoByFavorite(favoriteId));
 
     List<VideoView2> videoViews = videoViewsData.stream()
       .map(videoViewData -> new VideoView2(
@@ -102,7 +101,7 @@ public class FavoriteController {
         videoWithCommentList.contains(videoViewData.videoId),
         VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
         videoViewData.nbView > 0,
-        videoWithPostiveRateList.contains(videoViewData.videoId),
+        videoViewData.averageRate > 0,
         true))
       .collect(Collectors.toList());
 

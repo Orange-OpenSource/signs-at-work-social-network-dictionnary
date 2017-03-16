@@ -46,7 +46,7 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select a.text, a.comment_date, c.first_name, c.last_name  from comments a inner join userdb c on a.video_id = :videoId and a.user_id=c.id order by comment_date desc", nativeQuery = true)
     List<Object[]> findAllCommentsForVideo(@Param("videoId") long videoId);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id = b.id and c.associate_video_id = a.id and c.video_id = ? union select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id=b.id and c.video_id = a.id and c.associate_video_id = ?" , nativeQuery = true)
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id = b.id and c.associate_video_id = a.id and c.video_id = ? union select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id=b.id and c.video_id = a.id and c.associate_video_id = ?" , nativeQuery = true)
     List<Object[]> findAssociateVideos(long videoId, long associateVideoId);
 
     @Query(value="select count(a.rating) as nbr from ratings a inner join videos b on a.video_id = b.id and b.id = :videoId  and a.rating='Positive'", nativeQuery = true)
@@ -58,7 +58,7 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query("select distinct s FROM VideoDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<VideoDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.id_for_name, b.nb_video from videos a inner join signs b inner join favorites_videos c on a.sign_id = b.id and c.videos_id = a.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.id_for_name, b.nb_video from videos a inner join signs b inner join favorites_videos c on a.sign_id = b.id and c.videos_id = a.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)
     List<Object[]> findVideosForFavoriteView(@Param("favoriteId") long favoriteId);
 
     @Query(value="select a.videos_id from favorites_videos a inner join favorites b on a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)

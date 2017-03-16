@@ -103,6 +103,8 @@ public class VideoServiceImpl implements VideoService {
   public RatingDat createVideoRating(long videoId, long userId, Rating rating) {
     VideoDB videoDB = videoRepository.findOne(videoId);
     UserDB userDB = userRepository.findOne(userId);
+    Object[] queryRating = services.video().RatingForVideoByUser(videoId, userId);
+    RatingData ratingData = new RatingData(queryRating);
 
     RatingDB ratingDB = new RatingDB();
     ratingDB.setUser(userDB);
@@ -111,6 +113,15 @@ public class VideoServiceImpl implements VideoService {
     ratingDB.setRating(rating);
 
     ratingRepository.save(ratingDB);
+
+    long averageRate = videoDB.getAverageRate();
+    if (rating.equals(Rating.Positive) && (!ratingData.ratePositive)) {
+      averageRate = averageRate + 1;
+    } else if (rating.equals(Rating.Negative) && (!ratingData.rateNegative)) {
+      averageRate = averageRate - 1;
+    }
+    videoDB.setAverageRate(averageRate);
+    videoRepository.save(videoDB);
 
     return RatingServiceImpl.ratingFrom(ratingDB);
   }
@@ -186,12 +197,12 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFrom(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()),null,null);
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getAverageRate(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()),null,null);
   }
 
 
   static Video videoFromRatingView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null, null, null);
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, 0, videoDB.getCreateDate(), null, null, null, null, null);
   }
 
   static Videos videosFromSignsView(Iterable<VideoDB> videosDB) {
@@ -201,7 +212,7 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFromSignsView(VideoDB videoDB) {
-    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null, null, null);
+    return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, 0, videoDB.getCreateDate(), null, null, null, null, null);
   }
 
   @Override
@@ -238,7 +249,7 @@ public class VideoServiceImpl implements VideoService {
 
   Video videoFromWithAssociates(VideoDB videoDB) {
     return videoDB == null ? null :
-      new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getCreateDate(), null, null, null, videosFromSignsView(videoDB.getAssociates()).ids(), videosFromSignsView(videoDB.getReferenceBy()).ids());
+      new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, 0, videoDB.getCreateDate(), null, null, null, videosFromSignsView(videoDB.getAssociates()).ids(), videosFromSignsView(videoDB.getReferenceBy()).ids());
   }
 
   @Override

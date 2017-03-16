@@ -58,6 +58,8 @@ public class VideoDB {
 
   private long nbView;
 
+  private long averageRate;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="sign_id")
   private SignDB sign;

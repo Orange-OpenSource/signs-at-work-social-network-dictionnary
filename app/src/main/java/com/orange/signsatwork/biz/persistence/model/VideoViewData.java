@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -35,6 +35,7 @@ public class VideoViewData {
   public final String url;
   public final String pictureUri;
   public final long nbView;
+  public final long averageRate;
   public final long idForName;
   public final long nbVideo;
 
@@ -47,8 +48,9 @@ public class VideoViewData {
     url = toString(queryResultItem[4]);
     pictureUri = toString(queryResultItem[5]);
     nbView = toLong(queryResultItem[6]);
-    idForName = toLong(queryResultItem[7]);
-    nbVideo = toLong(queryResultItem[8]);
+    averageRate = toLong(queryResultItem[7]);
+    idForName = toLong(queryResultItem[8]);
+    nbVideo = toLong(queryResultItem[9]);
   }
 
   private String toString(Object o) {
