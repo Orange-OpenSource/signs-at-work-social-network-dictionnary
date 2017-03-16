@@ -50,7 +50,7 @@
 
                     <div th:if="${not #lists.isEmpty(myFavorites)}">
                         <div th:each="favorite :${myFavorites}">
-                          <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+                          <li class="clear aside_bckg_li">
                             <a th:href="@{/sec/favorite/} + ${favorite.id}">
                               <div>
                                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
