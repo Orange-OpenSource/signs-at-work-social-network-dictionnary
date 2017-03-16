@@ -40,7 +40,7 @@
             <span class="caret"></span>
             <span th:attr="class=${classDropdownTitle}"></span>
             <span th:attr="class=${classDropdownDirection}"></span>
-            <span class="hidden-xs " th:text="${dropdownTitle}"></span>
+            <span class="hidden-xs" th:text="${dropdownTitle}"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li>
@@ -53,15 +53,15 @@
             </li>
             <li>
               <a th:if="${isAlphabeticAsc}" class="checked_up" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
-                <div class="pull-left most_recent"></div>
+                <div class="pull-left alphabetic"></div>
                 <span th:text="#{alphabetic}"></span>
               </a>
               <a th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
-                <div class="pull-left most_recent"></div>
+                <div class="pull-left alphabetic"></div>
                 <span th:text="#{alphabetic}"></span>
               </a>
               <a th:if="${isAlphabeticDesc}" class="checked_down" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
-                <div class="pull-left most_recent"></div>
+                <div class="pull-left alphabetic"></div>
                 <span th:text="#{alphabetic}"></span>
               </a>
             </li>

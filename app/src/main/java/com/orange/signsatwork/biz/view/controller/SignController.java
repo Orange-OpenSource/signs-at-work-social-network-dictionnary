@@ -141,7 +141,7 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
-    model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("classDropdownTitle", " alphabetic pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -193,7 +193,11 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.name);
-    model.addAttribute("classDropdownTitle", " favorite_signe pull-left");
+    if(favorite.name.equals(messageByLocaleService.getMessage("default_favorite"))) {
+      model.addAttribute("classDropdownTitle", "favorite_signe pull-left");
+    } else {
+      model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
+    }
     model.addAttribute("sortOrderBy", "Liste «"  + favorite.name +"»" );
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
