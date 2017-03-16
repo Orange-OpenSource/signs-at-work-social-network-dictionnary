@@ -562,7 +562,23 @@ text-decoration-line: none;
 	color:#F16E00;
 }
 
+.my_request_signe {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2240px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
 
+.alphabetic {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2200px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
 
 .logo_app {
 	background-image: url("/img/sprite_picto_400X400.png");
@@ -1293,8 +1309,6 @@ video{
     top: 14px;
   }
 
-
-
   .btn .most_recent.pull-left{
     background-position: -1000px center;
     background-size: auto 20px;
@@ -1302,8 +1316,24 @@ video{
     width: 20px;
     margin-left: 5px;
   }
+
+  .btn .alphabetic.pull-left{
+    background-position: -1100px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+
   .btn .favorite_signe.pull-left{
     background-position: -170px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+  }
+  .btn .personal_favorite_signe.pull-left{
+    background-position: -210px center;
     background-size: auto 20px;
     height: 20px;
     width: 20px;
@@ -1405,6 +1435,14 @@ video{
   .request_signe {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1065px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+  .my_request_signe {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1680px center;
     background-repeat: no-repeat;
     background-size: auto 30px;
     height: 30px;
@@ -1705,9 +1743,7 @@ video{
     right: 20px;
   }
 
-
-
-	#label_signe{
+  #label_signe{
 		border-top-style:none;
 	}
 
