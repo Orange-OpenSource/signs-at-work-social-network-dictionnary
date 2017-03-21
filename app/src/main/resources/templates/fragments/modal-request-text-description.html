@@ -26,25 +26,26 @@
 </head>
 <body>
 
-<div th:fragment="div" th:if="${isAuthenticated}" id="new_request" class="modal fade" role="dialog">
+<div th:fragment="div" th:if="${isAuthenticated}" id="request_text_description" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                     <div class="request_signe pull-left"></div>
-                    <h4 class="pull-right" th:text="#{sign.modal.request}"></h4>
+                    <h4 class="pull-right" th:text="#{request.description(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
                 </div>
             </div>
-            <form th:action="@{/sec/request/search}" th:object="${requestCreationView}" method="post">
+            <form id="requestInfo" th:action="@{/ws/sec/request/create}" th:object="${requestCreationView}" method="post">
                 <div class="modal-body text-center">
-                    <input th:field="*{requestName}" id="requestName" name="requestName" type="text" class="text-center border form-control"
-                           th:placeholder="#{sign.name}" required=""/><br/>
-                    <span th:text="#{one_or_two_word}"></span>
+                  <input th:field="*{requestName}" id="requestName" name="requestName" type="text" class="text-center border form-control" style="display: none"/><br/>
+                  <textarea  th:field="*{requestTextDescription}" id="requestTextDescription" name="requestTextDescription" type="text" class="text-center border form-control" rows="3" cols="40"/><br/>
+                  <span id="requestSpan" style="visibility: hidden"></span>
+                  <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
                 </div>
 
                 <div class="modal-footer">
-                    <button th:text="#{continue}" type="submit" class="btn btn-default" data-dismiss=""></button>
+                    <button th:text="#{finish}" type="submit" class="btn btn-default" data-dismiss=""></button>
                 </div>
             </form>
         </div>

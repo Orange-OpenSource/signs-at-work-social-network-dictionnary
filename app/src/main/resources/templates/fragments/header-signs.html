@@ -153,7 +153,7 @@
               <span th:text="#{sign.add}" class="text-hide"></span></a>
           </li>
           <li th:if="${isAuthenticated}" role="presentation">
-            <a href="#" data-toggle="modal" data-target="#new_request">
+            <a th:href="@{/sec/request}">
               <div class="request_signe text-center"></div>
               <span th:text="#{sign.request}" class="text-hide"></span></a>
           </li>
@@ -191,7 +191,7 @@
             </a>
           </li>
           <li th:if="${isAuthenticated}" role="presentation">
-            <a href="#" data-toggle="modal" data-target="#new_request">
+            <a th:href="@{/sec/request}">
               <div class="request_signe pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">

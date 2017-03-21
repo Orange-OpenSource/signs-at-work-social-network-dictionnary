@@ -10,21 +10,20 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Request;
-import com.orange.signsatwork.biz.domain.Sign;
-import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.RequestViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
@@ -36,13 +35,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static jdk.nashorn.internal.runtime.JSType.toLong;
 
 @Slf4j
 @Controller
@@ -131,6 +131,54 @@ public class RequestController {
     List<RequestView> otherrequestsViewWithoutSignAssociate = RequestView.from(services.request().requestsforOtherUserWithoutSignAssociate(user.id));
     model.addAttribute("otherRequestsWithoutSignAssociate", otherrequestsViewWithoutSignAssociate);
 
+  }
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/request/search")
+  public String showSignsRequest(Model model, @ModelAttribute RequestCreationView requestCreationView, Principal principal) {
+    String name = requestCreationView.getRequestName();
+    model.addAttribute("backUrl", "/sec/request");
+    model.addAttribute("title", messageByLocaleService.getMessage("sign.modal.request"));
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    User user = services.user().withUserName(principal.getName());
+    Signs signs = services.sign().search(name);
+
+
+    model.addAttribute("signName", name);
+    model.addAttribute("isSignAlreadyExist", false);
+    List<Sign> signsWithSameName = new ArrayList<>();
+    for (Sign sign: signs.list()) {
+      if (sign.name.equals(name) ) {
+        model.addAttribute("isSignAlreadyExist", true);
+        model.addAttribute("signMatche", sign);
+      } else {
+        signsWithSameName.add(sign);
+      }
+    }
+
+    model.addAttribute("signsWithSameName", signsWithSameName);
+
+    model.addAttribute("isRequestAlreadyExist", false);
+    List<Object[]> queryRequests = services.request().search(name, user.id);
+    List<RequestViewData> requestViewDatas = queryRequests.stream()
+      .map(objectArray -> new RequestViewData(objectArray))
+      .collect(Collectors.toList());
+    List<RequestViewData> requestsWithSameName = new ArrayList<>();
+    for( RequestViewData requestViewData: requestViewDatas) {
+      if (requestViewData.requestName.equals(name)) {
+        model.addAttribute("isRequestAlreadyExist", true);
+        model.addAttribute("requestMatche", requestViewData);
+      } else {
+        requestsWithSameName.add(requestViewData);
+      }
+    }
+
+    model.addAttribute("requestsWithSameName", requestsWithSameName);
+
+    model.addAttribute("requestCreationView", requestCreationView);
+
+    return "signs-request";
   }
 
 }

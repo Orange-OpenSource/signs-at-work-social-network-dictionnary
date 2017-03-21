@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.repository;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -47,6 +47,9 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
 
     @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null")
     List<RequestDB> findByOtherUserWithoutSignAssociate(@Param("userDB") UserDB userDB);
+
+    @Query(value="select a.name, concat(\"/sec/my-request-detail/\", a.id) from requests a where a.name like concat(:name,'%') and a.user_id = :userId and a.sign_id is null union select b.name, concat(\"/sec/other-request-detail/\", b.id) from requests b where b.name like concat(:name,'%') and b.user_id != :userId and b.sign_id is null", nativeQuery = true)
+    List<Object[]> findRequestsByName(@Param("name") String name,@Param("userId") long userId);
 
 
 

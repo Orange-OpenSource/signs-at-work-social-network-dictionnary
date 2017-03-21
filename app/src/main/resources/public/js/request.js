@@ -27,6 +27,7 @@ var $formRequest = $('#requestInfo');
 var seeSignButton = document.getElementById('seeSignButton');
 var requestSpan = document.getElementById('requestSpan');
 $formRequest.on('submit', function(event) {
+  console.log("submit");
     event.preventDefault();
     request = {
       requestName: $('#requestName').val(),
