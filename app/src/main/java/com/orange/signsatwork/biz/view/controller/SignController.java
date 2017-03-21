@@ -496,12 +496,12 @@ public class SignController {
         videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
         List<Long> finalVideoInFavorite = videoInFavorite;
         videoViews = videoViewsData.stream()
-          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, finalVideoInFavorite, user))
+          .map(videoViewData -> buildVideoView(videoViewData, finalVideoInFavorite, user))
           .collect(Collectors.toList());
       } else {
         List<Long> finalVideoInFavorite1 = videoInFavorite;
         videoViews = videoViewsData.stream()
-          .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, finalVideoInFavorite1, user))
+          .map(videoViewData -> buildVideoView(videoViewData, finalVideoInFavorite1, user))
           .collect(Collectors.toList());
       }
 
@@ -679,13 +679,10 @@ public class SignController {
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
 
-    // TODO Il faut reprendre cette partie
-    List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
-
     List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
 
     List<VideoView2> videoViews = videoViewsData.stream()
-      .map(videoViewData -> buildVideoView(videoViewData, videoWithCommentList, videoInFavorite, user))
+      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
       .collect(Collectors.toList());
 
 
@@ -882,10 +879,10 @@ public class SignController {
       signInFavorite.contains(signViewData.id));
   }
 
-  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoWithCommentList, List<Long> videoBelowToFavorite, User user) {
+  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoBelowToFavorite, User user) {
     return new VideoView2(
       videoViewData,
-      videoWithCommentList.contains(videoViewData.videoId),
+      videoViewData.nbComment > 0,
       VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
       videoViewData.nbView > 0,
       videoViewData.averageRate > 0,

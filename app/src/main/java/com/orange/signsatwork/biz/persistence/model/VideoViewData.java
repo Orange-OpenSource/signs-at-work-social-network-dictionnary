@@ -36,6 +36,7 @@ public class VideoViewData {
   public final String pictureUri;
   public final long nbView;
   public final long averageRate;
+  public final long nbComment;
   public final long idForName;
   public final long nbVideo;
 
@@ -49,8 +50,9 @@ public class VideoViewData {
     pictureUri = toString(queryResultItem[5]);
     nbView = toLong(queryResultItem[6]);
     averageRate = toLong(queryResultItem[7]);
-    idForName = toLong(queryResultItem[8]);
-    nbVideo = toLong(queryResultItem[9]);
+    nbComment = toLong(queryResultItem[8]);
+    idForName = toLong(queryResultItem[9]);
+    nbVideo = toLong(queryResultItem[10]);
   }
 
   private String toString(Object o) {

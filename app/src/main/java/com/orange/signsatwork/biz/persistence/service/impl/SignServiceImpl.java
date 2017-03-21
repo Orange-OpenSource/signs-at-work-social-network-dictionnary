@@ -102,12 +102,12 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public Long[] mostCommented() {
-    return commentRepository.findMostCommented();
+    return signRepository.findMostCommented();
   }
 
   @Override
   public Long[] lowCommented() {
-    return commentRepository.findLowCommented();
+    return signRepository.findLowCommented();
   }
 
   @Override

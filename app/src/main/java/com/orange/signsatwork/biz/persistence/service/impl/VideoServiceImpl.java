@@ -95,6 +95,9 @@ public class VideoServiceImpl implements VideoService {
     commentDB.setUser(userDB);
 
     commentRepository.save(commentDB);
+    long nbComment = videoDB.getNbComment();
+    videoDB.setNbComment(nbComment +1);
+    videoRepository.save(videoDB);
 
     return CommentServiceImpl.commentFrom(commentDB);
   }
