@@ -45,6 +45,7 @@
             </div>
             <span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>
             <span  th:if="${isRequestAlreadyExist}" th:text="#{request.already_exists}"></span>
+            <span  th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></span>
           </a>
         </li>
         <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
@@ -67,7 +68,17 @@
             </div>
           </a>
         </li>
-        <li th:if="${!isSignAlreadyExist and !isRequestAlreadyExist}" class="aside_bckg_li">
+        <li th:if="${isRequestWithAssociateSignAlreadyExist}" class="aside_bckg_li">
+          <a th:href="@{/sign/} + ${requestWithAssociateSignMatche.signId}">
+            <div>
+              <h2 class="container_H2" th:text="#{see_sign}"></h2>
+              <div>
+                <div class="pull-right chevron_right "></div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist}" class="aside_bckg_li">
           <a data-target="#request_text_description" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="#{request.create}"/>
             <div>
@@ -90,6 +101,26 @@
               <a th:href="@{/sign/} + ${sign.id}">
                 <div>
                   <h2 class="container_H2" th:text="${sign.name}"></h2>
+                  <div>
+                    <div class="pull-right chevron_right "></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+    <div th:if="${not #lists.isEmpty(requestsWithAssociateSignWithSameName)}">
+      <div th:each="request:${requestsWithAssociateSignWithSameName}">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="dotted-top">
+              <a th:href="@{/sign/} + ${request.signId}">
+                <div>
+                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left request_signe"></div>
+                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left my_request_signe"></div>
+                  <h2 class="container_H2" th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>
                   </div>

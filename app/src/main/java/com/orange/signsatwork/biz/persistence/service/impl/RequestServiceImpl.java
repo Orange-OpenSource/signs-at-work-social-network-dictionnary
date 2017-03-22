@@ -175,8 +175,15 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
-  public List<Object[]> search(String requestName, long userId) {
-    List<Object[]>  requestsMatches = requestRepository.findRequestsByName(requestName, userId);
+  public List<Object[]> requestsByNameWithNoAssociateSign(String requestName, long userId) {
+    List<Object[]>  requestsMatches = requestRepository.findRequestsByNameWithNoAssociateSign(requestName, userId);
+
+    return requestsMatches;
+  }
+
+  @Override
+  public List<Object[]> requestsByNameWithAssociateSign(String requestName, long userId) {
+    List<Object[]>  requestsMatches = requestRepository.findRequestsByNameWithAssociateSign(requestName, userId);
 
     return requestsMatches;
   }

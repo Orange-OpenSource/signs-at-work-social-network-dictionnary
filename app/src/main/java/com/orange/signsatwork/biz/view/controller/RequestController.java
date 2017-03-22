@@ -160,21 +160,39 @@ public class RequestController {
     model.addAttribute("signsWithSameName", signsWithSameName);
 
     model.addAttribute("isRequestAlreadyExist", false);
-    List<Object[]> queryRequests = services.request().search(name, user.id);
-    List<RequestViewData> requestViewDatas = queryRequests.stream()
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(name, user.id);
+    List<RequestViewData> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
       .map(objectArray -> new RequestViewData(objectArray))
       .collect(Collectors.toList());
-    List<RequestViewData> requestsWithSameName = new ArrayList<>();
-    for( RequestViewData requestViewData: requestViewDatas) {
+    List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
+    for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
       if (requestViewData.requestName.equals(name)) {
         model.addAttribute("isRequestAlreadyExist", true);
         model.addAttribute("requestMatche", requestViewData);
       } else {
-        requestsWithSameName.add(requestViewData);
+        requestsWithNoAssociateSignWithSameName.add(requestViewData);
       }
     }
 
-    model.addAttribute("requestsWithSameName", requestsWithSameName);
+    model.addAttribute("requestsWithSameName", requestsWithNoAssociateSignWithSameName);
+
+    model.addAttribute("isRequestWithAssociateSignAlreadyExist", false);
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(name, user.id);
+    List<RequestViewData> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
+      .map(objectArray -> new RequestViewData(objectArray))
+      .collect(Collectors.toList());
+    List<RequestViewData> requestsWithAssociateSignWithSameName = new ArrayList<>();
+    for( RequestViewData requestViewData: requestViewDatasWithAssociateSign) {
+      if (requestViewData.requestName.equals(name)) {
+        model.addAttribute("isRequestWithAssociateSignAlreadyExist", true);
+        model.addAttribute("requestWithAssociateSignMatche", requestViewData);
+      } else {
+        requestsWithAssociateSignWithSameName.add(requestViewData);
+      }
+    }
+
+    model.addAttribute("requestsWithAssociateSignWithSameName", requestsWithAssociateSignWithSameName);
+
 
     model.addAttribute("requestCreationView", requestCreationView);
 

@@ -30,15 +30,26 @@ public class RequestViewData {
 
   public final String requestName;
   public final String urlForAccessToRequestDetail;
-
+  public final long signId;
+  public final String signName;
 
   public RequestViewData(Object[] queryResultItem) {
     requestName = toString(queryResultItem[0]);
     urlForAccessToRequestDetail = toString(queryResultItem[1]);
+    signId = toLong(queryResultItem[2]);
+    signName = toString(queryResultItem[3]);
   }
 
   private String toString(Object o) {
     return (String) o;
   }
+
+  private long toLong(Object o) {
+    if (o == null) {
+      return 0;
+    };
+    return ((BigInteger)o).longValue();
+  }
+
 
 }

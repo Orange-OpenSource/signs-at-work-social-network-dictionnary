@@ -55,5 +55,7 @@ public interface RequestService {
 
   void delete(Request request);
 
-  List<Object[]> search(String requestName, long userId);
+  List<Object[]> requestsByNameWithNoAssociateSign(String requestName, long userId);
+
+  List<Object[]> requestsByNameWithAssociateSign(String requestName, long userId);
 }
