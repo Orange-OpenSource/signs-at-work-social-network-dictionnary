@@ -33,10 +33,6 @@ public interface VideoService {
 
   List<Object[]> AssociateVideos(long videoId, long associateVideoId);
 
-  Long NbPostiveRateForVideo(long videoId);
-
-  Long NbNegativeRateForVideo(long videoId);
-
   void increaseNbView(long videoId);
 
   Comment createVideoComment(long videoId, long userId, String commentText);

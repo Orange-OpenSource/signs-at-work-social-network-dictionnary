@@ -57,8 +57,6 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id and a.sign_id = :signId order by a.create_date desc", nativeQuery = true)
     List<Object[]> findAllVideosForSign(@Param("signId") long signId);
 
-    @Query(value="select  b.id, count(a.text) as nbr from comments a inner join videos b on a.video_id = b.id  and b.sign_id = :signId group by b.id order by nbr asc", nativeQuery = true)
-    Long[] findNbCommentForAllVideoBySign(@Param("signId") long signId);
 
     @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr desc", nativeQuery = true)
     Long[] findMostViewed();

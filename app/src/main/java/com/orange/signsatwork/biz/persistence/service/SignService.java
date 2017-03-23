@@ -48,8 +48,6 @@ public interface SignService {
 
   Long[] lowRating();
 
-  Long[] NbCommentForAllVideoBySign(long signId);
-
   List<Object[]> SignsForSignsView();
 
   List<Object[]> SignsAndRequestsAlphabeticalOrderAscSignsView(long userId);

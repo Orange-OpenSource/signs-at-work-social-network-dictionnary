@@ -49,12 +49,6 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id = b.id and c.associate_video_id = a.id and c.video_id = ? union select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id=b.id and c.video_id = a.id and c.associate_video_id = ?" , nativeQuery = true)
     List<Object[]> findAssociateVideos(long videoId, long associateVideoId);
 
-    @Query(value="select count(a.rating) as nbr from ratings a inner join videos b on a.video_id = b.id and b.id = :videoId  and a.rating='Positive'", nativeQuery = true)
-    Long findNbPostiveRateForVideo(@Param("videoId") long videoId);
-
-    @Query(value="select count(a.rating) as nbr from ratings a inner join videos b on a.video_id = b.id and b.id = :videoId  and a.rating='Negative'", nativeQuery = true)
-    Long findNbNegativeRateForVideo(@Param("videoId") long videoId);
-
     @Query("select distinct s FROM VideoDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<VideoDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 

@@ -488,8 +488,6 @@ public class SignController {
       model.addAttribute("title", videoViewsData.get(0).signName);
 
 
-      List<Long> videoWithCommentList = Arrays.asList(services.sign().NbCommentForAllVideoBySign(signId));
-
       List<VideoView2> videoViews;
       List<Long> videoInFavorite = new ArrayList<>();
       if (user != null) {

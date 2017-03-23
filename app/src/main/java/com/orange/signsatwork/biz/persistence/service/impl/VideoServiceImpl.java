@@ -65,16 +65,6 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
-  public Long NbPostiveRateForVideo(long videoId) {
-    return videoRepository.findNbPostiveRateForVideo(videoId);
-  }
-
-  @Override
-  public Long NbNegativeRateForVideo(long videoId) {
-    return videoRepository.findNbNegativeRateForVideo(videoId);
-  }
-
-  @Override
   public void increaseNbView(long videoId) {
     VideoDB videoDB = videoRepository.findOne(videoId);
     long nbView = videoDB.getNbView();
