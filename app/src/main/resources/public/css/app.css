@@ -1275,12 +1275,17 @@ video{
 		width: 160px;
 	}
 
+  H2.text_hyphenation{
+    width: 23rem;
+  }
+
 	.text_hyphenation{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		width: 12rem;
 	}
+
   .text_hyphenation.navbar_title{
 			width: 22rem;
 	}
