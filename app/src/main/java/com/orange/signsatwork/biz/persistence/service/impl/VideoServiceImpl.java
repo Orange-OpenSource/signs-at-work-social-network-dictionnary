@@ -266,4 +266,9 @@ public class VideoServiceImpl implements VideoService {
   public Long NbFavoriteBelowVideoForUser(long videoId, long userId) {
     return videoRepository.findNbFavoriteBelowVideoForUser(videoId, userId);
   }
+
+  @Override
+  public List<Object[]> AllVideosCreateByUser(long userId) {
+    return videoRepository.findAllVideosCreateByUser(userId);
+  }
 }

@@ -43,17 +43,45 @@
             <div class="text-center title_middle col-md-8 col-xs-12 middle-col ">
              <h2 th:text="#{video.list}"></h2>
               <div class="row ">
-                <div th:each="video:${user.videos.list()}" class="col-md-4 col-xs-12 col-sm-4 ">
-                    <img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/>
-                    <p th:text="${video.url}"></p>
-                </div>
+                <!--<div th:each="video:${user.videos.list()}" class="col-md-4 col-xs-12 col-sm-4 ">-->
+                    <!--<img th:if="${!#strings.isEmpty(video.pictureUri)}" th:src="${video.pictureUri}"/>-->
+                    <!--<p th:text="${video.url}"></p>-->
+                <!--</div>-->
 
-                </div>
-
+        <div th:if="${not #lists.isEmpty(videosView)}" id="videos-container" class="row">
+          <div th:each="videoView:${videosView}" class="video-view-hidden text-center col-lg-5 col-md-4 col-xs-6 col-sm-4">
+            <div class="row">
+              <div class="col-lg-12">
+                <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
+                  <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
+                  <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
+                  <div th:if="${videoView.videoHasComment}" class="tooltip_comment"></div>
+                  <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
+                  <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
+                  <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
+                  <div th:if="${videoView.videoHasPositiveRate}" class="tooltip_positif"></div>
+                  <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
+                  <div th:if="${videoView.signBelowToFavorite}" class="tooltip_favorite"></div>
+                  <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
+                  <img th:attr="data-src=${videoView.pictureUri}"/>
+                </a>
+                <div class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
+              </div>
             </div>
+
+          </div>
         </div>
 
-    </body>
+        <div th:if="${#lists.isEmpty(videosView)}">
+          <h2 th:text="#{sign.not_available}"></h2>
+        </div>
+        </div>
 
+            </div>
+
+      </div>
+
+    </body>
+<script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
 
 </html>

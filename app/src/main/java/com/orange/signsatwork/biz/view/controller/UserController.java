@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -23,13 +23,12 @@ package com.orange.signsatwork.biz.view.controller;
  */
 
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.storage.StorageService;
-import com.orange.signsatwork.biz.view.model.FavoriteCreationView;
-import com.orange.signsatwork.biz.view.model.FavoriteModalView;
-import com.orange.signsatwork.biz.view.model.UserCreationView;
+import com.orange.signsatwork.biz.view.model.*;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -40,7 +39,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -210,11 +211,27 @@ public class UserController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")
-  public String userDetails(@PathVariable long userId, @PathVariable long communityId, Principal principal, Model model) {
+  public String userDetails(@PathVariable long userId, @PathVariable long communityId, Model model) {
     User user = services.user().withId(userId);
-    user = user.loadVideos();
     model.addAttribute("title", user.firstName + ' ' + user.lastName);
     model.addAttribute("backUrl", "/sec/community/"+communityId);
+
+    List<Object[]> queryVideos = services.video().AllVideosCreateByUser(user.id);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
+
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
+      .collect(Collectors.toList());
+
+    VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);
+
+    model.addAttribute("videosView", videoViews);
+
     model.addAttribute("user", user);
 
     return "profile-from-community";
@@ -225,4 +242,13 @@ public class UserController {
     model.addAttribute("myFavorites", myFavorites);
   }
 
+  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoBelowToFavorite, User user) {
+    return new VideoView2(
+      videoViewData,
+      videoViewData.nbComment > 0,
+      VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+      videoViewData.nbView > 0,
+      videoViewData.averageRate > 0,
+      videoBelowToFavorite.contains(videoViewData.videoId));
+  }
 }
