@@ -85,7 +85,7 @@ public class FavoriteController {
     Favorite favorite = services.favorite().withId(favoriteId);
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/");
-    model.addAttribute("favoriteView", favorite);
+    model.addAttribute("favoriteManageView", favorite);
 
     List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
     List<VideoViewData> videoViewsData = queryVideos.stream()
@@ -150,7 +150,7 @@ public class FavoriteController {
   public String manageFavorite(@PathVariable long favoriteId, Model model)  {
 
     Favorite favorite = services.favorite().withId(favoriteId);
-    model.addAttribute("title", messageByLocaleService.getMessage("favorite.manage"));
+    model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
 
     model.addAttribute("favoriteManageView", favorite);

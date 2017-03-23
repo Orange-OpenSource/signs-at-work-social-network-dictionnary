@@ -24,7 +24,7 @@
 <head>
     <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
-<header role="banner" th:replace="fragments/header-favorite :: header">&nbsp;</header>
+<header role="banner" th:replace="fragments/header-manage-favorite :: header">&nbsp;</header>
 
 
 <body class="container-fluid">
@@ -34,30 +34,30 @@
             <ul class="nav nav-list primary left-menu">
                 <li class="clear aside_bckg_li">
                     <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} + '/associate-sign'">
-                        <div class="signe"></div>
+                        <div class="add_favorite_signe pull-left"></div>
                         <h2 class="container_H2"  th:text="#{favorite.add_sign}"></h2>
-                        <div><div class="pull-right chevron_right"></div></div>
+                        <div class="pull-right add_whith_chevron"></div>
                     </a>
                 </li>
                 <li class="aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#rename_favorite">
                         <div class="pull-left rename_signe"></div>
                         <h2 class="container_H2" th:text="#{favorite.rename}"></h2>
-                        <div><div class="pull-right chevron_right"></div></div>
+                        <div class="pull-right chevron_right"></div>
                     </a>
                 </li>
                 <li class="aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#duplicate_favorite">
                         <div class="pull-left duplicate_signe"></div>
                         <h2 class="container_H2" th:text="#{favorite.duplicate}"></h2>
-                        <div><div class="pull-right chevron_right"></div></div>
+                        <div class="pull-right chevron_right"></div>
                     </a>
                 </li>
                 <li class="aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#delete_favorite">
                         <div class="pull-left delete_signe"></div>
                         <h2 class="container_H2" th:text="#{favorite.delete}"></h2>
-                        <div><div class="pull-right chevron_right"></div></div>
+                        <div class="pull-right chevron_right"></div>
                     </a>
                 </li>
             </ul>

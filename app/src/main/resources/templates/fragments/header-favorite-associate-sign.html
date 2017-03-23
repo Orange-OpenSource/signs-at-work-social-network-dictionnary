@@ -31,8 +31,11 @@
     <div class="container-fluid">
       <div class="col-lg-12 navbar-header">
           <a href="#" th:onclick="'javascript:onBackFavorite(\'' + ${backUrl} + '\')'">
-          <div class="chevron_left pull-left"></div>
-          <h1 class="text_hyphenation navbar_title pull-left" th:text="${title}"/>
+            <div class="chevron_left pull-left"></div>
+            <div class="pull-left">
+              <div class="add_favorite_signe pull-left"></div>
+              <h1 class="text_hyphenation navbar_title pull-left" th:text="#{favorite.add_sign_at_list(${'&laquo;'+title+'&raquo;'})}"/>
+            </div>
         </a>
         <ul role="tablist" class="navbar-toggle-complement nav navbar-nav">
           <li role="presentation">

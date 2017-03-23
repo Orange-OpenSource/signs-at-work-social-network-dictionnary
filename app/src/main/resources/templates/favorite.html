@@ -35,9 +35,10 @@
               <aside class="sidebar">
                 <ul class="nav nav-list primary left-menu">
                     <li class="aside_bckg_li">
-                        <a th:href="@{/sec/favorite/} + ${favoriteView.id} +  '/manage-favorite'">
+                        <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/manage-favorite'">
                         <h2 class="container_H2" th:text="#{favorite.manage}"></h2>
-                            <div><div class="pull-right chevron_right"></div></div>
+                            <!--<div><div class="pull-right chevron_right"></div></div>-->
+                          <div class="pull-right  pen_whith_chevron"/>
                          </a>
                     </li>
                 </ul>
