@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.service;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -53,7 +53,7 @@ public class FavoriteServiceDeleteTest {
 
     // do/then
     Favorite favorite = services.user().createUserFavorite(user.id, "favorite-canRemoveFavorite");
-    services.favorite().changeFavoriteSigns(favorite.id, Arrays.asList(new Long[]{sign.id}));
+    //services.favorite().changeFavoriteSigns(favorite.id, Arrays.asList(new Long[]{sign.id}));
     Assertions.assertThat(services.favorite().all().stream().filter(f -> f.id == favorite.id).count()).isEqualTo(1);
     Assertions.assertThat(services.user().withId(user.id).loadCommunitiesRequestsFavorites().favorites.ids()).contains(favorite.id);
 

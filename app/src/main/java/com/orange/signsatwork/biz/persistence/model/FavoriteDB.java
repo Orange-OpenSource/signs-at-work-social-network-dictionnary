@@ -57,11 +57,6 @@ public class FavoriteDB {
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDB user;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "favorites_signs", joinColumns = @JoinColumn(name = "favorites_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "signs_id", referencedColumnName = "id"))
-    @JsonManagedReference
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<SignDB> signs = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "favorites_videos", joinColumns = @JoinColumn(name = "favorites_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "videos_id", referencedColumnName = "id"))

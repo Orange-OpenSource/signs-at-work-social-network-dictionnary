@@ -55,7 +55,7 @@ public class SignServiceDeleteTest {
     Video video = sign1.loadVideos().videos.list().get(0);
     Favorite favorite = services.user().createUserFavorite(user.id, "favorite-canRemoveSign");
 
-    services.favorite().changeFavoriteSigns(favorite.id, Arrays.asList(new Long[]{sign1.id}));
+    //services.favorite().changeFavoriteSigns(favorite.id, Arrays.asList(new Long[]{sign1.id}));
 
     // then, check we have a correct testing context
     Assertions.assertThat(services.sign().withId(sign1.id)).isNotNull();

@@ -74,15 +74,6 @@ public class FavoriteServiceImpl implements FavoriteService {
     );
   }
 
-  @Override
-  public Favorite changeFavoriteSigns(long favoriteId, List<Long> signsIds) {
-    FavoriteDB favoriteDB = withDBId(favoriteId);
-    List<SignDB> favoriteSigns = favoriteDB.getSigns();
-    favoriteSigns.clear();
-    signRepository.findAll(signsIds).forEach(favoriteSigns::add);
-    favoriteDB = favoriteRepository.save(favoriteDB);
-    return favoriteFrom(favoriteDB, services);
-  }
 
   @Override
   public Favorite changeFavoriteVideos(long favoriteId, List<Long> videosIds) {
@@ -138,7 +129,7 @@ public class FavoriteServiceImpl implements FavoriteService {
   public void delete(Favorite favorite) {
     FavoriteDB favoriteDB = favoriteRepository.findOne(favorite.id);
     favoriteDB.getUser().getFavorites().remove(favoriteDB);
-    favoriteDB.getSigns().stream().forEach(signDB -> signDB.getFavorites().remove(favoriteDB));
+    favoriteDB.getVideos().stream().forEach(videoDB -> videoDB.getFavorites().remove(favoriteDB));
     favoriteRepository.delete(favoriteDB);
   }
 
@@ -161,8 +152,5 @@ public class FavoriteServiceImpl implements FavoriteService {
     return favoriteRepository.findNbCommentForAllVideoByFavorite(favoriteId);
   }
 
-  @Override
-  public Long[] NbPositiveRateForAllVideoByFavorite(long favoriteId) {
-    return favoriteRepository.findNbPositiveRateForAllVideoByFavorite(favoriteId);
-  }
+
 }

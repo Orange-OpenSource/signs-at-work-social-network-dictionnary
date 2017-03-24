@@ -42,13 +42,10 @@ public interface FavoriteService {
 
   Favorite updateName(long favoriteId, String favoriteName);
 
-  Favorite changeFavoriteSigns(long favoriteId, List<Long> signsIds);
-
   Favorite changeFavoriteVideos(long favoriteId, List<Long> videosIds);
 
   void delete(Favorite favorite);
 
   Long[] NbCommentForAllVideoByFavorite(long favoriteId);
 
-  Long[] NbPositiveRateForAllVideoByFavorite(long favoriteId);
 }

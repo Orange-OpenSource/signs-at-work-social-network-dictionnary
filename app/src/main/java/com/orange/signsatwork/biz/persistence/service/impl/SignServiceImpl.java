@@ -370,7 +370,6 @@ public class SignServiceImpl implements SignService {
     videoDBs.stream()
             .map(videoDB -> services.video().withId(videoDB.getId()))
             .forEach(video -> services.video().delete(video));
-    signDB.getFavorites().forEach(favoriteDB -> favoriteDB.getSigns().remove(signDB));
     RequestDB requestDB = requestRepository.findBySign(signDB);
     if (requestDB != null) {
       requestDB.setSign(null);

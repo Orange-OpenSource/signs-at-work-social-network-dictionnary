@@ -234,27 +234,6 @@ public class FavoriteController {
     return showFavorite(favorite.id);
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/favorite/{favoriteId}/add/signs", method = RequestMethod.POST)
-  public String changeFavoriteSigns(
-          HttpServletRequest req, @PathVariable long favoriteId) {
-
-    List<Long> signsIds =
-            transformSignsIdsToLong(req.getParameterMap().get("favoriteSignsIds"));
-
-    services.favorite().changeFavoriteSigns(favoriteId, signsIds);
-
-    return showFavorite(favoriteId);
-  }
-
-  private List<Long> transformSignsIdsToLong(String[] favoriteSignsIds) {
-    if (favoriteSignsIds == null) {
-      return new ArrayList<>();
-    }
-    return Arrays.asList(favoriteSignsIds).stream()
-            .map(Long::parseLong)
-            .collect(Collectors.toList());
-  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/add/videos", method = RequestMethod.POST)
