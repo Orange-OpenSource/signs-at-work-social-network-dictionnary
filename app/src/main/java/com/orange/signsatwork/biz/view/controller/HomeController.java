@@ -30,6 +30,7 @@ import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,20 +58,23 @@ public class HomeController {
   MessageByLocaleService messageByLocaleService;
 
   @RequestMapping("/")
-  public String index(Principal principal, Model model) {
+  public String index(HttpServletRequest req, Principal principal, Model model) {
     long t0 = System.currentTimeMillis();
-    String pageName = doIndex(principal, model);
+    String pageName = doIndex(req, principal, model);
     long dt = System.currentTimeMillis() - t0;
     log.info("[PERF] took " + dt + " ms to process root page request");
     return pageName;
   }
 
-  private String doIndex(Principal principal, Model model) {
+  private String doIndex(HttpServletRequest req, Principal principal, Model model) {
     boolean admin = appSecurityAdmin.isAdmin(principal);
     User user = AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
+    StringBuffer location = req.getRequestURL();
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-
+    if(user != null) {
+      model.addAttribute("mail_body", messageByLocaleService.getMessage("share_application_body", new Object[]{user.firstName, user.lastName, location}));
+    }
 
     if (AuthentModel.isAuthenticated(principal)) {
       if ((user.firstName == null) && (user.lastName == null) && (user.job == null) && (user.entity == null) && user.jobTextDescription == null ){
