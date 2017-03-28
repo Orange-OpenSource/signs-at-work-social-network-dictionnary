@@ -450,12 +450,13 @@ text-decoration-line: none;
 }
 
 .share_signe{
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -200px center;
-	background-repeat: no-repeat;
-	background-size: auto 20px;
-	height: 20px;
-	width: 20px;}
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -560px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
 
 
 .sentiment_negatif, .modal-body .containerRight_signes .sentiment_negatif{
@@ -1417,6 +1418,15 @@ video{
 		height: 30px;
 		width: 30px;
 	}
+
+  .share_signe{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -420px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
 
   .newSigne {
     background-image: url(/img/sprite_picto_400X400.png);

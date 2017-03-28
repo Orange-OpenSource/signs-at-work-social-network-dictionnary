@@ -44,6 +44,14 @@
                     <span class="sr-only">Toggle navigation (FIXME: pas traduit !)</span>
                     <div class="menu_detail"></div>
                 </button>
+              <div th:if="${isAuthenticated}" class="navbar-toggle-complement">
+
+                <ul role="tablist" class="nav navbar-nav">
+                  <li role="presentation">
+                    <a  title="Share application" th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}"><div class="share_signe text-center"></div><span class="text-hide">Share signe</span></a>
+                  </li>
+                </ul>
+              </div>
 
                 <a href="/" class="text-center">
                     <div class="logo_app pull-left"></div>
@@ -61,6 +69,17 @@
                             <h4 th:text="#{signin}"/>
                         </a>
                     </li>
+                  <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">
+                    <a th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}">
+                      <div>
+                        <div class="pull-left share_signe "></div>
+                        <h4 class="container_H2" th:text="#{sign.share}"></h4>
+                        <div>
+                          <div class="hidden-lg pull-right chevron_right"></div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
                   <li th:if="${isAuthenticated and !isUserEmpty}" role="presentation" class=" aside_bckg_li ">
                     <a th:href="@{/sec/profile}">
                       <div>
