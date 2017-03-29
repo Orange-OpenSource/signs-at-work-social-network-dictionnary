@@ -55,44 +55,49 @@ public class UserController {
   MessageByLocaleService messageByLocaleService;
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile")
-  public String userDetails(Principal principal, Model model) {
+  @RequestMapping(value = "/sec/new-profil")
+  public String userProfil(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
     model.addAttribute("title", messageByLocaleService.getMessage("profile"));
     model.addAttribute("user", user);
     fillModelWithFavorites(model, user);
+    model.addAttribute("backUrl", "/");
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
 
-    return "profile";
+    return "new-profil";
   }
 
+
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/job-detail")
-  public String jobDetails(Principal principal, Model model) {
+  @RequestMapping(value = "/sec/your-job")
+  public String yourJob(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("job"));
+    model.addAttribute("title", messageByLocaleService.getMessage("your_job_title"));
     model.addAttribute("user", user);
     model.addAttribute("userCreationView", new UserCreationView());
-    model.addAttribute("backUrl", "/sec/profile");
+    model.addAttribute("backUrl", "/sec/new-profil");
 
-    return "job-detail";
+    return "your-job";
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile/job", method = RequestMethod.POST)
+  @RequestMapping(value = "/sec/profil/job", method = RequestMethod.POST)
   public String changeUserJob(
  @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
     UserService userService = services.user();
 
     User user = userService.withUserName(principal.getName());
     userService.changeJob(user, userCreationView.getJob());
+    model.addAttribute("user", user);
+    model.addAttribute("userCreationView", new UserCreationView());
+    model.addAttribute("backUrl", "/sec/new-profile");
 
-    return jobDetails(principal, model);
+    return "redirect:/sec/your-job";
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile/entity", method = RequestMethod.POST)
+  @RequestMapping(value = "/sec/profil/entity", method = RequestMethod.POST)
   public String changeUserEntity(
  @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
     UserService userService = services.user();
@@ -100,30 +105,35 @@ public class UserController {
     User user = userService.withUserName(principal.getName());
     userService.changeEntity(user, userCreationView.getEntity());
 
-    return jobDetails(principal, model);
+    model.addAttribute("user", user);
+    model.addAttribute("userCreationView", new UserCreationView());
+    model.addAttribute("backUrl", "/sec/new-profile");
+
+    return "redirect:/sec/your-job";
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile/description", method = RequestMethod.POST)
+  @RequestMapping(value = "/sec/profil/description", method = RequestMethod.POST)
   public String changeUserDescription(
  @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
     UserService userService = services.user();
 
     User user = userService.withUserName(principal.getName());
     userService.changeDescription(user, userCreationView.getJobTextDescription());
+    model.addAttribute("user", user);
 
-    return descriptionDetails(principal, model);
+    return "redirect:/sec/your-job-description";
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/description-detail")
-  public String descriptionDetails(Principal principal, Model model) {
+  @RequestMapping(value = "/sec/your-job-description")
+  public String yourJobDescription(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("description"));
+    model.addAttribute("title", messageByLocaleService.getMessage("your_job_description_title"));
     model.addAttribute("user", user);
-    model.addAttribute("backUrl", "/sec/profile");
+    model.addAttribute("backUrl", "/sec/new-profil");
 
-    return "description-detail";
+    return "your-job-description";
   }
 
   @Secured("ROLE_USER")
@@ -138,75 +148,44 @@ public class UserController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/input-profile")
-  public String inputProfile(Principal principal, Model model) {
+  @RequestMapping(value = "/sec/who-are-you")
+  public String whoAreYou(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("profile"));
+    model.addAttribute("title", messageByLocaleService.getMessage("who_are_you") );
     model.addAttribute("user", user);
-    model.addAttribute("backUrl", "/sec/profile");
+    model.addAttribute("backUrl", "/sec/new-profil");
 
-    return "input-profile";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile/profileEmpty", method = RequestMethod.POST)
-  public String createUserProfile(@ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.createProfile(user, userCreationView.getLastName(), userCreationView.getFirstName(), null, userCreationView.getJob(), userCreationView.getEntity(), null, null);
-    return userDetails(principal, model);
+    return "who-are-you";
   }
 
 
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile/lastName", method = RequestMethod.POST)
+  @RequestMapping(value = "/sec/profil/lastName", method = RequestMethod.POST)
   public String changeUserLastName(
     @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
     UserService userService = services.user();
 
     User user = userService.withUserName(principal.getName());
     userService.changeLastName(user, userCreationView.getLastName());
+    model.addAttribute("user", user);
 
-    return nameDetails(principal, model);
+    return "redirect:/sec/who-are-you";
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profile/name", method = RequestMethod.POST)
+  @RequestMapping(value = "/sec/profil/firstName", method = RequestMethod.POST)
   public String changeUserFirstName(
     @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
     UserService userService = services.user();
 
     User user = userService.withUserName(principal.getName());
     userService.changeFirstName(user, userCreationView.getFirstName());
-
-    return nameDetails(principal, model);
-  }
-
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/input-job")
-  public String inputJob(Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("job"));
     model.addAttribute("user", user);
-    model.addAttribute("backUrl", "/sec/profile");
 
-    return "input-job";
+    return "redirect:/sec/who-are-you";
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/input-description", method = RequestMethod.POST)
-  public String inputJobDescription(Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("description"));
-    model.addAttribute("user", user);
-    model.addAttribute("backUrl", "/sec/profile");
-
-    return "input-description";
-  }
 
 
   @Secured("ROLE_USER")
@@ -251,4 +230,6 @@ public class UserController {
       videoViewData.averageRate > 0,
       videoBelowToFavorite.contains(videoViewData.videoId));
   }
+
+
 }

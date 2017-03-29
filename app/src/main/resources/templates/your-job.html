@@ -41,24 +41,33 @@
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li class="aside_bckg_li">
-            <H2 th:text="#{job}"></H2>
             <a data-target="#add_job_name" data-toggle="modal" href="#">
-              <h2 class="container_H2" th:text="${user.job}"/>
-              <div>
+              <div th:if="${user.job == null}">
+                <h2 class="container_H2" th:text="#{your_job}"/>
+                <div class="pull-right  add_whith_chevron"/>
+              </div>
+              <div th:if="${user.job != null}">
+                <h2 class="container_H2" th:text="${user.job}"/>
                 <div class="pull-right  pen_whith_chevron"/>
               </div>
             </a>
           </li>
           <li class="aside_bckg_li">
-            <H2 th:text="#{entity}"></H2>
             <a data-target="#add_entity_name" data-toggle="modal" href="#">
-              <span class="container_H2" th:text="${user.entity}"/>
-              <div>
+              <div th:if="${user.entity == null}">
+                <h2 class="container_H2" th:text="#{your_entity}"/>
+                <div class="pull-right  add_whith_chevron"/>
+              </div>
+              <div th:if="${user.entity != null}">
+                <h2 class="container_H2" th:text="${user.entity}"/>
                 <div class="pull-right  pen_whith_chevron"/>
               </div>
             </a>
           </li>
         </ul>
+        <div class="modal-footer">
+          <button th:text="#{continue}" onclick="location.href='/sec/your-job-description.html'" class="btn btn-default"></button>
+        </div>
       </aside>
     </div>
 
