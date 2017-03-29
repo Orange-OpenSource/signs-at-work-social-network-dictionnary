@@ -49,21 +49,27 @@
             <aside class="sidebar">
                 <ul class="nav nav-list primary left-menu">
                     <li class="aside_bckg_li">
-                        <H2 th:text="#{jobTextDescription}"></H2>
                       <a data-target="#add_description_job" data-toggle="modal" href="#">
-                            <span class="container_H2" th:text="${user.jobTextDescription}"/>
-                            <div>
-                              <div class="pull-right  pen_whith_chevron"/>
-                            </div>
-                        </a>
+                        <div th:if="${user.jobTextDescription == null}">
+                          <h2 class="container_H2" th:text="#{your_job_description}"/>
+                          <div class="pull-right  add_whith_chevron"/>
+                        </div>
+                        <div th:if="${user.jobTextDescription != null}">
+                          <h2 class="container_H2" th:text="${user.jobTextDescription}"/>
+                          <div class="pull-right  pen_whith_chevron"/>
+                        </div>
+                      </a>
                     </li>
                     <li  class="aside_bckg_li">
-                        <h2 th:text="#{description_LSF}"></h2>
                         <a data-target="#add_file_LSF" data-toggle="modal" href="#">
-                          <h2 class="container_H2" th:text="#{edit}"></h2>
-                          <div>
+                          <div th:if="${user.jobVideoDescription == null}">
+                            <h2 class="container_H2" th:text="#{your_job_description_LSF}"/>
+                            <div class="pull-right  add_whith_chevron"/>
+                          </div>
+                          <div th:if="${user.jobVideoDescription != null}">
+                            <h2 class="container_H2" th:text="#{your_job_description_LSF}"/>
                             <div class="pull-right  pen_whith_chevron"/>
-                            </div>
+                          </div>
                         </a>
                     </li>
                 </ul>

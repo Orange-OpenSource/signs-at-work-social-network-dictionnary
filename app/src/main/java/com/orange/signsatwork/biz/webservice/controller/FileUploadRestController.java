@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -514,9 +514,9 @@ public class FileUploadRestController {
 
         response.setStatus(HttpServletResponse.SC_OK);
         if (inputType.equals("JobDescription")) {
-          return "/sec/description-detail";
+          return "/sec/your-job-description";
         } else {
-          return "/sec/name-detail";
+          return "/sec/who-are-you";
         }
       } catch (Exception errorDailymotionUploadFile) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -676,9 +676,9 @@ public class FileUploadRestController {
 
       response.setStatus(HttpServletResponse.SC_OK);
       if (inputType.equals("JobDescription")) {
-        return "/sec/description-detail";
+        return "/sec/your-job-description";
       } else {
-        return "/sec/name-detail";
+        return "/sec/who-are-you";
       }
 
     }

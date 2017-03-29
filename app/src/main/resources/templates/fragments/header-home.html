@@ -69,39 +69,27 @@
                             <h4 th:text="#{signin}"/>
                         </a>
                     </li>
-                  <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">
-                    <a th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}">
-                      <div>
-                        <div class="pull-left share_signe "></div>
-                        <h4 class="container_H2" th:text="#{sign.share}"></h4>
+                    <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">
+                      <a th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}">
                         <div>
-                          <div class="hidden-lg pull-right chevron_right"></div>
+                          <div class="pull-left share_signe "></div>
+                          <h4 class="container_H2" th:text="#{sign.share}"></h4>
+                          <div>
+                            <div class="hidden-lg pull-right chevron_right"></div>
+                          </div>
                         </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li th:if="${isAuthenticated and !isUserEmpty}" role="presentation" class=" aside_bckg_li ">
-                    <a th:href="@{/sec/profile}">
-                      <div>
-                        <div class="pull-left profil_signe "></div>
-                        <h4 class="container_H2" th:text="#{profile}"></h4>
+                      </a>
+                    </li>
+                    <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">
+                      <a th:href="@{/sec/new-profil}">
                         <div>
-                          <div class="hidden-lg pull-right chevron_right"></div>
+                          <div class="pull-left profil_signe "></div>
+                          <h4 class="container_H2" th:text="#{profile}"></h4>
+                          <div>
+                            <div class="hidden-lg pull-right chevron_right"></div>
+                          </div>
                         </div>
-                      </div>
-                    </a>
-                  </li>
-
-                    <li th:if="${isAuthenticated and isUserEmpty}" role="presentation" class=" aside_bckg_li ">
-                        <a th:href="@{/sec/input-profile}">
-                            <div>
-                                <div class="pull-left profil_signe "></div>
-                                <h4 class="container_H2" th:text="#{profile}"></h4>
-                                <div>
-                                    <div class="hidden-lg pull-right chevron_right"></div>
-                                </div>
-                            </div>
-                        </a>
+                      </a>
                     </li>
                     <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
                         <a th:href="@{/sec/communities}">
