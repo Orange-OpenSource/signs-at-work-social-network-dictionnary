@@ -11,10 +11,12 @@
 
 .glyphicon-record,.glyphicon-stop{
   font-size: 150%;
+
 }
 
 .glyphicon-record{
   color: red;
+  margin-right: 20%;
 }
 
 
