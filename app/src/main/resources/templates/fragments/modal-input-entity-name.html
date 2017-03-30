@@ -38,7 +38,7 @@
             </div>
             <form id="profileEntity" th:action="@{/sec/profil/entity}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
-                <input   type="text" value="" th:value="${user.entity}"  class="text-center border form-control" name="entity" th:autofocus="true"/>
+                <input   type="text" value="" th:value="${user.entity}"  class="text-center border form-control" name="entity" th:autofocus="true" required="true"/>
               </div>
                 <div class="modal-footer">
                     <button th:text="#{continue}" type="submit" class="btn btn-default"

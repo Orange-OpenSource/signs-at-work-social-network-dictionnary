@@ -175,6 +175,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void changeEmail(User user, String email) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setEmail(email);
+    userRepository.save(userDB);
+  }
+
+  @Override
   public void changeJob(User user, String job) {
     UserDB userDB = userRepository.findOne(user.id);
     userDB.setJob(job);

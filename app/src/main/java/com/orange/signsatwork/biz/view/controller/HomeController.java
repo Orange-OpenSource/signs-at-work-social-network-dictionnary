@@ -73,15 +73,7 @@ public class HomeController {
 
     model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
     if(user != null) {
-      model.addAttribute("mail_body", messageByLocaleService.getMessage("share_application_body", new Object[]{user.firstName, user.lastName, location}));
-    }
-
-    if (AuthentModel.isAuthenticated(principal)) {
-      if ((user.firstName == null) && (user.lastName == null) && (user.job == null) && (user.entity == null) && user.jobTextDescription == null ){
-        model.addAttribute("isUserEmpty", true);
-      } else {
-        model.addAttribute("isUserEmpty", false);
-      }
+      model.addAttribute("mail_body", messageByLocaleService.getMessage("share_application_body", new Object[]{user.name(), location}));
     }
 
     List<Long> signInFavorite = null;

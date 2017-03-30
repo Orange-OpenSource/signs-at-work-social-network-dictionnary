@@ -49,11 +49,11 @@ public class User {
   private final Services services;
 
   public String name() {
-    if ((lastName == null) && (firstName == null)) {
+    if ((lastName == null || lastName.length() == 0) && (firstName == null || firstName.length() == 0)) {
       return username;
-    } else if (lastName == null) {
+    } else if (lastName == null || lastName.length() == 0) {
       return firstName;
-    } else if (firstName == null) {
+    } else if (firstName == null || firstName.length() == 0) {
       return lastName;
     } else {
       return firstName + " " + lastName;

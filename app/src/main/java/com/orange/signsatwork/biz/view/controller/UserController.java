@@ -186,6 +186,18 @@ public class UserController {
     return "redirect:/sec/who-are-you";
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/profil/email", method = RequestMethod.POST)
+  public String changeEmail(
+    @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
+    UserService userService = services.user();
+
+    User user = userService.withUserName(principal.getName());
+    userService.changeEmail(user, userCreationView.getEmail());
+    model.addAttribute("user", user);
+
+    return "redirect:/sec/who-are-you";
+  }
 
 
   @Secured("ROLE_USER")

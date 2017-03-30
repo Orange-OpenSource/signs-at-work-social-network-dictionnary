@@ -35,6 +35,7 @@
 <div th:replace="fragments/modal-input-name-LSF :: div"/>
 <div th:replace="fragments/modal-input-lastName :: div"/>
 <div th:replace="fragments/modal-input-firstName :: div"/>
+<div th:replace="fragments/modal-input-email :: div"/>
 
 <div class="row">
 
@@ -80,6 +81,18 @@
               </div>
               <div th:if="${user.nameVideo != null}">
                 <h2 class="container_H2" th:text="#{your_name_LSF}"/>
+                <div class="pull-right  pen_whith_chevron"/>
+              </div>
+            </a>
+          </li>
+          <li  class="aside_bckg_li">
+            <a data-target="#add_email" data-toggle="modal" href="#">
+              <div th:if="${user.email == null}">
+                <h2 class="container_H2" th:text="#{your_email}"/>
+                <div class="pull-right  add_whith_chevron"/>
+              </div>
+              <div th:if="${user.email != null}">
+                <h2 class="container_H2" th:text="${user.email}"/>
                 <div class="pull-right  pen_whith_chevron"/>
               </div>
             </a>

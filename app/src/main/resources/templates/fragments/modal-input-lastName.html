@@ -39,7 +39,7 @@
             </div>
             <form id="profileLastName" th:action="@{/sec/profil/lastName}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
-                <input  id="lastName" type="text" th:value="${user.lastName}"   class="text-center border form-control" name="lastName" th:autofocus="true"/>
+                <input  id="lastName" type="text" th:value="${user.lastName}"   class="text-center border form-control" name="lastName" th:autofocus="true" required="true"/>
               </div>
                 <div class="modal-footer">
                     <button th:text="#{continue}" type="submit" class="btn btn-default"
