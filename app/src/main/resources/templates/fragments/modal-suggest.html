@@ -22,89 +22,102 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
 </head>
 <body>
 
 <div th:fragment="div" id="suggest" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class=" modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="pull-left">
-                    <div class="suggest pull-left"></div>
-                    <h4 class="pull-right" th:text="#{sign.modal.suggest}"/>
-                </div>
-            </div>
-            <div class="modal-body text-center">
-              <ul class="nav nav-list primary left-menu">
-                <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
-                    <div class="pull-right">
-                      <div class="containerRight_signes">
-                        <div class="containerRight_signes">
-                          <div class="pull-right add_whith_chevron"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <h2 th:text="#{sign.new_from_file_recording}"/>
-                  </a>
-                </li>
-
-                <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                  <a data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
-                    <div class="pull-right">
-                      <div class="containerRight_signes">
-                        <div class="containerRight_signes">
-                          <div class="pull-right add_whith_chevron"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <h2 th:text="#{sign.new_from_file_dailymotion}"/>
-                  </a>
-                </li>
-              </ul>
-            </div>
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class=" modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="suggest pull-left"></div>
+          <h4 class="pull-right" th:text="#{sign.modal.suggest}"/>
         </div>
-    </div>
-</div>
-<!--start modal-new-sign-video-file-recording-->
-<div th:if="${isAuthenticated}" id="add_video_file_recording" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <div class="pull-left">
-            <div class="suggest pull-left"></div>
-            <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
-          </div>
-        <!--</div>-->
-        <div class="spinner spinner_hidden"></div>
-        <video id="video"></video>
-          <div class="text-center">
-        <button id="start-recording" class="glyphicon glyphicon-record" title="Cliquer pour enregistrer" ></button>
-        <button id="stop-recording" class="glyphicon glyphicon-stop" title="Arrêter l'enregistrement" disabled=""></button>
-          </div>
-        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFile}" th:object="${signCreationView}" method="post">
-          <div class="modal-body text-center">
-            <input th:field="*{signName}"  id="signNameRecording" name="signNameRecording" type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" style="display: none" /><br/>
-            <span id="errorSpan"  style="visibility: hidden"></span>
-          </div>
-          <div class="modal-footer">
-            <button id="continue" th:text="#{continue}" type="submit" class="btn btn-default"
-                    data-dismiss="" disabled=""></button>
-          </div>
-        </form>
+      </div>
+      <div class="modal-body text-center">
+        <ul class="nav nav-list primary left-menu">
+          <li th:if="${isAuthenticated}" class="aside_bckg_li">
+            <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+              <div class="pull-right">
+                <div class="containerRight_signes">
+                  <div class="containerRight_signes">
+                    <div class="pull-right add_whith_chevron"></div>
+                  </div>
+                </div>
+              </div>
+              <h2 th:text="#{sign.new_from_file_recording}"/>
+            </a>
+          </li>
+
+          <li th:if="${isAuthenticated}" class="aside_bckg_li">
+            <a data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
+              <div class="pull-right">
+                <div class="containerRight_signes">
+                  <div class="containerRight_signes">
+                    <div class="pull-right add_whith_chevron"></div>
+                  </div>
+                </div>
+              </div>
+              <h2 th:text="#{sign.new_from_file_dailymotion}"/>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
+<!--start modal-new-sign-video-file-recording-->
+<div th:if="${isAuthenticated}" id="add_video_file_recording" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="suggest pull-left"></div>
+          <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
+        </div>
+      </div>
+
+      <div  class="container_record text-center">
+        <span id="label_record" th:text="#{record_sign(${'&laquo;'+signName+'&raquo;'})}"></span>
+        <div id="container_video">
+          <div class="spinner spinner_hidden"></div>
+          <video id="video"></video>
+        </div>
+
+        <div class="text-center">
+          <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
+          <button id="stop-recording" class="stop " title="Arrêter l'enregistrement" disabled=""></button>
+        </div>
+        <span>3</span>
+
+      </div>
+
+      <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFile}"
+            th:object="${signCreationView}" method="post">
+        <div class="modal-body text-center">
+          <input th:field="*{signName}" id="signNameRecording" name="signNameRecording" type="text"
+                 class="text-center border form-control" th:placeholder="#{sign.enter_name}"
+                 style="display: none"/><br/>
+          <span id="errorSpan" style="visibility: hidden"></span>
+        </div>
+        <div class="modal-footer">
+          <button id="continue" th:text="#{continue}" type="submit" class="btn btn-default"
+                  data-dismiss="" disabled=""></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <!--end modal-new-sign-video-file-recording-->
 
 
 <!--start modal-new-sign-video-file-dailymotion-->
-<div  th:if="${isAuthenticated}" id="add_video_file_dailymotion" class="modal fade" role="dialog">
+<div th:if="${isAuthenticated}" id="add_video_file_dailymotion" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -115,12 +128,14 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFile}" enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFile}" enctype="multipart/form-data"
+            th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
-          <input th:field="*{signName}" id="signNameSelected"  type="text" class="text-center border form-control" th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
+          <input th:field="*{signName}" id="signNameSelected" type="text" class="text-center border form-control"
+                 th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
           <span class="pull-left" th:text="#{sign.join_video}"></span><br/>
           <input name="file" type="file"/>
-          <span id="errorSelectedSpan"  style="visibility: hidden"></span>
+          <span id="errorSelectedSpan" style="visibility: hidden"></span>
         </div>
         <div class="modal-footer">
           <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"
@@ -134,7 +149,6 @@
 
 
 </body>
-
 
 
 </html>

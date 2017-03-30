@@ -3,6 +3,12 @@
 	background-repeat: no-repeat;
 }
 
+
+
+#container_video{
+  display: none;
+}
+
 #tooltipInframe{
   position: absolute;
   right: 15px;
@@ -922,6 +928,34 @@ text-decoration-line: none;
 	height: 40px;
 	width: 60px;
 }
+
+.record {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2340px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+}
+.stop {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2420px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  display: none;
+}
+.play {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2380px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
 .check_signe {
 	background-image: url("/img/checked.png");
 	background-position: right 20px top 16px;

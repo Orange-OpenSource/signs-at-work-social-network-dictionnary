@@ -24,6 +24,8 @@ function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
   navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
 }
 
+var videoContainer = document.getElementById('container_video');
+var labelRecord = document.getElementById('label_record');
 var videoElement = document.getElementById('video');
 //var downloadURL = document.getElementById('download-url');
 
@@ -37,6 +39,8 @@ var errorSpan = document.getElementById('errorSpan');
 
 
 startRecording.onclick = function() {
+  videoContainer.style.display="block";
+  labelRecord.style.visibility="hidden";
   startRecording.disabled = true;
   stopRecording.disabled = false;
   document.getElementById('start-recording').disabled = true;
