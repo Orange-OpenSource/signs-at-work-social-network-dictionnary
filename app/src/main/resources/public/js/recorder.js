@@ -200,7 +200,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   audioVideoRecorder.clearRecordedData();
   videoContainer.style.display="none";
   labelRecord.style.visibility="visible";
-  document.getElementById('start-recording').style.display = "block";
+  document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('stop-recording').style.display = "none";
   document.getElementById('stop-recording').disabled = true;
   document.getElementById('start-recording').disabled = false;
