@@ -91,7 +91,7 @@ public class UserController {
     userService.changeJob(user, userCreationView.getJob());
     model.addAttribute("user", user);
     model.addAttribute("userCreationView", new UserCreationView());
-    model.addAttribute("backUrl", "/sec/new-profile");
+    model.addAttribute("backUrl", "/sec/new-profil");
 
     return "redirect:/sec/your-job";
   }
@@ -107,7 +107,7 @@ public class UserController {
 
     model.addAttribute("user", user);
     model.addAttribute("userCreationView", new UserCreationView());
-    model.addAttribute("backUrl", "/sec/new-profile");
+    model.addAttribute("backUrl", "/sec/new-profil");
 
     return "redirect:/sec/your-job";
   }
@@ -134,17 +134,6 @@ public class UserController {
     model.addAttribute("backUrl", "/sec/new-profil");
 
     return "your-job-description";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/name-detail")
-  public String nameDetails(Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", user.firstName + ' ' + user.lastName);
-    model.addAttribute("user", user);
-    model.addAttribute("backUrl", "/sec/profile");
-
-    return "name-detail";
   }
 
   @Secured("ROLE_USER")

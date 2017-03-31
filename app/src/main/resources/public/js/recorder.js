@@ -24,18 +24,14 @@ function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
   navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
 }
 
-
 var videoContainer = document.getElementById('container_video');
 var labelRecord = document.getElementById('label_record');
 var labelAfterRecord = document.getElementById('label_after_record');
 var videoElement = document.getElementById('video');
-//var downloadURL = document.getElementById('download-url');
 
 var startRecording = document.getElementById('start-recording');
 var stopRecording = document.getElementById('stop-recording');
 
-//var progressBar = document.querySelector('#progress-bar');
-//var percentage = document.querySelector('#percentage');
 var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
 var counter = 3;
@@ -54,9 +50,6 @@ function timedCount() {
   t = setTimeout(function(){ timedCount() }, 1000);
 }
 
-
-
-
 startRecording.onclick = function() {
   videoContainer.style.display="block";
   labelRecord.style.visibility="hidden";
@@ -65,6 +58,7 @@ startRecording.onclick = function() {
   stopRecording.disabled = false;
   document.getElementById('start-recording').disabled = true;
   document.getElementById('stop-recording').disabled = false;
+
   captureUserMedia00(function(stream) {
     window.audioVideoRecorder = window.RecordRTC(stream, {
       type: 'video',

@@ -80,12 +80,21 @@
           <div class="add pull-left"></div>
           <h4 class="pull-right" th:text="#{recording}"></h4>
         </div>
-        <!--</div>-->
-        <div class="spinner spinner_hidden"></div>
-        <video id="video"></video>
-        <div class="text-center">
-          <button id="start-recording" class="glyphicon glyphicon-record" title="Cliquer pour enregistrer" ></button>
-          <button id="stop-recording" class="glyphicon glyphicon-stop" title="Arrêter l'enregistrement" disabled=""></button>
+        </div>
+        <div  class="container_record text-center">
+          <h4 id="label_record" th:text="#{record_name_lsf(${'&laquo;'+user.name()+'&raquo;'})}"></h4>
+          <h4 id="label_after_record" th:text="#{after_record_name_lsf(${'&laquo;'+user.name()+'&raquo;'})}" style="display: none"></h4>
+          <div id="container_video">
+            <div class="spinner spinner_hidden"></div>
+            <span id="counter"></span>
+            <video id="video"></video>
+          </div>
+
+          <div class="text-center">
+            <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
+            <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
+          </div>
+
         </div>
         <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForName}" method="post">
           <div class="modal-body text-center">
@@ -96,7 +105,6 @@
                     data-dismiss="" disabled=""></button>
           </div>
         </form>
-      </div>
     </div>
   </div>
 </div>
