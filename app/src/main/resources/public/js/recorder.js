@@ -39,6 +39,7 @@ var stopRecording = document.getElementById('stop-recording');
 var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
 var counter = 3;
+var t;
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -198,6 +199,7 @@ $formUploadRecordedVideoFile.on('input', function(event) {
 var $add_video_file_recording = $('#add_video_file_recording');
 $add_video_file_recording.on('hidden.bs.modal', function() {
  console.log("hidden add_video_file_recording modal");
+  clearTimeout(t);
   audioVideoRecorder.clearRecordedData();
   videoContainer.style.display="none";
   labelRecord.style.visibility="visible";
