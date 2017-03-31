@@ -24,8 +24,10 @@ function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
   navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
 }
 
+
 var videoContainer = document.getElementById('container_video');
 var labelRecord = document.getElementById('label_record');
+var labelAfterRecord = document.getElementById('label_after_record');
 var videoElement = document.getElementById('video');
 //var downloadURL = document.getElementById('download-url');
 
@@ -36,6 +38,22 @@ var stopRecording = document.getElementById('stop-recording');
 //var percentage = document.querySelector('#percentage');
 var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
+var counter = 3;
+
+function timedCount() {
+  document.getElementById("counter").textContent = counter;
+  counter = counter - 1;
+  if (counter < 0) {
+    document.getElementById("counter").style.visibility="hidden";
+    document.getElementById('start-recording').style.display = "none";
+    document.getElementById('stop-recording').style.display = "inline-block";
+    counter = 3;
+    return;
+  }
+  t = setTimeout(function(){ timedCount() }, 1000);
+}
+
+
 
 
 startRecording.onclick = function() {
@@ -45,18 +63,23 @@ startRecording.onclick = function() {
   stopRecording.disabled = false;
   document.getElementById('start-recording').disabled = true;
   document.getElementById('stop-recording').disabled = false;
-
   captureUserMedia00(function(stream) {
     window.audioVideoRecorder = window.RecordRTC(stream, {
       type: 'video',
       disableLogs: false
     });
     document.getElementById('video').style.visibility="visible";
+    document.getElementById("counter").style.visibility="visible";
+    timedCount();
     window.audioVideoRecorder.startRecording();
   });
 };
 
 stopRecording.onclick = function() {
+  labelAfterRecord.style.display="block";
+  labelAfterRecord.style.visibility="visible";
+  document.getElementById('start-recording').style.display = "inline-block";
+  document.getElementById('stop-recording').style.display = "none";
   stopRecording.disabled = true;
   startRecording.disabled = false;
   document.getElementById('stop-recording').disabled = true;
@@ -175,6 +198,10 @@ var $add_video_file_recording = $('#add_video_file_recording');
 $add_video_file_recording.on('hidden.bs.modal', function() {
  console.log("hidden add_video_file_recording modal");
   audioVideoRecorder.clearRecordedData();
+  videoContainer.style.display="none";
+  labelRecord.style.visibility="visible";
+  document.getElementById('start-recording').style.display = "block";
+  document.getElementById('stop-recording').style.display = "none";
   document.getElementById('stop-recording').disabled = true;
   document.getElementById('start-recording').disabled = false;
   document.getElementById('video').removeAttribute("src");

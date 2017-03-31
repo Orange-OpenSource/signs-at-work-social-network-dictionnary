@@ -945,7 +945,6 @@ text-decoration-line: none;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
-  display: none;
 }
 .play {
   background-image: url("/img/sprite_picto_400X400.png");
