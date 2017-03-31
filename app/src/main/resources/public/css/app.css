@@ -3,7 +3,9 @@
 	background-repeat: no-repeat;
 }
 
-
+#container_video #video{
+  width:90%;
+}
 
 #container_video{
   display: none;
