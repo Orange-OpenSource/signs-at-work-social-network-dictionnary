@@ -59,6 +59,7 @@ function timedCount() {
 startRecording.onclick = function() {
   videoContainer.style.display="block";
   labelRecord.style.visibility="hidden";
+  labelAfterRecord.style.display="none";
   startRecording.disabled = true;
   stopRecording.disabled = false;
   document.getElementById('start-recording').disabled = true;
@@ -90,7 +91,7 @@ stopRecording.onclick = function() {
     //downloadURL.innerHTML = '<a href="' + url + '" download="RecordRTC.webm" target="_blank">Save RecordRTC.webm to Disk!</a><hr>';
     videoElement.src = url;
     videoElement.muted = false;
-    videoElement.play();
+    //videoElement.play();
 
     videoElement.onended = function() {
       videoElement.pause();
@@ -200,6 +201,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   audioVideoRecorder.clearRecordedData();
   videoContainer.style.display="none";
   labelRecord.style.visibility="visible";
+  labelAfterRecord.style.display="none";
   document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('stop-recording').style.display = "none";
   document.getElementById('stop-recording').disabled = true;
