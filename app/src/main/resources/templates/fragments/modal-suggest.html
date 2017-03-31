@@ -82,10 +82,11 @@
       </div>
 
       <div  class="container_record text-center">
-        <span id="label_record" th:text="#{record_sign(${'&laquo;'+signName+'&raquo;'})}"></span>
-        <span id="label_after_record" th:text="#{after_record_sign(${'&laquo;'+signName+'&raquo;'})}" style="display: none"></span>
+        <H4 id="label_record" th:text="#{record_sign(${'&laquo;'+signName+'&raquo;'})}"></H4>
+        <h4 id="label_after_record" th:text="#{after_record_sign(${'&laquo;'+signName+'&raquo;'})}" style="display: none"></h4>
         <div id="container_video">
           <div class="spinner spinner_hidden"></div>
+          <span id="counter"></span>
           <video id="video"></video>
         </div>
 
@@ -93,7 +94,6 @@
           <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
           <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
         </div>
-        <span id="counter"></span>
 
       </div>
 
