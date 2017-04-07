@@ -1,0 +1,149 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+
+<div th:fragment="div" id="add_request_description_LSF" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class=" modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="pull-left">
+                  <div class="profil_signe pull-left"></div>
+                  <h4 class="pull-right" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
+                </div>
+            </div>
+            <div class="modal-body text-center">
+              <ul class="nav nav-list primary left-menu">
+                <li class="aside_bckg_li">
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                    <div class="pull-right">
+                      <div class="containerRight_signes">
+                        <div class="containerRight_signes">
+                          <div class="pull-right add_whith_chevron"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <h2 th:text="#{recording}"/>
+                  </a>
+                </li>
+
+                <li class="aside_bckg_li">
+                  <a data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
+                    <div class="pull-right">
+                      <div class="containerRight_signes">
+                        <div class="containerRight_signes">
+                          <div class="pull-right add_whith_chevron"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <h2 th:text="#{explorator}"/>
+                  </a>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--start modal-new-sign-video-file-recording-->
+<div id="add_video_file_recording" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="add pull-left"></div>
+          <h4 class="pull-right" th:text="#{recording}"></h4>
+        </div>
+        </div>
+
+        <div  class="container_record text-center">
+          <h4 id="label_record" th:text="#{record_description_request_lsf(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
+          <h4 id="label_after_record" th:text="#{after_record_description_request_lsf(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}" style="display: none"></h4>
+          <div id="container_video">
+            <div class="spinner spinner_hidden"></div>
+            <span id="counter"></span>
+            <video id="video"></video>
+          </div>
+
+          <div class="text-center">
+            <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
+            <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
+          </div>
+
+        </div>
+        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForRequestDescription}" method="post">
+          <div class="modal-body text-center">
+            <span id="errorSpan"  style="visibility: hidden"></span>
+          </div>
+          <div class="modal-footer">
+            <button id="continue" th:text="#{continue}" type="submit" class="btn btn-default"
+                    data-dismiss="" disabled=""></button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+<!--end modal-new-sign-video-file-recording-->
+
+
+<!--start modal-new-sign-video-file-dailymotion-->
+<div id="add_video_file_dailymotion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="add pull-left"></div>
+          <h4 class="pull-right" th:text="#{explorator}"></h4>
+        </div>
+      </div>
+      <div class="spinner spinner_hidden"></div>
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForRequestDescription}"  enctype="multipart/form-data" th:object="${requestCreationView}" method="post">
+        <div class="modal-body text-center">
+          <span class="pull-left" th:text="#{sign.join_video}"></span><br/>
+          <input name="file" type="file"/>
+          <span id="errorSelectedSpan"  style="visibility: hidden"></span>
+          <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
+        </div>
+        <div class="modal-footer">
+          <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"
+                  data-dismiss=""></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--end modal-new-sign-video-file-dailymotion-->
+
+
+</body>
+
+
+
+</html>
