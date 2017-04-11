@@ -23,8 +23,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <th:block th:include="fragments/header-head :: head"></th:block>
-  <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-  <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
 </head>
 <header role="banner" th:replace="fragments/header-signs-request :: header">&nbsp;</header>
 
@@ -33,7 +31,6 @@
 
 <div th:replace="fragments/modal-new-request :: div"/>
 <div th:replace="fragments/modal-request-text-description :: div"/>
-<div th:replace="fragments/modal-input-description-request-LSF :: div"/>
 
 
 <div class="row ">
@@ -160,6 +157,5 @@
 </body>
 
 <script type="text/javascript" src="../public/js/request.js" th:src="@{/js/request.js}"></script>
-<script type="text/javascript" src="../public/js/recorderProfilLSF.js" th:src="@{/js/recorderProfilLSF.js}"></script>
 
 </html>

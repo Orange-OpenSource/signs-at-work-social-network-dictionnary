@@ -27,7 +27,7 @@ var $formRequest = $('#requestInfo');
 var seeSignButton = document.getElementById('seeSignButton');
 var requestSpan = document.getElementById('requestSpan');
 $formRequest.on('submit', function(event) {
-  console.log("submit requestInfo");
+  console.log("submit");
     event.preventDefault();
     request = {
       requestName: $('#requestName').val(),
@@ -75,38 +75,3 @@ $modify_request.on('hidden.bs.modal', function() {
     seeSignButton.style.visibility="hidden";
   }
 });
-
-var $formRequestDescription = $('#uploadSelectedVideoFile');
-var errorSelectedSpan = document.getElementById('errorSelectedSpan');
-$formRequestDescription.on('submit', function(event) {
-  console.log("submit uploadSelectedVideoFile");
-  console.log("requestName "+ $('#requestName').val());
-  console.log("requestTextDescription " + $('#requestTextDescription').val());
-  var $form = $(this);
-  var formdata = new FormData($form[0]);
-  formdata.append('requestName', $('#requestName').val());
-  formdata.append('requestTextDescription', $('#requestTextDescription').val());
-  var data = (formdata !== null) ? formdata : $form.serialize();
-
-  event.preventDefault();
-  $.ajax({
-    url: $formRequestDescription.attr('action'),
-    type: 'post',
-    data: data,
-    contentType: false,
-    processData: false,
-    success: function(response) {
-      var url = "/sec/my-request-detail/"+response.requestId;
-      window.location = url;
-      errorSelectedSpan.style.visibility="hidden";
-    },
-    error: function(response) {
-      var returnedData = JSON.parse(response.responseText);
-      errorSelectedSpan.textContent = returnedData.errorMessage;
-      if (returnedData.errorType == 2) {
-        seeSignButton.style.visibility="visible";
-        seeSignButton.href="/sign/"+returnedData.signId;
-      }
-      errorSelectedSpan.style.visibility="visible";
-    }
-  })});
