@@ -82,6 +82,10 @@ $formRequestDescription.on('submit', function(event) {
   console.log("submit uploadSelectedVideoFile");
   console.log("requestName "+ $('#requestName').val());
   console.log("requestTextDescription " + $('#requestTextDescription').val());
+  document.getElementById('submitButtonFileDailymotion').disabled = true;
+  $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+  $(".spinner").css("z-index","1500").visibility="visible";
+  $("#submitButtonFileDailymotion").css("color","black");
   var $form = $(this);
   var formdata = new FormData($form[0]);
   formdata.append('requestName', $('#requestName').val());
@@ -99,6 +103,7 @@ $formRequestDescription.on('submit', function(event) {
       var url = "/sec/my-request-detail/"+response.requestId;
       window.location = url;
       errorSelectedSpan.style.visibility="hidden";
+      $(".spinner").visibility="hidden";
     },
     error: function(response) {
       var returnedData = JSON.parse(response.responseText);
@@ -108,5 +113,7 @@ $formRequestDescription.on('submit', function(event) {
         seeSignButton.href="/sign/"+returnedData.signId;
       }
       errorSelectedSpan.style.visibility="visible";
+      $(".spinner").css("z-index","-1").css("opacity","0.1");
+      $(".spinner").visibility="hidden";
     }
   })});

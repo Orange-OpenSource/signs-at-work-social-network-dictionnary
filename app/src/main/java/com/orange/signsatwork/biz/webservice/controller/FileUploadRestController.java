@@ -784,7 +784,7 @@ public class FileUploadRestController {
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
             if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-              request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+              request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), videoDailyMotion.embed_url);
               log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
             } else {
               response.setStatus(HttpServletResponse.SC_CONFLICT);

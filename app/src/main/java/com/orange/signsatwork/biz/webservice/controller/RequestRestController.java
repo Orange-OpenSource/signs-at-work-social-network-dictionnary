@@ -10,18 +10,21 @@ package com.orange.signsatwork.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
+import com.orange.signsatwork.DalymotionToken;
+import com.orange.signsatwork.SpringRestClient;
+import com.orange.signsatwork.biz.domain.AuthTokenInfo;
 import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -30,8 +33,13 @@ import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import com.orange.signsatwork.biz.webservice.model.RequestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
@@ -47,7 +55,10 @@ public class RequestRestController {
 
   @Autowired
   Services services;
-
+  @Autowired
+  DalymotionToken dalymotionToken;
+  @Autowired
+  private SpringRestClient springRestClient;
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
@@ -126,11 +137,41 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_DELETE, method = RequestMethod.POST)
-  public void  requestDeleted(@PathVariable long requestId, Principal principal) {
+  public String  requestDeleted(@PathVariable long requestId, HttpServletResponse response) {
+    String dailymotionId;
     Request request = services.request().withId(requestId);
     services.request().delete(request);
+    if (request.requestVideoDescription !=  null) {
+      dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      } catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "/sec/request";
+  }
+
+  private void DeleteVideoOnDailyMotion(String dailymotionId) {
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    final String uri = "https://api.dailymotion.com/video/"+dailymotionId;
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+    MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    headers.add("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+
+    HttpEntity<?> request = new HttpEntity<Object>(headers);
+
+    restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
 
     return;
   }
-
 }

@@ -51,6 +51,8 @@ public interface RequestService {
 
   Request create(long userId, String requestName, String requestTextDescription);
 
+  Request create(long userId, String requestName, String requestTextDescription, String requestVideoDescription);
+
   Request priorise(long requestId);
 
   void delete(Request request);
