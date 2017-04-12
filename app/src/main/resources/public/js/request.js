@@ -117,3 +117,16 @@ $formRequestDescription.on('submit', function(event) {
       $(".spinner").visibility="hidden";
     }
   })});
+
+$formRequestDescription.on('input', function(event) {
+  document.getElementById('errorSelectedSpan').style.visibility="hidden";
+});
+
+var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
+$add_video_file_dailymotion.on('hidden.bs.modal', function() {
+  console.log("hidden add_video_file_dailymotion modal");
+  document.getElementById('submitButtonFileDailymotion').disabled = true;
+  if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
+    errorSelectedSpan.style.visibility="hidden";
+  }
+});
