@@ -456,9 +456,9 @@ public class FileUploadRestController {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         if (inputType.equals("JobDescription")) {
-          body.add("title", "Description du métier de " + user.firstName + " " + user.lastName);
+          body.add("title", "Description du métier de " + user.name());
         } else {
-          body.add("title", user.firstName + " " + user.lastName);
+          body.add("title", user.name());
         }
         body.add("channel", "Tech");
         body.add("published", true);
@@ -617,9 +617,9 @@ public class FileUploadRestController {
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
       if (inputType.equals("JobDescription")) {
-        body.add("title", "Description du métier de " + user.firstName + " " + user.lastName);
+        body.add("title", "Description du métier de " + user.name());
       } else {
-        body.add("title", user.firstName + " " + user.lastName);
+        body.add("title", user.name());
       }
 
       body.add("channel", "Tech");
