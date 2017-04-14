@@ -49,6 +49,8 @@ public class RequestDB {
 
     private String requestTextDescription;
 
+    private String requestVideoDescription;
+
     @NotNull
     private Date requestDate;
 
