@@ -110,11 +110,12 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="pen pull-left"></div>
-          <h4 class="pull-right" th:text="#{Edit}"/>
+          <h4 class="pull-right" th:text="#{request.rename}"/>
         </div>
       </div>
       <form id="requestInfo" th:action="@{/ws/sec/request/} + ${requestView.id} + '/rename' " th:object="${requestCreationView}" method="post">
         <div class="modal-body text-center">
+          <span th:text="#{request.input_new_name}"></span>
           <input th:value="${requestView.name}" id="requestName" name="requestName" type="text" class="text-center border form-control"
                   required=""/><br/>
           <span id="requestSpan" style="visibility: hidden"></span>
@@ -141,7 +142,7 @@
         <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="priorise_request pull-left"></div>
-          <h4 class="pull-right" th:text="${requestView.name}"/>
+          <h4 class="pull-right" th:text="#{request.priorise_title}"/>
         </div>
       </div>
         <div class="modal-body text-center">
@@ -164,7 +165,7 @@
         <button type="button" th:onclick="'javascript:onContinue()'" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="delete_picto pull-left"></div>
-          <h4 class="pull-right" th:text="${requestView.name}"/>
+          <h4 class="pull-right" th:text="#{request.delete_title}"/>
         </div>
       </div>
       <div class="modal-body text-center">

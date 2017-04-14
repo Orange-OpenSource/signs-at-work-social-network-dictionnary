@@ -83,6 +83,7 @@ $formRequestDescription.on('submit', function(event) {
   console.log("requestName "+ $('#requestName').val());
   console.log("requestTextDescription " + $('#requestTextDescription').val());
   document.getElementById('submitButtonFileDailymotion').disabled = true;
+  document.getElementById('requestInfoSubmit').disabled=true;
   $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
   $(".spinner").css("z-index","1500").visibility="visible";
   $("#submitButtonFileDailymotion").css("color","black");
@@ -120,13 +121,26 @@ $formRequestDescription.on('submit', function(event) {
 
 $formRequestDescription.on('input', function(event) {
   document.getElementById('errorSelectedSpan').style.visibility="hidden";
+  document.getElementById('requestInfoSubmit').disabled=true;
 });
 
 var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
 $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   console.log("hidden add_video_file_dailymotion modal");
-  document.getElementById('submitButtonFileDailymotion').disabled = true;
+  document.getElementById('submitButtonFileDailymotion').disabled = false;
+  document.getElementById('requestInfoSubmit').disabled=false;
   if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
     errorSelectedSpan.style.visibility="hidden";
   }
+});
+
+var $add_request_description_LSF = $('#add_request_description_LSF');
+$add_request_description_LSF.on('show.bs.modal', function() {
+  console.log("show $add_request_description_LSF modal");
+  document.getElementById('requestInfoSubmit').disabled=true;
+});
+
+$add_request_description_LSF.on('hidden.bs.modal', function() {
+  console.log("hidden $add_request_description_LSF modal");
+  document.getElementById('requestInfoSubmit').disabled=false;
 });
