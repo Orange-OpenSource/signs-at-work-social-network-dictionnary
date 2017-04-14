@@ -1658,8 +1658,9 @@ video{
 
 
 	 img {
-		height:50%;
+     height: 18rem;
 	}
+
   input.container_H2[type="text"]{
     width: 200px;
   }
