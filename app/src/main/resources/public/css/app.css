@@ -4,6 +4,13 @@
 }
 
 
+.text_hyphenation{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /*width: 44rem;*/
+}
+
 #container_video #video{
   width:90%;
 }
