@@ -206,4 +206,24 @@ public class RequestServiceImpl implements RequestService {
 
     return requestsMatches;
   }
+
+  @Override
+  public Request changeRequestTextDescription(long requestId, String requestTextDescription) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setRequestTextDescription(requestTextDescription);
+    requestRepository.save(requestDB);
+
+    return requestFrom(requestDB, services);
+  }
+
+  @Override
+  public Request changeRequestVideoDescription(long requestId, String requestVideoDescription) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setRequestVideoDescription(requestVideoDescription);
+    requestRepository.save(requestDB);
+
+    return requestFrom(requestDB, services);
+  }
 }

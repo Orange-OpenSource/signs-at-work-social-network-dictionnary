@@ -34,7 +34,7 @@
             <div class=" modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
-                  <div class="profil_signe pull-left"></div>
+                  <div class="request_signe pull-left"></div>
                   <h4 class="pull-right" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
                 </div>
             </div>
@@ -97,7 +97,8 @@
           </div>
 
         </div>
-        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForRequestDescription}" method="post">
+
+        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForRequestDescription/} + ${requestView.id}" method="post">
           <div class="modal-body text-center">
             <span id="errorSelectedSpan"  style="visibility: hidden"></span>
             <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
@@ -125,7 +126,7 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForRequestDescription}"  enctype="multipart/form-data" th:object="${requestCreationView}" method="post">
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForRequestDescription/} + ${requestView.id}"  enctype="multipart/form-data" th:object="${requestCreationView}" method="post">
         <div class="modal-body text-center">
           <span class="pull-left" th:text="#{sign.join_video}"></span><br/>
           <input name="file" type="file"/>

@@ -715,12 +715,13 @@ public class FileUploadRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION, method = RequestMethod.POST)
-  public RequestResponse uploadSelectedVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUploadForRequestDescription(file, requestCreationView, principal, response);
+  public RequestResponse uploadSelectedVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    return handleSelectedVideoFileUploadForRequestDescription(file, requestId, requestCreationView, principal, response);
   }
 
-  private RequestResponse handleSelectedVideoFileUploadForRequestDescription(@RequestParam("file") MultipartFile file, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private RequestResponse handleSelectedVideoFileUploadForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
     {
+      Request request = null;
       RequestResponse requestResponse = new RequestResponse();
       try {
         String dailymotionId;
@@ -780,26 +781,42 @@ public class FileUploadRestController {
         }
         while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
-        Request request = null;
         if (!videoDailyMotion.embed_url.isEmpty()) {
-          if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-            if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-              request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), videoDailyMotion.embed_url);
-              log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+          if (requestId != 0) {
+            request = services.request().withId(requestId);
+            if (request.requestVideoDescription != null) {
+              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              }
+              catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                return  requestResponse;
+              }
+            }
+            services.request().changeRequestVideoDescription(requestId, videoDailyMotion.embed_url);
+
+          } else {
+            if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+              if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+                request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), videoDailyMotion.embed_url);
+                log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+              } else {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                requestResponse.errorType = 1;
+                requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+                return requestResponse;
+              }
             } else {
               response.setStatus(HttpServletResponse.SC_CONFLICT);
-              requestResponse.errorType = 1;
-              requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+              requestResponse.errorType = 2;
+              requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+              requestResponse.signId = services.sign().withName(requestCreationView.getRequestName()).list().get(0).id;
               return requestResponse;
             }
-          } else {
-            response.setStatus(HttpServletResponse.SC_CONFLICT);
-            requestResponse.errorType = 2;
-            requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
-            requestResponse.signId = services.sign().withName(requestCreationView.getRequestName()).list().get(0).id;
-            return requestResponse;
+            log.warn("handleSelectedVideoFileUploadForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
           }
-          log.warn("handleSelectedVideoFileUploadForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
@@ -817,11 +834,11 @@ public class FileUploadRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION , method = RequestMethod.POST)
-  public RequestResponse uploadRecordedVideoFileForRequestDescription(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFileForRequestDescription(videoFile, principal, response);
+  public RequestResponse uploadRecordedVideoFileForRequestDescription(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
+    return handleRecordedVideoFileForRequestDescription(videoFile, requestId, principal, response);
   }
 
-  private RequestResponse handleRecordedVideoFileForRequestDescription(VideoFile videoFile, Principal principal, HttpServletResponse response) {
+  private RequestResponse handleRecordedVideoFileForRequestDescription(VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
     RequestResponse requestResponse = new RequestResponse();
@@ -869,6 +886,7 @@ public class FileUploadRestController {
 
     try {
       String dailymotionId;
+      Request request = null;
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
@@ -924,26 +942,43 @@ public class FileUploadRestController {
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
-      Request request = null;
+
       if (!videoDailyMotion.embed_url.isEmpty()) {
-        if (services.sign().withName(videoFile.requestNameRecording).list().isEmpty()) {
-          if (services.request().withName(videoFile.requestNameRecording).list().isEmpty()) {
-            request = services.request().create(user.id, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording, videoDailyMotion.embed_url);
-            log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
+        if (requestId != 0) {
+          request = services.request().withId(requestId);
+          if (request.requestVideoDescription != null) {
+            dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            }
+            catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              return  requestResponse;
+            }
+          }
+          services.request().changeRequestVideoDescription(requestId, videoDailyMotion.embed_url);
+
+        } else {
+          if (services.sign().withName(videoFile.requestNameRecording).list().isEmpty()) {
+            if (services.request().withName(videoFile.requestNameRecording).list().isEmpty()) {
+              request = services.request().create(user.id, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording, videoDailyMotion.embed_url);
+              log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
+            } else {
+              response.setStatus(HttpServletResponse.SC_CONFLICT);
+              requestResponse.errorType = 1;
+              requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+              return requestResponse;
+            }
           } else {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
-            requestResponse.errorType = 1;
-            requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+            requestResponse.errorType = 2;
+            requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+            requestResponse.signId = services.sign().withName(videoFile.requestNameRecording).list().get(0).id;
             return requestResponse;
           }
-        } else {
-          response.setStatus(HttpServletResponse.SC_CONFLICT);
-          requestResponse.errorType = 2;
-          requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
-          requestResponse.signId = services.sign().withName(videoFile.requestNameRecording).list().get(0).id;
-          return requestResponse;
+          log.warn("handleRecordedVideoFileForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
         }
-        log.warn("handleRecordedVideoFileForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
       }
 
       response.setStatus(HttpServletResponse.SC_OK);

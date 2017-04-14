@@ -79,6 +79,9 @@ public class RequestController {
     RequestView requestView = RequestView.from(request);
 
     model.addAttribute("requestView", requestView);
+    RequestCreationView requestCreationView = new RequestCreationView();
+    requestCreationView.setRequestName(request.name);
+    model.addAttribute("requestCreationView", requestCreationView);
 
 
     return "my-request-detail";
@@ -195,8 +198,18 @@ public class RequestController {
 
 
     model.addAttribute("requestCreationView", requestCreationView);
+    model.addAttribute("requestView", new RequestView());
 
     return "signs-request";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/request/{requestId}/description", method = RequestMethod.POST)
+  public String changeDescriptionnRequest(@PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView) {
+
+    services.request().changeRequestTextDescription(requestId, requestCreationView.getRequestTextDescription());
+
+    return "redirect:/sec/my-request-detail/" + requestId;
   }
 
 }
