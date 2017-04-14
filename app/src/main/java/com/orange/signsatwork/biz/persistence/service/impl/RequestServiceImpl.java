@@ -142,6 +142,25 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
+  public Request create(long userId, String requestName, String requestTextDescription, String requestVideoDescription) {
+    RequestDB requestDB;
+    UserDB userDB = userRepository.findOne(userId);
+
+    requestDB = new RequestDB();
+    requestDB.setRequestDate(new Date());
+    requestDB.setName(requestName);
+    requestDB.setRequestTextDescription(requestTextDescription);
+    requestDB.setRequestVideoDescription(requestVideoDescription);
+    requestDB.setUser(userDB);
+    requestRepository.save(requestDB);
+
+    userDB.getRequests().add(requestDB);
+    userRepository.save(userDB);
+
+    return requestFrom(requestDB, services);
+  }
+
+  @Override
   public Request rename(long requestId, String requestName, String requestTextDescription) {
     RequestDB requestDB = requestRepository.findOne(requestId);
 
@@ -167,7 +186,7 @@ public class RequestServiceImpl implements RequestService {
   }
 
   static Request requestFrom(RequestDB requestDB, Services services) {
-    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services), UserServiceImpl.userFromSignView(requestDB.getUser()));
+    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestVideoDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services), UserServiceImpl.userFromSignView(requestDB.getUser()));
   }
 
   private RequestDB requestDBFrom(Request request) {
@@ -186,5 +205,25 @@ public class RequestServiceImpl implements RequestService {
     List<Object[]>  requestsMatches = requestRepository.findRequestsByNameWithAssociateSign(requestName, userId);
 
     return requestsMatches;
+  }
+
+  @Override
+  public Request changeRequestTextDescription(long requestId, String requestTextDescription) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setRequestTextDescription(requestTextDescription);
+    requestRepository.save(requestDB);
+
+    return requestFrom(requestDB, services);
+  }
+
+  @Override
+  public Request changeRequestVideoDescription(long requestId, String requestVideoDescription) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setRequestVideoDescription(requestVideoDescription);
+    requestRepository.save(requestDB);
+
+    return requestFrom(requestDB, services);
   }
 }

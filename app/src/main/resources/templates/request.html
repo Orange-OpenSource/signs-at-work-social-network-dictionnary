@@ -64,7 +64,7 @@
               <a th:href="@{/sec/my-request-detail/} + ${request.id}">
                 <div>
                   <div class="pull-left my_request_signe"></div>
-                  <h2 class="container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                  <h2 class="text_hyphenation container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>
                   </div>
@@ -109,7 +109,7 @@
               <a th:href="@{/sec/other-request-detail/} + ${request.id}">
                 <div>
                   <div class="pull-left request_signe"></div>
-                  <h2 class="container_H2" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                  <h2 class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>
                   </div>

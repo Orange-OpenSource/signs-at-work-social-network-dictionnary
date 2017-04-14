@@ -74,4 +74,74 @@ $modify_request.on('hidden.bs.modal', function() {
     requestSpan.style.visibility="hidden";
     seeSignButton.style.visibility="hidden";
   }
+
+});
+
+var $formRequestDescription = $('#uploadSelectedVideoFile');
+var errorSelectedSpan = document.getElementById('errorSelectedSpan');
+$formRequestDescription.on('submit', function(event) {
+  console.log("submit uploadSelectedVideoFile");
+  console.log("requestName "+ $('#requestName').val());
+  console.log("requestTextDescription " + $('#requestTextDescription').val());
+  document.getElementById('submitButtonFileDailymotion').disabled = true;
+  document.getElementById('requestInfoSubmit').disabled=true;
+  $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+  $(".spinner").css("z-index","1500").visibility="visible";
+  $("#submitButtonFileDailymotion").css("color","black");
+  var $form = $(this);
+  var formdata = new FormData($form[0]);
+  formdata.append('requestName', $('#requestName').val());
+  formdata.append('requestTextDescription', $('#requestTextDescription').val());
+  var data = (formdata !== null) ? formdata : $form.serialize();
+
+  event.preventDefault();
+  $.ajax({
+    url: $formRequestDescription.attr('action'),
+    type: 'post',
+    data: data,
+    contentType: false,
+    processData: false,
+    success: function(response) {
+      var url = "/sec/my-request-detail/"+response.requestId;
+      window.location = url;
+      errorSelectedSpan.style.visibility="hidden";
+      $(".spinner").visibility="hidden";
+    },
+    error: function(response) {
+      var returnedData = JSON.parse(response.responseText);
+      errorSelectedSpan.textContent = returnedData.errorMessage;
+      if (returnedData.errorType == 2) {
+        seeSignButton.style.visibility="visible";
+        seeSignButton.href="/sign/"+returnedData.signId;
+      }
+      errorSelectedSpan.style.visibility="visible";
+      $(".spinner").css("z-index","-1").css("opacity","0.1");
+      $(".spinner").visibility="hidden";
+    }
+  })});
+
+$formRequestDescription.on('input', function(event) {
+  document.getElementById('errorSelectedSpan').style.visibility="hidden";
+  document.getElementById('requestInfoSubmit').disabled=true;
+});
+
+var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
+$add_video_file_dailymotion.on('hidden.bs.modal', function() {
+  console.log("hidden add_video_file_dailymotion modal");
+  document.getElementById('submitButtonFileDailymotion').disabled = false;
+  document.getElementById('requestInfoSubmit').disabled=false;
+  if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
+    errorSelectedSpan.style.visibility="hidden";
+  }
+});
+
+var $add_request_description_LSF = $('#add_request_description_LSF');
+$add_request_description_LSF.on('show.bs.modal', function() {
+  console.log("show $add_request_description_LSF modal");
+  document.getElementById('requestInfoSubmit').disabled=true;
+});
+
+$add_request_description_LSF.on('hidden.bs.modal', function() {
+  console.log("hidden $add_request_description_LSF modal");
+  document.getElementById('requestInfoSubmit').disabled=false;
 });

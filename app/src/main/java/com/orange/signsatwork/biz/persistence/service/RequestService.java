@@ -41,6 +41,10 @@ public interface RequestService {
 
   Request changeSignRequest(long requestId, long signId);
 
+  Request changeRequestTextDescription(long requestId, String requestTextDescription);
+
+  Request changeRequestVideoDescription(long requestId, String requestVideoDescription);
+
   Request withId(long id);
 
   Requests withName(String name);
@@ -50,6 +54,8 @@ public interface RequestService {
   Request rename(long requestId, String requestName, String requestTextDescription);
 
   Request create(long userId, String requestName, String requestTextDescription);
+
+  Request create(long userId, String requestName, String requestTextDescription, String requestVideoDescription);
 
   Request priorise(long requestId);
 

@@ -63,7 +63,7 @@
                           <a th:if="${isAuthenticated}" th:href="@{/sec/signs-suggest(name=${request.name}, id=${request.id})}">
                             <div>
                               <div class="pull-left request_signe"></div>
-                              <h2 class="container_H2" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                              <h2 class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                               <div >
                                 <div class="pull-right chevron_right "></div>
                               </div>

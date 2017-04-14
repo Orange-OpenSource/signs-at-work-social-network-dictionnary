@@ -710,4 +710,285 @@ public class FileUploadRestController {
     return;
   }
 
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION, method = RequestMethod.POST)
+  public RequestResponse uploadSelectedVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    return handleSelectedVideoFileUploadForRequestDescription(file, requestId, requestCreationView, principal, response);
+  }
+
+  private RequestResponse handleSelectedVideoFileUploadForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
+    {
+      Request request = null;
+      RequestResponse requestResponse = new RequestResponse();
+      try {
+        String dailymotionId;
+        AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+        if (authTokenInfo.isExpired()) {
+          dalymotionToken.retrieveToken();
+          authTokenInfo = dalymotionToken.getAuthTokenInfo();
+        }
+
+        User user = services.user().withUserName(principal.getName());
+        storageService.store(file);
+        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+
+        UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
+
+
+        Resource resource = new FileSystemResource(inputFile.getAbsolutePath());
+        MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
+        parts.add("file", resource);
+
+        RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
+
+        ResponseEntity<FileUploadDailymotion> responseDailyMotion = restTemplate.exchange(urlfileUploadDailymotion.upload_url,
+          HttpMethod.POST, requestEntity, FileUploadDailymotion.class);
+        FileUploadDailymotion fileUploadDailyMotion = responseDailyMotion.getBody();
+
+
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+        body.add("url", fileUploadDailyMotion.url);
+        body.add("title", "Description LSF de la demande " + requestCreationView.getRequestName());
+        body.add("channel", "Tech");
+        body.add("published", true);
+
+
+        RestTemplate restTemplate1 = springRestClient.buildRestTemplate();
+        HttpHeaders headers1 = new HttpHeaders();
+        headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers1.set("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+        headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
+        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+          HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
+        VideoDailyMotion videoDailyMotion = response1.getBody();
+
+
+        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        do {
+          videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+          Thread.sleep(2 * 1000);
+        }
+        while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
+
+        if (!videoDailyMotion.embed_url.isEmpty()) {
+          if (requestId != 0) {
+            request = services.request().withId(requestId);
+            if (request.requestVideoDescription != null) {
+              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              }
+              catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                return  requestResponse;
+              }
+            }
+            services.request().changeRequestVideoDescription(requestId, videoDailyMotion.embed_url);
+
+          } else {
+            if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+              if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+                request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), videoDailyMotion.embed_url);
+                log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+              } else {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                requestResponse.errorType = 1;
+                requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+                return requestResponse;
+              }
+            } else {
+              response.setStatus(HttpServletResponse.SC_CONFLICT);
+              requestResponse.errorType = 2;
+              requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+              requestResponse.signId = services.sign().withName(requestCreationView.getRequestName()).list().get(0).id;
+              return requestResponse;
+            }
+            log.warn("handleSelectedVideoFileUploadForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
+          }
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        requestResponse.requestId = request.id;
+        return requestResponse;
+
+      } catch (Exception errorDailymotionUploadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        requestResponse.errorType = 3;
+        requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionUploadFile");
+        return requestResponse;
+      }
+    }
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION , method = RequestMethod.POST)
+  public RequestResponse uploadRecordedVideoFileForRequestDescription(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
+    return handleRecordedVideoFileForRequestDescription(videoFile, requestId, principal, response);
+  }
+
+  private RequestResponse handleRecordedVideoFileForRequestDescription(VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
+    log.info("VideoFile "+videoFile);
+    log.info("VideoFile name"+videoFile.name);
+    RequestResponse requestResponse = new RequestResponse();
+    String videoUrl = null;
+    String file = "/data/" + videoFile.name;
+    String fileOutput = file.replace(".webm", ".mp4");
+
+    log.info("taille fichier "+videoFile.contents.length());
+    log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponse.errorMessage = messageByLocaleService.getMessage("errorFileSize");
+      return requestResponse;
+    }
+
+
+    try {
+      //This will decode the String which is encoded by using Base64 class
+      byte[] videoByte = DatatypeConverter.parseBase64Binary(videoFile.contents.substring(videoFile.contents.indexOf(",") + 1));
+
+      new FileOutputStream(file).write(videoByte);
+    }
+    catch(Exception errorUploadFile)
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponse.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+      return requestResponse;
+    }
+
+    try {
+      String cmd;
+
+      cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
+
+      String cmdFilterLog = "/tmp/mencoder.log";
+      NativeInterface.launch(cmd, null, cmdFilterLog);
+    }
+    catch(Exception errorEncondingFile)
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponse.errorMessage = messageByLocaleService.getMessage("errorEncondingFile");
+      return requestResponse;
+    }
+
+    try {
+      String dailymotionId;
+      Request request = null;
+
+      AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+      if (authTokenInfo.isExpired()) {
+        dalymotionToken.retrieveToken();
+        authTokenInfo = dalymotionToken.getAuthTokenInfo();
+      }
+
+      User user = services.user().withUserName(principal.getName());
+
+      UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
+
+
+      File fileMp4 = new File(fileOutput);
+      Resource resource = new FileSystemResource(fileMp4.getAbsolutePath());
+      MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
+      parts.add("file", resource);
+
+      RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+
+      HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
+
+      ResponseEntity<FileUploadDailymotion> responseDailymmotion = restTemplate.exchange(urlfileUploadDailymotion.upload_url,
+        HttpMethod.POST, requestEntity, FileUploadDailymotion.class);
+      FileUploadDailymotion fileUploadDailyMotion = responseDailymmotion.getBody();
+
+
+      MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+      body.add("url", fileUploadDailyMotion.url);
+      body.add("title", "Description LSF de la demande " + videoFile.requestNameRecording);
+      body.add("channel", "Tech");
+      body.add("published", true);
+
+      RestTemplate restTemplate1 = springRestClient.buildRestTemplate();
+      HttpHeaders headers1 = new HttpHeaders();
+      headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers1.set("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+      headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+      HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+        HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
+      VideoDailyMotion videoDailyMotion = response1.getBody();
+
+
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      do {
+        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+        Thread.sleep(2 * 1000);
+      }
+      while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
+
+
+      if (!videoDailyMotion.embed_url.isEmpty()) {
+        if (requestId != 0) {
+          request = services.request().withId(requestId);
+          if (request.requestVideoDescription != null) {
+            dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            }
+            catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              return  requestResponse;
+            }
+          }
+          services.request().changeRequestVideoDescription(requestId, videoDailyMotion.embed_url);
+
+        } else {
+          if (services.sign().withName(videoFile.requestNameRecording).list().isEmpty()) {
+            if (services.request().withName(videoFile.requestNameRecording).list().isEmpty()) {
+              request = services.request().create(user.id, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording, videoDailyMotion.embed_url);
+              log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
+            } else {
+              response.setStatus(HttpServletResponse.SC_CONFLICT);
+              requestResponse.errorType = 1;
+              requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+              return requestResponse;
+            }
+          } else {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            requestResponse.errorType = 2;
+            requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+            requestResponse.signId = services.sign().withName(videoFile.requestNameRecording).list().get(0).id;
+            return requestResponse;
+          }
+          log.warn("handleRecordedVideoFileForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
+        }
+      }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      requestResponse.requestId = request.id;
+      return requestResponse;
+
+    } catch (Exception errorDailymotionUploadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponse.errorType = 3;
+      requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionUploadFile");
+      return requestResponse;
+    }
+  }
+
 }
