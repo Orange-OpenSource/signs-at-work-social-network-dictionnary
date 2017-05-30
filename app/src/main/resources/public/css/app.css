@@ -17,6 +17,8 @@ table tbody td{
 }
 
 
+
+
 .text_hyphenation{
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1569,7 +1571,7 @@ video{
     background-color: aliceblue;
     height: 10px;
     margin-left: 6px;
-    position: absolute;
+    /*position: absolute;*/
     width: 10px;
     border-radius: 10px;
     font-size: 8px;
@@ -1680,9 +1682,15 @@ video{
 		box-sizing: border-box;
 	}
 
+.test{
+  background-color: #89f6f5;
+}
 
 	 img {
-     height: 18rem;
+     height: 150px!important;
+     width: 150px!important;
+     object-fit: contain;
+     overflow: hidden;
 	}
 
   input.container_H2[type="text"]{
