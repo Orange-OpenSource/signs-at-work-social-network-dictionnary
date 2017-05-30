@@ -3,6 +3,10 @@
 	background-repeat: no-repeat;
 }
 
+table tbody td{
+  word-break: break-word;
+}
+
 
 .text_hyphenation{
   overflow: hidden;
@@ -1271,6 +1275,20 @@ video{
 }
 
 @media only screen and (max-width: 768px){
+
+  thead{
+    font-size: 12px;
+  }
+
+  .hyphenation_table{
+    min-width: 5em !important;
+    word-break: break-word;
+  }
+
+  #table-date{
+  min-width: 91px;
+  font-size: 12px;
+}
 
 	li[role="presentation"] {
 		margin-top: -15px;
