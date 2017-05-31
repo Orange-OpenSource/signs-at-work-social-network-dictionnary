@@ -3,6 +3,15 @@
 	background-repeat: no-repeat;
 }
 
+.hyphenation_table{
+  /* For Firefox */
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-width: 5em !important;
+  /* For Chrome and IE */
+  word-break: break-word;
+}
+
 table tbody td{
   word-break: break-word;
 }
@@ -1280,10 +1289,7 @@ video{
     font-size: 12px;
   }
 
-  .hyphenation_table{
-    min-width: 5em !important;
-    word-break: break-word;
-  }
+
 
   #table-date{
   min-width: 91px;
