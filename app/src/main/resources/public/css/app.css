@@ -1386,7 +1386,7 @@ video{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		width: 12rem;
+		width: 10rem;
 	}
 
   .text_hyphenation.navbar_title{
@@ -1566,15 +1566,23 @@ video{
     width: 30px;
   }
 
+  #labelSigne > a{
+  padding-left: 15px;
+    padding-right: 5px;
+}
+
   .tooltip_variante {
-    bottom: 25px;
-    background-color: aliceblue;
+    /*bottom: 25px;*/
+    /*background-color:  #f16e00;;*/
     height: 10px;
     margin-left: 6px;
-    /*position: absolute;*/
+    position: absolute;
     width: 10px;
     border-radius: 10px;
     font-size: 8px;
+    top:4px;
+    color: #000;
+    box-shadow: 0 0 0 1px #f16e00;
   }
 
 
@@ -1592,8 +1600,8 @@ video{
 
   .tooltip_comment {
     background-image: url("/img/Commentaire_Blanc.png");
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
+    background-position: right 0px top 0px;
+    background-size: auto 16px;
     height: 14px;
     width: 16px;
     position: absolute;
@@ -1681,10 +1689,6 @@ video{
 	*::before, *::after {
 		box-sizing: border-box;
 	}
-
-.test{
-  background-color: #89f6f5;
-}
 
 	 img {
      height: 150px!important;

@@ -58,9 +58,10 @@
               <div th:if="${!signView.signCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
               <img th:attr="data-src=${signView.pictureUri}"/>
             </a>
-            <div class="test">
-              <div th:if="${signView.nbVideo >1}" class="tooltip_variante" th:text="${signView.nbVideo}"></div>
+            <div class="col-lg-12 col-xl-12" >
+
               <div id="labelSigne" class=" text_hyphenation">
+                <div th:if="${signView.nbVideo >1}" class="tooltip_variante" th:text="${signView.nbVideo}"></div>
                 <a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" th:text="${signView.name}" type="text/html"></a>
                 <a th:if="${signView.id == 0}" th:href="@{${signView.url} + ${signView.lastVideoId}}" th:text="${signView.name}" type="text/html"></a>
               </div>
