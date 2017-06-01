@@ -45,6 +45,7 @@ function timedCount() {
     document.getElementById('start-recording').style.display = "none";
     document.getElementById('stop-recording').style.display = "inline-block";
     counter = 3;
+    window.audioVideoRecorder.startRecording();
     return;
   }
   t = setTimeout(function(){ timedCount() }, 1000);
@@ -67,7 +68,7 @@ startRecording.onclick = function() {
     document.getElementById('video').style.visibility="visible";
     document.getElementById("counter").style.visibility="visible";
     timedCount();
-    window.audioVideoRecorder.startRecording();
+    //window.audioVideoRecorder.startRecording();
   });
 };
 
