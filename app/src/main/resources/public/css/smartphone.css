@@ -2,13 +2,15 @@
 @media only screen
 and (min-device-width: 320px)
 and (max-device-width: 480px)
-and (-webkit-min-device-pixel-ratio: 2)
+/*and (-webkit-min-device-pixel-ratio: 2)*/
 and (orientation: portrait) {
 
 
   li[role="presentation"] {
     margin-top: -15px;
     margin-right: 15px;
+    width: 2rem;
+
   }
 
   li[role="presentation"] > a > div{
@@ -213,7 +215,7 @@ and (orientation: portrait) {
 
   .add {
     background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1006px center;
+    background-position: -1004px center;
     background-repeat: no-repeat;
     background-size: auto 30px;
     height: 30px;
@@ -239,7 +241,7 @@ and (orientation: portrait) {
   }
 
   .newSigne {
-    background-image: url(/img/sprite_picto_400X400.png);
+    background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1305px center;
     background-repeat: no-repeat;
     background-size: auto 30px;
@@ -275,78 +277,49 @@ and (orientation: portrait) {
   }
 
   #labelSigne > a{
-    padding-left: 15px;
-    padding-right: 5px;
+    /*padding-left: 15px;*/
+    padding-right: 18px;
   }
-
-  .tooltip_variante {
-    /*bottom: 25px;*/
-    /*background-color:  #f16e00;;*/
-    height: 10px;
-    margin-left: 6px;
-    position: absolute;
-    width: 10px;
-    border-radius: 10px;
-    font-size: 8px;
-    top:4px;
-    color: #000;
-    box-shadow: 0 0 0 1px #f16e00;
-  }
-
 
   .tooltip_newSigne {
-    background-image: url("/img/ajourRecent2_Blanc.png");
     background-position: right 2px top 0;
-    background-repeat: no-repeat;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
-    position: absolute;
     right: 80px;
   }
 
 
   .tooltip_comment {
-    background-image: url("/img/Commentaire_Blanc.png");
     background-position: right 0px top 0px;
     background-size: auto 16px;
     height: 14px;
     width: 16px;
-    position: absolute;
     right: 63px;
   }
 
   .tooltip_eye {
-    background-image: url("/img/PlusVues2_Blanc.png");
     background-position: right 2px top 0px;
-    background-repeat: no-repeat;
     background-size: auto 15px;
     height: 14px;
     width: 16px;
-    position: absolute;
     right: 46px;
   }
 
 
   .tooltip_positif {
-    background-image: url("/img/positif.png");
     background-position: right 2px top 0px;
-    background-repeat: no-repeat;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
-    position: absolute;
     right: 32px;
   }
 
   .tooltip_favorite {
-    background-image: url("/img/favoris.png");
     background-position: right 2px top 0px;
-    background-repeat: no-repeat;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
-    position: absolute;
     right: 15px;
   }
   .search_signe_header{
@@ -399,10 +372,12 @@ and (orientation: portrait) {
   }
 
   img {
-    height: 150px!important;
-    width: 150px!important;
+    height: 130px;
+    width: 130px;
     object-fit: contain;
     overflow: hidden;
+    /*background-color: #FDE3C1;*/
+    border: 1px solid;
   }
 
   input.container_H2[type="text"]{
@@ -456,8 +431,20 @@ and (orientation: portrait) {
     visibility: hidden;
   }
 
+  .tooltip_variante {
+    bottom: 25px;
+    background-color: aliceblue;
+    height: 10px;
+    margin-left: 6px;
+    position: absolute;
+    width: 10px;
+    border-radius: 10px;
+    font-size: 8px;
+  }
+
 
 }
+
 
 
 

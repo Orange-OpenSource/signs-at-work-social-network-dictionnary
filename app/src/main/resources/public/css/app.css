@@ -117,6 +117,10 @@ h2, .h2 {
 
 h4, .h4 {
 	font-size: 17px;
+  -ms-overflow-style: none;
+  overflow-scrolling: none;
+  overflow: hidden;
+  position: relative;
 }
 
 
@@ -234,7 +238,7 @@ a.form-control{
 .aside_bckg_li {
 	border-bottom: medium solid;
 	text-align: left;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .aside_bckg_li .aside_bckg_li >li {
@@ -1188,10 +1192,57 @@ label {
 }
 
 
-/*laptop*/
-img {
-  height: 300px!important;
-  width: 300px!important;
-  object-fit: contain;
-  overflow: hidden;
+/*.tooltip_variante {*/
+  /*height: 10px;*/
+  /*margin-left: 0px;*/
+  /*position: absolute;*/
+  /*width: 10px;*/
+  /*border-radius: 10px;*/
+  /*font-size: 8px;*/
+  /*top:4px;*/
+  /*color: #000;*/
+  /*box-shadow: 0 0 0 1px #f16e00;*/
+/*}*/
+
+
+.tooltip_newSigne {
+  background-image: url("/img/ajourRecent2_Blanc.png");
+  background-repeat: no-repeat;
+  position: absolute;
 }
+
+
+.tooltip_comment {
+  background-image: url("/img/Commentaire_Blanc.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_eye {
+  background-image: url("/img/PlusVues2_Blanc.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+
+.tooltip_positif {
+  background-image: url("/img/positif.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_favorite {
+  background-image: url("/img/favoris.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.container_tooltip {
+  background-color: red !important;
+  /*width: 120px;*/
+  position: absolute !important;
+  right: 20px;
+}
+
+
+>>>>>>> fix IE + objet-fit

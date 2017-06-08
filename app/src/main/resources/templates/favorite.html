@@ -31,7 +31,7 @@
 <body class="container-fluid">
       <div class="row ">
 
-           <div class="col-md-4 col-xs-12">
+           <div class="col-xs-12">
               <aside class="sidebar">
                 <ul class="nav nav-list primary left-menu">
                     <li class="aside_bckg_li">
@@ -47,10 +47,11 @@
 
           <div  class="text-center title_middle col-md-8 col-xs-12 middle-col "><br/>
             <div class="row">
-              <div th:each="videoView:${videosView}" class="text-center col-lg-5 col-md-4 col-xs-6 col-sm-4">
+              <div th:each="videoView:${videosView}" class="text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
                 <div class="row">
                   <div class="col-lg-12">
                     <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
+                      <div class="container_tooltip">
                       <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
                       <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
                       <div th:if="${videoView.videoHasComment}" class="tooltip_comment"></div>
@@ -61,6 +62,7 @@
                       <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
                       <div th:if="${videoView.signBelowToFavorite}" class="tooltip_favorite"></div>
                       <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
+                      </div>
                       <img th:src="${videoView.pictureUri}">
                       </img>
                     </a>
@@ -74,7 +76,8 @@
           </div>
 
           <div th:if="${#lists.isEmpty(videosView)}">
-              <h2 th:text="#{sign.not_available}"></h2>
+            <span class="text-center title_middle col-lg-12 col-md-8 col-xs-12 middle-col" th:text="#{sign.not_available}"></span>
+              <!--<h2 th:text="#{sign.not_available}"></h2>-->
           </div>
       </div>
 </body>

@@ -41,6 +41,7 @@
             <a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" >
               <div th:if="${signView.signCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
               <div th:if="${!signView.signCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
+              <div class="container_tooltip">
               <div th:if="${signView.videoHasComment}" class="tooltip_comment"></div>
               <div th:if="${!signView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
               <div th:if="${signView.videoHasView}" class="tooltip_eye"></div>
@@ -49,6 +50,7 @@
               <div th:if="${!signView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
               <div th:if="${signView.signBelowToFavorite}" class="tooltip_favorite"></div>
               <div th:if="${!signView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
+              </div>
               <img th:attr="data-src=${signView.pictureUri}">
 
               </img>
@@ -77,7 +79,7 @@
 
   <div th:if="${favoriteId} != null">
     <div th:if="${not #lists.isEmpty(videosView)}" id="videos-container" class="row">
-      <div th:id="${videoView.signName}" th:each="videoView:${videosView}" class="video-view-hidden text-center col-lg-5 col-md-4 col-xs-6 col-sm-4">
+      <div th:id="${videoView.signName}" th:each="videoView:${videosView}" class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
           <div class="row">
             <div class="col-lg-12">
               <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
