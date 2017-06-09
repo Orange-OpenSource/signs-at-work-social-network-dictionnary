@@ -143,3 +143,10 @@ and (min-width : 1824px) {
     width: 34rem;
 }
 }
+
+/*for Internet Explorer 10 & 11 : only*/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .text_hyphenation{
+  width: 34rem;
+  }
+}
