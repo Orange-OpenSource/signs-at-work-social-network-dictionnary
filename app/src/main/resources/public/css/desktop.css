@@ -2,6 +2,7 @@ img {
   height: 300px;
   width: 300px;
   object-fit: contain;
+  font-family :'object-fit: contain';  /* for IE*/
   overflow: hidden;
   /*background-color: #FDE3C1;*/
   border: 1px solid;

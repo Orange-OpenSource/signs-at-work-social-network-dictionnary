@@ -17,8 +17,6 @@ table tbody td{
 }
 
 
-
-
 .text_hyphenation{
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1172,6 +1170,10 @@ label {
 	display: block;
 }
 
+[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before{
+  width: 30px;
+  height: 30px;
+}
 /* the basic, unchecked style */
 [type="checkbox"] + span:before,
 [type="checkbox"] + [type="hidden"] + span:before  {

@@ -85,5 +85,9 @@
 
     </body>
 <script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
-
+<script >
+  $(function () {
+    objectFitImages ('img', {watchMQ: true});
+  });
+</script>
 </html>
