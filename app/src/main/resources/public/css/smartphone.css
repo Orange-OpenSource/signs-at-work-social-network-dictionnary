@@ -5,6 +5,10 @@ and (max-device-width: 480px)
 /*and (-webkit-min-device-pixel-ratio: 2)*/
 and (orientation: portrait) {
 
+  label .text_hyphenation {
+    width: 12rem;
+    padding-left: 0rem;
+  }
 
   li[role="presentation"] {
     margin-top: -15px;
@@ -100,8 +104,9 @@ and (orientation: portrait) {
   }
 
   .text_hyphenation.navbar_title{
-    width: 22rem;
+    width: 17rem;
   }
+
 
   /*start dropdown*/
 

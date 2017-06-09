@@ -101,6 +101,12 @@ li[role="presentation"]{
   border-radius: 10px;
 }
 
+
+label .text_hyphenation{
+  width: 45rem;
+  padding-left: 17rem;
+}
+
 /* Large screens ----------- */
 @media only screen
 and (min-width : 1824px) {
@@ -127,9 +133,13 @@ and (min-width : 1824px) {
     /*padding-right: 18px;*/
   }
 
-  .text_hyphenation{
-    width: 35rem;
+
+  label .text_hyphenation {
+    width: 60rem;
+    padding-left: 32rem;
   }
 
-
+  .text_hyphenation{
+    width: 34rem;
+}
 }
