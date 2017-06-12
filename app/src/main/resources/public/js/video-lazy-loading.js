@@ -54,6 +54,13 @@
     return ret;
   };
 
+  if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position){
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+    };
+  }
+
   function showVideoView(videoView) {
     videoView.style.opacity = "0";
     videoView.className = videoView.className.replace(HIDDEN_CLASS, '');
