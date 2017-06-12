@@ -147,4 +147,7 @@ and (min-width : 1824px) {
   li.forIE.aside_bckg_li {
     display:none;
   }
+  #labelSigne > a{
+    padding-left: 100px;
+  }
 }

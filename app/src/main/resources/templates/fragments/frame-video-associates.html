@@ -47,7 +47,7 @@
                 </div>
                 <img th:attr="data-src=${videoView.pictureUri}"/>
               </a>
-              <div class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
+              <div id="labelSigne" class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
             </div>
           </div>
 
@@ -60,5 +60,4 @@
 </div>
 
 </body>
-<script type="text/javascript" src="../public/js/object-fit_for_IE.js" th:src="@{/js/object-fit_for_IE.js}"></script>
 </html>
