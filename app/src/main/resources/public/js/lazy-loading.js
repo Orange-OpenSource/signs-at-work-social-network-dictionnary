@@ -55,6 +55,13 @@
     return ret;
   };
 
+  if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position){
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+    };
+  }
+
   function showSignView(signView) {
     signView.style.opacity = "0";
     signView.className = signView.className.replace(HIDDEN_CLASS, '');
