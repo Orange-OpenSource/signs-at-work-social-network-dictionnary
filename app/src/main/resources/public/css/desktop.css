@@ -150,4 +150,9 @@ and (min-width : 1824px) {
   #labelSigne > a{
     padding-left: 100px;
   }
+
+  ::-ms-clear {
+    display: none;
+  }
+
 }
