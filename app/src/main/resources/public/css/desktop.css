@@ -4,7 +4,6 @@ img {
   object-fit: contain;
   font-family :'object-fit: contain';  /* for IE*/
   overflow: hidden;
-  /*background-color: #FDE3C1;*/
   border: 1px solid;
 }
 
@@ -95,7 +94,6 @@ li[role="presentation"]{
   background-color: aliceblue;
   bottom: 30px;
   height: 20px;
-  /*margin-left: 60px;*/
   position: absolute;
   width: 20px;
   border-radius: 10px;
@@ -121,8 +119,6 @@ and (min-width : 1824px) {
   }
 
   .container_tooltip {
-    /*background-color: red !important;*/
-    /*width: 120px;*/
     position: absolute !important;
     right: 90px;
   }
@@ -130,7 +126,6 @@ and (min-width : 1824px) {
 
   #labelSigne > a{
     padding-left: 60px;
-    /*padding-right: 18px;*/
   }
 
 
@@ -144,9 +139,12 @@ and (min-width : 1824px) {
 }
 }
 
-/*for Internet Explorer 10 & 11 : only*/
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .text_hyphenation{
-  width: 34rem;
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /*
+     Votre CSS pour IE versions 10, 11 et Edge
+  */
+  li.forIE.aside_bckg_li {
+    display:none;
   }
 }

@@ -2,7 +2,6 @@
 @media only screen
 and (min-device-width: 320px)
 and (max-device-width: 480px)
-/*and (-webkit-min-device-pixel-ratio: 2)*/
 and (orientation: portrait) {
 
   label .text_hyphenation {
@@ -282,7 +281,6 @@ and (orientation: portrait) {
   }
 
   #labelSigne > a{
-    /*padding-left: 15px;*/
     padding-right: 18px;
   }
 
@@ -381,7 +379,6 @@ and (orientation: portrait) {
     width: 130px;
     object-fit: contain;
     overflow: hidden;
-    /*background-color: #FDE3C1;*/
     border: 1px solid;
   }
 
