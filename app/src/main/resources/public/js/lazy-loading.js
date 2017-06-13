@@ -168,6 +168,7 @@
     var search_criteria = document.getElementById("search-criteria");
     search_criteria.addEventListener('keyup', search);
     if (search_criteria.classList.contains("search-hidden")) {
+      $("#myform").css("border", "none");
       initWithFirstSigns();
       modeSearch=false;
     } else {
