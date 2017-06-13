@@ -4,6 +4,12 @@ and (min-device-width: 320px)
 and (max-device-width: 480px)
 and (orientation: portrait) {
 
+  li[role="presentation"].logon {
+    width: 100%;
+    position: absolute;
+    left: 55%;
+  }
+
   label .text_hyphenation {
     width: 12rem;
     padding-left: 0rem;

@@ -33,7 +33,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                     <ul class="col-xs-12 hidden-lg nav navbar-nav pull-right" role="tablist">
-                        <li th:if="${!isAuthenticated}" role="presentation" class="">
+                        <li th:if="${!isAuthenticated}" role="presentation" class="logon">
                         <a th:href="@{/login}">
                             <h4 th:text="#{signin}"/>
                         </a>
