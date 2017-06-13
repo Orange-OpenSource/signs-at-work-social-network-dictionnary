@@ -105,6 +105,32 @@ label .text_hyphenation{
   padding-left: 17rem;
 }
 
+
+#reset{
+  position: absolute;
+  top: 8px;
+  right: 29%;
+  background-color: #E2E2E2;
+  border:none;
+}
+
+#myform{
+  width: 50%;
+}
+
+#container-input{
+  margin: 0 auto;
+  width:  98%
+}
+
+
+input[type=search]{
+  width: 85%;
+}
+
+
+
+
 /* Large screens ----------- */
 @media only screen
 and (min-width : 1824px) {

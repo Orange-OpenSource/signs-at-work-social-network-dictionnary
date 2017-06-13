@@ -28,9 +28,12 @@
 
 <div th:fragment="div">
   <div id="myform" >
+  <input type='button' class="pull-rigth" id='reset' value='X' >
+    <div id="container-input">
     <input th:if="${!isSearch}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
     <input th:if="${isSearch}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>
-    <input type='button' id='reset' value='x' />
+    </div>
+  </input>
   </div>
 
   <div th:if="${favoriteId} == null">

@@ -444,7 +444,10 @@ and (orientation: portrait) {
     font-size: 8px;
   }
 
-
+  #container-input{
+    margin: 0 auto;
+    width:  85%
+  }
 }
 
 
