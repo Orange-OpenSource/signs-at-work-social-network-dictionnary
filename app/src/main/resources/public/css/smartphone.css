@@ -4,6 +4,8 @@ and (min-device-width: 320px)
 and (max-device-width: 480px)
 and (orientation: portrait) {
 
+
+
   li[role="presentation"].logon {
     width: 100%;
     position: absolute;
@@ -450,10 +452,30 @@ and (orientation: portrait) {
     font-size: 8px;
   }
 
+  #reset{
+    position: absolute;
+    top: 6px;
+    right: 24%;
+    background-color: #E2E2E2;
+    border:none;
+  }
+
   #container-input{
     margin: 0 auto;
     width:  85%
   }
+
+  #myform{
+    width: 100%;
+  }
+
+  #myform input[type=search]{
+    /*border: 2px solid ;*/
+    /*border-radius: 11px;*/
+    /*box-sizing: border-box;*/
+    padding-right: 18%;
+  }
+
 }
 
 

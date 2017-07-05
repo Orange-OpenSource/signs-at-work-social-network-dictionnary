@@ -1126,6 +1126,10 @@ video{
   margin-top: 15px;
 }
 
+#videos-container{
+  margin-top: 15px;
+}
+
 
 
 
@@ -1227,9 +1231,19 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 #myform{
   margin: 0 auto;
+  margin: 0 auto;
+}
+
+#myform input[type=search]{
   border: 2px solid ;
   border-radius: 11px;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: auto;
 }
+
+
+#myform{
+  border :none;
+}
+
 

@@ -108,8 +108,8 @@ label .text_hyphenation{
 
 #reset{
   position: absolute;
-  top: 8px;
-  right: 29%;
+  top: 6px;
+  right: 32%;
   background-color: #E2E2E2;
   border:none;
 }
@@ -117,6 +117,11 @@ label .text_hyphenation{
 #myform{
   width: 50%;
 }
+
+#myform input[type=search]{
+  padding-right: 10%;
+}
+
 
 #container-input{
   margin: 0 auto;

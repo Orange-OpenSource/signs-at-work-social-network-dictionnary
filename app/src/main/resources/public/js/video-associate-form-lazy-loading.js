@@ -282,7 +282,6 @@ $.fn.extend({
 
     var search_criteria = document.getElementById("search-criteria");
     search_criteria.addEventListener('keyup', search);
-    $("#myform").css("border", "none");
     initWithFirstSigns()
 
     // then wait to reach the page bottom to load next views
