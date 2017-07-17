@@ -118,7 +118,7 @@
                                 <!--<div >-->
                                     <tr th:each="comment :${commentDatas}">
                                         <td id="table-date"  th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></td>
-                                        <td id="test" th:text="${comment.firstName + ' ' + comment.lastName}" ></td>
+                                        <td id="test" th:text="${comment.name()}" ></td>
                                         <td class="hyphenation_table" th:text="${comment.text}"></td>
                                     </tr>
                                 <!--</div>-->

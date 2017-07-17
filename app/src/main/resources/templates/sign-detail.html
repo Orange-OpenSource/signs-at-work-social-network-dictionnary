@@ -115,8 +115,8 @@
                                 <tbody>
                                 <div th:each="video, stats :${videoHistoryDatas}">
                                     <tr>
-                                        <td th:if="${stats.last}" th:text="#{created_by(${video.firstName + ' ' + video.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
-                                        <td th:if="${!stats.last}" th:text="#{updated_by(${video.firstName + ' ' + video.lastName},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
+                                        <td th:if="${stats.last}" th:text="#{created_by(${video.name()},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
+                                        <td th:if="${!stats.last}" th:text="#{updated_by(${video.name()},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
                                     </tr>
                                 </div>
                                 </tbody>
