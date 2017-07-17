@@ -60,14 +60,6 @@ public class HomeController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
-  private static final String HOME_URL = "/";
-
-  @Value("${cgu-url}")
-  private String cgu_url;
-
-  @Autowired
-  public EmailServiceImpl emailService;
-
   @RequestMapping("/")
   public String index(HttpServletRequest req, Principal principal, Model model) {
     long t0 = System.currentTimeMillis();
