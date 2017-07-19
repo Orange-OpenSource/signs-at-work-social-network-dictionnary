@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.repository;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -39,10 +39,10 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsView();
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId order by name asc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by name asc", nativeQuery = true)
     List<Object[]> findSignsAndRequestsAlphabeticalOrderAscForSignsView(@Param("userId") long userId);
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId order by name desc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by name desc", nativeQuery = true)
     List<Object[]> findSignsAndRequestsAlphabeticalOrderDescForSignsView(@Param("userId") long userId);
 
     @Query(value="select distinct(c.sign_id) from favorites_videos a inner join favorites b inner join videos c on c.id = a.videos_id and a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)

@@ -140,7 +140,7 @@
         </div>
         <ul role="tablist" class="hidden-lg navbar-toggle-complement nav navbar-nav">
           <li th:if="${!isSearch}" role="presentation">
-            <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=true)}">
+            <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=true, isSearch=true)}">
               <div class="search_signe_header text-center"></div>
               <span class="text-hide" th:text="#{sign.search}"></span></a>
             <a th:if="${!isAuthenticated}" th:href="@{/signs(isSearch=true)}">
@@ -160,7 +160,7 @@
         </ul>
         <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
           <li th:if="${!isSearch}" role="presentation" >
-            <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=true)}">
+            <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=true, isSearch=true)}">
               <div class="search_signe_header pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
