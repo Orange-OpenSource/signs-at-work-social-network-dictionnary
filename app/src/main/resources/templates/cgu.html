@@ -31,6 +31,7 @@
 <body class="container-fluid">
 <div th:replace="fragments/modal-cgu :: div"/>
 <div th:replace="fragments/modal-cgu-lsf :: div"/>
+<div th:replace="fragments/modal-create-user :: div"/>
 
 <div class="row">
   <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
@@ -52,7 +53,8 @@
           </li>
         </ul>
         <div class="modal-footer">
-          <button th:text="#{yes_i_agree}" onclick="location.href='/sec/your-job-description.html'" class="btn btn-default"></button>
+          <a data-target="#create_user" data-toggle="modal" href="#" class="btn btn-default" th:text="#{yes_i_agree}">
+            </a>
           <button th:text="#{no_i_disagree}" onclick="location.href='/'" class="btn btn-default"></button>
         </div>
       </aside>
@@ -64,5 +66,5 @@
 
 </body>
 
-
+<script type="text/javascript" src="../public/js/create-user.js" th:src="@{/js/create-user.js}"></script>
 </html>
