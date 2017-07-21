@@ -25,8 +25,6 @@ console.log("Cool, create_user.js is loaded :)");
 var email = 'denis.boisset@orange.com';
 var subject = 'Demande de création utilisateur';
 
-
-
 var $formCreateUser = $('#createUser');
 $formCreateUser.on('submit', function(event) {
   var username = $('#username').val();
