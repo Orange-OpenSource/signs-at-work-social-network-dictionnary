@@ -166,6 +166,7 @@ public class HomeController {
     model.addAttribute("title", messageByLocaleService.getMessage("condition_of_use"));
     model.addAttribute("backUrl", HOME_URL);
     model.addAttribute("cgu_url", cgu_url);
+    model.addAttribute("user", new UserCreationView());
     return "cgu";
   }
 }
