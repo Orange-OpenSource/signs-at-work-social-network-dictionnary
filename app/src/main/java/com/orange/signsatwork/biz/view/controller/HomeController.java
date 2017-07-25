@@ -25,8 +25,10 @@ package com.orange.signsatwork.biz.view.controller;
 import com.orange.signsatwork.AppProfile;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
+import com.orange.signsatwork.biz.persistence.service.EmailService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.persistence.service.impl.EmailServiceImpl;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +64,9 @@ public class HomeController {
 
   @Value("${cgu-url}")
   private String cgu_url;
+
+  @Autowired
+  public EmailServiceImpl emailService;
 
   @RequestMapping("/")
   public String index(HttpServletRequest req, Principal principal, Model model) {
@@ -168,5 +173,17 @@ public class HomeController {
     model.addAttribute("cgu_url", cgu_url);
     model.addAttribute("user", new UserCreationView());
     return "cgu";
+  }
+
+  @RequestMapping("/sendMail")
+  public String sendMail(@ModelAttribute UserCreationView userCreationView) {
+
+    User admin = services.user().getAdmin();
+
+    String body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getUsername(), userCreationView.getEmail()});
+
+    emailService.sendSimpleMessage(admin.email, messageByLocaleService.getMessage("ask_to_create_user_title"), body );
+
+    return "redirect:/";
   }
 }
