@@ -20,7 +20,6 @@ management.context-path: /admin/
 spring.jpa.properties.hibernate.generate_statistics: false
 spring.jpa.show-sql: false
 
-
 app.admin.username: "admin"
 app.admin.password: "adminpassword"
 
