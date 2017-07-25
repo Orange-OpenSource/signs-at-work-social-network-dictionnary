@@ -73,13 +73,13 @@
           <h4 class="pull-right" th:text="#{ask_create_user}"></h4>
         </div>
       </div>
-      <form id="createUser">
+      <form class="form-inline" th:action="@{/sendMail}" enctype="multipart/form-data" th:object="${user}" method="post">
         <div class="modal-body text-center">
           <div class="form-group">
             <label for="username" th:text="#{login_to_create}"></label>
-            <input id="username"  type="text" class="form-control" required="" autofocus=""/>
+            <input th:field="*{username}" type="text" class="form-control" required="" autofocus=""/>
             <label for="email" th:text="#{email}"></label>
-            <input id="email" type="email" class="form-control" required="" />
+            <input th:field="*{email}" type="email" class="form-control" required="" />
           </div>
         </div>
 
