@@ -20,6 +20,7 @@ public class EmailServiceImpl implements EmailService {
       message.setTo(to);
       message.setSubject(subject);
       message.setText(text);
+      message.setFrom("admin@admin.com");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
