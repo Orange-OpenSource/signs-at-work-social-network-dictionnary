@@ -479,6 +479,21 @@ and (orientation: portrait) {
 }
 
 
+/* landscape */
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 480px)
+and (orientation: landscape) {
+
+  .menu_detail {
+    background-position: -460px center;
+  }
+
+  li[role="presentation"]{
+    width: 7rem;
+  }
+
+}
 
 
 /* Portrait Iphone 6*/
