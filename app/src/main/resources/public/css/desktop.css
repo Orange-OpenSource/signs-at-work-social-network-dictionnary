@@ -1,137 +1,125 @@
-img {
-  height: 300px;
-  width: 300px;
-  object-fit: contain;
-  font-family :'object-fit: contain';  /* for IE*/
-  overflow: hidden;
-  border: 1px solid;
-}
+  img {
+    height: 300px;
+    width: 300px;
+    object-fit: contain;
+    font-family: 'object-fit: contain'; /* for IE*/
+    overflow: hidden;
+    border: 1px solid;
+  }
 
+  #labelSigne > a {
+    padding-left: 15px;
+    padding-right: 18px;
+  }
 
-#labelSigne > a{
-  padding-left: 15px;
-  padding-right: 18px;
-}
+  .tooltip_newSigne {
+    background-position: 5px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 170px;
+  }
 
+  .tooltip_comment {
+    background-position: right 0px top 4px;
+    background-size: auto 50px;
+    height: 72px;
+    width: 83px;
+    right: 150px;
+  }
 
-.tooltip_newSigne {
-  background-position: 5px;
-  background-size: auto 50px;
-  height: 50px;
-  width: 83px;
-  right: 170px;
-}
+  .tooltip_eye {
+    background-position: right 22px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 80px;
+  }
 
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 50px;
+  }
 
-.tooltip_comment {
-  background-position: right 0px top 4px;
-  background-size: auto 50px;
-  height: 72px;
-  width: 83px;
-  right: 150px;
-}
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 0px;
+  }
 
-.tooltip_eye {
-  background-position: right 22px top 0px;
-  background-size: auto 50px;
-  height: 50px;
-  width: 83px;
-  right: 80px;
-}
+  .col-lg-3 span.caret {
+    position: absolute;
+    left: 12px;
+    top: 24px;
+  }
 
+  .col-lg-3 span.hidden-xs {
+    width: 100%;
+    position: relative;
+    top: 10px;
+    margin-left: 15px;
+  }
 
-.tooltip_positif {
-  background-position: right 2px top 0px;
-  background-size: auto 50px;
-  height: 50px;
-  width: 83px;
-  right: 50px;
-}
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
 
-.tooltip_favorite {
-  background-position: right 2px top 0px;
-  background-size: auto 50px;
-  height: 50px;
-  width: 83px;
-  right: 0px;
-}
+  iframe {
+    height: 37rem;
+    width: 100%;
+  }
 
+  li[role="presentation"] {
+    width: 20rem;
+  }
 
-.col-lg-3 span.caret{
-  position: absolute;
-  left: 12px;
-  top: 24px;
-}
+  .tooltip_variante {
+    background-color: aliceblue;
+    bottom: 30px;
+    height: 20px;
+    position: absolute;
+    width: 20px;
+    border-radius: 10px;
+  }
 
+  label .text_hyphenation {
+    width: 45rem;
+    padding-left: 17rem;
+  }
 
-.col-lg-3  span.hidden-xs{
-  width: 100%;
-  position: relative;
-  top: 10px;
-  margin-left: 15px;
-}
+  #reset {
+    position: absolute;
+    top: 6px;
+    right: 32%;
+    background-color: #E2E2E2;
+    border: none;
+  }
 
+  #myform {
+    width: 50%;
+  }
 
-.dropdown-menu > li > a {
-  display: block;
-  padding-left: 10px;
-  padding-top: 3px;
-  white-space: nowrap;
-  line-height: 46px;
-}
+  #myform input[type=search] {
+    padding-right: 10%;
+  }
 
-iframe{
-  height: 37rem;
-  width: 100%;
-}
+  #container-input {
+    margin: 0 auto;
+    width: 98%
+  }
 
-
-li[role="presentation"]{
-  width: 20rem;
-}
-
-.tooltip_variante {
-  background-color: aliceblue;
-  bottom: 30px;
-  height: 20px;
-  position: absolute;
-  width: 20px;
-  border-radius: 10px;
-}
-
-
-label .text_hyphenation{
-  width: 45rem;
-  padding-left: 17rem;
-}
-
-
-#reset{
-  position: absolute;
-  top: 6px;
-  right: 32%;
-  background-color: #E2E2E2;
-  border:none;
-}
-
-#myform{
-  width: 50%;
-}
-
-#myform input[type=search]{
-  padding-right: 10%;
-}
-
-
-#container-input{
-  margin: 0 auto;
-  width:  98%
-}
-
-
-input[type=search]{
-  width: 85%;
-}
+  input[type=search] {
+    width: 85%;
+  }
 
 
 
