@@ -664,6 +664,16 @@ text-decoration-line: none;
 	width: 60px;
 }
 
+
+.add_favorite_signe_header {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -380px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
 .request_signe {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1420px center;

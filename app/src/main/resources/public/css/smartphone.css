@@ -484,6 +484,11 @@ and (orientation: portrait) {
 @media only screen and (min-device-width: 360px)
   and (max-device-width: 667px) and (orientation: landscape) {
 
+  img{
+    height: 250px;
+    width: 250px;
+  }
+
   .menu_detail {
     background-position: -460px center;
   }
@@ -493,7 +498,7 @@ and (orientation: portrait) {
   }
 
   H2.text_hyphenation {
-    width: 50rem;
+    width: 48rem;
   }
 
   .navbar-collapse .navbar-nav > li {
