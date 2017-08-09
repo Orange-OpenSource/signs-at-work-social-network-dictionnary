@@ -91,6 +91,7 @@
     position: absolute;
     width: 20px;
     border-radius: 10px;
+    left: 25px;
   }
 
   label .text_hyphenation {

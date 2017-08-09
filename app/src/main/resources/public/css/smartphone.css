@@ -15,7 +15,7 @@
   }
 
   li[role="presentation"] {
-    margin-top: -15px;
+    /*margin-top: -15px;*/
     margin-right: 15px;
     width: 2rem;
 
@@ -423,7 +423,7 @@
   }
 
   ul.navbar-toggle-complement.nav.navbar-nav {
-    margin-top: 0px;
+    /*margin-top: 15px;*/
     margin-right: -15px;
   }
 
@@ -525,6 +525,11 @@
     font-size: 8px;
   }
 
+
+  .text_hyphenation.navbar_title{
+    width: 17rem;
+  }
+
   img{
     height: 150px;
     width: 150px;
@@ -538,7 +543,7 @@
   }
 
   li[role="presentation"] {
-    width: 7rem;
+    width: 6rem;
   }
 
   H2.text_hyphenation {
@@ -548,9 +553,9 @@
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-  .form-control {
-    width: 100%;
-  }
+  /*.form-control {*/
+    /*width: 100%;*/
+  /*}*/
 
   label .text_hyphenation {
     width: 26rem;

@@ -1,4 +1,4 @@
-@media only screen and (min-width:1025px) {
+@media only screen and (min-width:1025px) and (max-width:1366px) {
 
   img {
     height: 300px;
@@ -81,7 +81,7 @@
   }
 
   li[role="presentation"] {
-    width: 20rem;
+    width:17rem;
   }
 
   .tooltip_variante {
@@ -127,8 +127,7 @@
 
 
 /* Large screens ----------- */
-@media only screen
-and (min-width : 1824px) {
+@media only screen  and (min-width:1367px)  {
   .tooltip_variante {
     background-color: aliceblue;
     bottom: 30px;
@@ -157,7 +156,12 @@ and (min-width : 1824px) {
 
   .text_hyphenation{
     width: 34rem;
-}
+  }
+
+  li[role="presentation"] {
+    width:22rem;
+  }
+
 }
 
 
