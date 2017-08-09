@@ -32,7 +32,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                    <ul class="col-xs-12 hidden-lg nav navbar-nav pull-right" role="tablist">
+                    <ul class="col-xs-12 hidden-lg hidden-md nav navbar-nav pull-right" role="tablist">
                         <li th:if="${!isAuthenticated}" role="presentation" class="logon">
                         <a th:href="@{/login}">
                             <h4 th:text="#{signin}"/>
@@ -44,7 +44,7 @@
                     <span class="sr-only">Toggle navigation (FIXME: pas traduit !)</span>
                     <div class="menu_detail"></div>
                 </button>
-              <div th:if="${isAuthenticated}" class="hidden-lg navbar-toggle-complement">
+              <div th:if="${isAuthenticated}" class="hidden-lg hidden-md navbar-toggle-complement">
 
                 <ul role="tablist" class="nav navbar-nav">
                   <li role="presentation">
@@ -75,7 +75,7 @@
                           <div class="pull-left share_signe "></div>
                           <h4 class="container_H2" th:text="#{sign.share}"></h4>
                           <div>
-                            <div class="hidden-lg pull-right chevron_right"></div>
+                            <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                           </div>
                         </div>
                       </a>
@@ -86,7 +86,7 @@
                           <div class="pull-left profil_signe "></div>
                           <h4 class="container_H2" th:text="#{profile}"></h4>
                           <div>
-                            <div class="hidden-lg pull-right chevron_right"></div>
+                            <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                           </div>
                         </div>
                       </a>
@@ -97,7 +97,7 @@
                                 <div class="pull-left community_signe "></div>
                                 <h4 class="container_H2" th:text="#{communities}"></h4>
                                 <div>
-                                    <div class="hidden-lg pull-right chevron_right"></div>
+                                    <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                                 </div>
                             </div>
 
@@ -110,7 +110,7 @@
                         <div class="pull-left favorite_signe "></div>
                         <h4 class="container_H2" th:text="#{favorites}"></h4>
                         <div>
-                          <div class="hidden-lg pull-right chevron_right"></div>
+                          <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                         </div>
                       </div>
 
@@ -122,7 +122,7 @@
                                 <div class="pull-left parameters_signe "></div>
                                 <h4 class="container_H2" th:text="#{settings}"></h4>
                                 <div>
-                                    <div class="hidden-lg pull-right chevron_right"></div>
+                                    <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                                 </div>
                             </div>
                         </a>

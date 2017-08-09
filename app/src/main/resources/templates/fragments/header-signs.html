@@ -138,7 +138,7 @@
 
           </ul>
         </div>
-        <ul role="tablist" class="hidden-lg navbar-toggle-complement nav navbar-nav">
+        <ul role="tablist" class="hidden-lg hidden-md navbar-toggle-complement nav navbar-nav">
           <li th:if="${!isSearch}" role="presentation">
             <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=true, isSearch=true)}">
               <div class="search_signe_header text-center"></div>
@@ -164,7 +164,7 @@
               <div class="search_signe_header pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg pull-right chevron_right"></div>
+                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{search}"></h4>
@@ -173,7 +173,7 @@
               <div class="search_signe_header pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg pull-right chevron_right"></div>
+                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{search}"></h4>
@@ -184,7 +184,7 @@
               <div class="add pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg pull-right chevron_right"></div>
+                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{sign.add}"></h4>
@@ -195,7 +195,7 @@
               <div class="request_signe pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg pull-right chevron_right"></div>
+                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{sign.request}"></h4>
