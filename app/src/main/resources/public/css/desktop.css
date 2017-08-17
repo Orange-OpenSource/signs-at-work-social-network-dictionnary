@@ -80,9 +80,7 @@
     width: 100%;
   }
 
-  li[role="presentation"] {
-    width:17rem;
-  }
+
 
   .tooltip_variante {
     background-color: aliceblue;
@@ -128,6 +126,62 @@
 
 /* Large screens ----------- */
 @media only screen  and (min-width:1367px)  {
+
+  iframe {
+    height: 37rem;
+    width: 100%;
+  }
+
+
+  img {
+    height: 400px;
+    width: 400px;
+    object-fit: contain;
+    font-family: 'object-fit: contain'; /* for IE*/
+    overflow: hidden;
+    border: 1px solid;
+  }
+
+  .tooltip_newSigne {
+    background-position: 5px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 170px;
+  }
+
+  .tooltip_comment {
+    background-position: right 0px top 4px;
+    background-size: auto 50px;
+    height: 72px;
+    width: 83px;
+    right: 150px;
+  }
+
+  .tooltip_eye {
+    background-position: right 22px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 80px;
+  }
+
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 50px;
+  }
+
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 0px;
+  }
+
   .tooltip_variante {
     background-color: aliceblue;
     bottom: 30px;
@@ -159,7 +213,8 @@
   }
 
   li[role="presentation"] {
-    width:22rem;
+    width:20rem;
+    float: right;
   }
 
 }
@@ -183,19 +238,19 @@
 }
 
 
-  /*MacBook*/
+  /*!*MacBook*!*/
 
-  @media only screen and (min-width: 740px) {
-    /*li[role="presentation"] {*/
-      /*width: 6rem;*/
+  /*@media only screen and (min-width: 740px) {*/
+    /*!*li[role="presentation"] {*!*/
+      /*!*width: 6rem;*!*/
+    /*!*}*!*/
+
+    /*.menu_detail {*/
+      /*background-image: url("/img/sprite_picto_400X400.png");*/
+      /*background-position: -460px center;*/
+      /*background-repeat: no-repeat;*/
+      /*background-size: auto 40px;*/
+      /*height: 40px;*/
+      /*width: 40px;*/
     /*}*/
-
-    .menu_detail {
-      background-image: url("/img/sprite_picto_400X400.png");
-      background-position: -460px center;
-      background-repeat: no-repeat;
-      background-size: auto 40px;
-      height: 40px;
-      width: 40px;
-    }
-  }
+  /*}*/

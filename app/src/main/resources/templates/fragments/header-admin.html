@@ -34,7 +34,7 @@
             </div>
             <a class="pull-left" th:if="${isAuthenticated}" href="">
                 <form th:action="@{/logout}" method = "post">
-                    <button style="background-color: red" class="btn btn-secondary" type="submit" th:text="#{logout}"></button>
+                    <button style="background-color: red;display: none" class="btn btn-secondary" type="submit" th:text="#{logout}"></button>
                 </form>
             </a>
         </div>

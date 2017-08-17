@@ -3,6 +3,27 @@
 	background-repeat: no-repeat;
 }
 
+/*li[role="presentation"] {*/
+  /*width:15rem;*/
+/*}*/
+
+ul[role="tablist"]{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+  margin-right: 0px;
+  margin-left: 0px;
+
+}
+
+.container-fluid{
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
 .hyphenation_table{
   /* For Firefox */
   white-space: pre-wrap;
@@ -283,10 +304,10 @@ a.form-control{
 	width: 200px;
 	}
 
-.navbar-header {
-	padding-left: 1rem;
-	padding-right: 1rem;
-}
+/*.navbar-header {*/
+	/*padding-left: 1rem;*/
+	/*padding-right: 1rem;*/
+/*}*/
 
 .navbar * {
 	font-weight: bold;
@@ -333,7 +354,7 @@ border-top-style: solid;
 border-top-width: 1px;
 float: right;
 margin-bottom: 1rem;
-margin-right: 0rem;
+margin-right: 2rem;
 margin-top: 0rem;
 padding-bottom: 1rem;
 padding-left: 1rem;
@@ -1227,11 +1248,11 @@ label {
   position: absolute;
 }
 
-.container_tooltip {
-  background-color: red !important;
-  position: absolute !important;
-  right: 20px;
-}
+/*.container_tooltip {*/
+  /*background-color: red !important;*/
+  /*position: absolute !important;*/
+  /*right: 20px;*/
+/*}*/
 
 input[type=search].form-control,input[type=search].form-control:focus{
   border: none;

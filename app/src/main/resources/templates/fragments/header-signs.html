@@ -29,12 +29,12 @@
 <header role="banner" th:fragment="header">
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
-      <div class="col-lg-12 navbar-header">
+      <div class="col-lg-12  col-md-12 navbar-header">
         <a href="/"  id="backtoHomepage">
           <div class="chevron_left pull-left"/>
           <h1 class="hidden-xs navbar_title pull-left" />
         </a>
-        <div th:if="${isAuthenticated}" class="navbar-header col-xs-1 col-lg-3 dropdown">
+        <div th:if="${isAuthenticated}" class="navbar-header col-xs-1 col-lg-3 col-md-5 col-sm-5  dropdown">
           <button th:attr="class=${classDropdownSize}" type="button" id="dropdownMenu1"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <span class="caret pull-left"></span>
@@ -138,7 +138,7 @@
 
           </ul>
         </div>
-        <ul role="tablist" class="hidden-lg hidden-md navbar-toggle-complement nav navbar-nav">
+        <ul role="tablist" class="hidden-sm hidden-lg hidden-md navbar-toggle-complement nav navbar-nav">
           <li th:if="${!isSearch}" role="presentation">
             <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=true, isSearch=true)}">
               <div class="search_signe_header text-center"></div>
@@ -158,13 +158,14 @@
               <span th:text="#{sign.request}" class="text-hide"></span></a>
           </li>
         </ul>
-        <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
+        <div class="navbar-right">
+        <ul class="hidden-xs col-lg-12 col-md-12 nav navbar-nav" role="tablist">
           <li th:if="${!isSearch}" role="presentation" >
             <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=true, isSearch=true)}">
               <div class="search_signe_header pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                  <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{search}"></h4>
@@ -173,7 +174,7 @@
               <div class="search_signe_header pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                  <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{search}"></h4>
@@ -184,7 +185,7 @@
               <div class="add pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                  <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{sign.add}"></h4>
@@ -195,13 +196,14 @@
               <div class="request_signe pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
-                  <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                  <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                 </div>
               </div>
               <h4 th:text="#{sign.request}"></h4>
             </a>
           </li>
         </ul>
+        </div>
       </div>
     </div>
   </nav>

@@ -1,7 +1,18 @@
 /* Portrait */
 @media only screen and (max-width:320px){
 
+  .navbar-nav {
+  margin-top: -12.5px;
+  }
 
+  .open > .dropdown-menu{
+    min-width: 22rem;
+  }
+
+  .dropdown-menu>li>a{
+    padding: 16px 16px;
+    line-height: 2.4rem;
+  }
 
   li[role="presentation"].logon {
     width: 100%;
@@ -21,9 +32,9 @@
 
   }
 
-  li[role="presentation"] > a > div{
-    height: 30px;
-  }
+  /*li[role="presentation"] > a > div{*/
+    /*height: 30px;*/
+  /*}*/
 
   .navbar-collapse .navbar-nav > li {
     width: 100%;
@@ -203,10 +214,10 @@
     margin-left: 5px;
   }
   .btn .signe.pull-left{
-    background-position: -650px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -975px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
@@ -480,6 +491,106 @@
 /*# iphone 5*/
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+
+  .open > .dropdown-menu{
+    min-width: 22rem;
+  }
+
+  .col-xs-1 .caret{
+    position: absolute;
+    left: 15px;
+    position: absolute;
+    top: 14px;
+  }
+
+  .btn .signe.pull-left{
+    background-position: -975px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+
+  .search_signe_header{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -450px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .add {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1004px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .add_favorite_signe_header {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -285px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .share_signe{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -420px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .newSigne {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1305px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .require_video_inverse {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -750px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+
+  .request_signe {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1065px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+  .my_request_signe {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1680px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
 
   .tooltip_comment {
     background-position: right 0px top 0px;
@@ -531,8 +642,8 @@
   }
 
   img{
-    height: 150px;
-    width: 150px;
+    height: 140px;
+    width: 140px;
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
@@ -543,7 +654,7 @@
   }
 
   li[role="presentation"] {
-    width: 6rem;
+    width: 4rem;
   }
 
   H2.text_hyphenation {
@@ -565,7 +676,28 @@
 }
 
 /*# */
-@media only screen and (min-width:376px) and (max-width:667px) {
+@media only screen and (min-width:376px) and (max-width:495px) {
+
+  .col-xs-1 .caret{
+    position: absolute;
+    left: 15px;
+    position: absolute;
+    top: 14px;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 25px;
+  }
 
 
   .tooltip_comment {
@@ -613,8 +745,10 @@
   }
 
   img{
-    height:250px;
-    width: 250px;
+    /*height:250px;*/
+    /*width: 250px;*/
+    height:170px;
+    width: 170px;
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
@@ -622,6 +756,112 @@
 
   .menu_detail {
     background-position: -460px center;
+    background-image: url("/img/sprite_picto_400X400.png");
+  }
+
+  li[role="presentation"] {
+    width: 6rem;
+  }
+
+  H2.text_hyphenation {
+    width: 48rem;
+  }
+
+  .navbar-collapse .navbar-nav > li {
+    width: 100%;
+  }
+  /*.form-control {*/
+    /*width: 100%;*/
+  /*}*/
+
+  label .text_hyphenation {
+    width: 26rem;
+    padding-left: 0rem;
+  }
+
+}
+
+
+
+@media only screen and (min-width:496px) and (max-width:624px) {
+
+  .col-xs-1 .caret{
+    position: absolute;
+    left: 15px;
+    position: absolute;
+    top: 14px;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 25px;
+  }
+
+
+  .tooltip_comment {
+    background-position: right 0px top 0px;
+    background-size: auto 16px;
+    height: 14px;
+    width: 16px;
+    right: 63px;
+  }
+
+  .tooltip_eye {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 14px;
+    width: 16px;
+    right: 46px;
+  }
+
+
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 32px;
+  }
+
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 15px;
+  }
+
+  .tooltip_variante {
+    bottom: 25px;
+    background-color: aliceblue;
+    height: 10px;
+    margin-left: 12px;
+    position: absolute;
+    width: 10px;
+    border-radius: 10px;
+    font-size: 8px;
+  }
+
+  img{
+    height:225px;
+    width: 225px;
+    object-fit: contain;
+    overflow: hidden;
+    border: 1px solid;
+  }
+
+  .menu_detail {
+    background-position: -460px center;
+    background-image: url("/img/sprite_picto_400X400.png");
   }
 
   li[role="presentation"] {
@@ -635,9 +875,112 @@
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-  .form-control {
+  /*.form-control {*/
+  /*width: 100%;*/
+  /*}*/
+
+  label .text_hyphenation {
+    width: 26rem;
+    padding-left: 0rem;
+  }
+
+}
+
+@media only screen and (min-width:625px) and (max-width:667px) {
+
+  .col-xs-1 .caret{
+    position: absolute;
+    left: 15px;
+    position: absolute;
+    top: 14px;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 40px;
+  }
+
+
+  .tooltip_comment {
+    background-position: right 0px top 0px;
+    background-size: auto 16px;
+    height: 14px;
+    width: 16px;
+    right: 63px;
+  }
+
+  .tooltip_eye {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 14px;
+    width: 16px;
+    right: 46px;
+  }
+
+
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 32px;
+  }
+
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 15px;
+  }
+
+  .tooltip_variante {
+    bottom: 25px;
+    background-color: aliceblue;
+    height: 10px;
+    margin-left: 25px;
+    position: absolute;
+    width: 10px;
+    border-radius: 10px;
+    font-size: 8px;
+  }
+
+  img{
+    height:225px;
+    width: 225px;
+    object-fit: contain;
+    overflow: hidden;
+    border: 1px solid;
+  }
+
+  .menu_detail {
+    background-position: -460px center;
+    background-image: url("/img/sprite_picto_400X400.png");
+  }
+
+  li[role="presentation"] {
+    width: 7rem;
+  }
+
+  H2.text_hyphenation {
+    width: 48rem;
+  }
+
+  .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
+  /*.form-control {*/
+  /*width: 100%;*/
+  /*}*/
 
   label .text_hyphenation {
     width: 26rem;
@@ -648,6 +991,19 @@
 
 
 @media only screen and (min-width:668px) and (max-width:736px) {
+
+  .col-xs-1 .caret{
+    position: absolute;
+    left: 15px;
+    position: absolute;
+    top: 14px;
+  }
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 40px;
+  }
 
 
   .tooltip_comment {

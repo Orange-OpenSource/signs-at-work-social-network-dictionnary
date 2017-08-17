@@ -1,4 +1,169 @@
-@media only screen and (min-width:1024px) {
+@media only screen and (min-width:737px) and (max-width:1023px) {
+
+  /*.col-lg-3 span.hidden-xs {*/
+    /*width: 100%;*/
+    /*position: relative;*/
+    /*top: 10px;*/
+    /*margin-left: 15px;}*/
+
+  /*.navbar-toggle-complement {*/
+    /*float: right;*/
+    /*position: relative;*/
+  /*}*/
+  .direction_up {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -1618px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+
+  li[role="presentation"] {
+    width: 12rem;
+  }
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 20px;
+  }
+
+
+  .menu_detail {
+    background-position: -460px center;
+    background-image: url("/img/sprite_picto_400X400.png");
+  }
+
+  img {
+    height: 235px;
+    width: 235px;
+    object-fit: contain;
+    font-family: 'object-fit: contain'; /* for IE*/
+    overflow: hidden;
+    border: 1px solid;
+  }
+
+  #labelSigne > a {
+    padding-left: 15px;
+    padding-right: 18px;
+  }
+
+  .tooltip_newSigne {
+    background-position: 5px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 170px;
+  }
+
+  .tooltip_comment {
+    background-position: right 0px top 4px;
+    background-size: auto 50px;
+    height: 72px;
+    width: 83px;
+    right: 150px;
+  }
+
+  .tooltip_eye {
+    background-position: right 22px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 80px;
+  }
+
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 50px;
+  }
+
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 0px;
+  }
+
+  .col-lg-3 span.caret {
+    position: absolute;
+    left: 17px;
+    top: 24px;
+  }
+
+  /*.col-lg-3 span.hidden-xs {*/
+    /*width: 100%;*/
+    /*position: relative;*/
+    /*top: 10px;*/
+    /*margin-left: 17px;*/
+  /*}*/
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+  iframe {
+    height: 37rem;
+    width: 100%;
+  }
+
+  /*li[role="presentation"] {*/
+  /*width: 16rem;*/
+  /*}*/
+
+  .tooltip_variante {
+    background-color: aliceblue;
+    bottom: 30px;
+    height: 20px;
+    position: absolute;
+    width: 20px;
+    border-radius: 10px;
+    left: 25px;
+  }
+
+  label .text_hyphenation {
+    width: 45rem;
+    padding-left: 17rem;
+  }
+
+  #reset {
+    position: absolute;
+    top: 6px;
+    right: 32%;
+    background-color: #E2E2E2;
+    border: none;
+  }
+
+  #myform {
+    width: 50%;
+  }
+
+  #myform input[type=search] {
+    padding-right: 10%;
+  }
+
+  #container-input {
+    margin: 0 auto;
+    width: 98%
+  }
+
+  input[type=search] {
+    width: 85%;
+  }
+
+}
+
+
+@media only screen and (min-width:950px) and (max-width:1024px) {
 
   img {
     height: 300px;
@@ -12,6 +177,11 @@
   #labelSigne > a {
     padding-left: 15px;
     padding-right: 18px;
+  }
+  .container_tooltip {
+      background-color: red !important;
+      position: absolute !important;
+      right: 55px;
   }
 
   .tooltip_newSigne {
@@ -91,7 +261,7 @@
     position: absolute;
     width: 20px;
     border-radius: 10px;
-    left: 25px;
+    left: 30px;
   }
 
   label .text_hyphenation {

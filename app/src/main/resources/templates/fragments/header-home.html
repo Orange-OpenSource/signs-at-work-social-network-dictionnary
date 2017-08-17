@@ -44,7 +44,7 @@
                     <span class="sr-only">Toggle navigation (FIXME: pas traduit !)</span>
                     <div class="menu_detail"></div>
                 </button>
-              <div th:if="${isAuthenticated}" class="hidden-lg hidden-md navbar-toggle-complement">
+              <div th:if="${isAuthenticated}" class="hidden-sm hidden-lg hidden-md navbar-toggle-complement">
 
                 <ul role="tablist" class="nav navbar-nav">
                   <li role="presentation">
@@ -58,24 +58,24 @@
                 </a>
                 <a class="hidden-xs pull-left" th:if="${isAuthenticated and isDevProfile}" href="">
                     <form th:action="@{/logout}" method = "post">
-                    <button style="background-color: red" class="btn btn-secondary" type="submit" th:text="#{logout}"></button>
+                    <button style="background-color: red;display: none" class="btn btn-secondary" type="submit" th:text="#{logout}"></button>
                     </form>
                 </a>
             </div>
-            <div class=" col-lg-12 navbar-right collapse navbar-collapse" id="orange-navbar-collapse">
-                <ul class=" nav navbar-nav" role="tablist">
+            <div class="navbar-right collapse navbar-collapse" id="orange-navbar-collapse">
+                <ul class=" col-lg-12 col-md-12 nav navbar-nav" role="tablist">
                     <li th:if="${!isAuthenticated}" role="presentation" class="">
                         <a th:href="@{/login}">
                             <h4 th:text="#{signin}"/>
                         </a>
                     </li>
-                    <li th:if="${isAuthenticated}" role="presentation" class="hidden-xs aside_bckg_li ">
+                    <li th:if="${isAuthenticated}" role="presentation" class=" hidden-xs aside_bckg_li ">
                       <a class="" th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}">
                         <div>
                           <div class="pull-left share_signe "></div>
                           <h4 class="container_H2" th:text="#{sign.share}"></h4>
                           <div>
-                            <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                            <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                           </div>
                         </div>
                       </a>
@@ -86,7 +86,7 @@
                           <div class="pull-left profil_signe "></div>
                           <h4 class="container_H2" th:text="#{profile}"></h4>
                           <div>
-                            <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                            <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                           </div>
                         </div>
                       </a>
@@ -97,7 +97,7 @@
                                 <div class="pull-left community_signe "></div>
                                 <h4 class="container_H2" th:text="#{communities}"></h4>
                                 <div>
-                                    <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                                    <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                                 </div>
                             </div>
 
@@ -108,9 +108,9 @@
                        data-target="#favorite">
                       <div>
                         <div class="pull-left favorite_signe "></div>
-                        <h4 class="container_H2" th:text="#{favorites}"></h4>
+                        <h4 class="container_H2 " th:text="#{favorites}"></h4>
                         <div>
-                          <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                          <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                         </div>
                       </div>
 
@@ -122,7 +122,7 @@
                                 <div class="pull-left parameters_signe "></div>
                                 <h4 class="container_H2" th:text="#{settings}"></h4>
                                 <div>
-                                    <div class="hidden-lg hidden-md pull-right chevron_right"></div>
+                                    <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                                 </div>
                             </div>
                         </a>
