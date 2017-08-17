@@ -1,4 +1,15 @@
-@media only screen and (min-width:1025px) and (max-width:1366px) {
+@media only screen and (min-width:1025px) and (max-width:1199px) {
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 55px;
+  }
+
+
+  li[role="presentation"] {
+    width: 17rem;
+  }
 
   img {
     height: 300px;
@@ -89,6 +100,151 @@
     position: absolute;
     width: 20px;
     border-radius: 10px;
+    left:40px;
+  }
+
+  label .text_hyphenation {
+    width: 45rem;
+    padding-left: 17rem;
+  }
+
+  #reset {
+    position: absolute;
+    top: 6px;
+    right: 32%;
+    background-color: #E2E2E2;
+    border: none;
+  }
+
+  #myform {
+    width: 50%;
+  }
+
+  #myform input[type=search] {
+    padding-right: 10%;
+  }
+
+  #container-input {
+    margin: 0 auto;
+    width: 98%
+  }
+
+  input[type=search] {
+    width: 85%;
+  }
+
+}
+
+@media only screen and (min-width:1200px) and (max-width:1365px) {
+
+  #tooltipInframe {
+    position: absolute;
+    right: 27px;
+  }
+
+  .col-lg-3 .dropdown-toggle {
+    width: 20em;
+  }
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 40px;
+  }
+
+
+  li[role="presentation"] {
+    width: 17rem;
+  }
+
+  img {
+    height: 260px;
+    width: 260px;
+    object-fit: contain;
+    font-family: 'object-fit: contain'; /* for IE*/
+    overflow: hidden;
+    border: 1px solid;
+  }
+
+  #labelSigne > a {
+    padding-left: 15px;
+    padding-right: 18px;
+  }
+
+  .tooltip_newSigne {
+    background-position: 5px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 170px;
+  }
+
+  .tooltip_comment {
+    background-position: right 0px top 4px;
+    background-size: auto 50px;
+    height: 72px;
+    width: 83px;
+    right: 150px;
+  }
+
+  .tooltip_eye {
+    background-position: right 22px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 80px;
+  }
+
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 50px;
+  }
+
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 0px;
+  }
+
+  .col-lg-3 span.caret {
+    position: absolute;
+    left: 17px;
+    top: 24px;
+  }
+
+  .col-lg-3 span.hidden-xs {
+    width: 100%;
+    position: relative;
+    top: 10px;
+    margin-left: 15px;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+  iframe {
+    height: 37rem;
+    width: 100%;
+  }
+
+  .tooltip_variante {
+    background-color: aliceblue;
+    bottom: 30px;
+    height: 20px;
+    position: absolute;
+    width: 20px;
+    border-radius: 10px;
+    left:30px;
   }
 
   label .text_hyphenation {
@@ -125,7 +281,7 @@
 
 
 /* Large screens ----------- */
-@media only screen  and (min-width:1367px)  {
+@media only screen  and (min-width:1366px)  {
 
   iframe {
     height: 37rem;
@@ -134,8 +290,8 @@
 
 
   img {
-    height: 400px;
-    width: 400px;
+    height: 320px;
+    width: 320px;
     object-fit: contain;
     font-family: 'object-fit: contain'; /* for IE*/
     overflow: hidden;
@@ -214,7 +370,6 @@
 
   li[role="presentation"] {
     width:20rem;
-    float: right;
   }
 
 }
