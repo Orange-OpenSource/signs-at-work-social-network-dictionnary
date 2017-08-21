@@ -109,7 +109,6 @@
 
   label .text_hyphenation {
     width: 22rem;
-    /*padding-left: 17rem;*/
   }
 
   #reset {
@@ -257,7 +256,6 @@
 
   label .text_hyphenation {
     width: 22rem;
-    /*padding-left: 17rem;*/
   }
 
   #reset {
@@ -290,13 +288,6 @@
 
 /* Large screens ----------- */
 @media only screen  and (min-width:1366px)  {
-
-  /*.col-lg-3 span.hidden-xs {*/
-    /*width: 100%;*/
-    /*position: relative;*/
-    /*top: 10px;*/
-    /*margin-left: 15px;*/
-  /*}*/
 
   .col-lg-3 span.caret {
     position: absolute;
@@ -441,7 +432,6 @@
 
   label .text_hyphenation {
     width:22rem;
-    /*padding-left: 32rem;*/
   }
 
   .text_hyphenation{
@@ -471,21 +461,3 @@
   }
 
 }
-
-
-  /*!*MacBook*!*/
-
-  /*@media only screen and (min-width: 740px) {*/
-    /*!*li[role="presentation"] {*!*/
-      /*!*width: 6rem;*!*/
-    /*!*}*!*/
-
-    /*.menu_detail {*/
-      /*background-image: url("/img/sprite_picto_400X400.png");*/
-      /*background-position: -460px center;*/
-      /*background-repeat: no-repeat;*/
-      /*background-size: auto 40px;*/
-      /*height: 40px;*/
-      /*width: 40px;*/
-    /*}*/
-  /*}*/

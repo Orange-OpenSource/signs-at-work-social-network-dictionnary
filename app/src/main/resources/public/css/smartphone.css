@@ -33,15 +33,10 @@
   }
 
   li[role="presentation"] {
-    /*margin-top: -15px;*/
     margin-right: 15px;
     width: 2rem;
 
   }
-
-  /*li[role="presentation"] > a > div{*/
-  /*height: 30px;*/
-  /*}*/
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
@@ -415,8 +410,6 @@
     padding-left: 0;
     padding-right: 0;
     text-overflow: ellipsis;
-    /*width: 75%;*/
-    /*width: 100%;*/
   }
 
   .col-md-4.col-xs-6.col-sm-4 object {
@@ -472,7 +465,6 @@
   }
 
   ul.navbar-toggle-complement.nav.navbar-nav {
-    /*margin-top: 15px;*/
     margin-right: -15px;
   }
 
@@ -824,16 +816,10 @@
     width: 4rem;
   }
 
-  /*H2.text_hyphenation {*/
-    /*width: 48rem;*/
-  /*}*/
 
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-  /*.form-control {*/
-    /*width: 100%;*/
-  /*}*/
 
   label .text_hyphenation {
     width: 26rem;
@@ -842,7 +828,6 @@
 
 }
 
-/*# */
 @media only screen and (min-width:376px) and (max-width:495px) {
 
   .text_hyphenation.navbar_title{
@@ -1072,8 +1057,6 @@
   }
 
   img{
-    /*height:250px;*/
-    /*width: 250px;*/
     height:170px;
     width: 170px;
     object-fit: contain;
@@ -1121,9 +1104,6 @@
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-  /*.form-control {*/
-    /*width: 100%;*/
-  /*}*/
 
   label .text_hyphenation {
     width: 26rem;
@@ -1268,9 +1248,6 @@
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-  /*.form-control {*/
-  /*width: 100%;*/
-  /*}*/
 
   label .text_hyphenation {
     width: 26rem;
@@ -1399,9 +1376,6 @@
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-  /*.form-control {*/
-  /*width: 100%;*/
-  /*}*/
 
   label .text_hyphenation {
     width: 26rem;
@@ -1538,12 +1512,4 @@
 }
 
 
-/*!* Portrait Iphone 6*!*/
-/*@media only screen*/
-/*and (min-device-width: 375px)*/
-/*and (max-device-width: 667px)*/
-/*and (-webkit-min-device-pixel-ratio: 2)*/
-/*and (orientation: portrait) {*/
-
-/*}*/
 

@@ -3,10 +3,6 @@
 	background-repeat: no-repeat;
 }
 
-/*li[role="presentation"] {*/
-  /*width:15rem;*/
-/*}*/
-
 ul[role="tablist"]{
   padding-left: 0px;
   padding-right: 0px;
@@ -174,13 +170,6 @@ h4, .h4 {
 	pointer-events: none;
 }
 
-/*input[type="search"] {*/
-	/*border: 2px solid ;*/
-	/*border-radius: 11px;*/
-	/*box-sizing: border-box;*/
-  /*margin: 0 auto;*/
-  /*width: 100%;*/
-/*}*/
 input[type="text"],[type="email"],[type="password"] {
 	margin:0 auto;
 }
@@ -304,10 +293,6 @@ a.form-control{
 	width: 200px;
 	}
 
-/*.navbar-header {*/
-	/*padding-left: 1rem;*/
-	/*padding-right: 1rem;*/
-/*}*/
 
 .navbar * {
 	font-weight: bold;
@@ -1248,11 +1233,6 @@ label {
   position: absolute;
 }
 
-/*.container_tooltip {*/
-  /*background-color: red !important;*/
-  /*position: absolute !important;*/
-  /*right: 20px;*/
-/*}*/
 
 input[type=search].form-control,input[type=search].form-control:focus{
   border: none;
