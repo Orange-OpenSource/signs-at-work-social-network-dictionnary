@@ -29,7 +29,7 @@
 <header role="banner" th:fragment="header">
     <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
-            <div class="col-lg-12 navbar-header">
+            <div class="col-lg-12 col-sm-12 navbar-header">
                 <a th:href="${backUrl}">
                     <div class="chevron_left pull-left"></div>
                     <h1 class="text_hyphenation navbar_title pull-left" th:text="${title}"/>
@@ -53,7 +53,7 @@
               <ul th:if="${isAuthenticated}" role="tablist" class="navbar-toggle-complement nav navbar-nav">
                 <li role="presentation">
                   <a data-target="#add_sign_to_favorite" data-toggle="modal" href="#" title="add favorite">
-                    <div class="hidden-lg hidden-md add_favorite_signe_header text-center"></div>
+                    <div class="hidden-lg hidden-md hidden-sm add_favorite_signe_header text-center"></div>
                     <span th:text="#{favorite.add}" class="text-hide"></span></a>
                 </li>
               </ul>

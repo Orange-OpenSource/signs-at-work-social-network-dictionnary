@@ -845,6 +845,10 @@
 /*# */
 @media only screen and (min-width:376px) and (max-width:495px) {
 
+  .text_hyphenation.navbar_title{
+    width: 17rem;
+  }
+
   H2.text_hyphenation{
     width: 23rem;
   }
@@ -1132,6 +1136,44 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  .col-xs-12 iframe, .col-xs-12 img, .col-xs-12 embed {
+    width: 100%;
+  }
+
+  #container-input{
+    margin: 0 auto;
+    width:  85%
+  }
+
+  #myform input[type=search]{
+    border: 2px solid ;
+    border-radius: 11px;
+    box-sizing: border-box;
+    padding-right: 18%;
+  }
+
+  #reset{
+    position: absolute;
+    top: 6px;
+    right: 30%;
+    background-color: #E2E2E2;
+    border:none;
+  }
+
+
+
+  .aside_bckg_li h2,.aside_bckg_li h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:30rem;
+  }
+
+  .text_hyphenation.navbar_title{
+    width: 30rem;
+  }
+
+
   .col-xs-1 .dropdown-toggle {
     width: 8em;
   }
@@ -1238,6 +1280,30 @@
 }
 
 @media only screen and (min-width:625px) and (max-width:667px) {
+
+  .col-xs-12 iframe, .col-xs-12 img, .col-xs-12 embed {
+    width: 100%;
+  }
+
+  #container-input{
+    margin: 0 auto;
+    width:  85%
+  }
+
+  #myform input[type=search]{
+    border: 2px solid ;
+    border-radius: 11px;
+    box-sizing: border-box;
+    padding-right: 18%;
+  }
+
+  #reset{
+    position: absolute;
+    top: 6px;
+    right: 30%;
+    background-color: #E2E2E2;
+    border:none;
+  }
 
   .col-xs-1 .dropdown-toggle {
     width: 8em;
@@ -1346,6 +1412,34 @@
 
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  .dropdown-menu > li > a{
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+  #container-input{
+    margin: 0 auto;
+    width:  85%
+  }
+
+  #myform input[type=search]{
+    border: 2px solid ;
+    border-radius: 11px;
+    box-sizing: border-box;
+    padding-right: 18%;
+  }
+
+  #reset{
+    position: absolute;
+    top: 6px;
+    right: 18%;
+    background-color: #E2E2E2;
+    border:none;
+  }
+
 
   .col-xs-1 .dropdown-toggle {
     width: 8em;

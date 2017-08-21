@@ -1,5 +1,50 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  .container_header_H2{
+  width:8rem;
+  }
+
+  .btn{
+    line-height: 4rem;
+    vertical-align: middle;
+  }
+
+  .btn-default.active.focus,
+  .btn-default.active:focus,
+  .btn-default.active:hover,
+  .btn-default:active.focus,
+  .btn-default:active:focus,
+  .btn-default:active:hover,
+  .open>.dropdown-toggle.btn-default.focus,
+  .open>.dropdown-toggle.btn-default:focus,
+  .open>.dropdown-toggle.btn-default:hover {
+   color: #333;
+   background-color: #d4d4d4;
+   border-color: #8c8c8c;
+   line-height: 4rem;
+   vertical-align: middle;
+  }
+
+  #container-input{
+    margin: 0 auto;
+    width:  53%
+  }
+
+  #myform input[type=search]{
+    border: 2px solid ;
+    border-radius: 11px;
+    box-sizing: border-box;
+    padding-right: 10%;
+  }
+
+  #reset{
+    position: absolute;
+    top: 6px;
+    right: 36%;
+    background-color: #E2E2E2;
+    border:none;
+  }
+
 
   .col-sm-5 .dropdown-toggle {
   width: 20em;
@@ -167,6 +212,10 @@
     line-height: 46px;
   }
 
+  .dropdown-menu > li > a > span{
+    margin-left: 1rem;
+  }
+
   iframe {
     height: 37rem;
     width: 100%;
@@ -187,33 +236,9 @@
   }
 
   label .text_hyphenation {
-    width: 45rem;
-    padding-left: 17rem;
+    width: 18rem;
+    /*padding-left: 17rem;*/
   }
 
-  #reset {
-    position: absolute;
-    top: 6px;
-    right: 32%;
-    background-color: #E2E2E2;
-    border: none;
-  }
-
-  #myform {
-    width: 50%;
-  }
-
-  #myform input[type=search] {
-    padding-right: 10%;
-  }
-
-  #container-input {
-    margin: 0 auto;
-    width: 98%
-  }
-
-  input[type=search] {
-    width: 85%;
-  }
 
 }
