@@ -1,5 +1,14 @@
 @media only screen and (max-width:320px) {
 
+  .navbar-toggle {
+    margin-top: 0px;
+  }
+
+  .container_label_checkbox{
+    width: 90%;
+    margin: 0 auto;
+  }
+
   .table-responsive {
     font-size: 1.2rem;
   }
@@ -8,12 +17,15 @@
     height: 0em;
   }
 
+  button[data-target="#orange-navbar-collapse"]{
+    padding: 3px 10px;
+  }
   .navbar-nav {
-    margin-top: -12.5px;
+    margin-top: -2rem;
   }
 
   .open > .dropdown-menu {
-    min-width: 22rem;
+    min-width: 25rem;
   }
 
   .dropdown-menu > li > a {
@@ -32,11 +44,16 @@
     padding-left: 0rem;
   }
 
-  li[role="presentation"] {
+  ul.hidden-sm > li[role="presentation"] {
     margin-right: 15px;
     width: 2rem;
-
+    height: 2rem;
   }
+
+  li[role="presentation"] {
+    margin-right: 15px;
+  }
+
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
@@ -158,7 +175,7 @@
   }
 
   .col-xs-1 .dropdown-toggle {
-    width: 6em;
+    width: 7em;
   }
 
   .col-xs-1 .caret {
@@ -176,74 +193,74 @@
   }
 
   .btn .most_recent.pull-left {
-    background-position: -1000px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -1425px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .alphabetic.pull-left {
-    background-position: -1100px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -1650px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .favorite_signe.pull-left {
-    background-position: -170px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -256px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .personal_favorite_signe.pull-left {
-    background-position: -210px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -314px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .most_viewed.pull-left {
-    background-position: -1040px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -1560px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .most_active.pull-left {
-    background-position: -1020px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -1530px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .direction_up {
-    background-position: -1080px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -1620px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .direction_down {
-    background-position: -1060px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -1590px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
   .btn .sentiment_positif.pull-left {
-    background-position: -120px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+    background-position: -180px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
@@ -521,9 +538,31 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
-  .col-xs-1 .dropdown-toggle{
-    width: 6em;
+  .navbar-toggle {
+  margin-top: 0px;
   }
+
+  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  .container_label_checkbox{
+    width: 90%;
+    margin: 0 auto;
+  }
+
+
+  /*.col-xs-1 .dropdown-toggle{*/
+    /*width: 6em;*/
+  /*}*/
 
   #container-input{
     margin: 0 auto;
@@ -576,76 +615,83 @@
   }
 
   .col-xs-1 .dropdown-toggle {
-    width: 6em;
+    width: 7em;
   }
 
-  .btn .most_recent.pull-left{
-    background-position: -1000px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
 
-  .btn .alphabetic.pull-left{
-    background-position: -1100px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+  .btn .most_recent.pull-left {
+    background-position: -1425px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
-  .btn .favorite_signe.pull-left{
-    background-position: -170px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .personal_favorite_signe.pull-left{
-    background-position: -210px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .most_viewed.pull-left{
-    background-position: -1040px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .most_active.pull-left{
-    background-position: -1020px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+  .btn .alphabetic.pull-left {
+    background-position: -1650px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
 
-  .btn .direction_up{
-    background-position: -1080px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+  .btn .favorite_signe.pull-left {
+    background-position: -256px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
-  .btn .direction_down{
-    background-position: -1060px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+
+  .btn .personal_favorite_signe.pull-left {
+    background-position: -314px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
-  .btn .sentiment_positif.pull-left{
-    background-position: -120px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
+
+  .btn .most_viewed.pull-left {
+    background-position: -1560px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
     margin-left: 5px;
   }
-  .btn .signe.pull-left{
+
+  .btn .most_active.pull-left {
+    background-position: -1530px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .direction_up {
+    background-position: -1620px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .direction_down {
+    background-position: -1590px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .sentiment_positif.pull-left {
+    background-position: -180px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .signe.pull-left {
     background-position: -975px center;
     background-size: auto 30px;
     height: 30px;
@@ -663,7 +709,7 @@
 
 
   .open > .dropdown-menu{
-    min-width: 22rem;
+    min-width: 25rem;
   }
 
   .col-xs-1 .caret{
@@ -811,9 +857,23 @@
     border: 1px solid;
   }
 
+  button[data-target="#orange-navbar-collapse"]{
+    padding: 3px 10px;
+  }
+
+  .navbar-nav {
+    margin-top: 0rem;
+  }
+
+
+  ul.hidden-sm > li[role="presentation"] {
+    margin-right: 15px;
+    width: 2rem;
+    height: 2rem;
+  }
 
   li[role="presentation"] {
-    width: 4rem;
+    margin-right: 15px;
   }
 
 
@@ -822,13 +882,30 @@
   }
 
   label .text_hyphenation {
-    width: 26rem;
+    width:10rem;
     padding-left: 0rem;
   }
 
 }
 
 @media only screen and (min-width:376px) and (max-width:495px) {
+
+  label .text_hyphenation {
+    width:10rem;
+    margin-left:3rem;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
 
   .text_hyphenation.navbar_title{
     width: 17rem;
@@ -838,80 +915,90 @@
     width: 23rem;
   }
 
-  .btn .most_recent.pull-left{
-    background-position: -1000px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
+  .col-xs-1 .dropdown-toggle {
+    width: 7em;
   }
 
-  .btn .alphabetic.pull-left{
-    background-position: -1100px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
 
-  .btn .favorite_signe.pull-left{
-    background-position: -170px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .personal_favorite_signe.pull-left{
-    background-position: -210px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .most_viewed.pull-left{
-    background-position: -1040px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .most_active.pull-left{
-    background-position: -1020px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-
-  .btn .direction_up{
-    background-position: -1080px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .direction_down{
-    background-position: -1060px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .sentiment_positif.pull-left{
-    background-position: -120px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-  }
-  .btn .signe.pull-left{
-    background-position: -975px center;
+  .btn .most_recent.pull-left {
+    background-position: -1425px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
   }
 
+  .btn .alphabetic.pull-left {
+    background-position: -1650px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .favorite_signe.pull-left {
+    background-position: -256px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .personal_favorite_signe.pull-left {
+    background-position: -314px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .most_viewed.pull-left {
+    background-position: -1560px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .most_active.pull-left {
+    background-position: -1530px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .direction_up {
+    background-position: -1620px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .direction_down {
+    background-position: -1590px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .sentiment_positif.pull-left {
+    background-position: -180px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .signe.pull-left {
+    background-position: -975px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
 
   .add {
     background-image: url("/img/sprite_picto_400X400.png");
@@ -983,11 +1070,6 @@
     background-size: auto 30px;
     height: 30px;
     width: 30px;
-  }
-
-
-  .col-xs-1 .dropdown-toggle {
-    width: 6em;
   }
 
   .col-xs-1 .caret{
@@ -1065,12 +1147,31 @@
   }
 
   .menu_detail {
-    background-position: -460px center;
     background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -346px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  button[data-target="#orange-navbar-collapse"]{
+    padding: 0px 10px;
+    margin-top: 0px;
+  }
+
+  .navbar-nav {
+    margin-top: 0rem;
+  }
+
+  ul.hidden-sm > li[role="presentation"] {
+    margin-right: 15px;
+    width: 2rem;
+    height: 2rem;
   }
 
   li[role="presentation"] {
-    width: 6rem;
+    margin-right: 15px;
   }
 
 
@@ -1105,16 +1206,29 @@
     width: 100%;
   }
 
-  label .text_hyphenation {
-    width: 26rem;
-    padding-left: 0rem;
-  }
-
 }
 
 
 
 @media only screen and (min-width:496px) and (max-width:624px) {
+
+
+  label .text_hyphenation {
+    width:10rem;
+    margin-left:3rem;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
 
   .col-xs-12 iframe, .col-xs-12 img, .col-xs-12 embed {
     width: 100%;
@@ -1237,9 +1351,26 @@
     background-image: url("/img/sprite_picto_400X400.png");
   }
 
-  li[role="presentation"] {
-    width: 7rem;
+  button[data-target="#orange-navbar-collapse"]{
+    padding: 0px 10px;
+    margin-top: 0px;
   }
+
+  .navbar-nav {
+    margin-top: 0rem;
+  }
+
+
+  ul.hidden-sm > li[role="presentation"] {
+    margin-right: 15px;
+    width: 5rem;
+    height: 2rem;
+  }
+
+  li[role="presentation"] {
+    margin-right: 15px;
+  }
+
 
   H2.text_hyphenation {
     width: 48rem;
@@ -1249,14 +1380,28 @@
     width: 100%;
   }
 
-  label .text_hyphenation {
-    width: 26rem;
-    padding-left: 0rem;
-  }
-
 }
 
 @media only screen and (min-width:625px) and (max-width:667px) {
+
+
+
+  label .text_hyphenation {
+    width:17rem;
+    margin-left:3rem;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
 
   .col-xs-12 iframe, .col-xs-12 img, .col-xs-12 embed {
     width: 100%;
@@ -1365,8 +1510,25 @@
     background-image: url("/img/sprite_picto_400X400.png");
   }
 
-  li[role="presentation"] {
+
+  button[data-target="#orange-navbar-collapse"]{
+    padding: 0px 10px;
+    margin-top: 0px;
+  }
+
+  .navbar-nav {
+    margin-top: 0rem;
+  }
+
+
+  ul.hidden-sm > li[role="presentation"] {
+    margin-right: 15px;
     width: 7rem;
+    height: 2rem;
+  }
+
+  li[role="presentation"] {
+    margin-right: 15px;
   }
 
   H2.text_hyphenation {
@@ -1377,15 +1539,27 @@
     width: 100%;
   }
 
-  label .text_hyphenation {
-    width: 26rem;
-    padding-left: 0rem;
-  }
-
 }
 
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  label .text_hyphenation {
+    width:17rem;
+    margin-left:3rem;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
 
   .dropdown-menu > li > a{
     display: block;
@@ -1489,8 +1663,24 @@
     background-position: -460px center;
   }
 
-  li[role="presentation"] {
+  button[data-target="#orange-navbar-collapse"]{
+    padding: 0px 10px;
+    margin-top: 0px;
+  }
+
+  .navbar-nav {
+    margin-top: 0rem;
+  }
+
+
+  ul.hidden-sm > li[role="presentation"] {
+    margin-right: 15px;
     width: 7rem;
+    height: 2rem;
+  }
+
+  li[role="presentation"] {
+    margin-right: 15px;
   }
 
   H2.text_hyphenation {

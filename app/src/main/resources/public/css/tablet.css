@@ -1,5 +1,22 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  label .text_hyphenation {
+    width:16rem;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
+
   .container_label_checkbox{
     width: 62%;
     margin: 0 auto;
@@ -144,8 +161,8 @@
   }
 
   img {
-    height: 235px;
-    width: 235px;
+    height: 220px;
+    width: 220px;
     object-fit: contain;
     font-family: 'object-fit: contain'; /* for IE*/
     overflow: hidden;
