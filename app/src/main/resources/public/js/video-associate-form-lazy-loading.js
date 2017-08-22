@@ -21,6 +21,8 @@
 
 function onSearch(){
   $("#search-criteria").show();
+  var search_criteria = document.getElementById("search-criteria");
+  search_criteria.classList.remove("search-hidden");
   $("#signs-container").children("label").each(function () {
     $(this).hide();
     $("#button-top").css("visibility", "hidden");
@@ -201,10 +203,16 @@ $.fn.extend({
   function onScroll(event) {
     var noMoreHiddenSigns = signViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
-    var search_criteria = document.getElementById("search-criteria");
-    if(!noMoreHiddenSigns && closeToBottom && search_criteria.value == "") {
-      showNextSignViews();
+    var sea = document.getElementById("search-criteria");
+    if (sea.classList.contains("search-hidden")) {
+      //console.log("search-hidden");
+      if(!noMoreHiddenSigns && closeToBottom) {
+        showNextSignViews();
+      }
+    } else {
+      //console.log("search-show");
     }
+
   }
 
   function search(event) {

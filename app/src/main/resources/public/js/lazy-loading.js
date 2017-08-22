@@ -86,11 +86,16 @@
   function onScroll(event) {
     var noMoreHiddenSigns = signViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
-    var search_criteria = document.getElementById("search-criteria");
-    if(!noMoreHiddenSigns && closeToBottom && search_criteria.value == "") {
-      showNextSignViews();
+    if (!modeSearch) {
+      //console.log("search hidden");
+      if(!noMoreHiddenSigns && closeToBottom) {
+        showNextSignViews();
+      }
+    } else {
+      //console.log("search show");
     }
-  }
+    }
+
 
   function search(event) {
     var g = normalize($(this).val());
@@ -166,18 +171,25 @@
     // show first signs at load
 
     var search_criteria = document.getElementById("search-criteria");
-    search_criteria.addEventListener('keyup', search);
-    if (search_criteria.classList.contains("search-hidden")) {
+    if (search_criteria == null) {
       initWithFirstSigns();
       modeSearch=false;
+      document.addEventListener('scroll', onScroll);
     } else {
-      modeSearch = true;
+      search_criteria.addEventListener('keyup', search);
+      if (search_criteria.classList.contains("search-hidden")) {
+        initWithFirstSigns();
+        modeSearch=false;
+        document.addEventListener('scroll', onScroll);
+      } else {
+        modeSearch = true;
+        var button_reset = document.getElementById("reset");
+        if (button_reset != null) {
+          button_reset.addEventListener('click', onReset);
+        }
+      }
     }
 
-    // then wait to reach the page bottom to load next views
-    document.addEventListener('scroll', onScroll);
-    var button_reset = document.getElementById("reset");
-    button_reset.addEventListener('click', onReset);
   }
 
   main();

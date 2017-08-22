@@ -21,7 +21,7 @@
 
 (function videoViewsLazyLoading($) {
   var HIDDEN_CLASS = 'video-view-hidden';
-  var NB_VIDEO_VIEWS_INC = 16;
+  var NB_VIDEO_VIEWS_INC = 6;
   var REVEAL_DURATION_MS = 1000;
 
   var videosContainer = document.getElementById("videos-container");
@@ -85,8 +85,13 @@
   function onScroll(event) {
     var noMoreHiddenVideos = videoViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
-    if(!noMoreHiddenVideos && closeToBottom) {
-      showNextVideoViews();
+    if (!modeSearch) {
+      //console.log("search hidden");
+      if(!noMoreHiddenVideos && closeToBottom) {
+        showNextVideoViews();
+      }
+    } else {
+      //console.log("search show");
     }
   }
 
@@ -165,23 +170,22 @@
     if (search_criteria == null) {
       initWithFirstVideos();
       modeSearch = false;
+      document.addEventListener('scroll', onScroll);
     } else {
       search_criteria.addEventListener('keyup', search);
       if (search_criteria.classList.contains("search-hidden")) {
         initWithFirstVideos();
         modeSearch = false;
+        document.addEventListener('scroll', onScroll);
       } else {
         modeSearch = true;
+        var button_reset = document.getElementById("reset");
+        if (button_reset != null) {
+          button_reset.addEventListener('click', onReset);
+        }
       }
     }
 
-
-    // then wait to reach the page bottom to load next views
-    document.addEventListener('scroll', onScroll);
-    var button_reset = document.getElementById("reset");
-    if (button_reset != null) {
-      button_reset.addEventListener('click', onReset);
-    }
   }
 
   main();
