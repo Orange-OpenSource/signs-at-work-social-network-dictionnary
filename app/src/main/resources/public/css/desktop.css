@@ -1,5 +1,17 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  .embed-responsive-4by3{
+    padding-bottom: 130%;
+  }
+
+  .container_iframe{
+    /*border: 1px solid;*/
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   .dropdown-menu > li > a > span {
     margin-left: 1rem;
   }
@@ -139,6 +151,18 @@
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
+
+  .embed-responsive-4by3{
+    padding-bottom: 130%;
+  }
+
+  .container_iframe{
+    /*border: 1px solid;*/
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 
   .dropdown-menu > li > a > span {
     margin-left: 1rem;
@@ -289,8 +313,8 @@
 /* Large screens ----------- */
 @media only screen  and (min-width:1366px)  {
 
-  /*.embed-responsive-4by3{*/
-    /*padding-bottom: 130%;*/
+  /*.col-lg-8 > .embed-responsive-4by3{*/
+    /*padding-bottom: 30%;*/
   /*}*/
 
   /*.container_iframe{*/
@@ -365,9 +389,11 @@
     border:none;
   }
 
-
-
-  iframe {
+  .embed-responsive .embed-responsive-item,
+  .embed-responsive embed,
+  .embed-responsive iframe,
+  .embed-responsive object,
+  .embed-responsive video {
     height: 37rem;
     width: 100%;
   }

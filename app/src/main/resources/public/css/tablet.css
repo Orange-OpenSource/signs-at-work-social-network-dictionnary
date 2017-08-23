@@ -1,5 +1,18 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  .embed-responsive-4by3{
+    padding-bottom: 130%;
+  }
+
+  .container_iframe{
+    /*border: 1px solid;*/
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+
   label .text_hyphenation {
     width:16rem;
   }
