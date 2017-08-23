@@ -289,6 +289,19 @@
 /* Large screens ----------- */
 @media only screen  and (min-width:1366px)  {
 
+  /*.embed-responsive-4by3{*/
+    /*padding-bottom: 130%;*/
+  /*}*/
+
+  /*.container_iframe{*/
+    /*!*border: 1px solid;*!*/
+    /*margin-bottom: 20px;*/
+    /*padding-bottom: 50px;*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+  /*}*/
+
+
   .col-lg-3 span.caret {
     position: absolute;
     left: 17px;

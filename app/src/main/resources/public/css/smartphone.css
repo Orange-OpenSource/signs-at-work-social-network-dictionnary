@@ -1,5 +1,17 @@
 @media only screen and (max-width:320px) {
 
+  .embed-responsive-4by3{
+    padding-bottom: 130%;
+  }
+
+  .container_iframe{
+    /*border: 1px solid;*/
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   .navbar-toggle {
     margin-top: 0px;
   }

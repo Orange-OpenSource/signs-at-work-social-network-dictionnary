@@ -60,6 +60,7 @@ table tbody td{
 #tooltipInframe{
   position: absolute;
   right: 15px;
+  z-index: 4;
 }
 
 
