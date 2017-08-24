@@ -34,10 +34,7 @@
 <div class="row">
 
 
-      <!--<div class="">-->
-        <div class="container_iframe pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
-          <!--<div class="">-->
-            <!--<div class="pull-right col-md-8 col-xs-12 col-sm-12">-->
+        <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
           <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
             <div id="tooltipInframe" class="pull-right" >
               <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="pull-right tooltip_positif"></div>
@@ -45,14 +42,10 @@
               <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="tooltip_favorite"></div>
               <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
             </div>
-
-
-              <div class="embed-responsive embed-responsive-4by3">
+              <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item"  th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
               </div>
-            <!--</div>-->
         </div>
-      <!--</div>-->
 
         <div class="col-md-4 col-xs-12 col-lg-4">
             <aside class="sidebar">

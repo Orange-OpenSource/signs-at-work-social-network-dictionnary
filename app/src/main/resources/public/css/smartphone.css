@@ -1,15 +1,8 @@
 @media only screen and (max-width:320px) {
 
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
 
-  .container_iframe{
-    /*border: 1px solid;*/
+  .col-xs-12.middle-col{
     margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
   }
 
   .navbar-toggle {
@@ -550,16 +543,9 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
 
-  .container_iframe{
-    /*border: 1px solid;*/
+  .col-xs-12.middle-col{
     margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
   }
 
   .navbar-toggle {
@@ -582,11 +568,6 @@
     width: 90%;
     margin: 0 auto;
   }
-
-
-  /*.col-xs-1 .dropdown-toggle{*/
-    /*width: 6em;*/
-  /*}*/
 
   #container-input{
     margin: 0 auto;
@@ -914,16 +895,9 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
 
-  .container_iframe{
-    /*border: 1px solid;*/
+  .col-xs-12.middle-col{
     margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
   }
 
   label .text_hyphenation {
@@ -1246,16 +1220,9 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
 
-  .container_iframe{
-    /*border: 1px solid;*/
+  .col-xs-12.middle-col{
     margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
   }
 
   label .text_hyphenation {
@@ -1429,18 +1396,10 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
 
-  .container_iframe{
-    /*border: 1px solid;*/
+  .col-xs-12.middle-col{
     margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
   }
-
 
   label .text_hyphenation {
     width:17rem;
@@ -1599,18 +1558,10 @@
 
 @media only screen and (min-width:668px) and (max-width:767px) {
 
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
 
-  .container_iframe{
-    /*border: 1px solid;*/
+  .col-xs-12.middle-col{
     margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
   }
-
 
   label .text_hyphenation {
     width:17rem;
