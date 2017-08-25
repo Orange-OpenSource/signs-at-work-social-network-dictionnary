@@ -27,10 +27,12 @@ import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.persistence.service.impl.EmailServiceImpl;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -56,6 +58,14 @@ public class HomeController {
   private Services services;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+
+  private static final String HOME_URL = "/";
+
+  @Value("${cgu-url}")
+  private String cgu_url;
+
+  @Autowired
+  public EmailServiceImpl emailService;
 
   @RequestMapping("/")
   public String index(HttpServletRequest req, Principal principal, Model model) {
