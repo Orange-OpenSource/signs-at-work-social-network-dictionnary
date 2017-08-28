@@ -1,5 +1,24 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+
+  .col-xs-offset-2{
+    margin-left: 28%;
+  }
+
+  #label_welcome{
+    font-weight: bold;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
+  }
+
   .embed-responsive-4by3{
     padding-bottom: 130%;
   }

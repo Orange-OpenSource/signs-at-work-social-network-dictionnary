@@ -1,5 +1,21 @@
 @media only screen and (max-width:320px) {
 
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  #label_welcome{
+    font-weight: bold;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
@@ -543,6 +559,22 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  #label_welcome{
+    font-weight: bold;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
@@ -896,6 +928,20 @@
 @media only screen and (min-width:376px) and (max-width:495px) {
 
 
+  #label_welcome{
+    font-weight: bold;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
+  }
+
   .col-xs-12.middle-col{
     margin-bottom: 20px;
   }
@@ -1220,6 +1266,24 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  .col-xs-offset-2{
+    margin-left: 22%;
+  }
+
+  #label_welcome{
+    font-weight: bold;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
+  }
+
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
@@ -1396,6 +1460,23 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
+  .col-xs-offset-2{
+    margin-left: 28%;
+  }
+
+  #label_welcome{
+    font-weight: bold;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
+  }
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
@@ -1557,6 +1638,25 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+
+  .col-xs-offset-2{
+    margin-left: 28%;
+  }
+
+  #label_welcome{
+    font-weight: bold;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
+  }
 
 
   .col-xs-12.middle-col{

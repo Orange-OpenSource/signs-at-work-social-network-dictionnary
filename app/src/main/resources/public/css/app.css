@@ -630,6 +630,15 @@ text-decoration-line: none;
 	color:#F16E00;
 }
 
+.bonjour_signe {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2460px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
 .my_request_signe {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2240px center;
