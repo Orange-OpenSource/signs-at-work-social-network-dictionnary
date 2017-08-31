@@ -25,23 +25,23 @@
     <meta charset="utf-8"/>
 </head>
 <body>
-
 <div th:fragment="div"  id="see_condition_of_use" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="pull-left">
-                    <div class="profil_signe pull-left"></div>
-                    <h4 class="pull-right" th:text="#{see.condition_of_use}"></h4>
-                </div>
-              <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-                <iframe th:src="${cgu_url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
-              </div>
-            </div>
-
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="cgu_signe pull-left"></div>
+          <h4 class="pull-right" th:text="#{see.condition_of_use}"></h4>
         </div>
+      </div>
+      <div class="modal-body text-center">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe th:src="${cgu_url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 </body>

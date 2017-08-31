@@ -3,6 +3,57 @@
 	background-repeat: no-repeat;
 }
 
+.login-form{
+  margin-top: 25px;
+}
+
+.noAccount.aside_bckg_li{
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.btn_signin{
+  border-color: #f16E00;
+  width: 90%;
+  margin: 0 auto;
+  font-weight: bold;
+  margin-bottom: 35px;
+  margin-top: 30px;
+}
+
+input[name="username"],
+input[name="password"],
+input[name="email"]{
+  width: 90%;
+}
+
+.col-xs-12 h5{
+   color: #8c8c8c;
+ }
+
+.col-xs-12 h5:active,
+.col-xs-12 h5:hover,
+.col-xs-12 h5:visited{
+   color: #F16E00;
+ }
+
+
+.btn-group-vertical>.btn.btn-sm{
+  border-color: #F16E00;
+  border-radius: 10px !important;
+  font-weight: bold;
+}
+
+.btn-group-vertical{
+  padding-top: 10px;
+}
+
+.btn-group-vertical>.btn.btn_disagree{
+  margin-top: 10px;
+}
+
 ul[role="tablist"]{
   padding-left: 0px;
   padding-right: 0px;
@@ -217,7 +268,7 @@ a.form-control{
 
 .form-group {
 	font-size: 20px;
-	margin-bottom: 15px;
+	margin: 15px 0px;
 }
 
 .form-control:focus {
@@ -284,10 +335,6 @@ a.form-control{
 	border-right-color: #f16e00;
 	border-top-color: #f16e00;
 	color: #fff;
-}
-
-.form-control{
-	width:auto;
 }
 
 .col-lg-4.col-md-4.col-xs-12.col-sm-4 > object {
@@ -630,9 +677,21 @@ text-decoration-line: none;
 	color:#F16E00;
 }
 
-.bonjour_signe {
+span.form-signin-heading{
+  margin-left: 6%;
+}
+
+.welcome_signe {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2460px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+.cgu_signe {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2500px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;

@@ -179,6 +179,10 @@
     width: 23rem;
   }
 
+  #create_user H4.text_hyphenation {
+      width: 20rem;
+  }
+
   .text_hyphenation {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -558,6 +562,10 @@
 }
 
 @media only screen and (min-width:321px) and (max-width:375px) {
+
+  #create_user H4.text_hyphenation {
+    width: 20rem;
+  }
 
   .col-xs-9{
     padding-left: 0px;

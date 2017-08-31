@@ -36,26 +36,32 @@
 <div class="row">
   <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
     <h2 class="form-signin-heading text-center" th:text="#{cgu_invite}"></h2>
-    <div class="col-xs-12">
+    <div class="col-xs-12 ">
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li class="aside_bckg_li">
             <a data-target="#read_condition_of_use" data-toggle="modal" href="#">
                 <h2 class="container_H2" th:text="#{read.condition_of_use}"/>
-                <div class="pull-right  chevron_right"/>
+              <div>
+                <div class="pull-right chevron_right"></div>
+              </div>
             </a>
           </li>
           <li class="aside_bckg_li">
             <a data-target="#see_condition_of_use" data-toggle="modal" href="#">
                 <h2 class="container_H2" th:text="#{see.condition_of_use}"/>
-                <div class="pull-right  chevron_right"/>
+              <div>
+                <div class="pull-right chevron_right"></div>
+              </div>
             </a>
           </li>
         </ul>
-        <div class="modal-footer">
-          <a data-target="#create_user" data-toggle="modal" href="#" class="btn btn-default" th:text="#{yes_i_agree}">
+        <div class="col-xs-12">
+          <div class="btn-group-vertical">
+          <a data-target="#create_user" data-toggle="modal" href="#" class=" btn btn-default  btn-sm" th:text="#{yes_i_agree}">
             </a>
-          <button th:text="#{no_i_disagree}" onclick="location.href='/'" class="btn btn-default"></button>
+          <button th:text="#{no_i_disagree}" onclick="location.href='/'" class="btn_disagree btn btn-default btn-sm"></button>
+          </div>
         </div>
       </aside>
     </div>
