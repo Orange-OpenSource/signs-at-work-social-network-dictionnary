@@ -3,6 +3,15 @@
 	background-repeat: no-repeat;
 }
 
+li.aside_bckg_li.noHover_nopointer{
+  background-color: #989898;
+
+}
+.noHover_nopointer > a >h2{
+  cursor: none;
+  color: black;
+}
+
 ul[role="tablist"]{
   padding-left: 0px;
   padding-right: 0px;
