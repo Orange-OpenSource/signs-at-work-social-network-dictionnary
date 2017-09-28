@@ -179,7 +179,7 @@ public class HomeController {
 
     User admin = services.user().getAdmin();
 
-    String body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getUsername(), userCreationView.getEmail()});
+    String body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getLastName(), userCreationView.getFirstName(), userCreationView.getEntity(),  userCreationView.getEmail(), userCreationView.getUsername(), userCreationView.getPassword()});
 
     emailService.sendSimpleMessage(admin.email, messageByLocaleService.getMessage("ask_to_create_user_title"), body );
 

@@ -1,0 +1,95 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-create-account :: header">&nbsp;</header>
+
+<body class="container-fluid">
+
+<div class="row ">
+  <div class=" col-xs-12 col-lg-12">
+    <h2 class="form-signin-heading text-center" th:text="#{account_request_invite}"></h2>
+    <div class="divider"></div>
+    <aside class="sidebar">
+      <form  th:action="@{/sec/pricacySettings}" th:object="${userCreationView}" enctype="multipart/form-data" method="post">
+        <!--start input login password-->
+        <div class="divider-space">
+          <H2 th:text="#{your_login}"></H2>
+          <input   type="text"  th:value="${user.username}" class="container_H2 text-center border " name="login" th:autofocus="true" />
+          <div>
+            <div class="pull-right add_whith_chevron" ></div>
+          </div>
+        </div>
+        <div class="divider-space">
+          <H2 th:text="#{your_password}"></H2>
+          <input   type="password" th:value="${user.password}"  class="container_H2 text-center border " name="password" />
+          <div>
+            <div class="pull-right add_whith_chevron"></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <!--end input login password-->
+
+        <!--start input secret question-->
+        <div class="divider-space">
+          <H2 th:text="#{your_secret_question}"></H2>
+          <input   type="text"  th:value="${user.secretQuestion}"  class="container_H2 text-center border " name="secretQuestion" />
+          <div>
+            <div class="pull-right add_whith_chevron"></div>
+          </div>
+        </div>
+        <!--end input secret question-->
+
+        <!--start input secret reply-->
+        <div class="divider-space">
+          <H2 th:text="#{secret_reply}"></H2>
+          <input   type="text" th:value="${user.secretReply}" class="container_H2 text-center border " name="secretReply" />
+          <div>
+            <div class="pull-right add_whith_chevron"></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <!--end input  secret reply-->
+
+        <br/>
+        <div class="text-center">
+          <a th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}" >
+            <input type="text" class=" btn btn-default  btn-sm" th:value="#{continue}" />
+          </a>
+          <!--<button class="btn btn-default" type="submit" th:text="#{continue}"></button>-->
+        </div>
+      </form>
+    </aside>
+  </div>
+</div>
+
+
+</body>
+
+
+</html>

@@ -33,7 +33,7 @@
 <div th:replace="fragments/modal-cgu-lsf :: div"/>
 <div th:replace="fragments/modal-create-user :: div"/>
 
-<div class="row">
+<div class="row" id="cguAccepted">
   <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
     <h2 class="form-signin-heading text-center" th:text="#{cgu_invite}"></h2>
     <div class="col-xs-12 ">
@@ -58,7 +58,7 @@
         </ul>
         <div class="col-xs-12">
           <div class="btn-group-vertical">
-          <a data-target="#create_user" data-toggle="modal" href="#" class=" btn btn-default  btn-sm" th:text="#{yes_i_agree}">
+          <a href="#accountRequest" th:onclick="'javascript:onAccepted()'" class=" btn btn-default  btn-sm" th:text="#{yes_i_agree}">
             </a>
           <button th:text="#{no_i_disagree}" onclick="location.href='/'" class="btn_disagree btn btn-default btn-sm"></button>
           </div>
@@ -68,9 +68,82 @@
 
   </div>
 </div>
+<div id="accountRequest" class="hidden">
+<!--beggin account-->
+<div class="row" >
+  <div class=" col-xs-12 col-lg-12">
+    <h2 class="form-signin-heading text-center" th:text="#{account_request_invite}"></h2>
+    <div class="divider"></div>
+    <aside class="sidebar" id="create_user">
+      <form class="form-inline" th:action="@{/sendMail}" enctype="multipart/form-data" th:object="${user}" method="post" autocomplete="off">
+        <div id="accountProfile" class="hidden">
+        <!--start input name-->
+        <div class="divider-space">
+          <H2 th:text="#{last_name}"></H2><div class="blink_me errorRegexLastName hidden" th:text="#{errorName}"/>
+          <input id="lastName"  type="text" th:field="*{lastName}" th:placeholder="#{placeholder_last_name}"  class="container_H2 text-center border " name="lastName" th:autofocus="true" />
+        </div>
+        <div class="divider-space">
+          <H2 th:text="#{first_name}"></H2><div class="blink_me errorRegexFirstName hidden" th:text="#{errorName}"/>
+          <input  id="firstName"  th:field="*{firstName}"  th:placeholder="#{placeholder_first_name}" class="container_H2 text-center border " name="firstName" />
+        </div>
+        <!--end input name-->
 
+        <!--start input entity-->
+        <div class="divider-space">
+          <H2 th:text="#{entity}"></H2><div class="blink_me errorRegexEntity hidden" th:text="#{errorEntity}"/>
+          <input id="entity" type="text" th:field="*{entity}" th:placeholder="#{placeholder_entity}" class="container_H2 text-center border " name="entity" />
+        </div>
+        <!--end input entity-->
+
+        <!--start input email-->
+        <div class="divider-space">
+          <H2 th:text="#{email}"></H2><div class="blink_me errorRegexEmail hidden" th:text="#{errorEmail}"/>
+          <input id="mail" type="text" th:field="*{email}"  th:placeholder="#{placeholder_email}" class="container_H2 text-center border " name="email" />
+        </div>
+        <div class="divider"></div>
+        <!--end input entity-->
+        <br/>
+          <div class="text-center"><div class="blink_me errorSubmit alert alert-warning hidden" th:text="#{errorAllInputsBlanks}"/>
+            <a href="#privacySettings" id="buttonOnNext"  class=" btn btn-default  btn-sm" th:text="#{continue}">
+            </a>
+          </div>
+        </div>
+
+        <div id="privacySettings" class="hidden">
+        <!--start input login password-->
+        <div class="divider-space">
+          <H2 th:text="#{your_login}"></H2>
+          <input   type="text"  th:field="*{username}" th:placeholder="#{placeholder_login}" class="container_H2 text-center border " name="username" />
+          <div>
+            <div class="pull-right add_whith_chevron" ></div>
+          </div>
+        </div>
+        <div class="divider-space">
+          <H2 th:text="#{your_password}"></H2>
+          <input  type="password" th:field="*{password}"  th:placeholder="#{placeholder_password}" class="container_H2 text-center border " name="password" />
+          <div>
+            <div class="pull-right add_whith_chevron"></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <!--end input login password-->
+        </div>
+
+        <div class="text-center ">
+          <a>
+            <input type="submit"   class="hidden btn btn-default  btn-sm" th:value="#{continue}" />
+          </a>
+        </div>
+      </form>
+    </aside>
+  </div>
+</div>
+<!--end account-->
+
+</div>
 
 </body>
+<script type="text/javascript" src="../public/js/create-user.js" th:src="@{/js/create-user.js}"></script>
 
 
 </html>

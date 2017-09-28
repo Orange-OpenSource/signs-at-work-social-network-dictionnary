@@ -1,6 +1,34 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 7%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
+
   .col-xs-offset-2{
     margin-left: 28%;
   }
@@ -170,6 +198,34 @@
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
+
+
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 7%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
 
 
   .col-xs-offset-2{
@@ -351,6 +407,33 @@
 /* Large screens ----------- */
 @media only screen  and (min-width:1366px)  {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 9rem;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
 
   .col-xs-offset-2{
     margin-left: 34%;
@@ -515,6 +598,10 @@
 
   label .text_hyphenation {
     width:22rem;
+  }
+
+  .navbar-header .text_hyphenation{
+    width: 60rem;
   }
 
   .text_hyphenation{

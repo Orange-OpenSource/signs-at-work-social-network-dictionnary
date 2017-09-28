@@ -1,5 +1,32 @@
 @media only screen and (max-width:320px) {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 25%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
   .col-xs-9{
     padding-left: 0px;
   }
@@ -470,9 +497,9 @@
     border: 1px solid;
   }
 
-  input.container_H2[type="text"] {
-    width: 200px;
-  }
+  /*input.container_H2[type="text"] {*/
+    /*width: 200px;*/
+  /*}*/
 
   input.container_H2[type="file"] {
     width: 200px;
@@ -562,6 +589,34 @@
 }
 
 @media only screen and (min-width:321px) and (max-width:375px) {
+
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 20%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
 
   #create_user H4.text_hyphenation {
     width: 20rem;
@@ -935,6 +990,33 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 15%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
 
   #label_welcome{
     font-weight: bold;
@@ -1274,6 +1356,33 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 15%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
   .col-xs-offset-2{
     margin-left: 22%;
   }
@@ -1468,6 +1577,34 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 15%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
+
   .col-xs-offset-2{
     margin-left: 28%;
   }
@@ -1646,6 +1783,33 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"] {
+    width: 60%;
+  }
+
+  input[name="secretQuestion"],
+  input[name="secretReply"] {
+    width: 80%;
+  }
+
+  .divider-space {
+    margin-bottom: 10%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
 
 
   .col-xs-offset-2{
