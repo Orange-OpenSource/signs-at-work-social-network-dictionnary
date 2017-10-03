@@ -6,7 +6,8 @@
   .divider-space input[name="entity"],
   .divider-space input[name="email"],
   .divider-space input[name="login"],
-  .divider-space input[name="password"] {
+  .divider-space input[name="password"],
+  .divider-space input[name="username"] {
     width: 60%;
   }
 
@@ -205,7 +206,8 @@
   .divider-space input[name="entity"],
   .divider-space input[name="email"],
   .divider-space input[name="login"],
-  .divider-space input[name="password"] {
+  .divider-space input[name="password"],
+  .divider-space input[name="username"] {
     width: 60%;
   }
 
@@ -412,7 +414,8 @@
   .divider-space input[name="entity"],
   .divider-space input[name="email"],
   .divider-space input[name="login"],
-  .divider-space input[name="password"] {
+  .divider-space input[name="password"],
+  .divider-space input[name="username"] {
     width: 60%;
   }
 
