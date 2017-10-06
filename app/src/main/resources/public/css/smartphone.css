@@ -1,5 +1,50 @@
 @media only screen and (max-width:320px) {
 
+  #labelSigne.text_hyphenation {
+    width: 10rem;
+  }
+
+  li[role="presentation"].aside_bckg_li > a > div {
+    height: 0em;
+  }
+
+  .label_favorite_Liste_H2.container_H2{
+    width:19rem;
+  }
+
+  .favorite_signe >.container_H2{
+    width:19rem;
+  }
+
+  .request_whitout_answer.aside_bckg_li{
+    width: 30rem;
+    font-size: 17px;
+  }
+
+  #requestTextDescription{
+    width: 28rem;
+  }
+
+  .table-responsive>.table>tbody>tr>td,
+  .table-responsive>.table>tbody>tr>th,
+  .table-responsive>.table>tfoot>tr>td,
+  .table-responsive>.table>tfoot>tr>th,
+  .table-responsive>.table>thead>tr>td,
+  .table-responsive>.table>thead>tr>th{
+    white-space: normal;
+  }
+
+  .label_sign_H2.container_H2{
+  width:214px;
+  }
+
+  #labelSigne a{
+    font-size:10px;
+  }
+
+  h2, .h2 {
+    font-size: 17px;
+  }
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
@@ -18,9 +63,9 @@
     font-size: 1.2rem;
   }
 
-  .aside_bckg_li > a > div {
-    height: 0em;
-  }
+  /*.aside_bckg_li > a > div {*/
+    /*height: 0em;*/
+  /*}*/
 
   button[data-target="#orange-navbar-collapse"]{
     padding: 3px 10px;
@@ -156,7 +201,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 160px;
+    /*width: 160px;*/
   }
 
   H2.text_hyphenation {
@@ -167,11 +212,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 10rem;
+    /*width: 10rem;*/
   }
 
+.title_H1.text_hyphenation.navbar_title{
+  width: 26rem;
+}
+
   .text_hyphenation.navbar_title {
-    width: 16rem;
+    width: 20rem;
   }
 
   /*start dropdown*/
@@ -479,7 +528,7 @@
   }
 
   label {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .spinner_show {
@@ -543,6 +592,52 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  #labelSigne.text_hyphenation {
+    width: 10rem;
+  }
+
+  li[role="presentation"].aside_bckg_li > a > div {
+    height: 0em;
+  }
+
+  .label_favorite_Liste_H2.container_H2{
+    width:19rem;
+  }
+
+  .favorite_signe >.container_H2{
+    width:19rem;
+  }
+
+  .request_whitout_answer.aside_bckg_li{
+    width: 30rem;
+    font-size: 17px;
+  }
+
+  #requestTextDescription{
+    width: 28rem;
+  }
+
+  .table-responsive>.table>tbody>tr>td,
+  .table-responsive>.table>tbody>tr>th,
+  .table-responsive>.table>tfoot>tr>td,
+  .table-responsive>.table>tfoot>tr>th,
+  .table-responsive>.table>thead>tr>td,
+  .table-responsive>.table>thead>tr>th{
+    white-space: normal;
+  }
+
+  .label_sign_H2.container_H2{
+    width:214px;
+  }
+
+  #labelSigne a{
+    font-size:10px;
+  }
+
+  h2, .h2 {
+    font-size: 17px;
+  }
+
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
@@ -561,7 +656,7 @@
   }
 
   label {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .container_label_checkbox{
@@ -851,7 +946,7 @@
 
 
   .text_hyphenation.navbar_title{
-    width: 16rem;
+    width: 20rem;
   }
 
   img{
@@ -887,7 +982,7 @@
   }
 
   label .text_hyphenation {
-    width:10rem;
+    width:13rem;
     padding-left: 0rem;
   }
 
@@ -895,18 +990,64 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
+  #labelSigne.text_hyphenation {
+    width: 10rem;
+  }
+
+  li[role="presentation"].aside_bckg_li > a > div {
+    height: 0em;
+  }
+
+  .label_favorite_Liste_H2.container_H2{
+    width:19rem;
+  }
+
+  .favorite_signe >.container_H2{
+    width:19rem;
+  }
+
+  .request_whitout_answer.aside_bckg_li{
+    width: 30rem;
+    font-size: 17px;
+  }
+
+  #requestTextDescription{
+    width: 28rem;
+  }
+
+  .table-responsive>.table>tbody>tr>td,
+  .table-responsive>.table>tbody>tr>th,
+  .table-responsive>.table>tfoot>tr>td,
+  .table-responsive>.table>tfoot>tr>th,
+  .table-responsive>.table>thead>tr>td,
+  .table-responsive>.table>thead>tr>th{
+    white-space: normal;
+  }
+
+  .label_sign_H2.container_H2{
+    width:214px;
+  }
+
+  #labelSigne a{
+    font-size:10px;
+  }
+
+  h2, .h2 {
+    font-size: 17px;
+  }
+
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
   }
 
   label .text_hyphenation {
-    width:10rem;
+    width:13rem;
     margin-left:3rem;
   }
 
   label {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
@@ -918,7 +1059,7 @@
   }
 
   .text_hyphenation.navbar_title{
-    width: 17rem;
+    width: 23rem;
   }
 
   H2.text_hyphenation{
@@ -1220,13 +1361,58 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  #labelSigne.text_hyphenation {
+    width: 10rem;
+  }
+
+  li[role="presentation"].aside_bckg_li > a > div {
+    height: 0em;
+  }
+
+  .label_favorite_Liste_H2.container_H2{
+    width:30rem;
+  }
+
+  .favorite_signe >.container_H2{
+    width:19rem;
+  }
+
+  .request_whitout_answer.aside_bckg_li{
+    width: 30rem;
+    font-size: 17px;
+  }
+
+  #requestTextDescription{
+    width: 28rem;
+  }
+
+  .table-responsive>.table>tbody>tr>td,
+  .table-responsive>.table>tbody>tr>th,
+  .table-responsive>.table>tfoot>tr>td,
+  .table-responsive>.table>tfoot>tr>th,
+  .table-responsive>.table>thead>tr>td,
+  .table-responsive>.table>thead>tr>th{
+    white-space: normal;
+  }
+
+  .label_sign_H2.container_H2{
+    width:214px;
+  }
+
+  #labelSigne a{
+    font-size:10px;
+  }
+
+  h2, .h2 {
+    font-size: 17px;
+  }
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;
   }
 
   label .text_hyphenation {
-    width:10rem;
+    width:15rem;
     margin-left:3rem;
   }
 
@@ -1397,6 +1583,53 @@
 @media only screen and (min-width:625px) and (max-width:667px) {
 
 
+  #labelSigne.text_hyphenation {
+    width: 10rem;
+  }
+
+  li[role="presentation"].aside_bckg_li > a > div {
+    height: 0em;
+  }
+
+  .label_favorite_Liste_H2.container_H2{
+    width:30rem;
+  }
+
+  .favorite_signe >.container_H2{
+    width:19rem;
+  }
+
+  .request_whitout_answer.aside_bckg_li{
+    width: 30rem;
+    font-size: 17px;
+  }
+
+  #requestTextDescription{
+    width: 28rem;
+  }
+
+  .table-responsive>.table>tbody>tr>td,
+  .table-responsive>.table>tbody>tr>th,
+  .table-responsive>.table>tfoot>tr>td,
+  .table-responsive>.table>tfoot>tr>th,
+  .table-responsive>.table>thead>tr>td,
+  .table-responsive>.table>thead>tr>th{
+    white-space: normal;
+  }
+
+  .label_sign_H2.container_H2{
+    width:214px;
+  }
+
+  #labelSigne a{
+    font-size:10px;
+  }
+
+  h2, .h2 {
+    font-size: 17px;
+  }
+
+
   .col-xs-12.middle-col{
     margin-bottom: 20px;
   }
@@ -1557,6 +1790,53 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+
+  #labelSigne.text_hyphenation {
+    width: 10rem;
+  }
+
+  li[role="presentation"].aside_bckg_li > a > div {
+    height: 0em;
+  }
+
+  .label_favorite_Liste_H2.container_H2{
+    width:30rem;
+  }
+
+  .favorite_signe >.container_H2{
+    width:19rem;
+  }
+
+  .request_whitout_answer.aside_bckg_li{
+    width: 30rem;
+    font-size: 17px;
+  }
+
+  #requestTextDescription{
+    width: 28rem;
+  }
+
+  .table-responsive>.table>tbody>tr>td,
+  .table-responsive>.table>tbody>tr>th,
+  .table-responsive>.table>tfoot>tr>td,
+  .table-responsive>.table>tfoot>tr>th,
+  .table-responsive>.table>thead>tr>td,
+  .table-responsive>.table>thead>tr>th{
+    white-space: normal;
+  }
+
+  .label_sign_H2.container_H2{
+    width:214px;
+  }
+
+  #labelSigne a{
+    font-size:10px;
+  }
+
+  h2, .h2 {
+    font-size: 17px;
+  }
 
 
   .col-xs-12.middle-col{
