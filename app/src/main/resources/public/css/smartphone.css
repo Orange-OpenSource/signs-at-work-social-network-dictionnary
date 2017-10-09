@@ -1,5 +1,8 @@
 @media only screen and (max-width:320px) {
 
+input.form-control{
+  width: 80%;
+}
 
   .col-xs-12.middle-col{
     margin-bottom: 20px;

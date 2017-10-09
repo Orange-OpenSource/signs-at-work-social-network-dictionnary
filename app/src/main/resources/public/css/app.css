@@ -1,5 +1,5 @@
 #prefetch {
-	background-image:url("/img/my_request.png"); url("/img/favoris.png"); url("/img/positif.png"), url("/img/request.jpg"), url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/PlusVues2_Blanc.png"), url("/img/ajourRecent2_Blanc.png"), url("/img/Commentaire_Blanc.png"), url("/img/sprite_picto_400X400.png");
+	background-image:url("/img/my_request.png"); url("/img/favoris.png"); url("/img/positif.png"), url("/img/request.jpg"), url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/PlusVues2_Blanc.png"), url("/img/ajourRecent2_Blanc.png"), url("/img/Commentaire_Blanc.png"), url("/img/sprite_picto_400X400.png"), url("/img/sprite_picto_solaris.png");
 	background-repeat: no-repeat;
 }
 
@@ -296,7 +296,7 @@ a.form-control{
 }
 
 .form-control{
-	width:auto;
+	width:100%;
 }
 
 .col-lg-4.col-md-4.col-xs-12.col-sm-4 > object {
@@ -515,16 +515,6 @@ text-decoration-line: none;
 	height: 40px;
 	width: 40px;}
 
-
-.search_signe {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -440px center;
-	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
-}
-
 .share_signe{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -560px center;
@@ -738,6 +728,24 @@ text-decoration-line: none;
 	width: 40px;
 }
 
+
+.webCam_picto {
+  background-image: url("/img/sprite_picto_solaris.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.folderCamera_picto {
+  background-image: url("/img/sprite_picto_solaris.png");
+  background-position: -40px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
 
 .search_signe {
   background-image: url("/img/sprite_picto_400X400.png");
