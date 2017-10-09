@@ -1,7 +1,7 @@
 @media only screen and (max-width:320px) {
 
   #labelSigne.text_hyphenation {
-    width: 10rem;
+    width: 11rem;
   }
 
   li[role="presentation"].aside_bckg_li > a > div {
@@ -946,7 +946,7 @@
 
 
   .text_hyphenation.navbar_title{
-    width: 20rem;
+    width: 23rem;
   }
 
   img{
