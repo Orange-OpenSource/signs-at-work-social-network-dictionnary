@@ -1,5 +1,9 @@
 @media only screen and (max-width:320px) {
 
+  a[data-toggle=modal] div h2.container_H2.text_hyphenation{
+    width: 21rem;
+  }
+
   #labelSigne.text_hyphenation {
     width: 11rem;
   }

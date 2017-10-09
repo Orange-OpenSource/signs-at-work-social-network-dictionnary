@@ -61,7 +61,7 @@
         <li class="aside_bckg_li">
           <a data-target="#add_description_request" data-toggle="modal" href="#">
             <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
-              <h2 class="container_H2" th:text="#{your_request_description}"/>
+              <h2 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
               <div class="pull-right  add_whith_chevron"/>
             </div>
             <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
