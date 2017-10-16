@@ -295,6 +295,10 @@ a.form-control{
 	color: #fff;
 }
 
+.form-control[name=jobTextDescription]{
+	width:100%;
+}
+
 .form-control{
 	width:auto;
 }

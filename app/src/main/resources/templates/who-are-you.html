@@ -57,7 +57,7 @@
                 </div>
                 <div th:if="${user.lastName != null}">
                   <h2 class="container_H2" th:text="${user.lastName}"/>
-                  <div class="pull-right  pen_whith_chevron"/>
+                  <div class="pull-right  pen"/>
                 </div>
             </a>
           </li>
@@ -69,7 +69,7 @@
               </div>
               <div th:if="${user.firstName != null}">
                 <h2 class="container_H2" th:text="${user.firstName}"/>
-                <div class="pull-right  pen_whith_chevron"/>
+                <div class="pull-right  pen"/>
               </div>
             </a>
           </li>
@@ -92,8 +92,8 @@
                 <div class="pull-right  add_whith_chevron"/>
               </div>
               <div th:if="${user.email != null}">
-                <h2 class="container_H2" th:text="${user.email}"/>
-                <div class="pull-right  pen_whith_chevron"/>
+                <h2 class="container_H2 text_hyphenation" th:text="${user.email}"/>
+                <div class="pull-right  pen"/>
               </div>
             </a>
           </li>

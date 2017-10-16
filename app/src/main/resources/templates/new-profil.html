@@ -42,7 +42,7 @@
           </a>
           <a th:unless="${user.firstName} == null and ${user.lastName} == null" th:href="@{/sec/who-are-you/}">
             <h2 class="container_H2"  th:text="${user.name()}"></h2>
-            <div class="pull-right pen_whith_chevron"></div>
+            <div class="pull-right pen"></div>
           </a>
         </li>
         <li class="aside_bckg_li">
@@ -52,7 +52,7 @@
           </a>
           <a th:unless="${user.job} == null" th:href="@{/sec/your-job}">
             <h2 class="container_H2"  th:text="${user.job}"></h2>
-            <div class="pull-right pen_whith_chevron"></div>
+            <div class="pull-right pen"></div>
           </a>
         </li>
         <li class="aside_bckg_li">
