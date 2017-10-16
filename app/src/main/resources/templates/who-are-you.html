@@ -53,7 +53,7 @@
             <a data-target="#add_lastName" data-toggle="modal" href="#">
                 <div th:if="${user.lastName == null}">
                   <h2 class="container_H2" th:text="#{your_last_name}"/>
-                  <div class="pull-right  add_whith_chevron"/>
+                  <div class="pull-right  add"/>
                 </div>
                 <div th:if="${user.lastName != null}">
                   <h2 class="container_H2" th:text="${user.lastName}"/>
@@ -65,7 +65,7 @@
             <a data-target="#add_firstName" data-toggle="modal" href="#">
               <div th:if="${user.firstName == null}">
                 <h2 class="container_H2" th:text="#{your_first_name}"/>
-                <div class="pull-right  add_whith_chevron"/>
+                <div class="pull-right  add"/>
               </div>
               <div th:if="${user.firstName != null}">
                 <h2 class="container_H2" th:text="${user.firstName}"/>
@@ -77,7 +77,7 @@
             <a data-target="#add_file_LSF" data-toggle="modal" href="#">
               <div th:if="${user.nameVideo == null}">
                 <h2 class="container_H2" th:text="#{your_name_LSF}"/>
-                <div class="pull-right  add_whith_chevron"/>
+                <div class="pull-right  add"/>
               </div>
               <div th:if="${user.nameVideo != null}">
                 <h2 class="container_H2" th:text="#{your_name_LSF}"/>
@@ -89,7 +89,7 @@
             <a data-target="#add_email" data-toggle="modal" href="#">
               <div th:if="${user.email == null}">
                 <h2 class="container_H2" th:text="#{your_email}"/>
-                <div class="pull-right  add_whith_chevron"/>
+                <div class="pull-right  add"/>
               </div>
               <div th:if="${user.email != null}">
                 <h2 class="container_H2 text_hyphenation" th:text="${user.email}"/>

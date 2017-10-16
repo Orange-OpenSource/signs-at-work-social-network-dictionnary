@@ -346,7 +346,7 @@
   }
 
   /*end dropdown*/
-  .add {
+  .add_header {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1004px center;
     background-repeat: no-repeat;
@@ -848,7 +848,7 @@
     width: 30px;
   }
 
-  .add {
+  .add_header {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1004px center;
     background-repeat: no-repeat;
@@ -1162,7 +1162,7 @@
     margin-left: 5px;
   }
 
-  .add {
+  .add_header {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1004px center;
     background-repeat: no-repeat;

@@ -61,7 +61,7 @@
           <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} + ' \')'" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="#{sign.create}"/>
             <div>
-              <div class="pull-right add_whith_chevron"></div>
+              <div class="pull-right add"></div>
             </div>
           </a>
         </li>
@@ -69,7 +69,7 @@
           <a th:if="${requestId == 0}" data-target="#suggest" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="#{sign.create}"/>
             <div>
-              <div class="pull-right add_whith_chevron"></div>
+              <div class="pull-right add"></div>
             </div>
           </a>
         </li>

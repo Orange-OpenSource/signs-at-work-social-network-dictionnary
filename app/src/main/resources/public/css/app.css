@@ -680,14 +680,6 @@ text-decoration-line: none;
 	width: 100px;
 }
 
-.add_whith_chevron {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -60px center;
-	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 60px;
-}
 
 .pen_whith_chevron {
 	background-image: url("/img/sprite_picto_400X400.png");
