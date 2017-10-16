@@ -477,6 +477,16 @@ text-decoration-line: none;
 	width: 40px;
 }
 
+.signe_reverse_video {
+	float: left;
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1380px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
 .picto_search {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1680px center;
