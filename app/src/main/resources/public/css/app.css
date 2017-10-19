@@ -3,6 +3,26 @@
 	background-repeat: no-repeat;
 }
 
+
+.container_picto_title {
+  position: relative;
+  height: 50px;
+}
+.positioning_container{
+margin: 0 auto;
+  width: 80%;
+}
+
+.container_picto_request_other {
+  left: 2rem;
+  top: 2px;
+}
+
+.container_picto_request_other,
+.container_title_request_other{
+  position: absolute;
+}
+
 li.aside_bckg_li.noHover_nopointer{
   background-color: #989898;
 
@@ -709,6 +729,15 @@ text-decoration-line: none;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
+}
+
+.request_signe {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1420px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
 }
 
 .request_signe_whithout_chevron {

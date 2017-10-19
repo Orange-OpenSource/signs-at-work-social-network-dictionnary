@@ -1,5 +1,15 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  .container_picto_request_other {
+    left: 37%;
+    top: 5px;
+  }
+
+  .container_title_request_other {
+    left: 42%;
+  }
+
+
   .embed-responsive-4by3{
     padding-bottom: 130%;
   }
@@ -151,6 +161,15 @@
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
+
+  .container_picto_request_other {
+    left: 37%;
+    top: 5px;
+  }
+
+  .container_title_request_other {
+    left: 42%;
+  }
 
   .embed-responsive-4by3{
     padding-bottom: 130%;
@@ -313,18 +332,14 @@
 /* Large screens ----------- */
 @media only screen  and (min-width:1366px)  {
 
-  /*.col-lg-8 > .embed-responsive-4by3{*/
-    /*padding-bottom: 30%;*/
-  /*}*/
+  .container_picto_request_other {
+    left: 37%;
+    top: 5px;
+  }
 
-  /*.container_iframe{*/
-    /*!*border: 1px solid;*!*/
-    /*margin-bottom: 20px;*/
-    /*padding-bottom: 50px;*/
-    /*padding-left: 0px;*/
-    /*padding-right: 0px;*/
-  /*}*/
-
+  .container_title_request_other {
+    left: 42%;
+  }
 
   iframe {
     height: 37rem;
@@ -480,6 +495,9 @@
 
   .text_hyphenation{
     width: 34rem;
+  }
+  .container_H2.text_hyphenation{
+    width: 90%;
   }
 
   li[role="presentation"] {
