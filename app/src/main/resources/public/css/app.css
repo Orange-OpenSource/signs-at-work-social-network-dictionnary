@@ -8,18 +8,17 @@
   position: relative;
   height: 50px;
 }
-.positioning_container{
-margin: 0 auto;
-  width: 80%;
-}
 
-.container_picto_request_other {
+.container_picto_request_other,
+.container_picto_my_request{
   left: 2rem;
   top: 2px;
 }
 
 .container_picto_request_other,
-.container_title_request_other{
+.container_title_request_other,
+.container_picto_my_request,
+.container_title_my_request{
   position: absolute;
 }
 
@@ -676,6 +675,15 @@ text-decoration-line: none;
 }
 
 .my_request_signe {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2240px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.my_request_signe_whithout_chevron {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2240px center;
   background-repeat: no-repeat;

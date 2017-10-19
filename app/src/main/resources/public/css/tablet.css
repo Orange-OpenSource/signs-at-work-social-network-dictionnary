@@ -1,11 +1,13 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
-  .container_picto_request_other {
+  .container_picto_request_other,
+  .container_picto_my_request{
     left: 33%;
     top: 5px;
   }
 
-  .container_title_request_other {
+  .container_title_request_other,
+  .container_title_my_request{
     left: 40%;
   }
 

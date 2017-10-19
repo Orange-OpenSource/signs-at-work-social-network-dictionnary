@@ -1,11 +1,13 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
-  .container_picto_request_other {
+  .container_picto_request_other,
+  .container_picto_my_request{
     left: 37%;
     top: 5px;
   }
 
-  .container_title_request_other {
+  .container_title_request_other,
+  .container_title_my_request{
     left: 42%;
   }
 
@@ -162,12 +164,14 @@
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
 
-  .container_picto_request_other {
+  .container_picto_request_other,
+  .container_picto_my_request{
     left: 37%;
     top: 5px;
   }
 
-  .container_title_request_other {
+  .container_title_request_other,
+  .container_title_my_request{
     left: 42%;
   }
 
@@ -332,12 +336,14 @@
 /* Large screens ----------- */
 @media only screen  and (min-width:1366px)  {
 
-  .container_picto_request_other {
+  .container_picto_request_other,
+  .container_picto_my_request{
     left: 37%;
     top: 5px;
   }
 
-  .container_title_request_other {
+  .container_title_request_other,
+  .container_title_my_request{
     left: 42%;
   }
 
