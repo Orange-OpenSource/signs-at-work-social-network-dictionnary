@@ -333,8 +333,12 @@
 }
 
 
-/* Large screens ----------- */
-@media only screen  and (min-width:1366px)  {
+@media only screen  and (min-width:1366px) and (max-width:1540px)  {
+
+  #add_email >.container_H2.text_hyphenation{
+    width: 85%;
+  }
+
 
   .container_picto_request_other,
   .container_picto_my_request{
@@ -478,7 +482,7 @@
     background-color: aliceblue;
     bottom: 30px;
     height: 20px;
-    margin-left: 60px;
+    margin-left: 0px;
     position: absolute;
     width: 20px;
     border-radius: 10px;
@@ -500,8 +504,13 @@
   }
 
   .text_hyphenation{
-    width: 34rem;
+    width: 25rem;
   }
+
+  .container_H2.container_header_H2.text_hyphenation{
+    width: 70%;
+  }
+
   .container_H2.text_hyphenation{
     width: 90%;
   }
@@ -511,6 +520,187 @@
   }
 
 }
+
+
+@media only screen  and (min-width:1541px)  {
+
+  .container_H2.container_header_H2.text_hyphenation{
+    width: 70%;
+  }
+
+  .container_picto_request_other,
+  .container_picto_my_request{
+    left: 37%;
+    top: 5px;
+  }
+
+  .container_title_request_other,
+  .container_title_my_request{
+    left: 42%;
+  }
+
+  iframe {
+    height: 37rem;
+    width: 100%;
+  }
+
+  .col-lg-3 span.caret {
+    position: absolute;
+    left: 17px;
+    top: 24px;
+  }
+
+  .col-lg-3 .dropdown-toggle {
+    width: 20em;
+  }
+
+  .dropdown-menu > li > a > span {
+    margin-left: 1rem;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 10px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+  }
+
+  .btn{
+    line-height: 4rem;
+    vertical-align: middle;
+  }
+
+  .btn-default.active.focus,
+  .btn-default.active:focus,
+  .btn-default.active:hover,
+  .btn-default:active.focus,
+  .btn-default:active:focus,
+  .btn-default:active:hover,
+  .open>.dropdown-toggle.btn-default.focus,
+  .open>.dropdown-toggle.btn-default:focus,
+  .open>.dropdown-toggle.btn-default:hover {
+    color: #333;
+    background-color: #d4d4d4;
+    border-color: #8c8c8c;
+    line-height: 4rem;
+    vertical-align: middle;
+  }
+
+  #container-input{
+    margin: 0 auto;
+    width:53%
+  }
+
+  #myform input[type=search]{
+    border: 2px solid ;
+    border-radius: 11px;
+    box-sizing: border-box;
+    padding-right: 10%;
+  }
+
+  #reset{
+    position: absolute;
+    top: 6px;
+    right: 42%;
+    background-color: #E2E2E2;
+    border:none;
+  }
+
+  .embed-responsive .embed-responsive-item,
+  .embed-responsive embed,
+  .embed-responsive iframe,
+  .embed-responsive object,
+  .embed-responsive video {
+    height: 37rem;
+    width: 100%;
+  }
+
+
+  img {
+    height: 450px;
+    width: 450px;
+    object-fit: contain;
+    font-family: 'object-fit: contain'; /* for IE*/
+    overflow: hidden;
+    border: 1px solid;
+  }
+
+  .tooltip_newSigne {
+    background-position: 5px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 170px;
+  }
+
+  .tooltip_comment {
+    background-position: right 0px top 4px;
+    background-size: auto 50px;
+    height: 72px;
+    width: 83px;
+    right: 150px;
+  }
+
+  .tooltip_eye {
+    background-position: right 22px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 80px;
+  }
+
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 50px;
+  }
+
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 83px;
+    right: 0px;
+  }
+
+  .tooltip_variante {
+    background-color: aliceblue;
+    bottom: 30px;
+    height: 20px;
+    margin-left: 20px;
+    position: absolute;
+    width: 20px;
+    border-radius: 10px;
+  }
+
+  .container_tooltip {
+    position: absolute !important;
+    right: 90px;
+  }
+
+
+  #labelSigne > a{
+    padding-left: 60px;
+  }
+
+
+  label .text_hyphenation {
+    width:22rem;
+  }
+
+  .text_hyphenation{
+    width: 40rem;
+  }
+
+  li[role="presentation"] {
+    width:20rem;
+  }
+
+}
+
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
