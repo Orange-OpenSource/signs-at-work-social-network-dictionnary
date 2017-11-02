@@ -55,7 +55,7 @@
         <li class="aside_bckg_li">
           <a th:attr="data-target='#modify_request'" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="${requestView.name}"/>
-            <div class="pull-right pen_whith_chevron"></div>
+            <div class="pull-right pen"></div>
           </a>
         </li>
         <li class="aside_bckg_li">
@@ -66,7 +66,7 @@
             </div>
             <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
               <h2 class="container_H2" th:text="${requestView.requestTextDescription}"/>
-              <div class="pull-right  pen_whith_chevron"/>
+              <div class="pull-right  pen"/>
             </div>
           </a>
         </li>
@@ -78,7 +78,7 @@
             </div>
             <div th:if="${requestView.requestVideoDescription != null}">
               <h2 class="container_H2" th:text="#{request_description_LSF}"/>
-              <div class="pull-right  pen_whith_chevron"/>
+              <div class="pull-right  pen"/>
             </div>
           </a>
         </li>
