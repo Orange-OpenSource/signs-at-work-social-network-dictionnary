@@ -36,7 +36,7 @@
                 <li class="clear aside_bckg_li">
                   <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
                     <div>
-                      <div class="pull-left search_signe"></div>
+                      <div class="pull-left search_signe_black"></div>
                       <h2  class="container_H2" th:text="#{search}"></h2>
                       <div>
                         <div class="pull-right search_signe_glass"></div>
@@ -45,7 +45,7 @@
                   </a>
                   <a th:if="${!isAuthenticated}" th:href="@{/signs(isSearch=true)}">
                     <div>
-                      <div class="pull-left search_signe"></div>
+                      <div class="pull-left search_signe_black"></div>
                       <h2  class="container_H2" th:text="#{search}"></h2>
                       <div>
                         <div class="pull-right search_signe_glass"></div>
@@ -72,7 +72,7 @@
                 <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a th:href="@{/sec/suggest}">
                         <div>
-                        <div class="pull-left suggest"></div>
+                        <div class="pull-left suggest_black"></div>
                         <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
                             <div>
                                 <div class="pull-right add"></div>
@@ -83,7 +83,7 @@
                 <li th:if="${isAuthenticated}" class="aside_bckg_li">
                     <a th:href="@{/sec/request}">
                         <div>
-                        <div class="pull-left require"></div>
+                        <div class="pull-left require_black"></div>
                         <h2 class="container_H2" th:text="#{sign.request}"></h2>
                             <div >
                                 <div class="pull-right request_signe_whithout_chevron "></div>

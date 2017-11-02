@@ -559,6 +559,14 @@ text-decoration-line: none;
 	height: 40px;
 	width: 40px;
 }
+.search_signe_black {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -2540px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
 
 .share_signe{
   background-image: url("/img/sprite_picto_400X400.png");
@@ -820,6 +828,15 @@ text-decoration-line: none;
 	width: 40px;
 }
 
+.suggest_black {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -2580px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
 .newSigne {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1740px center;
@@ -841,6 +858,14 @@ text-decoration-line: none;
 .require {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -960px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+.require_black {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -2620px center;
 	background-repeat: no-repeat;
 	background-size: auto 40px;
 	height: 40px;
