@@ -53,7 +53,12 @@
       </ul>
     </aside>
     <div class="request_whitout_answer  aside_bckg_li">
-      <div class="text-center" th:text="#{request.mine}"></div>
+
+      <div class="container_picto_title">
+        <div class="container_picto_my_request my_request_signe_whithout_chevron"></div>
+        <div class="container_title_my_request" th:text="#{request.mine}"></div>
+      </div>
+      <!--<div class="text-center" th:text="#{request.mine}"></div>-->
     </div>
 
     <div th:if="${not #lists.isEmpty(myRequestsWithoutSignAssociate)}">
@@ -99,7 +104,10 @@
     </div>
 
     <div class="request_whitout_answer  aside_bckg_li">
-      <div class="text-center" th:text="#{request.other}"></div>
+      <div class="container_picto_title">
+            <div class="container_picto_request_other request_signe_whithout_chevron"></div>
+            <div class="container_title_request_other" th:text="#{request.other}"></div>
+      </div>
     </div>
     <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
       <div th:each="request:${otherRequestsWithoutSignAssociate}">

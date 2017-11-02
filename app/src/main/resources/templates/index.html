@@ -36,19 +36,19 @@
                 <li class="clear aside_bckg_li">
                   <a th:if="${isAuthenticated}" th:href="@{/sec/signs/alphabetic(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
                     <div>
-                      <div class="pull-left search_signe"></div>
+                      <div class="pull-left search_signe_black"></div>
                       <h2  class="container_H2" th:text="#{search}"></h2>
                       <div>
-                        <div class="pull-right search_signe_with_chevron"></div>
+                        <div class="pull-right search_signe_glass"></div>
                       </div>
                     </div>
                   </a>
                   <a th:if="${!isAuthenticated}" th:href="@{/signs(isSearch=true)}">
                     <div>
-                      <div class="pull-left search_signe"></div>
+                      <div class="pull-left search_signe_black"></div>
                       <h2  class="container_H2" th:text="#{search}"></h2>
                       <div>
-                        <div class="pull-right search_signe_with_chevron"></div>
+                        <div class="pull-right search_signe_glass"></div>
                       </div>
                     </div>
                   </a>
@@ -59,7 +59,7 @@
                         <div class="signe"></div>
                         <h2 class="container_H2" th:text="#{sign.advise}"></h2>
                             <div>
-                                <div class="pull-right recent_signe " >
+                                <div class="pull-right chevron_right " >
                                     <span class="nbRecentSign_0-9" th:if="${nbRecentSign lt 9 and nbRecentSign ge 0}" id="container_badge_new_signe" th:text="${nbRecentSign}"></span>
                                     <span class="nbRecentSign_9-99" th:if="${nbRecentSign lt 99 and nbRecentSign gt 9}" id="container_badge_new_signe" th:text="${nbRecentSign}"></span>
                                     <span class="nbRecentSign_99-999" th:if="${nbRecentSign lt 999 and nbRecentSign gt 99}" id="container_badge_new_signe" th:text="${nbRecentSign}"></span>
@@ -72,10 +72,10 @@
                 <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a th:href="@{/sec/suggest}">
                         <div>
-                        <div class="pull-left suggest"></div>
+                        <div class="pull-left suggest_black"></div>
                         <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
                             <div>
-                                <div class="pull-right add_whith_chevron"></div>
+                                <div class="pull-right add"></div>
                             </div>
                         </div>
                     </a>
@@ -83,10 +83,10 @@
                 <li th:if="${isAuthenticated}" class="aside_bckg_li">
                     <a th:href="@{/sec/request}">
                         <div>
-                        <div class="pull-left require"></div>
+                        <div class="pull-left require_black"></div>
                         <h2 class="container_H2" th:text="#{sign.request}"></h2>
                             <div >
-                                <div class="pull-right request_signe_whith_chevron "></div>
+                                <div class="pull-right request_signe_whithout_chevron "></div>
                             </div>
                         </div>
                     </a>

@@ -3,6 +3,25 @@
 	background-repeat: no-repeat;
 }
 
+
+.container_picto_title {
+  position: relative;
+  height: 50px;
+}
+
+.container_picto_request_other,
+.container_picto_my_request{
+  left: 2rem;
+  top: 2px;
+}
+
+.container_picto_request_other,
+.container_title_request_other,
+.container_picto_my_request,
+.container_title_my_request{
+  position: absolute;
+}
+
 li.aside_bckg_li.noHover_nopointer{
   background-color: #989898;
 
@@ -162,7 +181,7 @@ h4, .h4 {
 .navbar_title {
 	color: white;
 	cursor: default;
-	font-size: 20px;
+	font-size: 17px;
 	margin-top: 10px;
 }
 
@@ -293,6 +312,10 @@ a.form-control{
 	border-right-color: #f16e00;
 	border-top-color: #f16e00;
 	color: #fff;
+}
+
+.form-control[name=jobTextDescription]{
+	width:100%;
 }
 
 .form-control{
@@ -477,6 +500,16 @@ text-decoration-line: none;
 	width: 40px;
 }
 
+.signe_reverse_video {
+	float: left;
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1380px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
 .picto_search {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1680px center;
@@ -514,6 +547,24 @@ text-decoration-line: none;
 	background-size: auto 40px;
 	height: 40px;
 	width: 40px;}
+
+
+.search_signe {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -440px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+.search_signe_black {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -2540px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
 
 .share_signe{
   background-image: url("/img/sprite_picto_400X400.png");
@@ -638,6 +689,15 @@ text-decoration-line: none;
   width: 40px;
 }
 
+.my_request_signe_whithout_chevron {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2240px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
 .alphabetic {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2200px center;
@@ -654,15 +714,6 @@ text-decoration-line: none;
 	background-size: auto 40px;
 	height: 40px;
 	width: 100px;
-}
-
-.add_whith_chevron {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -60px center;
-	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 60px;
 }
 
 .pen_whith_chevron {
@@ -694,6 +745,15 @@ text-decoration-line: none;
 }
 
 .request_signe {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -1420px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
+.request_signe_whithout_chevron {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1420px center;
 	background-repeat: no-repeat;
@@ -756,6 +816,15 @@ text-decoration-line: none;
   width: 40px;
 }
 
+.search_signe_header {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -600px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
 .search_signe_with_chevron {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2280px center;
@@ -768,6 +837,15 @@ text-decoration-line: none;
 .suggest {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1040px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
+
+.suggest_black {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -2580px center;
 	background-repeat: no-repeat;
 	background-size: auto 40px;
 	height: 40px;
@@ -800,6 +878,14 @@ text-decoration-line: none;
 	height: 40px;
 	width: 40px;
 }
+.require_black {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -2620px center;
+	background-repeat: no-repeat;
+	background-size: auto 40px;
+	height: 40px;
+	width: 40px;
+}
 .add {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1340px center;
@@ -809,7 +895,7 @@ text-decoration-line: none;
 	width: 40px;
 }
 
-.search_signe_header {
+.search_signe_glass {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -600px center;
   background-repeat: no-repeat;

@@ -1,5 +1,16 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  .container_picto_request_other,
+  .container_picto_my_request{
+    left: 33%;
+    top: 5px;
+  }
+
+  .container_title_request_other,
+  .container_title_my_request{
+    left: 40%;
+  }
+
   .embed-responsive-4by3{
     padding-bottom: 130%;
   }
@@ -120,14 +131,14 @@
     right: 32px;
   }
 
-  .request_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1065px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
+  /*.request_signe {*/
+    /*background-image: url("/img/sprite_picto_400X400.png");*/
+    /*background-position: -1065px center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: auto 30px;*/
+    /*height: 30px;*/
+    /*width: 30px;*/
+  /*}*/
 
   .add {
     background-image: url("/img/sprite_picto_400X400.png");

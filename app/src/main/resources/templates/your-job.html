@@ -44,11 +44,11 @@
             <a data-target="#add_job_name" data-toggle="modal" href="#">
               <div th:if="${user.job == null}">
                 <h2 class="container_H2" th:text="#{your_job}"/>
-                <div class="pull-right  add_whith_chevron"/>
+                <div class="pull-right  add"/>
               </div>
               <div th:if="${user.job != null}">
                 <h2 class="container_H2" th:text="${user.job}"/>
-                <div class="pull-right  pen_whith_chevron"/>
+                <div class="pull-right  pen"/>
               </div>
             </a>
           </li>
@@ -56,11 +56,11 @@
             <a data-target="#add_entity_name" data-toggle="modal" href="#">
               <div th:if="${user.entity == null}">
                 <h2 class="container_H2" th:text="#{your_entity}"/>
-                <div class="pull-right  add_whith_chevron"/>
+                <div class="pull-right  add"/>
               </div>
               <div th:if="${user.entity != null}">
                 <h2 class="container_H2" th:text="${user.entity}"/>
-                <div class="pull-right  pen_whith_chevron"/>
+                <div class="pull-right  pen"/>
               </div>
             </a>
           </li>
