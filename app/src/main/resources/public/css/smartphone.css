@@ -1,8 +1,14 @@
 @media only screen and (max-width:320px) {
 
-input.form-control{
+
+  .navbar_title{
+    font-size: 14px;
+  }
+
+  input.form-control{
   width: 80%;
-}
+  }
+
   .container_picto_request_other,
   .container_picto_my_request{
     left: 13%;
@@ -35,7 +41,7 @@ input.form-control{
   }
 
   .request_whitout_answer.aside_bckg_li{
-    /*width: 30rem;*/
+    width: 100%;
     font-size: 17px;
   }
 
@@ -61,7 +67,7 @@ input.form-control{
   }
 
   h2, .h2 {
-    font-size: 17px;
+    font-size: 13px;
   }
 
   .col-xs-12.middle-col{
@@ -617,6 +623,11 @@ input.form-control{
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+
+  .navbar_title{
+    font-size: 14px;
+  }
+
   .container_picto_request_other,
   .container_picto_my_request{
     left: 13%;
@@ -645,7 +656,7 @@ input.form-control{
   }
 
   .request_whitout_answer.aside_bckg_li{
-    /*width: 30rem;*/
+    width: 100%;
     font-size: 17px;
   }
 
@@ -671,7 +682,7 @@ input.form-control{
   }
 
   h2, .h2 {
-    font-size: 17px;
+    font-size: 13px;
   }
 
 
@@ -1055,7 +1066,7 @@ input.form-control{
   }
 
   .request_whitout_answer.aside_bckg_li{
-    /*width: 30rem;*/
+    width: 100%;
     font-size: 17px;
   }
 
@@ -1438,7 +1449,7 @@ input.form-control{
   }
 
   .request_whitout_answer.aside_bckg_li{
-    /*width: 30rem;*/
+    width: 100%;
     font-size: 17px;
   }
 
@@ -1671,7 +1682,7 @@ input.form-control{
   }
 
   .request_whitout_answer.aside_bckg_li{
-    /*width: 30rem;*/
+    width: 100%;
     font-size: 17px;
   }
 
@@ -1890,7 +1901,7 @@ input.form-control{
   }
 
   .request_whitout_answer.aside_bckg_li{
-    /*width: 30rem;*/
+    width: 100%;
     font-size: 17px;
   }
 
