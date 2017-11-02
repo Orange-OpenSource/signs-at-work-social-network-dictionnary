@@ -30,7 +30,8 @@
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
       <div class="col-lg-12 col-sm-12 navbar-header">
-          <a href="#" th:onclick="'javascript:onBackFavorite(\'' + ${backUrl} + '\')'">
+          <a href="/" th:onclick="'javascript:onBackFavorite(\'' + ${backUrl} + '\')'">
+            <div class="signe_reverse_video"></div>
             <div class="pull-left">
               <div class="add_favorite_signe pull-left"></div>
               <h1 class="text_hyphenation navbar_title pull-left" th:text="#{favorite.add_sign_at_list(${'&laquo;'+title+'&raquo;'})}"/>
