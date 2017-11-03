@@ -70,10 +70,10 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date asc", nativeQuery = true)
     List<Object[]> findLowRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
 
-    @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr != 0 order by nbr desc", nativeQuery = true)
+    @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
     Long[] findMostRating();
 
-    @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr != 0 order by nbr asc", nativeQuery = true)
+    @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr > 0 order by nbr asc", nativeQuery = true)
     Long[] findLowRating();
 
     @Query(value="select  sign_id, sum(nb_comment) as nbr from videos where nb_comment != 0 group by sign_id having nbr != 0 order by nbr desc", nativeQuery = true)
