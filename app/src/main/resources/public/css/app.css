@@ -3,6 +3,15 @@
 	background-repeat: no-repeat;
 }
 
+
+.check {
+  background-image: url("/img/checked.png");
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  width: 20px;
+  height: 20px;
+}
+
 #cancel-recording{
   background-color: transparent;
   border: 1px solid;

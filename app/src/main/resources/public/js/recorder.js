@@ -30,6 +30,7 @@ var labelAfterRecord = document.getElementById('label_after_record');
 var videoElement = document.getElementById('video');
 
 var startRecording = document.getElementById('start-recording');
+var retryRecording = document.getElementById('retry-recording');
 var stopRecording = document.getElementById('stop-recording');
 var cancelRecording = document.getElementById('cancel-recording');
 document.getElementById('container-button').style.display = "none";
@@ -74,11 +75,36 @@ startRecording.onclick = function() {
   });
 };
 
+retryRecording.onclick=function () {
+  document.getElementById('container-button').style.display = "none";
+  document.getElementById('btnChecked').style.display = "none";
+  document.getElementById('start-recording').style.display = "block";
+  videoContainer.style.display="block";
+    labelRecord.style.display="none";
+    labelAfterRecord.style.display="none";
+    startRecording.disabled = true;
+    stopRecording.disabled = false;
+    document.getElementById('start-recording').disabled = true;
+    document.getElementById('stop-recording').disabled = false;
+
+    captureUserMedia00(function(stream) {
+      window.audioVideoRecorder = window.RecordRTC(stream, {
+        type: 'video',
+        disableLogs: false
+      });
+      document.getElementById('video').style.visibility="visible";
+      document.getElementById("counter").style.visibility="visible";
+      timedCount();
+      //window.audioVideoRecorder.startRecording();
+    });
+};
+
 stopRecording.onclick = function() {
   labelAfterRecord.style.display="block";
   labelAfterRecord.style.visibility="visible";
   // document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('container-button').style.display = "block";
+  document.getElementById('btnChecked').style.display = "block";
   document.getElementById('stop-recording').style.display = "none";
   stopRecording.disabled = true;
   startRecording.disabled = false;
@@ -111,10 +137,7 @@ stopRecording.onclick = function() {
 };
 
 cancelRecording.onclick = function() {
-  $('.modal').modal('toggle');
-  // $('#add_video_file_recording').modal('toggle');
-  // $('#container-button').style.display = "none";
-
+  location.href = "suggest.html";
 };
 
 function captureUserMedia00(callback) {
