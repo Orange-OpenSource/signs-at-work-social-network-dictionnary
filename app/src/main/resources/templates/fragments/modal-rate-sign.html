@@ -73,19 +73,6 @@
         </div>
       </div>
 
-      <div class="modal-body text-center">
-
-        <aside class="sidebar">
-          <ul class="nav nav-list primary left-menu">
-            <li class="re-rate clear aside_bckg_li">
-        <a data-target="#new-video" data-toggle="modal" href="#">
-            <h2 class="container_H2" th:text="#{sign.propose_your_video}"/>
-            <div ><div class="pull-right add"></div></div>
-        </a>
-            </li>
-          </ul>
-        </aside>
-      </div>
 
       <div class="modal-body text-center ">
         <button th:text="#{continue}" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " class="btn btn-default"></button>
@@ -94,7 +81,6 @@
   </div>
 </div>
 
-<div th:replace="fragments/modal-new-video :: div"/>
 
 </body>
 </html>

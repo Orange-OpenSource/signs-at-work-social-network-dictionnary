@@ -82,4 +82,7 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select  sign_id, sum(nb_comment) as nbr from videos where nb_comment != 0 group by sign_id having nbr != 0 order by nbr asc", nativeQuery = true)
     Long[] findLowCommented();
 
+    @Query(value="select count(*) from ratings r, videos v where r.video_id = v.id and v.sign_id =  :signId", nativeQuery = true)
+    Long findNbRatingForSign(@Param("signId") long signId);
+
 }

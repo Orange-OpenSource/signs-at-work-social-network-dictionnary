@@ -76,6 +76,18 @@
                             </a>
                         </li>
                     </div>
+
+                    <li th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
+                      <a href="#" data-toggle="modal" data-target="#new-video">
+                        <div>
+                          <h2 class="container_H2" th:text="#{video.add}"></h2>
+                          <div>
+                            <div class="pull-right  chevron_right"/>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+
                     <li th:if="${isAuthenticated}"   th:attr="class=${classVideoAssociate}">
                       <a th:if="${!#strings.contains(classVideoAssociate,'disabled')}" th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/video-associates'" >
                         <div>
@@ -139,6 +151,7 @@
 <div th:replace="fragments/modal-new-comment-sign :: div"/>
 <div th:replace="fragments/modal-rate-sign :: div"/>
 <div th:replace="fragments/modal-add-favorite :: div"/>
+<div th:replace="fragments/modal-new-video :: div"/>
 
 </body>
 

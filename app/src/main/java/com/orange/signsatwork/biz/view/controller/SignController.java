@@ -602,6 +602,9 @@ public class SignController {
     model.addAttribute("videoView", video);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
 
+    Long nbRating = services.sign().NbRatingForSign(signId);
+    model.addAttribute("nbRating", nbRating);
+
     return "sign";
   }
 
