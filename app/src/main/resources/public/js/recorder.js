@@ -31,6 +31,8 @@ var videoElement = document.getElementById('video');
 
 var startRecording = document.getElementById('start-recording');
 var stopRecording = document.getElementById('stop-recording');
+var cancelRecording = document.getElementById('cancel-recording');
+document.getElementById('container-button').style.display = "none";
 
 var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
@@ -53,7 +55,7 @@ function timedCount() {
 
 startRecording.onclick = function() {
   videoContainer.style.display="block";
-  labelRecord.style.visibility="hidden";
+  labelRecord.style.display="none";
   labelAfterRecord.style.display="none";
   startRecording.disabled = true;
   stopRecording.disabled = false;
@@ -75,12 +77,14 @@ startRecording.onclick = function() {
 stopRecording.onclick = function() {
   labelAfterRecord.style.display="block";
   labelAfterRecord.style.visibility="visible";
-  document.getElementById('start-recording').style.display = "inline-block";
+  // document.getElementById('start-recording').style.display = "inline-block";
+  document.getElementById('container-button').style.display = "block";
   document.getElementById('stop-recording').style.display = "none";
   stopRecording.disabled = true;
   startRecording.disabled = false;
   document.getElementById('stop-recording').disabled = true;
-  document.getElementById('start-recording').disabled = false;
+  // document.getElementById('start-recording').disabled = false;
+  document.getElementById('retry-recording').disabled = false;
   document.getElementById('continue').disabled = false;
 
   window.audioVideoRecorder.stopRecording(function(url) {
@@ -104,6 +108,13 @@ stopRecording.onclick = function() {
     });
 
   });
+};
+
+cancelRecording.onclick = function() {
+  $('.modal').modal('toggle');
+  // $('#add_video_file_recording').modal('toggle');
+  // $('#container-button').style.display = "none";
+
 };
 
 function captureUserMedia00(callback) {
@@ -160,30 +171,30 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
   $(".spinner").css("z-index","1500").visibility="visible";
   $("#continue").css("color","black");
   videoFile.signNameRecording = $('#signNameRecording').val();
-    event.preventDefault();
-    $.ajax({
-      url: $formUploadRecordedVideoFile.attr('action'),
-      type: 'post',
-      data: JSON.stringify(videoFile),
-      contentType: "application/json",
-      success: function(response) {
-        //var url = "/sign/"+response;
-        var url = response;
-        window.location = url;
-        errorSpan.style.visibility="hidden";
-        $(".spinner").visibility="hidden";
-        $("video").css("z-index","1500").css("opacity","1");
-        console.log("Success " + response);
-      },
-      error: function(response) {
-        errorSpan.textContent = response.responseText;
-        errorSpan.style.visibility="visible";
-        $(".spinner").css("z-index","-1").css("opacity","0.1");
-        $(".spinner").visibility="hidden";
-        $("video").css("z-index","1500").css("opacity","1");
-        console.log("Erreur " + response.responseText);
-      }
-    })
+  event.preventDefault();
+  $.ajax({
+    url: $formUploadRecordedVideoFile.attr('action'),
+    type: 'post',
+    data: JSON.stringify(videoFile),
+    contentType: "application/json",
+    success: function(response) {
+      //var url = "/sign/"+response;
+      var url = response;
+      window.location = url;
+      errorSpan.style.visibility="hidden";
+      $(".spinner").visibility="hidden";
+      $("video").css("z-index","1500").css("opacity","1");
+      console.log("Success " + response);
+    },
+    error: function(response) {
+      errorSpan.textContent = response.responseText;
+      errorSpan.style.visibility="visible";
+      $(".spinner").css("z-index","-1").css("opacity","0.1");
+      $(".spinner").visibility="hidden";
+      $("video").css("z-index","1500").css("opacity","1");
+      console.log("Erreur " + response.responseText);
+    }
+  })
 
 });
 
@@ -193,11 +204,11 @@ $formUploadRecordedVideoFile.on('input', function(event) {
 
 var $add_video_file_recording = $('#add_video_file_recording');
 $add_video_file_recording.on('hidden.bs.modal', function() {
- console.log("hidden add_video_file_recording modal");
+  console.log("hidden add_video_file_recording modal");
   clearTimeout(t);
   audioVideoRecorder.clearRecordedData();
   videoContainer.style.display="none";
-  labelRecord.style.visibility="visible";
+  labelRecord.style.display="block";
   labelAfterRecord.style.display="none";
   document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('stop-recording').style.display = "none";

@@ -3,6 +3,31 @@
 	background-repeat: no-repeat;
 }
 
+#cancel-recording{
+  background-color: transparent;
+  border: 1px solid;
+  float: right;
+  right: 0px;
+  width: 90px;
+  margin-left: 10px;
+}
+
+.retry_recording >span,
+.cancel_recording >span{
+  line-height: 20px;
+}
+
+#retry-recording{
+  background-color: transparent;
+  border: 1px solid;
+  float: left;
+  left: 0px;
+  width: 140px;
+}
+
+#uploadRecordedVideoFile .modal-body.text-center{
+  padding: 2px;
+}
 
 .container_picto_title {
   position: relative;
@@ -74,6 +99,7 @@ table tbody td{
 
 #container_video{
   display: none;
+  margin-top: 10px;
 }
 
 #counter {
@@ -1139,14 +1165,40 @@ text-decoration-line: none;
   width: 60px;
   background-color: transparent;
 }
+
 .stop {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3632px center;
+  background-position: -3630px center;
   background-repeat: no-repeat;
   background-size: auto 60px;
   height: 60px;
   width: 60px;
+  border: none;
+  background-color: transparent;
 }
+
+.retry_recording {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -800px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  border: none;
+  background-color: transparent;
+}
+
+.cancel_recording {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -910px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  border: none;
+  background-color: transparent;
+}
+
 .play {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -3572px center;
