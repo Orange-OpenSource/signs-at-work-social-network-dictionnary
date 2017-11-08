@@ -102,14 +102,12 @@ retryRecording.onclick=function () {
 stopRecording.onclick = function() {
   labelAfterRecord.style.display="block";
   labelAfterRecord.style.visibility="visible";
-  // document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('container-button').style.display = "block";
   document.getElementById('btnChecked').style.display = "block";
   document.getElementById('stop-recording').style.display = "none";
   stopRecording.disabled = true;
   startRecording.disabled = false;
   document.getElementById('stop-recording').disabled = true;
-  // document.getElementById('start-recording').disabled = false;
   document.getElementById('retry-recording').disabled = false;
   document.getElementById('continue').disabled = false;
 
