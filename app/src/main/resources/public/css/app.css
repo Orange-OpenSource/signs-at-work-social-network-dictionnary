@@ -3,6 +3,13 @@
 	background-repeat: no-repeat;
 }
 
+#container-button > button >span{
+  margin-left: 5px;
+}
+#container-button >button,
+#continue {
+  line-height:20px;
+}
 
 .check {
   background-image: url("/img/checked.png");
@@ -15,10 +22,11 @@
 #cancel-recording{
   background-color: transparent;
   border: 1px solid;
-  float: right;
-  right: 0px;
-  width: 90px;
-  margin-left: 10px;
+  margin-top: 5px;
+  /*float: right;*/
+  /*right: 0px;*/
+  /*width: 90px;*/
+  /*margin-left: 10px;*/
 }
 
 .retry_recording >span,
@@ -29,9 +37,9 @@
 #retry-recording{
   background-color: transparent;
   border: 1px solid;
-  float: left;
-  left: 0px;
-  width: 140px;
+  /*float: left;*/
+  /*left: 0px;*/
+  /*width: 140px;*/
 }
 
 #uploadRecordedVideoFile .modal-body.text-center{
@@ -102,13 +110,14 @@ table tbody td{
   white-space: nowrap;
 }
 
-#container_video #video{
-  width:90%;
-}
+/*#container_video #video{*/
+  /*width:90%;*/
+/*}*/
 
 #container_video{
   display: none;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #counter {
@@ -118,6 +127,7 @@ table tbody td{
   position: absolute;
   right: 41%;
   top: 32%;
+  z-index: 3;
 }
 
 #tooltipInframe{

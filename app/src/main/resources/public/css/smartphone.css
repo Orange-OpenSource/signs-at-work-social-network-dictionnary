@@ -1,5 +1,66 @@
 @media only screen and (max-width:320px) {
 
+  #counter{
+    right: 34%;
+    top: -10%;
+  }
+
+  H4#label_record,
+  H4#label_after_record{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  }
+
+  #container_video{
+    display: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+
+  #container-button >.btn{
+    font-size:10px;
+  }
+
+  #continue  {
+    font-size: 10px;
+  }
+
+  #container-button >button,
+  #continue {
+    line-height:10px;
+  }
+
+  .check {
+    background-image: url("/img/checked.png");
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .retry_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -400px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
+  .cancel_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -455px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
 
   .navbar_title{
     font-size: 14px;
@@ -623,6 +684,67 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  #counter{
+    right: 40%;
+    top: 26%;
+  }
+
+  H4#label_record,
+  H4#label_after_record{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #container_video{
+    display: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+
+  #container-button >.btn{
+    font-size:10px;
+  }
+
+  #continue  {
+    font-size: 10px;
+  }
+
+  #container-button >button,
+  #continue {
+    line-height:10px;
+  }
+
+  .check {
+    background-image: url("/img/checked.png");
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .retry_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -400px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
+  .cancel_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -455px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
 
   .navbar_title{
     font-size: 14px;
@@ -1038,6 +1160,67 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
+  #counter{
+    right: 40%;
+    top: 26%;
+  }
+
+  H4#label_record,
+  H4#label_after_record{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #container_video{
+    display: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+
+  #container-button >.btn{
+    font-size:10px;
+  }
+
+  #continue  {
+    font-size: 10px;
+  }
+
+  #container-button >button,
+  #continue {
+    line-height:10px;
+  }
+
+  .check {
+    background-image: url("/img/checked.png");
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .retry_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -400px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
+  .cancel_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -455px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
   .container_picto_request_other,
   .container_picto_my_request{
     left: 18%;
@@ -1420,6 +1603,67 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  #counter{
+    right: 40%;
+    top: 26%;
+  }
+
+  H4#label_record,
+  H4#label_after_record{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #container_video{
+    display: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+
+  #container-button >.btn{
+    font-size:10px;
+  }
+
+  #continue  {
+    font-size: 10px;
+  }
+
+  #container-button >button,
+  #continue {
+    line-height:10px;
+  }
+
+  .check {
+    background-image: url("/img/checked.png");
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .retry_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -400px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
+  .cancel_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -455px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
   .container_picto_request_other,
   .container_picto_my_request{
     left: 26%;
@@ -1653,6 +1897,67 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
+  #counter{
+    right: 40%;
+    top: 26%;
+  }
+
+  H4#label_record,
+  H4#label_after_record{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #container_video{
+    display: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+
+  #container-button >.btn{
+    font-size:10px;
+  }
+
+  #continue  {
+    font-size: 10px;
+  }
+
+  #container-button >button,
+  #continue {
+    line-height:10px;
+  }
+
+  .check {
+    background-image: url("/img/checked.png");
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .retry_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -400px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
+  .cancel_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -455px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
   .container_picto_request_other,
   .container_picto_my_request{
     left: 26%;
@@ -1872,6 +2177,67 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  #counter{
+    right: 40%;
+    top: 26%;
+  }
+
+  H4#label_record,
+  H4#label_after_record{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #container_video{
+    display: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+
+  #container-button >.btn{
+    font-size:10px;
+  }
+
+  #continue  {
+    font-size: 10px;
+  }
+
+  #container-button >button,
+  #continue {
+    line-height:10px;
+  }
+
+  .check {
+    background-image: url("/img/checked.png");
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .retry_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -400px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
+
+  .cancel_recording {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -455px center;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+    height: 10px;
+    width: 10px;
+    border: none;
+    background-color: transparent;
+  }
 
   .container_picto_request_other,
   .container_picto_my_request{

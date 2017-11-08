@@ -234,6 +234,8 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   labelRecord.style.display="block";
   labelAfterRecord.style.display="none";
   document.getElementById('start-recording').style.display = "inline-block";
+  document.getElementById('container-button').style.display = "none";
+  document.getElementById('btnChecked').style.display = "none";
   document.getElementById('stop-recording').style.display = "none";
   document.getElementById('stop-recording').disabled = true;
   document.getElementById('start-recording').disabled = false;
