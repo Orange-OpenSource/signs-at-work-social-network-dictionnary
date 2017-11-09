@@ -135,8 +135,9 @@ stopRecording.onclick = function() {
 };
 
 cancelRecording.onclick = function() {
-  location.href = "suggest.html";
+  $('#add_video_file_recording').find('.close').click();
 };
+
 
 function captureUserMedia00(callback) {
   captureUserMedia({

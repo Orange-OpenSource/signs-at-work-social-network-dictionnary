@@ -83,14 +83,22 @@
         <div  class="container_record text-center">
           <h4 id="label_record" th:text="#{record_description_request_lsf(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
           <h4 id="label_after_record" th:text="#{after_record_description_request_lsf(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}" style="display: none"></h4>
-          <div id="container_video">
+          <div id="container_video" class="col-xs-offset-1 col-xs-10" >
             <div class="spinner spinner_hidden"></div>
             <span id="counter"></span>
             <video id="video"></video>
           </div>
 
-          <div class="text-center">
+          <div class="btn-group-vertical" role="group">
             <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
+            <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
+              <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
+                <div class="retry_recording pull-left"></div><span th:text="#{retry}"></span>
+              </button>
+              <button id="cancel-recording" class="btn" title="Cliquer pour annuler">
+                <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
+              </button>
+            </div>
             <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
           </div>
 
@@ -101,9 +109,10 @@
             <span id="errorSelectedSpan"  style="visibility: hidden"></span>
             <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
           </div>
-          <div class="modal-footer">
-            <button id="continue" th:text="#{continue}" type="submit" class="btn btn-default"
-                    data-dismiss="" disabled=""></button>
+          <div id="modal-footer_add_video_file_recording" class="modal-footer">
+            <button id="continue" type="submit" class="btn btn-default" data-dismiss="" disabled="" >
+              <div id="btnChecked" class="check pull-left" style="display: none;"></div><span th:text="#{continue}" ></span>
+            </button>
           </div>
         </form>
     </div>

@@ -1,5 +1,9 @@
 @media only screen and (max-width:320px) {
 
+  #modal-footer_add_video_file_recording{
+    padding: 5px;
+  }
+
   #counter{
     right: 34%;
     top: -10%;
