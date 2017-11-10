@@ -482,6 +482,10 @@ public class SignController {
     List<VideoViewData> videoViewsData = querySigns.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
+    if (videoViewsData.size() == 0) {
+      return "redirect:/";
+    }
+
     if (videoViewsData.size() == 1) {
       return showVideo(signId, videoViewsData.get(0).videoId);
     } else {
@@ -529,6 +533,9 @@ public class SignController {
 
 
     Sign sign = services.sign().withIdSignsView(signId);
+    if (sign == null) {
+      return "redirect:/";
+    }
     if (referer != null ) {
       if (referer.contains(SIGNS_URL)) {
         backUrl = SIGNS_URL + "/?isSearch=false";
@@ -548,6 +555,10 @@ public class SignController {
     model.addAttribute("backUrl", backUrl);
 
     Video video = services.video().withId(videoId);
+    if (video == null) {
+      return "redirect:/";
+    }
+
     if (principal != null) {
       User user = services.user().withUserName(principal.getName());
       if(user != null) {
@@ -622,7 +633,13 @@ public class SignController {
 
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
     Sign sign = services.sign().withIdSignsView(signId);
+    if (sign == null) {
+      return "redirect:/";
+    }
     Video video = services.video().withId(videoId);
+    if (video == null) {
+      return "redirect:/";
+    }
     if (principal != null) {
       User user = services.user().withUserName(principal.getName());
       Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);
