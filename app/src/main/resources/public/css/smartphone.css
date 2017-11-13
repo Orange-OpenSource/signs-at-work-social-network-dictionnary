@@ -1,5 +1,10 @@
 @media only screen and (max-width:320px) {
 
+  textarea.form-control{
+    width:100% ;
+  }
+
+
   #modal-footer_add_video_file_recording{
     padding: 5px;
   }
@@ -697,6 +702,11 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  textarea.form-control{
+    width:100% ;
+  }
+
+
   #counter{
     right: 40%;
     top: 26%;
@@ -1182,6 +1192,10 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
+  textarea.form-control{
+    width:100% ;
+  }
+
   #counter{
     right: 40%;
     top: 26%;
@@ -1634,6 +1648,10 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  textarea.form-control{
+    width:100% ;
+  }
+
   #counter{
     right: 40%;
     top: 26%;
@@ -1936,6 +1954,10 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
+  textarea.form-control{
+    width:100% ;
+  }
+
   #counter{
     right: 40%;
     top: 26%;
@@ -2225,6 +2247,10 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  textarea.form-control{
+    width:100% ;
+  }
 
   #counter{
     right: 40%;

@@ -1,5 +1,9 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  textarea.form-control{
+    width:100% ;
+  }
+
   .container_picto_request_other,
   .container_picto_my_request{
     left: 33%;

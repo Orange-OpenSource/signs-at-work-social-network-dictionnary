@@ -1,5 +1,9 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  textarea.form-control{
+    width:100% ;
+  }
+
   .container_picto_request_other,
   .container_picto_my_request{
     left: 37%;
@@ -172,6 +176,10 @@
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
+
+  textarea.form-control{
+    width:100% ;
+  }
 
   .container_picto_request_other,
   .container_picto_my_request{
@@ -353,6 +361,10 @@
 
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
+
+  textarea.form-control{
+    width:100% ;
+  }
 
   #add_email >.container_H2.text_hyphenation{
     width: 85%;
