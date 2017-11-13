@@ -60,7 +60,9 @@
 .container_picto_request_other,
 .container_title_request_other,
 .container_picto_my_request,
-.container_title_my_request{
+.container_title_my_request,
+.container_picto_request_other_in_suggest,
+.container_title_request_other_in_suggest{
   position: absolute;
 }
 

@@ -12,6 +12,15 @@
   }
 
 
+  .container_picto_request_other_in_suggest{
+    left: 30%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 36%;
+  }
+
   .embed-responsive-4by3{
     padding-bottom: 130%;
   }
@@ -173,6 +182,16 @@
   .container_title_request_other,
   .container_title_my_request{
     left: 42%;
+  }
+
+
+  .container_picto_request_other_in_suggest{
+    left: 30%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 36%;
   }
 
   .embed-responsive-4by3{
@@ -349,6 +368,15 @@
   .container_title_request_other,
   .container_title_my_request{
     left: 42%;
+  }
+
+  .container_picto_request_other_in_suggest{
+    left: 30%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 36%;
   }
 
   iframe {
@@ -537,6 +565,15 @@
   .container_title_request_other,
   .container_title_my_request{
     left: 42%;
+  }
+
+  .container_picto_request_other_in_suggest{
+    left: 30%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 36%;
   }
 
   iframe {

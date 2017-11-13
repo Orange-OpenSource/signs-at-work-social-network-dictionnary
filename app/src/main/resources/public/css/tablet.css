@@ -11,6 +11,15 @@
     left: 40%;
   }
 
+  .container_picto_request_other_in_suggest{
+    left: 22%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 32%;
+  }
+
   .embed-responsive-4by3{
     padding-bottom: 130%;
   }

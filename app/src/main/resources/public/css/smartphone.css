@@ -85,6 +85,15 @@
     left: 27%;
   }
 
+  .container_picto_request_other_in_suggest{
+    left: 5%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 20%;
+  }
+
   a[data-toggle=modal] div h2.container_H2.text_hyphenation{
     width: 21rem;
   }
@@ -765,6 +774,15 @@
     left: 27%;
   }
 
+  .container_picto_request_other_in_suggest{
+    left: 5%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 20%;
+  }
+
   #labelSigne.text_hyphenation {
     width: 10rem;
   }
@@ -1236,6 +1254,15 @@
     left: 30%;
   }
 
+  .container_picto_request_other_in_suggest{
+    left: 12%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 25%;
+  }
+
   #labelSigne.text_hyphenation {
     width: 10rem;
   }
@@ -1679,6 +1706,14 @@
     left: 35%;
   }
 
+  .container_picto_request_other_in_suggest{
+    left: 22%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 32%;
+  }
 
   #labelSigne.text_hyphenation {
     width: 10rem;
@@ -1973,6 +2008,15 @@
     left: 35%;
   }
 
+  .container_picto_request_other_in_suggest{
+    left: 22%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 32%;
+  }
+
 
   #labelSigne.text_hyphenation {
     width: 10rem;
@@ -2252,6 +2296,15 @@
   .container_title_request_other,
   .container_title_my_request{
     left: 40%;
+  }
+
+  .container_picto_request_other_in_suggest{
+    left: 22%;
+    top: 5px;
+  }
+
+  .container_title_request_other_in_suggest{
+    left: 32%;
   }
 
   #labelSigne.text_hyphenation {

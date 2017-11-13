@@ -51,7 +51,11 @@
               </li>
 
               <li class="request_whitout_answer  aside_bckg_li">
-                <div class="text-center" th:text="#{request.answer}"></div>
+                <div class="container_picto_title">
+                  <div class="container_picto_request_other_in_suggest request_signe_whithout_chevron"></div>
+                  <div class="container_title_request_other_in_suggest" th:text="#{request.answer}"></div>
+                </div>
+
               </li>
 
                 <div th:if="${not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
@@ -62,7 +66,6 @@
                           <!--<a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${request.id} +', \' '+ ${request.name} + ' \')'" data-toggle="modal" href="#">-->
                           <a th:if="${isAuthenticated}" th:href="@{/sec/signs-suggest(name=${request.name}, id=${request.id})}">
                             <div>
-                              <div class="pull-left request_signe"></div>
                               <h2 class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                               <div >
                                 <div class="pull-right chevron_right "></div>
