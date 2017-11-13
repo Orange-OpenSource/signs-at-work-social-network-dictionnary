@@ -54,50 +54,39 @@ function timedCount() {
   t = setTimeout(function(){ timedCount() }, 1000);
 }
 
-startRecording.onclick = function() {
-  videoContainer.style.display="block";
-  labelRecord.style.display="none";
-  labelAfterRecord.style.display="none";
+function startRecord() {
+  videoContainer.style.display = "block";
+  labelRecord.style.display = "none";
+  labelAfterRecord.style.display = "none";
   startRecording.disabled = true;
   stopRecording.disabled = false;
   document.getElementById('start-recording').disabled = true;
   document.getElementById('stop-recording').disabled = false;
 
-  captureUserMedia00(function(stream) {
+  captureUserMedia00(function (stream) {
     window.audioVideoRecorder = window.RecordRTC(stream, {
       type: 'video',
       disableLogs: false
     });
-    document.getElementById('video').style.visibility="visible";
-    document.getElementById("counter").style.visibility="visible";
+    document.getElementById('video').style.visibility = "visible";
+    document.getElementById("counter").style.visibility = "visible";
     timedCount();
     //window.audioVideoRecorder.startRecording();
   });
+}
+
+startRecording.onclick = function() {
+  startRecord();
 };
 
-retryRecording.onclick=function () {
+
+retryRecording.onclick = function () {
   document.getElementById('container-button').style.display = "none";
   document.getElementById('btnChecked').style.display = "none";
   document.getElementById('start-recording').style.display = "block";
-  videoContainer.style.display="block";
-    labelRecord.style.display="none";
-    labelAfterRecord.style.display="none";
-    startRecording.disabled = true;
-    stopRecording.disabled = false;
-    document.getElementById('start-recording').disabled = true;
-    document.getElementById('stop-recording').disabled = false;
-
-    captureUserMedia00(function(stream) {
-      window.audioVideoRecorder = window.RecordRTC(stream, {
-        type: 'video',
-        disableLogs: false
-      });
-      document.getElementById('video').style.visibility="visible";
-      document.getElementById("counter").style.visibility="visible";
-      timedCount();
-      //window.audioVideoRecorder.startRecording();
-    });
+  startRecord();
 };
+
 
 stopRecording.onclick = function() {
   labelAfterRecord.style.display="block";
