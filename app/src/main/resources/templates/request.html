@@ -58,7 +58,6 @@
         <div class="container_picto_my_request my_request_signe_whithout_chevron"></div>
         <div class="container_title_my_request" th:text="#{request.mine}"></div>
       </div>
-      <!--<div class="text-center" th:text="#{request.mine}"></div>-->
     </div>
 
     <div th:if="${not #lists.isEmpty(myRequestsWithoutSignAssociate)}">
@@ -68,7 +67,6 @@
             <li class="dotted-top">
               <a th:href="@{/sec/my-request-detail/} + ${request.id}">
                 <div>
-                  <div class="pull-left my_request_signe"></div>
                   <h2 class="text_hyphenation container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>
@@ -89,7 +87,6 @@
             <li class="dotted-top">
               <a th:href="@{/sign/} + ${request.sign.id}">
                 <div>
-                  <div class="pull-left my_request_signe"></div>
                   <h2 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                   <h2 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${'&laquo;'+request.name+'&raquo;'}, ${'&laquo;'+request.sign.name+'&raquo;'})}"></h2>
                   <div >
@@ -116,7 +113,6 @@
             <li class="dotted-top">
               <a th:href="@{/sec/other-request-detail/} + ${request.id}">
                 <div>
-                  <div class="pull-left request_signe"></div>
                   <h2 class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>
