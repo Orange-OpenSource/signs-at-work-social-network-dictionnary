@@ -620,8 +620,8 @@
     white-space: nowrap;
   }
 
-  textarea {
-    width: 200px;
+  textarea#text {
+    width: 100%;
     margin-bottom: 10px;
   }
 
@@ -702,10 +702,14 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   textarea.form-control{
     width:100% ;
   }
-
 
   #counter{
     right: 40%;
@@ -1192,6 +1196,12 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+
   textarea.form-control{
     width:100% ;
   }
@@ -1648,6 +1658,11 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   textarea.form-control{
     width:100% ;
   }
@@ -1954,6 +1969,11 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   textarea.form-control{
     width:100% ;
   }
@@ -2247,6 +2267,11 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 
   textarea.form-control{
     width:100% ;

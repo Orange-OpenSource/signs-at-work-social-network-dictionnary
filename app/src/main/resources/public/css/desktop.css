@@ -1,5 +1,10 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   textarea.form-control{
     width:100% ;
   }
@@ -176,6 +181,11 @@
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
+
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 
   textarea.form-control{
     width:100% ;
@@ -361,6 +371,11 @@
 
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
+
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 
   textarea.form-control{
     width:100% ;

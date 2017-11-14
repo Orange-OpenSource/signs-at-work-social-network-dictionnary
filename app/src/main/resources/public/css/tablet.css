@@ -1,5 +1,10 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   textarea.form-control{
     width:100% ;
   }
