@@ -824,6 +824,32 @@ public class SignController {
     return "signs-suggest";
   }
 
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/{signId}/definition")
+  public String definition(@PathVariable long signId, Principal principal, Model model)  {
+    Sign sign = services.sign().withId(signId);
+
+    model.addAttribute("title", messageByLocaleService.getMessage("sign.definition", new Object[]{sign.name}));
+    model.addAttribute("backUrl", signUrl(signId));
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    model.addAttribute("showAddFavorite", HIDE_ADD_FAVORITE);
+
+    model.addAttribute("signView", sign);
+    model.addAttribute("signDefinitionCreationView", new SignDefinitionCreationView());
+
+    return "my-sign-definition";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/sign/{signId}/definitionText", method = RequestMethod.POST)
+  public String changeDefinitionSign(@PathVariable long signId, @ModelAttribute SignDefinitionCreationView signDefinitionCreationView) {
+
+    services.sign().changeSignTextDefinition(signId, signDefinitionCreationView.getTextDefinition());
+
+    return "redirect:/sign/" + signId;
+  }
+
   private String signUrl(long signId) {
     return "/sign/" + signId;
   }

@@ -56,6 +56,23 @@
                             <em><h2 class="text-center" th:text="${videoName}"/></em>
                     </li>
                   <li class="clear aside_bckg_li">
+                    <a th:href="@{/sec/sign/} + ${signView.id} + '/definition'">
+                      <div class="pull-left"></div>
+                      <div th:if="${signView.textDefinition == null} and ${signView.videoDefinition == null}">
+                        <h2 class="container_H2" th:text="#{sign.definition-empty}"/>
+                        <div>
+                          <div class="pull-right  add"/>
+                        </div>
+                      </div>
+                      <div th:if="${signView.textDefinition != null} or ${signView.videoDefinition != null}">
+                        <h2 class="container_H2" th:text="#{sign.definition-not-empty}"/>
+                        <div>
+                          <div class="pull-right  pen"/>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="clear aside_bckg_li">
                     <a th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} +'/video-associate-form'">
                       <div class="pull-left associate_signe"></div>
                       <h2 class="container_H2" th:text="#{sign.associate-with}"/>

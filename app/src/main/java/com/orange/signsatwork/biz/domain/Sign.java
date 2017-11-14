@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.domain;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -33,6 +33,8 @@ import java.util.List;
 public class Sign {
     public final long id;
     public final String name;
+    public final String textDefinition;
+    public final String videoDefinition;
     public final String url;
     public final Date createDate;
     public final long lastVideoId;
@@ -46,7 +48,7 @@ public class Sign {
         if (videos != null) {
             return this;
         } else {
-            return new Sign(id, name, url, createDate, lastVideoId, nbVideo, videoService.forSign(id), videoService, commentService);
+            return new Sign(id, name, textDefinition, videoDefinition,url, createDate, lastVideoId, nbVideo, videoService.forSign(id), videoService, commentService);
         }
     }
 

@@ -87,4 +87,8 @@ public interface SignService {
   void delete(Sign sign);
 
   Long NbRatingForSign(long signId);
+
+  Sign changeSignTextDefinition(long signId, String signTextDefinition);
+
+  Sign changeSignVideoDefinition(long signId, String signVideoDefinition);
 }
