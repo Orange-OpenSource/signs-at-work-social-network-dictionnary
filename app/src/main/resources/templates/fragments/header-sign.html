@@ -48,17 +48,6 @@
                                 <h4 th:text="#{favorite.add}"></h4>
                             </a>
                         </li>
-                      <li role="presentation" >
-                        <a  th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}">
-                          <div class="share_signe pull-left"></div>
-                          <div class="pull-right">
-                            <div class="containerRight_signes">
-                            </div>
-                          </div>
-                          <h4 th:text="#{sign.share}"></h4>
-                        </a>
-                      </li>
-
                     </ul>
                 </div>
               <ul th:if="${isAuthenticated}" role="tablist" class="navbar-toggle-complement nav navbar-nav">
@@ -66,11 +55,6 @@
                   <a data-target="#add_sign_to_favorite" data-toggle="modal" href="#" title="add favorite">
                     <div class="hidden-lg hidden-md hidden-sm add_favorite_signe_header text-center"></div>
                     <span th:text="#{favorite.add}" class="text-hide"></span></a>
-                </li>
-                <li role="presentation">
-                  <a  title="Share application" th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}">
-                    <div class="hidden-lg hidden-md hidden-sm share_signe text-center"></div>
-                    <span class="text-hide">Share signe</span></a>
                 </li>
               </ul>
             </div>
