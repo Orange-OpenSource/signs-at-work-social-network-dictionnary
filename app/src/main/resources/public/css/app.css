@@ -66,10 +66,17 @@
   position: absolute;
 }
 
-li.aside_bckg_li.noHover_nopointer{
-  background-color: #989898;
 
+
+li.aside_bckg_li.noHover_nopointer,
+.history_label{
+  background-color: #CCCCCC;
 }
+
+.history_label.noHover_nopointer > a >h2{
+  font-size: 17px;
+}
+
 .noHover_nopointer > a >h2{
   cursor: none;
   color: black;
