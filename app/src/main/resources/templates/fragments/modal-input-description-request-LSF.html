@@ -106,7 +106,7 @@
 
         <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForRequestDescription/} + ${requestView.id}" method="post">
           <div class="modal-body text-center">
-            <span id="errorSelectedSpan"  style="visibility: hidden"></span>
+            <span id="errorSpan"  style="visibility: hidden"></span>
             <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
           </div>
           <div id="modal-footer_add_video_file_recording" class="modal-footer">

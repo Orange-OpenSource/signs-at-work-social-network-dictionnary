@@ -191,14 +191,14 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       success: function(response) {
         var url = "/sign/"+response;
         window.location = url;
-        errorSelectedSpan.style.visibility="hidden";
+        errorSpan.style.visibility="hidden";
         $(".spinner").visibility="hidden";
         $("video").css("z-index","1500").css("opacity","1");
         console.log("Success " + response);
       },
       error: function(response) {
-        errorSelectedSpan.textContent = response;
-        errorSelectedSpan.style.visibility="visible";
+        errorSpan.textContent = response;
+        errorSpan.style.visibility="visible";
         $(".spinner").css("z-index","-1").css("opacity","0.1");
         $(".spinner").visibility="hidden";
         $("video").css("z-index","1500").css("opacity","1");
@@ -208,7 +208,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
 });
 
 $formUploadRecordedVideoFile.on('input', function(event) {
-  document.getElementById('errorSelectedSpan').style.visibility="hidden";
+  document.getElementById('errorSpan').style.visibility="hidden";
 });
 
 var $add_video_file_recording = $('#add_video_file_recording');
@@ -230,7 +230,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById('video').pause();
   document.getElementById('video').style.visibility="hidden";
   document.getElementById('continue').disabled = true;
-  if ($('#uploadRecordedVideoFile').find('#errorSelectedSpan').length) {
-    errorSelectedSpan.style.visibility="hidden";
+  if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
+    errorSpan.style.visibility="hidden";
   }
 });
