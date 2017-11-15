@@ -558,9 +558,9 @@
     width:22rem;
   }
 
-  .text_hyphenation{
-    width: 25rem;
-  }
+  /*.text_hyphenation{*/
+    /*width: 25rem;*/
+  /*}*/
 
   .container_H2.container_header_H2.text_hyphenation{
     width: 70%;
