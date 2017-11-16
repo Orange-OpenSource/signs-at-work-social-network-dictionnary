@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.webservice.controller;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -88,6 +88,19 @@ public class SignRestController {
     String dailymotionId;
     Sign sign = services.sign().withId(signId);
     if (sign.videos.list().size() == 1) {
+      Request request = services.sign().requestForSign(sign);
+      if (request.requestVideoDescription != sign.videoDefinition) {
+        String dailymotionIdForSignDefinition;
+        dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+        }
+        catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
+      }
+
       services.sign().delete(sign);
       dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
       try {

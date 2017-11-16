@@ -379,6 +379,17 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Request requestForSign(Sign sign) {
+    SignDB signDB = signRepository.findOne(sign.id);
+    RequestDB requestDB = requestRepository.findBySign(signDB);
+    return requestFrom(requestDB, services);
+  }
+
+  static Request requestFrom(RequestDB requestDB, Services services) {
+    return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestVideoDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services), UserServiceImpl.userFromSignView(requestDB.getUser()));
+  }
+
+  @Override
   public Long NbRatingForSign(long signId) {
     return signRepository.findNbRatingForSign(signId);
   }
