@@ -572,6 +572,7 @@ public class SignController {
         .map(objectArray -> new CommentData(objectArray))
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
+      model.addAttribute("title", messageByLocaleService.getMessage("card"));
       fillModelWithFavorites(model, user);
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
@@ -596,10 +597,8 @@ public class SignController {
     }
 
     if ((video.idForName == 0) || (sign.nbVideo == 1 )){
-      model.addAttribute("title", sign.name + " / " + messageByLocaleService.getMessage("info"));
       model.addAttribute("videoName", sign.name);
     } else {
-      model.addAttribute("title", sign.name + " (" + video.idForName + ")" + " / " + messageByLocaleService.getMessage("info"));
       model.addAttribute("videoName", sign.name + " (" + video.idForName + ")");
     }
 
@@ -671,12 +670,10 @@ public class SignController {
       .map(objectArray -> new VideoHistoryData(objectArray))
       .collect(Collectors.toList());
     model.addAttribute("videoHistoryDatas", videoHistoryDatas);
-
+    model.addAttribute("title",  messageByLocaleService.getMessage("détail"));
     if ((video.idForName == 0) || (sign.nbVideo == 1 )){
-      model.addAttribute("title", sign.name + " / " + messageByLocaleService.getMessage("détail"));
       model.addAttribute("videoName", sign.name);
     } else {
-      model.addAttribute("title", sign.name + " (" + video.idForName + ")" + " / " + messageByLocaleService.getMessage("détail"));
       model.addAttribute("videoName", sign.name + " (" + video.idForName + ")");
     }
 
