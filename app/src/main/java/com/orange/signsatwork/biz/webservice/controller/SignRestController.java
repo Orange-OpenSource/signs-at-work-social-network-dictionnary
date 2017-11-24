@@ -89,15 +89,16 @@ public class SignRestController {
     Sign sign = services.sign().withId(signId);
     if (sign.videos.list().size() == 1) {
       Request request = services.sign().requestForSign(sign);
-      if (request.requestVideoDescription != sign.videoDefinition) {
-        String dailymotionIdForSignDefinition;
-        dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-        try {
-          DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
-        }
-        catch (Exception errorDailymotionDeleteVideo) {
-          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      if (request != null) {
+        if (request.requestVideoDescription != sign.videoDefinition) {
+          String dailymotionIdForSignDefinition;
+          dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          }
         }
       }
 
