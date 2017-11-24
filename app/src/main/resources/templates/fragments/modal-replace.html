@@ -88,8 +88,16 @@
             <video id="video"></video>
           </div>
 
-          <div class="text-center">
+          <div class="btn-group-vertical" role="group">
             <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
+            <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
+              <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
+                <div class="retry_recording pull-left"></div><span th:text="#{retry}"></span>
+              </button>
+              <button id="cancel-recording" class="btn" title="Cliquer pour annuler">
+                <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
+              </button>
+            </div>
             <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
           </div>
 
@@ -99,8 +107,9 @@
             <span id="errorSpan"  style="visibility: hidden"></span>
           </div>
           <div class="modal-footer">
-            <button id="continue" th:text="#{continue}" type="submit" class="btn btn-default"
-                    data-dismiss="" disabled=""></button>
+            <button id="continue" type="submit" class="btn btn-default" data-dismiss="" disabled="" >
+              <div id="btnChecked" class="check pull-left" style="display: none;"></div><span th:text="#{continue}" ></span>
+            </button>
           </div>
         </form>
     </div>
