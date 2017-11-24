@@ -382,7 +382,9 @@ public class SignServiceImpl implements SignService {
   public Request requestForSign(Sign sign) {
     SignDB signDB = signRepository.findOne(sign.id);
     RequestDB requestDB = requestRepository.findBySign(signDB);
-    return requestFrom(requestDB, services);
+    if (requestDB != null) {
+      return requestFrom(requestDB, services);
+    } else return null;
   }
 
   static Request requestFrom(RequestDB requestDB, Services services) {
