@@ -2,6 +2,34 @@
 	background-image:url("/img/my_request.png"); url("/img/favoris.png"); url("/img/positif.png"), url("/img/request.jpg"), url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/PlusVues2_Blanc.png"), url("/img/ajourRecent2_Blanc.png"), url("/img/Commentaire_Blanc.png"), url("/img/sprite_picto_400X400.png"), url("/img/sprite_picto_solaris.png");
 	background-repeat: no-repeat;
 }
+.alert{
+  padding: 0px;
+}
+.login-form{
+  margin-top: 25px;
+}
+
+.noAccount.aside_bckg_li{
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.btn_signin{
+  border-color: #f16E00;
+  width: 90%;
+  margin: 0 auto;
+  font-weight: bold;
+  margin-bottom: 35px;
+  margin-top: 30px;
+}
+
+input[name="username"],
+input[name="password"],
+input[name="email"]{
+  width: 65%;
+}
 
 #container-button > button >span{
   margin-left: 5px;
@@ -80,6 +108,20 @@ li.aside_bckg_li.noHover_nopointer,
 .noHover_nopointer > a >h2{
   cursor: none;
   color: black;
+}
+
+.btn-group-vertical>.btn.btn-sm{
+  border-color: #F16E00;
+  border-radius: 10px !important;
+  font-weight: bold;
+}
+
+.btn-group-vertical{
+  padding-top: 10px;
+}
+
+.btn-group-vertical>.btn.btn_disagree{
+  margin-top: 10px;
 }
 
 ul[role="tablist"]{
@@ -299,7 +341,7 @@ a.form-control{
 
 .form-group {
 	font-size: 20px;
-	margin-bottom: 15px;
+	margin: 15px 0px;
 }
 
 .form-control:focus {
@@ -734,6 +776,28 @@ text-decoration-line: none;
 .dropdown-menu > li > a.checked_up{
 	background-color: #989898;
 	color:#F16E00;
+}
+
+span.form-signin-heading{
+  margin-left: 6%;
+}
+
+.welcome_signe {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2460px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.cgu_signe {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2500px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
 }
 
 .my_request_signe {
@@ -1470,5 +1534,49 @@ input[type=search].form-control,input[type=search].form-control:focus{
 #myform{
   border :none;
 }
+/*error create user*/
+
+.blink_me {
+  color: red;
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: blinker;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: blinker;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+@keyframes blinker {
+  0% {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+
 
 

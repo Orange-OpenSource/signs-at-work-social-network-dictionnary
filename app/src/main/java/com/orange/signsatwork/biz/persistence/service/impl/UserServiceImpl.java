@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
   private final Services services;
 
   @Override
+  public User getAdmin() {
+    return(userFrom(userRepository.findByUsername("admin").get(0)));
+  }
+
+  @Override
   public Users all() {
     return usersFrom(userRepository.findAll());
   }
