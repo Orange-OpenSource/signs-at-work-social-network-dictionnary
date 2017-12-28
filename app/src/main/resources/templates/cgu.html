@@ -1,0 +1,143 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-cgu :: header">&nbsp;</header>
+
+<body class="container-fluid">
+<div th:replace="fragments/modal-cgu :: div"/>
+<div th:replace="fragments/modal-cgu-lsf :: div"/>
+
+<div class="row" id="cguAccepted">
+  <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
+    <h2 class="form-signin-heading text-center" th:text="#{cgu_invite}"></h2>
+    <div class="col-xs-12 ">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li">
+            <a data-target="#read_condition_of_use" data-toggle="modal" href="#">
+              <h2 class="container_H2" th:text="#{read.condition_of_use}"/>
+              <div>
+                <div class="pull-right chevron_right"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <a data-target="#see_condition_of_use" data-toggle="modal" href="#">
+              <h2 class="container_H2" th:text="#{see.condition_of_use}"/>
+              <div>
+                <div class="pull-right chevron_right"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <div class="col-xs-12">
+          <div class="btn-group-vertical">
+            <a href="#accountRequest" th:onclick="'javascript:onAccepted()'" class=" btn btn-default  btn-sm" th:text="#{yes_i_agree}">
+            </a>
+            <button th:text="#{no_i_disagree}" onclick="location.href='/'" class="btn_disagree btn btn-default btn-sm"></button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+
+<div id="accountRequest" class="hidden">
+  <!--beggin account-->
+  <div class="row" >
+    <div class=" col-xs-12 col-lg-12">
+      <h2 class="form-signin-heading text-center" th:text="#{account_request_invite}"></h2>
+      <div class="divider"></div>
+      <aside class="sidebar" id="create_user">
+        <form class="form-inline" th:action="@{/sendMail}" enctype="multipart/form-data" th:object="${user}" method="post" autocomplete="off">
+          <div id="accountProfile" class="hidden">
+            <!--start input name-->
+            <div class="divider-space">
+              <H2 th:text="#{last_name}"></H2><div class="blink_me errorRegexLastName hidden" th:text="#{errorName}"/>
+              <input id="lastName"  type="text" th:field="*{lastName}" th:placeholder="#{placeholder_last_name}"  class="container_H2 text-center border " name="lastName" th:autofocus="true" />
+            </div>
+            <div class="divider-space">
+              <H2 th:text="#{first_name}"></H2><div class="blink_me errorRegexFirstName hidden" th:text="#{errorName}"/>
+              <input  id="firstName"  th:field="*{firstName}"  th:placeholder="#{placeholder_first_name}" class="container_H2 text-center border " name="firstName" />
+            </div>
+            <!--end input name-->
+
+            <!--start input entity-->
+            <div class="divider-space">
+              <H2 th:text="#{entity}"></H2><div class="blink_me errorRegexEntity hidden" th:text="#{errorEntity}"/>
+              <input id="entity" type="text" th:field="*{entity}" th:placeholder="#{placeholder_entity}" class="container_H2 text-center border " name="entity" />
+            </div>
+            <!--end input entity-->
+
+            <!--start input email-->
+            <div class="divider-space">
+              <H2 th:text="#{email}"></H2><div class="blink_me errorRegexEmail hidden" th:text="#{errorEmail}"/>
+              <input id="mail" type="text" th:field="*{email}"  th:placeholder="#{placeholder_email}" class="container_H2 text-center border " name="email" />
+            </div>
+            <div class="divider"></div>
+            <!--end input entity-->
+            <br/>
+            <div class="text-center"><div class="blink_me errorSubmit alert alert-warning hidden" th:text="#{errorAllInputsBlanks}"/>
+              <a href="#privacySettings" id="buttonOnNext"  class=" btn btn-default  btn-sm" th:text="#{continue}">
+              </a>
+            </div>
+          </div>
+
+          <div id="privacySettings" class="hidden">
+            <!--start input login password-->
+            <div class="divider-space">
+              <H2 th:text="#{your_login}"></H2>
+              <input   type="text"  th:field="*{username}" th:placeholder="#{placeholder_login}" class="container_H2 text-center border " name="username" />
+            </div>
+            <div class="divider-space">
+              <H2 th:text="#{your_password}"></H2>
+              <input  type="password" th:field="*{password}"  th:placeholder="#{placeholder_password}" class="container_H2 text-center border " name="password" />
+            </div>
+            <div class="divider"></div>
+            <!--end input login password-->
+          </div>
+
+          <div class="text-center ">
+            <a>
+              <input type="submit"   class="hidden btn btn-default  btn-sm" th:value="#{continue}" />
+            </a>
+          </div>
+        </form>
+      </aside>
+    </div>
+  </div>
+  <!--end account-->
+
+</div>
+
+</body>
+<script type="text/javascript" src="../public/js/create-user.js" th:src="@{/js/create-user.js}"></script>
+
+
+</html>

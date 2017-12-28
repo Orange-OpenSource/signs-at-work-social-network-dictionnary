@@ -1,5 +1,33 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"],
+  .divider-space input[name="username"] {
+    width: 60%;
+  }
+
+  .divider-space {
+    margin-bottom: 7%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
+
+  .col-xs-offset-2{
+    margin-left: 28%;
+  }
+
   textarea#text {
     width: 100%;
     margin-bottom: 10px;
@@ -28,6 +56,16 @@
 
   .container_title_request_other_in_suggest{
     left: 36%;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
   }
 
   .embed-responsive-4by3{
@@ -182,6 +220,34 @@
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"],
+  .divider-space input[name="username"] {
+    width: 60%;
+  }
+
+  .divider-space {
+    margin-bottom: 7%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
+
+  .col-xs-offset-2{
+    margin-left: 28%;
+  }
+
   textarea#text {
     width: 100%;
     margin-bottom: 10px;
@@ -210,6 +276,16 @@
 
   .container_title_request_other_in_suggest{
     left: 36%;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
   }
 
   .embed-responsive-4by3{
@@ -371,6 +447,34 @@
 
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"],
+  .divider-space input[name="username"] {
+    width: 60%;
+  }
+
+  .divider-space {
+    margin-bottom: 7%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
+
+  .col-xs-offset-2{
+    margin-left: 28%;
+  }
+
 
   textarea#text {
     width: 100%;
@@ -409,6 +513,16 @@
   iframe {
     height: 37rem;
     width: 100%;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    /*font-size: small;*/
   }
 
   .col-lg-3 span.caret {

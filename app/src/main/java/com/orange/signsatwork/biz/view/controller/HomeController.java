@@ -27,10 +27,12 @@ import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.persistence.service.impl.EmailServiceImpl;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -56,6 +58,15 @@ public class HomeController {
   private Services services;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+
+
+  private static final String HOME_URL = "/";
+
+  @Value("${cgu-url}")
+  private String cgu_url;
+
+  @Autowired
+  public EmailServiceImpl emailService;
 
   @RequestMapping("/")
   public String index(HttpServletRequest req, Principal principal, Model model) {
@@ -152,5 +163,27 @@ public class HomeController {
   private void fillModelWithFavorites(Model model, User user) {
     List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
     model.addAttribute("myFavorites", myFavorites);
+  }
+
+  @RequestMapping("/cgu")
+  public String cgu(Model model) {
+
+    model.addAttribute("title", messageByLocaleService.getMessage("condition_of_use"));
+    model.addAttribute("backUrl", HOME_URL);
+    model.addAttribute("cgu_url", cgu_url);
+    model.addAttribute("user", new UserCreationView());
+    return "cgu";
+  }
+
+  @RequestMapping("/sendMail")
+  public String sendMail(@ModelAttribute UserCreationView userCreationView) {
+
+    User admin = services.user().getAdmin();
+
+    String body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getLastName(), userCreationView.getFirstName(), userCreationView.getEntity(),  userCreationView.getEmail(), userCreationView.getUsername(), userCreationView.getPassword()});
+
+    emailService.sendSimpleMessage(admin.email, messageByLocaleService.getMessage("ask_to_create_user_title"), body );
+
+    return "redirect:/";
   }
 }

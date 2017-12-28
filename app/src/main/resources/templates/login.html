@@ -29,8 +29,21 @@
 
 <body>
 
-<form class="login-form" role="form" th:action="@{/login}" method="post">
-    <h2 class="form-signin-heading text-center" th:text="#{signin_invite}"></h2>
+<div class="container">
+
+  <div class="row">
+    <div class=" col-xs-offset-2 col-xs-9 col-md-8 col-md-offset-4  col-sm-8 col-sm-offset-4  col-lg-8 col-lg-offset-4 col-xl-8 col-xl-offset-4 ">
+      <div>
+        <span th:text="#{welcome}"/>
+        <div class="pull-left welcome_signe"/>
+      </div>
+      <div id="label_dictionary" th:text="#{dictionary}"/><div id="label_signatwork" th:text="#{app}"/>
+    </div>
+  </div>
+</div>
+
+<form class="col-xs-12 login-form" role="form" th:action="@{/login}" method="post">
+    <span class="form-signin-heading text-center" th:text="#{signin_invite}"></span>
     <div th:if="${param.error}" class="alert alert-danger text-center" role="alert" th:text="#{invalid_connexion}">
     </div>
     <div th:if="${param.logout}" class="alert alert-info text-center" role="alert" th:text="#{logged_out}"/>
@@ -46,9 +59,28 @@
     <div class="form-group">
     </div>
     <div class=" text-center">
-        <button type="submit" class="btn btn-default" th:text="#{signin}"></button>
+        <button type="submit" class="btn_signin btn btn-default" th:text="#{signin}"></button>
     </div>
 </form>
+
+<div class="row ">
+  <div class="col-xs-12">
+    <aside class="sidebar">
+      <ul class="nav nav-list primary left-menu">
+        <li class="noAccount clear aside_bckg_li ">
+          <a href="/cgu">
+            <div>
+              <h5 class="container_H2" th:text="#{no_login}"/>
+              <div>
+                <div class="pull-right chevron_right"></div>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</div>
 
 </body>
 </html>

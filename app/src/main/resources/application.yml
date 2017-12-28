@@ -24,3 +24,10 @@ spring.jpa.show-sql: false
 app.admin.username: "admin"
 app.admin.password: "adminpassword"
 
+cgu-url: "https://www.dailymotion.com/embed/video/k12tO5H7YXMWlTnNXly"
+
+spring:
+  mail:
+    host: mailhost.rd.francetelecom.fr
+    port: 2525
+

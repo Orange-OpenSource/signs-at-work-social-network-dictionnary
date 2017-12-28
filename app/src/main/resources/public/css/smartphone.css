@@ -1,5 +1,28 @@
 @media only screen and (max-width:320px) {
 
+  .divider-space input[name="lastName"],
+  .divider-space input[name="firstName"],
+  .divider-space input[name="entity"],
+  .divider-space input[name="email"],
+  .divider-space input[name="login"],
+  .divider-space input[name="password"],
+  .divider-space input[name="username"] {
+    width: 60%;
+  }
+
+  .divider-space {
+    margin-bottom: 25%;
+  }
+
+  .divider-space H2{
+    color:#F16E00;
+  }
+
+  .divider-space input{
+    height: 40px;
+    border-radius: 15px;
+  }
+
   textarea.form-control{
     width:100% ;
   }
@@ -147,6 +170,15 @@
 
   h2, .h2 {
     font-size: 13px;
+  }
+
+  #label_dictionary{
+    display: inline-block;
+  }
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
   }
 
   .col-xs-12.middle-col{

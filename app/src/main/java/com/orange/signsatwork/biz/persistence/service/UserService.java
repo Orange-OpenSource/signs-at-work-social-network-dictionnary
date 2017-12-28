@@ -30,6 +30,9 @@ import com.orange.signsatwork.biz.domain.Users;
 import java.util.List;
 
 public interface UserService {
+
+  User getAdmin();
+
   Users all();
 
   User withId(long id);
