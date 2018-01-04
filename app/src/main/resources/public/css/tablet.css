@@ -32,6 +32,7 @@
     font-weight: bold;
   }
 
+
   #label_dictionary{
     display: inline-block;
   }
@@ -39,7 +40,17 @@
   #label_signatwork{
     display: inline-block;
     margin-left: 2px;
-    /*font-size: small;*/
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
   }
 
   textarea#text {

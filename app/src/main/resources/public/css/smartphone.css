@@ -98,9 +98,12 @@
     font-size: 14px;
   }
 
-  input.form-control{
-  width: 80%;
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
   }
+
 
   .container_picto_request_other,
   .container_picto_my_request{
@@ -175,10 +178,15 @@
   #label_dictionary{
     display: inline-block;
   }
+
   #label_signatwork{
     display: inline-block;
     margin-left: 2px;
     font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
   }
 
   .col-xs-12.middle-col{
@@ -734,6 +742,27 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
+
+
   textarea#text {
     width: 100%;
     margin-bottom: 10px;
@@ -1228,6 +1257,26 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
+
   textarea#text {
     width: 100%;
     margin-bottom: 10px;
@@ -1690,6 +1739,26 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
+
   textarea#text {
     width: 100%;
     margin-bottom: 10px;
@@ -2001,6 +2070,26 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
+
   textarea#text {
     width: 100%;
     margin-bottom: 10px;
@@ -2299,6 +2388,26 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
 
   textarea#text {
     width: 100%;
