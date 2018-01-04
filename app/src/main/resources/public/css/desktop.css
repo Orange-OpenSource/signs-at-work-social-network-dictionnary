@@ -58,6 +58,7 @@
     left: 36%;
   }
 
+
   #label_dictionary{
     display: inline-block;
   }
@@ -65,8 +66,19 @@
   #label_signatwork{
     display: inline-block;
     margin-left: 2px;
-    /*font-size: small;*/
+    font-size: small;
   }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
+
 
   .embed-responsive-4by3{
     padding-bottom: 130%;
@@ -278,6 +290,7 @@
     left: 36%;
   }
 
+
   #label_dictionary{
     display: inline-block;
   }
@@ -285,7 +298,17 @@
   #label_signatwork{
     display: inline-block;
     margin-left: 2px;
-    /*font-size: small;*/
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
   }
 
   .embed-responsive-4by3{
@@ -515,6 +538,7 @@
     width: 100%;
   }
 
+
   #label_dictionary{
     display: inline-block;
   }
@@ -522,8 +546,19 @@
   #label_signatwork{
     display: inline-block;
     margin-left: 2px;
-    /*font-size: small;*/
+    font-size: small;
   }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
+
 
   .col-lg-3 span.caret {
     position: absolute;
@@ -694,6 +729,26 @@
 
 
 @media only screen  and (min-width:1541px)  {
+
+  #label_dictionary{
+    display: inline-block;
+  }
+
+  #label_signatwork{
+    display: inline-block;
+    margin-left: 2px;
+    font-size: small;
+  }
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+  input[name="username"],
+  input[type="password"],
+  input[name="email"]{
+    width: 90%;
+  }
 
   .container_H2.container_header_H2.text_hyphenation{
     width: 70%;
