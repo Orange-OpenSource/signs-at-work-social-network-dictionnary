@@ -41,7 +41,7 @@
         <div class="form-group">
           <button id="button-top" type="submit" class="btn btn-default" th:text="#{validate}"></button><br/>
           <div id="signs-container">
-            <label th:id="${videoView.signName}" class="sign-view-hidden text-center col-lg-6 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
+            <label th:id="${videoView.signName}" class="sign-view-hidden text-center col-lg-4 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
                      th:for="${#ids.next('favoriteVideosIds')}">
                      <img  th:attr="data-src=${videoView.pictureUri}"/>
                <input type="checkbox" th:field="*{favoriteVideosIds}" th:value="${videoView.videoId}"/>

@@ -1105,6 +1105,14 @@
     width: 30px;
   }
 
+  .tooltip_newSigne {
+    background-position: right 2px top 0;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 80px;
+  }
+
   .tooltip_comment {
     background-position: right 0px top 0px;
     background-size: auto 16px;
@@ -1541,6 +1549,13 @@
     right: 25px;
   }
 
+  .tooltip_newSigne {
+    background-position: right 2px top 0;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 80px;
+  }
 
   .tooltip_comment {
     background-position: right 0px top 0px;
@@ -1878,6 +1893,13 @@
     right: 25px;
   }
 
+  .tooltip_newSigne {
+    background-position: right 2px top 0;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 80px;
+  }
 
   .tooltip_comment {
     background-position: right 0px top 0px;
@@ -2177,6 +2199,13 @@
     right: 40px;
   }
 
+  .tooltip_newSigne {
+    background-position: right 2px top 0;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 80px;
+  }
 
   .tooltip_comment {
     background-position: right 0px top 0px;
@@ -2471,6 +2500,13 @@
     right: 40px;
   }
 
+  .tooltip_newSigne {
+    background-position: right 2px top 0;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 80px;
+  }
 
   .tooltip_comment {
     background-position: right 0px top 0px;
