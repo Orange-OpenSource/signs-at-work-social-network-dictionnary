@@ -83,42 +83,50 @@ $formRequestDescription.on('submit', function(event) {
   console.log("submit uploadSelectedVideoFile");
   console.log("requestName "+ $('#requestName').val());
   console.log("requestTextDescription " + $('#requestTextDescription').val());
-  document.getElementById('submitButtonFileDailymotion').disabled = true;
   document.getElementById('requestInfoSubmit').disabled=true;
-  $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
-  $(".spinner").css("z-index","1500").visibility="visible";
-  $("#submitButtonFileDailymotion").css("color","black");
-  var $form = $(this);
-  var formdata = new FormData($form[0]);
-  formdata.append('requestName', $('#requestName').val());
-  formdata.append('requestTextDescription', $('#requestTextDescription').val());
-  var data = (formdata !== null) ? formdata : $form.serialize();
+  //document.getElementById('submitButtonFileDailymotion').disabled = true;
+  if (document.getElementById("InputFile").value) {
+        $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+        $(".spinner").css("z-index","1500").visibility="visible";
+        $("#submitButtonFileDailymotion").css("color","black");
+        var $form = $(this);
+        var formdata = new FormData($form[0]);
+        formdata.append('requestName', $('#requestName').val());
+        formdata.append('requestTextDescription', $('#requestTextDescription').val());
+        var data = (formdata !== null) ? formdata : $form.serialize();
 
-  event.preventDefault();
-  $.ajax({
-    url: $formRequestDescription.attr('action'),
-    type: 'post',
-    data: data,
-    contentType: false,
-    processData: false,
-    success: function(response) {
-      var url = "/sec/my-request-detail/"+response.requestId;
-      window.location = url;
-      errorSelectedSpan.style.visibility="hidden";
-      $(".spinner").visibility="hidden";
-    },
-    error: function(response) {
-      var returnedData = JSON.parse(response.responseText);
-      errorSelectedSpan.textContent = returnedData.errorMessage;
-      if (returnedData.errorType == 2) {
-        seeSignButton.style.visibility="visible";
-        seeSignButton.href="/sign/"+returnedData.signId;
-      }
-      errorSelectedSpan.style.visibility="visible";
-      $(".spinner").css("z-index","-1").css("opacity","0.1");
-      $(".spinner").visibility="hidden";
-    }
-  })});
+        event.preventDefault();
+        $.ajax({
+          url: $formRequestDescription.attr('action'),
+          type: 'post',
+          data: data,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            var url = "/sec/my-request-detail/"+response.requestId;
+            window.location = url;
+            errorSelectedSpan.style.visibility="hidden";
+            $(".spinner").visibility="hidden";
+          },
+          error: function(response) {
+            var returnedData = JSON.parse(response.responseText);
+            errorSelectedSpan.textContent = returnedData.errorMessage;
+            if (returnedData.errorType == 2) {
+              seeSignButton.style.visibility="visible";
+              seeSignButton.href="/sign/"+returnedData.signId;
+            }
+            errorSelectedSpan.style.visibility="visible";
+            $(".spinner").css("z-index","-1").css("opacity","0.1");
+            $(".spinner").visibility="hidden";
+          }
+        })
+  } else {
+    event.preventDefault();
+    errorSelectedSpan.textContent = "Vous devez séléctionner un fichier";
+    errorSelectedSpan.style.visibility = "visible";
+  }
+
+  });
 
 $formRequestDescription.on('input', function(event) {
   document.getElementById('errorSelectedSpan').style.visibility="hidden";
@@ -128,7 +136,7 @@ $formRequestDescription.on('input', function(event) {
 var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
 $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   console.log("hidden add_video_file_dailymotion modal");
-  document.getElementById('submitButtonFileDailymotion').disabled = false;
+  //document.getElementById('submitButtonFileDailymotion').disabled = false;
   document.getElementById('requestInfoSubmit').disabled=false;
   if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
     errorSelectedSpan.style.visibility="hidden";
