@@ -205,7 +205,7 @@ public class FileUploadRestController {
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
@@ -356,7 +356,7 @@ public class FileUploadRestController {
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
@@ -478,7 +478,7 @@ public class FileUploadRestController {
         VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
@@ -640,7 +640,7 @@ public class FileUploadRestController {
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
@@ -777,7 +777,7 @@ public class FileUploadRestController {
         VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
@@ -940,7 +940,7 @@ public class FileUploadRestController {
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
@@ -1101,7 +1101,7 @@ public class FileUploadRestController {
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
@@ -1197,7 +1197,7 @@ public class FileUploadRestController {
         VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
