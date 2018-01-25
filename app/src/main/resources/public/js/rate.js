@@ -36,6 +36,7 @@ function onRatePositif(signId, videoId){
 
 };
 
+// kanban 473325 suite retour test utilisateurs
 function onRateNeutre(signId, videoId){
   $.ajax({
     url: "/ws/sec/sign/"+ signId +"/"+ videoId + "/rate-neutral",
