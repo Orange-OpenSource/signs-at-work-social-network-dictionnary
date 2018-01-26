@@ -148,7 +148,7 @@
               <span class="text-hide" th:text="#{sign.search}"></span></a>
           </li>
           <li th:if="${isAuthenticated}" role="presentation">
-            <a th:href="@{/sec/suggest}">
+            <a data-target="#new-suggest" data-toggle="modal" href="#" >
               <div class="add_header text-center"></div>
               <span th:text="#{sign.add}" class="text-hide"></span></a>
           </li>
@@ -181,7 +181,7 @@
             </a>
           </li>
           <li th:if="${isAuthenticated}" role="presentation" >
-            <a th:href="@{/sec/suggest}">
+            <a data-target="#new-suggest" data-toggle="modal" href="#" >
               <div class="add pull-left"></div>
               <div class="pull-right">
                 <div class="containerRight_signes">
