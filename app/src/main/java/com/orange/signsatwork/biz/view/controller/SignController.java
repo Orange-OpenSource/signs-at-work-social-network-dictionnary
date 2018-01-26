@@ -713,7 +713,8 @@ public class SignController {
     return "video-associates";
   }
 
-
+  //fix me !!!!! kanban 473322 suite retour test utilisateurs
+//  "associer avec" supprimer  de ihm
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associate-form")
   public String associateVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
