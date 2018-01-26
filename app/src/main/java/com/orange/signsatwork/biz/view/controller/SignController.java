@@ -206,7 +206,8 @@ public class SignController {
     return "signs";
   }
 
-
+//fix me !!!!! kanban 473311 suite retour tests utilisateurs
+//    item supprime ihm
   @RequestMapping(value = "/sec/signs/mostcommented")
   public String signsMostCommented(@RequestParam("isMostCommented") boolean isMostCommented, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
@@ -343,6 +344,8 @@ public class SignController {
     return "signs";
   }
 
+//fix me !!!!! kanban 473311 suite retour tests utilisateurs
+//    item supprime ihm
   @RequestMapping(value = "/sec/signs/mostviewed")
   public String signsMostViewed(@RequestParam("isMostViewed") boolean isMostViewed, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
