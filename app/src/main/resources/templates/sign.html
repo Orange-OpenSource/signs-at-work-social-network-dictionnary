@@ -88,24 +88,6 @@
                       </a>
                     </li>
 
-                    <li th:if="${isAuthenticated}"   th:attr="class=${classVideoAssociate}">
-                      <a th:if="${!#strings.contains(classVideoAssociate,'disabled')}" th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/video-associates'" >
-                        <div>
-                          <h2 class="container_H2" th:text="#{sign.associated}" ></h2>
-                          <div>
-                            <div class="pull-right chevron_right"/>
-                          </div>
-                        </div>
-                      </a>
-                      <a th:if="${#strings.contains(classVideoAssociate,'disabled')}" th:href="'#'"  >
-                      <div>
-                          <h2 class="container_H2" th:text="#{sign.associated}" ></h2>
-                          <div>
-                            <div class="pull-right chevron_right"/>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
 
                     <li th:if="${isAuthenticated}"  class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#comment_modal">

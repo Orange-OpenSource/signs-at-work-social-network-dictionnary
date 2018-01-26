@@ -685,7 +685,8 @@ public class SignController {
     return "sign-detail";
   }
 
-
+//fix me !!!!! kanban 473322 suite retour test utilisateurs
+//  "signes proche" supprimer  de ihm
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associates")
   public String associatesVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
