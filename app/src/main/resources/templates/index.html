@@ -28,6 +28,7 @@
 <header role="banner" th:replace="fragments/header-home :: header">&nbsp;</header>
 
 <body class="container-fluid">
+<div th:replace="fragments/modal-new-suggest :: div"/>
 <div class="row ">
 
     <div class="col-xs-12">
@@ -70,7 +71,7 @@
                     </a>
                 </li>
                 <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
-                    <a th:href="@{/sec/suggest}">
+                    <a  data-target="#new-suggest" data-toggle="modal" href="#" >
                         <div>
                         <div class="pull-left suggest_black"></div>
                         <h2  class="container_H2" th:text="#{sign.suggest}"></h2>

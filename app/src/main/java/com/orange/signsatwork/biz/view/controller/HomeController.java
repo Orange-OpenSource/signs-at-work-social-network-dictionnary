@@ -153,6 +153,7 @@ public class HomeController {
     model.addAttribute("isDevProfile", appProfile.isDevProfile());
     model.addAttribute("isAlphabeticAsc", true);
     model.addAttribute("isSearch", true);
+    model.addAttribute("signCreationView", new SignCreationView());
 
 
     return "index";
