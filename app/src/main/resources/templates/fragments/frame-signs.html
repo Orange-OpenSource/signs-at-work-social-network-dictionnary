@@ -37,51 +37,51 @@
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${isAll}" class="check_signe" th:href="@{/signs/frame/(isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAll}" class="check_signe" th:href="@{/signs/frame/(isSearch=${isSearch})}">
           <span th:text="#{all}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${!isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
           <span th:text="#{all}"></span>
         </a>
       </li>
       <li>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${isAlphabeticAsc}" class="checked_up" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAlphabeticAsc}" class="checked_up" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
           <div class="pull-left alphabetic"></div>
           <span th:text="#{alphabetic}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
           <div class="pull-left alphabetic"></div>
           <span th:text="#{alphabetic}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${isAlphabeticDesc}" class="checked_down" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAlphabeticDesc}" class="checked_down" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
           <div class="pull-left alphabetic"></div>
           <span th:text="#{alphabetic}"></span>
         </a>
       </li>
       <li>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
           <div class="pull-left most_recent"></div>
           <span th:text="#{most_recent}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${!isMostRecent and !isLowRecent}" th:href="@{/sec/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isMostRecent and !isLowRecent}" th:href="@{/sec/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
           <div class="pull-left most_recent"></div>
           <span th:text="#{most_recent}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${isLowRecent}" class="checked_down" th:href="@{/sec/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isLowRecent}" class="checked_down" th:href="@{/sec/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
           <div class="pull-left most_recent"></div>
           <span th:text="#{most_recent}"></span>
         </a>
       </li>
       <li>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${isMostRating}" class="checked_up" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isMostRating}" class="checked_up" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
           <div class="pull-left sentiment_positif"></div>
           <span th:text="#{most_rating}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
           <div class="pull-left sentiment_positif"></div>
           <span th:text="#{most_rating}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${isLowRating}" class="checked_down" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isLowRating}" class="checked_down" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
           <div class="pull-left sentiment_positif"></div>
           <span th:text="#{most_rating}"></span>
         </a>
@@ -89,12 +89,12 @@
 
 
       <li th:each="favorite :${myFavorites}" >
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${favoriteId} == ${favorite.id}" class="check_signe" th:href="@{/sec/signs/frame/{id}(id=${favorite.id}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreVideo(event, this.href)'" th:if="${favoriteId} == ${favorite.id}" class="check_signe" th:href="@{/sec/signs/frame/{id}(id=${favorite.id}, isSearch=${isSearch})}">
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
           <span th:text="${favorite.name}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltre(event, this.href)'" th:if="${favoriteId} != ${favorite.id}" th:href="@{/sec/signs/frame/{id}(id=${favorite.id}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreVideo(event, this.href)'" th:if="${favoriteId} != ${favorite.id}" th:href="@{/sec/signs/frame/{id}(id=${favorite.id}, isSearch=${isSearch})}">
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
           <span th:text="${favorite.name}"></span>
