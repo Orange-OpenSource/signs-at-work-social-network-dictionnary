@@ -87,6 +87,31 @@ public class SignController {
     return "signs";
   }
 
+  @RequestMapping(value = "/signs/frame")
+  public String signsFrame(@RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithSigns(model, principal);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("isAll", true);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
+    model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("all"));
+    model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "fragments/frame-signs";
+  }
+
 
   @RequestMapping(value = "/sec/signs/alphabetic")
   public String signsAndRequestInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
@@ -148,6 +173,66 @@ public class SignController {
     return "signs";
   }
 
+  @RequestMapping(value = "/sec/signs/alphabetic/frame")
+  public String signsAndRequestInAlphabeticalOrderFrame(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+    List<Object[]> querySigns;
+
+    if (isAlphabeticAsc == true) {
+      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderDescSignsView(user.id);
+      model.addAttribute("isAlphabeticDesc", true);
+      model.addAttribute("isAlphabeticAsc", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("alphabetic"));
+
+    } else {
+      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderAscSignsView(user.id);
+      model.addAttribute("isAlphabeticAsc", true);
+      model.addAttribute("isAlphabeticDesc", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("alphabetic"));
+    }
+
+
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+      .collect(Collectors.toList());
+
+
+    fillModelWithFavorites(model, user);
+    model.addAttribute("signsView", signViews);
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
+    model.addAttribute("classDropdownTitle", " alphabetic pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "fragments/frame-signs";
+  }
+
   @RequestMapping(value = "/sec/signs/{favoriteId}")
   public String signsInFavorite(@PathVariable long favoriteId, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
@@ -204,6 +289,65 @@ public class SignController {
 
 
     return "signs";
+  }
+
+
+  @RequestMapping(value = "/sec/signs/frame/{favoriteId}")
+  public String signsInFavoritFrame(@PathVariable long favoriteId, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    Favorite favorite = services.favorite().withId(favoriteId);
+    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> videoWithCommentList = Arrays.asList(services.favorite().NbCommentForAllVideoByFavorite(favoriteId));
+
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> new VideoView2(
+        videoViewData,
+        videoWithCommentList.contains(videoViewData.videoId),
+        VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+        videoViewData.nbView > 0,
+        videoViewData.averageRate > 0,
+        true))
+      .collect(Collectors.toList());
+
+
+    VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);
+
+    model.addAttribute("videosView", videoViews);
+
+    fillModelWithFavorites(model, user);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
+    model.addAttribute("favoriteId", favoriteId);
+    model.addAttribute("dropdownTitle", favorite.name);
+    if(favorite.type.equals(FavoriteType.Default)) {
+      model.addAttribute("classDropdownTitle", "favorite_signe pull-left");
+    } else if (favorite.type.equals(FavoriteType.Individual)){
+      model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
+    }
+    model.addAttribute("sortOrderBy", "Liste «"  + favorite.name +"»" );
+    model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+
+    return "fragments/frame-signs";
   }
 
 //fix me !!!!! kanban 473311 suite retour tests utilisateurs
@@ -344,6 +488,75 @@ public class SignController {
     return "signs";
   }
 
+  @RequestMapping(value = "/sec/signs/mostrating/frame")
+  public String signsMostRatingFrame(@RequestParam("isMostRating") boolean isMostRating, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+
+    List<Object[]> querySigns = services.sign().SignsForSignsView();
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithRatingList;
+    if (isMostRating == true) {
+      signWithRatingList = Arrays.asList(services.sign().lowRating());
+      model.addAttribute("isLowRating", true);
+      model.addAttribute("isMostRating", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_rating"));
+
+    } else {
+      signWithRatingList = Arrays.asList(services.sign().mostRating());
+      model.addAttribute("isMostRating", true);
+      model.addAttribute("isLowRating", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_rating"));
+
+    }
+
+    List<SignViewData> rating = signViewsData.stream()
+      .filter(signViewData -> signWithRatingList.contains(signViewData.id))
+      .sorted(new CommentOrderComparator(signWithRatingList))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+
+    List<SignView2> signViews = rating.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+      .collect(Collectors.toList());
+
+
+    model.addAttribute("signsView", signViews);
+
+
+    fillModelWithFavorites(model, user);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
+    model.addAttribute("classDropdownTitle", " sentiment_positif pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "fragments/frame-signs";
+  }
+
 //fix me !!!!! kanban 473311 suite retour tests utilisateurs
 //    item supprime ihm
   @RequestMapping(value = "/sec/signs/mostviewed")
@@ -471,6 +684,66 @@ public class SignController {
     model.addAttribute("isSearch", isSearch);
 
     return "signs";
+  }
+
+  @RequestMapping(value = "/sec/signs/mostrecent/frame")
+  public String signsMostRecentFrame(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+
+    List<Object[]> querySigns;
+    if (isMostRecent == true) {
+      querySigns = services.sign().lowRecent(user.lastDeconnectionDate);
+      model.addAttribute("isLowRecent", true);
+      model.addAttribute("isMostRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_recent"));
+    } else {
+      querySigns = services.sign().mostRecent(user.lastDeconnectionDate);
+      model.addAttribute("isMostRecent", true);
+      model.addAttribute("isLowRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_recent"));
+    }
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+
+    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+
+    List<SignView2> signViews = signViewsData.stream()
+      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+      .collect(Collectors.toList());
+
+
+    model.addAttribute("signsView", signViews);
+
+
+    fillModelWithFavorites(model, user);
+    model.addAttribute("requestCreationView", new RequestCreationView());
+    model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostCommented", false);
+    model.addAttribute("isLowCommented", false);
+    model.addAttribute("isMostRating", false);
+    model.addAttribute("isLowRating", false);
+    model.addAttribute("isMostViewed", false);
+    model.addAttribute("isLowViewed", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
+    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "fragments/frame-signs";
   }
 
   @RequestMapping(value = "/sign/{signId}")
