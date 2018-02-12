@@ -164,7 +164,7 @@
 
   #reset{
     position: absolute;
-    top: 6px;
+    margin-top: 25px;
     right: 36%;
     background-color: #E2E2E2;
     border:none;

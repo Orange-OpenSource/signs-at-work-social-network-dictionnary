@@ -721,7 +721,7 @@
 
   #reset {
     position: absolute;
-    top: 6px;
+    margin-top: 46px;
     right: 20%;
     background-color: #E2E2E2;
     border: none;
@@ -965,7 +965,7 @@
 
   #reset{
     position: absolute;
-    top: 6px;
+    margin-top: 46px;
     right: 19%;
     background-color: #E2E2E2;
     border:none;
@@ -1764,7 +1764,7 @@
 
   #reset {
     position: absolute;
-    top: 6px;
+    margin-top: 46px;
     right: 22%;
     background-color: #E2E2E2;
     border: none;
@@ -1990,7 +1990,7 @@
 
   #reset{
     position: absolute;
-    top: 6px;
+    margin-top: 46px;
     right: 30%;
     background-color: #E2E2E2;
     border:none;
@@ -2340,7 +2340,7 @@
 
   #reset{
     position: absolute;
-    top: 6px;
+    margin-top: 46px;
     right: 30%;
     background-color: #E2E2E2;
     border:none;
@@ -2678,7 +2678,7 @@
 
   #reset{
     position: absolute;
-    top: 6px;
+    margin-top: 46px;
     right: 18%;
     background-color: #E2E2E2;
     border:none;
