@@ -1,5 +1,10 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  .btn .caret{
+    margin-top: 1.5rem;
+    margin-right: 7px;
+  }
+
   .divider-space input[name="lastName"],
   .divider-space input[name="firstName"],
   .divider-space input[name="entity"],
@@ -122,6 +127,7 @@
   width:8rem;
   }
 
+
   .btn{
     line-height: 4rem;
     vertical-align: middle;
@@ -153,6 +159,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 10%;
+    margin-bottom:10px;
   }
 
   #reset{

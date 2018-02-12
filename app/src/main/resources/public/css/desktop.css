@@ -1,5 +1,15 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  .btn .caret{
+    margin-top: 1.5rem;
+    margin-right: 7px;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 4rem;
+    vertical-align: middle;
+  }
+
   .divider-space input[name="lastName"],
   .divider-space input[name="firstName"],
   .divider-space input[name="entity"],
@@ -217,6 +227,7 @@
 
   #myform input[type=search] {
     padding-right: 10%;
+    margin-bottom: 10px;
   }
 
   #container-input {
@@ -231,6 +242,16 @@
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
+
+  .btn .caret{
+    margin-top: 1.5rem;
+    margin-right: 7px;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 4rem;
+    vertical-align: middle;
+  }
 
   .divider-space input[name="lastName"],
   .divider-space input[name="firstName"],
@@ -455,6 +476,7 @@
 
   #myform input[type=search] {
     padding-right: 10%;
+    margin-bottom: 10px;
   }
 
   #container-input {
@@ -470,6 +492,17 @@
 
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
+
+  .btn .caret{
+    margin-top: 1.5rem;
+    margin-right: 7px;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 4rem;
+    vertical-align: middle;
+  }
+
   .divider-space input[name="lastName"],
   .divider-space input[name="firstName"],
   .divider-space input[name="entity"],
@@ -582,11 +615,6 @@
     line-height: 46px;
   }
 
-  .btn{
-    line-height: 4rem;
-    vertical-align: middle;
-  }
-
   .btn-default.active.focus,
   .btn-default.active:focus,
   .btn-default.active:hover,
@@ -613,6 +641,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 10%;
+    margin-bottom: 10px;
   }
 
   #reset{
@@ -730,6 +759,16 @@
 
 @media only screen  and (min-width:1541px)  {
 
+  .btn .caret{
+    margin-top: 1.5rem;
+    margin-right: 7px;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 4rem;
+    vertical-align: middle;
+  }
+
   #label_dictionary{
     display: inline-block;
   }
@@ -801,11 +840,6 @@
     line-height: 46px;
   }
 
-  .btn{
-    line-height: 4rem;
-    vertical-align: middle;
-  }
-
   .btn-default.active.focus,
   .btn-default.active:focus,
   .btn-default.active:hover,
@@ -832,6 +866,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 10%;
+    margin-bottom: 10px;
   }
 
   #reset{

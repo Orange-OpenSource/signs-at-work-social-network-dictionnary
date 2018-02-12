@@ -1,5 +1,14 @@
 @media only screen and (max-width:320px) {
 
+  .btn .caret{
+    margin-top: 1rem;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 3rem;
+    vertical-align: middle;
+  }
+
   .divider-space input[name="lastName"],
   .divider-space input[name="firstName"],
   .divider-space input[name="entity"],
@@ -736,11 +745,22 @@
 
   #myform input[type=search] {
     padding-right: 18%;
+    margin-bottom:10px;
   }
 
 }
 
 @media only screen and (min-width:321px) and (max-width:375px) {
+
+  .btn .caret{
+    margin-top: 1rem;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 3rem;
+    vertical-align: middle;
+  }
+
 
   #label_dictionary{
     display: inline-block;
@@ -940,6 +960,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 18%;
+    margin-bottom:10px;
   }
 
   #reset{
@@ -1264,6 +1285,15 @@
 }
 
 @media only screen and (min-width:376px) and (max-width:495px) {
+
+  .btn .caret{
+    margin-top: 1rem;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 3rem;
+    vertical-align: middle;
+  }
 
   #label_dictionary{
     display: inline-block;
@@ -1729,6 +1759,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 18%;
+    margin-bottom:10px;
   }
 
   #reset {
@@ -1753,6 +1784,15 @@
 }
 
 @media only screen and (min-width:496px) and (max-width:624px) {
+
+  .btn .caret{
+    margin-top: 1rem;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 3rem;
+    vertical-align: middle;
+  }
 
   #label_dictionary{
     display: inline-block;
@@ -1945,6 +1985,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 18%;
+    margin-bottom:10px;
   }
 
   #reset{
@@ -2091,6 +2132,15 @@
 }
 
 @media only screen and (min-width:625px) and (max-width:667px) {
+
+  .btn .caret{
+    margin-top: 1rem;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 3rem;
+    vertical-align: middle;
+  }
 
   #label_dictionary{
     display: inline-block;
@@ -2285,6 +2335,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 18%;
+    margin-bottom:10px;
   }
 
   #reset{
@@ -2417,6 +2468,15 @@
 }
 
 @media only screen and (min-width:668px) and (max-width:767px) {
+
+  .btn .caret{
+    margin-top: 1rem;
+  }
+
+  button[data-toggle="dropdown"].btn{
+    line-height: 3rem;
+    vertical-align: middle;
+  }
 
   #label_dictionary{
     display: inline-block;
@@ -2613,6 +2673,7 @@
     border-radius: 11px;
     box-sizing: border-box;
     padding-right: 18%;
+    margin-bottom:10px;
   }
 
   #reset{
