@@ -1,5 +1,10 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  .open > .dropdown-menu {
+    min-width: 40rem;
+    margin-left: 30%;
+  }
+
   .btn .caret{
     margin-top: 1.5rem;
     margin-right: 7px;
@@ -242,6 +247,11 @@
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
+
+  .open > .dropdown-menu {
+    min-width: 50rem;
+    margin-left: 30%;
+  }
 
   .btn .caret{
     margin-top: 1.5rem;
@@ -492,6 +502,12 @@
 
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
+
+  .open > .dropdown-menu {
+    min-width: 60rem;
+    margin-left: 30%;
+  }
+
 
   .btn .caret{
     margin-top: 1.5rem;
@@ -758,6 +774,11 @@
 
 
 @media only screen  and (min-width:1541px)  {
+
+  .open > .dropdown-menu {
+    min-width: 60rem;
+    margin-left: 30%;
+  }
 
   .btn .caret{
     margin-top: 1.5rem;

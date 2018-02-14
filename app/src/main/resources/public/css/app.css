@@ -581,8 +581,8 @@ text-decoration-line: none;
 
 
 .open > .dropdown-menu {
-	min-width: 28rem;
-  left:18px;
+	/*min-width: 28rem;*/
+  /*left:33px;*/
 }
 
 

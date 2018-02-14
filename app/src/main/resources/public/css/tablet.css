@@ -1,5 +1,10 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  .open > .dropdown-menu {
+    min-width: 40rem;
+    margin-left: 30%;
+  }
+
   .btn .caret{
     margin-top: 1.5rem;
     margin-right: 7px;
