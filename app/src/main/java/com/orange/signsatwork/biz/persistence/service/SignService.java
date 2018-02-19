@@ -33,6 +33,11 @@ public interface SignService {
 
   List<Object[]> lowRecent(Date lastConnectionDate);
 
+  List<Object[]> mostRecentWithoutDate();
+
+  List<Object[]> lowRecentWithoutDate();
+
+
   Long[] mostViewed();
 
   Long[] lowViewed();

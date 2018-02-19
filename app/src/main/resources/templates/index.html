@@ -55,7 +55,8 @@
                   </a>
                 </li>
                 <li class="aside_bckg_li">
-                    <a th:href="@{/signs(isSearch=false)}">
+                    <!--<a th:href="@{/signs(isSearch=false)}">-->
+                      <a th:href="@{/sec/signs/mostrecent(isMostRecent=false, isSearch=true)}">
                         <div>
                         <div class="signe"></div>
                         <h2 class="container_H2" th:text="#{sign.advise}"></h2>

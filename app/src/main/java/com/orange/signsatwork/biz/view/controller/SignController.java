@@ -634,13 +634,15 @@ public class SignController {
 
     List<Object[]> querySigns;
     if (isMostRecent == true) {
-      querySigns = services.sign().lowRecent(user.lastDeconnectionDate);
+      /*querySigns = services.sign().lowRecent(user.lastDeconnectionDate);*/
+      querySigns = services.sign().lowRecentWithoutDate();
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
       model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_recent"));
     } else {
-     querySigns = services.sign().mostRecent(user.lastDeconnectionDate);
+     /*querySigns = services.sign().mostRecent(user.lastDeconnectionDate);*/
+      querySigns = services.sign().mostRecentWithoutDate();
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
@@ -694,13 +696,15 @@ public class SignController {
 
     List<Object[]> querySigns;
     if (isMostRecent == true) {
-      querySigns = services.sign().lowRecent(user.lastDeconnectionDate);
+      /*querySigns = services.sign().lowRecent(user.lastDeconnectionDate);*/
+      querySigns = services.sign().lowRecentWithoutDate();
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
       model.addAttribute("sortOrderBy",   messageByLocaleService.getMessage("most_recent"));
     } else {
-      querySigns = services.sign().mostRecent(user.lastDeconnectionDate);
+      /*querySigns = services.sign().mostRecent(user.lastDeconnectionDate);*/
+      querySigns = services.sign().mostRecentWithoutDate();
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");

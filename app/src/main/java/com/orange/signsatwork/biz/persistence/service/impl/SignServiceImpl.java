@@ -88,6 +88,15 @@ public class SignServiceImpl implements SignService {
     return signRepository.findLowRecent(lastConnectionDate);
   }
 
+  @Override
+  public List<Object[]>  mostRecentWithoutDate() {
+    return signRepository.findMostRecentWithoutDate();
+  }
+
+  @Override
+  public List<Object[]>  lowRecentWithoutDate() {
+    return signRepository.findLowRecentWithoutDate();
+  }
 
   @Override
   public Long[] mostViewed() {

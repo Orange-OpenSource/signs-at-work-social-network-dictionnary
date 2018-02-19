@@ -27,9 +27,10 @@ var REVEAL_DURATION_MS = 1000;
 
 var signsContainer = document.getElementById("signs-container");
 /** Live node list (updated while we iterate over it...) */
-var signViewsHidden = signsContainer.getElementsByClassName(SIGN_HIDDEN_CLASS);
-
-var signsCount = signsContainer.children.length;
+if (signsContainer != null) {
+  var signViewsHidden = signsContainer.getElementsByClassName(SIGN_HIDDEN_CLASS);
+  var signsCount = signsContainer.children.length;
+}
 
 var displayedSignsCount = 0;
 var videosContainer = document.getElementById("videos-container");
@@ -40,7 +41,6 @@ if (videosContainer != null) {
 }
 
 var displayedVideosCount = 0;
-var modeSearch = new Boolean(false);
 
 var search_criteria = document.getElementById("search-criteria");
 
@@ -118,24 +118,19 @@ function onScroll(event) {
   if (signsContainer != null) {
     var noMoreHiddenSigns = signViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
-    if (!modeSearch) {
-      //console.log("search hidden");
+
+    if (search_criteria.value == "") {
       if (!noMoreHiddenSigns && closeToBottom) {
         showNextSignViews();
       }
-    } else {
-      //console.log("search show");
     }
   } else {
     var noMoreHiddenVideos = videoViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
-    if (!modeSearch) {
-      //console.log("search hidden");
-      if(!noMoreHiddenVideos && closeToBottom) {
+    if (search_criteria.value == "") {
+      if (!noMoreHiddenVideos && closeToBottom) {
         showNextVideoViews();
       }
-    } else {
-      //console.log("search show");
     }
   }
 }
@@ -168,15 +163,9 @@ function search(event) {
     } else {
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
-      if (modeSearch == true) {
-        $("#signs-container").children("div").each(function () {
-          $(this).hide();
-        });
-      } else {
         $("#signs-container").children("div").each(function () {
           $(this).show();
         });
-      }
     }
   } else {
     var g = normalize($(this).val());
@@ -204,15 +193,9 @@ function search(event) {
     } else {
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
-      if (modeSearch == true) {
-        $("#videos-container").children("div").each(function () {
-          $(this).hide();
-        });
-      } else {
         $("#video-container").children("div").each(function () {
           $(this).show();
         });
-      }
     }
   }
 }
@@ -246,15 +229,9 @@ function searchSignAfterReload(search_value) {
   } else {
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-    if (modeSearch == true) {
-      $("#signs-container").children("div").each(function () {
-        $(this).hide();
-      });
-    } else {
       $("#signs-container").children("div").each(function () {
         $(this).show();
       });
-    }
   }
 }
 
@@ -285,15 +262,9 @@ function searchVideoAfterReload(search_value) {
   } else {
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-    if (modeSearch == true) {
-      $("#videos-container").children("div").each(function () {
-        $(this).hide();
-      });
-    } else {
       $("#video-container").children("div").each(function () {
         $(this).show();
       });
-    }
   }
 }
 
@@ -321,30 +292,20 @@ function onReset(event) {
       .val('');
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-    if (modeSearch == true) {
       $("#signs-container").children("div").each(function () {
         $(this).hide();
       });
-    } else {
-      $("#signs-container").children("div").each(function () {
-        $(this).show();
-      });
-    }
+    initWithFirstSigns();
   } else {
     $(':input', '#myform')
       .not(':button, :submit, :reset, :hidden')
       .val('');
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-    if (modeSearch == true) {
       $("#videos-container").children("div").each(function () {
         $(this).hide();
       });
-    } else {
-      $("#videos-container").children("div").each(function () {
-        $(this).show();
-      });
-    }
+    initWithFirstVideos();
   }
 
 }
@@ -353,34 +314,18 @@ function onReset(event) {
 
 function main() {
   // show first signs at load
+  document.addEventListener('scroll', onScroll);
+  search_criteria.addEventListener('keyup', search);
+  var button_reset = document.getElementById("reset");
+  if (button_reset != null) {
+    button_reset.addEventListener('click', onReset);
+  }
+  if (signsContainer != null) {
+    initWithFirstSigns();
+  } else {
+    initWithFirstVideos();
+  }
 
- /* var search_criteria = document.getElementById("search-criteria");*/
-   if (search_criteria == null) {
-     if (signsContainer != null) {
-       initWithFirstSigns();
-     } else {
-       initWithFirstVideos();
-     }
-     modeSearch = false;
-     document.addEventListener('scroll', onScroll);
-   } else {
-     search_criteria.addEventListener('keyup', search);
-     if (search_criteria.classList.contains("search-hidden")) {
-       if (signsContainer != null) {
-         initWithFirstSigns();
-       } else {
-         initWithFirstVideos();
-       }
-       modeSearch = false;
-       document.addEventListener('scroll', onScroll);
-     } else {
-       modeSearch = true;
-       var button_reset = document.getElementById("reset");
-       if (button_reset != null) {
-         button_reset.addEventListener('click', onReset);
-       }
-     }
-   }
 
 }
 
@@ -399,10 +344,15 @@ function onFiltreSign(event, href) {
       signsCount = signsContainer.children.length;
       displayedSignsCount = 0;
       videosContainer = null;
-      main();
-      if (modeSearch == true) {
+
+      if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
         searchSignAfterReload(search_criteria.value);
+      } else {
+        $("#signs-container").children("div").each(function () {
+          $(this).hide();
+        });
+        main();
       }
     },
     error: function (response) {
@@ -428,9 +378,14 @@ function onFiltreVideo(event, href) {
       displayedVideosCount = 0;
       signsContainer = null;
       main();
-      if (modeSearch == true) {
+      if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
         searchVideoAfterReload(search_criteria.value);
+      } else {
+        $("#videos-container").children("div").each(function () {
+          $(this).hide();
+        });
+        main();
       }
     },
     error: function (response) {
