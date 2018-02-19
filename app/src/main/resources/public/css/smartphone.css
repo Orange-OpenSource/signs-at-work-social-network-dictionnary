@@ -226,11 +226,6 @@
     margin-top: -2rem;
   }
 
-  .open > .dropdown-menu {
-    max-width: 20rem;
-    margin-left: 15%;
-  }
-
   .dropdown-menu > li > a {
     padding: 16px 16px;
     line-height: 2.4rem;
@@ -488,7 +483,7 @@
 
   .dropdown-menu > li > a {
     display: block;
-    padding-left: 10px;
+    padding-left: 1px;
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;
@@ -1089,18 +1084,11 @@
 
   .dropdown-menu > li > a {
     display: block;
-    padding-left: 10px;
+    padding-left: 1px;
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;
   }
-
-
-  .open > .dropdown-menu {
-    max-width: 22rem;
-    margin-left: 18%;
-  }
-
 
   .col-xs-1 .caret{
     position: absolute;
@@ -1288,11 +1276,6 @@
 }
 
 @media only screen and (min-width:376px) and (max-width:495px) {
-
-  .open > .dropdown-menu {
-    min-width: 22rem;
-    margin-left: 18%;
-  }
 
   .btn .caret{
     margin-top: 1rem;
@@ -1656,7 +1639,7 @@
 
   .dropdown-menu > li > a {
     display: block;
-    padding-left: 10px;
+    padding-left: 1px;
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;
@@ -1792,12 +1775,6 @@
 }
 
 @media only screen and (min-width:496px) and (max-width:624px) {
-
-  .open > .dropdown-menu {
-    min-width: 26rem;
-    margin-left: 27%;
-  }
-
 
   .btn .caret{
     margin-top: 1rem;
@@ -2037,7 +2014,7 @@
 
   .dropdown-menu > li > a {
     display: block;
-    padding-left: 10px;
+    padding-left: 1px;
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;
@@ -2147,10 +2124,6 @@
 
 @media only screen and (min-width:625px) and (max-width:667px) {
 
-  .open > .dropdown-menu {
-    min-width: 27rem;
-    margin-left: 27%;
-  }
 
   .btn .caret{
     margin-top: 1rem;
@@ -2378,7 +2351,7 @@
 
   .dropdown-menu > li > a {
     display: block;
-    padding-left: 10px;
+    padding-left: 1px;
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;
@@ -2488,10 +2461,6 @@
 
 @media only screen and (min-width:668px) and (max-width:767px) {
 
-  .open > .dropdown-menu {
-    min-width: 30rem;
-    margin-left: 27%;
-  }
 
   .btn .caret{
     margin-top: 1rem;
@@ -2682,7 +2651,7 @@
 
   .dropdown-menu > li > a{
     display: block;
-    padding-left: 10px;
+    padding-left: 1px;
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;

@@ -2,6 +2,19 @@
   background: url("/img/my_request.png"), url("/img/favoris.png"), url("/img/positif.png"), url("/img/request.jpg"), url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/PlusVues2_Blanc.png"), url("/img/ajourRecent2_Blanc.png"), url("/img/Commentaire_Blanc.png"), url("/img/sprite_picto_400X400.png"), url("/img/sprite_picto_solaris.png") no-repeat;
 }
 
+.open > .dropdown-menu {
+  right: auto;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  width:23rem;
+}
+
+.open>.dropdown-menu {
+  display: inline-table;
+}
+
 .col-xs-12 h5 {
   color: #8c8c8c;
 }
@@ -577,12 +590,6 @@ text-decoration-line: none;
 
 .dropdown-menu > li {
 	clear: both;
-}
-
-
-.open > .dropdown-menu {
-	/*min-width: 28rem;*/
-  /*left:33px;*/
 }
 
 
@@ -1318,13 +1325,13 @@ span.form-signin-heading{
 
 .checked_down {
 	background-image: url("/img/checked_down.png");
-	background-position: right 20px top 16px;
+	background-position: right 0px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
 }
 .checked_up {
 	background-image: url("/img/checked_up.png");
-	background-position: right 20px top 16px;
+	background-position: right 0px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
 }
