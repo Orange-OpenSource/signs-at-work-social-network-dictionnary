@@ -25,6 +25,7 @@ var NB_SIGN_VIEWS_INC = 6;
 var NB_VIDEO_VIEWS_INC = 6;
 var REVEAL_DURATION_MS = 1000;
 
+var addNewSuggestRequest = document.getElementById("add-new-suggest-request");
 var signsContainer = document.getElementById("signs-container");
 /** Live node list (updated while we iterate over it...) */
 if (signsContainer != null) {
@@ -137,6 +138,9 @@ function onScroll(event) {
 
 
 function search(event) {
+
+  var display = 0;
+  $(addNewSuggestRequest).hide();
   if (signsContainer != null) {
     var g = normalize($(this).val());
 
@@ -152,15 +156,25 @@ function search(event) {
             var thumbnailUrl = img.dataset.src;
             img.src = thumbnailUrl;
             displayedSignsCount++;
+
           }
           $(this).show();
-
+          display++;
         }
         else {
           $(this).hide();
         }
+
       });
+
+      console.log("display "+display);
+      if (display == 0) {
+        $(addNewSuggestRequest).show();
+      } else {
+        $(addNewSuggestRequest).hide();
+      }
     } else {
+      $(addNewSuggestRequest).hide();
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
         $("#signs-container").children("div").each(function () {
@@ -184,13 +198,20 @@ function search(event) {
             displayedVideosCount++;
           }
           $(this).show();
-
+          display++;
         }
         else {
           $(this).hide();
         }
       });
+      console.log("display "+display);
+      if (display == 0) {
+        $(addNewSuggestRequest).show();
+      } else {
+        $(addNewSuggestRequest).hide();
+      }
     } else {
+      $(addNewSuggestRequest).hide();
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
         $("#video-container").children("div").each(function () {
@@ -203,6 +224,8 @@ function search(event) {
 
 
 function searchSignAfterReload(search_value) {
+  var display = 0;
+  $(addNewSuggestRequest).hide();
   console.log("search_value "+search_value);
   var g = normalize(search_value);
 
@@ -220,13 +243,20 @@ function searchSignAfterReload(search_value) {
           displayedSignsCount++;
         }
         $(this).show();
-
+        display++;
       }
       else {
         $(this).hide();
       }
     });
+    console.log("display "+display);
+    if (display == 0) {
+      $(addNewSuggestRequest).show();
+    } else {
+      $(addNewSuggestRequest).hide();
+    }
   } else {
+    $(addNewSuggestRequest).hide();
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
       $("#signs-container").children("div").each(function () {
@@ -236,6 +266,8 @@ function searchSignAfterReload(search_value) {
 }
 
 function searchVideoAfterReload(search_value) {
+  var display = 0;
+  $(addNewSuggestRequest).hide();
   console.log("search_value "+search_value);
   var g = normalize(search_value);
 
@@ -253,13 +285,20 @@ function searchVideoAfterReload(search_value) {
           displayedVideosCount++;
         }
         $(this).show();
-
+        display++;
       }
       else {
         $(this).hide();
       }
     });
+    console.log("display "+display);
+    if (display == 0) {
+      $(addNewSuggestRequest).show();
+    } else {
+      $(addNewSuggestRequest).hide();
+    }
   } else {
+    $(addNewSuggestRequest).hide();
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
       $("#video-container").children("div").each(function () {
@@ -286,6 +325,7 @@ function initWithFirstVideos() {
 
 function onReset(event) {
 
+  $(addNewSuggestRequest).hide();
   if (signsContainer != null) {
     $(':input', '#myform')
       .not(':button, :submit, :reset, :hidden')
@@ -320,6 +360,7 @@ function main() {
   if (button_reset != null) {
     button_reset.addEventListener('click', onReset);
   }
+
   if (signsContainer != null) {
     initWithFirstSigns();
   } else {
@@ -344,6 +385,7 @@ function onFiltreSign(event, href) {
       signsCount = signsContainer.children.length;
       displayedSignsCount = 0;
       videosContainer = null;
+      addNewSuggestRequest = document.getElementById("add-new-suggest-request");
 
       if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
@@ -377,7 +419,8 @@ function onFiltreVideo(event, href) {
       videosCount = videosContainer.children.length;
       displayedVideosCount = 0;
       signsContainer = null;
-      main();
+      addNewSuggestRequest = document.getElementById("add-new-suggest-request");
+      
       if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
         searchVideoAfterReload(search_criteria.value);
