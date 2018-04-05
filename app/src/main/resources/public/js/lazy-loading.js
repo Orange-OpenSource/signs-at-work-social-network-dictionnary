@@ -66,6 +66,8 @@ var normalize = function( term ) {
   return ret;
 };
 
+var nb = document.getElementById("nb");
+
 if (!String.prototype.startsWith) {
   String.prototype.startsWith = function(searchString, position){
     position = position || 0;
@@ -127,7 +129,7 @@ function onScroll(event) {
     }
   } else {
     var noMoreHiddenVideos = videoViewsHidden.length === 0;
-    var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height()/5;
+    var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
     if (search_criteria.value == "") {
       if (!noMoreHiddenVideos && closeToBottom) {
         showNextVideoViews();
@@ -151,8 +153,8 @@ function search(event) {
         var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
         if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
-          if ($(this).hasClass("sign-view-hidden")) {
-            $(this).removeClass('sign-view-hidden');
+          if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
+            $(this).removeClass(SIGN_HIDDEN_CLASS);
             var thumbnailUrl = img.dataset.src;
             img.src = thumbnailUrl;
             displayedSignsCount++;
@@ -168,6 +170,7 @@ function search(event) {
       });
 
       console.log("display "+display);
+      nb.innerHTML = display;
       if (display == 0) {
         $(addNewSuggestRequest).show();
       } else {
@@ -177,9 +180,13 @@ function search(event) {
       $(addNewSuggestRequest).hide();
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
-        $("#signs-container").children("div").each(function () {
-          $(this).show();
-        });
+      $("#signs-container").children("div").each(function () {
+        if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
+          $(this).addClass(SIGN_HIDDEN_CLASS);
+          $(this).hide();
+        }});
+      displayedSignsCount = 0;
+      initWithFirstSigns();
     }
   } else {
     var g = normalize($(this).val());
@@ -191,8 +198,8 @@ function search(event) {
         var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
         if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
-          if ($(this).hasClass("video-view-hidden")) {
-            $(this).removeClass('video-view-hidden');
+          if ($(this).hasClass(VIDEO_HIDDEN_CLASS)) {
+            $(this).removeClass(VIDEO_HIDDEN_CLASS);
             var thumbnailUrl = img.dataset.src;
             img.src = thumbnailUrl;
             displayedVideosCount++;
@@ -205,6 +212,7 @@ function search(event) {
         }
       });
       console.log("display "+display);
+      nb.innerHTML = display;
       if (display == 0) {
         $(addNewSuggestRequest).show();
       } else {
@@ -214,9 +222,13 @@ function search(event) {
       $(addNewSuggestRequest).hide();
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
-        $("#video-container").children("div").each(function () {
-          $(this).show();
-        });
+      $("#videos-container").children("div").each(function () {
+        if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
+          $(this).addClass(VIDEO_HIDDEN_CLASS);
+          $(this).hide();
+        }});
+      displayedVideosCount = 0;
+      initWithFirstVideos();
     }
   }
 }
@@ -236,8 +248,8 @@ function searchSignAfterReload(search_value) {
       var s = normalize($(this).attr("id"));
       var img = $(this).find("img")[0];
       if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
-        if ($(this).hasClass("sign-view-hidden")) {
-          $(this).removeClass('sign-view-hidden');
+        if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
+          $(this).removeClass(SIGN_HIDDEN_CLASS);
           var thumbnailUrl = img.dataset.src;
           img.src = thumbnailUrl;
           displayedSignsCount++;
@@ -250,6 +262,7 @@ function searchSignAfterReload(search_value) {
       }
     });
     console.log("display "+display);
+    nb.innerHTML = display;
     if (display == 0) {
       $(addNewSuggestRequest).show();
     } else {
@@ -259,9 +272,13 @@ function searchSignAfterReload(search_value) {
     $(addNewSuggestRequest).hide();
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-      $("#signs-container").children("div").each(function () {
-        $(this).show();
-      });
+    $("#signs-container").children("div").each(function () {
+      if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
+        $(this).addClass(SIGN_HIDDEN_CLASS);
+        $(this).hide();
+      }});
+    displayedSignsCount = 0;
+    initWithFirstSigns();
   }
 }
 
@@ -278,8 +295,8 @@ function searchVideoAfterReload(search_value) {
       var s = normalize($(this).attr("id"));
       var img = $(this).find("img")[0];
       if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
-        if ($(this).hasClass("video-view-hidden")) {
-          $(this).removeClass('video-view-hidden');
+        if ($(this).hasClass(VIDEO_HIDDEN_CLASS)) {
+          $(this).removeClass(VIDEO_HIDDEN_CLASS);
           var thumbnailUrl = img.dataset.src;
           img.src = thumbnailUrl;
           displayedVideosCount++;
@@ -292,6 +309,7 @@ function searchVideoAfterReload(search_value) {
       }
     });
     console.log("display "+display);
+    nb.innerHTML = display;
     if (display == 0) {
       $(addNewSuggestRequest).show();
     } else {
@@ -301,9 +319,13 @@ function searchVideoAfterReload(search_value) {
     $(addNewSuggestRequest).hide();
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-      $("#video-container").children("div").each(function () {
-        $(this).show();
-      });
+    $("#videos-container").children("div").each(function () {
+      if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
+        $(this).addClass(VIDEO_HIDDEN_CLASS);
+        $(this).hide();
+      }});
+    displayedVideosCount = 0;
+    initWithFirstVideos();
   }
 }
 
@@ -312,15 +334,19 @@ function scrollBarVisible() {
 }
 
 function initWithFirstSigns() {
+  nb.innerHTML = signsCount;
   do {
     showNextSignViews();
   } while(!scrollBarVisible() && displayedSignsCount != signsCount);
+
 }
 
 function initWithFirstVideos() {
+  nb.innerHTML = videosCount;
   do {
     showNextVideoViews();
   } while(!scrollBarVisible() && displayedVideosCount != videosCount);
+
 }
 
 function onReset(event) {
@@ -332,9 +358,12 @@ function onReset(event) {
       .val('');
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-      $("#signs-container").children("div").each(function () {
+    $("#signs-container").children("div").each(function () {
+      if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
+        $(this).addClass(SIGN_HIDDEN_CLASS);
         $(this).hide();
-      });
+      }});
+    displayedSignsCount = 0;
     initWithFirstSigns();
   } else {
     $(':input', '#myform')
@@ -342,9 +371,12 @@ function onReset(event) {
       .val('');
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
-      $("#videos-container").children("div").each(function () {
+    $("#videos-container").children("div").each(function () {
+      if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
+        $(this).addClass(VIDEO_HIDDEN_CLASS);
         $(this).hide();
-      });
+    }});
+    displayedVideosCount = 0;
     initWithFirstVideos();
   }
 
@@ -386,6 +418,7 @@ function onFiltreSign(event, href) {
       displayedSignsCount = 0;
       videosContainer = null;
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
+      nb = document.getElementById("nb");
 
       if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
@@ -420,7 +453,8 @@ function onFiltreVideo(event, href) {
       displayedVideosCount = 0;
       signsContainer = null;
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
-      
+      nb = document.getElementById("nb");
+
       if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
         searchVideoAfterReload(search_criteria.value);
