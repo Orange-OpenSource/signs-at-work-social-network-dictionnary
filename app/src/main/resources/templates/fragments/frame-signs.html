@@ -109,19 +109,9 @@
   <div th:replace="fragments/modal-new-request :: div"/>
   <div class="row" id="add-new-suggest-request" style="display: none">
     <div class="col-xs-12">
+      <h2 th:text="#{sign.not_available}"></h2>
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
-          <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
-            <a  data-target="#new-suggest" data-toggle="modal" href="#" >
-              <div>
-                <div class="pull-left suggest_black"></div>
-                <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
-                <div>
-                  <div class="pull-right add"></div>
-                </div>
-              </div>
-            </a>
-          </li>
           <li th:if="${isAuthenticated}" class="aside_bckg_li">
             <a data-target="#new_request" data-toggle="modal" href="#">
               <div>
@@ -129,6 +119,17 @@
                 <h2 class="container_H2" th:text="#{sign.request}"></h2>
                 <div >
                   <div class="pull-right request_signe_whithout_chevron "></div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+            <a  data-target="#new-suggest" data-toggle="modal" href="#" >
+              <div>
+                <div class="pull-left suggest_black"></div>
+                <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
+                <div>
+                  <div class="pull-right add"></div>
                 </div>
               </div>
             </a>
@@ -141,6 +142,7 @@
 
   <div th:if="${favoriteId} == null">
     <div th:if="${not #lists.isEmpty(signsView)}" id="signs-container" class="row" >
+      <h2 id="sign_available" th:text="#{sign_available}" style="display: none"></h2>
       <div th:id="${signView.name}" th:each="signView:${signsView}" class="sign-view-hidden text-center col-xl-2 col-lg-3 col-md-4 col-xs-6 col-sm-4">
         <div class="row">
           <div class="col-lg-12 col-xl-12">
@@ -185,6 +187,7 @@
 
   <div th:if="${favoriteId} != null">
     <div th:if="${not #lists.isEmpty(videosView)}" id="videos-container" class="row">
+      <h2 id="video_available" th:text="#{sign_available}" style="display: none"></h2>
       <div th:id="${videoView.signName}" th:each="videoView:${videosView}" class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
           <div class="row">
             <div class="col-lg-12">
@@ -217,9 +220,9 @@
 
   </div>
 </body>
-<!--<script >
+<script >
   $(function () {
     objectFitImages ('img', {watchMQ: true});
   });
-</script>-->
+</script>
 </html>

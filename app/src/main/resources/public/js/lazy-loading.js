@@ -41,6 +41,9 @@ if (videosContainer != null) {
   var videosCount = videosContainer.children.length;
 }
 
+var signAvailable = document.getElementById("sign_available");
+var videoAvailable = document.getElementById("video_available");
+
 var displayedVideosCount = 0;
 
 var search_criteria = document.getElementById("search-criteria");
@@ -172,8 +175,10 @@ function search(event) {
       console.log("display "+display);
       nb.innerHTML = display;
       if (display == 0) {
+        $(signAvailable).hide();
         $(addNewSuggestRequest).show();
       } else {
+        $(signAvailable).show();
         $(addNewSuggestRequest).hide();
       }
     } else {
@@ -214,8 +219,10 @@ function search(event) {
       console.log("display "+display);
       nb.innerHTML = display;
       if (display == 0) {
+        $(videoAvailable).hide();
         $(addNewSuggestRequest).show();
       } else {
+        $(videoAvailable).show();
         $(addNewSuggestRequest).hide();
       }
     } else {
@@ -264,8 +271,10 @@ function searchSignAfterReload(search_value) {
     console.log("display "+display);
     nb.innerHTML = display;
     if (display == 0) {
+      $(signAvailable).hide();
       $(addNewSuggestRequest).show();
     } else {
+      $(signAvailable).show();
       $(addNewSuggestRequest).hide();
     }
   } else {
@@ -311,8 +320,10 @@ function searchVideoAfterReload(search_value) {
     console.log("display "+display);
     nb.innerHTML = display;
     if (display == 0) {
+      $(videoAvailable).hide();
       $(addNewSuggestRequest).show();
     } else {
+      $(videoAvailable).show();
       $(addNewSuggestRequest).hide();
     }
   } else {
