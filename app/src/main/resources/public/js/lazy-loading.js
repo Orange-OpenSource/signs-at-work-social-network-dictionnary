@@ -30,7 +30,7 @@ var signsContainer = document.getElementById("signs-container");
 /** Live node list (updated while we iterate over it...) */
 if (signsContainer != null) {
   var signViewsHidden = signsContainer.getElementsByClassName(SIGN_HIDDEN_CLASS);
-  var signsCount = signsContainer.children.length;
+  var signsCount =  $("#signs-container").children("div").length;
 }
 
 var displayedSignsCount = 0;
@@ -38,7 +38,7 @@ var videosContainer = document.getElementById("videos-container");
 /** Live node list (updated while we iterate over it...) */
 if (videosContainer != null) {
   var videoViewsHidden = videosContainer.getElementsByClassName(VIDEO_HIDDEN_CLASS);
-  var videosCount = videosContainer.children.length;
+  var videosCount =  $("#videos-container").children("div").length;
 }
 
 var signAvailable = document.getElementById("sign_available");
@@ -183,6 +183,7 @@ function search(event) {
       }
     } else {
       $(addNewSuggestRequest).hide();
+      $(signAvailable).hide();
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
       $("#signs-container").children("div").each(function () {
@@ -227,6 +228,7 @@ function search(event) {
       }
     } else {
       $(addNewSuggestRequest).hide();
+      $(videoAvailable).hide();
       $("#reset").css("visibility", "hidden");
       $("#reset").hide();
       $("#videos-container").children("div").each(function () {
@@ -279,6 +281,7 @@ function searchSignAfterReload(search_value) {
     }
   } else {
     $(addNewSuggestRequest).hide();
+    $(signAvailable).hide();
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
     $("#signs-container").children("div").each(function () {
@@ -328,6 +331,7 @@ function searchVideoAfterReload(search_value) {
     }
   } else {
     $(addNewSuggestRequest).hide();
+    $(videoAvailable).hide();
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
     $("#videos-container").children("div").each(function () {
@@ -369,6 +373,7 @@ function onReset(event) {
       .val('');
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
+    $(signAvailable).hide();
     $("#signs-container").children("div").each(function () {
       if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
         $(this).addClass(SIGN_HIDDEN_CLASS);
@@ -382,6 +387,7 @@ function onReset(event) {
       .val('');
     $("#reset").css("visibility", "hidden");
     $("#reset").hide();
+    $(videoAvailable).hide();
     $("#videos-container").children("div").each(function () {
       if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
         $(this).addClass(VIDEO_HIDDEN_CLASS);
@@ -425,11 +431,12 @@ function onFiltreSign(event, href) {
       document.getElementById("frame-signs").innerHTML = response;
       signsContainer = document.getElementById("signs-container");
       signViewsHidden = signsContainer.getElementsByClassName(SIGN_HIDDEN_CLASS);
-      signsCount = signsContainer.children.length;
+      signsCount = $("#signs-container").children("div").length;
       displayedSignsCount = 0;
       videosContainer = null;
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
       nb = document.getElementById("nb");
+      signAvailable = document.getElementById("sign_available");
 
       if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
@@ -460,11 +467,12 @@ function onFiltreVideo(event, href) {
       document.getElementById("frame-signs").innerHTML = response;
       videosContainer = document.getElementById("videos-container");
       videoViewsHidden = videosContainer.getElementsByClassName(VIDEO_HIDDEN_CLASS);
-      videosCount = videosContainer.children.length;
+      videosCount = $("#videos-container").children("div").length;
       displayedVideosCount = 0;
       signsContainer = null;
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
       nb = document.getElementById("nb");
+      videoAvailable = document.getElementById("video_available");
 
       if (search_criteria.value != "") {
         console.log("search value "+search_criteria.value);
