@@ -39,14 +39,15 @@
 <div id="myform" >
   <input type='button' class="pull-rigth" id='reset' value='X' >
   <div id="container-input">
-    <div th:if="${favoriteId} == null">
+    <input type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>
+   <!-- <div th:if="${favoriteId} == null">
       <input th:if="${!isSearch or #lists.isEmpty(signsView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
       <input th:if="${isSearch and not #lists.isEmpty(signsView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>
     </div>
     <div th:if="${favoriteId} != null">
       <input th:if="${isSearch and not #lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>
       <input th:if="${!isSearch or #lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
-    </div>
+    </div>-->
   </div>
   </input>
 </div>

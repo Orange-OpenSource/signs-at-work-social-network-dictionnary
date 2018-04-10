@@ -25,6 +25,8 @@ var NB_SIGN_VIEWS_INC = 6;
 var NB_VIDEO_VIEWS_INC = 6;
 var REVEAL_DURATION_MS = 1000;
 
+var modeSearch;
+
 var addNewSuggestRequest = document.getElementById("add-new-suggest-request");
 var signsContainer = document.getElementById("signs-container");
 /** Live node list (updated while we iterate over it...) */
@@ -174,6 +176,7 @@ function search(event) {
 
       console.log("display "+display);
       nb.innerHTML = display;
+      $(nb).show();
       if (display == 0) {
         $(signAvailable).hide();
         $(addNewSuggestRequest).show();
@@ -192,7 +195,11 @@ function search(event) {
           $(this).hide();
         }});
       displayedSignsCount = 0;
-      initWithFirstSigns();
+      if (modeSearch === "false") {
+        initWithFirstSigns();
+      } else {
+        $(nb).hide();
+      }
     }
   } else {
     var g = normalize($(this).val());
@@ -219,6 +226,7 @@ function search(event) {
       });
       console.log("display "+display);
       nb.innerHTML = display;
+      $(nb).show();
       if (display == 0) {
         $(videoAvailable).hide();
         $(addNewSuggestRequest).show();
@@ -237,7 +245,11 @@ function search(event) {
           $(this).hide();
         }});
       displayedVideosCount = 0;
-      initWithFirstVideos();
+      if (modeSearch === "false") {
+        initWithFirstVideos();
+      } else {
+        $(nb).hide();
+      }
     }
   }
 }
@@ -272,6 +284,7 @@ function searchSignAfterReload(search_value) {
     });
     console.log("display "+display);
     nb.innerHTML = display;
+    $(nb).show();
     if (display == 0) {
       $(signAvailable).hide();
       $(addNewSuggestRequest).show();
@@ -290,7 +303,11 @@ function searchSignAfterReload(search_value) {
         $(this).hide();
       }});
     displayedSignsCount = 0;
-    initWithFirstSigns();
+    if (modeSearch === "false") {
+      initWithFirstSigns();
+    } else {
+      $(nb).hide();
+    }
   }
 }
 
@@ -322,6 +339,7 @@ function searchVideoAfterReload(search_value) {
     });
     console.log("display "+display);
     nb.innerHTML = display;
+    $(nb).show();
     if (display == 0) {
       $(videoAvailable).hide();
       $(addNewSuggestRequest).show();
@@ -340,7 +358,11 @@ function searchVideoAfterReload(search_value) {
         $(this).hide();
       }});
     displayedVideosCount = 0;
-    initWithFirstVideos();
+    if (modeSearch === "false") {
+      initWithFirstVideos();
+    } else {
+      $(nb).hide();
+    }
   }
 }
 
@@ -350,6 +372,7 @@ function scrollBarVisible() {
 
 function initWithFirstSigns() {
   nb.innerHTML = signsCount;
+  $(nb).show();
   do {
     showNextSignViews();
   } while(!scrollBarVisible() && displayedSignsCount != signsCount);
@@ -358,6 +381,7 @@ function initWithFirstSigns() {
 
 function initWithFirstVideos() {
   nb.innerHTML = videosCount;
+  $(nb).show();
   do {
     showNextVideoViews();
   } while(!scrollBarVisible() && displayedVideosCount != videosCount);
@@ -380,7 +404,11 @@ function onReset(event) {
         $(this).hide();
       }});
     displayedSignsCount = 0;
-    initWithFirstSigns();
+    if (modeSearch === "false") {
+      initWithFirstSigns();
+    } else {
+      $(nb).hide();
+    }
   } else {
     $(':input', '#myform')
       .not(':button, :submit, :reset, :hidden')
@@ -394,7 +422,11 @@ function onReset(event) {
         $(this).hide();
     }});
     displayedVideosCount = 0;
-    initWithFirstVideos();
+    if (modeSearch === "false") {
+      initWithFirstVideos();
+    } else {
+      $(nb).hide();
+    }
   }
 
 }
@@ -403,6 +435,18 @@ function onReset(event) {
 
 function main() {
   // show first signs at load
+  console.log("main "+window.location.href+" "+window.location.search);
+  var url_param = window.location.search;
+  var isSearch = url_param.indexOf("isSearch");
+  console.log("isSearch "+isSearch);
+  modeSearch = url_param.substring(url_param.indexOf("isSearch") +9);
+  console.log("modeSearch "+modeSearch);
+  if (modeSearch === "false") {
+    console.log("false");
+  } else {
+    console.log("true");
+  }
+
   document.addEventListener('scroll', onScroll);
   search_criteria.addEventListener('keyup', search);
   var button_reset = document.getElementById("reset");
@@ -410,10 +454,14 @@ function main() {
     button_reset.addEventListener('click', onReset);
   }
 
-  if (signsContainer != null) {
-    initWithFirstSigns();
+  if (modeSearch === "false") {
+    if (signsContainer != null) {
+      initWithFirstSigns();
+    } else {
+      initWithFirstVideos();
+    }
   } else {
-    initWithFirstVideos();
+    $(nb).hide();
   }
 
 
