@@ -157,7 +157,8 @@ function search(event) {
         $("#reset").show();
         var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
-        if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
+        /*if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
+        if (s.toUpperCase().indexOf(g.toUpperCase()) != -1) {
           if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
             $(this).removeClass(SIGN_HIDDEN_CLASS);
             var thumbnailUrl = img.dataset.src;
@@ -210,7 +211,8 @@ function search(event) {
         $("#reset").show();
         var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
-        if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
+       /* if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
+          if (s.toUpperCase().indexOf(g.toUpperCase()) != -1) {
           if ($(this).hasClass(VIDEO_HIDDEN_CLASS)) {
             $(this).removeClass(VIDEO_HIDDEN_CLASS);
             var thumbnailUrl = img.dataset.src;
@@ -268,7 +270,8 @@ function searchSignAfterReload(search_value) {
       $("#reset").show();
       var s = normalize($(this).attr("id"));
       var img = $(this).find("img")[0];
-      if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
+      /*if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
+      if (s.toUpperCase().indexOf(g.toUpperCase()) != -1) {
         if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
           $(this).removeClass(SIGN_HIDDEN_CLASS);
           var thumbnailUrl = img.dataset.src;
@@ -323,7 +326,8 @@ function searchVideoAfterReload(search_value) {
       $("#reset").show();
       var s = normalize($(this).attr("id"));
       var img = $(this).find("img")[0];
-      if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
+      /*if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
+        if (s.toUpperCase().indexOf(g.toUpperCase()) != -1) {
         if ($(this).hasClass(VIDEO_HIDDEN_CLASS)) {
           $(this).removeClass(VIDEO_HIDDEN_CLASS);
           var thumbnailUrl = img.dataset.src;
