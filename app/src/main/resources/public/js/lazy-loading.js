@@ -154,7 +154,7 @@ function search(event) {
     if (g != "") {
       $("#signs-container").children("div").each(function () {
         $("#reset").css("visibility", "visible");
-        $("#reset").show();
+       /* $("#reset").show();*/
         var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
         /*if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
@@ -189,7 +189,7 @@ function search(event) {
       $(addNewSuggestRequest).hide();
       $(signAvailable).hide();
       $("#reset").css("visibility", "hidden");
-      $("#reset").hide();
+      /*$("#reset").hide();*/
       $("#signs-container").children("div").each(function () {
         if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
           $(this).addClass(SIGN_HIDDEN_CLASS);
@@ -208,7 +208,7 @@ function search(event) {
     if (g!="") {
       $("#videos-container").children("div").each(function () {
         $("#reset").css("visibility", "visible");
-        $("#reset").show();
+        /*$("#reset").show();*/
         var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
        /* if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
@@ -240,7 +240,7 @@ function search(event) {
       $(addNewSuggestRequest).hide();
       $(videoAvailable).hide();
       $("#reset").css("visibility", "hidden");
-      $("#reset").hide();
+      /*$("#reset").hide();*/
       $("#videos-container").children("div").each(function () {
         if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
           $(this).addClass(VIDEO_HIDDEN_CLASS);
@@ -267,7 +267,7 @@ function searchSignAfterReload(search_value) {
   if (g!="") {
     $("#signs-container").children("div").each(function () {
       $("#reset").css("visibility", "visible");
-      $("#reset").show();
+     /* $("#reset").show();*/
       var s = normalize($(this).attr("id"));
       var img = $(this).find("img")[0];
       /*if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
@@ -323,7 +323,7 @@ function searchVideoAfterReload(search_value) {
   if (g!="") {
     $("#videos-container").children("div").each(function () {
       $("#reset").css("visibility", "visible");
-      $("#reset").show();
+      /*$("#reset").show();*/
       var s = normalize($(this).attr("id"));
       var img = $(this).find("img")[0];
       /*if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {*/
@@ -355,7 +355,7 @@ function searchVideoAfterReload(search_value) {
     $(addNewSuggestRequest).hide();
     $(videoAvailable).hide();
     $("#reset").css("visibility", "hidden");
-    $("#reset").hide();
+    /*$("#reset").hide();*/
     $("#videos-container").children("div").each(function () {
       if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
         $(this).addClass(VIDEO_HIDDEN_CLASS);
@@ -400,7 +400,7 @@ function onReset(event) {
       .not(':button, :submit, :reset, :hidden')
       .val('');
     $("#reset").css("visibility", "hidden");
-    $("#reset").hide();
+    /*$("#reset").hide();*/
     $(signAvailable).hide();
     $("#signs-container").children("div").each(function () {
       if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
@@ -418,7 +418,7 @@ function onReset(event) {
       .not(':button, :submit, :reset, :hidden')
       .val('');
     $("#reset").css("visibility", "hidden");
-    $("#reset").hide();
+    /*$("#reset").hide();*/
     $(videoAvailable).hide();
     $("#videos-container").children("div").each(function () {
       if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {

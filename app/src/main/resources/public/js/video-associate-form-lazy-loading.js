@@ -221,7 +221,7 @@ $.fn.extend({
     if (g!="") {
       $("#signs-container").children("label").each(function () {
         $("#reset").css("visibility", "visible");
-        $("#reset").show();
+        /*$("#reset").show();*/
         var s = normalize($(this).attr("id"));
         var img = $(this).find("img")[0];
         if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
@@ -240,7 +240,7 @@ $.fn.extend({
       });
     } else {
         $("#reset").css("visibility", "hidden");
-        $("#reset").hide();
+        /*$("#reset").hide();*/
         if (!$("#associateForm").isChanged()) {
           $("#button-top").css("visibility", "hidden");
           $("#button-top").hide();
@@ -269,7 +269,7 @@ $.fn.extend({
         .not(':button, :submit, :reset, :hidden')
         .val('');
       $("#reset").css("visibility", "hidden");
-      $("#reset").hide();
+      /*$("#reset").hide();*/
       if (!$("#associateForm").isChanged()) {
         $("#button-top").css("visibility", "hidden");
         $("#button-top").hide();
