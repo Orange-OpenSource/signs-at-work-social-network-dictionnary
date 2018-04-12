@@ -112,14 +112,16 @@ function showNextSignViews() {
 
 function showNextVideoViews() {
   var viewsToReveal = [];
-  for (var i = 0; i < NB_VIDEO_VIEWS_INC && i < videoViewsHidden.length; i++) {
-    viewsToReveal.push(videoViewsHidden[i]);
+  if (videoViewsHidden != null) {
+    for (var i = 0; i < NB_VIDEO_VIEWS_INC && i < videoViewsHidden.length; i++) {
+      viewsToReveal.push(videoViewsHidden[i]);
+    }
+    for (var i = 0; i < viewsToReveal.length; i++) {
+      showVideoView(viewsToReveal[i]);
+      displayedVideosCount++;
+    }
+    console.log("total: " + videosCount + ", hidden: " + videoViewsHidden.length + ", displayedVideosCount: " + displayedVideosCount);
   }
-  for (var i = 0; i < viewsToReveal.length; i++) {
-    showVideoView(viewsToReveal[i]);
-    displayedVideosCount++;
-  }
-  console.log("total: " + videosCount + ", hidden: " + videoViewsHidden.length + ", displayedVideosCount: " + displayedVideosCount);
 }
 
 function onScroll(event) {
@@ -133,11 +135,13 @@ function onScroll(event) {
       }
     }
   } else {
-    var noMoreHiddenVideos = videoViewsHidden.length === 0;
-    var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
-    if (search_criteria.value == "") {
-      if (!noMoreHiddenVideos && closeToBottom) {
-        showNextVideoViews();
+    if (videoViewsHidden != null) {
+      var noMoreHiddenVideos = videoViewsHidden.length === 0;
+      var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
+      if (search_criteria.value == "") {
+        if (!noMoreHiddenVideos && closeToBottom) {
+          showNextVideoViews();
+        }
       }
     }
   }
@@ -462,7 +466,9 @@ function main() {
     if (signsContainer != null) {
       initWithFirstSigns();
     } else {
-      initWithFirstVideos();
+      if (videosContainer != null) {
+        initWithFirstVideos();
+      }
     }
   } else {
     $(nb).hide();
@@ -489,15 +495,20 @@ function onFiltreSign(event, href) {
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
       nb = document.getElementById("nb");
       signAvailable = document.getElementById("sign_available");
-
-      if (search_criteria.value != "") {
-        console.log("search value "+search_criteria.value);
-        searchSignAfterReload(search_criteria.value);
+      if (signsCount == 0) {
+        $(search_criteria).hide();
+        $("#reset").css("visibility", "hidden");
       } else {
-        $("#signs-container").children("div").each(function () {
-          $(this).hide();
-        });
-        main();
+        $(search_criteria).show();
+        if (search_criteria.value != "") {
+          console.log("search value " + search_criteria.value);
+          searchSignAfterReload(search_criteria.value);
+        } else {
+          $("#signs-container").children("div").each(function () {
+            $(this).hide();
+          });
+          main();
+        }
       }
     },
     error: function (response) {
@@ -518,22 +529,31 @@ function onFiltreVideo(event, href) {
       console.log("Success ");
       document.getElementById("frame-signs").innerHTML = response;
       videosContainer = document.getElementById("videos-container");
-      videoViewsHidden = videosContainer.getElementsByClassName(VIDEO_HIDDEN_CLASS);
-      videosCount = $("#videos-container").children("div").length;
+      if (videosContainer != null) {
+        videoViewsHidden = videosContainer.getElementsByClassName(VIDEO_HIDDEN_CLASS);
+        videosCount = $("#videos-container").children("div").length;
+      } else {
+        videosCount = 0;
+      }
       displayedVideosCount = 0;
       signsContainer = null;
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
       nb = document.getElementById("nb");
       videoAvailable = document.getElementById("video_available");
-
-      if (search_criteria.value != "") {
-        console.log("search value "+search_criteria.value);
-        searchVideoAfterReload(search_criteria.value);
+      if (videosCount == 0) {
+        $(search_criteria).hide();
+        $("#reset").css("visibility", "hidden");
       } else {
-        $("#videos-container").children("div").each(function () {
-          $(this).hide();
-        });
-        main();
+        $(search_criteria).show();
+        if (search_criteria.value != "") {
+          console.log("search value " + search_criteria.value);
+          searchVideoAfterReload(search_criteria.value);
+        } else {
+          $("#videos-container").children("div").each(function () {
+            $(this).hide();
+          });
+          main();
+        }
       }
     },
     error: function (response) {

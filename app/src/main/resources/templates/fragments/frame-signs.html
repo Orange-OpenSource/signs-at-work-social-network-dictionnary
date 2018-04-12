@@ -34,7 +34,7 @@
       <span th:attr="class=${classDropdownTitle}"></span>
       <span th:attr="class=${classDropdownDirection}"></span>
       <span class="" th:text="${dropdownTitle}"></span>
-      <span id="nb">nombre</span>
+      <span id="nb"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li>
@@ -181,7 +181,7 @@
       </div>
     </div>
     <div th:if="${#lists.isEmpty(signsView)}">
-      <h2 th:text="#{sign.not_available}"></h2>
+      <h2 th:text="#{sign.no_sign_for_filter}"></h2>
     </div>
   </div>
 
@@ -214,7 +214,7 @@
         </div>
       </div>
     <div th:if="${#lists.isEmpty(videosView)}">
-      <h2 th:text="#{sign.not_available}"></h2>
+      <h2 th:text="#{sign.no_sign_for_filter}"></h2>
     </div>
   </div>
 
