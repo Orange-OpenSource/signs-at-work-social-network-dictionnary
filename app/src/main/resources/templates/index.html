@@ -20,7 +20,7 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
@@ -82,6 +82,7 @@
                         </div>
                     </a>
                 </li>
+              <div sec:authorize="hasRole('ADMIN')">
                 <li th:if="${isAuthenticated}" class="aside_bckg_li">
                     <a th:href="@{/sec/request}">
                         <div>
@@ -93,6 +94,7 @@
                         </div>
                     </a>
                 </li>
+              </div>
             </ul>
         </aside>
     </div>
