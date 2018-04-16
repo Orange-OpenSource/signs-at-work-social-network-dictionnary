@@ -118,13 +118,13 @@ public class SignController {
     List<Object[]> querySigns;
 
     if (isAlphabeticAsc == true) {
-      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderDescSignsView(user.id);
+      querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
 
     } else {
-      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderAscSignsView(user.id);
+      querySigns = services.sign().SignsAlphabeticalOrderAscSignsView();
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
@@ -176,13 +176,13 @@ public class SignController {
     List<Object[]> querySigns;
 
     if (isAlphabeticAsc == true) {
-      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderDescSignsView(user.id);
+      querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
       model.addAttribute("classDropdownDirection", "  direction_down pull-right");
 
     } else {
-      querySigns = services.sign().SignsAndRequestsAlphabeticalOrderAscSignsView(user.id);
+      querySigns = services.sign().SignsAlphabeticalOrderAscSignsView();
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
       model.addAttribute("classDropdownDirection", "  direction_up pull-right");
