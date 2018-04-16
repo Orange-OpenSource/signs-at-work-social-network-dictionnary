@@ -83,8 +83,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User create(User user, String password) {
-    UserDB userDB = userRepository.save(userDBFrom(user, password));
+  public User create(User user, String password, String role) {
+    UserDB userDB = userRepository.save(userDBFrom(user, password, role));
     return userFrom(userDB);
   }
 
@@ -289,15 +289,20 @@ public class UserServiceImpl implements UserService {
    * @param password raw password
    * @return the UserDB object to persist
    */
-  private UserDB userDBFrom(User user, String password) {
+  private UserDB userDBFrom(User user, String password, String role) {
     UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription);
-    addUserRole(userDB);
+    addUserRole(userDB, role);
     return userDB;
   }
 
-  private void addUserRole(UserDB userDB) {
+  private void addUserRole(UserDB userDB, String role) {
     userDB.getUserRoles().add(
             userRoleRepository.findByRole(AppSecurityRoles.Role.ROLE_USER.toString()).get(0)
     );
+    if (role.equals("USER_A")) {
+      userDB.getUserRoles().add(
+        userRoleRepository.findByRole(AppSecurityRoles.Role.ROLE_USER_A.toString()).get(0)
+      );
+    }
   }
 }

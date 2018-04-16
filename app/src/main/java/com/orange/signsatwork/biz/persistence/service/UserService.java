@@ -39,7 +39,7 @@ public interface UserService {
 
   User withUserName(String userName);
 
-  User create(User user, String password);
+  User create(User user, String password, String role);
 
   void changeUserPassword(User user, String password);
 

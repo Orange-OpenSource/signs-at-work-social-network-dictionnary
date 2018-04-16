@@ -82,7 +82,7 @@
                         </div>
                     </a>
                 </li>
-              <div sec:authorize="hasRole('ADMIN')">
+              <div sec:authorize="hasRole('USER_A')">
                 <li th:if="${isAuthenticated}" class="aside_bckg_li">
                     <a th:href="@{/sec/request}">
                         <div>

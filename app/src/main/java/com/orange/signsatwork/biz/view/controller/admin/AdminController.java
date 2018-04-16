@@ -126,7 +126,7 @@ public class AdminController {
   @RequestMapping(value = "/sec/admin/user/create", method = RequestMethod.POST)
   public String user(@ModelAttribute UserCreationView userCreationView, Model model) throws IOException, JCodecException {
 
-    User user = userService.create(userCreationView.toUser(), userCreationView.getPassword());
+    User user = userService.create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
     userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
     return userAdminController.userDetails(user.id, model);
   }
