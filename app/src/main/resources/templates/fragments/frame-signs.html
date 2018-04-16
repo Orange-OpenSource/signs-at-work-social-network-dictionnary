@@ -20,7 +20,7 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <meta charset="utf-8"/>
 </head>
@@ -123,17 +123,19 @@
               </div>
             </a>
           </li>
-          <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
-            <a  data-target="#new-suggest" data-toggle="modal" href="#" >
-              <div>
-                <div class="pull-left suggest_black"></div>
-                <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
+          <div sec:authorize="hasRole('USER_A')">
+            <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+              <a  data-target="#new-suggest" data-toggle="modal" href="#" >
                 <div>
-                  <div class="pull-right add"></div>
+                  <div class="pull-left suggest_black"></div>
+                  <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
+                  <div>
+                    <div class="pull-right add"></div>
+                  </div>
                 </div>
-              </div>
-            </a>
-          </li>
+              </a>
+            </li>
+          </div>
         </ul>
       </aside>
     </div>

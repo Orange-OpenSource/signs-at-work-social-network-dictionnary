@@ -20,7 +20,7 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
     <th:block th:include="fragments/header-head :: head"></th:block>
@@ -77,16 +77,18 @@
                         </li>
                     </div>
 
-                    <li th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
-                      <a href="#" data-toggle="modal" data-target="#new-video">
-                        <div>
-                          <h2 class="container_H2" th:text="#{video.add}"></h2>
+                    <div sec:authorize="hasRole('USER_A')">
+                      <li th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
+                        <a href="#" data-toggle="modal" data-target="#new-video">
                           <div>
-                            <div class="pull-right  add"/>
+                            <h2 class="container_H2" th:text="#{video.add}"></h2>
+                            <div>
+                              <div class="pull-right  add"/>
+                            </div>
                           </div>
-                        </div>
-                      </a>
-                    </li>
+                        </a>
+                      </li>
+                    </div>
 
 
                     <li th:if="${isAuthenticated}"  class="aside_bckg_li">

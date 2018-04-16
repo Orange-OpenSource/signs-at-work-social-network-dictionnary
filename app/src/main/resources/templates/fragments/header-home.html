@@ -46,12 +46,14 @@
                 </button>
               <div th:if="${isAuthenticated}" class="hidden-sm hidden-lg hidden-md navbar-toggle-complement">
 
-                <ul role="tablist" class="nav navbar-nav">
-                  <li role="presentation">
-                    <a  title="Share application" th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}"><div class="share_signe text-center"></div><span class="text-hide">Share signe</span></a>
-                  </li>
-                </ul>
-              </div>
+              <ul role="tablist" class="nav navbar-nav">
+                <li role="presentation">
+                  <a th:href="@{/sec/signs/mostrecent(isMostRecent=false, isSearch=true)}">
+                    <div class="search_signe_header pull-left"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
 
                 <a href="/" class="text-center">
                     <div class="logo_app pull-left"></div>
@@ -70,14 +72,14 @@
                         </a>
                     </li>
                     <li th:if="${isAuthenticated}" role="presentation" class=" hidden-xs aside_bckg_li ">
-                      <a class="" th:href="#{share_mailto}  + #{share_application_subject} + '&amp;' + ${mail_body}">
-                        <div>
-                          <div class="pull-left share_signe "></div>
-                          <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{sign.share}"></h4>
-                          <div>
+                      <a th:href="@{/sec/signs/mostrecent(isMostRecent=false, isSearch=true)}">
+                        <div class="search_signe_header pull-left"></div>
+                        <div class="pull-right">
+                          <div class="containerRight_signes">
                             <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
                           </div>
                         </div>
+                        <h4 th:text="#{search}"></h4>
                       </a>
                     </li>
                     <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">

@@ -1029,7 +1029,7 @@ public class SignController {
   }
 
 
-  @Secured("ROLE_USER")
+  @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/sign/create", method = RequestMethod.POST)
   public String createSign(@ModelAttribute SignCreationView signCreationView, Principal principal) {
     User user = services.user().withUserName(principal.getName());
@@ -1040,7 +1040,7 @@ public class SignController {
     return showSign(sign.id);
   }
 
-  @Secured("ROLE_USER")
+  @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/sign/search")
   public String searchSign(@ModelAttribute SignCreationView signCreationView, @RequestParam("id") Long requestId) {
     if (requestId == null) {
@@ -1050,7 +1050,7 @@ public class SignController {
     return "redirect:/sec/signs-suggest?name="+ URLEncoder.encode(name)+"&id="+requestId;
   }
 
-  @Secured("ROLE_USER")
+  @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/signs-suggest")
   public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, Principal principal) {
     String decodeName = URLDecoder.decode(name);
