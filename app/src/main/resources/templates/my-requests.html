@@ -1,0 +1,58 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-request :: header">&nbsp;</header>
+
+<body class="container-fluid">
+
+
+<!--<div id="myform" >
+  <input type='button' class="pull-rigth" id='reset' value='X' >
+  <div id="container-input">
+    &lt;!&ndash;<input type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>&ndash;&gt;
+    <div th:if="${favoriteId} == null">
+      <input th:if="${#lists.isEmpty(signsView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
+      <input th:if="${not #lists.isEmpty(signsView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>
+    </div>
+    <div th:if="${favoriteId} != null">
+      <input th:if="${not #lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center  border form-control"/>
+      <input th:if="${#lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
+    </div>
+  </div>
+  </input>
+</div>-->
+
+<div th:fragment="div" class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col">
+
+    <div th:replace="fragments/frame-my-requests :: div"/>
+</div>
+
+
+</body>
+<script type="text/javascript" src="../public/js/requests.js" th:src="@{/js/requests.js}"></script>
+
+</html>

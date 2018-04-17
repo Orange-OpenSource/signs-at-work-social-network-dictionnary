@@ -1,0 +1,111 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="utf-8"/>
+</head>
+<body>
+
+<div id="frame-my-requests" th:fragment="div">
+  <div th:if="${isAuthenticated}" class="dropdown">
+    <button th:attr="class=${classDropdownSize}" type="button" id="dropdownMenu1"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span class="caret pull-left"></span>
+      <span th:attr="class=${classDropdownTitle}"></span>
+      <span th:attr="class=${classDropdownDirection}"></span>
+      <span class="" th:text="${dropdownTitle}"></span>
+      <span id="nb"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isAll}" class="check_signe" th:href="@{/sec/my-requests/frame/(isSearch=${isSearch})}">
+          <span th:text="#{allRequests}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${!isAll}" th:href="@{/sec/my-requests/frame/(isSearch=${isSearch})}">
+          <span th:text="#{allRequests}"></span>
+        </a>
+      </li>
+      <li>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isAlphabeticAsc}" class="checked_up" th:href="@{/sec/my-requests/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+          <div class="pull-left alphabetic"></div>
+          <span th:text="#{alphabetic}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/sec/my-requests/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+          <div class="pull-left alphabetic"></div>
+          <span th:text="#{alphabetic}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isAlphabeticDesc}" class="checked_down" th:href="@{/sec/my-requests/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+          <div class="pull-left alphabetic"></div>
+          <span th:text="#{alphabetic}"></span>
+        </a>
+      </li>
+      <li>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/my-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+          <div class="pull-left most_recent"></div>
+          <span th:text="#{most_recent}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${!isMostRecent and !isLowRecent}" th:href="@{/sec/my-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+          <div class="pull-left most_recent"></div>
+          <span th:text="#{most_recent}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isLowRecent}" class="checked_down" th:href="@{/sec/my-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+          <div class="pull-left most_recent"></div>
+          <span th:text="#{most_recent}"></span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+  <div th:if="${not #lists.isEmpty(myRequests)}">
+    <div th:each="request:${myRequests}">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li th:if="${request.sign == null}" class="dotted-top">
+            <a th:href="@{/sec/my-request-detail/} + ${request.id}">
+              <div>
+                <h2 class="text_hyphenation container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                <div>
+                  <div class="pull-right chevron_right "></div>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li th:if="${request.sign != null}" class="dotted-top">
+            <a th:href="@{/sign/} + ${request.sign.id}">
+              <div>
+                <h2 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                <h2 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${'&laquo;'+request.name+'&raquo;'}, ${'&laquo;'+request.sign.name+'&raquo;'})}"></h2>
+                <div >
+                  <div class="pull-right replyToRequest-with-chevron_picto "></div>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</div>
+</body>
+</html>

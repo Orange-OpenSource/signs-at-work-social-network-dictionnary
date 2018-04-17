@@ -74,6 +74,7 @@ public class RequestServiceImpl implements RequestService {
     );
   }
 
+
   @Override
   public Requests requestsforUserWithoutSignAssociate(long userId) {
     return requestsFrom(
@@ -230,5 +231,25 @@ public class RequestServiceImpl implements RequestService {
     requestRepository.save(requestDB);
 
     return requestFrom(requestDB, services);
+  }
+
+  @Override
+  public Requests myRequestMostRecent(long userId) {
+    return requestsFrom(requestRepository.findMyRequestMostRecent(userRepository.findOne(userId)));
+  }
+
+  @Override
+  public Requests myRequestlowRecent(long userId) {
+    return requestsFrom(requestRepository.findMyRequestLowRecent(userRepository.findOne(userId)));
+  }
+
+  @Override
+  public Requests myRequestAlphabeticalOrderDesc(long userId) {
+    return requestsFrom(requestRepository.findMyRequestAlphabeticalOrderDesc(userRepository.findOne(userId)));
+  }
+
+  @Override
+  public Requests myRequestAlphabeticalOrderAsc(long userId) {
+    return requestsFrom(requestRepository.findMyRequestAlphabeticalOrderAsc(userRepository.findOne(userId)));
   }
 }
