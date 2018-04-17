@@ -20,7 +20,7 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
@@ -49,12 +49,14 @@
           <span th:text="${requestView.requestTextDescription}" id="requestTextDescription" name="requestTextDescription"  /><br/>
         </li>
 
+        <div sec:authorize="hasRole('USER_A')">
          <li class="aside_bckg_li">
-           <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
-           <h2 class="container_H2" th:text="#{request.propose_your_sign}"/>
-           <div ><div class="pull-right chevron_right"></div></div>
-          </a>
-        </li>
+             <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
+             <h2 class="container_H2" th:text="#{request.propose_your_sign}"/>
+             <div ><div class="pull-right chevron_right"></div></div>
+            </a>
+          </li>
+        </div>
       </ul>
     </aside>
   </div>

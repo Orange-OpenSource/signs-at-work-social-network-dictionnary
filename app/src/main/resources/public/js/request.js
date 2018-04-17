@@ -39,7 +39,7 @@ $formRequest.on('submit', function(event) {
        data: JSON.stringify(request),
        contentType: "application/json",
        success: function(response) {
-           var url = "/sec/request/";
+           var url = "/sec/requests/";
            window.location = url;
            requestSpan.style.visibility="hidden";
        },

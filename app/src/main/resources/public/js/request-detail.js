@@ -50,7 +50,7 @@ function onDeleteRequest(id){
 };
 
 function onContinue() {
-  var url = "/sec/request/";
+  var url = "/sec/requests/";
   window.location = url;
 };
 
