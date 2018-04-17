@@ -385,4 +385,143 @@ public class RequestController {
     return "fragments/frame-my-requests";
   }
 
+
+  @RequestMapping(value = "/sec/other-requests/mostrecent")
+  public String otherRequestsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+
+    Requests queryRequests;
+    if (isMostRecent == true) {
+      queryRequests = services.request().otherRequestWithNoSignlowRecent(user.id);
+      model.addAttribute("isLowRecent", true);
+      model.addAttribute("isMostRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+    } else {
+      queryRequests = services.request().otherRequestWithNoSignMostRecent(user.id);
+      model.addAttribute("isMostRecent", true);
+      model.addAttribute("isLowRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+    }
+
+    List<RequestView> myrequestsView = RequestView.from(queryRequests);
+
+    model.addAttribute("otherRequests", myrequestsView);
+
+    model.addAttribute("isAll", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
+    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "other-requests";
+  }
+
+  @RequestMapping(value = "/sec/other-requests/mostrecent/frame")
+  public String otherRequestsMostRecentFrame(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+
+    Requests queryRequests;
+    if (isMostRecent == true) {
+      queryRequests = services.request().otherRequestWithNoSignlowRecent(user.id);
+      model.addAttribute("isLowRecent", true);
+      model.addAttribute("isMostRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+    } else {
+      queryRequests = services.request().otherRequestWithNoSignMostRecent(user.id);
+      model.addAttribute("isMostRecent", true);
+      model.addAttribute("isLowRecent", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+    }
+
+    List<RequestView> myrequestsView = RequestView.from(queryRequests);
+
+    model.addAttribute("otherRequests", myrequestsView);
+
+    model.addAttribute("isAll", false);
+    model.addAttribute("isAlphabeticAsc", false);
+    model.addAttribute("isAlphabeticDesc", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
+    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "fragments/frame-other-requests";
+  }
+
+  @RequestMapping(value = "/sec/other-requests/alphabetic")
+  public String otherRequestsInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+
+    Requests queryRequests;
+    if (isAlphabeticAsc == true) {
+      queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderDesc(user.id);
+      model.addAttribute("isAlphabeticDesc", true);
+      model.addAttribute("isAlphabeticAsc", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+    } else {
+      queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderAsc(user.id);
+      model.addAttribute("isAlphabeticAsc", true);
+      model.addAttribute("isAlphabeticDesc", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+    }
+
+    List<RequestView> myrequestsView = RequestView.from(queryRequests);
+
+    model.addAttribute("otherRequests", myrequestsView);
+
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
+    model.addAttribute("classDropdownTitle", " alphabetic pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "other-requests";
+  }
+
+  @RequestMapping(value = "/sec/other-requests/alphabetic/frame")
+  public String otherRequestsInAlphabeticalOrderFrame(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+
+    Requests queryRequests;
+    if (isAlphabeticAsc == true) {
+      queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderDesc(user.id);
+      model.addAttribute("isAlphabeticDesc", true);
+      model.addAttribute("isAlphabeticAsc", false);
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+    } else {
+      queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderAsc(user.id);
+      model.addAttribute("isAlphabeticAsc", true);
+      model.addAttribute("isAlphabeticDesc", false);
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+    }
+
+    List<RequestView> myrequestsView = RequestView.from(queryRequests);
+
+    model.addAttribute("otherRequests", myrequestsView);
+
+    model.addAttribute("isAll", false);
+    model.addAttribute("isMostRecent", false);
+    model.addAttribute("isLowRecent", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
+    model.addAttribute("classDropdownTitle", " alphabetic pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+    model.addAttribute("isSearch", isSearch);
+
+    return "fragments/frame-other-requests";
+  }
+
+
+
 }

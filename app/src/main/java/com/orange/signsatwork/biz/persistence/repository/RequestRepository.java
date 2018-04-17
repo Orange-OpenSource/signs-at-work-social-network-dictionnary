@@ -66,4 +66,15 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     @Query(value="select a.name, concat(\"/sec/my-request-detail/\", a.id), a.sign_id, c.name as sign_name from requests a join signs c on c.id = a.sign_id and c.name != a.name and a.name like concat(:name,'%') and a.user_id = :userId and a.sign_id is not null union select b.name, concat(\"/sec/other-request-detail/\", b.id), b.sign_id, d.name as sign_name from requests b join signs d on d.id = b.sign_id and d.name != b.name and b.name like concat(:name,'%') and b.user_id != :userId and b.sign_id is not null", nativeQuery = true)
     List<Object[]> findRequestsByNameWithAssociateSign(@Param("name") String name,@Param("userId") long userId);
 
-}
+    @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by c.requestDate desc")
+    List<RequestDB> findOtherRequestWithNoSignMostRecent(@Param("userDB") UserDB userDB);
+
+    @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by c.requestDate asc")
+    List<RequestDB> findOtherRequestWithNoSignLowRecent(@Param("userDB") UserDB userDB);
+
+    @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by c.name desc")
+    List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderDesc(@Param("userDB") UserDB userDB);
+
+    @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by c.name asc")
+    List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderAsc(@Param("userDB") UserDB userDB);
+  }

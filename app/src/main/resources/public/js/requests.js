@@ -28,10 +28,11 @@ function onFiltreRequest(event, href) {
     context: document.body,
     success: function (response) {
       console.log("Success ");
-      document.getElementById("frame-my-requests").innerHTML = response;
+      document.getElementById("frame-requests").innerHTML = response;
     },
     error: function (response) {
       console.log("Erreur ");
     }
   })
 }
+

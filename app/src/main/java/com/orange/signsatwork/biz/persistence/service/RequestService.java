@@ -72,4 +72,12 @@ public interface RequestService {
   Requests myRequestAlphabeticalOrderAsc(long userId);
 
   Requests myRequestAlphabeticalOrderDesc(long userId);
+
+  Requests otherRequestWithNoSignMostRecent(long userId);
+
+  Requests otherRequestWithNoSignlowRecent(long userId);
+
+  Requests otherRequestWithNoSignAlphabeticalOrderAsc(long userId);
+
+  Requests otherRequestWithNoSignAlphabeticalOrderDesc(long userId);
 }

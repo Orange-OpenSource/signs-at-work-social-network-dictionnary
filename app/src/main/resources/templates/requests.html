@@ -63,14 +63,14 @@
                 </a>
               </li>
               <li th:if="${isAuthenticated and  #lists.isEmpty(otherRequestsWithoutSignAssociate)}" class="disabled aside_bckg_li">
-                <a th:href="@{/sec/other-requests}">
+                <a th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
                   <div class="pull-left request_signe_whithout_chevron"></div>
                   <h2 class="container_H2" th:text="#{request.other}"></h2>
                   <div class="pull-right chevron_right"></div>
                 </a>
               </li>
               <li th:if="${isAuthenticated and not #lists.isEmpty(otherRequestsWithoutSignAssociate)}" class="aside_bckg_li">
-                <a th:href="@{/sec/other-requests}">
+                <a th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
                   <div class="pull-left request_signe_whithout_chevron"></div>
                   <h2 class="container_H2" th:text="#{request.other}"></h2>
                   <div class="pull-right chevron_right"></div>

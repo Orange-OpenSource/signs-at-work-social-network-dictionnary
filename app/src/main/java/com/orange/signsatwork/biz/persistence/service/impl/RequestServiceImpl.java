@@ -252,4 +252,24 @@ public class RequestServiceImpl implements RequestService {
   public Requests myRequestAlphabeticalOrderAsc(long userId) {
     return requestsFrom(requestRepository.findMyRequestAlphabeticalOrderAsc(userRepository.findOne(userId)));
   }
+
+  @Override
+  public Requests otherRequestWithNoSignMostRecent(long userId) {
+    return requestsFrom(requestRepository.findOtherRequestWithNoSignMostRecent(userRepository.findOne(userId)));
+  }
+
+  @Override
+  public Requests otherRequestWithNoSignlowRecent(long userId) {
+    return requestsFrom(requestRepository.findOtherRequestWithNoSignLowRecent(userRepository.findOne(userId)));
+  }
+
+  @Override
+  public Requests otherRequestWithNoSignAlphabeticalOrderDesc(long userId) {
+    return requestsFrom(requestRepository.findOtherRequestWithNoSignAlphabeticalOrderDesc(userRepository.findOne(userId)));
+  }
+
+  @Override
+  public Requests otherRequestWithNoSignAlphabeticalOrderAsc(long userId) {
+    return requestsFrom(requestRepository.findOtherRequestWithNoSignAlphabeticalOrderAsc(userRepository.findOne(userId)));
+  }
 }
