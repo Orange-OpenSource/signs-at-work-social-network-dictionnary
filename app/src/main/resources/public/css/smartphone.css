@@ -63,12 +63,12 @@
     font-size:10px;
   }
 
-  #continue  {
+  #continue, #cancel-recording  {
     font-size: 10px;
   }
 
   #container-button >button,
-  #continue {
+  #continue, #cancel-recording {
     line-height:10px;
   }
 
@@ -810,12 +810,12 @@
     font-size:10px;
   }
 
-  #continue  {
+  #continue, #cancel-recording  {
     font-size: 10px;
   }
 
   #container-button >button,
-  #continue {
+  #continue, #cancel-recording {
     line-height:10px;
   }
 
@@ -1338,12 +1338,12 @@
     font-size:10px;
   }
 
-  #continue  {
+  #continue, #cancel-recording  {
     font-size: 10px;
   }
 
   #container-button >button,
-  #continue {
+  #continue, #cancel-recording {
     line-height:10px;
   }
 
@@ -1836,12 +1836,12 @@
     font-size:10px;
   }
 
-  #continue  {
+  #continue, #cancel-recording  {
     font-size: 10px;
   }
 
   #container-button >button,
-  #continue {
+  #continue, #cancel-recording {
     line-height:10px;
   }
 
@@ -2185,12 +2185,12 @@
     font-size:10px;
   }
 
-  #continue  {
+  #continue,#cancel-recording  {
     font-size: 10px;
   }
 
   #container-button >button,
-  #continue {
+  #continue, #cancel-recording {
     line-height:10px;
   }
 
@@ -2522,12 +2522,12 @@
     font-size:10px;
   }
 
-  #continue  {
+  #continue, #cancel-recording  {
     font-size: 10px;
   }
 
   #container-button >button,
-  #continue {
+  #continue, #cancel-recording {
     line-height:10px;
   }
 

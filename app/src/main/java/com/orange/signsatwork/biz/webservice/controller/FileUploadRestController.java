@@ -206,9 +206,15 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      int i=0;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
+        if (i > 5) {
+          break;
+        }
+        i++;
+
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
@@ -357,9 +363,14 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      int i=0;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
+        if (i > 5) {
+          break;
+        }
+        i++;
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
@@ -479,9 +490,14 @@ public class FileUploadRestController {
 
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        int i=0;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
+          if (i > 5) {
+            break;
+          }
+          i++;
         }
         while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
@@ -641,9 +657,14 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      int i=0;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
+        if (i > 5) {
+          break;
+        }
+        i++;
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
@@ -778,9 +799,14 @@ public class FileUploadRestController {
 
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        int i=0;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
+          if (i > 5) {
+            break;
+          }
+          i++;
         }
         while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
@@ -941,9 +967,14 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      int i=0;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
+        if (i > 5) {
+          break;
+        }
+        i++;
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
@@ -1102,9 +1133,14 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      int i=0;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
+        if (i > 5) {
+          break;
+        }
+        i++;
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
@@ -1198,9 +1234,14 @@ public class FileUploadRestController {
 
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        int i=0;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
+          if (i > 5) {
+            break;
+          }
+          i++;
         }
         while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
