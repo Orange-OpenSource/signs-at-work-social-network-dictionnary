@@ -1,6 +1,5 @@
 @media only screen and (max-width:320px) {
 
-
   .btn .caret{
     margin-top: 1rem;
   }
@@ -224,7 +223,7 @@
     padding: 3px 10px;
   }
   .navbar-nav {
-    margin-top: -2rem;
+    margin-top: 0rem;
   }
 
   .dropdown-menu > li > a {
@@ -603,7 +602,7 @@
     background-position: -450px center;
     background-repeat: no-repeat;
     background-size: auto 30px;
-    height: 74px;
+    height: 30px;
     width: 30px;
   }
 
