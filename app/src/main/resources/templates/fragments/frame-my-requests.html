@@ -34,7 +34,7 @@
       <span th:attr="class=${classDropdownTitle}"></span>
       <span th:attr="class=${classDropdownDirection}"></span>
       <span class="" th:text="${dropdownTitle}"></span>
-      <span id="nb"></span>
+      <span id="nb" th:text="${#lists.size(myRequests)}"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li>
