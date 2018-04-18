@@ -136,7 +136,7 @@ $.fn.extend({
 (function signViewsLazyLoading($) {
   var HIDDEN_CLASS = 'sign-view-hidden';
   //var NB_SIGN_VIEWS_INC = 16;
-  var NB_SIGN_VIEWS_INC = 6;
+  var NB_SIGN_VIEWS_INC = 8;
   var REVEAL_DURATION_MS = 1000;
 
   var signsContainer = document.getElementById("signs-container");

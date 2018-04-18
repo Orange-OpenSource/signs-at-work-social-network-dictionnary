@@ -21,8 +21,8 @@
 
 var SIGN_HIDDEN_CLASS = 'sign-view-hidden';
 var VIDEO_HIDDEN_CLASS = 'video-view-hidden';
-var NB_SIGN_VIEWS_INC = 6;
-var NB_VIDEO_VIEWS_INC = 6;
+var NB_SIGN_VIEWS_INC = 8;
+var NB_VIDEO_VIEWS_INC = 8;
 var REVEAL_DURATION_MS = 1000;
 
 var modeSearch;
