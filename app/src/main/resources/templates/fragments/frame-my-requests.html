@@ -77,33 +77,37 @@
     </ul>
   </div>
 
-  <div th:if="${not #lists.isEmpty(myRequests)}">
-    <div th:each="request:${myRequests}">
-      <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu">
-          <li th:if="${request.sign == null}" class="dotted-top">
-            <a th:href="@{/sec/my-request-detail/} + ${request.id}">
-              <div>
-                <h2 class="text_hyphenation container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
-                <div>
-                  <div class="pull-right chevron_right "></div>
-                </div>
-              </div>
-            </a>
-          </li>
-          <li th:if="${request.sign != null}" class="dotted-top">
-            <a th:href="@{/sign/} + ${request.sign.id}">
-              <div>
-                <h2 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
-                <h2 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${'&laquo;'+request.name+'&raquo;'}, ${'&laquo;'+request.sign.name+'&raquo;'})}"></h2>
-                <div >
-                  <div class="pull-right replyToRequest-with-chevron_picto "></div>
-                </div>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </aside>
+  <div class="row ">
+    <div class="col-xs-12 col-lg-12">
+      <div th:if="${not #lists.isEmpty(myRequests)}" class="text-left title_middle">
+        <div th:each="request:${myRequests}">
+          <aside class="sidebar">
+            <ul class="nav nav-list primary left-menu">
+              <li th:if="${request.sign == null}" class="dotted-top">
+                <a th:href="@{/sec/my-request-detail/} + ${request.id}">
+                  <div>
+                    <h2 class="text_hyphenation container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                    <div>
+                      <div class="pull-right chevron_right "></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li th:if="${request.sign != null}" class="dotted-top">
+                <a th:href="@{/sign/} + ${request.sign.id}">
+                  <div>
+                    <h2 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h2>
+                    <h2 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${'&laquo;'+request.name+'&raquo;'}, ${'&laquo;'+request.sign.name+'&raquo;'})}"></h2>
+                    <div >
+                      <div class="pull-right replyToRequest-with-chevron_picto "></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
     </div>
   </div>
 </div>
