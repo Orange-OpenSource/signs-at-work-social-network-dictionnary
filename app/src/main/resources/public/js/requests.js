@@ -115,6 +115,7 @@ function search(event) {
     $("#requests_container").children("div").each(function () {
       $(this).hide();
     });
+    $(nb).hide();
   }
 }
 
@@ -144,6 +145,7 @@ function searchAfterReload(search_value) {
     $("#requests_container").children("div").each(function () {
       $(this).hide();
     });
+    $(nb).hide();
   }
 }
 
