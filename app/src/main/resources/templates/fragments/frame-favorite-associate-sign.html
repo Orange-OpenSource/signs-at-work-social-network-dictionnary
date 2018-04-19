@@ -43,10 +43,10 @@
           <div id="signs-container">
             <label th:id="${videoView.signName}" class="sign-view-hidden text-center col-lg-4 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
                      th:for="${#ids.next('favoriteVideosIds')}">
-                     <img  th:attr="data-src=${videoView.pictureUri}"/>
-               <input type="checkbox" th:field="*{favoriteVideosIds}" th:value="${videoView.videoId}"/>
+              <input type="checkbox" th:field="*{favoriteVideosIds}" th:value="${videoView.videoId}"/>
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>
               <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + ' (' + ${videoView.idForName} +')'"></span>
+              <img  th:attr="data-src=${videoView.pictureUri}"/>
              </label>
           </div>
              <br/>
