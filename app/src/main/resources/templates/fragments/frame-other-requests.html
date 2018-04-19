@@ -71,8 +71,8 @@
 
   <div class="row ">
     <div class="col-xs-12 col-lg-12">
-      <div th:if="${not #lists.isEmpty(otherRequests)}" class="text-left title_middle">
-        <div th:each="request:${otherRequests}">
+      <div th:if="${not #lists.isEmpty(otherRequests)}" class="text-left title_middle" id="requests_container">
+        <div th:id="${request.name}" th:each="request:${otherRequests}">
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">

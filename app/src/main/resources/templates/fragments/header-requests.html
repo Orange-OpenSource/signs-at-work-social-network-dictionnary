@@ -37,28 +37,6 @@
                         <h1 class="text_hyphenation navbar_title pull-left" th:text="${title}"/>
                     </div>
                 </a>
-              <ul role="tablist" class="hidden-sm hidden-lg hidden-md navbar-toggle-complement nav navbar-nav">
-                <li role="presentation">
-                  <a  id="search_link" title="Search signe" href="#" th:onclick="'javascript:onSearch()'">
-                    <div class="search_signe_header text-center"></div>
-                    <span class="text-hide" th:text="#{request.search}"></span></a>
-                </li>
-              </ul>
-              <div class="navbar-right">
-                <ul class="hidden-xs col-lg-12 col-md-12 nav navbar-nav" role="tablist">
-                  <li role="presentation" >
-                    <a href="#" th:onclick="'javascript:onSearch()'">
-                      <div class="search_signe_header pull-left"></div>
-                      <div class="pull-right">
-                        <div class="containerRight_signes">
-                          <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
-                        </div>
-                      </div>
-                      <h4 th:text="#{request.search}"></h4>
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
         </div>
     </nav>
