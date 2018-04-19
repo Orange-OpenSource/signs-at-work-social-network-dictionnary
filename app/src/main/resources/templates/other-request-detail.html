@@ -40,7 +40,7 @@
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
-          <span th:text="#{request.by(${requestView.user.firstName + ' ' +  requestView.user.lastName})}"/>
+          <span th:text="#{request.by(${requestView.user.name()})}"/>
         </li>
         <li class="aside_bckg_li">
           <span th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
