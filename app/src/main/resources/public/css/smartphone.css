@@ -107,11 +107,11 @@
     font-size: 14px;
   }
 
-  input[name="username"],
+/*  input[name="username"],
   input[type="password"],
   input[name="email"]{
     width: 90%;
-  }
+  }*/
 
 
   .container_picto_request_other,
@@ -748,6 +748,13 @@
 
 @media only screen and (min-width:321px) and (max-width:375px) {
 
+  /* Design Altran*/
+  .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: transparent;
+  }
+
+  /* fin */
+
   .btn .caret{
     margin-top: 1rem;
   }
@@ -772,11 +779,11 @@
     padding-left: 0px;
   }
 
-  input[name="username"],
+/*  input[name="username"],
   input[type="password"],
   input[name="email"]{
     width: 90%;
-  }
+  }*/
 
 
   textarea#text {
@@ -917,7 +924,8 @@
   }
 
   h2, .h2 {
-    font-size: 13px;
+    font-size: 16px;
+    font-weight: bold;
   }
 
 
@@ -989,12 +997,13 @@
   }
 
   .menu_detail {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -346px center;
+    background-image: url("/img/new_sprite_picto_400X400.png");
+    background-position: -2375px center;
     background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 50px;
+    margin-right:-20px;
   }
 
   .col-xs-1 .dropdown-toggle {
@@ -1107,12 +1116,12 @@
 
 
   .search_signe_header{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -450px center;
+    background-image: url("/img/new_sprite_picto_400X400.png");
+    background-position: -2275px center;
     background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 50px;
   }
 
   .add_header {
@@ -1245,11 +1254,12 @@
   }
 
   button[data-target="#orange-navbar-collapse"]{
-    padding: 3px 10px;
+    /*padding: 3px 10px;*/
+    border-style:none;
   }
 
   .navbar-nav {
-    margin-top: 0rem;
+/*    margin-top: 0rem;*/
   }
 
 
@@ -1300,11 +1310,11 @@
     padding-left: 0px;
   }
 
-  input[name="username"],
+/*  input[name="username"],
   input[type="password"],
   input[name="email"]{
     width: 90%;
-  }
+  }*/
 
   textarea#text {
     width: 100%;
@@ -1799,11 +1809,11 @@
     padding-left: 0px;
   }
 
-  input[name="username"],
+/*  input[name="username"],
   input[type="password"],
   input[name="email"]{
     width: 90%;
-  }
+  }*/
 
   textarea#text {
     width: 100%;
@@ -2148,11 +2158,11 @@
     padding-left: 0px;
   }
 
-  input[name="username"],
+/*  input[name="username"],
   input[type="password"],
   input[name="email"]{
     width: 90%;
-  }
+  }*/
 
   textarea#text {
     width: 100%;
@@ -2485,11 +2495,11 @@
     padding-left: 0px;
   }
 
-  input[name="username"],
+/*  input[name="username"],
   input[type="password"],
   input[name="email"]{
     width: 90%;
-  }
+  }*/
 
   textarea#text {
     width: 100%;

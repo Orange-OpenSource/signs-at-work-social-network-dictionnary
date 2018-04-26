@@ -38,7 +38,7 @@
             </div>
             <form th:action="@{/sec/sign/search(id=${requestId})}" th:object="${signCreationView}" method="post">
                 <div class="modal-body text-center">
-                    <input th:field="*{signName}" id="signName" name="signName" type="text" class="text-center border form-control"
+                    <input th:field="*{signName}" id="signName" name="signName" type="text" class="form-control"
                            th:placeholder="#{sign.enter_name}" required=""/><br/>
                 </div>
 

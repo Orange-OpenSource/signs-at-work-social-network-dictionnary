@@ -32,12 +32,14 @@
 <div class="container">
 
   <div class="row">
-    <div class=" col-xs-offset-2 col-xs-9 col-md-8 col-md-offset-4  col-sm-8 col-sm-offset-4  col-lg-8 col-lg-offset-4 col-xl-8 col-xl-offset-4 ">
-      <div>
-        <span th:text="#{welcome}"/>
-        <div class="pull-left welcome_signe"/>
+    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
+      <div class="pull-left welcome_signe"/>
+      <div id="label_invite">
+        <div id="label_welcome" th:text="#{welcome}"/>
+        <div id="label_dictionary" th:text="#{dictionary}"/>
       </div>
-      <div id="label_dictionary" th:text="#{dictionary}"/><div id="label_signatwork" th:text="#{app}"/>
+
+<!--      <div id="label_signatwork" th:text="#{app}"/>-->
     </div>
   </div>
 </div>
