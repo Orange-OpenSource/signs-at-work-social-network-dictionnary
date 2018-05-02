@@ -31,7 +31,7 @@
 
 
 <div th:fragment="div" class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
-    <h4 th:text="#{video.list.from.sign(${'&laquo;'+title+'&raquo;'})}"></h4>
+    <h1 th:text="${signName}"></h1>
 
     <div th:replace="fragments/frame-videos :: div"/>
 </div>

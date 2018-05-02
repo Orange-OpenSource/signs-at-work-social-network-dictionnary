@@ -749,7 +749,8 @@ public class SignController {
     if (videoViewsData.size() == 1) {
       return showVideo(signId, videoViewsData.get(0).videoId);
     } else {
-      model.addAttribute("title", videoViewsData.get(0).signName);
+      model.addAttribute("title", messageByLocaleService.getMessage("sign.all_video"));
+      model.addAttribute("signName", videoViewsData.get(0).signName);
 
 
       List<VideoView2> videoViews;

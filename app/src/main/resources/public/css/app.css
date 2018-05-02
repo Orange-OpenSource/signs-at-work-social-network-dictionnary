@@ -10,6 +10,7 @@
 
 .modal-header {
   background-color: #4866F7;
+  color: #FFFFFF;
 }
 
 button.close{
@@ -38,6 +39,25 @@ button.close{
   font-size: 14px;
   border-style:none;
   font-weight: bold;
+}
+
+#sign_available {
+  color: #4866F7;
+}
+
+#sign_not_available {
+  margin-top: 30px;
+  color: #4866F7;
+}
+
+.newComment {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -915px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
 }
 
 /* fin */
@@ -326,13 +346,12 @@ h2, .h2 {
 }
 
 h4, .h4 {
-	font-size: 16px;
+	font-size: 14px;
   -ms-overflow-style: none;
   overflow-scrolling: none;
   overflow: hidden;
   position: relative;
   font-weight: bold;
-  color: white;
 }
 
 
@@ -383,7 +402,8 @@ a:focus {
 }
 
 a.form-control:hover{
-	color:#f16e00;
+  color: #4866F7;
+	/*color:#f16e00;*/
 	text-decoration-line:none;
 }
 
@@ -403,12 +423,14 @@ a.form-control{
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
 	background-color: #080808;
-	color: #f69b51;
+	/*color: #f69b51;*/
+  color: #4866F7;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
-	color: #f16e00;
+  color: #4866F7;
+	/*color: #f16e00;*/
 	background-color: transparent;
 }
 
@@ -445,7 +467,9 @@ a.form-control{
 	/*height: 3em;*/
 	padding: 0em;
   height: 50px;
+  border-style:none;
 }
+
 
 .aside_bckg_li {
 	border-bottom: 1px solid;
@@ -476,7 +500,7 @@ a.form-control{
 }
 
 #backtoHomepage:hover{
-	color:#f16e00;
+  color: #4866F7;
 }
 
 
@@ -681,12 +705,12 @@ text-decoration-line: none;
 
 .signe_reverse_video {
 	float: left;
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -1380px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: 10px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 50px;
+	height: 70px;
+	width: 50px;
 }
 
 .picto_search {
@@ -712,12 +736,12 @@ text-decoration-line: none;
 
 
 .chevron_left{
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -920px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -347px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;}
+	background-size: auto 30px;
+	height: 70px;
+	width: 30px;}
 
 .chevron_right{
 	background-image: url("/img/new_sprite_picto_400X400.png");
@@ -787,14 +811,16 @@ text-decoration-line: none;
 }
 
 .sentiment_positif, .modal-body .containerRight_signes .sentiment_positif {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-color: Transparent;
-	border: none;
-	background-position: -240px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+/*	background-color: Transparent;
+	border: none;*/
+	background-position: -630px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 20px;
+	height: 20px;
+	width: 20px;
+  margin-top: 12px;
+  margin-right: 5px;
 }
 .sentiment_evaluation {
 	background-image: url("/img/sprite_picto_400X400.png");
@@ -856,17 +882,20 @@ text-decoration-line: none;
 
 .dropdown-menu > li > a.check_signe{
 	background-color: #989898;
-	color:#F16E00;
+  color: #4866F7;
+	/*color:#F16E00;*/
 }
 
 .dropdown-menu > li > a.checked_down{
 	background-color: #989898;
-	color:#F16E00;
+  color: #4866F7;
+  /*color:#F16E00;*/
 }
 
 .dropdown-menu > li > a.checked_up{
 	background-color: #989898;
-	color:#F16E00;
+  color: #4866F7;
+  /*color:#F16E00;*/
 }
 
 span.form-signin-heading{
@@ -912,12 +941,14 @@ span.form-signin-heading{
 }
 
 .alphabetic {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2200px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1310px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-top: 12px;
+  margin-right: 5px;
 }
 
 .logo_app {
@@ -1012,21 +1043,21 @@ span.form-signin-heading{
 
 
 .webCam_picto {
-  background-image: url("/img/sprite_picto_solaris.png");
-  background-position: 0px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -948px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 24px;
+  height: 46px;
+  width: 24px;
 }
 
 .folderCamera_picto {
-  background-image: url("/img/sprite_picto_solaris.png");
-  background-position: -40px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -972px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 24px;
+  height: 46px;
+  width: 24px;
 }
 
 .search_signe {
@@ -1112,12 +1143,12 @@ span.form-signin-heading{
   margin-top: 5px;
 }
 .add {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -1340px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -468px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 24px;
+	height: 45px;
+	width: 24px;
 }
 
 .search_signe_glass {
@@ -1184,12 +1215,14 @@ span.form-signin-heading{
 
 
 .most_recent{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2000px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1230px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-top: 12px;
+  margin-right: 5px;
 }
 
 .most_active{
@@ -1275,12 +1308,12 @@ span.form-signin-heading{
 }
 
 .pen {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1560px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -348px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
 }
 
 .newAddition_signe {
@@ -1292,6 +1325,7 @@ span.form-signin-heading{
   width: 30px;
   margin-right: 20px;
 }
+
 
 .community_signe{
 	background-image: url("/img/sprite_picto_400X400.png");
@@ -1402,6 +1436,7 @@ span.form-signin-heading{
 	background-position: right 20px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
+
 }
 
 .checked_down {
@@ -1411,7 +1446,7 @@ span.form-signin-heading{
 	background-size: auto 20px;
 }
 .checked_up {
-	background-image: url("/img/checked_up.png");
+	background-image: url("/img/done_black.png");
 	background-position: right 0px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
@@ -1621,10 +1656,14 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 #myform input[type=search]{
-  border: 2px solid ;
-  border-radius: 11px;
+  /*border: 2px solid ;
+  border-radius: 11px;*/
+  border-radius: 30px;
+  background-color: #000000;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
   box-sizing: border-box;
   margin: auto;
+  color:white;
 }
 
 

@@ -32,7 +32,8 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
-                    <h4 class="pull-right" th:text="#{sign.modal.comments}"></h4>
+                    <div class="newComment pull-left"></div>
+                    <h2 class="pull-right" th:text="#{sign.modal.comments}"></h2>
                 </div>
             </div>
             <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/add/comment'" th:object="${commentCreationView}" method="post">

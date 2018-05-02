@@ -38,6 +38,7 @@
 
       <div class="row">
         <div class="col-lg-12">
+          <div id="labelSigne" class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
           <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
             <div class="container_tooltip">
             <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
@@ -53,7 +54,6 @@
             </div>
             <img th:attr="data-src=${videoView.pictureUri}"/>
           </a>
-          <div id="labelSigne" class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
           </div>
       </div>
 

@@ -762,6 +762,7 @@
   button[data-toggle="dropdown"].btn{
     line-height: 3rem;
     vertical-align: middle;
+    font-weight: bold;
   }
 
 
@@ -789,6 +790,16 @@
   textarea#text {
     width: 100%;
     margin-bottom: 10px;
+    background-color: #EBEBEB;
+    border-style: none;
+    border-radius: 0px;
+    font-size: 14px;
+    color: #4866F7;
+  }
+
+
+  textarea::-webkit-input-placeholder {
+    color: #8C8C8C;
   }
 
   textarea.form-control{
@@ -804,6 +815,7 @@
   H4#label_after_record{
     margin-top: 5px;
     margin-bottom: 5px;
+    color: #4866F7;
   }
 
   #container_video{
@@ -858,7 +870,9 @@
 
 
   .navbar_title{
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 25px;
   }
 
   .container_picto_request_other,
@@ -882,7 +896,8 @@
   }
 
   #labelSigne.text_hyphenation {
-    width: 10rem;
+   /* width: 10rem;*/
+    font-size:14px;
   }
 
   li[role="presentation"].aside_bckg_li > a > div {
@@ -920,12 +935,18 @@
   }
 
   #labelSigne a{
-    font-size:10px;
+    font-size:14px;
   }
 
   h2, .h2 {
     font-size: 16px;
     font-weight: bold;
+  }
+
+  h1, .h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color:#4866F7;
   }
 
 
@@ -960,19 +981,29 @@
   }
 
   #myform input[type=search]{
-    border: 2px solid ;
-    border-radius: 11px;
+   /* border: 2px solid ;
+    border-radius: 11px;*/
     box-sizing: border-box;
-    padding-right: 18%;
+    /*padding-right: 18%;*/
+    padding-left: 25px;
     margin-bottom:10px;
+  }
+
+  .form-control::-webkit-input-placeholder {
+    color: #8C8C8C;
+  }
+
+  #myform input::placeholder{
+    color:white;
   }
 
   #reset{
     position: absolute;
-    margin-top: 7px;
-    right: 19%;
-    background-color: #E2E2E2;
+    margin-top: 10px;
+    right: 15%;
+    background-color: #000000;
     border:none;
+    color:#FFFFFF;
   }
 
 
@@ -1012,19 +1043,21 @@
 
 
   .btn .most_recent.pull-left {
-    background-position: -1425px center;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-position: -1230px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     margin-left: 5px;
+    margin-top: 5px;
   }
 
   .btn .alphabetic.pull-left {
-    background-position: -1650px center;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-position: -1310px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     margin-left: 5px;
+    margin-top: 5px;
   }
 
   .btn .favorite_signe.pull-left {
@@ -1076,11 +1109,12 @@
   }
 
   .btn .sentiment_positif.pull-left {
-    background-position: -180px center;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-position: -630px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     margin-left: 5px;
+    margin-top: 5px;
   }
 
   .btn .signe.pull-left {
@@ -1097,6 +1131,7 @@
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;
+    font-weight: bold;
   }
 
   .col-xs-1 .caret{
@@ -1172,7 +1207,7 @@
 
   .request_signe {
     background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1065px center;
+    background-position: -1230px center;
     background-repeat: no-repeat;
     background-size: auto 30px;
     height: 30px;
@@ -1242,7 +1277,7 @@
 
   .text_hyphenation.navbar_title{
     /*width: 23rem;*/
-    width: 16rem;
+   /* width: 16rem;*/
   }
 
   img{
@@ -1251,6 +1286,7 @@
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
+    margin-bottom: 10px;
   }
 
   button[data-target="#orange-navbar-collapse"]{

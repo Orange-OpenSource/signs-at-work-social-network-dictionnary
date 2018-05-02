@@ -180,7 +180,7 @@ function search(event) {
       });
 
       console.log("display "+display);
-      nb.innerHTML = display;
+      nb.innerHTML = "("+display+")";
       $(nb).show();
       if (display == 0) {
         $(signAvailable).hide();
@@ -231,7 +231,7 @@ function search(event) {
         }
       });
       console.log("display "+display);
-      nb.innerHTML = display;
+      nb.innerHTML = "("+display+")";
       $(nb).show();
       if (display == 0) {
         $(videoAvailable).hide();
@@ -290,7 +290,7 @@ function searchSignAfterReload(search_value) {
       }
     });
     console.log("display "+display);
-    nb.innerHTML = display;
+    nb.innerHTML = "("+display+")";
     $(nb).show();
     if (display == 0) {
       $(signAvailable).hide();
@@ -346,7 +346,7 @@ function searchVideoAfterReload(search_value) {
       }
     });
     console.log("display "+display);
-    nb.innerHTML = display;
+    nb.innerHTML = "("+display+")";
     $(nb).show();
     if (display == 0) {
       $(videoAvailable).hide();
@@ -379,7 +379,7 @@ function scrollBarVisible() {
 }
 
 function initWithFirstSigns() {
-  nb.innerHTML = signsCount;
+  nb.innerHTML = "("+signsCount+")";
   $(nb).show();
   do {
     showNextSignViews();
@@ -388,7 +388,7 @@ function initWithFirstSigns() {
 }
 
 function initWithFirstVideos() {
-  nb.innerHTML = videosCount;
+  nb.innerHTML = "("+videosCount+")";
   $(nb).show();
   do {
     showNextVideoViews();

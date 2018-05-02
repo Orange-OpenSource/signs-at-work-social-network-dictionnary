@@ -109,7 +109,7 @@
  <!-- <div th:replace="fragments/modal-new-request :: div"/>-->
   <div class="row" id="add-new-suggest-request" style="display: none">
     <div class="col-xs-12">
-      <h2 th:text="#{sign.not_available}"></h2>
+      <h2 id="sign_not_available" th:text="#{sign.not_available}"></h2>
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li th:if="${isAuthenticated}" class="aside_bckg_li">
@@ -119,7 +119,7 @@
                 <div class="pull-left require_black"></div>
                 <h2 class="container_H2" th:text="#{sign.request}"></h2>
                 <div >
-                  <div class="pull-right request_signe_whithout_chevron "></div>
+                  <div class="pull-right chevron_right"></div>
                 </div>
               </div>
             </a>
@@ -131,7 +131,7 @@
                   <div class="pull-left suggest_black"></div>
                   <h2  class="container_H2" th:text="#{sign.suggest}"></h2>
                   <div>
-                    <div class="pull-right add"></div>
+                    <div class="pull-right chevron_right"></div>
                   </div>
                 </div>
               </a>
