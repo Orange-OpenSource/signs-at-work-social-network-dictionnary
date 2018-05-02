@@ -60,6 +60,25 @@ button.close{
   margin-right: 20px;
 }
 
+.add_request {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1236px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 40px;
+  width: 24px;
+}
+
+.plus_right{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -550px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 10px;
+}
+
 /* fin */
 
 .open > .dropdown-menu {
@@ -466,7 +485,7 @@ a.form-control{
 .aside_bckg_li > a > div {
 	/*height: 3em;*/
 	padding: 0em;
-  height: 50px;
+  /*height: 50px;*/
   border-style:none;
 }
 
@@ -933,12 +952,12 @@ span.form-signin-heading{
 }
 
 .my_request_signe_whithout_chevron {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2240px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1404px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
+  background-size: auto 24px;
   height: 40px;
-  width: 40px;
+  width: 24px;
 }
 
 .alphabetic {
@@ -1008,12 +1027,12 @@ span.form-signin-heading{
 }
 
 .request_signe_whithout_chevron {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -1420px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -1428px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
+	background-size: auto 24px;
 	height: 40px;
-	width: 40px;
+	width: 24px;
 }
 
 .associate_signe {

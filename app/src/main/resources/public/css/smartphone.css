@@ -806,6 +806,12 @@
     width:100% ;
   }
 
+  textarea:focus{
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+  }
+
   #counter{
     right: 40%;
     top: 26%;
@@ -1020,7 +1026,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 160px;
+    /*width: 160px;*/
   }
 
   H2.text_hyphenation{
@@ -1208,12 +1214,13 @@
 
 
   .request_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1230px center;
+    background-image: url("/img/new_sprite_picto_400X400.png");
+    background-position: -1365px center;
     background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-size: auto 26px;
+    height: 35px;
+    width: 26px;
+    margin-right: 20px;
   }
   .my_request_signe {
     background-image: url("/img/sprite_picto_400X400.png");
@@ -2547,6 +2554,10 @@
 
   textarea.form-control{
     width:100% ;
+  }
+
+  textarea#text:focus {
+   border-style: none;
   }
 
   #counter{

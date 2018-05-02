@@ -55,7 +55,7 @@ a, a:hover, a:focus {
     left: -360px;
     height: 100%;
     z-index: 999;
-    background: #7386D5;
+    /*background: #7386D5;*/
     color: #fff;
     transition: all 0.3s;
     overflow-y: scroll;
