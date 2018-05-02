@@ -28,9 +28,10 @@
 
 <header role="banner" th:fragment="header">
     <!-- Primary navigation bar -->
-    <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
+    <nav role="navigation" id="main_nav">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="overlay"></div>
             <div class="navbar-header">
                     <ul class="col-xs-12 hidden-lg hidden-md nav navbar-nav pull-right" role="tablist">
                         <li th:if="${!isAuthenticated}" role="presentation" class="logon">
@@ -39,7 +40,7 @@
                         </a>
                     </li></ul>
 
-                <button th:if="${isAuthenticated}" data-target="#orange-navbar-collapse" data-toggle="collapse" class="navbar-toggle"
+                <button id="sidebarCollapse" th:if="${isAuthenticated}" class="navbar-toggle"
                         type="button">
                     <span class="sr-only">Toggle navigation (FIXME: pas traduit !)</span>
                     <div class="menu_detail"></div>
@@ -64,7 +65,77 @@
                     </form>
                 </a>
             </div>
-            <div class="navbar-right collapse navbar-collapse" id="orange-navbar-collapse">
+
+       <!--   <div class="navbar-header">
+            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+              <i class="glyphicon glyphicon-align-left"></i>
+              <span>Open Sidebar</span>
+            </button>
+          </div>-->
+
+          <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+              <div id="dismiss">
+                <i class="glyphicon glyphicon-remove"></i>
+              </div>
+
+              <div class="sidebar-header">
+                <h2>Menu</h2>
+              </div>
+
+              <ul class="list-unstyled components">
+                <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">
+                  <a th:href="@{/sec/new-profil}">
+                    <div>
+                      <div class="pull-left profil_signe "></div>
+                      <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{profile}"></h4>
+                      <div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
+                  <a th:href="@{/sec/communities}">
+                    <div>
+                      <div class="pull-left community_signe "></div>
+                      <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{communities}"></h4>
+                      <div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
+                  <a href="#" data-toggle="modal"
+                     data-target="#favorite">
+                    <div>
+                      <div class="pull-left favorite_signe "></div>
+                      <h4 class="container_H2 container_header_H2 text_hyphenation " th:text="#{favorites}"></h4>
+                      <div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                      </div>
+                    </div>
+
+                  </a>
+                </li>
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
+                  <a href="#">
+                    <div>
+                      <div class="pull-left parameters_signe "></div>
+                      <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{settings}"></h4>
+                      <div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+            <!--<div class="navbar-right collapse navbar-collapse" id="orange-navbar-collapse">
                 <ul class=" col-lg-12 col-md-12 nav navbar-nav" role="tablist">
                     <li th:if="${!isAuthenticated}" role="presentation" class="">
                         <a th:href="@{/login}">
@@ -130,7 +201,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div>-->
         </div>
     </nav>
 </header>

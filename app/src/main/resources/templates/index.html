@@ -28,9 +28,9 @@
 <header role="banner" th:replace="fragments/header-home :: header">&nbsp;</header>
 
 <body class="container-fluid">
+<div class="overlay"></div>
 <div th:replace="fragments/modal-new-suggest :: div"/>
-<div class="row ">
-
+<div class="row">
     <div class="col-xs-12">
       <h2 id="lexical" th:text="#{sign.lexical}"></h2>
         <aside class="sidebar">
@@ -84,6 +84,7 @@
 <div th:replace="fragments/modal-favorite :: div"/>
 <div id="prefetch" style="visibility:hidden;">
 </div>
+
 </body>
 
 

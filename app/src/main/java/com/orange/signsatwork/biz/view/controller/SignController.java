@@ -614,7 +614,11 @@ public class SignController {
   public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    if (isSearch) {
+      fillModelWithContext(model, "sign.search", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    } else {
+      fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    }
 
     List<Object[]> querySigns;
     if (isMostRecent == true) {

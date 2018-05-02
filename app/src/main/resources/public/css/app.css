@@ -472,7 +472,7 @@ a.form-control{
 
 
 .aside_bckg_li {
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #8C8C8C;
 	text-align: left;
   overflow: hidden;
 }
@@ -706,11 +706,11 @@ text-decoration-line: none;
 .signe_reverse_video {
 	float: left;
 	background-image: url("/img/new_sprite_picto_400X400.png");
-	background-position: 10px center;
+	background-position: -3528px center;
 	background-repeat: no-repeat;
 	background-size: auto 50px;
 	height: 70px;
-	width: 50px;
+	width: 66px;
 }
 
 .picto_search {
@@ -759,6 +759,7 @@ text-decoration-line: none;
   margin-bottom: 30px;
   margin-left: 65px;
   margin-right: 65px;
+  margin-top: 25px;
 }
 
 
@@ -1196,12 +1197,12 @@ span.form-signin-heading{
 	width: 40px;
 }
 .favorite_signe{
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -340px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -589px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
+	background-size: auto 24px;
 	height: 40px;
-	width: 40px;
+	width: 24px;
 }
 
 .most_viewed{
@@ -1235,21 +1236,21 @@ span.form-signin-heading{
 }
 
 .direction_down{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2120px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1370px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 20px;
+  height: 28px;
+  width: 20px;
 }
 
 .direction_up{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2160px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1390px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 20px;
+  height: 28px;
+  width: 20px;
 }
 
 
@@ -1263,12 +1264,12 @@ span.form-signin-heading{
 	width: 40px;
 }
 .profil_signe{
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -640px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -1365px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 30px;
+	height: 45px;
+	width: 30px;
 }
 
 .delete_picto {
@@ -1278,6 +1279,7 @@ span.form-signin-heading{
   background-size: auto 40px;
   height: 40px;
   width: 40px;
+  margin-left: -6px;
 }
 
 .replyToRequest_picto {
@@ -1328,20 +1330,20 @@ span.form-signin-heading{
 
 
 .community_signe{
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -680px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -531px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 20px;
+	height: 42px;
+	width: 20px;
 }
 .parameters_signe{
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -720px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -830px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 20px;
+	height: 44px;
+	width: 20px;
 }
 
 .add_favorite_signe {
@@ -1440,13 +1442,13 @@ span.form-signin-heading{
 }
 
 .checked_down {
-	background-image: url("/img/checked_down.png");
+	background-image: url("/img/new_checked_down.png");
 	background-position: right 0px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
 }
 .checked_up {
-	background-image: url("/img/done_black.png");
+	background-image: url("/img/new_checked_up.png");
 	background-position: right 0px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
