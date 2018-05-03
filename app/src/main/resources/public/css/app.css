@@ -415,9 +415,11 @@ a {
 }
 
 a:hover,
-a:focus {
+a:focus,
+a:active{
 	/*color: #f16e00;*/
   color: #4866F7;
+  outline: 0;
 }
 
 a.form-control:hover{
