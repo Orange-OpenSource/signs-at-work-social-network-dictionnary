@@ -36,7 +36,7 @@
                     <h2 class="pull-right" th:text="#{sign.modal.request}"></h2>
                 </div>
             </div>
-            <form th:action="@{/sec/request/search}" th:object="${requestCreationView}" method="post">
+            <form th:action="@{/sec/request/search}" th:object="${requestCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
                     <input th:field="*{requestName}" id="requestName" name="requestName" type="text" class="border form-control"
                            th:placeholder="#{sign.enter_name}" required=""/><br/>

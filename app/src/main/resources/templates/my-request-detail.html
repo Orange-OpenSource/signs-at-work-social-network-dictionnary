@@ -50,22 +50,22 @@
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
-          <span th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
+          <h4 th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
         </li>
         <li class="aside_bckg_li">
           <a th:attr="data-target='#modify_request'" data-toggle="modal" href="#">
-            <h2 class="container_H2" th:text="${requestView.name}"/>
+            <h4 class="container_H2" th:text="${requestView.name}"/>
             <div class="pull-right pen"></div>
           </a>
         </li>
         <li class="aside_bckg_li">
           <a data-target="#add_description_request" data-toggle="modal" href="#">
             <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
-              <h2 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
+              <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
               <div class="pull-right  add"/>
             </div>
             <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
-              <h2 class="container_H2" th:text="${requestView.requestTextDescription}"/>
+              <h4 class="container_H2" th:text="${requestView.requestTextDescription}"/>
               <div class="pull-right  pen"/>
             </div>
           </a>
@@ -73,11 +73,11 @@
         <li  class="aside_bckg_li">
           <a data-target="#add_request_description_LSF" data-toggle="modal" href="#">
             <div th:if="${requestView.requestVideoDescription== null}">
-              <h2 class="container_H2" th:text="#{request_description_LSF}"/>
+              <h4 class="container_H2" th:text="#{request_description_LSF}"/>
               <div class="pull-right  add"/>
             </div>
             <div th:if="${requestView.requestVideoDescription != null}">
-              <h2 class="container_H2" th:text="#{request_description_LSF}"/>
+              <h4 class="container_H2" th:text="#{request_description_LSF}"/>
               <div class="pull-right  pen"/>
             </div>
           </a>
@@ -85,14 +85,14 @@
         <li class="aside_bckg_li">
           <a  th:onclick="'javascript:onPrioriseRequest('+ ${requestView.id}  +')' " href="#">
             <div class="pull-left priorise_request"></div>
-            <h2 class="container_H2" th:text="#{request.priorise}"/>
+            <h4 class="container_H2" th:text="#{request.priorise}"/>
             <div><div class="pull-right chevron_right"></div></div>
           </a>
         </li>
         <li class="aside_bckg_li">
           <a th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' " href="#">
             <div class="pull-left delete_picto"></div>
-            <h2 class="container_H2" th:text="#{request.delete}"/>
+            <h4 class="container_H2" th:text="#{request.delete}"/>
             <div ><div class="pull-right chevron_right"></div></div>
           </a>
         </li>

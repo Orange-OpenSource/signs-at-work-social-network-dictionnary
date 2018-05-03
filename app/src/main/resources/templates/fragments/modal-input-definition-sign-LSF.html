@@ -137,9 +137,9 @@
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForSignDefinition/} + ${signView.id}"  enctype="multipart/form-data"  method="post">
         <div class="modal-body text-center">
-          <span class="pull-left" th:text="#{sign.join_video}"></span><br/>
+          <h4 class="pull-left" th:text="#{sign.join_video}"></h4><br/>
           <input name="file" type="file" id="InputFile"/>
-          <span id="errorSelectedSpan"  style="visibility: hidden"></span>
+          <h4 id="errorSelectedSpan"  style="visibility: hidden"></h4>
         </div>
         <div class="modal-footer">
           <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"

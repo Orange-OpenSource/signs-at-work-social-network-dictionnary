@@ -40,19 +40,19 @@
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
-          <span th:text="#{request.by(${requestView.user.name()})}"/>
+          <h4 th:text="#{request.by(${requestView.user.name()})}"/>
         </li>
         <li class="aside_bckg_li">
-          <span th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
+          <h4 th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
         </li>
         <li class="aside_bckg_li">
-          <span th:text="${requestView.requestTextDescription}" id="requestTextDescription" name="requestTextDescription"  /><br/>
+          <h4 th:text="${requestView.requestTextDescription}" id="requestTextDescription" name="requestTextDescription"  /><br/>
         </li>
 
         <div sec:authorize="hasRole('USER_A')">
          <li class="aside_bckg_li">
              <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
-             <h2 class="container_H2" th:text="#{request.propose_your_sign}"/>
+             <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
              <div ><div class="pull-right chevron_right"></div></div>
             </a>
           </li>

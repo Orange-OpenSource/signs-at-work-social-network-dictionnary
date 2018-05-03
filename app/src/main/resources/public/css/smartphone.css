@@ -1012,6 +1012,14 @@
     color:#FFFFFF;
   }
 
+  #reset_search_request{
+    position: absolute;
+    margin-top: -44px;
+    right: 10%;
+    background-color: #000000;
+    border:none;
+    color:#FFFFFF;
+  }
 
   .table-responsive{
     font-size: 1.2rem;
@@ -1177,12 +1185,12 @@
   }
 
   .add_favorite_signe_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -285px center;
+    background-image: url("/img/new_sprite_picto_400X400.png");
+    background-position: -3600px center;
     background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-size: auto 50px;
+    height: 50px;
+    width: 50px;
   }
 
   .share_signe{

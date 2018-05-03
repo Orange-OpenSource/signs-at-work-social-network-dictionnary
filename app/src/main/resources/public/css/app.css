@@ -79,6 +79,10 @@ button.close{
   margin-top: 10px;
 }
 
+input[type=file] {
+  font-size: 14px;
+}
+
 /* fin */
 
 .open > .dropdown-menu {
@@ -87,7 +91,7 @@ button.close{
   -webkit-transform: translate(-50%, 0);
   -o-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
-  width:23rem;
+  width:27rem;
 }
 
 .open>.dropdown-menu {
@@ -409,6 +413,7 @@ h4, .h4 {
 input[type="text"],[type="email"],[type="password"] {
 	margin:0 auto;
 }
+
 
 a {
 	color: #333333;
@@ -1294,13 +1299,12 @@ span.form-signin-heading{
 }
 
 .delete_picto {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1820px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -370px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
-  margin-left: -6px;
+  background-size: auto 20px;
+  height: 44px;
+  width: 20px;
 }
 
 .replyToRequest_picto {
@@ -1322,12 +1326,12 @@ span.form-signin-heading{
 
 
 .priorise_request {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1860px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1210px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 20px;
+  height: 46px;
+  width: 20px;
 }
 
 .pen {
@@ -1562,6 +1566,10 @@ video{
 
 }
 #reset{
+  visibility: hidden;
+}
+
+#reset_search_request{
   visibility: hidden;
 }
 

@@ -25,7 +25,7 @@ if (requestsContainer != null) {
   var requestsCount =  requests.length;
 }
 var search_criteria = document.getElementById("search-criteria");
-var button_reset = document.getElementById("reset");
+var button_reset = document.getElementById("reset_search_request");
 
 var accentMap = {
   "é": "e",
@@ -94,7 +94,7 @@ function search(event) {
 
   if (g!="") {
     $("#requests_container").children("div").each(function () {
-      $("#reset").css("visibility", "visible");
+      $("#reset_search_request").css("visibility", "visible");
       var requestName = $(this).attr("id");
       if (requestName != null) {
         var s = normalize(requestName);
@@ -107,10 +107,10 @@ function search(event) {
         }
       }
     });
-    nb.innerHTML = display;
+    nb.innerHTML = '('+display+')';
     $(nb).show();
   } else {
-    $("#reset").css("visibility", "hidden");
+    $("#reset_search_request").css("visibility", "hidden");
 
     $("#requests_container").children("div").each(function () {
       $(this).hide();
@@ -125,22 +125,23 @@ function searchAfterReload(search_value) {
 
   if (g!="") {
     $("#requests_container").children("div").each(function () {
-      $("#reset").css("visibility", "visible");
+      $("#reset_search_request").css("visibility", "visible");
       var requestName = $(this).attr("id");
       if (requestName != "") {
         var s = normalize(requestName);
         if (s.toUpperCase().startsWith(g.toUpperCase()) == true) {
           $(this).show();
+          display++;
         }
         else {
           $(this).hide();
         }
       }
     });
-    nb.innerHTML = display;
+    nb.innerHTML = '('+display+')';
     $(nb).show();
   } else {
-    $("#reset").css("visibility", "hidden");
+    $("#reset_search_request").css("visibility", "hidden");
 
     $("#requests_container").children("div").each(function () {
       $(this).hide();
@@ -154,7 +155,7 @@ function onReset(event) {
   $(':input', '#myform')
     .not(':button, :submit, :reset, :hidden')
     .val('');
-  $("#reset").css("visibility", "hidden");
+  $("#reset_search_request").css("visibility", "hidden");
 
   $("#requests_container").children("div").each(function () {
     $(this).hide();
