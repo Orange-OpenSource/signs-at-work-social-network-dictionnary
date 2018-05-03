@@ -83,6 +83,16 @@ input[type=file] {
   font-size: 14px;
 }
 
+.already_exits{
+  text-align: center;
+  color: #FF5F58;
+}
+
+.same_name{
+  color: #4866F7;
+  margin-top: 40px;
+}
+
 /* fin */
 
 .open > .dropdown-menu {

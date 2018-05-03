@@ -38,6 +38,9 @@
 
 <div class="row ">
   <div class="col-md-4 col-xs-12 col-lg-12">
+    <h2 class="already_exits" th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></h2>
+    <h2 class="already_exits" th:if="${isRequestAlreadyExist}" th:text="#{request.already_exists}"></h2>
+    <h2 class="already_exits" th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></h2>
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
@@ -46,9 +49,9 @@
             <div>
               <div class="pull-right  pen"/>
             </div>
-            <span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>
+           <!-- <span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>
             <span  th:if="${isRequestAlreadyExist}" th:text="#{request.already_exists}"></span>
-            <span  th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></span>
+            <span  th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></span>-->
           </a>
         </li>
         <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
@@ -92,9 +95,11 @@
       </ul>
     </aside>
 
-    <div class="other_name_nearby  aside_bckg_li">
+<!--    <div class="other_name_nearby  aside_bckg_li">
       <div class="text-center" th:text="#{sign.with-same-name}"></div>
-    </div>
+    </div>-->
+
+    <h2 class="same_name" th:text="#{sign.with-same-name}"/>
 
     <div th:if="${not #lists.isEmpty(signsWithSameName)}">
       <div th:each="sign:${signsWithSameName}">
