@@ -53,9 +53,9 @@
                     <li th:if="${isAuthenticated}" id="label_sign" class="label_sign aside_bckg_li">
                         <a th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} +'/detail'">
                             <div>
-                            <em><h2 class="label_sign_H2 container_H2" th:text="${videoName}"/></em>
+                            <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
                             <div>
-                                <div class="pull-right menu_detail_with_chevron"/>
+                                <div class="pull-right chevron_right"/>
                                 <div th:if="${ratingData.ratePositive}" class="pull-right sentiment_positif"/>
                                 <div th:if="${ratingData.rateNeutral}" class="pull-right sentiment_neutre"/>
                                 <div th:if="${ratingData.rateNegative}" class="pull-right sentiment_negatif"/>
@@ -67,11 +67,11 @@
                         <li th:if="${isAuthenticated and ratingData.rateNoRate}" class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                                 <div>
-                                <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
-                                <div>
-                                    <div class="pull-right  chevron_right"/>
-                                    <div class="pull-right sentiment_evaluation"/>
-                                </div>
+                                  <div class="pull-left evaluate_sign"></div>
+                                  <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
+                                  <div>
+                                      <div class="pull-right  chevron_right"/>
+                                  </div>
                                 </div>
                             </a>
                         </li>
@@ -81,6 +81,7 @@
                       <li th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#new-video">
                           <div>
+                            <div class="pull-left add_video"></div>
                             <h2 class="container_H2" th:text="#{video.add}"></h2>
                             <div>
                               <div class="pull-right  add"/>
@@ -94,10 +95,11 @@
                     <li th:if="${isAuthenticated}"  class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#comment_modal">
                             <div>
-                            <h2 class="container_H2" th:text="#{sign.comments}"></h2>
-                            <div>
-                                <div class="pull-right add"/>
-                            </div>
+                              <div class="pull-left add_comment"></div>
+                              <h2 class="container_H2" th:text="#{sign.modal.comments}"></h2>
+                              <div>
+                                  <div class="pull-right add"/>
+                              </div>
                             </div>
                         </a>
                     </li>

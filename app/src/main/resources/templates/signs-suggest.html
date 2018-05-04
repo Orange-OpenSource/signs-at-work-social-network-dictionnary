@@ -51,7 +51,7 @@
         <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sign/} + ${signMatche.id}">
             <div>
-              <h2 class="container_H2" th:text="#{see_sign}"></h2>
+              <h4 class="container_H2" th:text="#{see_sign}"></h4>
               <div>
                 <div class="pull-right chevron_right "></div>
               </div>
@@ -60,7 +60,8 @@
         </li>
         <li th:if="${!isSignAlreadyExist and requestId != 0}" class="aside_bckg_li">
           <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} + ' \')'" data-toggle="modal" href="#">
-            <h2 class="container_H2" th:text="#{sign.create}"/>
+            <div class="pull-left create_sign"></div>
+            <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>
               <div class="pull-right add"></div>
             </div>
@@ -68,7 +69,8 @@
         </li>
         <li th:if="${!isSignAlreadyExist and requestId == 0}" class="aside_bckg_li">
           <a th:if="${requestId == 0}" data-target="#suggest" data-toggle="modal" href="#">
-            <h2 class="container_H2" th:text="#{sign.create}"/>
+            <div class="pull-left create_sign"></div>
+            <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>
               <div class="pull-right add"></div>
             </div>
