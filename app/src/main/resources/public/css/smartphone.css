@@ -1230,13 +1230,14 @@
     width: 26px;
     margin-right: 20px;
   }
+
   .my_request_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1680px center;
+    background-image: url("/img/new_sprite_picto_400X400.png");
+    background-position: -1133px center;
     background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
+    background-size: auto 22px;
+    height: 44px;
+    width: 22px;
   }
 
   .tooltip_newSigne {

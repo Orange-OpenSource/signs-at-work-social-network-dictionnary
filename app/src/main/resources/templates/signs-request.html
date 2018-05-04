@@ -57,7 +57,7 @@
         <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sign/} + ${signMatche.id}">
             <div>
-              <h2 class="container_H2" th:text="#{see_sign}"></h2>
+              <h4 class="container_H2" th:text="#{see_sign}"></h4>
               <div>
                 <div class="pull-right chevron_right "></div>
               </div>
@@ -67,7 +67,7 @@
         <li th:if="${isRequestAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{${requestMatche.urlForAccessToRequestDetail}}">
             <div>
-              <h2 class="container_H2" th:text="#{see.request}"></h2>
+              <h4 class="container_H2" th:text="#{see.request}"></h4>
               <div>
                 <div class="pull-right chevron_right "></div>
               </div>
@@ -77,7 +77,7 @@
         <li th:if="${isRequestWithAssociateSignAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sign/} + ${requestWithAssociateSignMatche.signId}">
             <div>
-              <h2 class="container_H2" th:text="#{see_sign}"></h2>
+              <h4 class="container_H2" th:text="#{see_sign}"></h4>
               <div>
                 <div class="pull-right chevron_right "></div>
               </div>
@@ -86,7 +86,7 @@
         </li>
         <li th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist}" class="aside_bckg_li">
           <a data-target="#request_text_description" data-toggle="modal" href="#">
-            <h2 class="container_H2" th:text="#{request.create}"/>
+            <h4 class="container_H2" th:text="#{request.create}"/>
             <div>
               <div class="pull-right add"></div>
             </div>
