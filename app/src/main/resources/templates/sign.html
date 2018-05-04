@@ -102,28 +102,11 @@
                         </a>
                     </li>
                     <div th:if="${not #lists.isEmpty(commentDatas)}">
-                        <div class="">
-                            <table class="table-responsive table table-sm table-bordered table-hover" style="margin-top: 1%">
-                                <thead>
-                                <tr>
-                                    <th th:text="#{date}"></th>
-                                    <th th:text="#{user}"></th>
-                                    <th th:text="#{comment}"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <!--<div >-->
-                                    <tr th:each="comment :${commentDatas}">
-                                        <td id="table-date"  th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></td>
-                                        <td  th:text="${comment.name()}" ></td>
-                                        <td class="hyphenation_table" th:text="${comment.text}"></td>
-                                    </tr>
-                                <!--</div>-->
-                                </tbody>
-
-                            </table>
-                        </div>
+                      <div th:each="comment :${commentDatas}">
+                        <h4 class="comment_name" th:text="${comment.name()}"></h4>
+                        <h4 class="comment_date" th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
+                        <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
+                      </div>
                     </div>
 
                 </ul>

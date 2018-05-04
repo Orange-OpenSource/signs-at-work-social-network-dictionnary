@@ -93,6 +93,18 @@ input[type=file] {
   margin-top: 40px;
 }
 
+.comment_date, .comment_text{
+  font-weight: normal;
+}
+
+.comment_name{
+  margin-bottom: 0px;
+}
+
+.comment_date{
+  margin-top: 0px;
+}
+
 /* fin */
 
 .open > .dropdown-menu {
