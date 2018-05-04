@@ -1665,14 +1665,14 @@ label {
 
 
 .tooltip_newSigne {
-  background-image: url("/img/ajourRecent2_Blanc.png");
+  background-image: url("/img/new_blue.png");
   background-repeat: no-repeat;
   position: absolute;
 }
 
 
 .tooltip_comment {
-  background-image: url("/img/Commentaire_Blanc.png");
+  background-image: url("/img/commentary_blue.png");
   background-repeat: no-repeat;
   position: absolute;
 }
@@ -1685,13 +1685,13 @@ label {
 
 
 .tooltip_positif {
-  background-image: url("/img/positif.png");
+  background-image: url("/img/happy_blue.png");
   background-repeat: no-repeat;
   position: absolute;
 }
 
 .tooltip_favorite {
-  background-image: url("/img/favoris.png");
+  background-image: url("/img/favorite_blue.png");
   background-repeat: no-repeat;
   position: absolute;
 }
