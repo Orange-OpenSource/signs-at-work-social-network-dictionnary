@@ -142,11 +142,11 @@
         <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="priorise_request pull-left"></div>
-          <h4 class="pull-right" th:text="#{request.priorise_title}"/>
+          <h2 class="pull-right" th:text="#{request.priorise_title}"/>
         </div>
       </div>
         <div class="modal-body text-center">
-          <span th:text="#{request.priorised}"/>
+          <h4 th:text="#{request.priorised}"/>
         </div>
         <div class="modal-footer">
           <button th:text="#{continue}" th:onclick="'javascript:onContinue()'"  class="btn btn-default"></button>
@@ -165,11 +165,11 @@
         <button type="button" th:onclick="'javascript:onContinue()'" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="delete_picto pull-left"></div>
-          <h4 class="pull-right" th:text="#{request.delete_title}"/>
+          <h2 class="pull-right" th:text="#{request.delete_title}"/>
         </div>
       </div>
-      <div class="modal-body text-center">
-        <span th:text="#{request.deleted}"/>
+      <div class="modal-body">
+        <h4 th:text="#{request.deleted}"/>
       </div>
       <div class="modal-footer">
         <button th:text="#{continue}" th:onclick="'javascript:onContinue()'" class="btn btn-default"></button>
