@@ -28,7 +28,7 @@
   <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
 </head>
 
-<header role="banner" th:replace="fragments/header-sign :: header">&nbsp;</header>
+<header role="banner" th:replace="fragments/header-definition-sign :: header">&nbsp;</header>
 
 
 <body class="container-fluid">
@@ -52,11 +52,11 @@
         <li class="aside_bckg_li">
           <a data-target="#add_sign_definition_text" data-toggle="modal" href="#">
             <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
-              <h2 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
+              <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
               <div class="pull-right  add"/>
             </div>
             <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
-              <h2 class="container_H2" th:text="${signView.textDefinition}"/>
+              <h4 class="container_H2" th:text="${signView.textDefinition}"/>
               <div class="pull-right  pen"/>
             </div>
           </a>
@@ -64,11 +64,13 @@
         <li  class="aside_bckg_li">
           <a data-target="#add_sign_definition_LSF" data-toggle="modal" href="#">
             <div th:if="${signView.videoDefinition == null}">
-              <h2 class="container_H2" th:text="#{sign_definition_LSF}"/>
+              <div class="pull-left create_sign"></div>
+              <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
               <div class="pull-right  add"/>
             </div>
             <div th:if="${signView.videoDefinition != null}">
-              <h2 class="container_H2" th:text="#{sign_definition_LSF}"/>
+              <div class="pull-left create_sign"></div>
+              <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
               <div class="pull-right  pen"/>
             </div>
           </a>

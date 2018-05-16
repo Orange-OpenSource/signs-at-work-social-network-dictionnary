@@ -87,6 +87,7 @@ retryRecording.onclick = function () {
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
     errorSpan.style.visibility="hidden";
   }
+  document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
   startRecord();
 };
 
@@ -102,7 +103,7 @@ stopRecording.onclick = function() {
   document.getElementById('stop-recording').disabled = true;
   document.getElementById('retry-recording').disabled = false;
   document.getElementById('continue').disabled = false;
-
+  document.getElementById("modal-footer_add_video_file_recording").style.display = "block";
 
   window.audioVideoRecorder.stopRecording(function(url) {
     //downloadURL.innerHTML = '<a href="' + url + '" download="RecordRTC.webm" target="_blank">Save RecordRTC.webm to Disk!</a><hr>';
@@ -246,4 +247,5 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
     errorSpan.style.visibility="hidden";
   }
+  document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
 });

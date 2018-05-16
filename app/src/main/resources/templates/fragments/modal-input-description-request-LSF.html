@@ -34,8 +34,8 @@
             <div class=" modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
-                  <div class="request_signe pull-left"></div>
-                  <h4 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
+                  <div class="add_request_white pull-left"></div>
+                  <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -75,8 +75,8 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
-          <div class="add pull-left"></div>
-          <h4 class="pull-right" th:text="#{recording}"></h4>
+          <div class="add_request_white pull-left"></div>
+          <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
         </div>
         </div>
 
@@ -92,9 +92,9 @@
           <div class="btn-group-vertical" role="group">
             <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
             <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
-              <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
+             <!-- <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
                 <div class="retry_recording pull-left"></div><span th:text="#{retry}"></span>
-              </button>
+              </button>-->
              <!-- <button id="cancel-recording" class="btn" title="Cliquer pour annuler">
                 <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
               </button>-->
@@ -109,12 +109,16 @@
             <span id="errorSpan"  style="visibility: hidden"></span>
             <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
           </div>
-          <div id="modal-footer_add_video_file_recording" class="modal-footer">
+          <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
+            <div class="retry_recording pull-left"></div>
             <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary" title="Cliquer pour annuler">
-              <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
+              <span th:text="#{cancel}"></span>
+            </button>
+            <button id="retry-recording" type="button" class="btn btn-secondary" title="Cliquer pour enregistrer">
+              <span th:text="#{retry}"></span>
             </button>
             <button id="continue" type="submit" class="btn btn-primary" data-dismiss="" disabled="" >
-              <div id="btnChecked" class="check pull-right" style="display: none;"></div><span th:text="#{continue}" ></span>
+              <div id="btnChecked"></div><span th:text="#{validate}" ></span>
             </button>
           </div>
         </form>
@@ -131,8 +135,8 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
-          <div class="add pull-left"></div>
-          <h4 class="pull-right" th:text="#{explorator}"></h4>
+          <div class="add_request_white pull-left"></div>
+          <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>

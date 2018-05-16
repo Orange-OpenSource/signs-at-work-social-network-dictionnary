@@ -33,7 +33,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                   <div class="pull-left"></div>
-                  <h4 class="pull-right text_hyphenation" th:text="#{sign.definition(${'&laquo;'+signView.name+'&raquo;'})}"></h4>
+                  <h2 class="pull-right text_hyphenation" th:text="#{sign.definition(${'&laquo;'+signView.name+'&raquo;'})}"></h2>
                 </div>
             </div>
             <form id="requestDescription" th:action="@{/sec/sign/} + ${signView.id} + '/definitionText' " th:object="${signDefinitionCreationView}" method="post">

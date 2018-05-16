@@ -51,15 +51,9 @@
           <ul class="nav nav-list primary left-menu">
             <li th:if="${isAuthenticated}" class="dotted-top">
               <a data-target="#add_request_description_LSF" data-toggle="modal" href="#">
-                <div class="pull-right">
-                  <div class="containerRight_signes">
-                    <div class="containerRight_signes">
-                      <div class="pull-right add"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <h2 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
+                <div class="pull-left create_sign"></div>
+                <h4 class="container_H2" th:text="#{request_description_LSF}"/>
+                <div class="pull-right  add"/>
               </a>
             </li>
 
