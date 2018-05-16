@@ -32,9 +32,9 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
-          <div class="request_signe pull-left"></div>
-          <h4 class="pull-right text_hyphenation"
-              th:text="#{request.description(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
+          <div class="add_request_white pull-left"></div>
+          <h2 class="pull-right text_hyphenation"
+              th:text="#{request.description(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
         </div>
       </div>
       <form id="requestInfo" th:action="@{/ws/sec/request/create}" th:object="${requestCreationView}" method="post">

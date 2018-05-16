@@ -151,6 +151,16 @@ input[type=file] {
   width: 24px;
 }
 
+.add_video_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1752px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 34px;
+  width: 24px;
+  margin-right: 20px;
+}
+
 .most_rating {
   background-image: url("/img/new_sprite_picto_400X400.png");
   /*	background-color: Transparent;

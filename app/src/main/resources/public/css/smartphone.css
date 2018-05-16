@@ -1252,6 +1252,16 @@
     margin-right: 20px;
   }
 
+  .add_request_white {
+    background-image: url("/img/new_sprite_picto_400X400.png");
+      background-position: -1365px center;
+      background-repeat: no-repeat;
+      background-size: auto 26px;
+      height: 35px;
+      width: 26px;
+      margin-right: 20px;
+  }
+
   .my_request_signe {
     /*background-image: url("/img/new_sprite_picto_400X400.png");
     background-position: -1133px center;
