@@ -34,8 +34,8 @@
             <div class=" modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
-                    <div class="suggest pull-left"></div>
-                    <h4 class="pull-right" th:text="#{sign.modal.redo}"/>
+                    <div class="add_video_white pull-left"></div>
+                    <h2 class="pull-right" th:text="#{sign.modal.redo}"/>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -46,7 +46,7 @@
                       <div class="pull-left webCam_picto"></div>
                       <h4 class="container_H2" th:text="#{sign.new_from_file_recording}"/>
                       <div>
-                        <div class="pull-right add_whith_chevron"></div>
+                        <div class="pull-right add"></div>
                       </div>
                     </div>
                   </a>
@@ -58,7 +58,7 @@
                       <div class="pull-left folderCamera_picto"></div>
                       <h4 class="container_H2" th:text="#{sign.new_from_file_dailymotion}"/>
                       <div>
-                        <div class="pull-right add_whith_chevron"></div>
+                        <div class="pull-right add"></div>
                       </div>
                     </div>
                   </a>
@@ -75,14 +75,14 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
-          <div class="suggest pull-left"></div>
-          <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
+          <div class="add_video_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{sign.modal.redo}"></h2>
         </div>
         </div>
         <div  class="container_record text-center">
           <h4 id="label_record" th:text="#{record_sign(${'&laquo;'+signView.name+'&raquo;'})}"></h4>
           <h4 id="label_after_record" th:text="#{after_record_sign(${'&laquo;'+signView.name+'&raquo;'})}" style="display: none"></h4>
-          <div id="container_video">
+          <div id="container_video" class="col-xs-offset-1 col-xs-10">
             <div class="spinner spinner_hidden"></div>
             <span id="counter"></span>
             <video id="video"></video>
@@ -91,9 +91,9 @@
           <div class="btn-group-vertical" role="group">
             <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
             <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
-              <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
+            <!--  <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
                 <div class="retry_recording pull-left"></div><span th:text="#{retry}"></span>
-              </button>
+              </button>-->
              <!-- <button id="cancel-recording" class="btn" title="Cliquer pour annuler">
                 <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
               </button>-->
@@ -106,12 +106,16 @@
           <div class="modal-body text-center">
             <span id="errorSpan"  style="visibility: hidden"></span>
           </div>
-          <div class="modal-footer">
+          <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
+            <div class="retry_recording pull-left"></div>
             <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary" title="Cliquer pour annuler">
-              <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
+              <span th:text="#{cancel}"></span>
+            </button>
+            <button id="retry-recording" type="button" class="btn btn-secondary" title="Cliquer pour enregistrer">
+              <span th:text="#{retry}"></span>
             </button>
             <button id="continue" type="submit" class="btn btn-primary" data-dismiss="" disabled="" >
-              <div id="btnChecked" class="check pull-right" style="display: none;"></div><span th:text="#{continue}" ></span>
+              <div id="btnChecked"></div><span th:text="#{validate}" ></span>
             </button>
           </div>
         </form>
@@ -128,8 +132,8 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
-          <div class="suggest pull-left"></div>
-          <h4 class="pull-right" th:text="#{sign.modal.suggest.sign}"></h4>
+          <div class="add_video_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{sign.modal.redo}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
