@@ -814,7 +814,7 @@
 
   #counter{
     right: 40%;
-    top: 26%;
+    top: 32%;
   }
 
   H4#label_record,
@@ -836,13 +836,25 @@
   }
 
   #continue, #cancel-recording  {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   #container-button >button,
-  #continue, #cancel-recording {
-    line-height:10px;
+  #cancel-recording {
+    border: none;
+    background-color: transparent;
+    color: #000000;
+    padding: 0px;
+    padding-right: 28px;
   }
+
+  #container-button >button,
+  #continue {
+    border: none;
+    background-color: transparent;
+    color: #4866F7;
+  }
+
 
   .check {
     background-image: url("/img/checked.png");
@@ -853,14 +865,16 @@
   }
 
   .retry_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -400px center;
+    background-image: url("/img/new_sprite_picto_400X400.png");
+    background-position: -1066px center;
     background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
     border: none;
     background-color: transparent;
+    margin-left: 160px;
+    margin-right: 82px;
   }
 
   .cancel_recording {

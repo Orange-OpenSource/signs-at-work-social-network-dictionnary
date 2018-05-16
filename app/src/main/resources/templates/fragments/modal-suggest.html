@@ -91,9 +91,9 @@
         <div class="btn-group-vertical" role="group">
           <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
           <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
-            <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
+           <!-- <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
               <div class="retry_recording pull-left"></div><span th:text="#{retry}"></span>
-            </button>
+            </button>-->
            <!-- <button id="cancel-recording" class="btn" title="Cliquer pour annuler">
               <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
             </button>-->
@@ -111,12 +111,16 @@
                  style="display: none"/><br/>
           <span id="errorSpan" style="visibility: hidden"></span>
         </div>
-        <div id="modal-footer_add_video_file_recording" class="modal-footer" >
+        <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
+          <div class="retry_recording pull-left"></div>
           <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary" title="Cliquer pour annuler">
-            <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button id="retry-recording" type="button" class="btn btn-secondary" title="Cliquer pour enregistrer">
+            <span th:text="#{retry}"></span>
           </button>
           <button id="continue" type="submit" class="btn btn-primary" data-dismiss="" disabled="" >
-            <div id="btnChecked" class="check pull-right" style="display: none;"></div><span th:text="#{continue}" ></span>
+            <div id="btnChecked"></div><span th:text="#{validate}" ></span>
         </button>
         </div>
       </form>
