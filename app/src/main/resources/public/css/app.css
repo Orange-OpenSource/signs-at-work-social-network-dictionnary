@@ -153,11 +153,11 @@ input[type=file] {
 
 .add_video_white {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1752px center;
+  background-position: -1898px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 26px;
   height: 34px;
-  width: 24px;
+  width: 26px;
   margin-right: 20px;
 }
 
@@ -1341,6 +1341,15 @@ span.form-signin-heading{
 	width: 24px;
 }
 
+.favorite_signe_black{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -588px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 40px;
+  width: 24px;
+}
+
 .most_viewed{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2080px center;
@@ -1490,6 +1499,15 @@ span.form-signin-heading{
 	width: 24px;
 }
 
+.add_favorite_signe_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -631px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-right: 20px;
+}
 
 .recent_signe{
 	background-image: url("/img/sprite_picto_400X400.png");
@@ -1745,7 +1763,7 @@ label {
 /* the checked style using the :checked pseudo class */
 [type="checkbox"]:checked + span:before ,
 [type="checkbox"]:checked + [type="hidden"] + span:before {
-  background-image: url("/img/checked.png");
+  background-image: url("/img/done_blue.png");
   background-repeat: no-repeat;
   background-size: auto 15px;
   width: 20px;

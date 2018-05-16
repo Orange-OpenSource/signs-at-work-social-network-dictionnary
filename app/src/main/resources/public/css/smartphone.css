@@ -1374,6 +1374,8 @@
   label .text_hyphenation {
     width:13rem;
     padding-left: 0rem;
+    font-size: 14px;
+    font-weight: bold;
   }
 
 }

@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <span th:text="#{video.confirm_delete}"></span>
+        <h4 th:text="#{video.confirm_delete}"></h4>
       </div>
       <div class="spinner spinner_hidden"></div>
         <form id="deleteVideo" th:action="@{/ws/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/delete'" method="post">

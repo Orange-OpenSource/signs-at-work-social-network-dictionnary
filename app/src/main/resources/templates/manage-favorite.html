@@ -75,11 +75,11 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <div class="pull-left">
                             <div class="delete_signe pull-left"></div>
-                            <h4 class="pull-right" th:text="#{favorite.delete_list}"></h4>
+                            <h2 class="pull-right" th:text="#{favorite.delete_list}"></h2>
                         </div>
                     </div>
                     <div class="modal-body text-center">
-                        <span th:text="#{favorite.confirm_delete}"></span>
+                        <h4 th:text="#{favorite.confirm_delete}"></h4>
                     </div>
                     <div class="modal-footer">
                         <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/delete'" method="post">
@@ -99,7 +99,7 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <div class="pull-left">
                                     <div class="rename_signe pull-left"></div>
-                                    <h4 class="pull-right" th:text="#{favorite.rename_list}"></h4>
+                                    <h2 class="pull-right" th:text="#{favorite.rename_list}"></h2>
                                 </div>
                             </div>
 
@@ -127,11 +127,11 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <div class="pull-left">
                                 <div class="duplicate_signe pull-left"></div>
-                                <h4 class="pull-right" th:text="#{favorite.duplicate_list}"></h4>
+                                <h2 class="pull-right" th:text="#{favorite.duplicate_list}"></h2>
                             </div>
                         </div>
                         <div class="modal-body text-center">
-                          <span th:text="#{favorite.duplicate_text}"></span>
+                          <h4 th:text="#{favorite.duplicate_text}"></h4>
                         </div>
                         <div class="modal-footer">
                             <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/duplicate'" method="post">
