@@ -938,7 +938,8 @@
   }
 
   #requestTextDescription{
-    width: 28rem;
+    width: 100%;
+    text-align: left;
   }
 
   .table-responsive>.table>tbody>tr>td,
