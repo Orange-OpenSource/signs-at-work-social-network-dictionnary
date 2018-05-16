@@ -244,4 +244,5 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
     errorSpan.style.visibility="hidden";
     /*$('#signNameRecording').val("");*/
   }
+  document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
 });
