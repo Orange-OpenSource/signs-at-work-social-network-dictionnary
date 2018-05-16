@@ -1560,7 +1560,7 @@ span.form-signin-heading{
 }
 
 .check_signe {
-	background-image: url("/img/checked.png");
+	background-image: url("/img/done_black.png");
 	background-position: right 20px top 16px;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
