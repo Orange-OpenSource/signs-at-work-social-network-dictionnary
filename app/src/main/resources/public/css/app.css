@@ -463,7 +463,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-family: "Accessible-DfA";
 	font-weight: 500;
-	line-height: 1.1;
+	line-height: 24px;
 }
 
 h2, .h2 {
@@ -745,9 +745,9 @@ span.container_H2 {
 
 .container_H2{
 	float: left;
-  margin-top: 15px;
+  /*margin-top: 15px;*/
   margin-left: 15px;
-  margin-bottom: 15px;
+  /*margin-bottom: 15px;*/
 }
 
 .navbar-nav > li > a {
@@ -832,7 +832,7 @@ text-decoration-line: none;
 	background-size: auto 40px;
 	height: 40px;
 	width: 40px;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .signe_reverse_video {
@@ -1240,7 +1240,7 @@ span.form-signin-heading{
 	background-size: auto 40px;
 	height: 40px;
 	width: 40px;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .newSigne {
@@ -1277,7 +1277,7 @@ span.form-signin-heading{
 	background-size: auto 40px;
 	height: 40px;
 	width: 40px;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 .add {
 	background-image: url("/img/new_sprite_picto_400X400.png");
