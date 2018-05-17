@@ -307,13 +307,13 @@ input[name="email"]{
 
 
 
-li.aside_bckg_li.noHover_nopointer,
+/*li.aside_bckg_li.noHover_nopointer,
 .history_label{
   background-color: #CCCCCC;
-}
+}*/
 
 .history_label.noHover_nopointer > a >h2{
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .noHover_nopointer > a >h2{
@@ -1162,20 +1162,20 @@ span.form-signin-heading{
 }
 
 .replace_signe {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -1600px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -1801px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 24px;
+	height: 47px;
+	width: 24px;
 }
 .history_signe {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -1640px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -1824px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 24px;
+	height: 45px;
+	width: 24px;
 }
 
 
@@ -1424,6 +1424,15 @@ span.form-signin-heading{
   background-size: auto 20px;
   height: 44px;
   width: 20px;
+}
+
+.delete_picto_detail {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -444px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 47px;
+  width: 24px;
 }
 
 .replyToRequest_picto {

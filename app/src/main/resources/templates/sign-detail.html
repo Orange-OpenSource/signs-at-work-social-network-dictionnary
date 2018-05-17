@@ -53,7 +53,7 @@
             <aside class="sidebar">
                 <ul class="nav nav-list primary left-menu">
                     <li class="label_sign aside_bckg_li">
-                            <em><h2 class="text-center" th:text="${videoName}"/></em>
+                            <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
                     </li>
                   <li class="clear aside_bckg_li">
                     <a th:href="@{/sec/sign/} + ${signView.id} + '/definition'">
@@ -86,6 +86,7 @@
                     <div th:if="${!ratingData.rateNoRate and !isVideoCreatedByMe}">
                         <li class="aside_bckg_li">
                             <a href="#" data-toggle="modal" data-target="#evaluation_modal">
+                                <div class="pull-left evaluate_sign"></div>
                                 <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
                                 <div>
                                     <div class="pull-right chevron_right"/>
@@ -99,7 +100,7 @@
                     <div th:if="${isVideoCreatedByMe}">
                       <li class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#video_delete_modal">
-                          <div class="pull-left delete_picto"></div>
+                          <div class="pull-left delete_picto_detail"></div>
                           <h2 class="container_H2" th:text="#{video.delete}"/>
                           <div>
                             <div class="pull-right chevron_right"/>
