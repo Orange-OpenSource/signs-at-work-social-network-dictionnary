@@ -1014,6 +1014,8 @@
 
   .form-control::-webkit-input-placeholder {
     color: #8C8C8C;
+    height: 40px;
+    line-height: 40px;
   }
 
   #myform input::placeholder{
