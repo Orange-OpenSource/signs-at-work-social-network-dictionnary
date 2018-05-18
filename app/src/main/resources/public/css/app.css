@@ -518,6 +518,8 @@ h4, .h4 {
 
 input[type="text"],[type="email"],[type="password"] {
 	margin:0 auto;
+  height: 42px;
+  line-height: 42px;
 }
 
 

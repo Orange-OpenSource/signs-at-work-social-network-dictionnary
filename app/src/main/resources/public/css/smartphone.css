@@ -1008,6 +1008,8 @@
     /*padding-right: 18%;*/
     padding-left: 25px;
     margin-bottom:10px;
+    line-height: 40px;
+    height: 40px;
   }
 
   .form-control::-webkit-input-placeholder {
@@ -1016,6 +1018,8 @@
 
   #myform input::placeholder{
     color:white;
+    height: 40px;
+    line-height: 40px;
   }
 
   #reset{
