@@ -55,7 +55,7 @@ button.close{
   background-position: -915px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 30px;
+  height: 45px;
   width: 30px;
   margin-right: 20px;
 }
@@ -128,7 +128,7 @@ input[type=file] {
   background-position: -1906px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 35px;
+  height: 45px;
   width: 30px;
   margin-right: 20px;
 }
@@ -156,7 +156,7 @@ input[type=file] {
   background-position: -1898px center;
   background-repeat: no-repeat;
   background-size: auto 26px;
-  height: 34px;
+  height: 45px;
   width: 26px;
   margin-right: 20px;
 }
@@ -170,7 +170,7 @@ input[type=file] {
   background-size: auto 20px;
     height: 20px;
     width: 20px;
-  margin-top: 12px;
+  margin-top: 10px;
   margin-right: 5px;
 }
 
@@ -1086,7 +1086,7 @@ span.form-signin-heading{
   background-size: auto 20px;
   height: 20px;
   width: 20px;
-  margin-top: 12px;
+  margin-top: 10px;
   margin-right: 5px;
 }
 
@@ -1339,7 +1339,7 @@ span.form-signin-heading{
 	background-position: -563px center;
 	background-repeat: no-repeat;
 	background-size: auto 24px;
-	height: 40px;
+	height: 37px;
 	width: 24px;
 }
 
@@ -1369,7 +1369,7 @@ span.form-signin-heading{
   background-size: auto 20px;
   height: 20px;
   width: 20px;
-  margin-top: 12px;
+  margin-top: 10px;
   margin-right: 5px;
 }
 
@@ -1515,7 +1515,7 @@ span.form-signin-heading{
   background-position: -631px center;
   background-repeat: no-repeat;
   background-size: auto 28px;
-  height: 28px;
+  height: 45px;
   width: 28px;
   margin-right: 20px;
 }

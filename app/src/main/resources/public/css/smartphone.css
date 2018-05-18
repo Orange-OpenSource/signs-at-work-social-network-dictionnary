@@ -1083,7 +1083,7 @@
     height: 20px;
     width: 20px;
     margin-left: 5px;
-    margin-top: 5px;
+    margin-top: 2px;
   }
 
   .btn .alphabetic.pull-left {
@@ -1333,7 +1333,7 @@
     position: absolute;
     width: 10px;
     border-radius: 10px;
-    font-size: 8px;
+    font-size: 9px;
   }
 
 
