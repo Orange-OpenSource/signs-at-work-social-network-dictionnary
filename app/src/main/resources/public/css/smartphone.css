@@ -1264,7 +1264,7 @@
       background-position: -1365px center;
       background-repeat: no-repeat;
       background-size: auto 26px;
-      height: 35px;
+      height: 45px;
       width: 26px;
       margin-right: 20px;
   }
@@ -1362,16 +1362,20 @@
 
 
   ul.hidden-sm > li[role="presentation"] {
-    margin-right: 15px;
+   /* margin-right: 15px;*/
     width: 2rem;
     height: 2rem;
   }
 
   li[role="presentation"] {
-    margin-right: 25px;
+    margin-right: 42px;
     margin-left: 20px;
   }
 
+  li[role="presentation_header"] {
+    margin-right: 6px;
+    margin-left: 20px;
+  }
 
   .navbar-collapse .navbar-nav > li {
     width: 100%;
