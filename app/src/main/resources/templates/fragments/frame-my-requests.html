@@ -83,7 +83,7 @@
         <div th:id="${request.name}" th:each="request:${myRequests}">
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
-              <li th:if="${request.sign == null}" class="dotted-top">
+              <li th:if="${request.sign == null}" class="aside_bckg_li">
                 <a th:href="@{/sec/my-request-detail/} + ${request.id}">
                   <div>
                     <h4 class="text_hyphenation container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h4>
@@ -93,7 +93,7 @@
                   </div>
                 </a>
               </li>
-              <li th:if="${request.sign != null}" class="dotted-top">
+              <li th:if="${request.sign != null}" class="aside_bckg_li">
                 <a th:href="@{/sign/} + ${request.sign.id}">
                   <div>
                     <div class="pull-left most_recent"></div>

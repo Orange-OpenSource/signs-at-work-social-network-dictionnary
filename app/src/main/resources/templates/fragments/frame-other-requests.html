@@ -75,7 +75,7 @@
         <div th:id="${request.name}" th:each="request:${otherRequests}">
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
-              <li class="dotted-top">
+              <li class="aside_bckg_li">
                 <a th:href="@{/sec/other-request-detail/} + ${request.id}">
                   <div>
                     <h4 class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h4>
