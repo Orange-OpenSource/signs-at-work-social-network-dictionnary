@@ -522,6 +522,11 @@ input[type="text"],[type="email"],[type="password"] {
   line-height: 42px;
 }
 
+input[type="text"],[type="email"],[type="password"]::placeholder {
+  margin:0 auto;
+  height: 42px;
+  line-height: 42px;
+}
 
 a {
 	color: #333333;
