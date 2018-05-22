@@ -1343,6 +1343,17 @@ span.form-signin-heading{
 	width: 24px;
 }
 
+
+.favorite_signe_white{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2373px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 30px;
+  margin-right: 20px;
+
+}
 .favorite_signe_black{
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -588px center;
@@ -1403,12 +1414,12 @@ span.form-signin-heading{
 
 
 .personal_favorite_signe {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -420px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -1871px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 24px;
+	height: 37px;
+	width: 24px;
 }
 .profil_signe{
 	background-image: url("/img/new_sprite_picto_400X400.png");
