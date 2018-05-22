@@ -1054,7 +1054,7 @@
   .aside_bckg_li h2,.aside_bckg_li h4 {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     /*width: 160px;*/
   }
 
