@@ -59,13 +59,13 @@
                     <a th:href="@{/sec/sign/} + ${signView.id} + '/definition'">
                       <div class="pull-left"></div>
                       <div th:if="${signView.textDefinition == null} and ${signView.videoDefinition == null}">
-                        <h2 class="container_H2" th:text="#{sign.definition-empty}"/>
+                        <h2 id="definition" class="container_H2" th:text="#{sign.definition-empty}"/>
                         <div>
                           <div class="pull-right  add"/>
                         </div>
                       </div>
                       <div th:if="${signView.textDefinition != null} or ${signView.videoDefinition != null}">
-                        <h2 class="container_H2" th:text="#{sign.definition-not-empty}"/>
+                        <h2 id="definition" class="container_H2" th:text="#{sign.definition-not-empty}"/>
                         <div>
                           <div class="pull-right  pen"/>
                         </div>

@@ -99,9 +99,9 @@
       <div class="text-center" th:text="#{sign.with-same-name}"></div>
     </div>-->
 
-    <h2 class="same_name" th:text="#{sign.with-same-name}"/>
 
     <div th:if="${not #lists.isEmpty(signsWithSameName)}">
+      <h2 class="same_name" th:text="#{sign.with-same-name}"/>
       <div th:each="sign:${signsWithSameName}">
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">

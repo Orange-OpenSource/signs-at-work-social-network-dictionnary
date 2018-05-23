@@ -85,7 +85,7 @@
               </div>
 
               <ul class="list-unstyled components">
-                <li th:if="${isAuthenticated}" role="presentation" class=" aside_bckg_li ">
+                <li th:if="${isAuthenticated}" role="menu" class=" aside_bckg_li ">
                   <a th:href="@{/sec/new-profil}">
                     <div>
                       <div class="pull-left profil_signe "></div>
@@ -96,7 +96,7 @@
                     </div>
                   </a>
                 </li>
-                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menu">
                   <a th:href="@{/sec/communities}">
                     <div>
                       <div class="pull-left community_signe "></div>
@@ -108,7 +108,7 @@
 
                   </a>
                 </li>
-                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menu">
                   <a href="#" data-toggle="modal"
                      data-target="#favorite">
                     <div>
@@ -121,7 +121,7 @@
 
                   </a>
                 </li>
-                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="presentation">
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menu">
                   <a href="#">
                     <div>
                       <div class="pull-left parameters_signe "></div>

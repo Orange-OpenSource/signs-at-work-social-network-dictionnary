@@ -3,6 +3,10 @@
 }
 
 /* New Design Altran*/
+#definition{
+  margin-left: 0px;
+}
+
 .all_signe {
   float: left;
   background-image: url("/img/new_sprite_picto_400X400.png");
@@ -1322,11 +1326,12 @@ span.form-signin-heading{
 }
 .add {
 	background-image: url("/img/new_sprite_picto_400X400.png");
-	background-position: -468px center;
+	background-position: -551px center;
 	background-repeat: no-repeat;
-	background-size: auto 24px;
-	height: 45px;
-	width: 24px;
+	background-size: auto 28px;
+	height: 28px;
+	width: 28px;
+  margin-top: 9px;
 }
 
 .search_signe_glass {

@@ -953,6 +953,7 @@
 
   .label_sign_H2.container_H2{
     width:214px;
+    margin-left: 0px;
   }
 
   #labelSigne a{
@@ -1362,7 +1363,7 @@
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   button[data-target="#orange-navbar-collapse"]{
@@ -1384,6 +1385,10 @@
   li[role="presentation"] {
     margin-right: 42px;
     margin-left: 20px;
+  }
+
+  li[role="menu"] {
+    margin-left: 14px;
   }
 
   li[role="presentation_header"] {
