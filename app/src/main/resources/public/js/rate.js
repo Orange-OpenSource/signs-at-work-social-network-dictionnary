@@ -29,6 +29,7 @@ function onRatePositif(signId, videoId){
        // $("#after-rate-sign-positive").modal('show');
       $("#after-rate-sign").modal('show');
       $("#sentiment-after-rate").addClass("containerRight_signes sentiment_positif")
+      $('#positif').css('display', 'block');
     },
     error: function(response) {
       }
@@ -58,6 +59,7 @@ function onRateNegatif(signId, videoId){
     success: function(response) {
       $("#after-rate-sign").modal('show');
       $("#sentiment-after-rate").addClass("containerRight_signes sentiment_negatif")
+      $('#negatif').css('display', 'block');
     },
     error: function(response) {
     }

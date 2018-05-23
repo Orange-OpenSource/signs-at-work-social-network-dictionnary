@@ -62,18 +62,30 @@
 <div th:fragment="div" id="after-rate-sign" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="backgroundColor modal-header">
+      <div class="modal-header">
         <button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center" th:text="#{sign.modal.after.rate}"/>
+        <div class="pull-left">
+          <div class="evaluate_sign_modal pull-left"></div>
+          <h2 th:if="${isAuthenticated and !ratingData.rateNoRate}" class="pull-right" th:text="#{sign.modal.reevaluate}"/>
+          <h2 th:if="${isAuthenticated and ratingData.rateNoRate}" class="pull-right" th:text="#{sign.evaluate}"/>
+        </div>
       </div>
-      <div class="modal-body text-center">
-        <div id="sentiment-after-rate">
+      <div class="modal-body">
+        <div class="text-left">
+          <h4 th:text="#{sign.after.rate}"/>
+        </div>
+        <div class="text_center" id="positif" style="display: none">
+          <div class="pull-left sentiment_positif_after_rate"></div>
+          <h4 class="container_H2" th:text="#{sign.positif}"></h4>
+        </div>
+        <div class="text_center" id="negatif" style="display: none">
+          <div class="pull-left sentiment_negatif_after_rate"></div>
+          <h4 class="container_H2" th:text="#{sign.negatif}"></h4>
         </div>
       </div>
 
-
-      <div class="modal-body text-center ">
-        <button th:text="#{continue}" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " class="btn btn-default"></button>
+      <div class="modal-footer">
+        <button th:text="#{finish}" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " class="btn btn-default" data-dismiss=""></button>
       </div>
     </div>
   </div>

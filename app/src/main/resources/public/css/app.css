@@ -752,6 +752,12 @@ span.container_H2 {
   /*margin-bottom: 15px;*/
 }
 
+#positif>.container_H2, #negatif>.container_H2{
+  font-size: 21px;
+}
+
+
+
 .navbar-nav > li > a {
 font-size: 20px;
 }
@@ -935,6 +941,18 @@ text-decoration-line: none;
 	width: 24px;
 }
 
+.sentiment_negatif_after_rate{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-color: Transparent;
+  border: none;
+  background-position: -1240px center;
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  height: 46px;
+  width: 36px;
+  margin-left:69px;
+}
+
 .sentiment_neutre, .modal-body .containerRight_signes .sentiment_neutre{
 	background-image: url("/img/sprite_picto_400X400.png");
     background-color: Transparent;
@@ -948,19 +966,23 @@ text-decoration-line: none;
 
 .sentiment_positif, .modal-body .containerRight_signes .sentiment_positif {
 	background-image: url("/img/new_sprite_picto_400X400.png");
-/*	background-color: Transparent;
-	border: none;*/
 	background-position: -756px center;
 	background-repeat: no-repeat;
   background-size: auto 24px;
   height: 46px;
   width: 24px;
-	/*background-size: auto 20px;
-	height: 20px;
-	width: 20px;
-  margin-top: 12px;
-  margin-right: 5px;*/
 }
+
+.sentiment_positif_after_rate {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1133px center;
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  height: 46px;
+  width: 36px;
+  margin-left: 100px;
+}
+
 .sentiment_evaluation {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -2660px center;
@@ -1227,12 +1249,13 @@ span.form-signin-heading{
 }
 
 .suggest {
-	background-image: url("/img/sprite_picto_400X400.png");
-	background-position: -1040px center;
+	background-image: url("/img/new_sprite_picto_400X400.png");
+	background-position: -1156px center;
 	background-repeat: no-repeat;
-	background-size: auto 40px;
-	height: 40px;
-	width: 40px;
+	background-size: auto 30px;
+	height: 46px;
+	width: 30px;
+  margin-right: 20px;
 }
 
 .suggest_black {
