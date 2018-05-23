@@ -100,8 +100,11 @@
     </div>-->
 
 
-    <div th:if="${not #lists.isEmpty(signsWithSameName)}">
+    <div th:if="${not #lists.isEmpty(signsWithSameName) or not #lists.isEmpty(requestsWithAssociateSignWithSameName) or not #lists.isEmpty(requestsWithSameName)}">
       <h2 class="same_name" th:text="#{sign.with-same-name}"/>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(signsWithSameName)}">
       <div th:each="sign:${signsWithSameName}">
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
