@@ -378,7 +378,7 @@ public class RequestController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("allRequests"));
-    model.addAttribute("classDropdownTitle", " signe pull-left");
+    model.addAttribute("classDropdownTitle", " all_signe pull-left");
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 

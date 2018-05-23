@@ -1099,6 +1099,16 @@
     margin-top: 5px;
   }
 
+
+  .btn .all_signe.pull-left {
+    background-position: -1599px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+
   .btn .favorite_signe.pull-left {
     background-position: -470px center;
     background-size: auto 20px;

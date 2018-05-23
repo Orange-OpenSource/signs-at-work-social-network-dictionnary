@@ -39,9 +39,11 @@
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isAll}" class="check_signe" th:href="@{/sec/my-requests/frame/(isSearch=${isSearch})}">
+          <div class="pull-left all_signe"></div>
           <span th:text="#{allRequests}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${!isAll}" th:href="@{/sec/my-requests/frame/(isSearch=${isSearch})}">
+          <div class="pull-left all_signe"></div>
           <span th:text="#{allRequests}"></span>
         </a>
       </li>
