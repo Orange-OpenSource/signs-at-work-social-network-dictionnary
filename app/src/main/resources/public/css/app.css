@@ -3,6 +3,10 @@
 }
 
 /* New Design Altran*/
+#requests_container{
+  padding-top:15px;
+}
+
 #main_nav{
   background-color: #4866F7;
   border-style:none;
