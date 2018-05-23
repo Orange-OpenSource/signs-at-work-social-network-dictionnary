@@ -1054,8 +1054,12 @@
   .aside_bckg_li h2,.aside_bckg_li h4 {
     overflow: hidden;
     text-overflow: ellipsis;
-    /*white-space: nowrap;*/
-    /*width: 160px;*/
+   /* white-space: normal;
+    width: 240px;*/
+  }
+  #requests_container .aside_bckg_li h4{
+    white-space: normal;
+    width: 240px;
   }
 
   H2.text_hyphenation{
