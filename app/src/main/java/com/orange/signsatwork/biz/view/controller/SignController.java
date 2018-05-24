@@ -121,13 +121,13 @@ public class SignController {
       querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
 
     } else {
       querySigns = services.sign().SignsAlphabeticalOrderAscSignsView();
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     }
 
 
@@ -179,13 +179,13 @@ public class SignController {
       querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
 
     } else {
       querySigns = services.sign().SignsAlphabeticalOrderAscSignsView();
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     }
 
 
@@ -360,14 +360,14 @@ public class SignController {
       signWithCommentList = Arrays.asList(services.sign().lowCommented());
       model.addAttribute("isLowCommented", true);
       model.addAttribute("isMostCommented", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
 
 
     } else {
       signWithCommentList = Arrays.asList(services.sign().mostCommented());
       model.addAttribute("isMostCommented", true);
       model.addAttribute("isLowCommented", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     }
 
     List<SignViewData> commented = signViewsData.stream()
@@ -425,13 +425,13 @@ public class SignController {
       signWithRatingList = Arrays.asList(services.sign().lowRating());
       model.addAttribute("isLowRating", true);
       model.addAttribute("isMostRating", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
 
     } else {
       signWithRatingList = Arrays.asList(services.sign().mostRating());
       model.addAttribute("isMostRating", true);
       model.addAttribute("isLowRating", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
 
     }
 
@@ -492,13 +492,13 @@ public class SignController {
       signWithRatingList = Arrays.asList(services.sign().lowRating());
       model.addAttribute("isLowRating", true);
       model.addAttribute("isMostRating", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
 
     } else {
       signWithRatingList = Arrays.asList(services.sign().mostRating());
       model.addAttribute("isMostRating", true);
       model.addAttribute("isLowRating", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
 
     }
 
@@ -561,12 +561,12 @@ public class SignController {
       signWithViewedList = Arrays.asList(services.sign().lowViewed());
       model.addAttribute("isLowViewed", true);
       model.addAttribute("isMostViewed", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
     } else {
       signWithViewedList = Arrays.asList(services.sign().mostViewed());
       model.addAttribute("isMostViewed", true);
       model.addAttribute("isLowViewed", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     }
 
     List<SignViewData> viewed = signViewsData.stream()
@@ -626,13 +626,13 @@ public class SignController {
       querySigns = services.sign().lowRecentWithoutDate();
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
     } else {
      /*querySigns = services.sign().mostRecent(user.lastDeconnectionDate);*/
       querySigns = services.sign().mostRecentWithoutDate();
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     }
     List<SignViewData> signViewsData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
@@ -686,13 +686,13 @@ public class SignController {
       querySigns = services.sign().lowRecentWithoutDate();
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
     } else {
       /*querySigns = services.sign().mostRecent(user.lastDeconnectionDate);*/
       querySigns = services.sign().mostRecentWithoutDate();
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
     }
     List<SignViewData> signViewsData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))

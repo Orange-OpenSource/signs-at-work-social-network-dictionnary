@@ -33,7 +33,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                   <div class="add_request_white pull-left"></div>
-                  <h2 class="pull-right text_hyphenation" th:text="#{request.description(${'&laquo;'+requestView.name+'&raquo;'})}"></h2>
+                  <h2 id="my-other-requests" class="pull-right text_hyphenation" th:text="#{request.description(${'&laquo;'+requestView.name+'&raquo;'})}"></h2>
                 </div>
             </div>
             <form id="requestDescription" th:action="@{/sec/request/} + ${requestView.id} + '/description' " th:object="${requestCreationView}" method="post">

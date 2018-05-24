@@ -1064,7 +1064,7 @@
   }
 
   H2.text_hyphenation{
-    width: 23rem;
+    /*width: 23rem;*/
   }
 
   .menu_detail {
@@ -1355,6 +1355,10 @@
   .text_hyphenation.navbar_title{
     /*width: 23rem;*/
    /* width: 16rem;*/
+  }
+
+  #my-other-requests{
+    width: 23rem;
   }
 
   img{
