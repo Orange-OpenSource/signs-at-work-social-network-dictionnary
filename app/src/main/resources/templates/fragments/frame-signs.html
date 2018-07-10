@@ -27,7 +27,7 @@
 <body>
 
 <div id="frame-signs" th:fragment="div">
-  <div th:if="${isAuthenticated}" class="dropdown">
+  <div id="dropdown-filter" th:if="${isAuthenticated}" class="dropdown">
     <button th:attr="class=${classDropdownSize}" type="button" id="dropdownMenu1"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
       <span class="caret pull-left"></span>

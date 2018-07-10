@@ -63,6 +63,8 @@ var accentMap = {
   "ç": "c"
 };
 
+var dropdownFilter = document.getElementById("dropdown-filter");
+
 var normalize = function( term ) {
   var ret = "";
   for ( var i = 0; i < term.length; i++ ) {
@@ -125,26 +127,29 @@ function showNextVideoViews() {
 }
 
 function onScroll(event) {
-  if (signsContainer != null) {
-    var noMoreHiddenSigns = signViewsHidden.length === 0;
-    var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
-
-    if (search_criteria.value == "") {
-      if (!noMoreHiddenSigns && closeToBottom) {
-        showNextSignViews();
-      }
-    }
-  } else {
-    if (videoViewsHidden != null) {
-      var noMoreHiddenVideos = videoViewsHidden.length === 0;
+  if (!dropdownFilter.classList.contains("open")) {
+    if (signsContainer != null) {
+      var noMoreHiddenSigns = signViewsHidden.length === 0;
       var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
+
       if (search_criteria.value == "") {
-        if (!noMoreHiddenVideos && closeToBottom) {
-          showNextVideoViews();
+        if (!noMoreHiddenSigns && closeToBottom) {
+          showNextSignViews();
+        }
+      }
+    } else {
+      if (videoViewsHidden != null) {
+        var noMoreHiddenVideos = videoViewsHidden.length === 0;
+        var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
+        if (search_criteria.value == "") {
+          if (!noMoreHiddenVideos && closeToBottom) {
+            showNextVideoViews();
+          }
         }
       }
     }
   }
+
 }
 
 
@@ -495,6 +500,7 @@ function onFiltreSign(event, href) {
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
       nb = document.getElementById("nb");
       signAvailable = document.getElementById("sign_available");
+      dropdownFilter = document.getElementById("dropdown-filter");
       if (signsCount == 0) {
         $(search_criteria).hide();
         $("#reset").css("visibility", "hidden");
@@ -540,6 +546,7 @@ function onFiltreVideo(event, href) {
       addNewSuggestRequest = document.getElementById("add-new-suggest-request");
       nb = document.getElementById("nb");
       videoAvailable = document.getElementById("video_available");
+      dropdownFilter = document.getElementById("dropdown-filter");
       if (videosCount == 0) {
         $(search_criteria).hide();
         $("#reset").css("visibility", "hidden");
