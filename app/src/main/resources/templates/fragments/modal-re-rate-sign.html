@@ -40,13 +40,13 @@
           </div>
           <div class="modal-body">
             <ul class="nav nav-list primary left-menu">
-              <li class=" sentiment aside_bckg_li">
+              <li class="aside_bckg_li">
                 <a th:onclick="'javascript:onRatePositif('+ ${signView.id} + ',' + ${videoView.id}  +')' " href="#">
                   <div class="pull-left sentiment_positif"></div>
                   <h4 class="container_H2" th:text="#{sign.positif}"></h4>
                 </a>
               </li>
-              <li class=" sentiment aside_bckg_li">
+              <li class="aside_bckg_li">
                 <a  th:onclick="'javascript:onRateNegatif('+ ${signView.id} + ',' + ${videoView.id}  +')' " href="#">
                   <div class="pull-left sentiment_negatif"></div>
                   <h4 class="container_H2" th:text="#{sign.negatif}"></h4>

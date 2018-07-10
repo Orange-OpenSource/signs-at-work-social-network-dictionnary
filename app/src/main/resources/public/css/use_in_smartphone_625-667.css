@@ -1,0 +1,253 @@
+@media only screen and (min-width:625px) and (max-width:667px) {
+
+  /* Begin index page /index */
+  .search_signe_header {
+    background-size: auto 50px;
+    height: 50px;
+    width: 50px;
+    margin-top: 10px;
+  }
+
+  .navbar-toggle {
+   margin-top: 0px;
+  }
+
+  .menu_detail {
+    background-size: auto 50px;
+    height: 50px;
+    width: 50px;
+    margin-left: 15px;
+  }
+
+  /* End index page /index */
+
+  /* Begin Menu */
+  #sidebar.active {
+    left: 157px;
+  }
+
+  #sidebar{
+    width: 483px;
+    left: -500px;
+  }
+  /* End Menu */
+
+  /* Begin Voir les signes /sec/signs */
+  .navbar_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 25px;
+  }
+
+  #myform input[type=search] {
+    box-sizing: border-box;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    line-height: 40px;
+    height: 40px;
+  }
+
+  #myform input::placeholder{
+    color:white;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  #reset{
+    position: absolute;
+    margin-top: 10px;
+    right: 15%;
+    background-color: #000000;
+    border:none;
+    color:#FFFFFF;
+  }
+
+  #labelSigne a{
+    font-size:14px;
+  }
+
+  #labelSigne.text_hyphenation {
+    width: 27rem;
+  }
+
+  .tooltip_comment {
+    background-position: right 0px top 0px;
+    background-size: auto 16px;
+    height: 16px;
+    width: 16px;
+    right: 63px;
+  }
+
+  .tooltip_eye {
+    background-position: -1111px center;
+    background-size: auto 15px;
+    height: 14px;
+    width: 16px;
+    right: 46px;
+  }
+
+  .tooltip_positif {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 32px;
+  }
+
+  .tooltip_favorite {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 25px;
+    width: 45px;
+    right: 15px;
+  }
+
+  button[data-toggle="dropdown"].btn {
+    line-height: 3rem;
+    vertical-align: middle;
+    font-weight: bold;
+    width: 60%;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding-left: 1px;
+    padding-top: 3px;
+    white-space: nowrap;
+    line-height: 46px;
+    font-weight: bold;
+  }
+
+  .open > .dropdown-menu {
+    right: auto;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    width: 60%;
+  }
+
+  .open>.dropdown-menu {
+    display: inline-table;
+  }
+
+  /* End Voir les signes /sec/signs */
+
+  /* Begin Mes Demandes /sec/my-requests */
+  #reset_search_request{
+    position: absolute;
+    margin-top: -44px;
+    right: 10%;
+    background-color: #000000;
+    border:none;
+    color:#FFFFFF;
+  }
+
+  /* End Mes Demandes /sec/my-requests */
+
+  /* Begin Fiche signe /sign */
+  .add_favorite_signe_header {
+    background-size: auto 50px;
+    height: 50px;
+    width: 50px;
+    margin-top: 10px;
+  }
+
+  .label_sign_H2.container_H2{
+    width:214px;
+    margin-left: 0px;
+  }
+
+  h1, .h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color:#4866F7;
+  }
+
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #EBEBEB;
+    border-style: none;
+    border-radius: 0px;
+    font-size: 14px;
+    color: #4866F7;
+  }
+
+  textarea::-webkit-input-placeholder {
+    color: #8C8C8C;
+  }
+
+  textarea.form-control{
+    width:100% ;
+  }
+
+  textarea:focus{
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+  }
+
+  /* End Fiche signe /sign */
+
+  /* Begin Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
+  H4#label_record,
+  H4#label_after_record {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #4866F7;
+  }
+
+  .retry_recording {
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: transparent;
+    margin-left: 292px;
+    margin-right: 292px;
+  }
+
+  #container-button > button,
+  #cancel-recording {
+    border: none;
+    background-color: transparent;
+    color: #000000;
+    padding: 0px;
+    padding-right: 28px;
+  }
+
+  #container-button > button,
+  #continue {
+    border: none;
+    background-color: transparent;
+    color: #4866F7;
+  }
+
+  #continue, #cancel-recording {
+    font-size: 14px;
+    padding-right: 100px;
+  }
+
+  #retry-recording {
+    margin-left: -30px;
+    margin-right: 54px;
+  }
+  /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
+
+  /* Begin Mes Demandes /sec/other-request-detail */
+  #my-other-requests{
+    width: 23rem;
+    text-align: right;
+  }
+  /* Begin Mes Demandes /sec/other-request-detail */
+
+  /* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
+  .add_request_white {
+    background-size: auto 26px;
+    height: 45px;
+    width: 26px;
+    margin-right: 20px;
+  }
+
+}

@@ -35,7 +35,7 @@
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li th:if="${isAuthenticated and #lists.isEmpty(myRequestsWithSignAssociate) and #lists.isEmpty(myRequestsWithoutSignAssociate)}" class="disabled aside_bckg_li">
-                <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+                <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}" class="disabled">
                   <div class="pull-left my_request_signe_whithout_chevron"></div>
                   <h4 class="container_H2" th:text="#{request.mine}"></h4>
                   <div class="pull-right chevron_right"></div>
@@ -63,7 +63,7 @@
                 </a>
               </li>
               <li th:if="${isAuthenticated and  #lists.isEmpty(otherRequestsWithoutSignAssociate)}" class="disabled aside_bckg_li">
-                <a th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+                <a th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}" class="disabled">
                   <div class="pull-left request_signe_whithout_chevron"></div>
                   <h4 class="container_H2" th:text="#{request.other}"></h4>
                   <div class="pull-right chevron_right"></div>

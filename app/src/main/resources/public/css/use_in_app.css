@@ -1,0 +1,949 @@
+/* Begin login page /login */
+body{
+  font-family: "Accessible-DfA";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#main_nav{
+  background-color: #4866F7;
+  border-style:none;
+}
+
+.navbar * {
+  font-weight: bold;
+}
+
+.container-fluid{
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+  margin-right: 0px;
+  margin-left: 0px;
+
+}
+
+a {
+  color: #333333;
+}
+
+.logo_app {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -0px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 70px;
+  width: 100px;
+}
+
+.welcome_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -260px center;
+  background-repeat: no-repeat;
+  background-size: auto 100px;
+  height: 100px;
+  width: 100px;
+}
+
+#label_invite {
+  margin-top: 25px;
+}
+
+#label_welcome {
+  color:#4866F7;
+}
+
+.login-form{
+  margin-top: 40px;
+}
+
+span.form-signin-heading{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.form-group {
+  font-size: 20px;
+  margin: 15px 0px;
+}
+
+label {
+  display: block;
+  cursor: pointer;
+  line-height: 2.5;
+  font-weight: normal;
+}
+
+input[type="text"],[type="email"],[type="password"] {
+  margin:0 auto;
+  height: 42px;
+  line-height: 42px;
+}
+
+.form-control {
+  color:#4866F7;
+  height:42px;
+}
+
+.btn_signin{
+  border-radius: 30px;
+  background-color: #000000;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
+  color:#FFFFFF;
+  width: 50%;
+  margin-top:20px;
+  padding: 12px 12px;
+}
+
+/* End login page /login */
+
+/* Begin index page /index */
+
+ul[role="tablist"]{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.navbar-toggle-complement {
+  float: right;
+  position: relative;
+}
+
+.nav > li {
+  position: relative;
+}
+
+.navbar-toggle-complement li {
+  float: left;
+}
+
+.nav.navbar-nav a {
+  padding-left: 0;
+}
+
+.nav > li > a {
+  cursor: pointer;
+}
+
+.navbar-nav > li > a {
+  font-size: 20px;
+}
+
+.nav > li > a {
+  display: inline;
+  padding: 0px;
+
+}
+
+#lexical {
+  text-align: center;
+  color: #4866F7;
+  font-size:20px;
+  margin-bottom: 30px;
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 25px;
+}
+
+h2, .h2 {
+  font-size: 20px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Accessible-DfA";
+  font-weight: bold;
+  line-height: 29px;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.aside_bckg_li {
+  border-bottom: 1px solid #8C8C8C;
+  text-align: left;
+  overflow: hidden;
+}
+
+.aside_bckg_li > a > div {
+  padding: 0em;
+  border-style:none;
+}
+
+.signe {
+  float: left;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1980px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
+.container_H2{
+  float: left;
+  margin-left: 15px;
+}
+
+.text_hyphenation{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron_right{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -270px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 10px;
+}
+
+.require_black {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2020px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
+.suggest_black {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1940px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
+.search_signe_header {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2275px center;
+  background-repeat: no-repeat;
+}
+
+.menu_detail {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2375px center;
+  background-repeat: no-repeat;
+}
+
+/* End index page /index */
+
+/* Begin Menu */
+
+
+.profil_signe{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1365px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+}
+
+h4, .h4 {
+  font-size: 14px;
+  -ms-overflow-style: none;
+  overflow-scrolling: none;
+  overflow: hidden;
+  position: relative;
+  font-weight: bold;
+}
+
+.community_signe{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -531px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 42px;
+  width: 20px;
+}
+
+.favorite_signe_black{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -588px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 40px;
+  width: 24px;
+}
+
+.parameters_signe{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -830px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 44px;
+  width: 20px;
+}
+
+/* End Menu */
+
+/* Begin Voir les signes /sec/signs */
+.signe_reverse_video {
+  float: left;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3528px center;
+  background-repeat: no-repeat;
+  background-size: auto 50px;
+  height: 70px;
+  width: 66px;
+}
+
+#myform input[type=search]{
+  border-radius: 30px;
+  background-color: #000000;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  margin: auto;
+  color:white;
+}
+
+input[type=search].form-control,input[type=search].form-control:focus{
+  border: none;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+.most_recent{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1230px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.direction_down{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1370px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 28px;
+  width: 20px;
+}
+
+.dropdown-menu li {
+  border-bottom-color: #989898;
+  border-bottom-style: solid;
+  border-bottom-width: medium;
+  line-height: 46px;
+}
+
+.dropdown-menu > li {
+  clear: both;
+}
+
+.all_signe {
+  float: left;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1599px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.alphabetic {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1310px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.dropdown-menu > li > a.checked_down{
+  background-color: #989898;
+  color: #4866F7;
+}
+
+.checked_down {
+  background-image: url("/img/new_checked_down.png");
+  background-position: right 0px top 16px;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+}
+
+.most_rating {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1250px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.favorite_signe{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -563px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 37px;
+  width: 24px;
+}
+
+.personal_favorite_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1871px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 37px;
+  width: 24px;
+}
+
+#signs-container{
+  margin-top: 15px;
+}
+
+#sign_available {
+  color: #4866F7;
+}
+
+#sign_not_available {
+  margin-top: 30px;
+  color: #4866F7;
+}
+
+.tooltip_newSigne {
+  background-image: url("/img/new_blue.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_comment {
+  background-image: url("/img/commentary_blue.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_eye {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_positif {
+  background-image: url("/img/happy_blue.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_favorite {
+  background-image: url("/img/favorite_blue.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_variante {
+  bottom: 25px;
+  background-color: aliceblue;
+  height: 10px;
+  margin-left: 6px;
+  position: absolute;
+  width: 10px;
+  border-radius: 10px;
+  font-size: 9px;
+}
+
+.sign-view-hidden {
+  display: none;
+}
+
+.video-view-hidden {
+  display: none;
+}
+
+.search-hidden {
+  display: none;
+}
+
+.open > .dropdown-menu {
+  right: auto;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  width:27rem;
+}
+
+.open>.dropdown-menu {
+  display: inline-table;
+}
+
+/* End Voir les signes /sec/signs */
+
+/* Begin Demandes de signes /sec/requests */
+
+.my_request_signe_whithout_chevron {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1404px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 40px;
+  width: 24px;
+}
+
+.request_signe_whithout_chevron {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1428px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 40px;
+  width: 24px;
+}
+
+.add_request {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1236px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 40px;
+  width: 24px;
+}
+
+.plus_right{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -550px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 10px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* End Demandes de signes /sec/requests */
+
+/* Begin Mes Demandes /sec/my-requests */
+#requests_container{
+  padding-top:15px;
+}
+
+/* End Mes Demandes /sec/my-requests */
+
+/* Begin Demandes de signes /sec/other-request-detail */
+#requestTextDescription{
+  margin:0 auto;
+}
+/* End Demandes de signes /sec/other-request-detail */
+
+
+/* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
+.add_request_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1365px center;
+  background-repeat: no-repeat;
+}
+
+/* Begin Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest*/
+
+button.close{
+  color:#FFFFFF;
+  opacity:1;
+  padding-top: 19px;
+}
+
+.newAddition_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1936px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 47px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.modal-header {
+  background-color: #4866F7;
+  color: #FFFFFF;
+}
+
+.modal-body{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.modal-body>.form-control {
+  background-color: #EBEBEB;
+  border-style:none;
+  border-radius:0px;
+}
+
+.modal-footer {
+  border-style:none;
+}
+
+.modal-footer>.btn{
+  color: #4866F7;
+  font-size: 14px;
+  border-style:none;
+  font-weight: bold;
+}
+
+/* End Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest */
+
+/* Begin Nouveau signe /sec/signs-suggest */
+
+.pen {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -348px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.create_sign {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -898px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.add {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -551px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 9px;
+}
+
+.same_name{
+  color: #4866F7;
+  margin-top: 40px;
+}
+
+.already_exits{
+  text-align: center;
+  color: #FF5F58;
+}
+
+/* End Nouveau signe /sec/signs-suggest */
+
+/* Begin Fenêtre modale Ajouter un signe id=suggest modal-suggest */
+
+.webCam_picto {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -948px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 46px;
+  width: 24px;
+}
+
+.folderCamera_picto {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -972px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 46px;
+  width: 24px;
+}
+
+/* End Fenêtre modale Ajouter un signe id=suggest modal-suggest */
+
+/* Begin Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
+
+.record {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3336px center;
+  background-repeat: no-repeat;
+  background-size: auto 58px;
+  height: 58px;
+  width: 58px;
+  border: none;
+  background-color: transparent;
+}
+
+.btn-group-vertical{
+  padding-top: 10px;
+}
+
+.stop {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3630px center;
+  background-repeat: no-repeat;
+  background-size: auto 60px;
+  height: 60px;
+  width: 60px;
+  border: none;
+  background-color: transparent;
+}
+
+.spinner_hidden{
+  visibility: hidden;
+}
+
+.spinner_show{
+  visibility: visible;
+  width: 100%;
+  height: 100%;
+  background-image: url("/img/spinner-blue.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1;
+  position: absolute;
+}
+
+#counter {
+  color: white;
+  font-size: 33px;
+  opacity: 0.5;
+  position: absolute;
+  right: 41%;
+  top: 32%;
+  z-index: 3;
+  background-color: black;
+  height: 47px;
+  margin-left: 6px;
+  position: absolute;
+  width: 47px;
+  border-radius: 47px;
+  text-align: center;
+}
+
+#retry-recording{
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  color: #000000;
+}
+
+
+#container-button >button,
+#continue {
+  line-height:20px;
+}
+
+video{
+  width: 100%;
+}
+
+.retry_recording {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1066px center;
+  background-repeat: no-repeat;
+}
+
+/* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
+
+/* Begin Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
+
+input[type=file] {
+  font-size: 14px;
+  display: inline-block;
+}
+
+/* End Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
+
+/* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
+/* End Fenêtre modale Demander un signe id=new_request modal-new-request */
+
+/* Begin Fiche signe /sign */
+.sentiment_positif, .modal-body .containerRight_signes .sentiment_positif {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -756px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 46px;
+  width: 24px;
+}
+
+.sentiment_negatif, .modal-body .containerRight_signes .sentiment_negatif{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-color: Transparent;
+  border: none;
+  background-position: -827px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 46px;
+  width: 24px;
+}
+
+.evaluate_sign {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1500px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.add_video {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1620px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.add_comment {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -708px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.comment_name{
+  margin-bottom: 0px;
+}
+
+.comment_date{
+  margin-top: 0px;
+}
+
+.comment_date, .comment_text{
+  font-weight: normal;
+}
+
+.hyphenation_table{
+  /* For Firefox */
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-width: 5em !important;
+  /* For Chrome and IE */
+  word-break: break-word;
+}
+
+#tooltipInframe{
+  position: absolute;
+  right: 15px;
+  z-index: 4;
+}
+
+.add_favorite_signe_header {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3600px center;
+  background-repeat: no-repeat;
+}
+
+/* End Fiche signe /sign */
+
+/* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
+#definition{
+  margin-left: 0px;
+}
+
+.history_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1824px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.replace_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1801px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 47px;
+  width: 24px;
+}
+
+.delete_picto_detail {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -444px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 47px;
+  width: 24px;
+}
+
+/* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
+
+/* Begin Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
+.add_video_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1898px center;
+  background-repeat: no-repeat;
+  background-size: auto 26px;
+  height: 45px;
+  width: 26px;
+  margin-right: 20px;
+}
+
+/* End Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
+
+/* Begin Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
+.newComment {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -915px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+/* End Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
+
+/* Begin Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
+.evaluate_sign_modal {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1906px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+/* End Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
+
+/* Begin Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
+.sentiment_positif_after_rate {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1133px center;
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  height: 46px;
+  width: 36px;
+  margin-left: 100px;
+}
+
+.sentiment_negatif_after_rate{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-color: Transparent;
+  border: none;
+  background-position: -1240px center;
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  height: 46px;
+  width: 36px;
+  margin-left:69px;
+}
+
+/* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
+
