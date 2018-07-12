@@ -210,7 +210,7 @@ public class FileUploadRestController {
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
-        if (i > 5) {
+        if (i > 10) {
           break;
         }
         i++;
@@ -367,7 +367,7 @@ public class FileUploadRestController {
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
-        if (i > 5) {
+        if (i > 10) {
           break;
         }
         i++;
@@ -494,7 +494,7 @@ public class FileUploadRestController {
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
-          if (i > 5) {
+          if (i > 10) {
             break;
           }
           i++;
@@ -661,7 +661,7 @@ public class FileUploadRestController {
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
-        if (i > 5) {
+        if (i > 10) {
           break;
         }
         i++;
@@ -803,7 +803,7 @@ public class FileUploadRestController {
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
-          if (i > 5) {
+          if (i > 10) {
             break;
           }
           i++;
@@ -971,7 +971,7 @@ public class FileUploadRestController {
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
-        if (i > 5) {
+        if (i > 10) {
           break;
         }
         i++;
@@ -1137,7 +1137,7 @@ public class FileUploadRestController {
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
-        if (i > 5) {
+        if (i > 10) {
           break;
         }
         i++;
@@ -1238,7 +1238,7 @@ public class FileUploadRestController {
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
-          if (i > 5) {
+          if (i > 10) {
             break;
           }
           i++;
