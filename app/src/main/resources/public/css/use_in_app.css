@@ -975,3 +975,19 @@ input[type=file] {
 
 /* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
 
+/* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
+.rename_signe_blue{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -371px center;
+  background-repeat: no-repeat;
+}
+
+/* End manage-favorite /sec/favorite/"id"/manage-favorite */
+
+/* Begin Fenêtre modale Renommer Liste id=rename_favorite */
+.rename_signe_white{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -371px center;
+  background-repeat: no-repeat;
+}
+/* End Fenêtre modale Renommer Liste id=rename_favorite */
