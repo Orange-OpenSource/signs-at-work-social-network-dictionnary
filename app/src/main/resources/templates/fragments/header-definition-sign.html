@@ -32,8 +32,8 @@
             <div class="navbar-header">
                 <a href="/">
                   <div class=" signe_reverse_video "></div>
-                    <h1 class="text_hyphenation navbar_title pull-right" th:text="${title}"/>
                 </a>
+                <h1 class="text_hyphenation navbar_title pull-right" th:text="#{sign.definition(${'&laquo;'+title+'&raquo;'})}"/>
             </div>
         </div>
     </nav>

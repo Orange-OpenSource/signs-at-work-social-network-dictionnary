@@ -19,6 +19,10 @@
     margin-left: 15px;
   }
 
+  .label_favorite_Liste_H2.container_H2{
+    width: 46rem;
+  }
+
   /* End index page /index */
 
   /* Begin Menu */
@@ -30,6 +34,7 @@
     width: 483px;
     left: -500px;
   }
+
   /* End Menu */
 
   /* Begin Voir les signes /sec/signs */
@@ -37,6 +42,7 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 25px;
+    text-align:right;
   }
 
   #myform input[type=search] {
@@ -64,6 +70,7 @@
 
   #labelSigne a{
     font-size:14px;
+    white-space: nowrap;
   }
 
   #labelSigne.text_hyphenation {
@@ -143,6 +150,9 @@
     color:#FFFFFF;
   }
 
+  .text_hyphenation.navbar_title{
+    width: 46rem;
+  }
   /* End Mes Demandes /sec/my-requests */
 
   /* Begin Fiche signe /sign */
@@ -154,7 +164,7 @@
   }
 
   .label_sign_H2.container_H2{
-    width:214px;
+    width: 52rem;
     margin-left: 0px;
   }
 
@@ -180,6 +190,7 @@
 
   textarea.form-control{
     width:100% ;
+    text-align: left;
   }
 
   textarea:focus{
@@ -235,12 +246,18 @@
   }
   /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
 
+  /* Begin Demandes de signes /sec/request */
+  H2.text_hyphenation {
+    width: 48rem;
+  }
+  /* End Demandes de signes /sec/request */
+
   /* Begin Mes Demandes /sec/other-request-detail */
-  #my-other-requests{
-    width: 23rem;
+  #my-other-requests {
+    /*width: 23rem;*/
     text-align: right;
   }
-  /* Begin Mes Demandes /sec/other-request-detail */
+  /* End Mes Demandes /sec/other-request-detail */
 
   /* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
   .add_request_white {

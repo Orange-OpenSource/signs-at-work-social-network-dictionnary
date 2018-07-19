@@ -1094,7 +1094,8 @@ public class SignController {
   public String definition(@PathVariable long signId, Principal principal, Model model)  {
     Sign sign = services.sign().withId(signId);
 
-    model.addAttribute("title", messageByLocaleService.getMessage("sign.definition", new Object[]{sign.name}));
+    /*model.addAttribute("title", messageByLocaleService.getMessage("sign.definition", new Object[]{sign.name}));*/
+    model.addAttribute("title", sign.name);
     model.addAttribute("backUrl", signUrl(signId));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     model.addAttribute("showAddFavorite", HIDE_ADD_FAVORITE);

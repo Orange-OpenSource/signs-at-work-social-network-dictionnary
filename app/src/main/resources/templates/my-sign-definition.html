@@ -52,10 +52,12 @@
         <li class="aside_bckg_li">
           <a data-target="#add_sign_definition_text" data-toggle="modal" href="#">
             <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
+              <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
               <div class="pull-right  add"/>
             </div>
             <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
+              <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2" th:text="${signView.textDefinition}"/>
               <div class="pull-right  pen"/>
             </div>

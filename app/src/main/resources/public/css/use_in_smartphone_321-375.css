@@ -40,9 +40,8 @@
     font-weight: bold;
   }
 
-  .aside_bckg_li h2, .aside_bckg_li h4 {
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .label_favorite_Liste_H2.container_H2{
+    width:23rem;
   }
 
   /* End index page /index */
@@ -59,6 +58,8 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 25px;
+    width: 23rem;
+    text-align:right;
   }
 
   #myform input[type=search] {
@@ -178,9 +179,21 @@
 
   #labelSigne a{
     font-size:14px;
+    white-space: nowrap;
   }
 
   /* End Voir les signes /sec/signs */
+
+  /* Begin Demandes de signes /sec/request */
+  H2.text_hyphenation{
+    width: 23rem;
+  }
+
+  #requestTextDescription{
+    width: 100%;
+    text-align: left;
+  }
+  /* End Demandes de signes /sec/request */
 
   /* Begin Demandes de signes /sec/requests */
   /* End Demandes de signes /sec/requests */
@@ -195,11 +208,20 @@
     color:#FFFFFF;
   }
 
+  #requests_container .aside_bckg_li h4{
+    white-space: normal;
+    width: 26rem;
+  }
+
+  .text_hyphenation.navbar_title{
+    width: 20rem;
+  }
+
   /* End Mes Demandes /sec/my-requests */
 
   /* Begin Mes Demandes /sec/other-request-detail */
   #my-other-requests{
-    width: 23rem;
+    width: 26rem;
     text-align: right;
   }
   /* Begin Mes Demandes /sec/other-request-detail */
@@ -296,7 +318,7 @@
   }
 
   .label_sign_H2.container_H2{
-    width:214px;
+    width: 26rem;
     margin-left: 0px;
   }
 

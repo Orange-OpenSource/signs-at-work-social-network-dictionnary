@@ -192,7 +192,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .text_hyphenation{
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
 }
 
 .chevron_right{
@@ -563,7 +563,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 button.close{
   color:#FFFFFF;
   opacity:1;
-  padding-top: 19px;
+  padding-top: 15px;
 }
 
 .newAddition_signe {
@@ -582,8 +582,7 @@ button.close{
 }
 
 .modal-body{
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 10px;
 }
 
 .modal-body>.form-control {
@@ -623,6 +622,35 @@ button.close{
   background-size: auto 24px;
   height: 45px;
   width: 24px;
+}
+
+.definition_text_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1943px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.definition_text_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2459px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 46px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.definition_lsf_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1156px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 46px;
+  width: 30px;
+  margin-right: 20px;
 }
 
 .add {
