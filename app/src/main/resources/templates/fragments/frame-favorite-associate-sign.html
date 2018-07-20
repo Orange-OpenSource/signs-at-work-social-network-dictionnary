@@ -28,8 +28,12 @@
 
 <div th:fragment="div">
   <div id="myform" >
-    <input type="search" id="search-criteria" th:placeholder="#{search} + '&hellip;'" class="text-center border form-control search-hidden"/>
-    <input type='button' id='reset' value='x' />
+    <input type='button' class="pull-rigth" id='reset' value='X' >
+    <div id="container-input">
+      <input th:if="${not #lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" class="border form-control"/>
+      <input th:if="${#lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" class="border form-control search-hidden"/>
+    </div>
+  </input>
   </div>
 
     <form id="associateForm" th:if="${not #lists.isEmpty(videosView)}"
@@ -40,8 +44,8 @@
 
         <div class="form-group">
           <button id="button-top" type="submit" class="btn btn-default" th:text="#{validate}"></button><br/>
-          <div id="signs-container">
-            <label th:id="${videoView.signName}" class="sign-view-hidden text-center col-lg-4 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
+          <div id="videos-container">
+            <label th:id="${videoView.signName}" class="video-view-hidden text-center col-lg-4 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
                      th:for="${#ids.next('favoriteVideosIds')}">
               <input type="checkbox" th:field="*{favoriteVideosIds}" th:value="${videoView.videoId}"/>
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>

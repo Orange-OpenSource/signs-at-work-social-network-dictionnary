@@ -34,29 +34,9 @@
             <div class="signe_reverse_video"></div>
             <div class="pull-left">
               <div class="add_favorite_signe pull-left"></div>
-              <h1 class="text_hyphenation navbar_title pull-left" th:text="#{favorite.add_sign_at_list(${'&laquo;'+title+'&raquo;'})}"/>
+              <h1 class="text_hyphenation navbar_title pull-right" th:text="#{favorite.add_sign_at_list(${'&laquo;'+title+'&raquo;'})}"/>
             </div>
         </a>
-        <ul role="tablist" class="hidden-lg hidden-md hidden-sm navbar-toggle-complement nav navbar-nav">
-          <li role="presentation">
-            <a id="search_link" title="Search signe" href="#" th:onclick="'javascript:onSearch()'">
-              <div class="search_signe_header text-center"></div>
-              <span class="text-hide" th:text="#{sign.search}"></span></a>
-          </li>
-        </ul>
-        <ul id="orange-navbar-collapse" class=" nav navbar-nav col-lg-12 navbar-right collapse navbar-collapse" role="tablist">
-          <li role="presentation" >
-            <a href="#" th:onclick="'javascript:onSearch()'">
-              <div class="search_signe_header pull-left"></div>
-              <div class="pull-right">
-                <div class="containerRight_signes">
-                  <div class="hidden-lg hidden-md hidden-sm  pull-right chevron_right"></div>
-                </div>
-              </div>
-              <h4 th:text="#{search}"></h4>
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
   </nav>
