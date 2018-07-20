@@ -150,8 +150,12 @@
     color:#FFFFFF;
   }
 
-  .text_hyphenation.navbar_title{
+  .text_hyphenation.navbar_title.pull-left{
     width: 46rem;
+  }
+
+  .text_hyphenation.navbar_title.pull-right{
+    width: 53rem;
   }
   /* End Mes Demandes /sec/my-requests */
 

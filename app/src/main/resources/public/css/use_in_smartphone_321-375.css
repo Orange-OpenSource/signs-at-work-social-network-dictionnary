@@ -213,8 +213,12 @@
     width: 26rem;
   }
 
-  .text_hyphenation.navbar_title{
+  .text_hyphenation.navbar_title.pull-left{
     width: 20rem;
+  }
+
+  .text_hyphenation.navbar_title.pull-right{
+    width: 26rem;
   }
 
   /* End Mes Demandes /sec/my-requests */
