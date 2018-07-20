@@ -31,7 +31,7 @@
 
 
 <div class="row ">
-  <div class="col-md-4 col-xs-12 col-lg-12">
+  <div class="col-xs-12">
     <aside class="sidebar">
       <h2 th:if="${user.firstName} == null and ${user.lastName} == null and ${user.job} == null and ${user.jobTextDescription} == null" th:text="#{input}"/>
       <ul class="nav nav-list primary left-menu">
@@ -41,7 +41,7 @@
             <div class="pull-right add"></div>
           </a>
           <a th:unless="${user.firstName} == null and ${user.lastName} == null" th:href="@{/sec/who-are-you/}">
-            <h2 class="container_H2"  th:text="${user.name()}"></h2>
+            <h2 class="container_H2_blue"  th:text="${user.name()}"></h2>
             <div class="pull-right pen"></div>
           </a>
         </li>
@@ -65,20 +65,48 @@
             <div class="pull-right pen"></div>
           </a>
         </li>
-        <li class="aside_bckg_li">
-          <a href="#" data-toggle="modal" data-target="#favorite">
-            <div class="pull-left favorite_signe"></div>
-            <h2 class="container_H2" th:text="#{favorites}"></h2>
-            <div class="pull-right chevron_right"></div>
-          </a>
-        </li>
       </ul>
     </aside>
     </div>
+  <div  class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col"><br/>
+    <h2 class="blue" th:text="#{video.shared(${#lists.size(videosView)})}"></h2>
+    <div class="row">
+      <div th:each="videoView:${videosView}" class="text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
+        <div class="row">
+          <div class="col-lg-12">
+            <div id="labelSigne" class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
+            <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
+              <div class="container_tooltip">
+                <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
+                <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
+                <div th:if="${videoView.videoHasComment}" class="tooltip_comment"></div>
+                <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
+                <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
+                <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
+                <div th:if="${videoView.videoHasPositiveRate}" class="tooltip_positif"></div>
+                <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
+                <div th:if="${videoView.signBelowToFavorite}" class="tooltip_favorite"></div>
+                <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
+              </div>
+              <img th:src="${videoView.pictureUri}">
+              </img>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
-<div th:replace="fragments/modal-favorite :: div"/>
 
 </body>
+<script >
+  $(function () {
+    objectFitImages ('img', {watchMQ: true});
+  });
+</script>
 
 </html>

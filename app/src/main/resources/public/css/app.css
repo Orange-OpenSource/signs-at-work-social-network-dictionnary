@@ -1361,14 +1361,14 @@ text-decoration-line: none;
   width: 24px;
 }
 
-.delete_signe{
+/*.delete_signe{
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -442px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 46px;
   width: 24px;
-}
+}*/
 
 /*.rename_signe{
   background-image: url("/img/new_sprite_picto_400X400.png");

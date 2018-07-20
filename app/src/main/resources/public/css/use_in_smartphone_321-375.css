@@ -374,7 +374,14 @@
   /* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
 
   /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
-  .rename_signe_blue{
+  .rename_favorite_blue{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }
+
+  .delete_favorite_blue{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
@@ -384,11 +391,31 @@
   /* End manage-favorite /sec/favorite/"id"/manage-favorite */
 
   /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
-  .rename_signe_white{
+  .rename_favorite_white{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
     margin-top: 11px;
   }
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
+
+  /* Begin manage-favorite /sec/favorite/"id"/associate-sign */
+  label .text_hyphenation {
+    width:13rem;
+    padding-left: 0rem;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  /* End manage-favorite /sec/favorite/"id"/associate-sign */
+
+  /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
+  .delete_favorite_white{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }
+  /* End Fenêtre modale Renommer Liste id=delete_favorite */
+
 }

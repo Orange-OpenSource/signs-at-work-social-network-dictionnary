@@ -50,7 +50,7 @@
               <div th:each="videoView:${videosView}" class="text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
                 <div class="row">
                   <div class="col-lg-12">
-                    <div class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
+                    <div id="labelSigne" class="text_hyphenation"><a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
                     <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
                       <div class="container_tooltip">
                       <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
