@@ -75,9 +75,9 @@ public class UserController {
       .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
       .collect(Collectors.toList());
 
-    VideosViewSort videosViewSort = new VideosViewSort();
+  /*  VideosViewSort videosViewSort = new VideosViewSort();
     videoViews = videosViewSort.sort(videoViews);
-
+*/
     model.addAttribute("videosView", videoViews);
 
     return "new-profil";

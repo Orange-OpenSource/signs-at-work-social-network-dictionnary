@@ -61,7 +61,7 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select count(a.favorites_id) from favorites_videos a inner join favorites b on a.favorites_id = b.id and a.videos_id = :videoId and b.user_id = :userId", nativeQuery = true)
     Long findNbFavoriteBelowVideoForUser(@Param("videoId") long videoId, @Param("userId") long userId);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b on a.sign_id = b.id and a.user_id = :userId", nativeQuery = true)
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b on a.sign_id = b.id and a.user_id = :userId order by b.create_date desc", nativeQuery = true)
     List<Object[]> findAllVideosCreateByUser(@Param("userId") long userId);
 
 }
