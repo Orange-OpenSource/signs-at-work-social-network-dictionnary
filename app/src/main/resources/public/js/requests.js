@@ -155,26 +155,27 @@ function onReset(event) {
   $(':input', '#myform')
     .not(':button, :submit, :reset, :hidden')
     .val('');
-  $("#reset_search_request").css("visibility", "hidden");
+/*  $("#reset_search_request").css("visibility", "hidden");*/
 
   $("#requests_container").children("div").each(function () {
-    $(this).hide();
+    $(this).show();
   });
-  $(nb).hide();
+  nb.innerHTML = '('+requestsCount+')';
+  $(nb).show();
 
 }
 
 function main() {
-  if ($(search_criteria).hasClass("search-hidden")) {
+ /* if ($(search_criteria).hasClass("search-hidden")) {*/
     $("#requests_container").children("div").each(function () {
       $(this).show();
     });
-  } else {
+/*  } else {
     $("#requests_container").children("div").each(function () {
       $(this).hide();
       $(nb).hide();
     });
-  }
+  }*/
   search_criteria.addEventListener('keyup', search);
   button_reset.addEventListener('click', onReset);
 }
