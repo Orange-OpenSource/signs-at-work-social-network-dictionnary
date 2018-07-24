@@ -424,4 +424,19 @@
   }
   /* End Fenêtre modale Renommer Liste id=delete_favorite */
 
+  /* Begin Fiche détail de ma demande /sec/my-request-detail */
+  .label_request_H2.container_H2{
+    width: 28rem;
+    margin-left: 0px;
+  }
+
+  h4.container_H2{
+      width: 23rem;
+  }
+  /* Begin Fiche détail de ma demande /sec/my-request-detail */
+
+  h4.container_header_H2{
+    width: 20rem;
+  }
+
 }

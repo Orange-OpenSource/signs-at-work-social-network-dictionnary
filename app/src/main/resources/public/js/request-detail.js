@@ -26,8 +26,12 @@ function onPrioriseRequest(id){
     url: "/ws/sec/request/"+ id +"/priorise",
     type: 'post',
     success: function(response) {
-
       $("#priorise_request").modal('show');
+      setTimeout(function(){
+        $('#priorise_request').modal('hide');
+        window.location = "/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
+      }, 3000);
+
     },
     error: function(response) {
       }
@@ -40,8 +44,13 @@ function onDeleteRequest(id){
     url: "/ws/sec/request/"+ id +"/delete",
     type: 'post',
     success: function(response) {
+      $('#delete_request').modal('hide');
+      $("#confirm_delete").modal('show');
+      setTimeout(function(){
+        $('#confirm_delete').modal('hide');
+        window.location = "/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
+      }, 3000);
 
-      $("#delete_request").modal('show');
     },
     error: function(response) {
       }

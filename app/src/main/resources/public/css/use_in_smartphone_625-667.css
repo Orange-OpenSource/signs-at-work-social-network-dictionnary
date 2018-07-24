@@ -316,4 +316,21 @@
     margin-top: 11px;
   }
   /* End Fenêtre modale Renommer Liste id=delete_favorite */
+
+  /* Begin Fiche détail de ma demande /sec/my-request-detail */
+  .label_request.container_H2 {
+    width: 58rem;
+    margin-left: 0px;
+  }
+
+  h4.container_H2{
+    width: 46rem;
+  }
+
+    /* Begin Fiche détail de ma demande /sec/my-request-detail */
+
+  h4.container_header_H2{
+    width: 38rem;
+  }
+
 }

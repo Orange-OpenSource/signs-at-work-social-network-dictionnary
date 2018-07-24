@@ -28,7 +28,7 @@
   <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
 </head>
 
-<header role="banner" th:replace="fragments/header-my-other-requests :: header">&nbsp;</header>
+<header role="banner" th:replace="fragments/header-my-requests :: header">&nbsp;</header>
 
 
 <body class="container-fluid">
@@ -39,28 +39,32 @@
 
   <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
-  <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-    <div th:if="${requestView.requestVideoDescription} != null">
-      <iframe th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+    <div class=" col-xs-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li id="date-request" class="aside_bckg_li">
+            <h4 th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
+          </li>
+        </ul>
+      </aside>
     </div>
-  </div>
+    <div class="pull-right col-md-8 col-xs-12 col-sm-4">
+      <div th:if="${requestView.requestVideoDescription} != null">
+        <iframe th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+      </div>
+    </div>
 
   <!--<div class="col-md-4 col-xs-12 col-lg-12">-->
     <div class=" col-xs-12">
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
-          <h4 th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
-        </li>
-        <li class="aside_bckg_li">
-          <a th:attr="data-target='#modify_request'" data-toggle="modal" href="#">
-            <h4 class="container_H2" th:text="${requestView.name}"/>
-            <div class="pull-right pen"></div>
-          </a>
+          <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
         </li>
         <li class="aside_bckg_li">
           <a data-target="#add_description_request" data-toggle="modal" href="#">
             <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+              <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
               <div class="pull-right  add"/>
             </div>
@@ -73,10 +77,12 @@
         <li  class="aside_bckg_li">
           <a data-target="#add_request_description_LSF" data-toggle="modal" href="#">
             <div th:if="${requestView.requestVideoDescription== null}">
+              <div class="pull-left create_sign"></div>
               <h4 class="container_H2" th:text="#{request_description_LSF}"/>
               <div class="pull-right  add"/>
             </div>
             <div th:if="${requestView.requestVideoDescription != null}">
+              <div class="pull-left create_sign"></div>
               <h4 class="container_H2" th:text="#{request_description_LSF}"/>
               <div class="pull-right  pen"/>
             </div>
@@ -90,11 +96,16 @@
           </a>
         </li>
         <li class="aside_bckg_li">
-          <a th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' " href="#">
+          <a data-target="#delete_request" data-toggle="modal" href="#">
             <div class="pull-left delete_picto"></div>
             <h4 class="container_H2" th:text="#{request.delete}"/>
             <div ><div class="pull-right chevron_right"></div></div>
           </a>
+          <!--<a th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' " href="#">
+            <div class="pull-left delete_picto"></div>
+            <h4 class="container_H2" th:text="#{request.delete}"/>
+            <div ><div class="pull-right chevron_right"></div></div>
+          </a>-->
         </li>
       </ul>
     </aside>
@@ -135,11 +146,11 @@
 
 
 <!--start modal confirm priority-->
-<div  id="priorise_request" class="modal fade" role="dialog">
+<div  id="priorise_request" class="modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="">x</button>
         <div class="pull-left">
           <div class="priorise_request pull-left"></div>
           <h2 class="pull-right" th:text="#{request.priorise_title}"/>
@@ -149,7 +160,7 @@
           <h4 th:text="#{request.priorised}"/>
         </div>
         <div class="modal-footer">
-          <button th:text="#{continue}" th:onclick="'javascript:onContinue()'"  class="btn btn-default"></button>
+          <div class="check_blue pull-right"></div>
         </div>
     </div>
   </div>
@@ -158,26 +169,46 @@
 
 
 <!--start modal confirm delete-->
-<div  th:if="${isAuthenticated}" id="delete_request" class="modal fade" role="dialog">
+<div  th:fragment="div" th:if="${isAuthenticated}" id="delete_request" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" th:onclick="'javascript:onContinue()'" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" th:onclick="'javascript:onContinue()'" class="close" data-dismiss="modal">x</button>
         <div class="pull-left">
           <div class="delete_picto pull-left"></div>
           <h2 class="pull-right" th:text="#{request.delete_title}"/>
         </div>
       </div>
       <div class="modal-body">
-        <h4 th:text="#{request.deleted}"/>
+        <h4 th:text="#{request.confirm_delete}"/>
       </div>
       <div class="modal-footer">
-        <button th:text="#{continue}" th:onclick="'javascript:onContinue()'" class="btn btn-default"></button>
+        <button th:text="#{validate}" th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' " class="btn btn-default"></button>
       </div>
     </div>
   </div>
 </div>
 <!--start modal confirm delete-->
+
+<div  id="confirm_delete" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="">x</button>
+        <div class="pull-left">
+          <div class="priorise_request pull-left"></div>
+          <h2 class="pull-right" th:text="#{request.priorise_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{request.deleted}"/>
+      </div>
+      <div class="modal-footer">
+        <div class="check_blue pull-right"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

@@ -628,7 +628,7 @@ button.close{
 
 .create_sign {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -898px center;
+  background-position: -903px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1047,4 +1047,40 @@ input[type=file] {
   height: 40px;
   background-color: #EBEBEB;
   text-align: center;
+}
+
+
+/* Begin Fiche détail de ma demande /sec/my-request-detail */
+
+#date-request {
+  text-align: right;
+  border: none;
+}
+
+.priorise_request {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1210px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 46px;
+  width: 20px;
+}
+
+/* End Fiche détail de ma demande /sec/my-request-detail */
+
+/* Begin Fiche détail autre demande /sec/other-request-detail */
+
+.grey-color {
+  color: grey;
+}
+
+/* End Fiche détail autre demande /sec/other-request-detail */
+
+.check_blue {
+  background-image: url(/img/new_sprite_picto_400X400.png);
+  background-position: -147px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
 }
