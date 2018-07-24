@@ -496,7 +496,8 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .open>.dropdown-menu {
-  display: inline-table;
+  /*display: inline-table;*/
+  width: 29rem;
 }
 
 /* End Voir les signes /sec/signs */

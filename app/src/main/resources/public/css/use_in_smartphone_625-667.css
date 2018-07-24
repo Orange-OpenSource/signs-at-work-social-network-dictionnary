@@ -109,11 +109,12 @@
     right: 15px;
   }
 
+
   button[data-toggle="dropdown"].btn {
     line-height: 3rem;
     vertical-align: middle;
     font-weight: bold;
-    width: 60%;
+    width: 52rem;
   }
 
   .dropdown-menu > li > a {
@@ -135,7 +136,8 @@
   }
 
   .open>.dropdown-menu {
-    display: inline-table;
+    /*display: inline-table;*/
+    width: 52rem;
   }
 
   /* End Voir les signes /sec/signs */
