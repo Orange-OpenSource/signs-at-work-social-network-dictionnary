@@ -68,6 +68,7 @@
     margin-bottom: 10px;
     line-height: 40px;
     height: 40px;
+    width: 29rem;
   }
 
   button[data-toggle="dropdown"].btn {
