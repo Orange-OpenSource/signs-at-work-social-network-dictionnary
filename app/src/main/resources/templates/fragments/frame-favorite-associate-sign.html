@@ -41,9 +41,7 @@
           th:action="@{/sec/favorite/{favoriteid}/add/videos(favoriteid=${favoriteProfileView.favorite.id})}"
           th:object="${favoriteProfileView}"
           method="post">
-
         <div class="form-group">
-          <button id="button-top" type="submit" class="btn btn-default" th:text="#{validate}"></button><br/>
           <div id="videos-container">
             <label th:id="${videoView.signName}" class="video-view-hidden text-center col-lg-4 col-md-4 col-xs-6 col-sm-4" th:each="videoView : ${videosView}"
                      th:for="${#ids.next('favoriteVideosIds')}">
@@ -53,8 +51,10 @@
               <img  th:attr="data-src=${videoView.pictureUri}"/>
              </label>
           </div>
-             <br/>
-            <button id="button-bottom" type="submit" class="btn btn-default" th:text="#{validate}"></button>
+        </div>
+        <div class="footer">
+          <button type="submit" class="btn btn-secondary" th:text="#{back}" th:onclick="'javascript:onBackFavorite(\'' + ${backUrl} + '\')'"></button>
+          <button type="submit" class="btn btn-default" th:text="#{validate}"></button>
         </div>
     </form>
 

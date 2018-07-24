@@ -1016,3 +1016,35 @@ input[type=file] {
   background-repeat: no-repeat;
 }
 /* End Fenêtre modale Renommer Liste id=delete_favorite */
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
+
+.footer>.btn-default {
+  color: #4866F7;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+  line-height: 16px;
+  width: 49%;
+  height: 40px;
+  background-color: #EBEBEB;
+  text-align: center;
+}
+
+.footer>.btn-secondary {
+  color: #8C8C8C;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+  line-height: 16px;
+  width: 49%;
+  height: 40px;
+  background-color: #EBEBEB;
+  text-align: center;
+}
