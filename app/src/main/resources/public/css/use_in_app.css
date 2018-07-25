@@ -635,6 +635,15 @@ button.close{
   width: 24px;
 }
 
+.create_video {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -897px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
 .definition_text_blue {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -1943px center;
