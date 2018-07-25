@@ -39,9 +39,12 @@ $formRequest.on('submit', function(event) {
        data: JSON.stringify(request),
        contentType: "application/json",
        success: function(response) {
-           var url = "/sec/requests/";
-           window.location = url;
+         $("#confirm-request-created").modal('show');
+         setTimeout(function(){
+           $('#confirm-request-created').modal('hide');
+           window.location = "/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
            requestSpan.style.visibility="hidden";
+         }, 3000);
        },
        error: function(response) {
          var returnedData = JSON.parse(response.responseText);

@@ -34,6 +34,7 @@
 <div th:replace="fragments/modal-new-request :: div"/>
 <div th:replace="fragments/modal-request-text-description :: div"/>
 <div th:replace="fragments/modal-input-description-request-LSF :: div"/>
+<div th:replace="fragments/modal-confirm-request-created :: div"/>
 
 
 <div class="row ">
@@ -49,9 +50,6 @@
             <div>
               <div class="pull-right  pen"/>
             </div>
-           <!-- <span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>
-            <span  th:if="${isRequestAlreadyExist}" th:text="#{request.already_exists}"></span>
-            <span  th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></span>-->
           </a>
         </li>
         <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
@@ -95,14 +93,6 @@
       </ul>
     </aside>
 
-<!--    <div class="other_name_nearby  aside_bckg_li">
-      <div class="text-center" th:text="#{sign.with-same-name}"></div>
-    </div>-->
-
-
-   <!-- <div th:if="${not #lists.isEmpty(signsWithSameName) or not #lists.isEmpty(requestsWithAssociateSignWithSameName) or not #lists.isEmpty(requestsWithSameName)}">
-      <h2 class="same_name" th:text="#{sign.with-same-name}"/>
-    </div>-->
 
     <div th:if="${not #lists.isEmpty(signsWithSameName)}">
       <div th:if="${#lists.size(signsWithSameName) > 1}">
