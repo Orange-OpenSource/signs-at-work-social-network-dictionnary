@@ -685,7 +685,7 @@ button.close{
 
 .same_name{
   color: #4866F7;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .already_exits{
@@ -1092,4 +1092,13 @@ input[type=file] {
   background-size: auto 20px;
   height: 20px;
   width: 20px;
+}
+
+.request_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1546px center;
+  background-repeat: no-repeat;
+  background-size: auto 26px;
+  height: 42px;
+  width: 26px;
 }

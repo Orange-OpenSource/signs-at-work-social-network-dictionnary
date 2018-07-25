@@ -1178,14 +1178,14 @@ text-decoration-line: none;
   width: 40px;
 }
 
-.request_signe {
+/*.request_signe {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1420px center;
 	background-repeat: no-repeat;
 	background-size: auto 40px;
 	height: 40px;
 	width: 40px;
-}
+}*/
 
 /*.request_signe_whithout_chevron {
 	background-image: url("/img/new_sprite_picto_400X400.png");

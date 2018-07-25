@@ -535,14 +535,14 @@
     width: 30px;
   }
 
-  .request_signe {
+/*  .request_signe {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1065px center;
     background-repeat: no-repeat;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
-  }
+  }*/
 
   .my_request_signe {
     background-image: url("/img/sprite_picto_400X400.png");
@@ -1257,14 +1257,15 @@
   }
 
 
+  /*
   .request_signe {
-  /*  background-image: url("/img/new_sprite_picto_400X400.png");
+  !*  background-image: url("/img/new_sprite_picto_400X400.png");
     background-position: -1365px center;
     background-repeat: no-repeat;
     background-size: auto 26px;
     height: 35px;
     width: 26px;
-    margin-right: 20px;*/
+    margin-right: 20px;*!
     background-image: url("/img/new_sprite_picto_400X400.png");
     background-position: -1546px center;
     background-repeat: no-repeat;
@@ -1273,6 +1274,7 @@
     width: 26px;
     margin-right: 20px;
   }
+  */
 
 /*  .add_request_white {
     background-image: url("/img/new_sprite_picto_400X400.png");
@@ -1752,14 +1754,14 @@
   }
 
 
-  .request_signe {
+/*  .request_signe {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1065px center;
     background-repeat: no-repeat;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
-  }
+  }*/
   .my_request_signe {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1680px center;
