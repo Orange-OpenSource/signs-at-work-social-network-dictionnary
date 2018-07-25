@@ -108,8 +108,13 @@ function onAssociateFavoriteRequest(favoriteId) {
     data: JSON.stringify(favoriteVideosIds),
     contentType: "application/json",
     success: function(response) {
-      var url = "/sec/favorite/"+favoriteId;
-      window.location = url;
+      $("#validate_favorite_modif").modal('show');
+      setTimeout(function(){
+        $('#validate_favorite_modif').modal('hide');
+        var url = "/sec/favorite/"+favoriteId;
+        window.location = url;
+      }, 3000);
+
     },
     error: function(response) {
     }

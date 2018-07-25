@@ -31,6 +31,10 @@
 
 <div th:fragment="div" class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
     <div th:replace="fragments/frame-favorite-associate-sign :: div"/>
+  <div class="footer">
+    <button class="btn btn-secondary" th:text="#{back}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>
+    <button class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteRequest('+ ${favoriteProfileView.favorite.id} +')' " th:text="#{validate}"></button>
+  </div>
 </div>
 
 </body>
