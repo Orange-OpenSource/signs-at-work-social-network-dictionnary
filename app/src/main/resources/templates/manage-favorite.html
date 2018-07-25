@@ -78,14 +78,15 @@
                             <h2 class="pull-right" th:text="#{favorite.delete_list}"></h2>
                         </div>
                     </div>
-                    <div class="modal-body text-center">
+                    <div class="modal-body">
                         <h4 th:text="#{favorite.confirm_delete}"></h4>
                     </div>
-                    <div class="modal-footer">
+
                         <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/delete'" method="post">
+                          <div class="modal-footer">
                             <button type="submit" class="btn btn-default" data-dismiss="" th:text="#{favorite.validate}"/>
+                          </div>
                         </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -130,14 +131,14 @@
                                 <h2 class="pull-right" th:text="#{favorite.duplicate_list}"></h2>
                             </div>
                         </div>
-                        <div class="modal-body text-center">
+                        <div class="modal-body">
                           <h4 th:text="#{favorite.duplicate_text}"></h4>
                         </div>
-                        <div class="modal-footer">
                             <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/duplicate'" method="post">
+                              <div class="modal-footer">
                                 <button type="submit" class="btn btn-default" data-dismiss="" th:text="#{favorite.validate}"/>
+                              </div>
                             </form>
-                        </div>
                     </div>
 
                 </div>
