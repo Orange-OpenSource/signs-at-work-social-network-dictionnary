@@ -153,6 +153,7 @@ $.fn.extend({
 
   var displayedVideosCount = 0;
   var search_criteria = document.getElementById("search-criteria");
+  var signNotAvailable = document.getElementById("sign-not-available");
 
 
   var accentMap = {
@@ -218,6 +219,7 @@ $.fn.extend({
   }
 
   function search(event) {
+    var display = 0;
     var g = normalize($(this).val());
 
     if (g!="") {
@@ -233,11 +235,17 @@ $.fn.extend({
             displayedVideosCount++;
           }
           $(this).show();
+          display++;
         }
         else {
           $(this).hide();
         }
       });
+      if (display == 0) {
+        $(signNotAvailable).show();
+      } else {
+        $(signNotAvailable).hide();
+      }
     } else {
       $("#reset").css("visibility", "hidden");
       $("#videos-container").children("label").each(function () {
