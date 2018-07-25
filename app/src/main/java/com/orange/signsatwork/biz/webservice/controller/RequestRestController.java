@@ -129,9 +129,9 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_PRIORISE, method = RequestMethod.POST)
-  public void  requestPriorised(@PathVariable long requestId) {
+  public void  requestPriorised(@PathVariable long requestId, HttpServletResponse response) {
     services.request().priorise(requestId);
-
+    response.setStatus(HttpServletResponse.SC_OK);
     return;
   }
 
