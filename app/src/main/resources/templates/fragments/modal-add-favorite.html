@@ -44,7 +44,7 @@
                   <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a  href="#" data-toggle="modal" data-target="#create-new-favorite_add_sign">
                       <div>
-                        <h2  class="container_H2" th:text="#{favorite.new}"></h2>
+                        <h2  class="label_favorite_Liste_H2 container_H2" th:text="#{favorite.new}"></h2>
                         <div>
                           <div class="pull-right add"></div>
                         </div>
@@ -59,7 +59,7 @@
                           <div>
                             <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
                             <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
-                            <h2 class="container_H2" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></h2>
+                            <h2 class="label_favorite_Liste_H2 container_H2" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></h2>
                             <div>
                               <div class="pull-right add"></div>
                             </div>

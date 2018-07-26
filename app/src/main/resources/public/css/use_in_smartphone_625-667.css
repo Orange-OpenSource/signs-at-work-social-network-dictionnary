@@ -109,13 +109,28 @@
     bottom: 7px;
   }
 
+  .tooltip_positif_in_frame {
+    background-position: -486px center;
+    background-size: auto 15px;
+    height: 15px;
+    width: 15px;
+    right: 54px;
+  }
+
   .tooltip_favorite {
     background-position: right 2px top 0px;
     background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    left: 37px;
-    top: 3px;
+    height: 15px;
+    width: 15px;
+    left: 70px;
+  }
+
+  .tooltip_favorite_in_frame {
+    background-position: right 2px top 0px;
+    background-size: auto 15px;
+    height: 15px;
+    width: 15px;
+    left: -33px;
   }
 
   .tooltip_variante {
@@ -130,12 +145,11 @@
   }
 
   .tooltip_newSigne {
-    background-position: right 2px top 0;
+    /*background-position: right 2px top 0;*/
     background-size: auto 15px;
     height: 15px;
     width: 15px;
-    left: 15px;
-    top: 3px;
+    left: 52px;
   }
 
 

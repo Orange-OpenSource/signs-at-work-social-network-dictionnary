@@ -40,10 +40,10 @@
   <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
     <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
       <div id="tooltipInframe" class="pull-right" >
-        <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="pull-right tooltip_positif"></div>
-        <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="pull-right tooltip_positif"></div>
-        <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="tooltip_favorite"></div>
-        <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
+        <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="tooltip_positif_in_frame"></div>
+        <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif_in_frame"></div>
+        <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="tooltip_favorite_in_frame"></div>
+        <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite_in_frame"></div>
       </div>
 
         <div class="embed-responsive embed-responsive-16by9">

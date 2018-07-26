@@ -460,7 +460,19 @@ input[type=search].form-control,input[type=search].form-control:focus{
   bottom: 7px;
 }
 
+.tooltip_positif_in_frame {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
 .tooltip_favorite {
+  background-image: url("/img/favorite_blue.png");
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.tooltip_favorite_in_frame {
   background-image: url("/img/favorite_blue.png");
   background-repeat: no-repeat;
   position: absolute;
