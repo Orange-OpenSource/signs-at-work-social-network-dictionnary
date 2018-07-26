@@ -68,7 +68,7 @@ public class RequestRestController {
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_CREATE, method = RequestMethod.POST)
   public RequestResponse createRequest(@RequestBody RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) {
     List<String> emails;
-    String title, body, email;
+    String title, body;
     Request request;
     RequestResponse requestResponse = new RequestResponse();
     User user = services.user().withUserName(principal.getName());
@@ -79,18 +79,14 @@ public class RequestRestController {
         emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
         title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
         body = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
-        email = String.join(",", emails);
 
         Runnable task = () -> {
-          log.info("send mail email = {} / title = {} / body = {}", email, title, body);
-          services.emailService().sendSimpleMessage(email, title, body );
+          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, body);
+          services.emailService().sendSimpleMessage(emails.toArray(new String[emails.size()]), title, body );
         };
 
         new Thread(task).start();
-  /*      Thread t= new Thread(() -> {
-          log.info("send mail email = {} / title = {} / body = {}", email, title, body);
-          services.emailService().sendSimpleMessage(email, title, body );
-        });*/
+
 
       } else {
           response.setStatus(HttpServletResponse.SC_CONFLICT);
