@@ -38,11 +38,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -65,6 +67,8 @@ public class RequestRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_CREATE, method = RequestMethod.POST)
   public RequestResponse createRequest(@RequestBody RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) {
+    List<String> emails;
+    String title, body, email;
     Request request;
     RequestResponse requestResponse = new RequestResponse();
     User user = services.user().withUserName(principal.getName());
@@ -72,6 +76,22 @@ public class RequestRestController {
       if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
          request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
         log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+        emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
+        title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
+        body = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
+        email = String.join(",", emails);
+
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", email, title, body);
+          services.emailService().sendSimpleMessage(email, title, body );
+        };
+
+        new Thread(task).start();
+  /*      Thread t= new Thread(() -> {
+          log.info("send mail email = {} / title = {} / body = {}", email, title, body);
+          services.emailService().sendSimpleMessage(email, title, body );
+        });*/
+
       } else {
           response.setStatus(HttpServletResponse.SC_CONFLICT);
           requestResponse.errorType = 1;

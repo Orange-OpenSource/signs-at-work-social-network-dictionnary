@@ -54,6 +54,13 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
   private final Services services;
 
+
+  @Override
+  public List<String> findEmailForUserHaveSameCommunityAndCouldCreateSign(long userId) {
+    List<String> emails =  userRepository.findEmailForUserHaveSameCommunityAndCouldCreateSign(userId);
+    return emails;
+  }
+
   @Override
   public User getAdmin() {
     return(userFrom(userRepository.findByUsername("admin").get(0)));

@@ -31,6 +31,9 @@ import java.util.List;
 
 public interface UserService {
 
+
+  List<String> findEmailForUserHaveSameCommunityAndCouldCreateSign(long userId);
+
   User getAdmin();
 
   Users all();
