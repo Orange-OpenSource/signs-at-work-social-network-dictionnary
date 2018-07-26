@@ -111,46 +111,50 @@
 
   #labelSigne.text_hyphenation {
     font-size: 14px;
+    white-space: nowrap;
+    max-width: 116px;
+    text-align: center;
+    padding-left: 33px;
   }
 
   .tooltip_newSigne {
     background-position: right 2px top 0;
     background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 80px;
+    height: 15px;
+    width: 15px;
+    left: 15px;
   }
 
   .tooltip_comment {
-    background-position: right 0px top 0px;
-    background-size: auto 16px;
-    height: 16px;
-    width: 16px;
-    right: 63px;
+    background-position: -458px center;
+    background-size: auto 15px;
+    height: 15px;
+    width: 15px;
+    right: 11px;
   }
 
   .tooltip_eye {
-    background-position: -1111px center;
+    background-position: -502px center;
     background-size: auto 15px;
-    height: 14px;
-    width: 16px;
-    right: 46px;
+    height: 15px;
+    width: 15px;
+    right: 64px;
   }
 
   .tooltip_positif {
-    background-position: right 2px top 0px;
+    background-position: -486px center;
     background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 32px;
+    height: 15px;
+    width: 15px;
+    right: 38px;
   }
 
   .tooltip_favorite {
-    background-position: right 2px top 0px;
+    background-position: right 0px top 0px;
     background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 15px;
+    height: 15px;
+    width: 15px;
+    left:28px;
   }
 
   #myform input::placeholder{

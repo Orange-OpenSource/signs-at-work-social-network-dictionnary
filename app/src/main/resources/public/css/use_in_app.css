@@ -440,21 +440,24 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .tooltip_comment {
-  background-image: url("/img/commentary_blue.png");
+  background-image: url("/img/new_sprite_picto_400X400.png");
   background-repeat: no-repeat;
   position: absolute;
+  bottom: 7px;
 }
 
 .tooltip_eye {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-repeat: no-repeat;
   position: absolute;
+  bottom: 7px;
 }
 
 .tooltip_positif {
-  background-image: url("/img/happy_blue.png");
+  background-image: url("/img/new_sprite_picto_400X400.png");
   background-repeat: no-repeat;
   position: absolute;
+  bottom: 7px;
 }
 
 .tooltip_favorite {
@@ -464,14 +467,14 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .tooltip_variante {
-  bottom: 25px;
-  background-color: aliceblue;
-  height: 10px;
-  margin-left: 6px;
+  background-color: blue;
+  margin-left: 77px;
   position: absolute;
   width: 10px;
   border-radius: 10px;
   font-size: 9px;
+  top: 4px;
+  color:white;
 }
 
 .sign-view-hidden {
@@ -1101,4 +1104,15 @@ input[type=file] {
   background-size: auto 26px;
   height: 42px;
   width: 26px;
+}
+
+.container_tooltip_in_image {
+  height: 30px;
+  width: 90px;
+  border-radius: 15px;
+  background-color: #4866F7;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 27px;
+  margin-left: 29px;
 }

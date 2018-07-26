@@ -75,31 +75,38 @@
   }
 
   #labelSigne.text_hyphenation {
-    width: 27rem;
+    font-size: 14px;
+    white-space: nowrap;
+    max-width: 223px;
+    text-align: center;
+    padding-left: 73px;
   }
 
   .tooltip_comment {
-    background-position: right 0px top 0px;
-    background-size: auto 16px;
-    height: 16px;
-    width: 16px;
-    right: 63px;
+    background-position: -458px center;
+    background-size: auto 15px;
+    height: 15px;
+    width: 15px;
+    right: 11px;
+    bottom: 6px;
   }
 
   .tooltip_eye {
-    background-position: -1111px center;
+    background-position: -502px center;
     background-size: auto 15px;
-    height: 14px;
-    width: 16px;
-    right: 46px;
+    height: 15px;
+    width: 15px;
+    right: 95px;
+    bottom: 7px;
   }
 
   .tooltip_positif {
-    background-position: right 2px top 0px;
+    background-position: -486px center;
     background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 32px;
+    height: 15px;
+    width: 15px;
+    right: 54px;
+    bottom: 7px;
   }
 
   .tooltip_favorite {
@@ -107,7 +114,28 @@
     background-size: auto 15px;
     height: 25px;
     width: 45px;
-    right: 15px;
+    left: 37px;
+    top: 3px;
+  }
+
+  .tooltip_variante {
+    background-color: blue;
+    margin-left: 152px;
+    position: absolute;
+    width: 10px;
+    border-radius: 10px;
+    font-size: 9px;
+    top: 4px;
+    color: white;
+  }
+
+  .tooltip_newSigne {
+    background-position: right 2px top 0;
+    background-size: auto 15px;
+    height: 15px;
+    width: 15px;
+    left: 15px;
+    top: 3px;
   }
 
 
@@ -331,6 +359,17 @@
 
   h4.container_header_H2{
     width: 38rem;
+  }
+
+  .container_tooltip_in_image {
+    height: 30px;
+    width: 131px;
+    border-radius: 15px;
+    background-color: #4866F7;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
+    position: absolute;
+    bottom: 11px;
+    margin-left: 76px;
   }
 
 }

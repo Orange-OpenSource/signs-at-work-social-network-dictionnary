@@ -2386,9 +2386,9 @@
   }
 
 
-  #labelSigne.text_hyphenation {
+/*  #labelSigne.text_hyphenation {
     width: 10rem;
-  }
+  }*/
 
   li[role="presentation"].aside_bckg_li > a > div {
     height: 0em;
@@ -2504,13 +2504,13 @@
     right: 40px;
   }
 
-  .tooltip_newSigne {
+/*  .tooltip_newSigne {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
     right: 80px;
-  }
+  }*/
 
   .tooltip_comment {
     background-position: right 0px top 0px;
