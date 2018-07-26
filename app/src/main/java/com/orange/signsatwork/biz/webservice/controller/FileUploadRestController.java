@@ -53,6 +53,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.OptionalLong;
 
 /**
@@ -810,6 +811,8 @@ public class FileUploadRestController {
         }
         while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
+        List<String> emails;
+        String title, bodyMail;
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (requestId != 0) {
             request = services.request().withId(requestId);
@@ -831,6 +834,16 @@ public class FileUploadRestController {
               if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
                 request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), videoDailyMotion.embed_url);
                 log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+                emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
+                title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
+                bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
+
+                Runnable task = () -> {
+                  log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                  services.emailService().sendSimpleMessage(emails.toArray(new String[emails.size()]), title, bodyMail );
+                };
+
+                new Thread(task).start();
               } else {
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
                 requestResponse.errorType = 1;
@@ -978,6 +991,8 @@ public class FileUploadRestController {
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
+      List<String> emails;
+      String title, bodyMail;
 
       if (!videoDailyMotion.embed_url.isEmpty()) {
         if (requestId != 0) {
@@ -1000,6 +1015,16 @@ public class FileUploadRestController {
             if (services.request().withName(videoFile.requestNameRecording).list().isEmpty()) {
               request = services.request().create(user.id, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording, videoDailyMotion.embed_url);
               log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
+              emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
+              title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
+              bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
+
+              Runnable task = () -> {
+                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                services.emailService().sendSimpleMessage(emails.toArray(new String[emails.size()]), title, bodyMail );
+              };
+
+              new Thread(task).start();
             } else {
               response.setStatus(HttpServletResponse.SC_CONFLICT);
               requestResponse.errorType = 1;
