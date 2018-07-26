@@ -82,6 +82,13 @@
     padding-left: 73px;
   }
 
+  #labelVideo.text_hyphenation {
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: center;
+    padding-left: 73px;
+  }
+
   .tooltip_comment {
     background-position: -458px center;
     background-size: auto 15px;

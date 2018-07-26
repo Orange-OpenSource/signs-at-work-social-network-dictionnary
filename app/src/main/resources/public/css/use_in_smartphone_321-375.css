@@ -117,6 +117,13 @@
     padding-left: 33px;
   }
 
+  #labelVideo.text_hyphenation {
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: center;
+    padding-left: 33px;
+  }
+
   .tooltip_newSigne {
     background-position: right 0px top 0;
     background-size: auto 15px;
