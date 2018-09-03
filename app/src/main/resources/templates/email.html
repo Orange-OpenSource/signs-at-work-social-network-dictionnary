@@ -5,16 +5,15 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="#{request_created_by_user_body(${user_name}, ${request_name}, ${url})}">
-  Bonjour<br/> Manuel Sanchez a besoin d'un signe pour le mot test.<br/>Vous pouvez l'aider via le lien suivant https://signsatwork.orange-labs.fr<br/>Merci
-</p>
+<p th:text="#{hello}">Bonjour</p>
+<p th:text="#{request_created_by_user_body_1(${user_name}, ${request_name})}">Manuel Sanchez a besoin d'un signe pour le mot test.</p>
+<p th:text="#{request_created_by_user_body_2(${url})}">Vous pouvez l'aider via le lien suivant https://signsatwork.orange-labs.fr</p>
+<p th:text="#{thank}">Merci</p>
 <P><b>Signs@Work</b></P>
 <p>
   <img width="100px" height="40px" src="../public/img/logo_and_texte.png" th:src="|cid:${imageResourceName}|" style="background-color:blue;"/>
 </p>
-<p style="color:red;">
-  NB : cet email est un envoi automatique de l'application, <br/>
-  Merci de ne pas y répondre
-</p>
+<p style="color:red;" th:text="#{request_created_by_user_footer_1}">NB : cet email est un envoi automatique de l'application</p>
+<p style="color:red;" th:text="#{request_created_by_user_footer_2}">Merci de ne pas y répondre</p>
 </body>
 </html>
