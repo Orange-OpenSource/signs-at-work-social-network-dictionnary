@@ -838,9 +838,10 @@ public class FileUploadRestController {
                 title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
                 bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
 
+                Request finalRequest = request;
                 Runnable task = () -> {
                   log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                  services.emailService().sendSimpleMessage(emails.toArray(new String[emails.size()]), title, bodyMail );
+                  services.emailService().sendSimpleMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, "https://signsatwork.orange-labs.fr" );
                 };
 
                 new Thread(task).start();
@@ -1019,9 +1020,10 @@ public class FileUploadRestController {
               title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
               bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
 
+              Request finalRequest = request;
               Runnable task = () -> {
                 log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                services.emailService().sendSimpleMessage(emails.toArray(new String[emails.size()]), title, bodyMail );
+                services.emailService().sendSimpleMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, "https://signsatwork.orange-labs.fr" );
               };
 
               new Thread(task).start();

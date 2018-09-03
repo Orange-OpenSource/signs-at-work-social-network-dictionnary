@@ -27,25 +27,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Component
 public class EmailServiceImpl implements EmailService {
 
   @Autowired
   public JavaMailSender emailSender;
+  @Autowired
+  TemplateEngine templateEngine;
 
-  public void sendSimpleMessage(String[] to, String subject, String text) {
+  public void sendSimpleMessage(String[] to, String subject, String userName, String requestName, String url) {
 
     try {
-      SimpleMailMessage message = new SimpleMailMessage();
-      message.setTo(to);
+      /*SimpleMailMessage message = new SimpleMailMessage();*/
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      /*message.setTo(to);
       message.setSubject(subject);
       message.setText(text);
-      message.setFrom("admin@admin.com");
+      message.setFrom("admin@admin.com");*/
+     helper.setTo(to);
+     helper.setSubject(subject);
+     helper.setFrom("admin@admin.com");
+     Context ctx = new Context();
+     ctx.setVariable("user_name", userName);
+     ctx.setVariable("request_name", requestName);
+     ctx.setVariable("url", url);
+
+     String htmlContent = templateEngine.process("email", ctx);
+     helper.setText(htmlContent, "true");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
     }
   }
 }
