@@ -23,10 +23,9 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  */
 
 import com.orange.signsatwork.biz.persistence.service.EmailService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.*;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -40,6 +39,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 @Component
@@ -51,7 +51,7 @@ public class EmailServiceImpl implements EmailService {
   TemplateEngine templateEngine;
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url) {
-
+    InputStream imageIs = null;
     try {
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -62,17 +62,32 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("user_name", userName);
       ctx.setVariable("request_name", requestName);
       ctx.setVariable("url", url);
+      ctx.setVariable("imageResourceName", "logo_and_texte.png");
       String htmlContent = templateEngine.process("email", ctx);
       helper.setText(htmlContent, true);
 
      /* File file = ResourceUtils.getFile("classpath:public/img/logo_and_texte.png");
       System.out.println("File Found : " + file.exists());*/
-      helper.addInline("imageResourceName", new ClassPathResource("logo_and_texte.png"));
+      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline("logo_and_texte.png", imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
     } catch (MessagingException e) {
       e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
   public void sendSimpleMessage(String[] to, String subject, String text) {
