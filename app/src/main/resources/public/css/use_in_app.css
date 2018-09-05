@@ -101,6 +101,10 @@ input[type="text"],[type="email"],[type="password"] {
 
 /* Begin index page /index */
 
+#display_url{
+  top: 30px
+}
+
 ul[role="tablist"]{
   padding-left: 0px;
   padding-right: 0px;

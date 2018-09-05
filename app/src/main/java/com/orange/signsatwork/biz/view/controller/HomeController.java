@@ -65,6 +65,9 @@ public class HomeController {
   @Value("${cgu-url}")
   private String cgu_url;
 
+  @Value("${display-url}")
+  private String display_url;
+
   @Autowired
   public EmailServiceImpl emailService;
 
@@ -154,6 +157,7 @@ public class HomeController {
     model.addAttribute("isAlphabeticAsc", true);
     model.addAttribute("isSearch", true);
     model.addAttribute("signCreationView", new SignCreationView());
+    model.addAttribute("display_url", display_url);
 
 
     return "index";

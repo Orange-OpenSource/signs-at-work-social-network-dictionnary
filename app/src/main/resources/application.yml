@@ -25,6 +25,7 @@ app.admin.username: "admin"
 app.admin.password: "adminpassword"
 
 cgu-url: "https://www.dailymotion.com/embed/video/k12tO5H7YXMWlTnNXly"
+display-url: "https://www.dailymotion.com/embed/video/k6yTqZLiEei3cPrRynl"
 
 spring:
   mail:
