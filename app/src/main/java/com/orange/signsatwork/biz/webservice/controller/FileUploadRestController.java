@@ -189,7 +189,7 @@ public class FileUploadRestController {
       }else{
         body.add("title", videoFile.signNameRecording);
       }
-      body.add("channel", "Tech");
+      /*body.add("channel", "Tech");*/
       body.add("published", true);
       body.add("private", true);
 
@@ -346,7 +346,7 @@ public class FileUploadRestController {
       } else {
         body.add("title", signCreationView.getSignName());
       }
-      body.add("channel", "Tech");
+     /* body.add("channel", "Tech");*/
       body.add("published", true);
       body.add("private", true);
 
@@ -474,7 +474,7 @@ public class FileUploadRestController {
         } else {
           body.add("title", user.name());
         }
-        body.add("channel", "Tech");
+        /*body.add("channel", "Tech");*/
         body.add("published", true);
         body.add("private", true);
 
@@ -641,7 +641,7 @@ public class FileUploadRestController {
         body.add("title", user.name());
       }
 
-      body.add("channel", "Tech");
+     /* body.add("channel", "Tech");*/
       body.add("published", true);
       body.add("private", true);
 
@@ -782,7 +782,7 @@ public class FileUploadRestController {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         body.add("title", "Description LSF de la demande " + requestCreationView.getRequestName());
-        body.add("channel", "Tech");
+        /*body.add("channel", "Tech");*/
         body.add("published", true);
         body.add("private", true);
 
@@ -963,7 +963,7 @@ public class FileUploadRestController {
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
       body.add("title", "Description LSF de la demande " + videoFile.requestNameRecording);
-      body.add("channel", "Tech");
+      /*body.add("channel", "Tech");*/
       body.add("published", true);
       body.add("private", true);
 
@@ -1142,7 +1142,7 @@ public class FileUploadRestController {
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
       body.add("title", "Définition LSF du signe " + sign.name);
-      body.add("channel", "Tech");
+      /*body.add("channel", "Tech");*/
       body.add("published", true);
       body.add("private", true);
 
@@ -1243,7 +1243,7 @@ public class FileUploadRestController {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         body.add("title", "Définition LSF du signe " + sign.name);
-        body.add("channel", "Tech");
+        /*body.add("channel", "Tech");*/
         body.add("published", true);
         body.add("private", true);
 
