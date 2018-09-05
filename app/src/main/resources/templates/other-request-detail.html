@@ -71,7 +71,8 @@
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li id="date-request" class="aside_bckg_li">
-            <h4 th:text="#{request.created_on_by(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')},${requestView.user.name()})}"/>
+            <h4 th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
+            <h4 th:text="#{request.created_by(${requestView.user.name()})}"/>
           </li>
         </ul>
       </aside>
