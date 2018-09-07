@@ -23,6 +23,15 @@
     width: 46rem;
   }
 
+  img{
+    height:225px;
+    width: 225px;
+    object-fit: contain;
+    overflow: hidden;
+    border: 1px solid;
+    margin-bottom: 20px;
+  }
+
   /* End index page /index */
 
   /* Begin Menu */
@@ -58,6 +67,7 @@
     color:white;
     height: 45px;
     line-height: 45px;
+    text-align: center;
   }
 
   #reset{
@@ -389,12 +399,18 @@
     background-color: #4866F7;
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
     position: absolute;
-    bottom: 11px;
+    bottom: 36px;
     margin-left: 76px;
   }
 
   h4.rate.container_H2{
     width: 40rem;
   }
+
+  /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
+  .history_label.noHover_nopointer > a >h2{
+    font-size: 20px;
+  }
+  /* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 
 }
