@@ -43,12 +43,11 @@
                 <ul class="nav nav-list primary left-menu">
                   <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a  href="#" data-toggle="modal" data-target="#create-new-favorite_add_sign">
-                      <div>
+                        <div class="new_favorite_signe_blue  pull-left"></div>
                         <h2  class="label_favorite_Liste_H2 container_H2" th:text="#{favorite.new}"></h2>
                         <div>
                           <div class="pull-right add"></div>
                         </div>
-                      </div>
                     </a>
                   </li>
                   <div th:if="${not #lists.isEmpty(myFavorites)}">

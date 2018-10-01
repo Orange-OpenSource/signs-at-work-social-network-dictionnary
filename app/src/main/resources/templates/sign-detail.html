@@ -59,7 +59,7 @@
                     </li>
                   <li class="clear aside_bckg_li">
                     <a th:href="@{/sec/sign/} + ${signView.id} + '/definition'">
-                      <div class="pull-left"></div>
+                      <div class="pull-left definition_signe"></div>
                       <div th:if="${signView.textDefinition == null} and ${signView.videoDefinition == null}">
                         <h2 id="definition" class="container_H2" th:text="#{sign.definition-empty}"/>
                         <div>
@@ -77,7 +77,7 @@
                     <div th:if="${isVideoCreatedByMe}">
                       <li class="aside_bckg_li">
                           <a data-target="#replace"    data-toggle="modal" href="#">
-                              <div class="pull-left replace_signe"></div>
+                              <div class="pull-left replace_signe_blue"></div>
                               <h2 class="container_H2" th:text="#{sign.redo}"/>
                               <div>
                                   <div class="pull-right chevron_right"/>

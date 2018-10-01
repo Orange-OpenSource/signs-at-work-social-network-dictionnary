@@ -1352,14 +1352,14 @@ text-decoration-line: none;
 	width: 40px;
 }
 
-.duplicate_signe{
+/*.duplicate_signe{
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -1043px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 44px;
   width: 24px;
-}
+}*/
 
 /*.delete_signe{
   background-image: url("/img/new_sprite_picto_400X400.png");
@@ -1388,7 +1388,7 @@ text-decoration-line: none;
 }*/
 
 
-.favorite_signe_white{
+/*.favorite_signe_white{
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -2373px center;
   background-repeat: no-repeat;
@@ -1397,7 +1397,7 @@ text-decoration-line: none;
   width: 30px;
   margin-right: 20px;
 
-}
+}*/
 /*.favorite_signe_black{
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -588px center;

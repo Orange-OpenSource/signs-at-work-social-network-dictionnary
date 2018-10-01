@@ -424,6 +424,36 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 24px;
 }
 
+.new_favorite_signe_white{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2550px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.new_favorite_signe_blue{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2015px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 37px;
+  width: 24px;
+}
+
+.favorite_signe_white{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2369px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 30px;
+  margin-right: 20px;
+
+}
+
 #signs-container{
   margin-top: 15px;
 }
@@ -918,7 +948,7 @@ input[type=file] {
 
 /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 #definition{
-  margin-left: 0px;
+  margin-left: 15px;
 }
 
 .history_signe {
@@ -930,13 +960,32 @@ input[type=file] {
   width: 24px;
 }
 
-.replace_signe {
+.definition_signe {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1801px center;
+  background-position: -2106px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 47px;
   width: 24px;
+}
+
+.replace_signe_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1799px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 47px;
+  width: 24px;
+}
+
+.replace_signe_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2001px center;
+  background-repeat: no-repeat;
+  background-size: auto 26px;
+  height: 45px;
+  width: 26px;
+  margin-right: 20px;
 }
 
 .delete_picto_detail {
@@ -1021,9 +1070,15 @@ input[type=file] {
   background-repeat: no-repeat;
 }
 
+.duplicate_favorite_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1043px center;
+  background-repeat: no-repeat;
+}
+
 .delete_favorite_blue{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -442px center;
+  background-position: -2153px center;
   background-repeat: no-repeat;
 }
 
@@ -1032,15 +1087,24 @@ input[type=file] {
 /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
 .rename_favorite_white{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -371px center;
+  background-position: -2579px center;
   background-repeat: no-repeat;
 }
 /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
+/* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
+.duplicate_favorite_white{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2607px center;
+  background-repeat: no-repeat;
+}
+/* End Fenêtre modale Renommer Liste id=duplicate_favorite */
+
+
 /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
 .delete_favorite_white{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -442px center;
+  background-position: -2717px center;
   background-repeat: no-repeat;
 }
 /* End Fenêtre modale Renommer Liste id=delete_favorite */
