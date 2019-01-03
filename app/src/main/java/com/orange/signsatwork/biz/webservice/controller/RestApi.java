@@ -33,6 +33,11 @@ public class RestApi {
 
   public static final String WS_SEC_CLOSE = WS_SEC + "close";
 
+
+  public static final String WS_SEC_SIGNS = WS_SEC + "signs";
+  public static final String WS_SEC_VIDEOS = WS_SEC + "signs/{signId}/videos";
+  public static final String WS_SEC_VIDEO = WS_SEC + "signs/{signId}/videos/{videoId}";
+
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
   public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";
 
