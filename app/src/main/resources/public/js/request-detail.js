@@ -41,8 +41,8 @@ function onPrioriseRequest(id){
 
 function onDeleteRequest(id){
   $.ajax({
-    url: "/ws/sec/request/"+ id +"/delete",
-    type: 'post',
+    url: "/ws/sec/request/"+ id,
+    type: 'delete',
     success: function(response) {
       $('#delete_request').modal('hide');
       $("#confirm_delete").modal('show');

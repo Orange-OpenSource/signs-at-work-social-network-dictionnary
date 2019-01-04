@@ -26,11 +26,14 @@ import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.AuthTokenInfo;
 import com.orange.signsatwork.biz.domain.Request;
+import com.orange.signsatwork.biz.domain.Requests;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
+import com.orange.signsatwork.biz.view.model.RequestView;
 import com.orange.signsatwork.biz.webservice.model.RequestResponse;
+import com.orange.signsatwork.biz.webservice.model.RequestViewApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -44,7 +47,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -152,7 +157,7 @@ public class RequestRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_REQUEST_DELETE, method = RequestMethod.POST)
+  @RequestMapping(value = RestApi.WS_SEC_REQUEST_DELETE, method = RequestMethod.DELETE)
   public String  requestDeleted(@PathVariable long requestId, HttpServletResponse response) {
     String dailymotionId;
     Request request = services.request().withId(requestId);
@@ -189,5 +194,32 @@ public class RequestRestController {
     restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
 
     return;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_REQUESTS)
+  public List<RequestViewApi> requests(@PathVariable long userId) {
+
+    Requests queryRequests = services.request().requestsforUser(userId);
+    List<RequestViewApi> myrequestsViewApi = new ArrayList<>();
+    List<RequestViewApi> myrequestsViewApiWithSignAssociate = queryRequests.stream().filter(request -> request.sign != null).map(request -> new RequestViewApi(request)).collect(Collectors.toList());
+    List<RequestViewApi> myrequestsViewApiWithoutSignAssociate = queryRequests.stream().filter(request -> request.sign == null).map(request -> new RequestViewApi(request.id, request.name, request.requestTextDescription, request.requestVideoDescription, request.requestDate, request.user.username, request.user.firstName, request.user.lastName)).collect(Collectors.toList());
+    myrequestsViewApi.addAll(myrequestsViewApiWithSignAssociate);
+    myrequestsViewApi.addAll(myrequestsViewApiWithoutSignAssociate);
+
+
+    return  myrequestsViewApi;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_REQUEST)
+  public RequestViewApi request(@PathVariable long userId, @PathVariable long requestId) {
+
+    Request request = services.request().withId(requestId);
+    if (request.sign == null) {
+      return new RequestViewApi(request.id, request.name, request.requestTextDescription, request.requestVideoDescription, request.requestDate, request.user.username, request.user.firstName, request.user.lastName);
+    } else {
+      return new RequestViewApi(request);
+    }
   }
 }

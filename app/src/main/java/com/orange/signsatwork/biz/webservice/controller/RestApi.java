@@ -37,6 +37,8 @@ public class RestApi {
   public static final String WS_SEC_SIGNS = WS_SEC + "signs";
   public static final String WS_SEC_VIDEOS = WS_SEC + "signs/{signId}/videos";
   public static final String WS_SEC_VIDEO = WS_SEC + "signs/{signId}/videos/{videoId}";
+  public static final String WS_SEC_REQUESTS = WS_SEC + "users/{userId}/requests";
+  public static final String WS_SEC_REQUEST = WS_SEC + "users/{userId}/requests/{requestId}";
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
   public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";
@@ -47,7 +49,7 @@ public class RestApi {
 
   public static final String WS_SEC_REQUEST_PRIORISE = WS_SEC + "request/{requestId}/priorise";
 
-  public static final String WS_SEC_REQUEST_DELETE = WS_SEC + "request/{requestId}/delete";
+  public static final String WS_SEC_REQUEST_DELETE = WS_SEC + "request/{requestId}";
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD = WS_SEC + "uploadRecordedVideoFile";
 
