@@ -31,17 +31,18 @@ import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
-import com.orange.signsatwork.biz.view.model.RequestView;
+import com.orange.signsatwork.biz.webservice.model.RequestCreationViewApi;
 import com.orange.signsatwork.biz.webservice.model.RequestResponse;
 import com.orange.signsatwork.biz.webservice.model.RequestViewApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -49,6 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -197,29 +199,130 @@ public class RequestRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_REQUESTS)
-  public List<RequestViewApi> requests(@PathVariable long userId) {
+  @RequestMapping(value = RestApi.WS_SEC_MY_REQUESTS)
+  public ResponseEntity<?> myRequests(@RequestParam("sort") Optional<String> sort, Principal principal) {
 
-    Requests queryRequests = services.request().requestsforUser(userId);
-    List<RequestViewApi> myrequestsViewApi = new ArrayList<>();
-    List<RequestViewApi> myrequestsViewApiWithSignAssociate = queryRequests.stream().filter(request -> request.sign != null).map(request -> new RequestViewApi(request)).collect(Collectors.toList());
-    List<RequestViewApi> myrequestsViewApiWithoutSignAssociate = queryRequests.stream().filter(request -> request.sign == null).map(request -> new RequestViewApi(request.id, request.name, request.requestTextDescription, request.requestVideoDescription, request.requestDate, request.user.username, request.user.firstName, request.user.lastName)).collect(Collectors.toList());
-    myrequestsViewApi.addAll(myrequestsViewApiWithSignAssociate);
-    myrequestsViewApi.addAll(myrequestsViewApiWithoutSignAssociate);
+    User user = services.user().withUserName(principal.getName());
 
+    String messageError;
+    List<Request> requests = new ArrayList<>();
+    Requests queryRequests = new Requests(requests);
+    List<RequestViewApi> myRequestsViewApi = new ArrayList<>();
+    if (sort.isPresent()) {
+      if (sort.get().equals("name")) {
+        queryRequests = services.request().myRequestAlphabeticalOrderAsc(user.id);
+      } else if (sort.get().equals("-name")) {
+        queryRequests = services.request().myRequestAlphabeticalOrderDesc(user.id);
+      } else if (sort.get().equals("date")) {
+        queryRequests = services.request().myRequestMostRecent(user.id);
+      } else if (sort.get().equals("-date")) {
+        queryRequests = services.request().myRequestlowRecent(user.id);
+      } else {
+        messageError = "Filter sort="+sort.get()+" doesn't exists";
+        return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
+      }
+      myRequestsViewApi.addAll(queryRequests.stream().map(request -> new RequestViewApi(request)).collect(Collectors.toList()));
+    } else {
+      queryRequests = services.request().requestsforUser(user.id);
+      List<RequestViewApi> myrequestsViewApiWithSignAssociate = queryRequests.stream().filter(request -> request.sign != null).map(request -> new RequestViewApi(request)).collect(Collectors.toList());
+      List<RequestViewApi> myrequestsViewApiWithoutSignAssociate = queryRequests.stream().filter(request -> request.sign == null).map(request -> new RequestViewApi(request)).collect(Collectors.toList());
+      myRequestsViewApi.addAll(myrequestsViewApiWithSignAssociate);
+      myRequestsViewApi.addAll(myrequestsViewApiWithoutSignAssociate);
+    }
 
-    return  myrequestsViewApi;
+    return  new ResponseEntity<>(myRequestsViewApi, HttpStatus.OK);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_OTHER_REQUESTS)
+  public ResponseEntity<?> otherRequests(@RequestParam("sort") Optional<String> sort, Principal principal) {
+
+    User user = services.user().withUserName(principal.getName());
+
+    String messageError;
+    List<Request> requests = new ArrayList<>();
+    Requests queryRequests = new Requests(requests);
+    List<RequestViewApi> otherRequestsViewApi = new ArrayList<>();
+    if (sort.isPresent()) {
+      if (sort.get().equals("name")) {
+        queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderAsc(user.id);
+      } else if (sort.get().equals("-name")) {
+        queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderDesc(user.id);
+      } else if (sort.get().equals("date")) {
+        queryRequests = services.request().otherRequestWithNoSignMostRecent(user.id);
+      } else if (sort.get().equals("-date")) {
+        queryRequests = services.request().otherRequestWithNoSignlowRecent(user.id);
+      } else {
+        messageError = "Filter sort="+sort.get()+" doesn't exists";
+        return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
+      }
+      otherRequestsViewApi.addAll(queryRequests.stream().map(request -> new RequestViewApi(request)).collect(Collectors.toList()));
+    } else {
+      return new ResponseEntity<>("Only Filter sort=name, sort=-name, sort=date and sort=-date are allowed", HttpStatus.BAD_REQUEST);
+    }
+
+    return  new ResponseEntity<>(otherRequestsViewApi, HttpStatus.OK);
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST)
-  public RequestViewApi request(@PathVariable long userId, @PathVariable long requestId) {
+  public RequestViewApi request(@PathVariable long requestId) {
 
     Request request = services.request().withId(requestId);
-    if (request.sign == null) {
-      return new RequestViewApi(request.id, request.name, request.requestTextDescription, request.requestVideoDescription, request.requestDate, request.user.username, request.user.firstName, request.user.lastName);
-    } else {
-      return new RequestViewApi(request);
-    }
+
+    return new RequestViewApi(request);
+
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_REQUEST, method = RequestMethod.PUT)
+  public RequestResponse modifyRequest(@RequestBody RequestCreationViewApi requestCreationViewApi, @PathVariable long requestId, HttpServletResponse response, Principal principal) {
+    RequestResponse requestResponse = new RequestResponse();
+    Request request = services.request().withId(requestId);
+    User user = services.user().withUserName(principal.getName());
+    if (request.user.id != user.id) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      requestResponse.errorType = 0;
+      requestResponse.errorMessage = messageByLocaleService.getMessage("updateRequestForbiden");
+      return requestResponse;
+    }
+
+    if ((requestCreationViewApi.getName() != null) && !request.name.equals(requestCreationViewApi.getName())) {
+      if (services.sign().withName(requestCreationViewApi.getName()).list().isEmpty()) {
+        if (services.request().withName(requestCreationViewApi.getName()).list().isEmpty()) {
+          services.request().updateName(requestId, requestCreationViewApi.getName());
+          log.info("renameRequest:  request name  = {} / request textDescription = {} ", requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription());
+
+        } else {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          requestResponse.errorType = 1;
+          requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+          return requestResponse;
+        }
+      } else {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        requestResponse.errorType = 2;
+        requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+        requestResponse.signId = services.sign().withName(requestCreationViewApi.getName()).list().get(0).id;
+        return requestResponse;
+      }
+
+    }
+
+    if ((requestCreationViewApi.getTextDescription() != null)) {
+      services.request().changeRequestTextDescription(requestId, requestCreationViewApi.getTextDescription());
+    }
+
+    if ((requestCreationViewApi.getVideoDescription() != null)) {
+      services.request().changeRequestVideoDescription(requestId, requestCreationViewApi.getVideoDescription());
+    }
+
+    if ((requestCreationViewApi.getDate() != null)) {
+      services.request().updateDate(requestId, requestCreationViewApi.getDate());
+    }
+
+    requestResponse.requestId = request.id;
+    return requestResponse;
+  }
+
 }

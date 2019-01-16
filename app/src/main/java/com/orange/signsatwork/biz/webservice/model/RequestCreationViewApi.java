@@ -22,44 +22,20 @@ package com.orange.signsatwork.biz.webservice.model;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Getter
+@NoArgsConstructor
 @AllArgsConstructor
-
-public class RequestViewApi {
-  private long id;
+@Getter
+@Setter
+public class RequestCreationViewApi {
   private String name;
   private String textDescription;
   private String videoDescription;
   private Date date;
-  private Long signId;
-  private String signName;
-  private String userName;
-
-
-  public RequestViewApi(Request request) {
-    if (request.sign != null) {
-      this.id = request.id;
-      this.name = request.name;
-      this.textDescription = request.requestTextDescription;
-      this.videoDescription = request.requestVideoDescription;
-      this.date = request.requestDate;
-      this.signId = request.sign.id;
-      this.signName = request.sign.name;
-      this.userName = request.user.name();
-    } else {
-      this.id = request.id;
-      this.name = request.name;
-      this.textDescription = request.requestTextDescription;
-      this.videoDescription = request.requestVideoDescription;
-      this.date = request.requestDate;
-      this.userName = request.user.name();
-    }
-  }
-
 }

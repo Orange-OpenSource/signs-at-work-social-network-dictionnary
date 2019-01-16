@@ -37,7 +37,7 @@
               th:text="#{request.description(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
         </div>
       </div>
-      <form id="requestInfo" th:action="@{/ws/sec/request/create}" th:object="${requestCreationView}" method="post">
+      <form id="requestInfo" th:action="@{/ws/sec/requests}" th:object="${requestCreationView}" method="post">
         <div class="modal-body text-center">
           <input th:field="*{requestName}" id="requestName" name="requestName" type="text"
                  class="text-center border form-control" style="display: none"/><br/>

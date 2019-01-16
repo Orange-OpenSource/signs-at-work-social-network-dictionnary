@@ -272,4 +272,24 @@ public class RequestServiceImpl implements RequestService {
   public Requests otherRequestWithNoSignAlphabeticalOrderAsc(long userId) {
     return requestsFrom(requestRepository.findOtherRequestWithNoSignAlphabeticalOrderAsc(userRepository.findOne(userId)));
   }
+
+  @Override
+  public Request updateName(long requestId, String requestName) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setName(requestName);
+    requestRepository.save(requestDB);
+
+    return requestFrom(requestDB, services);
+  }
+
+  @Override
+  public Request updateDate(long requestId, Date requestDate) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setRequestDate(requestDate);
+    requestRepository.save(requestDB);
+
+    return requestFrom(requestDB, services);
+  }
 }

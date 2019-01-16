@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.domain.Requests;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RequestService {
@@ -80,4 +81,8 @@ public interface RequestService {
   Requests otherRequestWithNoSignAlphabeticalOrderAsc(long userId);
 
   Requests otherRequestWithNoSignAlphabeticalOrderDesc(long userId);
+
+  Request updateName(long requestId, String requestName);
+
+  Request updateDate(long requestId, Date requestDate);
 }
