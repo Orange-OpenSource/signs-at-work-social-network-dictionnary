@@ -36,6 +36,5 @@ import java.util.Date;
 public class RequestCreationViewApi {
   private String name;
   private String textDescription;
-  private String videoDescription;
   private Date date;
 }

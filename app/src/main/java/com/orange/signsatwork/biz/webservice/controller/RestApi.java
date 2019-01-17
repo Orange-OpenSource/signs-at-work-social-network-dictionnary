@@ -41,7 +41,9 @@ public class RestApi {
   public static final String WS_SEC_OTHER_REQUESTS = WS_SEC + "users/other/requests";
   public static final String WS_SEC_REQUEST = WS_SEC + "requests/{requestId}";
   public static final String WS_SEC_REQUEST_CREATE = WS_SEC + "requests";
-  public static final String WS_SEC_REQUEST_DELETE = WS_SEC + "requests/{requestId}";
+  public static final String WS_SEC_REQUESTS = WS_SEC + "requests";
+  public static final String WS_SEC_MY_FAVORITES = WS_SEC + "users/me/favorites";
+  public static final String WS_SEC_FAVORITE = WS_SEC + "favorites/{favoriteId}";
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
   public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";
