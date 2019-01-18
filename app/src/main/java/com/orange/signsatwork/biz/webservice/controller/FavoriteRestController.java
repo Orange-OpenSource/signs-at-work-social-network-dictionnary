@@ -80,7 +80,7 @@ public class FavoriteRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_MY_FAVORITES)
-  public ResponseEntity<?> myRequests(Principal principal) {
+  public ResponseEntity<?> myFavorites(Principal principal) {
 
     User user = services.user().withUserName(principal.getName());
 
@@ -92,6 +92,25 @@ public class FavoriteRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITE)
   public ResponseEntity<?> favorite(@PathVariable long favoriteId, Principal principal) {
+
+    String messageError;
+    User user = services.user().withUserName(principal.getName());
+    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+
+    boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
+    if (!isFavoriteBelowToMe) {
+      messageError = messageByLocaleService.getMessage("favorite_not_below_to_you");
+      return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
+    }
+
+    FavoriteModalView myFavorite = FavoriteModalView.from(services.favorite().withId(favoriteId));
+
+    return  new ResponseEntity<>(myFavorite, HttpStatus.OK);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITES_VIDEOS)
+  public ResponseEntity<?> videosFavorite(@PathVariable long favoriteId, Principal principal) {
 
     String messageError;
     User user = services.user().withUserName(principal.getName());

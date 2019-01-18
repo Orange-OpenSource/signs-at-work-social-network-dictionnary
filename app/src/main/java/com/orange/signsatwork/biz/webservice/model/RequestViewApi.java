@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 @Getter
@@ -62,4 +63,22 @@ public class RequestViewApi {
     }
   }
 
+  public RequestViewApi(Object[] queryResultItem) {
+    String t = toString(queryResultItem[1]);
+    String idString = t.substring(t.lastIndexOf("/")+1);
+
+    id = Long.parseLong(idString);
+    name = toString(queryResultItem[0]);
+  }
+
+  private String toString(Object o) {
+    return (String) o;
+  }
+
+  private long toLong(Object o) {
+    if (o == null) {
+      return 0;
+    };
+    return ((BigInteger)o).longValue();
+  }
 }

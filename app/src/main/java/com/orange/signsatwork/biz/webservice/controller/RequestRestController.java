@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.RequestViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageService;
@@ -278,6 +279,40 @@ public class RequestRestController {
 
     return  new ResponseEntity<>(otherRequestsViewApi, HttpStatus.OK);
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_REQUESTS)
+  public ResponseEntity<?> allRequests(@RequestParam("name") String name, Principal principal) {
+
+    User user = services.user().withUserName(principal.getName());
+
+    String messageError;
+
+    if (name.isEmpty()) {
+      messageError = messageByLocaleService.getMessage("field_name_is_empty");
+      return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
+    }
+
+    List<RequestViewApi> requestsWithSameName = new ArrayList<>();
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(name, user.id);
+    List<RequestViewApi> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
+      .map(objectArray -> new RequestViewApi(objectArray))
+      .collect(Collectors.toList());
+    requestsWithSameName.addAll(requestViewDatasWithNoAssociateSign);
+
+
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(name, user.id);
+    List<RequestViewApi> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
+      .map(objectArray -> new RequestViewApi(objectArray))
+      .collect(Collectors.toList());
+    requestsWithSameName.addAll(requestViewDatasWithAssociateSign);
+
+    List<RequestViewApi> allRequestsWithSameName = requestsWithSameName.stream().map(requestViewApi -> new RequestViewApi(services.request().withId(requestViewApi.getId()))).collect(Collectors.toList());
+
+
+    return  new ResponseEntity<>(allRequestsWithSameName, HttpStatus.OK);
+  }
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST)
