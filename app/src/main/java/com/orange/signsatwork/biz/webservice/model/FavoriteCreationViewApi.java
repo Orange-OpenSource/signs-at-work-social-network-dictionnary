@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.domain;
+package com.orange.signsatwork.biz.webservice.model;
 
 /*
  * #%L
@@ -22,29 +22,19 @@ package com.orange.signsatwork.biz.domain;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.persistence.service.SignService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-public class Favorite {
-    public final long id;
-    public final String name;
-    public final FavoriteType type;
-    public final Videos videos;
-
-    private final Services services;
-
-
-  public Favorite loadVideos() {
-    return videos != null ?
-      this :
-      new Favorite(id, name, type, services.video().forFavorite(id), services);
-  }
-
-  public List<Long> videosIds() {
-    return videos != null ? videos.ids() : null;
-  }
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class FavoriteCreationViewApi {
+  private String name;
+  private List<Long> videosIds;
+  private Long videoIdToAdd;
 }

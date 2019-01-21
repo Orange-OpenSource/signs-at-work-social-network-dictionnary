@@ -28,10 +28,9 @@ import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.view.model.FavoriteModalView;
-import com.orange.signsatwork.biz.view.model.SignCreationView;
-import com.orange.signsatwork.biz.view.model.VideoView2;
-import com.orange.signsatwork.biz.view.model.VideosViewSort;
+import com.orange.signsatwork.biz.view.model.*;
+import com.orange.signsatwork.biz.webservice.model.FavoriteCreationViewApi;
+import com.orange.signsatwork.biz.webservice.model.FavoriteViewApi;
 import com.orange.signsatwork.biz.webservice.model.SignId;
 import com.orange.signsatwork.biz.webservice.model.SignView;
 import lombok.extern.slf4j.Slf4j;
@@ -84,7 +83,7 @@ public class FavoriteRestController {
 
     User user = services.user().withUserName(principal.getName());
 
-    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
 
     return  new ResponseEntity<>(myFavorites, HttpStatus.OK);
   }
@@ -95,7 +94,7 @@ public class FavoriteRestController {
 
     String messageError;
     User user = services.user().withUserName(principal.getName());
-    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
 
     boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
     if (!isFavoriteBelowToMe) {
@@ -103,7 +102,7 @@ public class FavoriteRestController {
       return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
     }
 
-    FavoriteModalView myFavorite = FavoriteModalView.from(services.favorite().withId(favoriteId));
+    FavoriteViewApi myFavorite = FavoriteViewApi.from(services.favorite().withId(favoriteId));
 
     return  new ResponseEntity<>(myFavorite, HttpStatus.OK);
   }
@@ -114,7 +113,7 @@ public class FavoriteRestController {
 
     String messageError;
     User user = services.user().withUserName(principal.getName());
-    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
 
     boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
     if (!isFavoriteBelowToMe) {
@@ -154,7 +153,7 @@ public class FavoriteRestController {
 
     String messageError;
     User user = services.user().withUserName(principal.getName());
-    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
 
     boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
     if (!isFavoriteBelowToMe) {
@@ -166,6 +165,60 @@ public class FavoriteRestController {
     services.favorite().delete(favorite);
 
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITES, method = RequestMethod.POST)
+  public ResponseEntity<?> createFavorite(@RequestBody FavoriteCreationViewApi favoriteCreationViewApi, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+
+    Favorite favorite = services.favorite().create(user.id, favoriteCreationViewApi.getName());
+
+    if (favoriteCreationViewApi.getVideoIdToAdd() != null) {
+      services.favorite().changeFavoriteVideos(favorite.id, java.util.Arrays.asList(favoriteCreationViewApi.getVideoIdToAdd()));
+    }
+
+    return new ResponseEntity<>(HttpStatus.OK);
+
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITE, method = RequestMethod.PUT)
+  public ResponseEntity<?> updateFavorite(@RequestBody FavoriteCreationViewApi favoriteCreationViewApi, @PathVariable long favoriteId, Principal principal) {
+
+    String messageError;
+    User user = services.user().withUserName(principal.getName());
+    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
+
+    boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
+    if (!isFavoriteBelowToMe) {
+      messageError = messageByLocaleService.getMessage("favorite_not_below_to_you");
+      return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
+    }
+
+    Favorite favorite = services.favorite().withId(favoriteId);
+    if (favoriteCreationViewApi.getName() != null) {
+      if (favorite.name != favoriteCreationViewApi.getName()) {
+        services.favorite().updateName(favoriteId, favoriteCreationViewApi.getName());
+      }
+    }
+
+    if (favoriteCreationViewApi.getVideosIds() != null) {
+      services.favorite().changeFavoriteVideos(favorite.id, favoriteCreationViewApi.getVideosIds());
+    } else {
+      if (favoriteCreationViewApi.getVideoIdToAdd() != null) {
+        Long videoIdToAdd = favoriteCreationViewApi.getVideoIdToAdd();
+        favorite = favorite.loadVideos();
+        List<Long> videosIds = favorite.videosIds();
+        if (!videosIds.contains(videoIdToAdd)) {
+          videosIds.add(videoIdToAdd);
+          services.favorite().changeFavoriteVideos(favorite.id, videosIds);
+        }
+      }
+    }
+
+    return new ResponseEntity<>(HttpStatus.OK);
+
   }
 
 }
