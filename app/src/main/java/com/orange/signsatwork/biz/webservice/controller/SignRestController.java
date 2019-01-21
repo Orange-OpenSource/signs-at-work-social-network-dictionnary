@@ -345,4 +345,52 @@ public class SignRestController {
       return "/sign/" + signId + "/" + videoId;
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEO_DELETE, method = RequestMethod.DELETE)
+  public String deleteApiVideo(@PathVariable long signId, @PathVariable long videoId, HttpServletResponse response) {
+    String dailymotionId;
+    Sign sign = services.sign().withId(signId);
+    if (sign.videos.list().size() == 1) {
+      Request request = services.sign().requestForSign(sign);
+      if (request != null) {
+        if (request.requestVideoDescription != sign.videoDefinition) {
+          String dailymotionIdForSignDefinition;
+          dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          }
+        }
+      }
+
+      services.sign().delete(sign);
+      dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
+      response.setStatus(HttpServletResponse.SC_OK);
+      return "/";
+
+    } else {
+      Video video = services.video().withId(videoId);
+      services.video().delete(video);
+      dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
+      response.setStatus(HttpServletResponse.SC_OK);
+      return "/sign/" + signId;
+    }
+  }
+
 }

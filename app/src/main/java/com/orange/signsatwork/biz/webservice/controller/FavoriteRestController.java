@@ -29,9 +29,7 @@ import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.*;
-import com.orange.signsatwork.biz.webservice.model.FavoriteCreationViewApi;
-import com.orange.signsatwork.biz.webservice.model.FavoriteViewApi;
-import com.orange.signsatwork.biz.webservice.model.SignId;
+import com.orange.signsatwork.biz.webservice.model.*;
 import com.orange.signsatwork.biz.webservice.model.SignView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,27 +147,30 @@ public class FavoriteRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITE, method = RequestMethod.DELETE)
-  public ResponseEntity<?> deleteFavorite(@PathVariable long favoriteId, Principal principal)  {
+  public FavoriteResponseApi deleteFavorite(@PathVariable long favoriteId, HttpServletResponse response, Principal principal)  {
 
-    String messageError;
+    FavoriteResponseApi favoriteResponseApi = new FavoriteResponseApi();
     User user = services.user().withUserName(principal.getName());
     List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
 
     boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
     if (!isFavoriteBelowToMe) {
-      messageError = messageByLocaleService.getMessage("favorite_not_below_to_you");
-      return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite_not_below_to_you");
+      return favoriteResponseApi;
     }
 
     Favorite favorite = services.favorite().withId(favoriteId);
     services.favorite().delete(favorite);
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    response.setStatus(HttpServletResponse.SC_OK);
+    return favoriteResponseApi;
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITES, method = RequestMethod.POST)
-  public ResponseEntity<?> createFavorite(@RequestBody FavoriteCreationViewApi favoriteCreationViewApi, Principal principal) {
+  public FavoriteResponseApi createFavorite(@RequestBody FavoriteCreationViewApi favoriteCreationViewApi, HttpServletResponse response, Principal principal) {
+    FavoriteResponseApi favoriteResponseApi = new FavoriteResponseApi();
     User user = services.user().withUserName(principal.getName());
 
     Favorite favorite = services.favorite().create(user.id, favoriteCreationViewApi.getName());
@@ -178,22 +179,24 @@ public class FavoriteRestController {
       services.favorite().changeFavoriteVideos(favorite.id, java.util.Arrays.asList(favoriteCreationViewApi.getVideoIdToAdd()));
     }
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    response.setStatus(HttpServletResponse.SC_OK);
+    return favoriteResponseApi;
 
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITE, method = RequestMethod.PUT)
-  public ResponseEntity<?> updateFavorite(@RequestBody FavoriteCreationViewApi favoriteCreationViewApi, @PathVariable long favoriteId, Principal principal) {
+  public FavoriteResponseApi updateFavorite(@RequestBody FavoriteCreationViewApi favoriteCreationViewApi, @PathVariable long favoriteId, HttpServletResponse response, Principal principal) {
 
-    String messageError;
+    FavoriteResponseApi favoriteResponseApi = new FavoriteResponseApi();
     User user = services.user().withUserName(principal.getName());
     List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
 
     boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
     if (!isFavoriteBelowToMe) {
-      messageError = messageByLocaleService.getMessage("favorite_not_below_to_you");
-      return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite_not_below_to_you");
+      return favoriteResponseApi;
     }
 
     Favorite favorite = services.favorite().withId(favoriteId);
@@ -217,7 +220,8 @@ public class FavoriteRestController {
       }
     }
 
-    return new ResponseEntity<>(HttpStatus.OK);
+    response.setStatus(HttpServletResponse.SC_OK);
+    return favoriteResponseApi;
 
   }
 

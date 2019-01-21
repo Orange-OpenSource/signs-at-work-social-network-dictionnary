@@ -56,6 +56,7 @@ public class RestApi {
   public static final String WS_SEC_REQUEST_RENAME = WS_SEC + "request/{requestId}/rename";
 
   public static final String WS_SEC_REQUEST_PRIORISE = WS_SEC + "request/{requestId}/priorise";
+  public static final String WS_SEC_REQUEST_DELETE = WS_SEC + "requests/{requestId}/delete";
 
 
 
