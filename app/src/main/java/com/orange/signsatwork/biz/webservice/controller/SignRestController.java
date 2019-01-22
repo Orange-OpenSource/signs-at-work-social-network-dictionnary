@@ -30,21 +30,26 @@ import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import com.orange.signsatwork.biz.persistence.service.UserService;
+import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.controller.CommentOrderComparator;
 import com.orange.signsatwork.biz.view.model.*;
-import com.orange.signsatwork.biz.webservice.model.SignId;
+import com.orange.signsatwork.biz.webservice.model.*;
 import com.orange.signsatwork.biz.webservice.model.SignView;
 import com.orange.signsatwork.biz.webservice.model.VideoView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -66,7 +71,12 @@ public class SignRestController {
   private SpringRestClient springRestClient;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+  @Autowired
+  private StorageService storageService;
 
+  String REST_SERVICE_URI = "https://api.dailymotion.com";
+  String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
+  String VIDEO_EMBED_FIELD = "embed_url";
 
   @RequestMapping(value = RestApi.WS_OPEN_SIGN + "/{id}")
   public SignView sign(@PathVariable long id) {
@@ -75,8 +85,99 @@ public class SignRestController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEO_DELETE, method = RequestMethod.POST)
+  public String deleteVideo(@PathVariable long signId, @PathVariable long videoId, HttpServletResponse response) {
+    String dailymotionId;
+    Sign sign = services.sign().withId(signId);
+    if (sign.videos.list().size() == 1) {
+      Request request = services.sign().requestForSign(sign);
+      if (request != null) {
+        if (request.requestVideoDescription != sign.videoDefinition) {
+          String dailymotionIdForSignDefinition;
+          dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          }
+        }
+      }
+
+      services.sign().delete(sign);
+      dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
+      response.setStatus(HttpServletResponse.SC_OK);
+      return "/";
+
+    } else {
+      Video video = services.video().withId(videoId);
+      services.video().delete(video);
+      dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
+      response.setStatus(HttpServletResponse.SC_OK);
+      return "/sign/" + signId;
+    }
+  }
+
+  private void DeleteVideoOnDailyMotion(String dailymotionId) {
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    final String uri = "https://api.dailymotion.com/video/"+dailymotionId;
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+    MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    headers.add("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+
+    HttpEntity<?> request = new HttpEntity<Object>(headers);
+
+    restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
+
+    return;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEO_ASSOCIATE, method = RequestMethod.POST)
+  public String associateVideo(@RequestBody List<Long> associateVideosIds, @PathVariable long signId, @PathVariable long videoId) {
+    services.video().changeVideoAssociates(videoId, associateVideosIds);
+
+    log.info("Change video (id={}) associates, ids={}", videoId, associateVideosIds);
+    return "/sign/" + signId + "/" + videoId;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_SIGN_CREATE, method = RequestMethod.POST)
+  public SignId createSign(@RequestBody SignCreationView signCreationView, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+    Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
+
+    log.info("createSign: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
+
+    return new SignId(sign.id);
+  }
+
+  /** API REST For Android and IOS **/
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEOS)
-  public List<VideoView2> videos(@PathVariable long signId, Principal principal) {
+  public ResponseEntity<?> videos(@PathVariable long signId, Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
     List<VideoViewData> videoViewsData = querySigns.stream()
@@ -101,33 +202,38 @@ public class SignRestController {
     VideosViewSort videosViewSort = new VideosViewSort();
     videoViews = videosViewSort.sort(videoViews);
 
-    return videoViews;
+    return new ResponseEntity<>(videoViews, HttpStatus.OK);
 
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEO)
-  public VideoView video(@PathVariable long signId, @PathVariable long videoId, Principal principal) {
+  public ResponseEntity<?>  video(@PathVariable long videoId, Principal principal) {
     Boolean isVideoCreatedByMe = false;
     Boolean isVideoBelowToFavorite = false;
     Boolean isVideoHasAveragePositiveRate = false;
 
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
-    Sign sign = services.sign().withIdSignsView(signId);
+
+
     Video video = services.video().withId(videoId);
-    String signTextDefinition = sign.textDefinition;
-    String signVideoDefinition = sign.videoDefinition;
+    List<Object[]> querySigns = services.video().SignForVideo(videoId);
+    SignData signData = new SignData(querySigns.get(0));
+
+    String signTextDefinition = signData.textDefinition;
+    String signVideoDefinition = signData.videoDefinition;
 
     String videoName;
-    if ((video.idForName == 0) || (sign.nbVideo == 1 )){
-      videoName = sign.name;
+    if ((video.idForName == 0) || (signData.nbVideo == 1 )){
+      videoName = signData.name;
     } else {
-      videoName = sign.name + " (" + video.idForName + ")";
+      videoName = signData.name + " (" + video.idForName + ")";
     }
 
     Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);
     RatingData ratingData = new RatingData(queryRating);
+
     List<Object[]> queryAllComments = services.video().AllCommentsForVideo(videoId);
     List<CommentData> commentDatas = queryAllComments.stream()
       .map(objectArray -> new CommentData(objectArray))
@@ -144,14 +250,14 @@ public class SignRestController {
       isVideoHasAveragePositiveRate = true;
     }
 
-    Long nbRating = services.sign().NbRatingForSign(signId);
+    Long nbRating = services.sign().NbRatingForSign(signData.id);
 
-    List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
+    List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signData.id);
     List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
       .map(objectArray -> new VideoHistoryData(objectArray))
       .collect(Collectors.toList());
 
-    return new VideoView(signId, signTextDefinition, signVideoDefinition, videoId, videoName, video.url, isVideoCreatedByMe, isVideoHasAveragePositiveRate, isVideoBelowToFavorite, ratingData, commentDatas, nbRating, videoHistoryDatas);
+    return new ResponseEntity<>(new VideoView(signData.id, signTextDefinition, signVideoDefinition, videoId, videoName, video.url, isVideoCreatedByMe, isVideoHasAveragePositiveRate, isVideoBelowToFavorite, ratingData, commentDatas, nbRating, videoHistoryDatas), HttpStatus.OK);
   }
 
   private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoBelowToFavorite, User user) {
@@ -168,7 +274,7 @@ public class SignRestController {
   @RequestMapping(value = RestApi.WS_SEC_SIGNS)
   public ResponseEntity<?> signs(@RequestParam("sort") Optional<String> sort, Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
-    List<Object[]> querySigns = new ArrayList<>();
+    List<Object[]> querySigns;
     List<Long> signWithRatingList = new ArrayList<>();
     String messageError;
 
@@ -256,22 +362,35 @@ public class SignRestController {
   }
 
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_SIGN_CREATE, method = RequestMethod.POST)
-  public SignId createSign(@RequestBody SignCreationView signCreationView, Principal principal) {
-    User user = services.user().withUserName(principal.getName());
-    Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
 
-    log.info("createSign: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
 
-    return new SignId(sign.id);
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_VIDEO_DELETE, method = RequestMethod.POST)
-  public String deleteVideo(@PathVariable long signId, @PathVariable long videoId, HttpServletResponse response) {
+  @Secured("ROLE_USER_A")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEO, method = RequestMethod.DELETE)
+  public VideoResponseApi deleteApiVideo(@PathVariable long videoId, HttpServletResponse response, Principal principal) {
+    VideoResponseApi videoResponseApi = new VideoResponseApi();
     String dailymotionId;
-    Sign sign = services.sign().withId(signId);
+
+    if (!AuthentModel.hasRole("ROLE_USER_A")) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+      return videoResponseApi;
+    }
+
+    User user = services.user().withUserName(principal.getName());
+    Videos videos = services.video().forUser(user.id);
+
+    boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
+    if (!isVideoBellowToMe) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("video_not_below_to_you");
+      return videoResponseApi;
+    }
+
+    Video video = services.video().withId(videoId);
+    List<Object[]> querySigns = services.video().SignForVideo(videoId);
+    SignData signData = new SignData(querySigns.get(0));
+
+    Sign sign = services.sign().withId(signData.id);
     if (sign.videos.list().size() == 1) {
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
@@ -282,7 +401,8 @@ public class SignRestController {
             DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
           } catch (Exception errorDailymotionDeleteVideo) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            return videoResponseApi;
           }
         }
       }
@@ -291,31 +411,106 @@ public class SignRestController {
       dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
       try {
         DeleteVideoOnDailyMotion(dailymotionId);
-      }
-      catch (Exception errorDailymotionDeleteVideo) {
+      } catch (Exception errorDailymotionDeleteVideo) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        return videoResponseApi;
       }
       response.setStatus(HttpServletResponse.SC_OK);
-      return "/";
+      return videoResponseApi;
 
     } else {
-      Video video = services.video().withId(videoId);
       services.video().delete(video);
       dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
       try {
         DeleteVideoOnDailyMotion(dailymotionId);
-      }
-      catch (Exception errorDailymotionDeleteVideo) {
+      } catch (Exception errorDailymotionDeleteVideo) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        return videoResponseApi;
       }
       response.setStatus(HttpServletResponse.SC_OK);
-      return "/sign/" + signId;
+      return videoResponseApi;
     }
   }
 
-  private void DeleteVideoOnDailyMotion(String dailymotionId) {
+
+    @Secured("ROLE_USER_A")
+    @RequestMapping(value = RestApi.WS_SEC_SIGNS, method = RequestMethod.POST, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
+    public VideoResponseApi createVideo(@RequestPart("file") Optional<MultipartFile> file,
+    @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+      VideoResponseApi videoResponseApi = new VideoResponseApi();
+
+      if (!AuthentModel.hasRole("ROLE_USER_A")) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        videoResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+        return videoResponseApi;
+      }
+
+      if (!services.sign().withName(signCreationViewApi.getSignName()).list().isEmpty()) {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        videoResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+        videoResponseApi.signId = services.sign().withName(signCreationViewApi.getSignName()).list().get(0).id;
+        return videoResponseApi;
+      }
+
+      return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+    }
+
+  @Secured("ROLE_USER_A")
+  @RequestMapping(value = RestApi.WS_SEC_SIGN_VIDEO, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
+  public VideoResponseApi updateVideo(@PathVariable Long signId, @PathVariable Long videoId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    VideoResponseApi videoResponseApi = new VideoResponseApi();
+
+    if (!AuthentModel.hasRole("ROLE_USER_A")) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+      return videoResponseApi;
+    }
+
+    User user = services.user().withUserName(principal.getName());
+    Videos videos = services.video().forUser(user.id);
+
+    boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
+    if (!isVideoBellowToMe) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("video_not_below_to_you");
+      return videoResponseApi;
+    }
+
+    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationViewApi, principal, response);
+  }
+
+  @Secured("ROLE_USER_A")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEOS, method = RequestMethod.POST, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
+  public VideoResponseApi addVideo(@PathVariable long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+
+    VideoResponseApi videoResponseApi = new VideoResponseApi();
+
+    if (!AuthentModel.hasRole("ROLE_USER_A")) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+      return videoResponseApi;
+    }
+
+    Long nbRating = services.sign().NbRatingForSign(signId);
+    if (nbRating == 0) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("sign_with_no_rate");
+      return videoResponseApi;
+    }
+
+    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationViewApi, principal, response);
+  }
+
+  private VideoResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
+
+    VideoResponseApi videoResponseApi = new VideoResponseApi();
+    try {
+      String dailymotionId;
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
@@ -323,74 +518,113 @@ public class SignRestController {
         authTokenInfo = dalymotionToken.getAuthTokenInfo();
       }
 
-      final String uri = "https://api.dailymotion.com/video/"+dailymotionId;
+      User user = services.user().withUserName(principal.getName());
+      storageService.store(file);
+      File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+
+      UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
+
+
+      Resource resource = new FileSystemResource(inputFile.getAbsolutePath());
+      MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
+      parts.add("file", resource);
+
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
 
-      MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-      headers.add("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-      HttpEntity<?> request = new HttpEntity<Object>(headers);
 
-      restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
+      HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
 
-      return;
-  }
+      ResponseEntity<FileUploadDailymotion> responseDailyMotion = restTemplate.exchange(urlfileUploadDailymotion.upload_url,
+        HttpMethod.POST, requestEntity, FileUploadDailymotion.class);
+      FileUploadDailymotion fileUploadDailyMotion = responseDailyMotion.getBody();
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_VIDEO_ASSOCIATE, method = RequestMethod.POST)
-  public String associateVideo(@RequestBody List<Long> associateVideosIds, @PathVariable long signId, @PathVariable long videoId) {
-    services.video().changeVideoAssociates(videoId, associateVideosIds);
 
-    log.info("Change video (id={}) associates, ids={}", videoId, associateVideosIds);
-      return "/sign/" + signId + "/" + videoId;
-  }
+      MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+      body.add("url", fileUploadDailyMotion.url);
+      if (signId.isPresent()) {
+        body.add("title", services.sign().withId(signId.getAsLong()).name);
+      } else {
+        body.add("title", signCreationViewApi.getSignName());
+      }
+      body.add("channel", "tech");
+      body.add("published", true);
+      body.add("private", true);
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_VIDEO_DELETE, method = RequestMethod.DELETE)
-  public String deleteApiVideo(@PathVariable long signId, @PathVariable long videoId, HttpServletResponse response) {
-    String dailymotionId;
-    Sign sign = services.sign().withId(signId);
-    if (sign.videos.list().size() == 1) {
-      Request request = services.sign().requestForSign(sign);
-      if (request != null) {
-        if (request.requestVideoDescription != sign.videoDefinition) {
-          String dailymotionIdForSignDefinition;
-          dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-          try {
-            DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
-          } catch (Exception errorDailymotionDeleteVideo) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-          }
+
+      RestTemplate restTemplate1 = springRestClient.buildRestTemplate();
+      HttpHeaders headers1 = new HttpHeaders();
+      headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers1.set("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+      headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+      HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+        HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
+      VideoDailyMotion videoDailyMotion = response1.getBody();
+
+
+      String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+      int i=0;
+      do {
+        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+        Thread.sleep(2 * 1000);
+        if (i > 30) {
+          break;
         }
+        i++;
+      }
+      while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
+
+
+      String pictureUri = null;
+      if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+        pictureUri = videoDailyMotion.thumbnail_360_url;
+        log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
       }
 
-      services.sign().delete(sign);
-      dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
+      if (!videoDailyMotion.embed_url.isEmpty()) {
+        signCreationViewApi.setVideoUrl(videoDailyMotion.embed_url);
+        log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
       }
-      catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-      }
-      response.setStatus(HttpServletResponse.SC_OK);
-      return "/";
 
-    } else {
-      Video video = services.video().withId(videoId);
-      services.video().delete(video);
-      dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
+      Sign sign;
+      if (signId.isPresent() && (videoId.isPresent())) {
+        sign = services.sign().withId(signId.getAsLong());
+        dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        }
+        catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return videoResponseApi;
+        }
+        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), signCreationViewApi.getVideoUrl(), pictureUri);
+      } else if (signId.isPresent() && !(videoId.isPresent())) {
+        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), signCreationViewApi.getVideoUrl(), pictureUri);
+      } else {
+        sign = services.sign().create(user.id, signCreationViewApi.getSignName(), signCreationViewApi.getVideoUrl(), pictureUri);
       }
-      catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+
+      log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationViewApi.getSignName(), signCreationViewApi.getVideoUrl());
+
+      if (requestId.isPresent()) {
+        services.request().changeSignRequest(requestId.getAsLong(), sign.id);
       }
+
       response.setStatus(HttpServletResponse.SC_OK);
-      return "/sign/" + signId;
+      videoResponseApi.signId = sign.id;
+      return videoResponseApi;
+
+    } catch (Exception errorDailymotionUploadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionUploadFile");
+      return videoResponseApi;
     }
   }
 
-}
+
+  }

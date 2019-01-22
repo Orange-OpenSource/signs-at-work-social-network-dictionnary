@@ -29,6 +29,7 @@ import com.orange.signsatwork.biz.persistence.model.RequestViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageService;
+import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import com.orange.signsatwork.biz.view.model.SignCreationView;
 import com.orange.signsatwork.biz.webservice.model.RequestCreationViewApi;
@@ -584,15 +585,21 @@ public class RequestRestController {
     }
   }
 
-  @Secured("ROLE_USER")
+  @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_SIGNS, method = RequestMethod.POST,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
   public RequestResponseApi createSignAssociateToRequest(@RequestPart("file") MultipartFile file, @PathVariable long requestId, @RequestPart("data") SignCreationView signCreationView, HttpServletResponse response, Principal principal) throws InterruptedException {
 
     RequestResponseApi requestResponseApi = new RequestResponseApi();
+    if (!AuthentModel.hasRole("ROLE_USER_A")) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      requestResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+      return requestResponseApi;
+    }
+
     Request request = services.request().withId(requestId);
     User user = services.user().withUserName(principal.getName());
 
-    if (request.user.id != user.id) {
+    if (request.user.id == user.id) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       requestResponseApi.errorMessage = messageByLocaleService.getMessage("dont_create_sign_on_your_request");
       return requestResponseApi;
@@ -604,11 +611,7 @@ public class RequestRestController {
       requestResponseApi.signId = services.sign().withName(signCreationView.getSignName()).list().get(0).id;
       return requestResponseApi;
     }
-    if (!services.request().withName(signCreationView.getSignName()).list().isEmpty()) {
-      response.setStatus(HttpServletResponse.SC_CONFLICT);
-      requestResponseApi.errorMessage = messageByLocaleService.getMessage("request.already_exists");
-      return requestResponseApi;
-    }
+
 
     return handleSelectedVideoFileUpload(file,  OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
   }

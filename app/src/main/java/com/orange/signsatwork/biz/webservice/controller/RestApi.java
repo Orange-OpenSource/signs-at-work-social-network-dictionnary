@@ -33,10 +33,10 @@ public class RestApi {
 
   public static final String WS_SEC_CLOSE = WS_SEC + "close";
 
-
+  /** API REST For Android and IOS **/
   public static final String WS_SEC_SIGNS = WS_SEC + "signs";
   public static final String WS_SEC_VIDEOS = WS_SEC + "signs/{signId}/videos";
-  public static final String WS_SEC_VIDEO = WS_SEC + "signs/{signId}/videos/{videoId}";
+  public static final String WS_SEC_VIDEO = WS_SEC + "videos/{videoId}";
   public static final String WS_SEC_MY_REQUESTS = WS_SEC + "users/me/requests";
   public static final String WS_SEC_OTHER_REQUESTS = WS_SEC + "users/other/requests";
   public static final String WS_SEC_REQUEST = WS_SEC + "requests/{requestId}";
@@ -47,6 +47,8 @@ public class RestApi {
   public static final String WS_SEC_FAVORITES_VIDEOS = WS_SEC + "favorites/{favoriteId}/videos";
   public static final String WS_SEC_FAVORITES = WS_SEC + "favorites";
   public static final String WS_SEC_REQUEST_SIGNS = WS_SEC + "requests/{requestId}/signs";
+  public static final String WS_SEC_SIGN_VIDEO = WS_SEC + "signs/{signId}/videos/{videoId}";
+  /** Fin API REST For Android and IOS **/
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
   public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";

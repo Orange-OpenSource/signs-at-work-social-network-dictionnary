@@ -75,6 +75,7 @@ public class FavoriteRestController {
     return "/sec/favorite/" + favoriteId;
   }
 
+  /** API REST For Android and IOS **/
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_MY_FAVORITES)
   public ResponseEntity<?> myFavorites(Principal principal) {
