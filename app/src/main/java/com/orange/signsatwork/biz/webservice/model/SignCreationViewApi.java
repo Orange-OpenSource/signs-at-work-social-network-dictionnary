@@ -32,6 +32,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SignCreationViewApi {
-  private String signName;
-  private String videoUrl;
+  private String name;
+  private String textDefinition;
 }
