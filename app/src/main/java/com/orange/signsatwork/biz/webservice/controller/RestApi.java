@@ -48,6 +48,8 @@ public class RestApi {
   public static final String WS_SEC_FAVORITES = WS_SEC + "favorites";
   public static final String WS_SEC_REQUEST_SIGNS = WS_SEC + "requests/{requestId}/signs";
   public static final String WS_SEC_SIGN_VIDEO = WS_SEC + "signs/{signId}/videos/{videoId}";
+  public static final String WS_SEC_COMMENTS = WS_SEC + "videos/{videoId}/comments";
+  public static final String WS_SEC_RATINGS = WS_SEC + "videos/{videoId}/ratings";
   /** Fin API REST For Android and IOS **/
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";

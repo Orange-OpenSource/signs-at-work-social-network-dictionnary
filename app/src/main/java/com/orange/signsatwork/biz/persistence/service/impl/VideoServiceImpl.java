@@ -276,4 +276,9 @@ public class VideoServiceImpl implements VideoService {
   public List<Object[]> SignForVideo(long videoId) {
     return videoRepository.findSignForVideo(videoId);
   }
+
+  @Override
+  public List<Object[]> AllRatingsForVideo(long videoId) {
+    return videoRepository.allRatingsForVideo(videoId);
+  }
 }

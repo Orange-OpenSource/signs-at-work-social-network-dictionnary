@@ -67,4 +67,7 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select a.sign_id, b.name, b.nb_video, b.text_definition, b.video_definition from videos a inner join signs b on b.id = a.sign_id and a.id =  :videoId", nativeQuery = true)
     List<Object[]> findSignForVideo(@Param("videoId") long videoId);
 
+    @Query(value="select a.rating, a.rating_date, b.username, b.first_name, b.last_name from ratings a inner join userdb b on a.user_id = b.id and a.video_id = :videoId", nativeQuery = true)
+    List<Object[]> allRatingsForVideo(@Param("videoId") long videoId);
+
 }
