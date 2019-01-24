@@ -35,7 +35,8 @@ public class RestApi {
 
   /** API REST For Android and IOS **/
   public static final String WS_SEC_SIGNS = WS_SEC + "signs";
-  public static final String WS_SEC_VIDEOS = WS_SEC + "signs/{signId}/videos";
+  public static final String WS_SEC_SIGNS_VIDEOS = WS_SEC + "signs/{signId}/videos";
+  public static final String WS_SEC_VIDEOS = WS_SEC + "videos";
   public static final String WS_SEC_VIDEO = WS_SEC + "videos/{videoId}";
   public static final String WS_SEC_MY_REQUESTS = WS_SEC + "users/me/requests";
   public static final String WS_SEC_OTHER_REQUESTS = WS_SEC + "users/other/requests";
@@ -61,7 +62,7 @@ public class RestApi {
   public static final String WS_SEC_REQUEST_RENAME = WS_SEC + "request/{requestId}/rename";
 
   public static final String WS_SEC_REQUEST_PRIORISE = WS_SEC + "request/{requestId}/priorise";
-  public static final String WS_SEC_REQUEST_DELETE = WS_SEC + "requests/{requestId}/delete";
+  public static final String WS_SEC_REQUEST_DELETE = WS_SEC + "request/{requestId}/delete";
 
 
 

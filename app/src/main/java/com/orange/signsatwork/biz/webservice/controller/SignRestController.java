@@ -176,8 +176,8 @@ public class SignRestController {
   /** API REST For Android and IOS **/
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_VIDEOS)
-  public ResponseEntity<?> videos(@PathVariable long signId, Principal principal) {
+  @RequestMapping(value = RestApi.WS_SEC_SIGNS_VIDEOS)
+  public ResponseEntity<?> videosForSign(@PathVariable long signId, Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
     List<VideoViewData> videoViewsData = querySigns.stream()
@@ -205,6 +205,20 @@ public class SignRestController {
     return new ResponseEntity<>(videoViews, HttpStatus.OK);
 
   }
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEOS)
+  public ResponseEntity<?> videos() {
+    List<Object[]> querySigns = services.sign().AllVideosForAllSigns();
+    List<VideoViewData> videoViewsData = querySigns.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+
+    return new ResponseEntity<>(videoViewsData, HttpStatus.OK);
+
+  }
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEO)
@@ -272,7 +286,7 @@ public class SignRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SIGNS)
-  public ResponseEntity<?> signs(@RequestParam("sort") Optional<String> sort, Principal principal) {
+  public ResponseEntity<?> signs(@RequestParam("sort") Optional<String> sort, @RequestParam("name") Optional<String> name,  Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns;
     List<Long> signWithRatingList = new ArrayList<>();
@@ -335,10 +349,19 @@ public class SignRestController {
           .collect(Collectors.toList());
       }
     } else {
-      List<Long> finalSignInFavorite2 = signInFavorite;
-      signViews = signViewsData.stream()
-        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite2, user))
-        .collect(Collectors.toList());
+      if (name.isPresent()) {
+        Signs signs = services.sign().search(name.get());
+        List<Long> finalSignInFavorite3 = signInFavorite;
+        signViews = signs.stream()
+          .map(sign -> buildSignView(sign, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite3, user))
+          .collect(Collectors.toList());
+
+      } else {
+        List<Long> finalSignInFavorite2 = signInFavorite;
+        signViews = signViewsData.stream()
+          .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite2, user))
+          .collect(Collectors.toList());
+      }
     }
 
 
@@ -361,6 +384,15 @@ public class SignRestController {
       signInFavorite.contains(signViewData.id));
   }
 
+  private SignView2 buildSignView(Sign sign, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<Long> signInFavorite, User user) {
+    return new SignView2(
+      sign,
+      signWithCommentList.contains(sign.id),
+      SignView2.createdAfterLastDeconnection(sign.createDate, user == null ? null : user.lastDeconnectionDate),
+      signWithView.contains(sign.id),
+      signWithPositiveRate.contains(sign.id),
+      signInFavorite.contains(sign.id));
+  }
 
 
 
@@ -484,7 +516,7 @@ public class SignRestController {
   }
 
   @Secured("ROLE_USER_A")
-  @RequestMapping(value = RestApi.WS_SEC_VIDEOS, method = RequestMethod.POST, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
+  @RequestMapping(value = RestApi.WS_SEC_SIGNS_VIDEOS, method = RequestMethod.POST, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
   public VideoResponseApi addVideo(@PathVariable long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
 
