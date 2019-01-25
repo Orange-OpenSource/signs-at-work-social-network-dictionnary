@@ -34,6 +34,8 @@ public class RestApi {
   public static final String WS_SEC_CLOSE = WS_SEC + "close";
 
   /** API REST For Android and IOS **/
+  public static final String WS_SEC_USER = WS_SEC + "users/me";
+  public static final String WS_SEC_MY_VIDEOS = WS_SEC + "users/me/videos";
   public static final String WS_SEC_SIGNS = WS_SEC + "signs";
   public static final String WS_SEC_SIGNS_VIDEOS = WS_SEC + "signs/{signId}/videos";
   public static final String WS_SEC_VIDEOS = WS_SEC + "videos";

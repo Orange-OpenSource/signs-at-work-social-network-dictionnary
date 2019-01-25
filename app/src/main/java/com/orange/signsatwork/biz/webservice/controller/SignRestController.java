@@ -775,6 +775,29 @@ public class SignRestController {
     }
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_MY_VIDEOS)
+  public ResponseEntity<?> myVideos(Principal principal) {
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+
+    List<Object[]> queryVideos = services.video().AllVideosCreateByUser(user.id);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
+
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
+      .collect(Collectors.toList());
+
+    VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);
+
+
+    return new ResponseEntity<>(videoViews, HttpStatus.OK);
+
+  }
 
 
 
