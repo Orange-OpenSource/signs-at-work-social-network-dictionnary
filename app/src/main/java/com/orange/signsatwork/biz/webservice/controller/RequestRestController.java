@@ -361,7 +361,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST, method = RequestMethod.PUT,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
-  public RequestResponseApi modifyRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") RequestCreationViewApi requestCreationViewApi, @PathVariable long requestId, HttpServletResponse response, Principal principal) throws InterruptedException {
+  public RequestResponseApi modifyRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<RequestCreationViewApi> requestCreationViewApi, @PathVariable long requestId, HttpServletResponse response, Principal principal) throws InterruptedException {
     RequestResponseApi requestResponseApi = new RequestResponseApi();
     Request request = services.request().withId(requestId);
     User user = services.user().withUserName(principal.getName());
@@ -371,32 +371,35 @@ public class RequestRestController {
       return requestResponseApi;
     }
 
-    if ((requestCreationViewApi.getName() != null) && !request.name.equals(requestCreationViewApi.getName())) {
-      if (services.sign().withName(requestCreationViewApi.getName()).list().isEmpty()) {
-        if (services.request().withName(requestCreationViewApi.getName()).list().isEmpty()) {
-          services.request().updateName(requestId, requestCreationViewApi.getName());
-          log.info("renameRequest:  request name  = {} / request textDescription = {} ", requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription());
+    if (requestCreationViewApi.isPresent()) {
+      if ((requestCreationViewApi.get().getName() != null) && !request.name.equals(requestCreationViewApi.get().getName())) {
+        if (services.sign().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
+          if (services.request().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
+            services.request().updateName(requestId, requestCreationViewApi.get().getName());
+            log.info("renameRequest:  request name  = {} / request textDescription = {} ", requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription());
 
+          } else {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            requestResponseApi.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+            return requestResponseApi;
+          }
         } else {
           response.setStatus(HttpServletResponse.SC_CONFLICT);
-          requestResponseApi.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+          requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+          requestResponseApi.signId = services.sign().withName(requestCreationViewApi.get().getName()).list().get(0).id;
           return requestResponseApi;
         }
-      } else {
-        response.setStatus(HttpServletResponse.SC_CONFLICT);
-        requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
-        requestResponseApi.signId = services.sign().withName(requestCreationViewApi.getName()).list().get(0).id;
-        return requestResponseApi;
+
       }
 
-    }
+      if ((requestCreationViewApi.get().getTextDescription() != null)) {
+        services.request().changeRequestTextDescription(requestId, requestCreationViewApi.get().getTextDescription());
+      }
 
-    if ((requestCreationViewApi.getTextDescription() != null)) {
-      services.request().changeRequestTextDescription(requestId, requestCreationViewApi.getTextDescription());
-    }
+      if ((requestCreationViewApi.get().getDate() != null)) {
+        services.request().updateDate(requestId, requestCreationViewApi.get().getDate());
+      }
 
-    if ((requestCreationViewApi.getDate() != null)) {
-      services.request().updateDate(requestId, requestCreationViewApi.getDate());
     }
 
     if (file.isPresent()) {
@@ -448,7 +451,7 @@ public class RequestRestController {
           return requestResponseApi;
 
     } else {
-      return createRequestWithVideoFileForRequestDescription(file.get(), 0, requestCreationViewApi, principal, response);
+      return createRequestWithVideoFileForRequestDescription(file.get(), 0,  Optional.empty(), principal, response);
     }
 
   }
@@ -456,7 +459,7 @@ public class RequestRestController {
 
 
 
-  private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationViewApi requestCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
     {
       Request request = null;
       RequestResponseApi requestResponseApi = new RequestResponseApi();
@@ -474,6 +477,9 @@ public class RequestRestController {
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
+        if (requestId != 0) {
+          request = services.request().withId(requestId);
+        }
 
         Resource resource = new FileSystemResource(inputFile.getAbsolutePath());
         MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
@@ -494,7 +500,11 @@ public class RequestRestController {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
-        body.add("title", "Description LSF de la demande " + requestCreationViewApi.getName());
+        if (requestId != 0) {
+          body.add("title", "Description LSF de la demande " + request.name);
+        } else {
+          body.add("title", "Description LSF de la demande " + requestCreationViewApi.get().getName());
+        }
         body.add("channel", "tech");
         body.add("published", true);
         body.add("private", true);
@@ -528,7 +538,6 @@ public class RequestRestController {
         String title, bodyMail;
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (requestId != 0) {
-            request = services.request().withId(requestId);
             if (request.requestVideoDescription != null) {
               dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
               try {
@@ -543,10 +552,10 @@ public class RequestRestController {
             services.request().changeRequestVideoDescription(requestId, videoDailyMotion.embed_url);
 
           } else {
-            if (services.sign().withName(requestCreationViewApi.getName()).list().isEmpty()) {
-              if (services.request().withName(requestCreationViewApi.getName()).list().isEmpty()) {
-                request = services.request().create(user.id, requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription(), videoDailyMotion.embed_url);
-                log.info("createRequest: username = {} / request name = {}", user.username, requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription());
+            if (services.sign().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
+              if (services.request().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
+                request = services.request().create(user.id, requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription(), videoDailyMotion.embed_url);
+                log.info("createRequest: username = {} / request name = {}", user.username, requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription());
                 emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
                 title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
                 bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
@@ -566,7 +575,7 @@ public class RequestRestController {
             } else {
               response.setStatus(HttpServletResponse.SC_CONFLICT);
               requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
-              requestResponseApi.signId = services.sign().withName(requestCreationViewApi.getName()).list().get(0).id;
+              requestResponseApi.signId = services.sign().withName(requestCreationViewApi.get().getName()).list().get(0).id;
               return requestResponseApi;
             }
             log.warn("handleSelectedVideoFileUploadForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
