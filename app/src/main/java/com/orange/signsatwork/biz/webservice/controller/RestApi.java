@@ -36,6 +36,7 @@ public class RestApi {
   /** API REST For Android and IOS **/
   public static final String WS_SEC_USER = WS_SEC + "users/me";
   public static final String WS_SEC_MY_VIDEOS = WS_SEC + "users/me/videos";
+  public static final String WS_SEC_USER_VIDEOS = WS_SEC + "users/{userId}/videos";
   public static final String WS_SEC_SIGNS = WS_SEC + "signs";
   public static final String WS_SEC_SIGNS_VIDEOS = WS_SEC + "signs/{signId}/videos";
   public static final String WS_SEC_VIDEOS = WS_SEC + "videos";
@@ -54,6 +55,8 @@ public class RestApi {
   public static final String WS_SEC_COMMENTS = WS_SEC + "videos/{videoId}/comments";
   public static final String WS_SEC_RATINGS = WS_SEC + "videos/{videoId}/ratings";
   public static final String WS_SEC_SIGN = WS_SEC + "signs/{signId}";
+  public static final String WS_SEC_MY_COMMUNITIES = WS_SEC + "users/me/communities";
+  public static final String WS_SEC_COMMUNITY_USERS = WS_SEC + "communities/{communityId}/users";
   /** Fin API REST For Android and IOS **/
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
