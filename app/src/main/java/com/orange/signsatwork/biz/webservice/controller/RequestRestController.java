@@ -403,7 +403,7 @@ public class RequestRestController {
     }
 
     if (file.isPresent()) {
-      return createRequestWithVideoFileForRequestDescription(file.get(), requestId, requestCreationViewApi, principal, response);
+      return createRequestWithVideoFileForRequestDescription(file.get(), requestId, Optional.empty(), principal, response);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -451,7 +451,7 @@ public class RequestRestController {
           return requestResponseApi;
 
     } else {
-      return createRequestWithVideoFileForRequestDescription(file.get(), 0,  Optional.empty(), principal, response);
+      return createRequestWithVideoFileForRequestDescription(file.get(), 0,  Optional.of(requestCreationViewApi) , principal, response);
     }
 
   }
