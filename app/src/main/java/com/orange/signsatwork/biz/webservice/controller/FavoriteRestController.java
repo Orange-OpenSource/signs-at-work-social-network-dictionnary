@@ -181,6 +181,7 @@ public class FavoriteRestController {
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
+    favoriteResponseApi.favoriteId = favorite.id;
     return favoriteResponseApi;
 
   }

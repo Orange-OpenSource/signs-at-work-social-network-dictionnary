@@ -27,6 +27,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class FavoriteResponseApi {
+  public long favoriteId;
   public String errorMessage;
-
 }
