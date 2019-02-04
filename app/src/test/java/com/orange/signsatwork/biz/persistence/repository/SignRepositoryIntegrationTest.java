@@ -34,6 +34,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.thymeleaf.TemplateEngine;
 
 import java.io.IOException;
 import java.util.Date;
@@ -49,7 +50,8 @@ public class SignRepositoryIntegrationTest {
 
   @MockBean
   public JavaMailSender emailSender;
-
+  @MockBean
+  TemplateEngine templateEngine;
 
   @Autowired
   private TestEntityManager entityManager;
