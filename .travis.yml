@@ -1,4 +1,7 @@
-language: java
+matrix:
+include:
+
+-language: java
 
 dist: trusty
 sudo: false
@@ -13,14 +16,6 @@ script: ./.ci.sh
 cache:
   directories: $HOME/.m2
 
-notifications:
-  email:
-    on_success: change
-    on_failure: always
-    recipients:
-    - christophe.maldivi@orange.com
-    - denis.boisset@orange.com
-    - manuel1.sanchez@orange.com
 
 before_deploy:
 - export ARTEFACT=$(ls *.jar)
@@ -35,3 +30,25 @@ deploy:
   on:
     tags: true
     repo: Orange-OpenSource/signs-at-work-social-network-dictionnary
+
+-language: node_js
+node_js:
+  - "8.2.1"
+
+install:
+  - npm install newman
+
+before_script:
+  - node --version
+  - npm --version
+  - node_modules/bin/newman.js --version
+
+script:
+- node_modules/bin/newman.js run testsAPI/Favorite.postman_collection.json -e testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+    recipients:
+    - denis.boisset@orange.com
