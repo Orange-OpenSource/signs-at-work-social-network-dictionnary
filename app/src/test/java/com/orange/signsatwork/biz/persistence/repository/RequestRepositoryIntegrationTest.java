@@ -24,6 +24,8 @@ package com.orange.signsatwork.biz.persistence.repository;
 
 import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.repository.RequestRepository;
+import com.orange.signsatwork.biz.persistence.service.Services;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RequestRepositoryIntegrationTest {
 
   @Autowired
+  Services services;
+  @Autowired
   private TestEntityManager entityManager;
 
   @Autowired
@@ -60,6 +64,10 @@ public class RequestRepositoryIntegrationTest {
   private String request3Name = "chatcloud";
   Date requestDate = new Date();
 
+  @Before
+  public void setup() {
+    services.clearPersistence();
+  }
 
   @Test
   public void returnAllPersisted() throws IOException {
