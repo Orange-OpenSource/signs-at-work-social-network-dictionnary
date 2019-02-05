@@ -59,7 +59,7 @@ public class RequestRepositoryIntegrationTest {
   TemplateEngine templateEngine;
 
 
-  private String request1Name = "chat";
+  private String request1Name = "chatBis";
   private String request2Name = "cloud";
   private String request3Name = "chatcloud";
   Date requestDate = new Date();

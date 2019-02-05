@@ -56,7 +56,7 @@ public class UserRepositoryIntegrationTest {
   @Autowired
   Services services;
 
-  private String username1 = "Duchess";
+  private String username1 = "DuchessBis";
   private String password1 = "1234";
   private String firstName1 = "Duchess";
   private String lastName1 = "Aristocats";
