@@ -45,7 +45,7 @@ before_script:
   - node_modules/.bin/newman --version
 
 script:
-- node_modules/.bin/newman run testsAPI/Favorite.postman_collection.json -e testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
+- node_modules/.bin/newman run app/testsAPI/Favorite.postman_collection.json -e app/testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
 
 notifications:
   email:
