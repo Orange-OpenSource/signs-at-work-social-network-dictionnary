@@ -19,7 +19,8 @@ before_script:
 
 script:
   - ./.ci.sh
-  - nohup java -jar app/target/*.jar &
+  - ls -l app/target
+  - nohup java -jar app/target/sign*.jar &
   - ./wait-for-it.sh -t 0 localhost:8080 -- echo "signsatwork is up"
   - node_modules/.bin/newman run app/testsAPI/Favorite.postman_collection.json -e app/testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
 
