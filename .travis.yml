@@ -1,17 +1,27 @@
-matrix:
-include:
-
--language: java
+language: java
 
 dist: trusty
 sudo: false
 
 jdk:
 - oraclejdk8
+node_js:
+  - "8.2.1"
 
-install: true
+install:
+  - npm install newman
 
-script: ./.ci.sh
+before_script:
+  - node --version
+  - npm --version
+  - ls -la node_modules
+  - node_modules/.bin/newman --version
+
+script:
+  - ./.ci.sh
+  - nohup java -jar app/target/*.jar &
+  - ./wait-for-it.sh -t 0 localhost:8080 -- echo "signsatwork is up"
+  - node_modules/.bin/newman run app/testsAPI/Favorite.postman_collection.json -e app/testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
 
 cache:
   directories: $HOME/.m2
@@ -30,24 +40,6 @@ deploy:
   on:
     tags: true
     repo: Orange-OpenSource/signs-at-work-social-network-dictionnary
-
--language: node_js
-node_js:
-  - "8.2.1"
-
-install:
-  - npm install newman
-
-before_script:
-  - node --version
-  - npm --version
-  - ls -la node_modules
-  - node_modules/.bin/newman --version
-
-script:
-- nohup java -jar app/target/*.jar &
-- ./wait-for-it.sh -t 0 localhost:8080 -- echo "signsatwork is up"
-- node_modules/.bin/newman run app/testsAPI/Favorite.postman_collection.json -e app/testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
 
 notifications:
   email:
