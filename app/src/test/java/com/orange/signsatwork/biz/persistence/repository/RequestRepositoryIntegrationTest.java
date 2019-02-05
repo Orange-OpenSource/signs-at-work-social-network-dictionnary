@@ -57,6 +57,7 @@ public class RequestRepositoryIntegrationTest {
 
   private String request1Name = "chat";
   private String request2Name = "cloud";
+  private String request3Name = "chatcloud";
   Date requestDate = new Date();
 
 
@@ -86,10 +87,10 @@ public class RequestRepositoryIntegrationTest {
   public void createRequest() {
     // given
     // do
-    entityManager.persist(new RequestDB(request1Name, requestDate));
-    RequestDB request1 = requestRepository.findByName(request1Name).get(0);
+    entityManager.persist(new RequestDB(request3Name, requestDate));
+    RequestDB request3 = requestRepository.findByName(request3Name).get(0);
     // then
-    assertThat(request1.getName()).isEqualTo(request1Name);
-    assertThat(request1.getRequestDate()).isEqualTo(requestDate);
+    assertThat(request3.getName()).isEqualTo(request3Name);
+    assertThat(request3.getRequestDate()).isEqualTo(requestDate);
   }
 }

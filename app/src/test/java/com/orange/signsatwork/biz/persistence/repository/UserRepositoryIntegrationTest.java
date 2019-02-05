@@ -79,6 +79,17 @@ public class UserRepositoryIntegrationTest {
   private String jobTextDescription2 = "blu blu blu";
   private String jobVideoDescription2 = "job2.mp4";
 
+  private String username3 = "ThomasBis";
+  private String password3 = "4321";
+  private String firstName3 = "Thomas";
+  private String lastName3 = "O'Malley";
+  private String nameVideo3 = "name2.mp4";
+  private String email3 = "gangster@cats.com";
+  private String entity3 = "MOUSE";
+  private String job3 = "Gangster";
+  private String jobTextDescription3 = "blu blu blu";
+  private String jobVideoDescription3 = "job2.mp4";
+
 
   @Before
   public void setup() {
@@ -131,18 +142,18 @@ public class UserRepositoryIntegrationTest {
   public void createUser() {
     // given
     // do
-    entityManager.persist(new UserDB(username1, password1, firstName1, lastName1, nameVideo1, email1, entity1, job1, jobTextDescription1, jobVideoDescription1));
-    UserDB user1 = userRepository.findByUsername(username1).get(0);
+    entityManager.persist(new UserDB(username3, password3, firstName3, lastName3, nameVideo3, email3, entity3, job3, jobTextDescription3, jobVideoDescription3));
+    UserDB user3 = userRepository.findByUsername(username3).get(0);
     // then
-    assertThat(user1.getUsername()).isEqualTo(username1);
-    assertThat(user1.getPasswordHash()).isEqualTo(password1);
-    assertThat(user1.getFirstName()).isEqualTo(firstName1);
-    assertThat(user1.getLastName()).isEqualTo(lastName1);
-    assertThat(user1.getNameVideo()).isEqualTo(nameVideo1);
-    assertThat(user1.getEmail()).isEqualTo(email1);
-    assertThat(user1.getEntity()).isEqualTo(entity1);
-    assertThat(user1.getJob()).isEqualTo(job1);
-    assertThat(user1.getJobTextDescription()).isEqualTo(jobTextDescription1);
-    assertThat(user1.getJobVideoDescription()).isEqualTo(jobVideoDescription1);
+    assertThat(user3.getUsername()).isEqualTo(username3);
+    assertThat(user3.getPasswordHash()).isEqualTo(password3);
+    assertThat(user3.getFirstName()).isEqualTo(firstName3);
+    assertThat(user3.getLastName()).isEqualTo(lastName3);
+    assertThat(user3.getNameVideo()).isEqualTo(nameVideo3);
+    assertThat(user3.getEmail()).isEqualTo(email3);
+    assertThat(user3.getEntity()).isEqualTo(entity3);
+    assertThat(user3.getJob()).isEqualTo(job3);
+    assertThat(user3.getJobTextDescription()).isEqualTo(jobTextDescription3);
+    assertThat(user3.getJobVideoDescription()).isEqualTo(jobVideoDescription3);
   }
 }
