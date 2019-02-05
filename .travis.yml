@@ -41,10 +41,11 @@ install:
 before_script:
   - node --version
   - npm --version
-  - node_modules/bin/newman.js --version
+  - ls -la node_modules
+  - node_modules/.bin/newman --version
 
 script:
-- node_modules/bin/newman.js run testsAPI/Favorite.postman_collection.json -e testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
+- node_modules/.bin/newman run testsAPI/Favorite.postman_collection.json -e testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
 
 notifications:
   email:
