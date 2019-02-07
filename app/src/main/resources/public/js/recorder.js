@@ -39,6 +39,9 @@ var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
 var counter = 3;
 var t;
+var recorder; // globally accessible
+
+
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -73,6 +76,7 @@ function startRecord() {
     timedCount();
     //window.audioVideoRecorder.startRecording();
   });
+
 }
 
 startRecording.onclick = function() {
@@ -104,7 +108,7 @@ stopRecording.onclick = function() {
   document.getElementById('retry-recording').disabled = false;
   document.getElementById('continue').disabled = false;
   document.getElementById("modal-footer_add_video_file_recording").style.display = "block";
-
+  videoElement.src = videoElement.srcObject = null;
 
   window.audioVideoRecorder.stopRecording(function(url) {
     //downloadURL.innerHTML = '<a href="' + url + '" download="RecordRTC.webm" target="_blank">Save RecordRTC.webm to Disk!</a><hr>';
@@ -139,13 +143,16 @@ function captureUserMedia00(callback) {
     audio: false,
     video: true
   }, function(stream) {
-    videoElement.src = URL.createObjectURL(stream);
+    console.log("function");
+   /* videoElement.src = URL.createObjectURL(stream);*/
+    videoElement.srcObject = stream;
     videoElement.muted = true;
     videoElement.controls = true;
     videoElement.play();
 
     callback(stream);
   }, function(error) {
+    console.log("error "+error.message);
     alert(JSON.stringify(error));
   });
 }
@@ -225,7 +232,7 @@ var $add_video_file_recording = $('#add_video_file_recording');
 $add_video_file_recording.on('hidden.bs.modal', function() {
   console.log("hidden add_video_file_recording modal");
   clearTimeout(t);
-  audioVideoRecorder.clearRecordedData();
+  /*audioVideoRecorder.clearRecordedData();*/
   videoContainer.style.display="none";
   labelRecord.style.display="block";
   labelAfterRecord.style.display="none";
