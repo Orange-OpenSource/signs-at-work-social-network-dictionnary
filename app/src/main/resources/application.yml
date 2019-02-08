@@ -32,7 +32,3 @@ spring:
     host: mailhost.rd.francetelecom.fr
     port: 2525
 
-spring.profiles: ci-h2
-server.port: 8080
-app.proxy.server: proxy-internet.internal.fr
-app.proxy.port : 3128
