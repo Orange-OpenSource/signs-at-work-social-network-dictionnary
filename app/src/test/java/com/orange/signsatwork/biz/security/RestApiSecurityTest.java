@@ -104,7 +104,7 @@ public class RestApiSecurityTest {
     // given
     mockMvc
             // do
-            .perform(post(RestApi.WS_ADMIN_USER_CREATE))
+            .perform(post(RestApi.WS_ADMIN_USERS))
             // then
             .andExpect(status().isUnauthorized());
   }
@@ -114,7 +114,7 @@ public class RestApiSecurityTest {
     // given
     mockMvc
             // do
-            .perform(post(RestApi.WS_ADMIN_USER_CREATE).with(httpBasic(username, password))
+            .perform(post(RestApi.WS_ADMIN_USERS).with(httpBasic(username, password))
             .contentType(MediaType.APPLICATION_JSON)
             .content(bodyForUserCreation()))
             // then
@@ -127,7 +127,7 @@ public class RestApiSecurityTest {
     mockMvc
             // do
             .perform(
-                    post(RestApi.WS_ADMIN_USER_CREATE).with(httpBasic("admin", "adminpassword"))
+                    post(RestApi.WS_ADMIN_USERS).with(httpBasic("admin", "adminpassword"))
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(bodyForUserCreation())
             )
