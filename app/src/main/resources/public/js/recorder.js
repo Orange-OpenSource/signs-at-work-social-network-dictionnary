@@ -39,9 +39,6 @@ var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
 var counter = 3;
 var t;
-var recorder; // globally accessible
-
-
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -76,7 +73,6 @@ function startRecord() {
     timedCount();
     //window.audioVideoRecorder.startRecording();
   });
-
 }
 
 startRecording.onclick = function() {

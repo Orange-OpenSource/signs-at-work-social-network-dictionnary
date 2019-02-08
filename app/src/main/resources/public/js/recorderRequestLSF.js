@@ -104,6 +104,7 @@ stopRecording.onclick = function() {
   document.getElementById('retry-recording').disabled = false;
   document.getElementById('continue').disabled = false;
   document.getElementById("modal-footer_add_video_file_recording").style.display = "block";
+  videoElement.src = videoElement.srcObject = null;
 
   window.audioVideoRecorder.stopRecording(function(url) {
     //downloadURL.innerHTML = '<a href="' + url + '" download="RecordRTC.webm" target="_blank">Save RecordRTC.webm to Disk!</a><hr>';
@@ -138,13 +139,16 @@ function captureUserMedia00(callback) {
     audio: false,
     video: true
   }, function(stream) {
-    videoElement.src = URL.createObjectURL(stream);
+    console.log("function");
+   /* videoElement.src = URL.createObjectURL(stream);*/
+    videoElement.srcObject = stream;
     videoElement.muted = true;
     videoElement.controls = true;
     videoElement.play();
 
     callback(stream);
   }, function(error) {
+    console.log("error "+error.message);
     alert(JSON.stringify(error));
   });
 }

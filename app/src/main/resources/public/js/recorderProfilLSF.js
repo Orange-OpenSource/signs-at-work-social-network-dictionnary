@@ -87,6 +87,7 @@ retryRecording.onclick = function () {
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
     errorSpan.style.visibility="hidden";
   }
+  document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
   startRecord();
 };
 
@@ -102,7 +103,8 @@ stopRecording.onclick = function() {
   document.getElementById('stop-recording').disabled = true;
   document.getElementById('retry-recording').disabled = false;
   document.getElementById('continue').disabled = false;
-
+  document.getElementById("modal-footer_add_video_file_recording").style.display = "block";
+  videoElement.src = videoElement.srcObject = null;
 
   window.audioVideoRecorder.stopRecording(function(url) {
     //downloadURL.innerHTML = '<a href="' + url + '" download="RecordRTC.webm" target="_blank">Save RecordRTC.webm to Disk!</a><hr>';
@@ -132,19 +134,21 @@ cancelRecording.onclick = function() {
 };
 
 
-
 function captureUserMedia00(callback) {
   captureUserMedia({
     audio: false,
     video: true
   }, function(stream) {
-    videoElement.src = URL.createObjectURL(stream);
+    console.log("function");
+   /* videoElement.src = URL.createObjectURL(stream);*/
+    videoElement.srcObject = stream;
     videoElement.muted = true;
     videoElement.controls = true;
     videoElement.play();
 
     callback(stream);
   }, function(error) {
+    console.log("error "+error.message);
     alert(JSON.stringify(error));
   });
 }
@@ -221,7 +225,7 @@ var $add_video_file_recording = $('#add_video_file_recording');
 $add_video_file_recording.on('hidden.bs.modal', function() {
  console.log("hidden add_video_file_recording modal");
   clearTimeout(t);
-  audioVideoRecorder.clearRecordedData();
+  /*audioVideoRecorder.clearRecordedData();*/
   videoContainer.style.display="none";
   labelRecord.style.visibility="visible";
   labelAfterRecord.style.display="none";
@@ -239,4 +243,5 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
     errorSpan.style.visibility="hidden";
   }
+  document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
 });
