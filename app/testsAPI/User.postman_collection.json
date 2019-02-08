@@ -228,7 +228,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "?TelSignes!",
+									"value": "adminpassword",
 									"type": "string"
 								},
 								{
