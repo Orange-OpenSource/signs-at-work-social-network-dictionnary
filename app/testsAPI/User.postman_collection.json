@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "567834ab-3dbd-4202-96b2-3bb07139b1a3",
+		"name": "User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetMyProfil",
+			"item": [
+				{
+					"name": " http://{{domain}}/ws/sec/users/me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc7e0cd9-80e2-4f06-bebd-198d571c3e27",
+								"exec": [
+									"console.log(\"/ws/sec/users/me\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"username\": {\r",
+									"            \"type\":\"string\"\r",
+									"        },\r",
+									"        \"firstname\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"lastname\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"nameVideo\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"entity\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"job\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"jobTextDescription\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"jobVideoDescription\": {\r",
+									"            \"type\":[\"string\",\"null\"]\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\"username\"]\r",
+									"}\r",
+									"\r",
+									"pm.test(\"My profil conform to schemas\", function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).equal(true);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetAllMyVideos",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/users/me/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb9659dd-4574-4976-90f3-9d3d638065ec",
+								"exec": [
+									"console.log(\"/ws/sec/users/\"+postman.getEnvironmentVariable(\"userID\")+\"/videos\");\r",
+									"\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"signId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"signName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"videoName\": {\r",
+									"           \"type\": \"string\"\r",
+									"        },\r",
+									"         \"createDate\": {\r",
+									"           \"type\": \"number\"\r",
+									"        },\r",
+									"          \"videoId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"          \"url\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"           \"pictureUri\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"         \"nbVideo\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"videoCreateAfterLastDateDeconnection\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"        \"videoHasComment\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"         \"videoHasView\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"videoHasPositiveRate\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"signBelowToFavorite\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"          }\r",
+									"    \r",
+									"    },\r",
+									"    \"required\": [\"signId\",\"signName\"]\r",
+									"}\r",
+									"\r",
+									"\r",
+									"jsonData.forEach(function(video) {\r",
+									"        var testTitle = \"video \" +video.videoId + \" conforms to schema\";\r",
+									"        tests[testTitle] = tv4.validate(video, schema);\r",
+									"    });\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/users/me/videos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"users",
+								"me",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateUser",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/admin/users",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "?TelSignes!",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"denisB\", \"password\": \"boisset\", \"role\": \"USER_A\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/admin/users",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
