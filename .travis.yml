@@ -24,8 +24,11 @@ script:
   - nohup java -jar sign*.jar --spring.profiles.active=default &
   - ls -l
   - ./app/wait-for-it.sh -t 0 localhost:8080 -- echo "signsatwork is up"
-  - node_modules/.bin/newman run app/testsAPI/User.postman_collection.json -e app/testsAPI/Local.postman_environment.json --folder CreateUser
-  - node_modules/.bin/newman run app/testsAPI/Favorite.postman_collection.json -e app/testsAPI/Local.postman_environment.json --folder GetAllVideosFromMyFavorites
+  - node_modules/.bin/newman run app/testsAPI/User.postman_collection.json -e app/testsAPI/Local.postman_environment.json
+  - node_modules/.bin/newman run app/testsAPI/Community.postman_collection.json -e app/testsAPI/Local.postman_environment.json
+  - node_modules/.bin/newman run app/testsAPI/Favorite.postman_collection.json -e app/testsAPI/Local.postman_environment.json
+  - node_modules/.bin/newman run app/testsAPI/Request.postman_collection.json -e app/testsAPI/Local.postman_environment.json
+  - node_modules/.bin/newman run app/testsAPI/Sign.postman_collection.json -e app/testsAPI/Local.postman_environment.json
 
 cache:
   directories: $HOME/.m2
