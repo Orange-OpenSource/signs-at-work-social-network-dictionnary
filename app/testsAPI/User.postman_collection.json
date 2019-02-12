@@ -5,6 +5,57 @@
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+    {
+      "name": "CreateUser",
+      "item": [
+        {
+          "name": "http://{{domain}}/ws/admin/users",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "adminpassword",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\":\"denisB\", \"password\": \"boisset\", \"role\": \"USER_A\"}"
+            },
+            "url": {
+              "raw": "http://{{domain}}/ws/admin/users",
+              "protocol": "http",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "ws",
+                "admin",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
 		{
 			"name": "GetMyProfil",
 			"item": [
@@ -210,57 +261,6 @@
 								"users",
 								"me",
 								"videos"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "CreateUser",
-			"item": [
-				{
-					"name": "http://{{domain}}/ws/admin/users",
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "adminpassword",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"username\":\"denisB\", \"password\": \"boisset\", \"role\": \"USER_A\"}"
-						},
-						"url": {
-							"raw": "http://{{domain}}/ws/admin/users",
-							"protocol": "http",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"ws",
-								"admin",
-								"users"
 							]
 						}
 					},

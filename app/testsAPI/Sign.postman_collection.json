@@ -1,0 +1,910 @@
+{
+	"info": {
+		"_postman_id": "b4571485-f0da-4220-8cc6-661af46ea9b7",
+		"name": "Sign",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllSigns",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ccb27e64-ea02-4c4f-834b-1d23dcef073b",
+								"exec": [
+									"console.log(\"/ws/sec/signs\");",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"var schema = {",
+									"    \"properties\": {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"name\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"         \"createDate\": {",
+									"           \"type\": \"number\"",
+									"        },",
+									"          \"lastVideoId\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"          \"url\": {",
+									"                \"type\": \"string\"",
+									"        },",
+									"           \"pictureUri\": {",
+									"                \"type\": \"string\"",
+									"        },",
+									"         \"nbVideo\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"signCreateAfterLastDateDeconnection\": {",
+									"            \"type\": \"boolean\"",
+									"        },",
+									"        \"videoHasComment\": {",
+									"           \"type\": \"boolean\"",
+									"        },",
+									"         \"videoHasView\": {",
+									"           \"type\": \"boolean\"",
+									"        },",
+									"          \"videoHasPositiveRate\": {",
+									"            \"type\": \"boolean\"",
+									"        },",
+									"          \"signBelowToFavorite\": {",
+									"                \"type\": \"boolean\"",
+									"          }",
+									"    ",
+									"    },",
+									"    \"required\": [\"id\",\"name\",\"createDate\",\"lastVideoId\",\"url\",\"pictureUri\",\"nbVideo\",\"signCreateAfterLastDateDeconnection\",\"videoHasComment\",\"videoHasView\",\"videoHasPositiveRate\",\"signBelowToFavorite\"]",
+									"}",
+									"",
+									"",
+									"jsonData.forEach(function(sign) {",
+									"        var testTitle = \"Sign \" +sign.id + \" conforms to schema\";",
+									"        tests[testTitle] = tv4.validate(sign, schema);",
+									"    });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetAllSignsSortByDateDesc",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs?sort=date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "469dd796-2508-4236-a30a-05ba46c58c90",
+								"exec": [
+									"var _ = require('lodash'),\r",
+									"\r",
+									"    // Parse the array returned in the response body (It is probably a stringified response)\r",
+									"    responseArray = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test('Signs are sorted order by create date desc', () => {\r",
+									"    // Use the responseArray here\r",
+									"    var expectedSortedOrder = _.orderBy(responseArray, ['createDate'],['desc']);\r",
+									"\r",
+									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs?sort=date",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "date"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetAllSignsSortByDateAsc",
+			"item": [
+				{
+					"name": " http://{{domain}}/ws/sec/signs?sort=-date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "32c06a81-93db-4f20-9c56-5ea6e910ef0b",
+								"exec": [
+									"var _ = require('lodash'),\r",
+									"\r",
+									"    // Parse the array returned in the response body (It is probably a stringified response)\r",
+									"    responseArray = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test('Signs are sorted order by create date asc', () => {\r",
+									"    // Use the responseArray here\r",
+									"    var expectedSortedOrder = _.orderBy(responseArray, ['createDate'],['asc']);\r",
+									"\r",
+									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/signs?sort=-date",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "-date"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetAllSignsSortByNameDesc",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs?sort=-name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8da82c0a-2969-4dbb-a6e3-885a51e38dcb",
+								"exec": [
+									"var _ = require('lodash'),\r",
+									"\r",
+									"    // Parse the array returned in the response body (It is probably a stringified response)\r",
+									"    responseArray = JSON.parse(responseBody);\r",
+									"\r",
+									"var lowerCaseSigns = _.clone(responseArray);\r",
+									"lowerCaseSigns = lowerCaseSigns.map(sign => {\r",
+									"   sign.name = _.deburr(sign.name.toLowerCase()); \r",
+									"   return sign;\r",
+									"});\r",
+									"\r",
+									"pm.test('Signs are sorted order by name desc', () => {\r",
+									"    // Use the responseArray here\r",
+									"    var expectedSortedOrder = _.orderBy(lowerCaseSigns, ['name'],['desc']);\r",
+									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs?sort=-name",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "-name"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetAllSignsSortByNameAsc",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs?sort=name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1990a417-a3e4-468d-8471-022f54570c0c",
+								"exec": [
+									"var _ = require('lodash'),\r",
+									"\r",
+									"    // Parse the array returned in the response body (It is probably a stringified response)\r",
+									"    responseArray = JSON.parse(responseBody);\r",
+									"\r",
+									"var lowerCaseSigns = _.clone(responseArray);\r",
+									"lowerCaseSigns = lowerCaseSigns.map(sign => {\r",
+									"   sign.name = _.deburr(sign.name.toLowerCase()); \r",
+									"   return sign;\r",
+									"});\r",
+									"\r",
+									"pm.test('Signs are sorted order by name asc', () => {\r",
+									"    // Use the responseArray here\r",
+									"    var expectedSortedOrder = _.orderBy(lowerCaseSigns, ['name'],['asc']);\r",
+									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs?sort=name",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetAllVideosByAllSigns",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ccb27e64-ea02-4c4f-834b-1d23dcef073b",
+								"exec": [
+									"console.log(\"/ws/sec/signs\");",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"var schema = {",
+									"    \"properties\": {",
+									"        \"id\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"name\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"         \"createDate\": {",
+									"           \"type\": \"number\"",
+									"        },",
+									"          \"lastVideoId\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"          \"url\": {",
+									"                \"type\": \"string\"",
+									"        },",
+									"           \"pictureUri\": {",
+									"                \"type\": \"string\"",
+									"        },",
+									"         \"nbVideo\": {",
+									"            \"type\": \"integer\"",
+									"        },",
+									"        \"signCreateAfterLastDateDeconnection\": {",
+									"            \"type\": \"boolean\"",
+									"        },",
+									"        \"videoHasComment\": {",
+									"           \"type\": \"boolean\"",
+									"        },",
+									"         \"videoHasView\": {",
+									"           \"type\": \"boolean\"",
+									"        },",
+									"          \"videoHasPositiveRate\": {",
+									"            \"type\": \"boolean\"",
+									"        },",
+									"          \"signBelowToFavorite\": {",
+									"                \"type\": \"boolean\"",
+									"          }",
+									"    ",
+									"    },",
+									"    \"required\": [\"id\",\"name\",\"createDate\",\"lastVideoId\",\"url\",\"pictureUri\",\"nbVideo\",\"signCreateAfterLastDateDeconnection\",\"videoHasComment\",\"videoHasView\",\"videoHasPositiveRate\",\"signBelowToFavorite\"]",
+									"}",
+									"",
+									"var signIDs = [];",
+									"",
+									"jsonData.forEach(function(sign) {",
+									"        var testTitle = \"Sign \" +sign.id + \" conforms to schema\";",
+									"        signIDs.push(sign.id);",
+									"        tests[testTitle] = tv4.validate(sign, schema);",
+									"    });",
+									"    ",
+									"",
+									"postman.setEnvironmentVariable(\"signID\", signIDs.shift());",
+									"postman.setEnvironmentVariable(\"signIDs\", JSON.stringify(signIDs));",
+									"postman.setNextRequest(\"http://{{domain}}/ws/sec/signs/{{signID}}/videos\");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"console.log(\"/ws/sec/signs/\"+postman.getEnvironmentVariable(\"signID\")+\"/videos\");\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"signId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"signName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"videoName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"         \"createDate\": {\r",
+									"           \"type\": \"number\"\r",
+									"        },\r",
+									"          \"videoId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"          \"url\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"           \"pictureUri\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"         \"nbVideo\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"videoCreateAfterLastDateDeconnection\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"        \"videoHasComment\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"         \"videoHasView\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"videoHasPositiveRate\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"signBelowToFavorite\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"          }\r",
+									"    \r",
+									"    },\r",
+									"    \"required\": [\"signId\",\"signName\",\"videoName\",\"createDate\",\"videoId\",\"url\",\"pictureUri\",\"nbVideo\",\"videoCreateAfterLastDateDeconnection\",\"videoHasComment\",\"videoHasView\",\"videoHasPositiveRate\",\"signBelowToFavorite\"]\r",
+									"}\r",
+									"\r",
+									"\r",
+									"\r",
+									"var videoIDs = [];\r",
+									"\r",
+									"\r",
+									"jsonData.forEach(function(video) {\r",
+									"    var testTitle = \"video \" +video.videoId + \" conforms to schema\";\r",
+									"    videoIDs.push(video.videoId);\r",
+									"    tests[testTitle] = tv4.validate(video, schema);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", videoIDs.shift());\r",
+									"postman.setEnvironmentVariable(\"videoIDs\", JSON.stringify(videoIDs));\r",
+									"postman.setNextRequest(\"http://{{domain}}/ws/sec/videos/{{videoID}}\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"signId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"signTextDefinition\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"        \"signVideoDefinition\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"        \"videoId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"videoName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"url\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"ratingData\" : {\r",
+									"            \"ratingString\": {\r",
+									"                \"type\" : [\"string\",\"null\"]\r",
+									"            },\r",
+									"            \"ratePositive\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"            },\r",
+									"            \"rateNoRate\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"            },\r",
+									"            \"rateNeutral\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"            },\r",
+									"            \"rateNegative\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"            }\r",
+									"        },\r",
+									"         \"commentDatas\": [{\r",
+									"            \"text\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"commentDate\": {\r",
+									"                 \"type\": \"number\"\r",
+									"             },\r",
+									"            \"userName\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"firstName\":  {\r",
+									"              \"type\": [\"string\", \"null\"]\r",
+									"            },\r",
+									"            \"lastName\":  {\r",
+									"              \"type\": [\"string\", \"null\"]\r",
+									"            }\r",
+									"        }],\r",
+									"        \"nbRating\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"videoHistoryDatas\":[{\r",
+									"            \"createDate\": {\r",
+									"                 \"type\": \"number\"\r",
+									"             },\r",
+									"            \"userName\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"firstName\":  {\r",
+									"              \"type\": [\"string\", \"null\"]\r",
+									"            },\r",
+									"            \"lastName\":  {\r",
+									"              \"type\": [\"string\", \"null\"]\r",
+									"            }\r",
+									"        }],\r",
+									"        \"videoCreatedByMe\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"         \"videoHasAveragePositiveRate\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"videoHasPositiveRate\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"videoBelowToFavorite\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"          }\r",
+									"    \r",
+									"    \r",
+									"    },\r",
+									"    \"required\": [\"signId\",\"videoId\",\"videoName\",\"url\",\"nbRating\",\"videoCreatedByMe\",\"videoHasAveragePositiveRate\",\"videoBelowToFavorite\"]\r",
+									"}\r",
+									"\r",
+									"var testTitle = \"video \" +postman.getEnvironmentVariable(\"videoID\") + \" conforms to schema\";\r",
+									"pm.test(testTitle, function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).equal(true);\r",
+									"});\r",
+									"\r",
+									"if (postman.getEnvironmentVariable(\"videoIDs\") != null) {\r",
+									"var videoIDs = JSON.parse(postman.getEnvironmentVariable(\"videoIDs\"));\r",
+									"if (videoIDs.length > 0) {\r",
+									"    postman.setEnvironmentVariable(\"videoID\", videoIDs.shift());\r",
+									"    postman.setEnvironmentVariable(\"videoIDs\", JSON.stringify(videoIDs));\r",
+									"    postman.setNextRequest(\"http://{{domain}}/ws/sec/videos/{{videoID}}\");\r",
+									"} else {\r",
+									"    postman.clearEnvironmentVariable(\"videoID\");\r",
+									"    postman.clearEnvironmentVariable(\"videoIDs\");\r",
+									"    var signIDs = JSON.parse(postman.getEnvironmentVariable(\"signIDs\"));\r",
+									"    if (signIDs.length > 0) {\r",
+									"        postman.setEnvironmentVariable(\"signID\", signIDs.shift());\r",
+									"        postman.setEnvironmentVariable(\"signIDs\", JSON.stringify(signIDs));\r",
+									"        postman.setNextRequest(\"http://{{domain}}/ws/sec/signs/{{signID}}/videos\");\r",
+									"    } else {\r",
+									"        postman.clearEnvironmentVariable(\"signID\");\r",
+									"        postman.clearEnvironmentVariable(\"signIDs\");\r",
+									"    }\r",
+									"}\r",
+									"} else {\r",
+									"    if (postman.getEnvironmentVariable(\"signIDs\") != null) {\r",
+									"     var signIDs = JSON.parse(postman.getEnvironmentVariable(\"signIDs\"));\r",
+									"    if (signIDs.length > 0) {\r",
+									"        postman.setEnvironmentVariable(\"signID\", signIDs.shift());\r",
+									"        postman.setEnvironmentVariable(\"signIDs\", JSON.stringify(signIDs));\r",
+									"        postman.setNextRequest(\"http://{{domain}}/ws/sec/signs/{{signID}}/videos\");\r",
+									"    } else {\r",
+									"        postman.clearEnvironmentVariable(\"signID\");\r",
+									"        postman.clearEnvironmentVariable(\"signIDs\");\r",
+									"    }\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

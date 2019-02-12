@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "2201a1df-ff2a-4775-bca9-5338847dd411",
+		"name": "Community",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetVideosCreateByAllUsersBelowToMyCommunities",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/users/me/communities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f87aa93-ab4f-4e69-9d2d-b04173d73bdb",
+								"exec": [
+									"console.log(\"/ws/sec/users/me/communities\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\":\"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\":\"string\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\"id\",\"name\"]\r",
+									"}\r",
+									"\r",
+									"var communityIDs = [];\r",
+									"\r",
+									"jsonData.forEach(function(community) {\r",
+									"var testTitle = \"community \" + community.id + \" conforms to schema\";\r",
+									"communityIDs.push(community.id);\r",
+									"tests[testTitle] = tv4.validate(community, schema);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"communityID\", communityIDs.shift());\r",
+									"postman.setEnvironmentVariable(\"communityIDs\", JSON.stringify(communityIDs));\r",
+									"postman.setNextRequest(\"http://{{domain}}/ws/sec/communities/{{communityID}}/users\");\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/users/me/communities",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"users",
+								"me",
+								"communities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/communities/{{communityID}}/users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bff5caad-4274-4691-9565-9a518fd7cd51",
+								"exec": [
+									"console.log(\"/ws/sec/users/communities/\"+postman.getEnvironmentVariable(\"communityID\")+\"/users\");\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"userId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"job\": {\r",
+									"           \"type\": [ \"string\", \"null\" ]\r",
+									"        },\r",
+									"         \"entity\": {\r",
+									"           \"type\": [ \"string\", \"null\" ]\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\"userId\",\"name\"]\r",
+									"}\r",
+									"\r",
+									"\r",
+									"var userIDs = [];\r",
+									"\r",
+									"\r",
+									"jsonData.forEach(function(user) {\r",
+									"    var testTitle = \"user \" +user.userId + \" conforms to schema\";\r",
+									"    userIDs.push(user.userId);\r",
+									"    tests[testTitle] = tv4.validate(user, schema);\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"userID\", userIDs.shift());\r",
+									"postman.setEnvironmentVariable(\"userIDs\", JSON.stringify(userIDs));\r",
+									"postman.setNextRequest(\"http://{{domain}}/ws/sec/users/{{userID}}/videos\");\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/communities/{{communityID}}/users",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"communities",
+								"{{communityID}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/users/{{userID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb991024-2438-4677-b707-56035b6d38c1",
+								"exec": [
+									"console.log(\"/ws/sec/users/\"+postman.getEnvironmentVariable(\"userID\")+\"/videos\");\r",
+									"\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"signId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"signName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"videoName\": {\r",
+									"           \"type\": \"string\"\r",
+									"        },\r",
+									"         \"createDate\": {\r",
+									"           \"type\": \"number\"\r",
+									"        },\r",
+									"          \"videoId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"          \"url\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"           \"pictureUri\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"         \"nbVideo\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"videoCreateAfterLastDateDeconnection\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"        \"videoHasComment\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"         \"videoHasView\": {\r",
+									"           \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"videoHasPositiveRate\": {\r",
+									"            \"type\": \"boolean\"\r",
+									"        },\r",
+									"          \"signBelowToFavorite\": {\r",
+									"                \"type\": \"boolean\"\r",
+									"          }\r",
+									"    \r",
+									"    },\r",
+									"    \"required\": [\"signId\",\"signName\"]\r",
+									"}\r",
+									"\r",
+									"\r",
+									"jsonData.forEach(function(video) {\r",
+									"        var testTitle = \"video \" +video.videoId + \" conforms to schema\";\r",
+									"        tests[testTitle] = tv4.validate(video, schema);\r",
+									"    });\r",
+									"\r",
+									"var userIDs = JSON.parse(postman.getEnvironmentVariable(\"userIDs\"));\r",
+									"\r",
+									"if (userIDs.length > 0) {\r",
+									"    postman.setEnvironmentVariable(\"userID\", userIDs.shift());\r",
+									"    postman.setEnvironmentVariable(\"userIDs\", JSON.stringify(userIDs));\r",
+									"    postman.setNextRequest(\"http://{{domain}}/ws/sec/users/{{userID}}/videos\");\r",
+									"} else {\r",
+									"    postman.clearEnvironmentVariable(\"userID\");\r",
+									"    postman.clearEnvironmentVariable(\"userIDs\");\r",
+									"    var communityIDs = JSON.parse(postman.getEnvironmentVariable(\"communityIDs\"));\r",
+									"    if (communityIDs.length > 0) {\r",
+									"        postman.setEnvironmentVariable(\"communityID\", communityIDs.shift());\r",
+									"        postman.setEnvironmentVariable(\"communityIDs\", JSON.stringify(communityIDs));\r",
+									"        postman.setNextRequest(\"http://{{domain}}/ws/sec/communities/{{communityID}}/users\");\r",
+									"    } else {\r",
+									"        postman.clearEnvironmentVariable(\"communityID\");\r",
+									"        postman.clearEnvironmentVariable(\"communityIDs\");\r",
+									"    }\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/users/{{userID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"users",
+								"{{userID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1d5d5c4f-1caa-4146-a0af-1fbc3cae1e54",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b08fe4f7-6065-4f0b-a3f2-9b922c272ffb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
