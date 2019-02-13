@@ -82,12 +82,12 @@ public class SpringRestClient {
         body.add("client_secret", appProfile.dailymotionAccess().clientSecret);
         body.add("username", appProfile.dailymotionAccess().username);
         body.add("password",appProfile.dailymotionAccess().password);
-        Set<String> keys = body.keySet();
+        /*Set<String> keys = body.keySet();
         for(String key :keys) {
           log.info("Key = "+key);
           log.info("Values = "+body.get(key));
         }
-
+*/
 
         HttpEntity<?> request = new HttpEntity<Object>(body, getHeadersWithClientCredentials());
 
@@ -104,8 +104,8 @@ public class SpringRestClient {
         	tokenInfo.setExpires_in((int)map.get("expires_in"));
         	tokenInfo.setScope((String)map.get("scope"));
         	System.out.println(tokenInfo);
-        	System.out.println("access_token ="+map.get("access_token")+", token_type="+map.get("token_type")+", refresh_token="+map.get("refresh_token")+", expires_in="+map.get("expires_in")+", scope="+map.get("scope"));
-            log.warn("sendTokenRequest : authTokenInfo = {}", tokenInfo.getAccess_token());
+        	/*System.out.println("access_token ="+map.get("access_token")+", token_type="+map.get("token_type")+", refresh_token="+map.get("refresh_token")+", expires_in="+map.get("expires_in")+", scope="+map.get("scope"));
+            log.warn("sendTokenRequest : authTokenInfo = {}", tokenInfo.getAccess_token());*/
         }else{
             System.out.println("No user exist----------");
 
