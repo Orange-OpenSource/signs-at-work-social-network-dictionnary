@@ -81,11 +81,13 @@ public class UserServiceImpl implements UserService {
     List<UserDB> userDBList = userRepository.findByUsername(userName);
     if (userDBList.size() == 1) {
       return userFrom(userDBList.get(0));
-    } else {
+    } else if (userDBList.size() > 1){
       String err = "Error while retrieving user with username = '" + userName + "' (list size = " + userDBList.size() + ")";
       RuntimeException e = new IllegalStateException(err);
       log.error(err, e);
       throw e;
+    } else {
+      return null;
     }
   }
 

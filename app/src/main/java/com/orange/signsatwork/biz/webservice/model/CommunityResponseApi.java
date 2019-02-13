@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.service;
+package com.orange.signsatwork.biz.webservice.model;
 
 /*
  * #%L
@@ -22,19 +22,12 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
-import com.orange.signsatwork.biz.domain.Community;
 
-public interface CommunityService {
-  Communities all();
+import lombok.RequiredArgsConstructor;
 
-  Communities forUser(long id);
+@RequiredArgsConstructor
+public class CommunityResponseApi {
+  public long communityId;
+  public String errorMessage;
 
-  Community withId(long id);
-
-  Community create(Community community);
-
-  void delete(Community community);
-
-  Community withCommunityName(String communityName);
 }

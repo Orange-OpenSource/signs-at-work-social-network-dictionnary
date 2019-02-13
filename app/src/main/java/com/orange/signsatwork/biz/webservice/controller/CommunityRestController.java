@@ -27,8 +27,8 @@ import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.webservice.model.CommunityViewApi;
-import com.orange.signsatwork.biz.webservice.model.UserCommunityViewApi;
+import com.orange.signsatwork.biz.view.model.CommunityView;
+import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,11 +36,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,5 +89,36 @@ public class CommunityRestController {
     .collect(Collectors.toList());
 
     return new ResponseEntity<>(usersCommunityViewApi, HttpStatus.OK);
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_ADMIN_COMMUNITIES, method = RequestMethod.POST, headers = {"content-type=application/json"})
+  public CommunityResponseApi community(@RequestBody CommunityCreationViewApi communityCreationViewApi, HttpServletResponse response) {
+    CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+    if (services.community().withCommunityName(communityCreationViewApi.getName()) != null) {
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_already_exist");
+      return communityResponseApi;
+    }
+
+    Community community = services.community().create(communityCreationViewApi.toCommunity());
+    communityResponseApi.communityId = community.id;
+    response.setStatus(HttpServletResponse.SC_OK);
+    return communityResponseApi;
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_ADMIN_COMMUNITY_USERS, method = RequestMethod.PUT, headers = {"content-type=application/json"})
+  public CommunityResponseApi addUserToCommunity(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response) {
+    CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+
+    List<Long> communitiesId = new ArrayList<>();
+    communitiesId.add(communityId);
+    User user = services.user().withUserName(communityCreationViewApi.getUsername());
+    if (user != null) {
+      services.user().changeUserCommunities(user.id, communitiesId);
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    return communityResponseApi;
   }
 }

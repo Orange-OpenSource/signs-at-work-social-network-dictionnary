@@ -97,11 +97,11 @@ public class UserRestController {
   @RequestMapping(value = RestApi.WS_ADMIN_USERS, method = RequestMethod.POST, headers = {"content-type=application/json"})
   public UserResponseApi user(@RequestBody UserCreationView userCreationView, HttpServletResponse response) {
     UserResponseApi userResponseApi = new UserResponseApi();
-/*    if (services.user().withUserName(userCreationView.getUsername()) != null) {
+    if (services.user().withUserName(userCreationView.getUsername()) != null) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
       userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
       return userResponseApi;
-    }*/
+    }
     User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
     services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
     response.setStatus(HttpServletResponse.SC_OK);
