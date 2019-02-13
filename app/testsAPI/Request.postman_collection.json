@@ -838,6 +838,252 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "CreateRequestByUserWithProfil_USER_A",
+			"item": [
+				{
+					"name": "CreateRequestWithName",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSER_AWithName.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndTextDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSER_AWithNameAndTextDescription.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "CreateRequestByUserWithProfil_USER",
+			"item": [
+				{
+					"name": "CreateRequestWithName",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSERWithName.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+                      "disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndTextDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSERWithNameAndTextDescription.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+                      "disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
 		}
 	]
 }

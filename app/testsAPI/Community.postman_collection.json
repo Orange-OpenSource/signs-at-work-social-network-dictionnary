@@ -6,6 +6,183 @@
 	},
 	"item": [
 		{
+			"name": "CreateCommunity",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/admin/communities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "43d41e5e-6b83-4c86-b66d-537d8552169d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var communityID = jsonData.communityId;",
+									"postman.setEnvironmentVariable(\"communityID\", communityID);",
+									"console.log(\"communityID \"+communityID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a communityID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.communityId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adminpassword",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"orange\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/admin/communities",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"admin",
+								"communities"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AddUsersToCommunity",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/admin/communities/{{communityID}}/users",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adminpassword",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"denisB\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/admin/communities/{{communityID}}/users",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"admin",
+								"communities",
+								"{{communityID}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/admin/communities/{{communityID}}/users",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "adminpassword",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"manuel\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/admin/communities/{{communityID}}/users",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"admin",
+								"communities",
+								"{{communityID}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GetVideosCreateByAllUsersBelowToMyCommunities",
 			"item": [
 				{
@@ -14,36 +191,37 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3f87aa93-ab4f-4e69-9d2d-b04173d73bdb",
+								"id": "5a9e5652-f52b-4d2a-a8dd-25988eae461c",
 								"exec": [
 									"console.log(\"/ws/sec/users/me/communities\");\r",
-									"var jsonData = JSON.parse(responseBody);\r",
-									"\r",
-									"var schema = {\r",
-									"    \"properties\": {\r",
-									"        \"id\": {\r",
-									"            \"type\":\"integer\"\r",
+									"if (responseBody.length > 0) {\r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"    var schema = {\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\":\"integer\"\r",
+									"            },\r",
+									"            \"name\": {\r",
+									"                \"type\":\"string\"\r",
+									"            }\r",
 									"        },\r",
-									"        \"name\": {\r",
-									"            \"type\":\"string\"\r",
-									"        }\r",
-									"    },\r",
-									"    \"required\": [\"id\",\"name\"]\r",
+									"        \"required\": [\"id\",\"name\"]\r",
+									"    }\r",
+									"\r",
+									"\r",
+									"    var communityIDs = [];\r",
+									"    \r",
+									"    jsonData.forEach(function(community) {\r",
+									"    var testTitle = \"community \" + community.id + \" conforms to schema\";\r",
+									"    communityIDs.push(community.id);\r",
+									"    tests[testTitle] = tv4.validate(community, schema);\r",
+									"    });\r",
+									"    \r",
+									"    postman.setEnvironmentVariable(\"communityID\", communityIDs.shift());\r",
+									"    postman.setEnvironmentVariable(\"communityIDs\", JSON.stringify(communityIDs));\r",
+									"    postman.setNextRequest(\"http://{{domain}}/ws/sec/communities/{{communityID}}/users\");\r",
+									"\r",
 									"}\r",
-									"\r",
-									"var communityIDs = [];\r",
-									"\r",
-									"jsonData.forEach(function(community) {\r",
-									"var testTitle = \"community \" + community.id + \" conforms to schema\";\r",
-									"communityIDs.push(community.id);\r",
-									"tests[testTitle] = tv4.validate(community, schema);\r",
-									"});\r",
-									"\r",
-									"postman.setEnvironmentVariable(\"communityID\", communityIDs.shift());\r",
-									"postman.setEnvironmentVariable(\"communityIDs\", JSON.stringify(communityIDs));\r",
-									"postman.setNextRequest(\"http://{{domain}}/ws/sec/communities/{{communityID}}/users\");\r",
-									"\r",
-									"\r",
 									"\r",
 									"\r",
 									"\r",
@@ -101,7 +279,6 @@
 								"id": "bff5caad-4274-4691-9565-9a518fd7cd51",
 								"exec": [
 									"console.log(\"/ws/sec/users/communities/\"+postman.getEnvironmentVariable(\"communityID\")+\"/users\");\r",
-									"\r",
 									"var jsonData = JSON.parse(responseBody);\r",
 									"\r",
 									"var schema = {\r",
@@ -141,6 +318,19 @@
 									"\r",
 									"\r",
 									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "22bd9184-c2d1-44fc-ac87-70bc4c3f2469",
+								"exec": [
+									"var communityID = postman.getEnvironmentVariable(\"communityID\");\r",
+									"if (!communityID) {\r",
+									"    throw new Error(\"No communityID set\");\r",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -194,7 +384,6 @@
 								"id": "eb991024-2438-4677-b707-56035b6d38c1",
 								"exec": [
 									"console.log(\"/ws/sec/users/\"+postman.getEnvironmentVariable(\"userID\")+\"/videos\");\r",
-									"\r",
 									"\r",
 									"var jsonData = JSON.parse(responseBody);\r",
 									"\r",
@@ -270,6 +459,19 @@
 									"    }\r",
 									"}\r",
 									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "660951b9-dbda-4eed-a378-9564ff98c387",
+								"exec": [
+									"var userID = postman.getEnvironmentVariable(\"userID\");\r",
+									"if (!userID) {\r",
+									"    throw new Error(\"No userID set\");\r",
+									"}"
 								],
 								"type": "text/javascript"
 							}
