@@ -608,6 +608,7 @@
 									"script": {
 										"id": "d52fde91-c741-45d5-a6f7-618afae3d739",
 										"exec": [
+                      "var jsonData = JSON.parse(responseBody);",
 											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
 											"     // assert that the status code is 200",
 											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
@@ -894,6 +895,7 @@
 									"script": {
 										"id": "d8e0bf6f-e920-415d-9ab2-555ac31f7ab4",
 										"exec": [
+                      "var jsonData = JSON.parse(responseBody);",
 											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
 											"     // assert that the status code is 200",
 											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
@@ -1032,6 +1034,7 @@
 									"script": {
 										"id": "a1cca72a-4141-4877-8e8b-31eeee7ab70d",
 										"exec": [
+                      "var jsonData = JSON.parse(responseBody);",
 											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
 											"     // assert that the status code is 200",
 											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
@@ -1504,6 +1507,89 @@
 				}
 			]
 		},
+    {
+      "name": "GetMyRequestsSortByNameDesc",
+      "item": [
+        {
+          "name": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1138d095-2be8-480d-b7a7-8bd0cc54b034",
+                "exec": [
+                  "var _ = require('lodash'),\r",
+                  "\r",
+                  "    // Parse the array returned in the response body (It is probably a stringified response)\r",
+                  "    responseArray = JSON.parse(responseBody);\r",
+                  "\r",
+                  "var lowerCaseRequests = _.clone(responseArray);\r",
+                  "lowerCaseRequests = lowerCaseRequests.map(request => {\r",
+                  "   request.name = _.deburr(request.name.toLowerCase()); \r",
+                  "   return request;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('My Requests are sorted order by name desc', () => {\r",
+                  "    // Use the responseArray here\r",
+                  "    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['desc']);\r",
+                  "    console.log(responseArray);\r",
+                  "    console.log(expectedSortedOrder);\r",
+                  "\r",
+                  "    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "boisset",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "denisB",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
+              "protocol": "http",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "ws",
+                "sec",
+                "users",
+                "me",
+                "requests"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "-name"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "_postman_isSubFolder": true
+    },
 		{
 			"name": "CreateRequestByUserWithProfil_USER",
 			"item": [
@@ -1752,7 +1838,7 @@
 											"console.log(jsonData.name);\r",
 											"\r",
 											"pm.test(\"request has name and text description\", function () {\r",
-											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Text Description');\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name And Text Description');\r",
 											"   pm.expect(jsonData.textDescription).to.eq('This is a request create By USER_A with Name and Text Description');\r",
 											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
 											"   pm.expect(jsonData.signId).to.eq(null);\r",
@@ -2107,6 +2193,7 @@
 									"script": {
 										"id": "73a0344c-fa9a-46f7-8738-c33157d21cef",
 										"exec": [
+                      "var jsonData = JSON.parse(responseBody);\r",
 											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
 											"     // assert that the status code is 200",
 											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
@@ -2512,6 +2599,7 @@
 									"script": {
 										"id": "f2b31b84-eb66-466b-83fb-26c8635266ef",
 										"exec": [
+                      "var jsonData = JSON.parse(responseBody);\r",
 											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
 											"     // assert that the status code is 200",
 											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
@@ -2637,89 +2725,6 @@
 										"sec",
 										"requests",
 										"{{requestID}}"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "GetMyRequestsSortByNameDesc",
-					"item": [
-						{
-							"name": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "1138d095-2be8-480d-b7a7-8bd0cc54b034",
-										"exec": [
-											"var _ = require('lodash'),\r",
-											"\r",
-											"    // Parse the array returned in the response body (It is probably a stringified response)\r",
-											"    responseArray = JSON.parse(responseBody);\r",
-											"\r",
-											"var lowerCaseRequests = _.clone(responseArray);\r",
-											"lowerCaseRequests = lowerCaseRequests.map(request => {\r",
-											"   request.name = _.deburr(request.name.toLowerCase()); \r",
-											"   return request;\r",
-											"});\r",
-											"\r",
-											"pm.test('My Requests are sorted order by name desc', () => {\r",
-											"    // Use the responseArray here\r",
-											"    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['desc']);\r",
-											"    console.log(responseArray);\r",
-											"    console.log(expectedSortedOrder);\r",
-											"\r",
-											"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "boisset",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "denisB",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
-									"protocol": "http",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"ws",
-										"sec",
-										"users",
-										"me",
-										"requests"
-									],
-									"query": [
-										{
-											"key": "sort",
-											"value": "-name"
-										}
 									]
 								}
 							},
@@ -3264,6 +3269,7 @@
 							"script": {
 								"id": "c6b9984f-dab1-401c-a3f0-6b1751bbef43",
 								"exec": [
+                  "var jsonData = JSON.parse(responseBody);\r",
 									"pm.test(\"response must be valid and have a body and a requestID\", function () {\r",
 									"     // assert that the status code is 200\r",
 									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
@@ -3443,6 +3449,7 @@
 							"script": {
 								"id": "c6b9984f-dab1-401c-a3f0-6b1751bbef43",
 								"exec": [
+                  "var jsonData = JSON.parse(responseBody);\r",
 									"pm.test(\"response must be valid and have a body and a requestID\", function () {\r",
 									"     // assert that the status code is 200\r",
 									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
