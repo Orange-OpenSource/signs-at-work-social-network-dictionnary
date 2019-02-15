@@ -17,7 +17,7 @@ script:
 - "./.ci.sh"
 - ls -l app/target
 - cp app/target/sign*.jar .
-- nohup java -jar sign*.jar --spring.profiles.active=default &
+- nohup java -jar sign*.jar --spring.profiles.active=default --app.file=app &
 - ls -l
 - ./app/wait-for-it.sh -t 0 localhost:8080 -- echo "signsatwork is up"
 - node_modules/.bin/newman run app/testsAPI/User.postman_collection.json -e app/testsAPI/Local.postman_environment.json

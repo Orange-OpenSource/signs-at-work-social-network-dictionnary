@@ -10,23 +10,25 @@ package com.orange.signsatwork.biz.storage;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
+import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.JCodecException;
 import org.jcodec.api.awt.FrameGrab;
 import org.jcodec.common.FileChannelWrapper;
 import org.jcodec.common.NIOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -43,14 +45,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
+  @Autowired
+  private Environment environment;
 
-    @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
-        this.rootLocation = Paths.get(properties.getLocation());
+    public FileSystemStorageService(Environment environment) {
+        this.rootLocation = Paths.get(environment.getProperty("app.file"));
+        log.info("RootLocation "+rootLocation);
     }
 
     @Override
