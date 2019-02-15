@@ -8,7 +8,6 @@ node_js:
 install:
 - npm install newman
 before_script:
-- mkdir /data
 - node --version
 - npm --version
 - ls -la node_modules
