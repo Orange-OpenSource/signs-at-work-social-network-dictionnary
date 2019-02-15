@@ -1843,7 +1843,7 @@
 											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
 											"   pm.expect(jsonData.signId).to.eq(null);\r",
 											"   pm.expect(jsonData.signName).to.eq(null);\r",
-											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
 											"});"
 										],
 										"type": "text/javascript"
