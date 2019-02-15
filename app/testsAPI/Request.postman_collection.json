@@ -6,6 +6,1168 @@
 	},
 	"item": [
 		{
+			"name": "CreateRequestByUserWithProfil_USER_A",
+			"item": [
+				{
+					"name": "CreateRequestWithName",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a8675312-4c64-4af2-a585-eb7e467104db",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "app/testsAPI/RequestFromUSER_AWithName.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndTextDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3b566110-df2a-482d-a5f3-aadb7b3a192b",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "app/testsAPI/RequestFromUSER_AWithNameAndTextDescription.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "385929aa-07c6-40d6-9265-c96ab03ed8da",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has name and text description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Text Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request create By USER_A with Name and Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndVideoDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "32c498a1-0774-4277-98b4-e65cbb70c428",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "app/testsAPI/RequestFromUSER_AWithName.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "385929aa-07c6-40d6-9265-c96ab03ed8da",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has name and video description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).not.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndAddTextVideoDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a8675312-4c64-4af2-a585-eb7e467104db",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "app/testsAPI/RequestFromUSER_AWithName.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Add Text Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d52fde91-c741-45d5-a6f7-618afae3d739",
+										"exec": [
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "app/testsAPI/RequestFromUSER_AAddTextDescription.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name and add text and video description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Add Text Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request modify By USER_A to add a Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).not.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndAddTextAndVideoDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a8675312-4c64-4af2-a585-eb7e467104db",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "app/testsAPI/RequestFromUSER_AWithName.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Add Text And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d8e0bf6f-e920-415d-9ab2-555ac31f7ab4",
+										"exec": [
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "app/testsAPI/RequestFromUSER_AAddTextDescription.json"
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name and add text description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Add Text And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request modify By USER_A to add a Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a1cca72a-4141-4877-8e8b-31eeee7ab70d",
+										"exec": [
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name and add text and video description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Add Text And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request modify By USER_A to add a Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).not.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
 			"name": "GetMyRequests",
 			"item": [
 				{
@@ -28,7 +1190,7 @@
 									"            \"type\": \"string\"\r",
 									"        },\r",
 									"        \"textDescription\": {\r",
-									"            \"type\": \"string\"\r",
+									"            \"type\": [\"string\",\"null\"]\r",
 									"        },\r",
 									"        \"videoDescription\": {\r",
 									"            \"type\": [\"string\",\"null\"]\r",
@@ -105,183 +1267,6 @@
 								"users",
 								"me",
 								"requests"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "GetOtherRequests",
-			"item": [
-				{
-					"name": "http://{{domain}}/ws/sec/users/other/requests?sort=date",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "b8f57e55-4d60-4ddd-ae53-490829d1a29e",
-								"exec": [
-									"console.log(\"/ws/sec/users/other/requests?sort=date\");\r",
-									"var jsonData = JSON.parse(responseBody);\r",
-									"\r",
-									"var schema = {\r",
-									"    \"properties\": {\r",
-									"        \"id\": {\r",
-									"            \"type\": \"integer\"\r",
-									"        },\r",
-									"        \"name\": {\r",
-									"            \"type\": \"string\"\r",
-									"        },\r",
-									"        \"textDescription\": {\r",
-									"            \"type\": \"string\"\r",
-									"        },\r",
-									"        \"videoDescription\": {\r",
-									"            \"type\": [\"string\",\"null\"]\r",
-									"        },\r",
-									"        \"date\": {\r",
-									"            \"type\": \"number\"\r",
-									"        },\r",
-									"         \"signId\": {\r",
-									"            \"type\": [\"string\", \"null\"]\r",
-									"        },\r",
-									"         \"signName\": {\r",
-									"            \"type\": [\"string\", \"null\"]\r",
-									"        },\r",
-									"         \"userName\": {\r",
-									"            \"type\": \"string\"\r",
-									"        }\r",
-									"    },\r",
-									"    \"required\": [\"id\",\"name\", \"date\", \"userName\"]\r",
-									"}\r",
-									"\r",
-									"console.log(jsonData);\r",
-									"\r",
-									"jsonData.forEach(function(otherRequest) {\r",
-									"var testTitle = \"otherRequest \" + otherRequest.id + \" conforms to schema\";\r",
-									"tests[testTitle] = tv4.validate(otherRequest, schema);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "boisset",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "denisB",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{domain}}/ws/sec/users/other/requests?sort=date",
-							"protocol": "http",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"ws",
-								"sec",
-								"users",
-								"other",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "sort",
-									"value": "date"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "GetMyRequestsSortByDateDesc",
-			"item": [
-				{
-					"name": "http://{{domain}}/ws/sec/users/me/requests?sort=date",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "90df0a5c-047d-4cb5-814b-1442e193e552",
-								"exec": [
-									"var _ = require('lodash'),\r",
-									"\r",
-									"    // Parse the array returned in the response body (It is probably a stringified response)\r",
-									"    responseArray = JSON.parse(responseBody);\r",
-									"\r",
-									"pm.test('My Requests are sorted order by create date desc', () => {\r",
-									"    // Use the responseArray here\r",
-									"    var expectedSortedOrder = _.orderBy(responseArray, ['date'],['desc']);\r",
-									"\r",
-									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "boisset",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "denisB",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{domain}}/ws/sec/users/me/requests?sort=date",
-							"protocol": "http",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"ws",
-								"sec",
-								"users",
-								"me",
-								"requests"
-							],
-							"query": [
-								{
-									"key": "sort",
-									"value": "date"
-								}
 							]
 						}
 					},
@@ -446,32 +1431,24 @@
 			]
 		},
 		{
-			"name": "GetMyRequestsSortByNameDesc",
+			"name": "GetMyRequestsSortByDateDesc",
 			"item": [
 				{
-					"name": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
+					"name": "http://{{domain}}/ws/sec/users/me/requests?sort=date",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "1138d095-2be8-480d-b7a7-8bd0cc54b034",
+								"id": "90df0a5c-047d-4cb5-814b-1442e193e552",
 								"exec": [
 									"var _ = require('lodash'),\r",
 									"\r",
 									"    // Parse the array returned in the response body (It is probably a stringified response)\r",
 									"    responseArray = JSON.parse(responseBody);\r",
 									"\r",
-									"var lowerCaseRequests = _.clone(responseArray);\r",
-									"lowerCaseRequests = lowerCaseRequests.map(request => {\r",
-									"   request.name = _.deburr(request.name.toLowerCase()); \r",
-									"   return request;\r",
-									"});\r",
-									"\r",
-									"pm.test('My Requests are sorted order by name desc', () => {\r",
+									"pm.test('My Requests are sorted order by create date desc', () => {\r",
 									"    // Use the responseArray here\r",
-									"    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['desc']);\r",
-									"    console.log(responseArray);\r",
-									"    console.log(expectedSortedOrder);\r",
+									"    var expectedSortedOrder = _.orderBy(responseArray, ['date'],['desc']);\r",
 									"\r",
 									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
 									"});"
@@ -503,7 +1480,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
+							"raw": "http://{{domain}}/ws/sec/users/me/requests?sort=date",
 							"protocol": "http",
 							"host": [
 								"{{domain}}"
@@ -518,7 +1495,1336 @@
 							"query": [
 								{
 									"key": "sort",
-									"value": "-name"
+									"value": "date"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateRequestByUserWithProfil_USER",
+			"item": [
+				{
+					"name": "CreateRequestWithName",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e4c9ccad-5296-4d32-87cd-1ba3c6ffeb35",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": ""
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndTextDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8798da0d-c355-4d29-871d-232b69f71eaf",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": ""
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "385929aa-07c6-40d6-9265-c96ab03ed8da",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has name and text description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER_A With Name And Text Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request create By USER_A with Name and Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('denisB');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndVideoDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c611b12f-acf6-46c9-92e9-4c031f24e2b5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": ""
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": ""
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "385929aa-07c6-40d6-9265-c96ab03ed8da",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has name and video description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).not.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndAddTextVideoDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a8675312-4c64-4af2-a585-eb7e467104db",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": ""
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name And Add Text Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "73a0344c-fa9a-46f7-8738-c33157d21cef",
+										"exec": [
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": ""
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": ""
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name and add text and video description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name And Add Text Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request modify By USER to add a Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).not.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CreateRequestWithNameAndAddTextAndVideoDescription",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/requests",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a8675312-4c64-4af2-a585-eb7e467104db",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"console.log(jsonData);",
+											"var requestID = jsonData.requestId;",
+											"postman.setEnvironmentVariable(\"requestID\", requestID);",
+											"console.log(\"requestID \"+requestID);",
+											"",
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": ""
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name And Add Text And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": ""
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name and add text and video description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name And Add Text And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request modify By USER to add a Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).to.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f2b31b84-eb66-466b-83fb-26c8635266ef",
+										"exec": [
+											"pm.test(\"response must be valid and have a body and a requestID\", function () {",
+											"     // assert that the status code is 200",
+											"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+											"     // assert that the response has a valid JSON body",
+											"     pm.response.to.be.withBody;",
+											"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+											"     pm.expect(jsonData.requestId).to.not.be.null;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "data",
+											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
+											"type": "file",
+											"src": "",
+											"disabled": true
+										},
+										{
+											"key": "file",
+											"description": "Fichier vidéo descriptif de la demande",
+											"type": "file",
+											"src": ""
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "caa3ca8d-3883-40b5-b9be-06bd9a2daf9f",
+										"exec": [
+											"console.log(\"/ws/sec/requests/\"+postman.getEnvironmentVariable(\"requestID\"));\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"\r",
+											"console.log(jsonData.name);\r",
+											"\r",
+											"pm.test(\"request has only name and add text and video description\", function () {\r",
+											"   pm.expect(jsonData.name).to.equal('Request From USER With Name And Add Text And Video Description');\r",
+											"   pm.expect(jsonData.textDescription).to.eq('This is a request modify By USER to add a Text Description');\r",
+											"   pm.expect(jsonData.videoDescription).not.eq(null);\r",
+											"   pm.expect(jsonData.signId).to.eq(null);\r",
+											"   pm.expect(jsonData.signName).to.eq(null);\r",
+											"   pm.expect(jsonData.userName).to.eq('manuel');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "sanchez",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "manuel",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"requests",
+										"{{requestID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GetMyRequestsSortByNameDesc",
+					"item": [
+						{
+							"name": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1138d095-2be8-480d-b7a7-8bd0cc54b034",
+										"exec": [
+											"var _ = require('lodash'),\r",
+											"\r",
+											"    // Parse the array returned in the response body (It is probably a stringified response)\r",
+											"    responseArray = JSON.parse(responseBody);\r",
+											"\r",
+											"var lowerCaseRequests = _.clone(responseArray);\r",
+											"lowerCaseRequests = lowerCaseRequests.map(request => {\r",
+											"   request.name = _.deburr(request.name.toLowerCase()); \r",
+											"   return request;\r",
+											"});\r",
+											"\r",
+											"pm.test('My Requests are sorted order by name desc', () => {\r",
+											"    // Use the responseArray here\r",
+											"    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['desc']);\r",
+											"    console.log(responseArray);\r",
+											"    console.log(expectedSortedOrder);\r",
+											"\r",
+											"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "boisset",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "denisB",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domain}}/ws/sec/users/me/requests?sort=-name",
+									"protocol": "http",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"ws",
+										"sec",
+										"users",
+										"me",
+										"requests"
+									],
+									"query": [
+										{
+											"key": "sort",
+											"value": "-name"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "GetOtherRequests",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/users/other/requests?sort=date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8f57e55-4d60-4ddd-ae53-490829d1a29e",
+								"exec": [
+									"console.log(\"/ws/sec/users/other/requests?sort=date\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"textDescription\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"videoDescription\": {\r",
+									"            \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"date\": {\r",
+									"            \"type\": \"number\"\r",
+									"        },\r",
+									"         \"signId\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"         \"signName\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"         \"userName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\"id\",\"name\", \"date\", \"userName\"]\r",
+									"}\r",
+									"\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"jsonData.forEach(function(otherRequest) {\r",
+									"var testTitle = \"otherRequest \" + otherRequest.id + \" conforms to schema\";\r",
+									"tests[testTitle] = tv4.validate(otherRequest, schema);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/users/other/requests?sort=date",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"users",
+								"other",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "date"
 								}
 							]
 						}
@@ -840,248 +3146,360 @@
 			]
 		},
 		{
-			"name": "CreateRequestByUserWithProfil_USER_A",
+			"name": "DeleteAllMyRequests",
 			"item": [
 				{
-					"name": "CreateRequestWithName",
-					"item": [
+					"name": "http://{{domain}}/ws/sec/users/me/requests",
+					"event": [
 						{
-							"name": "http://{{domain}}/ws/sec/requests",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "boisset",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "denisB",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "data",
-											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
-											"type": "file",
-											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSER_AWithName.json"
-										},
-										{
-											"key": "file",
-											"description": "Fichier vidéo descriptif de la demande",
-											"type": "file",
-											"src": "",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "http://{{domain}}/ws/sec/requests",
-									"protocol": "http",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"ws",
-										"sec",
-										"requests"
-									]
-								}
-							},
-							"response": []
+							"listen": "test",
+							"script": {
+								"id": "c593ffdf-3080-4b8f-a3c3-115f8628cb17",
+								"exec": [
+									"console.log(\"/ws/sec/users/me/requests\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"textDescription\": {\r",
+									"            \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"videoDescription\": {\r",
+									"            \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"date\": {\r",
+									"            \"type\": \"number\"\r",
+									"        },\r",
+									"         \"signId\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"         \"signName\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"         \"userName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\"id\",\"name\", \"date\", \"userName\"]\r",
+									"}\r",
+									"\r",
+									"console.log(jsonData);\r",
+									"var requestIDs = [];\r",
+									"\r",
+									"jsonData.forEach(function(myRequest) {\r",
+									"var testTitle = \"myRequest \" + myRequest.id + \" conforms to schema\";\r",
+									"requestIDs.push(myRequest.id);\r",
+									"tests[testTitle] = tv4.validate(myRequest, schema);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
+									"postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
+									"postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
-					"_postman_isSubFolder": true
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/users/me/requests",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"users",
+								"me",
+								"requests"
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"name": "CreateRequestWithNameAndTextDescription",
-					"item": [
+					"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+					"event": [
 						{
-							"name": "http://{{domain}}/ws/sec/requests",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "boisset",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "denisB",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "data",
-											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
-											"type": "file",
-											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSER_AWithNameAndTextDescription.json"
-										},
-										{
-											"key": "file",
-											"description": "Fichier vidéo descriptif de la demande",
-											"type": "file",
-											"src": "",
-											"disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "http://{{domain}}/ws/sec/requests",
-									"protocol": "http",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"ws",
-										"sec",
-										"requests"
-									]
-								}
-							},
-							"response": []
+							"listen": "test",
+							"script": {
+								"id": "c6b9984f-dab1-401c-a3f0-6b1751bbef43",
+								"exec": [
+									"pm.test(\"response must be valid and have a body and a requestID\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"     pm.expect(jsonData.requestId).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"var requestIDs = JSON.parse(postman.getEnvironmentVariable(\"requestIDs\"));\r",
+									"if (requestIDs.length > 0) {\r",
+									"    postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
+									"    postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
+									"    postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+									"} else {\r",
+									"    postman.clearEnvironmentVariable(\"requestID\");\r",
+									"    postman.clearEnvironmentVariable(\"requestIDs\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
-					"_postman_isSubFolder": true
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"requests",
+								"{{requestID}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "CreateRequestByUserWithProfil_USER",
+			"name": "DeleteAllOtherRequests",
 			"item": [
 				{
-					"name": "CreateRequestWithName",
-					"item": [
+					"name": "http://{{domain}}/ws/sec/users/other/requests",
+					"event": [
 						{
-							"name": "http://{{domain}}/ws/sec/requests",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "sanchez",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "manuel",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "data",
-											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
-											"type": "file",
-											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSERWithName.json"
-										},
-										{
-											"key": "file",
-											"description": "Fichier vidéo descriptif de la demande",
-											"type": "file",
-											"src": "",
-                      "disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "http://{{domain}}/ws/sec/requests",
-									"protocol": "http",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"ws",
-										"sec",
-										"requests"
-									]
-								}
-							},
-							"response": []
+							"listen": "test",
+							"script": {
+								"id": "c593ffdf-3080-4b8f-a3c3-115f8628cb17",
+								"exec": [
+									"console.log(\"/ws/sec/users/me/requests\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"textDescription\": {\r",
+									"            \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"videoDescription\": {\r",
+									"            \"type\": [\"string\",\"null\"]\r",
+									"        },\r",
+									"        \"date\": {\r",
+									"            \"type\": \"number\"\r",
+									"        },\r",
+									"         \"signId\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"         \"signName\": {\r",
+									"            \"type\": [\"string\", \"null\"]\r",
+									"        },\r",
+									"         \"userName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\"id\",\"name\", \"date\", \"userName\"]\r",
+									"}\r",
+									"\r",
+									"console.log(jsonData);\r",
+									"var requestIDs = [];\r",
+									"\r",
+									"jsonData.forEach(function(myRequest) {\r",
+									"var testTitle = \"myRequest \" + myRequest.id + \" conforms to schema\";\r",
+									"requestIDs.push(myRequest.id);\r",
+									"tests[testTitle] = tv4.validate(myRequest, schema);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
+									"postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
+									"postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
-					"_postman_isSubFolder": true
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/users/me/requests",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"users",
+								"me",
+								"requests"
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"name": "CreateRequestWithNameAndTextDescription",
-					"item": [
+					"name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+					"event": [
 						{
-							"name": "http://{{domain}}/ws/sec/requests",
-							"request": {
-								"auth": {
-									"type": "basic",
-									"basic": [
-										{
-											"key": "password",
-											"value": "sanchez",
-											"type": "string"
-										},
-										{
-											"key": "username",
-											"value": "manuel",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "data",
-											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
-											"type": "file",
-											"src": "/home/obelix/workspace/signs-at-work-social-network-dictionnary/app/testsAPI/RequestFromUSERWithNameAndTextDescription.json"
-										},
-										{
-											"key": "file",
-											"description": "Fichier vidéo descriptif de la demande",
-											"type": "file",
-											"src": "",
-                      "disabled": true
-										}
-									]
-								},
-								"url": {
-									"raw": "http://{{domain}}/ws/sec/requests",
-									"protocol": "http",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"ws",
-										"sec",
-										"requests"
-									]
-								}
-							},
-							"response": []
+							"listen": "test",
+							"script": {
+								"id": "c6b9984f-dab1-401c-a3f0-6b1751bbef43",
+								"exec": [
+									"pm.test(\"response must be valid and have a body and a requestID\", function () {\r",
+									"     // assert that the status code is 200\r",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"     // assert that the response has a valid JSON body\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"     pm.expect(jsonData.requestId).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"var requestIDs = JSON.parse(postman.getEnvironmentVariable(\"requestIDs\"));\r",
+									"if (requestIDs.length > 0) {\r",
+									"    postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
+									"    postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
+									"    postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+									"} else {\r",
+									"    postman.clearEnvironmentVariable(\"requestID\");\r",
+									"    postman.clearEnvironmentVariable(\"requestIDs\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
-					"_postman_isSubFolder": true
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"requests",
+								"{{requestID}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
