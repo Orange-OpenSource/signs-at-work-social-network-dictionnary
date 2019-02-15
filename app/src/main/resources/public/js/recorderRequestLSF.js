@@ -110,14 +110,14 @@ stopRecording.onclick = function() {
     //downloadURL.innerHTML = '<a href="' + url + '" download="RecordRTC.webm" target="_blank">Save RecordRTC.webm to Disk!</a><hr>';
     videoElement.src = url;
     videoElement.muted = false;
-    //videoElement.play();
+    videoElement.play();
 
-    videoElement.onended = function() {
+/*    videoElement.onended = function() {
       videoElement.pause();
 
       // dirty workaround for: "firefox seems unable to playback"
       videoElement.src = URL.createObjectURL(audioVideoRecorder.getBlob());
-    };
+    };*/
     audioVideoRecorder.getDataURL(function(audioVideoDataURL) {
       var video = {
         blob: audioVideoRecorder.getBlob(),
