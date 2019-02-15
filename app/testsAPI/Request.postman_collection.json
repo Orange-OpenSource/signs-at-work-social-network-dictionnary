@@ -361,7 +361,7 @@
 											"key": "data",
 											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
 											"type": "file",
-											"src": "app/testsAPI/RequestFromUSER_AWithName.json"
+											"src": "app/testsAPI/RequestFromUSER_AWithNameAndVideoDescription.json"
 										},
 										{
 											"key": "file",
@@ -509,7 +509,7 @@
 											"key": "data",
 											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
 											"type": "file",
-											"src": "app/testsAPI/RequestFromUSER_AWithName.json"
+											"src": "app/testsAPI/RequestFromUSER_AWithNameAndAddTextVideoDescription.json"
 										},
 										{
 											"key": "file",
@@ -795,7 +795,7 @@
 											"key": "data",
 											"description": "Fichier json { \"name\": \"Nom de la demande\"(obligatoire), \"textDescription\":\"Description textuelle de la demande\" (facultatif),\"date\":\"Date de la demande\" (facultatif)}",
 											"type": "file",
-											"src": "app/testsAPI/RequestFromUSER_AWithName.json"
+											"src": "app/testsAPI/RequestFromUSER_AWithNameAndAddTextAndVideoDescription.json"
 										},
 										{
 											"key": "file",
