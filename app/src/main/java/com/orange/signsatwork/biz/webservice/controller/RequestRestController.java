@@ -471,9 +471,11 @@ public class RequestRestController {
           authTokenInfo = dalymotionToken.getAuthTokenInfo();
         }
 
+        log.info("Avant storage");
         User user = services.user().withUserName(principal.getName());
         storageService.store(file);
         File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        log.info("Aprés storage et load file");
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -522,6 +524,7 @@ public class RequestRestController {
         VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
+        log.info("Avant load file in dailymotion");
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
         int i=0;
         do {
