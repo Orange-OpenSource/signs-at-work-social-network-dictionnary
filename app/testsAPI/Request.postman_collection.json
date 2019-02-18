@@ -3887,6 +3887,195 @@
 					"response": []
 				}
 			]
-		}
+		},
+    {
+      "name": "DeleteAllOtherRequests",
+      "item": [
+        {
+          "name": "http://{{domain}}/ws/sec/users/other/requests?sort=name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c593ffdf-3080-4b8f-a3c3-115f8628cb17",
+                "exec": [
+                  "console.log(\"/ws/sec/users/other/requests\");\r",
+                  "var jsonData = JSON.parse(responseBody);\r",
+                  "\r",
+                  "var schema = {\r",
+                  "    \"properties\": {\r",
+                  "        \"id\": {\r",
+                  "            \"type\": \"integer\"\r",
+                  "        },\r",
+                  "        \"name\": {\r",
+                  "            \"type\": \"string\"\r",
+                  "        },\r",
+                  "        \"textDescription\": {\r",
+                  "            \"type\": [\"string\",\"null\"]\r",
+                  "        },\r",
+                  "        \"videoDescription\": {\r",
+                  "            \"type\": [\"string\",\"null\"]\r",
+                  "        },\r",
+                  "        \"date\": {\r",
+                  "            \"type\": \"number\"\r",
+                  "        },\r",
+                  "         \"signId\": {\r",
+                  "            \"type\": [\"string\", \"null\"]\r",
+                  "        },\r",
+                  "         \"signName\": {\r",
+                  "            \"type\": [\"string\", \"null\"]\r",
+                  "        },\r",
+                  "         \"userName\": {\r",
+                  "            \"type\": \"string\"\r",
+                  "        }\r",
+                  "    },\r",
+                  "    \"required\": [\"id\",\"name\", \"date\", \"userName\"]\r",
+                  "}\r",
+                  "\r",
+                  "console.log(jsonData);\r",
+                  "var requestIDs = [];\r",
+                  "\r",
+                  "jsonData.forEach(function(myRequest) {\r",
+                  "var testTitle = \"myRequest \" + myRequest.id + \" conforms to schema\";\r",
+                  "requestIDs.push(myRequest.id);\r",
+                  "tests[testTitle] = tv4.validate(myRequest, schema);\r",
+                  "});\r",
+                  "\r",
+                  "postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
+                  "postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
+                  "postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "boisset",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "denisB",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "data={\"firstName\":\"denis\"}"
+            },
+            "url": {
+              "raw": "http://{{domain}}/ws/sec/users/other/requests?sort=name",
+              "protocol": "http",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "ws",
+                "sec",
+                "users",
+                "other",
+                "requests"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "name"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c6b9984f-dab1-401c-a3f0-6b1751bbef43",
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);\r",
+                  "pm.test(\"response must be valid and have a body and a requestID\", function () {\r",
+                  "     // assert that the status code is 200\r",
+                  "     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+                  "     // assert that the response has a valid JSON body\r",
+                  "     pm.response.to.be.withBody;\r",
+                  "     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+                  "     pm.expect(jsonData.requestId).to.not.be.null;\r",
+                  "});\r",
+                  "\r",
+                  "var requestIDs = JSON.parse(postman.getEnvironmentVariable(\"requestIDs\"));\r",
+                  "if (requestIDs.length > 0) {\r",
+                  "    postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
+                  "    postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
+                  "    postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+                  "} else {\r",
+                  "    postman.clearEnvironmentVariable(\"requestID\");\r",
+                  "    postman.clearEnvironmentVariable(\"requestIDs\");\r",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "sanchez",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "manuel",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+              "protocol": "http",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "ws",
+                "sec",
+                "requests",
+                "{{requestID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
 	]
 }
