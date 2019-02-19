@@ -663,12 +663,14 @@ public class SignRestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGN, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
-  public VideoResponseApi updateVideo(@PathVariable Long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
+  public VideoResponseApi updateVideo(@PathVariable Long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<SignCreationViewApi> signCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
-    if (!signCreationViewApi.getTextDefinition().isEmpty()) {
-      services.sign().changeSignTextDefinition(signId, signCreationViewApi.getTextDefinition());
+    if (signCreationViewApi.isPresent()) {
+      if (!signCreationViewApi.get().getTextDefinition().isEmpty()) {
+        services.sign().changeSignTextDefinition(signId, signCreationViewApi.get().getTextDefinition());
+      }
     }
 
     if (file.isPresent()) {

@@ -6,6 +6,3115 @@
 	},
 	"item": [
 		{
+			"name": "CreateSignByUserWithProfil_USER_A",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var signID = jsonData.signId;",
+									"postman.setEnvironmentVariable(\"signID\", signID);",
+									"console.log(\"signID \"+signID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.signId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_A.json"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoCreateAfterLastDateDeconnection).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(0);\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateSignByUserWithProfil_USER",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"",
+									"pm.test(\"response must be forbidden\", function () {",
+									"     // assert that the status code is forbidden",
+									"     pm.response.to.be.forbidden; ",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.signId).to.be.null;",
+									"     pm.expect(jsonData.errorMessage).to.eq('You don\\'t have privilege to realise this operation');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "sanchez",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "manuel",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER.json"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateSignByUserWithProfil_USER_A And Add Comment",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var signID = jsonData.signId;",
+									"postman.setEnvironmentVariable(\"signID\", signID);",
+									"console.log(\"signID \"+signID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.signId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_AAndAddComment.json"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Comment');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Comment');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Comment');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length) === 0;\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.errorMessage).to.eq(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"text\":\"Commentaire de denisB sur le signe Sign From USER_A And Add Comments\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}/comments",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(jsonData.commentDatas.length);\r",
+									"\r",
+									"pm.test(\"video has Name and one comment\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Comment');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(1);\r",
+									"   pm.expect(jsonData.commentDatas[0].text).to.eq('Commentaire de denisB sur le signe Sign From USER_A And Add Comments');\r",
+									"   pm.expect(jsonData.commentDatas[0].commentDate).not.eq(null);\r",
+									"   pm.expect(jsonData.commentDatas[0].userName).to.eq('denisB')\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateSignByUserWithProfil_USER_A And Add Multiples Comments",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var signID = jsonData.signId;",
+									"postman.setEnvironmentVariable(\"signID\", signID);",
+									"console.log(\"signID \"+signID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.signId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_AAndAddMultiplesComments.json"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length) === 0;\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.errorMessage).to.eq(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"text\":\"Commentaire de denisB sur le signe Sign From USER_A And Add Multiples Comments\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}/comments",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(jsonData.commentDatas.length);\r",
+									"\r",
+									"pm.test(\"video has Name and one comment\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(1);\r",
+									"   pm.expect(jsonData.commentDatas[0].text).to.eq('Commentaire de denisB sur le signe Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData.commentDatas[0].commentDate).not.eq(null);\r",
+									"   pm.expect(jsonData.commentDatas[0].userName).to.eq('denisB')\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}/comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.errorMessage).to.eq(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "manuel",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "sanchez",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"text\":\"Commentaire de manu sur le signe Sign From USER_A And Add Multiples Comments\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}/comments",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(jsonData.commentDatas.length);\r",
+									"\r",
+									"pm.test(\"video has Name and two comments\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(2);\r",
+									"   pm.expect(jsonData.commentDatas[0].text).to.eq('Commentaire de manu sur le signe Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData.commentDatas[0].commentDate).not.eq(null);\r",
+									"   pm.expect(jsonData.commentDatas[0].userName).to.eq('manuel')\r",
+									"   pm.expect(jsonData.commentDatas[1].text).to.eq('Commentaire de denisB sur le signe Sign From USER_A And Add Multiples Comments');\r",
+									"   pm.expect(jsonData.commentDatas[1].commentDate).not.eq(null);\r",
+									"   pm.expect(jsonData.commentDatas[1].userName).to.eq('denisB')\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateSignByUserWithProfil_USER_A And Add Text Definition",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var signID = jsonData.signId;",
+									"postman.setEnvironmentVariable(\"signID\", signID);",
+									"console.log(\"signID \"+signID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.signId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_AAndAddTextDefinition.json"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Text Definition');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Text Definition');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Text Definition');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(0);\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_AAddTextDefinition.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Text Definition');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Text Definition');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq('Definition pour le Sign From USER_A And Add Text Definition');\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Text Definition');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(0);\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateSignByUserWithProfil_USER_A And Add Video Definition",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var signID = jsonData.signId;",
+									"postman.setEnvironmentVariable(\"signID\", signID);",
+									"console.log(\"signID \"+signID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.signId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_AAndAddVideoDefinition.json"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Video Definition');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Video Definition');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Video Definition');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(0);\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Video Definition');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Video Definition');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).not.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Video Definition');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(0);\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateSignByUserWithProfil_USER_A And Add Text Video Definition",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/signs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var signID = jsonData.signId;",
+									"postman.setEnvironmentVariable(\"signID\", signID);",
+									"console.log(\"signID \"+signID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a signID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.signId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_AAndAddTextVideoDefinition.json"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Text Video Definition');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Text Video Definition');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).to.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Text Video Definition');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(0);\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2013d8b6-c780-4fe1-8e7f-ae0deed73cd0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"",
+									"",
+									"pm.test(\"response must be valid and have a body\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "app/testsAPI/SignFromUSER_AAddTextDefinition.json"
+								},
+								{
+									"key": "data",
+									"type": "file",
+									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28448e8a-5d77-4966-b838-107c31e1a8f9",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"console.log(\"/ws/sec/signs/\"+signID+\"/videos\");\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"console.log(jsonData.signId);\r",
+									"\r",
+									"pm.test(\"sign has only one video\", function () {\r",
+									"   pm.expect(jsonData.length) == 1;\r",
+									"   pm.expect(jsonData[0].signId) == signID;\r",
+									"   pm.expect(jsonData[0].signName).to.eq('Sign From USER_A And Add Text Video Definition');\r",
+									"   pm.expect(jsonData[0].videoName).to.eq('Sign From USER_A And Add Text Video Definition');\r",
+									"   pm.expect(jsonData[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData[0].videoId).not.eq(null);\r",
+									"   pm.expect(jsonData[0].url).not.eq(null);\r",
+									"   pm.expect(jsonData[0].pictureUri).not.eq(null);\r",
+									"   pm.expect(jsonData[0].nbVideo).to.eq(0);\r",
+									"   pm.expect(jsonData[0].videoHasView).to.eq(false);\r",
+									"   pm.expect(jsonData[0].videoHasPositiveRate).to.eq(false); \r",
+									"   pm.expect(jsonData[0].signBelowToFavorite).to.eq(false);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"videoID\", jsonData[0].videoId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "968c78bc-9648-48cd-90ed-293832217694",
+								"exec": [
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"if (!signID) {\r",
+									"    throw new Error(\"No signID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"signs",
+								"{{signID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1aae60c-4a80-481e-b3af-18ca49b68591",
+								"exec": [
+									"console.log(\"/ws/sec/videos/\"+postman.getEnvironmentVariable(\"videoID\"));\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"var signID = postman.getEnvironmentVariable(\"signID\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"video has Name\", function () {\r",
+									"   pm.expect(jsonData.signId) == signID;\r",
+									"   pm.expect(jsonData.signTextDefinition).not.eq(null);\r",
+									"   pm.expect(jsonData.signVideoDefinition).not.eq(null);\r",
+									"   pm.expect(jsonData.videoName).to.equal('Sign From USER_A And Add Text Video Definition');\r",
+									"   pm.expect(jsonData.url).not.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratingString).to.eq(null);\r",
+									"   pm.expect(jsonData.ratingData.ratePositive).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNoRate).to.eq(true);\r",
+									"   pm.expect(jsonData.ratingData.rateNeutral).to.eq(false);\r",
+									"   pm.expect(jsonData.ratingData.rateNegative).to.eq(false);\r",
+									"   pm.expect(jsonData.commentDatas.length).to.eq(0);\r",
+									"   pm.expect(jsonData.nbRating).to.eq(0);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].createDate).not.eq(null);\r",
+									"   pm.expect(jsonData.videoHistoryDatas[0].userName).to.eq('denisB');\r",
+									"   pm.expect(jsonData.videoCreatedByMe).to.eq(true);\r",
+									"   pm.expect(jsonData.videoBelowToFavorite).to.eq(false); \r",
+									"   pm.expect(jsonData.videoHasAveragePositiveRate).to.eq(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "28063542-c7b3-436b-8763-37c2ea7ce7a1",
+								"exec": [
+									"var videoID = postman.getEnvironmentVariable(\"videoID\");\r",
+									"if (!videoID) {\r",
+									"    throw new Error(\"No videoID set\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "data={\"firstName\":\"denis\"}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"videos",
+								"{{videoID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "GetAllSigns",
 			"item": [
 				{
@@ -461,6 +3570,6 @@
 					"response": []
 				}
 			]
-		}
+
 	]
 }
