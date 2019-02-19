@@ -3763,7 +3763,7 @@
                   "\r",
                   "postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
                   "postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
-                  "/*postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");*/\r",
+                  "postman.setNextRequest(\"Delete my Requests\");\r",
                   ""
                 ],
                 "type": "text/javascript"
@@ -3820,7 +3820,7 @@
           "response": []
         },
         {
-          "name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+          "name": "Delete my Requests",
           "event": [
             {
               "listen": "test",
@@ -3841,7 +3841,7 @@
                   "if (requestIDs.length > 0) {\r",
                   "    postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
                   "    postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
-                  "    postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+                  "    postman.setNextRequest(\"Delete my Requests\");\r",
                   "} else {\r",
                   "    postman.clearEnvironmentVariable(\"requestID\");\r",
                   "    postman.clearEnvironmentVariable(\"requestIDs\");\r",
@@ -3943,7 +3943,7 @@
                   "\r",
                   "postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
                   "postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
-                  "/*postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");*/\r",
+                  "postman.setNextRequest(\"Delete other Requests\");\r",
                   ""
                 ],
                 "type": "text/javascript"
@@ -4006,7 +4006,7 @@
           "response": []
         },
         {
-          "name": "http://{{domain}}/ws/sec/requests/{{requestID}}",
+          "name": "Delete other Requests",
           "event": [
             {
               "listen": "test",
@@ -4027,7 +4027,7 @@
                   "if (requestIDs.length > 0) {\r",
                   "    postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
                   "    postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
-                  "    postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+                  "    postman.setNextRequest(\"Delete other Requests\");\r",
                   "} else {\r",
                   "    postman.clearEnvironmentVariable(\"requestID\");\r",
                   "    postman.clearEnvironmentVariable(\"requestIDs\");\r",
