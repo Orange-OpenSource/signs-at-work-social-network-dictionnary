@@ -3484,92 +3484,92 @@
 				}
 			]
 		},
-		{
-			"name": "GetAllSignsSortByNameAsc",
-			"item": [
-				{
-					"name": "http://{{domain}}/ws/sec/signs?sort=name",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "1990a417-a3e4-468d-8471-022f54570c0c",
-								"exec": [
-									"var _ = require('lodash'),\r",
-									"\r",
-									"    // Parse the array returned in the response body (It is probably a stringified response)\r",
-									"    responseArray = JSON.parse(responseBody);\r",
-									"\r",
-									"var lowerCaseSigns = _.clone(responseArray);\r",
-									"lowerCaseSigns = lowerCaseSigns.map(sign => {\r",
-									"   sign.name = _.deburr(sign.name.toLowerCase()); \r",
-									"   return sign;\r",
-									"});\r",
-									"\r",
-									"pm.test('Signs are sorted order by name asc', () => {\r",
-									"    // Use the responseArray here\r",
-									"    var expectedSortedOrder = _.orderBy(lowerCaseSigns, ['name'],['asc']);\r",
-									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "boisset",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "denisB",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
-						},
-						"url": {
-							"raw": "http://{{domain}}/ws/sec/signs?sort=name",
-							"protocol": "http",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"ws",
-								"sec",
-								"signs"
-							],
-							"query": [
-								{
-									"key": "sort",
-									"value": "name"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-
+    {
+      "name": "GetAllSignsSortByNameAsc",
+      "item": [
+        {
+          "name": "http://{{domain}}/ws/sec/signs?sort=name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1990a417-a3e4-468d-8471-022f54570c0c",
+                "exec": [
+                  "var _ = require('lodash'),\r",
+                  "\r",
+                  "    // Parse the array returned in the response body (It is probably a stringified response)\r",
+                  "    responseArray = JSON.parse(responseBody);\r",
+                  "\r",
+                  "var lowerCaseSigns = _.clone(responseArray);\r",
+                  "lowerCaseSigns = lowerCaseSigns.map(sign => {\r",
+                  "   sign.name = _.deburr(sign.name.toLowerCase()); \r",
+                  "   return sign;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Signs are sorted order by name asc', () => {\r",
+                  "    // Use the responseArray here\r",
+                  "    var expectedSortedOrder = _.orderBy(lowerCaseSigns, ['name'],['asc']);\r",
+                  "    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "boisset",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "denisB",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "data={\"firstName\":\"denis\"}"
+            },
+            "url": {
+              "raw": "http://{{domain}}/ws/sec/signs?sort=name",
+              "protocol": "http",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "ws",
+                "sec",
+                "signs"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "name"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
 	]
 }
