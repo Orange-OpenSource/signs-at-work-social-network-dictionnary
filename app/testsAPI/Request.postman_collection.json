@@ -3763,7 +3763,7 @@
                   "\r",
                   "postman.setEnvironmentVariable(\"requestID\", requestIDs.shift());\r",
                   "postman.setEnvironmentVariable(\"requestIDs\", JSON.stringify(requestIDs));\r",
-                  "postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");\r",
+                  "/*postman.setNextRequest(\"http://{{domain}}/ws/sec/requests/{{requestID}}\");*/\r",
                   ""
                 ],
                 "type": "text/javascript"
