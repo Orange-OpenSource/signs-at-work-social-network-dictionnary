@@ -2892,12 +2892,12 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "app/testsAPI/SignFromUSER_AAddTextDefinition.json"
+                  "src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
 								},
 								{
 									"key": "data",
 									"type": "file",
-									"src": "app/testsAPI/ivs0ljs6ymux16fz2ol.webm"
+                  "src": "app/testsAPI/SignFromUSER_AAddTextDefinition.json"
 								}
 							]
 						},
