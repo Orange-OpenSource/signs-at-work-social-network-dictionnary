@@ -1376,8 +1376,6 @@
 									"pm.test('My Requests are sorted order by name asc', () => {\r",
 									"    // Use the responseArray here\r",
 									"    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['asc']);\r",
-									"    console.log(responseArray);\r",
-									"    console.log(expectedSortedOrder);\r",
 									"\r",
 									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
 									"});"
@@ -1532,8 +1530,6 @@
                   "pm.test('My Requests are sorted order by name desc', () => {\r",
                   "    // Use the responseArray here\r",
                   "    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['desc']);\r",
-                  "    console.log(responseArray);\r",
-                  "    console.log(expectedSortedOrder);\r",
                   "\r",
                   "    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
                   "});"
@@ -3569,8 +3565,6 @@
 									"pm.test('Other Requests are sorted order by name asc', () => {\r",
 									"    // Use the responseArray here\r",
 									"    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['asc']);\r",
-									"    console.log(responseArray);\r",
-									"    console.log(expectedSortedOrder);\r",
 									"\r",
 									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
 									"});"
@@ -3651,8 +3645,6 @@
 									"pm.test('Other Requests are sorted order by name desc', () => {\r",
 									"    // Use the responseArray here\r",
 									"    var expectedSortedOrder = _.orderBy(lowerCaseRequests, ['name'],['desc']);\r",
-									"    console.log(responseArray);\r",
-									"    console.log(expectedSortedOrder);\r",
 									"\r",
 									"    pm.expect(responseArray).to.eql(expectedSortedOrder);\r",
 									"});"
