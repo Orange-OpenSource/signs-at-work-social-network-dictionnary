@@ -45,9 +45,6 @@ public class SpringRestClient {
     @Autowired
     private AppProfile appProfile;
 
-    public static final String AUTH_SERVER_URI = "https://api.dailymotion.com/oauth/token";
-
-
 
     /*
      * Prepare HTTP Headers.
@@ -74,6 +71,7 @@ public class SpringRestClient {
      */
     @SuppressWarnings({ "unchecked"})
 	public AuthTokenInfo sendTokenRequest(){
+        String AUTH_SERVER_URI = appProfile.dailymotionAccess().url+ "/oauth/token";
         RestTemplate restTemplate = buildRestTemplate();
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();

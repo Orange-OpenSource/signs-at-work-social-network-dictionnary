@@ -36,6 +36,7 @@ import com.orange.signsatwork.biz.persistence.service.SignService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,14 +68,19 @@ public class SignServiceImpl implements SignService {
   @Autowired
   AppProfile appProfile;
 
-  String REST_SERVICE_URI = "https://api.dailymotion.com";
+  @Autowired
+  private Environment environment;
+
 
   @Override
   public UrlFileUploadDailymotion getUrlFileUpload() {
     RestTemplate restTemplate = springRestClient.buildRestTemplate();
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
-    ResponseEntity<UrlFileUploadDailymotion> response = restTemplate.exchange(REST_SERVICE_URI + "/file/upload", HttpMethod.GET, request, UrlFileUploadDailymotion.class);
+    String url = environment.getProperty("app.dailymotion_url")+ "/file/upload";
+    log.info("url GET "+url);
+    ResponseEntity<UrlFileUploadDailymotion> response = restTemplate.exchange(url, HttpMethod.GET, request, UrlFileUploadDailymotion.class);
     UrlFileUploadDailymotion urlfileUploadDailyMotion = response.getBody();
+    log.info("body "+urlfileUploadDailyMotion.toString());
     return urlfileUploadDailyMotion;
   }
 
@@ -216,7 +222,7 @@ public class SignServiceImpl implements SignService {
     HttpEntity<String> request = new HttpEntity<String>(getHeaders());
     ResponseEntity<VideoDailyMotion> response = restTemplate.exchange(url, HttpMethod.GET, request, VideoDailyMotion.class);
     VideoDailyMotion videoDailyMotion = response.getBody();
-
+    log.info("url GET "+url);
     log.info("videoDailyMotion: " + videoDailyMotion.toString());
 
     return videoDailyMotion;

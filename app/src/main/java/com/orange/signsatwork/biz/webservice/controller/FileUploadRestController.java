@@ -46,6 +46,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.search.RecipientStringTerm;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import java.io.File;
@@ -80,7 +81,6 @@ public class FileUploadRestController {
   private Environment environment;
 
 
-  String REST_SERVICE_URI = "https://api.dailymotion.com";
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
 
@@ -112,6 +112,7 @@ public class FileUploadRestController {
   private String handleRecordedVideoFile(VideoFile videoFile, OptionalLong requestId,OptionalLong signId, OptionalLong videoId, Principal principal, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
+    String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
     String videoUrl = null;
     String file = "/data/" + videoFile.name;
     String fileOutput = file.replace(".webm", ".mp4");
@@ -201,7 +202,8 @@ public class FileUploadRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -308,6 +310,7 @@ public class FileUploadRestController {
 
     try {
       String dailymotionId;
+      String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
@@ -358,7 +361,8 @@ public class FileUploadRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -437,6 +441,7 @@ public class FileUploadRestController {
     {
       try {
         String dailymotionId;
+        String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
         AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
         if (authTokenInfo.isExpired()) {
           dalymotionToken.retrieveToken();
@@ -485,7 +490,8 @@ public class FileUploadRestController {
         headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+        String videosUrl = REST_SERVICE_URI + "/videos";
+        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
           HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
         VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -603,6 +609,7 @@ public class FileUploadRestController {
 
     try {
       String dailymotionId;
+      String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
@@ -652,7 +659,8 @@ public class FileUploadRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -723,7 +731,7 @@ public class FileUploadRestController {
       authTokenInfo = dalymotionToken.getAuthTokenInfo();
     }
 
-    final String uri = "https://api.dailymotion.com/video/"+dailymotionId;
+    final String uri = environment.getProperty("app.dailymotion_url") + "/video/"+dailymotionId;
     RestTemplate restTemplate = springRestClient.buildRestTemplate();
 
     MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -749,6 +757,7 @@ public class FileUploadRestController {
       RequestResponse requestResponse = new RequestResponse();
       try {
         String dailymotionId;
+        String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
         AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
         if (authTokenInfo.isExpired()) {
           dalymotionToken.retrieveToken();
@@ -794,7 +803,8 @@ public class FileUploadRestController {
         headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+        String videosUrl = REST_SERVICE_URI + "/videos";
+        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
           HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
         VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -930,6 +940,7 @@ public class FileUploadRestController {
     try {
       String dailymotionId;
       Request request = null;
+      String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
@@ -975,7 +986,8 @@ public class FileUploadRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -1108,6 +1120,7 @@ public class FileUploadRestController {
     try {
       String dailymotionId;
       Sign sign = null;
+      String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
       sign = services.sign().withId(signId);
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
@@ -1154,7 +1167,8 @@ public class FileUploadRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -1210,6 +1224,7 @@ public class FileUploadRestController {
 
       try {
         String dailymotionId;
+        String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
         AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
         if (authTokenInfo.isExpired()) {
           dalymotionToken.retrieveToken();
@@ -1255,7 +1270,8 @@ public class FileUploadRestController {
         headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+        String videosUrl = REST_SERVICE_URI + "/videos";
+        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
           HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
         VideoDailyMotion videoDailyMotion = response1.getBody();
 

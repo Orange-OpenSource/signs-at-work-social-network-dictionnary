@@ -1,0 +1,31 @@
+{
+  "oauth": {
+    "access_token": "token",
+    "token_type": "Bearer",
+    "refresh_token": "token",
+    "expires_in": 36000
+  },
+  "file": {
+    "upload_url": "http://localhost:3000/upload",
+    "progress_url": "http://localhost:3000/progress?uuid=e6bcc0b986af51ce0189e85c31ec03da"
+  },
+  "videos": 
+    {
+      "id": 1,
+      "embed_url": 1,
+      "thumbnail_360_url": "thumbnail_360_url"
+    },
+  "upload": 
+    {
+      "id": 1,
+      "embed_url": 1,
+      "thumbnail_360_url": "thumbnail_360_url"
+    },
+  "video":  [
+    {
+      "id": 1,
+      "embed_url": 1,
+      "thumbnail_360_url": "thumbnail_360_url"
+    }
+]
+}

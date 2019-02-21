@@ -37,6 +37,7 @@ import com.orange.signsatwork.biz.webservice.model.*;
 import com.orange.signsatwork.biz.webservice.model.SignView;
 import com.orange.signsatwork.biz.webservice.model.VideoView;
 import lombok.extern.slf4j.Slf4j;
+import org.omg.CORBA.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -73,8 +74,9 @@ public class SignRestController {
   MessageByLocaleService messageByLocaleService;
   @Autowired
   private StorageService storageService;
+  @Autowired
+  private org.springframework.core.env.Environment environment;
 
-  String REST_SERVICE_URI = "https://api.dailymotion.com";
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
 
@@ -140,7 +142,7 @@ public class SignRestController {
       authTokenInfo = dalymotionToken.getAuthTokenInfo();
     }
 
-    final String uri = "https://api.dailymotion.com/video/"+dailymotionId;
+    final String uri = environment.getProperty("app.dailymotion_url") + "/video/"+dailymotionId;
     RestTemplate restTemplate = springRestClient.buildRestTemplate();
 
     MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -542,6 +544,7 @@ public class SignRestController {
 
   private VideoResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
 
+    String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
     VideoResponseApi videoResponseApi = new VideoResponseApi();
     try {
       String dailymotionId;
@@ -596,7 +599,8 @@ public class SignRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
@@ -685,6 +689,7 @@ public class SignRestController {
   private VideoResponseApi handleSelectedVideoFileUploadForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
     Sign sign = null;
     VideoResponseApi videoResponseApi = new VideoResponseApi();
+    String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
     sign = services.sign().withId(signId);
 
     try {
@@ -734,7 +739,8 @@ public class SignRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange("https://api.dailymotion.com/videos",
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 

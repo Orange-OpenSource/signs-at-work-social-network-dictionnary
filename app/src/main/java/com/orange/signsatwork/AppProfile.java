@@ -10,12 +10,12 @@ package com.orange.signsatwork;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -62,12 +62,13 @@ public class AppProfile {
 
 
   private void initDailyMotion() {
+    String dailymotionUrl = environment.getProperty("app.dailymotion_url");
     String grantType = environment.getProperty("app.dailymotion.grant_type");
     String clientId = environment.getProperty("app.dailymotion.client_id");
     String clientSecret = environment.getProperty("app.dailymotion.client_secret");
     String username = environment.getProperty("app.dailymotion.username");
     String password = environment.getProperty("app.dailymotion.password");
-    dailymotionAccess = new DailymotionAccess(grantType, clientId, clientSecret, username, password );
+    dailymotionAccess = new DailymotionAccess(dailymotionUrl, grantType, clientId, clientSecret, username, password );
   }
 
   private void initProxy() {
