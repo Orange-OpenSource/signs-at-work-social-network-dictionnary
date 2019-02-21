@@ -20,7 +20,7 @@ script:
 - cp app/target/sign*.jar .
 - cd app/testsAPI && nohup node server.js &
 - ./app/wait-for-it.sh -t 0 localhost:3000 -- echo "mock dailymotion is up"
-- nohup java -jar sign*.jar --spring.profiles.active=default --app.file=app --app.dailymotion_url=http://localhost:3000 &
+- nohup java -jar sign*.jar --spring.profiles.active=default --app.file=app &
 - ls -l
 - ./app/wait-for-it.sh -t 0 localhost:8080 -- echo "signsatwork is up"
 - node_modules/.bin/newman run app/testsAPI/User.postman_collection.json -e app/testsAPI/Local.postman_environment.json
