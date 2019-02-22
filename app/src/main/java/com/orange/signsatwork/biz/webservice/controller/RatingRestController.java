@@ -93,7 +93,7 @@ public class RatingRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_RATINGS, method = RequestMethod.PUT, headers = {"content-type=application/json"})
+  @RequestMapping(value = RestApi.WS_SEC_RATINGS, method = RequestMethod.POST, headers = {"content-type=application/json"})
   public VideoResponseApi updateVideo(@PathVariable long videoId, @RequestBody RatingCreationViewApi ratingCreationViewApi, HttpServletResponse response, Principal principal) {
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
