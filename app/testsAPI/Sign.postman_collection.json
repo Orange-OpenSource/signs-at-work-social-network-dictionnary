@@ -168,7 +168,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -268,7 +268,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -535,7 +535,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -635,7 +635,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -806,7 +806,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -988,7 +988,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -1088,7 +1088,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -1259,7 +1259,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -1433,7 +1433,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -1615,7 +1615,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -1715,7 +1715,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -1885,7 +1885,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -1985,7 +1985,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -2167,7 +2167,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -2267,7 +2267,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -2437,7 +2437,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -2537,7 +2537,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -2719,7 +2719,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -2819,7 +2819,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -2994,7 +2994,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -3094,7 +3094,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -3276,7 +3276,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -3376,7 +3376,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -3544,7 +3544,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -3726,7 +3726,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -3826,7 +3826,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -3994,7 +3994,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -4176,7 +4176,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -4276,7 +4276,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -4444,7 +4444,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -4612,7 +4612,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -4794,7 +4794,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -4894,7 +4894,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -5062,7 +5062,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -5251,7 +5251,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -5351,7 +5351,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID1}}",
@@ -5450,7 +5450,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID2}}",
@@ -5632,7 +5632,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -5732,7 +5732,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -5912,7 +5912,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -6012,7 +6012,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -6131,7 +6131,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs",
@@ -6207,7 +6207,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs?sort=date",
@@ -6289,7 +6289,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://localhost:8080/ws/sec/signs?sort=-date",
@@ -6377,7 +6377,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/signs?sort=-name",
@@ -6464,7 +6464,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/signs?sort=name",

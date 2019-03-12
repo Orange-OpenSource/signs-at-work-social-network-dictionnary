@@ -1256,7 +1256,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://{{domain}}/ws/sec/users/me/requests",
@@ -3097,7 +3097,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "data={\"firstName\":\"denis\"}"
+                  "raw": ""
                 },
                 "url": {
                   "raw": "http://{{domain}}/ws/sec/signs/{{signID}}/videos",
@@ -3187,7 +3187,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "data={\"firstName\":\"denis\"}"
+                  "raw": ""
                 },
                 "url": {
                   "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -3266,7 +3266,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "data={\"firstName\":\"denis\"}"
+                  "raw": ""
                 },
                 "url": {
                   "raw": "http://{{domain}}/ws/sec/videos/{{videoID}}",
@@ -3792,7 +3792,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/users/me/requests",
@@ -3972,7 +3972,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "data={\"firstName\":\"denis\"}"
+              "raw": ""
             },
             "url": {
               "raw": "http://{{domain}}/ws/sec/users/other/requests?sort=name",

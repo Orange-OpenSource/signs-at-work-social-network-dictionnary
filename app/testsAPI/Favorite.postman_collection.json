@@ -675,7 +675,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "data={\"firstName\":\"denis\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://localhost:8080/ws/sec/videos",
