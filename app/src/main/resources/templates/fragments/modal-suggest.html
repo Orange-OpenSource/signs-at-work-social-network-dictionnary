@@ -149,7 +149,7 @@
           <input th:field="*{signName}" id="signNameSelected" type="text" class="text-center border form-control"
                  th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
           <h4 class="pull-left" th:text="#{sign.join_video}"></h4><br/>
-          <input name="file" type="file" id="InputFile"/>
+          <input name="file" accept="video/*" capture="camera" type="file" id="InputFile"/>
           <h4 id="errorSelectedSpan" style="visibility: hidden"></h4>
         </div>
         <div class="modal-footer">

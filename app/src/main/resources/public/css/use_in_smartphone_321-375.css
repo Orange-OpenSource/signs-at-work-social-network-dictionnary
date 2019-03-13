@@ -166,7 +166,7 @@
   }
 
   .tooltip_favorite {
-    background-position: right 0px top 0px;
+    background-position: -383px center;
     background-size: auto 15px;
     height: 15px;
     width: 15px;
@@ -174,7 +174,7 @@
   }
 
   .tooltip_favorite_in_frame {
-    background-position: right 0px top 0px;
+    background-position: -383px center;
     background-size: auto 15px;
     height: 15px;
     width: 15px;
