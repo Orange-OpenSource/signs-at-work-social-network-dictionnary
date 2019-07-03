@@ -59,6 +59,12 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
+    public void rename(File oldFile, String newFileName) {
+      File newFile = this.rootLocation.resolve(newFileName).toFile();
+      oldFile.renameTo(newFile);
+    }
+
+    @Override
     public void generateThumbnail(File input) throws IOException, JCodecException {
         double msec = 10000;
         BufferedImage frame = getFrame(input, msec / 1000);

@@ -2,6 +2,9 @@
   background: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/sprite_picto_400X400.png"), url("/img/new_sprite_picto_400X400.png")  no-repeat;
 }
 
+.able-wrapper {
+  z-index: 0!important;
+}
 
 .sentiment{
   border-bottom: none!important;

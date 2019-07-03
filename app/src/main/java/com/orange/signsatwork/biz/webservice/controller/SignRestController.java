@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -94,26 +95,43 @@ public class SignRestController {
     if (sign.videos.list().size() == 1) {
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
-        if (request.requestVideoDescription != sign.videoDefinition) {
+        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
           String dailymotionIdForSignDefinition;
           dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-          try {
-            DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
-          } catch (Exception errorDailymotionDeleteVideo) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+            try {
+              DeleteVideoOnServer(dailymotionIdForSignDefinition);
+            } catch (Exception errorServerDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorServerDeleteVideo");
+            }
+          } else {
+            try {
+              DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            }
           }
         }
       }
 
       services.sign().delete(sign);
       dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      }
-      catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        try {
+          DeleteVideoOnServer(dailymotionId);
+        } catch (Exception errorServerDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorServerDeleteVideo");
+        }
+      } else {
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
       }
       response.setStatus(HttpServletResponse.SC_OK);
       return "/";
@@ -122,16 +140,39 @@ public class SignRestController {
       Video video = services.video().withId(videoId);
       services.video().delete(video);
       dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      }
-      catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        try {
+          DeleteVideoOnServer(dailymotionId);
+        } catch (Exception errorServerDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorServerDeleteVideo");
+        }
+      } else {
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
       }
       response.setStatus(HttpServletResponse.SC_OK);
       return "/sign/" + signId;
     }
+  }
+
+  private void DeleteVideoOnServer(String fileId) {
+
+    String fileName = environment.getProperty("app.file")+fileId;
+    fileId = fileId.substring(0, fileId.indexOf('.'));
+    String thumbnailFileName =environment.getProperty("app.file") +"thumbnail/"+fileId+".png";
+
+    File file = new File(fileName);
+    file.delete();
+
+    File thumbnail = new File(thumbnailFileName);
+    thumbnail.delete();
+
+    return;
   }
 
   private void DeleteVideoOnDailyMotion(String dailymotionId) {
@@ -489,7 +530,11 @@ public class SignRestController {
         return videoResponseApi;
       }
 
-      return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        return handleSelectedVideoFileUploadOnServer(file.get(), OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+      } else {
+        return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+      }
     }
 
   @Secured("ROLE_USER_A")
@@ -514,7 +559,11 @@ public class SignRestController {
       return videoResponseApi;
     }
 
-    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationViewApi, principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadOnServer(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationViewApi, principal, response);
+    } else {
+      return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationViewApi, principal, response);
+    }
   }
 
   @Secured("ROLE_USER_A")
@@ -537,7 +586,11 @@ public class SignRestController {
       return videoResponseApi;
     }
 
-    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationViewApi, principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadOnServer(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationViewApi, principal, response);
+    } else {
+      return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationViewApi, principal, response);
+    }
   }
 
 
@@ -665,6 +718,72 @@ public class SignRestController {
     }
   }
 
+  private VideoResponseApi handleSelectedVideoFileUploadOnServer(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
+
+
+    VideoResponseApi videoResponseApi = new VideoResponseApi();
+    try {
+      User user = services.user().withUserName(principal.getName());
+      storageService.store(file);
+      File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.')+1);
+      String fileId = UUID.randomUUID().toString();
+      String fileName = fileId + '.'+ extension;
+      storageService.rename(inputFile, fileName);
+      String absoluteFileName = environment.getProperty("app.file")+"/"+fileName;
+      String thumbnailFile = environment.getProperty("app.file")+"/thumbnail/" + fileId + ".png";
+
+      try {
+        String cmdGenerateThumbnail;
+
+
+        cmdGenerateThumbnail = String.format("ffmpeg -ss 00:00:05 -t 1 -i %s  -filter_complex 'split=1[a];[a]scale=360:360[o360p]' -map '[o360p]' -frames:v 1 %s", absoluteFileName, thumbnailFile);
+
+        String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
+        NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
+      } catch (Exception errorEncondingFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
+        return videoResponseApi;
+      }
+
+
+      Sign sign;
+      if (signId.isPresent() && (videoId.isPresent())) {
+        sign = services.sign().withId(signId.getAsLong());
+        String oldFileId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnServer(oldFileId);
+        }
+        catch (Exception errorServerDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+          return videoResponseApi;
+        }
+        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), fileName, thumbnailFile);
+      } else if (signId.isPresent() && !(videoId.isPresent())) {
+        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), fileName, thumbnailFile);
+      } else {
+        sign = services.sign().create(user.id, signCreationViewApi.getName(), fileName, thumbnailFile);
+      }
+
+      log.info("handleSelectedVideoFileUploadOnServer : username = {} / sign name = {} / video url = {}", user.username, signCreationViewApi.getName(), fileName);
+
+      if (requestId.isPresent()) {
+        services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+      }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      videoResponseApi.signId = sign.id;
+      return videoResponseApi;
+
+    } catch (Exception errorServerUploadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerUploadFile");
+      return videoResponseApi;
+    }
+  }
+
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGN, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
   public VideoResponseApi updateVideo(@PathVariable Long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<SignCreationViewApi> signCreationViewApi, HttpServletResponse response, Principal principal) throws
@@ -678,7 +797,11 @@ public class SignRestController {
     }
 
     if (file.isPresent()) {
-      return handleSelectedVideoFileUploadForSignDefinition(file.get(), signId, principal, response);
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        return handleSelectedVideoFileUploadForSignDefinitionOnServer(file.get(), signId, principal, response);
+      } else {
+        return handleSelectedVideoFileUploadForSignDefinition(file.get(), signId, principal, response);
+      }
     }
 
 
@@ -779,6 +902,46 @@ public class SignRestController {
     } catch (Exception errorDailymotionUploadFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionUploadFile");
+      return videoResponseApi;
+    }
+  }
+
+  private VideoResponseApi handleSelectedVideoFileUploadForSignDefinitionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
+    Sign sign = null;
+    VideoResponseApi videoResponseApi = new VideoResponseApi();
+    sign = services.sign().withId(signId);
+
+    try {
+      storageService.store(file);
+      File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.')+1);
+      String fileId = UUID.randomUUID().toString();
+      String fileName = fileId + '.'+ extension;
+      storageService.rename(inputFile, fileName);
+
+
+      if (!fileName.isEmpty()) {
+        if (sign.videoDefinition != null) {
+          String oldFileId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnServer(oldFileId);
+          } catch (Exception errorServerDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+            return videoResponseApi;
+          }
+        }
+        services.sign().changeSignVideoDefinition(signId, fileName);
+
+      }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      videoResponseApi.signId = sign.id;
+      return videoResponseApi;
+
+    } catch (Exception errorServerUploadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerUploadFile");
       return videoResponseApi;
     }
   }

@@ -58,6 +58,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -176,11 +177,19 @@ public class UserRestController {
     }
 
     if (fileVideoName.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), principal, "Name", response);
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        return handleSelectedVideoFileUploadForProfilOnServer(fileVideoName.get(), principal, "Name", response);
+      } else {
+        return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), principal, "Name", response);
+      }
     }
 
     if (fileJobVideoDescription.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), principal, "JobDescription", response);
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        return handleSelectedVideoFileUploadForProfilOnServer(fileJobVideoDescription.get(), principal, "JobDescription", response);
+      } else {
+        return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), principal, "JobDescription", response);
+      }
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -301,6 +310,74 @@ public class UserRestController {
       }
     }
   }
+
+  private UserResponseApi handleSelectedVideoFileUploadForProfilOnServer(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
+    {
+      UserResponseApi userResponseApi = new UserResponseApi();
+      try {
+        User user = services.user().withUserName(principal.getName());
+        storageService.store(file);
+        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.')+1);
+        String fileId = UUID.randomUUID().toString();
+        String fileName = fileId + '.'+ extension;
+        storageService.rename(inputFile, fileName);
+
+
+        if (!fileName.isEmpty()) {
+          if (inputType.equals("JobDescription")) {
+            if (user.jobVideoDescription != null) {
+              String oldFileId = user.jobVideoDescription.substring(user.jobVideoDescription.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnServer(oldFileId);
+              }
+              catch (Exception errorServerDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                userResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+                return  userResponseApi;
+              }
+            }
+            services.user().changeDescriptionVideoUrl(user, fileName);
+          } else {
+            if (user.nameVideo != null) {
+              String oldFileId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnServer(oldFileId);
+              }
+              catch (Exception errorServerDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                userResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+              }
+            }
+            services.user().changeNameVideoUrl(user, fileName);
+          }
+
+          log.warn("handleSelectedVideoFileUploadForProfilOnServer : embed_url = {}", fileName);
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        return  userResponseApi;
+
+      } catch (Exception errorServerUploadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerUploadFile");
+        return userResponseApi;
+      }
+    }
+  }
+
+  private void DeleteVideoOnServer(String fileId) {
+
+    String fileName = environment.getProperty("app.file")+fileId;
+    fileId = fileId.substring(0, fileId.indexOf('.'));
+
+    File file = new File(fileName);
+    file.delete();
+
+
+    return;
+  }
+
   private void DeleteVideoOnDailyMotion(String dailymotionId) {
 
     AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();

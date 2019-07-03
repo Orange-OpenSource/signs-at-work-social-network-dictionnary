@@ -24,8 +24,11 @@
 <head>
     <link href="../public/css/player.css" th:href="@{/css/player.css}" rel="stylesheet" type="text/css"/>
     <th:block th:include="fragments/header-head :: head"></th:block>
-  <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-  <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
+    <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
+    <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
+    <script type="text/javascript" src="../public/js.cookie.js" th:src="@{/js/js.cookie.js}"></script>
+    <link href="../public/css/ableplayer.min.css" th:href="@{/css/ableplayer.min.css}" rel="stylesheet"  type="text/css"/>
+    <script type="text/javascript" src="../public/js/ableplayer.min.js" th:src="@{/js/ableplayer.min.js}"></script>
 </head>
 
 <header role="banner" th:replace="fragments/header-my-requests :: header">&nbsp;</header>
@@ -48,9 +51,15 @@
         </ul>
       </aside>
     </div>
-    <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-      <div class="embed-responsive embed-responsive-16by9" th:if="${requestView.requestVideoDescription} != null">
+    <div class="pull-right col-md-8 col-xs-12 col-sm-4" th:if="${requestView.requestVideoDescription} != null">
+      <div class="embed-responsive embed-responsive-16by9" th:if="${#strings.contains(requestView.requestVideoDescription, 'http')}">
         <iframe class="embed-responsive-item" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+      </div>
+      <div th:if="${!#strings.contains(requestView.requestVideoDescription, 'http')}">
+        <video id="video1" data-able-player="" autoplay="true" data-debug="true" preload="auto" playsinline="">
+          <source th:src="@{/ws/sec/videosOnServer/} + ${requestView.requestVideoDescription}" type="video/webm"/>
+          <source th:src="@{/ws/sec/videosOnServer/} + ${requestView.requestVideoDescription}" type="video/mp4"/>
+        </video>
       </div>
     </div>
 

@@ -71,7 +71,8 @@ public class SpringRestClient {
      */
     @SuppressWarnings({ "unchecked"})
 	public AuthTokenInfo sendTokenRequest(){
-        String AUTH_SERVER_URI = appProfile.dailymotionAccess().url+ "/oauth/token";
+      if (!appProfile.dailymotionAccess().url.isEmpty()) {
+        String AUTH_SERVER_URI = appProfile.dailymotionAccess().url + "/oauth/token";
         RestTemplate restTemplate = buildRestTemplate();
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
@@ -79,7 +80,7 @@ public class SpringRestClient {
         body.add("client_id", appProfile.dailymotionAccess().clientId);
         body.add("client_secret", appProfile.dailymotionAccess().clientSecret);
         body.add("username", appProfile.dailymotionAccess().username);
-        body.add("password",appProfile.dailymotionAccess().password);
+        body.add("password", appProfile.dailymotionAccess().password);
         /*Set<String> keys = body.keySet();
         for(String key :keys) {
           log.info("Key = "+key);
@@ -91,24 +92,27 @@ public class SpringRestClient {
 
 
         ResponseEntity<Object> response = restTemplate.exchange(AUTH_SERVER_URI, HttpMethod.POST, request, Object.class);
-        LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>)response.getBody();
+        LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) response.getBody();
         AuthTokenInfo tokenInfo = null;
 
-        if(map!=null){
-        	tokenInfo = new AuthTokenInfo();
-        	tokenInfo.setAccess_token((String)map.get("access_token"));
-        	tokenInfo.setToken_type((String)map.get("token_type"));
-        	tokenInfo.setRefresh_token((String)map.get("refresh_token"));
-        	tokenInfo.setExpires_in((int)map.get("expires_in"));
-        	tokenInfo.setScope((String)map.get("scope"));
-        	System.out.println(tokenInfo);
+        if (map != null) {
+          tokenInfo = new AuthTokenInfo();
+          tokenInfo.setAccess_token((String) map.get("access_token"));
+          tokenInfo.setToken_type((String) map.get("token_type"));
+          tokenInfo.setRefresh_token((String) map.get("refresh_token"));
+          tokenInfo.setExpires_in((int) map.get("expires_in"));
+          tokenInfo.setScope((String) map.get("scope"));
+          System.out.println(tokenInfo);
         	/*System.out.println("access_token ="+map.get("access_token")+", token_type="+map.get("token_type")+", refresh_token="+map.get("refresh_token")+", expires_in="+map.get("expires_in")+", scope="+map.get("scope"));
             log.warn("sendTokenRequest : authTokenInfo = {}", tokenInfo.getAccess_token());*/
-        }else{
-            System.out.println("No user exist----------");
+        } else {
+          System.out.println("No user exist----------");
 
         }
         return tokenInfo;
+      } else {
+        return null;
+      }
     }
 
   public RestTemplate buildRestTemplate() {
