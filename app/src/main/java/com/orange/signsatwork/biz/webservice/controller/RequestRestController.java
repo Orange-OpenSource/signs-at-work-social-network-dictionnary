@@ -371,12 +371,22 @@ public class RequestRestController {
     services.request().delete(request);
     if (request.requestVideoDescription !=  null) {
       dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      } catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-        return requestResponseApi;
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        try {
+          DeleteVideoOnServer(dailymotionId);
+        } catch (Exception errorServerDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+          return requestResponseApi;
+        }
+      } else {
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return requestResponseApi;
+        }
       }
     }
     response.setStatus(HttpServletResponse.SC_OK);

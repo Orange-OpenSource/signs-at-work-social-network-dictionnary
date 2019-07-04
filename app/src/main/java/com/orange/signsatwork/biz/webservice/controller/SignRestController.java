@@ -472,24 +472,44 @@ public class SignRestController {
         if (request.requestVideoDescription != sign.videoDefinition) {
           String dailymotionIdForSignDefinition;
           dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-          try {
-            DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
-          } catch (Exception errorDailymotionDeleteVideo) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-            return videoResponseApi;
+          if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+            try {
+              DeleteVideoOnServer(dailymotionIdForSignDefinition);
+            } catch (Exception errorServerDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+              return videoResponseApi;
+            }
+          } else {
+            try {
+              DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              return videoResponseApi;
+            }
           }
         }
       }
 
       services.sign().delete(sign);
       dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      } catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-        return videoResponseApi;
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        try {
+          DeleteVideoOnServer(dailymotionId);
+        } catch (Exception errorServerDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+          return videoResponseApi;
+        }
+      } else {
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return videoResponseApi;
+        }
       }
       response.setStatus(HttpServletResponse.SC_OK);
       return videoResponseApi;
@@ -497,12 +517,22 @@ public class SignRestController {
     } else {
       services.video().delete(video);
       dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      } catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-        return videoResponseApi;
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        try {
+          DeleteVideoOnServer(dailymotionId);
+        } catch (Exception errorServerDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorServerDeleteVideo");
+          return videoResponseApi;
+        }
+      } else {
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return videoResponseApi;
+        }
       }
       response.setStatus(HttpServletResponse.SC_OK);
       return videoResponseApi;
