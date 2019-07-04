@@ -8,7 +8,7 @@ node_js:
 install:
 - npm install newman
 - npm install json-server
-- apt-get install -y ffmpeg
+- sudo apt-get install -y ffmpeg
 before_script:
 - node --version
 - npm --version
