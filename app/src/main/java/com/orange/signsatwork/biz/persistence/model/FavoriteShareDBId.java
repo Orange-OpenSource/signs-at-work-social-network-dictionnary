@@ -1,8 +1,17 @@
-package com.orange.signsatwork.biz.domain;
+package com.orange.signsatwork.biz.persistence.model;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 /*
  * #%L
- * Signs at work
+ * Telsigne
  * %%
  * Copyright (C) 2016 Orange
  * %%
@@ -21,21 +30,16 @@ package com.orange.signsatwork.biz.domain;
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
+// we want to save 'Rating' objects in the 'ratings' DB table
+@Embeddable
+@NoArgsConstructor
+@Getter
+@Setter
+public class FavoriteShareDBId implements Serializable {
 
-import lombok.RequiredArgsConstructor;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private CommunityDB community;
 
-@RequiredArgsConstructor
-public class Community {
-    public final long id;
-    public final String name;
-    public final Users users;
-    public final CommunityType type;
-
-
-    public static Community create(String name, CommunityType type) {
-        return new Community(-1, name, null, type);
-    }
-
-
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    private FavoriteDB favorite;
 }

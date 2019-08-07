@@ -38,9 +38,39 @@
                         <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/manage-favorite'">
                         <h2 class="container_H2" th:text="#{favorite.manage}"></h2>
                             <!--<div><div class="pull-right chevron_right"></div></div>-->
-                          <div class="pull-right  pen"/>
+                          <div class="pull-right  chevron_right"/>
                          </a>
                     </li>
+                  <li th:if="${#lists.isEmpty(videosView) and shareNumber == 0}" class="disabled aside_bckg_li">
+                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/share'">
+                      <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
+                      <div class="pull-right  chevron_right"/>
+                    </a>
+                  </li>
+                  <li th:if="${!#lists.isEmpty(videosView) and shareNumber == 0}" class="aside_bckg_li">
+                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/share'">
+                      <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
+                      <div class="pull-right  chevron_right"/>
+                    </a>
+                  </li>
+                  <li th:if="${shareNumber != 0}" class="aside_bckg_li">
+                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/share'">
+                      <h2 class="container_H2" th:text="#{favorite.share(${shareNumber})}"></h2>
+                      <div class="pull-right  chevron_right"/>
+                    </a>
+                  </li>
+                  <li th:if="${#lists.isEmpty(videosView)}" class="aside_bckg_li">
+                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
+                      <h2 class="container_H2" th:text="#{favorite.add_sign}"></h2>
+                      <div class="pull-right  pen"/>
+                    </a>
+                  </li>
+                  <li th:if="${!#lists.isEmpty(videosView)}" class="aside_bckg_li">
+                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
+                      <h2 class="container_H2" th:text="#{favorite.choose_sign}"></h2>
+                      <div class="pull-right  pen"/>
+                    </a>
+                  </li>
                 </ul>
               </aside>
            </div>
@@ -77,7 +107,7 @@
           </div>
 
           <div th:if="${#lists.isEmpty(videosView)}">
-            <span class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col" th:text="#{sign.not_available}"></span>
+            <span class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col" th:text="#{favorite.empty}"></span>
               <!--<h2 th:text="#{sign.not_available}"></h2>-->
           </div>
       </div>

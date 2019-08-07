@@ -95,12 +95,14 @@
         <a th:onclick="'javascript:onFiltreVideo(event, this.href)'" th:if="${favoriteId} == ${favorite.id}" class="check_signe" th:href="@{/sec/signs/frame/{id}(id=${favorite.id}, isSearch=${isSearch})}">
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
-          <span th:text="${favorite.name}"></span>
+          <span th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></span>
+          <span th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" th:text="${'&laquo;'+favorite.name+'&raquo;'}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreVideo(event, this.href)'" th:if="${favoriteId} != ${favorite.id}" th:href="@{/sec/signs/frame/{id}(id=${favorite.id}, isSearch=${isSearch})}">
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
           <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
-          <span th:text="${favorite.name}"></span>
+          <span th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></span>
+          <span th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" th:text="${'&laquo;'+favorite.name+'&raquo;'}"></span>
         </a>
       </li>
 

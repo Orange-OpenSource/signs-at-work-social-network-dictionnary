@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -23,6 +23,8 @@ package com.orange.signsatwork.biz.persistence.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.orange.signsatwork.biz.domain.CommunityType;
+import com.orange.signsatwork.biz.domain.FavoriteType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,11 +51,15 @@ public class CommunityDB {
     @NotNull
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private CommunityType type;
+
     @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<UserDB> users = new ArrayList<>();
 
-    public CommunityDB(String name) {
+    public CommunityDB(String name, CommunityType type) {
         this.name = name;
+        this.type = type;
     }
 }

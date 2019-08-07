@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
 import org.junit.Test;
@@ -62,8 +63,8 @@ public class CommunityRepositoryIntegrationTest {
   @Test
   public void returnAllPersisted() throws IOException {
     // given
-    entityManager.persist(new CommunityDB(community1Name));
-    entityManager.persist(new CommunityDB(community2Name));
+    entityManager.persist(new CommunityDB(community1Name, CommunityType.Job));
+    entityManager.persist(new CommunityDB(community2Name, CommunityType.Job));
 
     // do
     Iterable<CommunityDB> communities = communityRepository.findAll();
@@ -83,7 +84,7 @@ public class CommunityRepositoryIntegrationTest {
   public void createCommunity() {
     // given
     // do
-    entityManager.persist(new CommunityDB(community1Name));
+    entityManager.persist(new CommunityDB(community1Name, CommunityType.Job));
     CommunityDB community1 = communityRepository.findByName(community1Name).get(0);
     // then
     assertThat(community1.getName()).isEqualTo(community1Name);

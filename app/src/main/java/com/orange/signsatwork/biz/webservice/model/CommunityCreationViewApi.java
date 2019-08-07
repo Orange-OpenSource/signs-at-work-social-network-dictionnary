@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.webservice.model;
  */
 
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.CommunityType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -34,6 +35,6 @@ public class CommunityCreationViewApi {
   private String username;
 
   public Community toCommunity() {
-    return new Community(-1, this.name, null);
+    return new Community(-1, this.name, null, CommunityType.Job);
   }
 }

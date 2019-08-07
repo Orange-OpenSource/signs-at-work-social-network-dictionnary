@@ -64,6 +64,20 @@ function onContinueFavorite(backUrl) {
   window.location = url;
 };
 
+function displayVideo(url, name, idForName, nbVideo) {
+
+  console.log(url);
+  console.log(name);
+  console.log(idForName);
+  console.log(nbVideo);
+  if (nbVideo == 1) {
+    document.getElementById("videoName").innerText = name;
+  } else {
+    document.getElementById("videoName").innerText = name + ' (' + idForName + ')';
+  }
+
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+};
 
 function onAssociateRequest(signId, videoId) {
   var associateVideosIds = [];

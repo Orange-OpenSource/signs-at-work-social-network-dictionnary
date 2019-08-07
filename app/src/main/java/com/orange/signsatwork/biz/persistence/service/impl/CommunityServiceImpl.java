@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;
@@ -100,10 +101,10 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFrom(CommunityDB communityDB) {
-    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()));
+    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), CommunityType.Job);
   }
 
   private CommunityDB communityDBFrom(Community community) {
-    return new CommunityDB(community.name);
+    return new CommunityDB(community.name, community.type);
   }
 }

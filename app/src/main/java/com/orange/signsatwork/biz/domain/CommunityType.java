@@ -22,20 +22,7 @@ package com.orange.signsatwork.biz.domain;
  * #L%
  */
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-public class Community {
-    public final long id;
-    public final String name;
-    public final Users users;
-    public final CommunityType type;
-
-
-    public static Community create(String name, CommunityType type) {
-        return new Community(-1, name, null, type);
-    }
-
-
-
+public enum CommunityType {
+    Job,
+    Project
 }

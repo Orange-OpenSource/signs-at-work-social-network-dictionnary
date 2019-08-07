@@ -114,6 +114,7 @@ public class FavoriteController {
     videoViews = videosViewSort.sort(videoViews);
 
     model.addAttribute("videosView", videoViews);
+    model.addAttribute("shareNumber", 3);
 
     return "favorite";
   }
