@@ -1,0 +1,70 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div">
+    <form id="shareFavoriteForm" th:if="${not #lists.isEmpty(communities)}"
+          th:action="@{/sec/favorite/{favoriteid}/add/communities(favoriteid=${favoriteProfileView.favorite.id})}"
+          th:object="${favoriteProfileView}"
+          method="post">
+        <div class="form-group">
+          <div id="communities-container">
+              <label th:id="${community.name}" th:each="community : ${communities}"
+                       th:for="${#ids.next('favoriteCommunitiesIds')}">
+                    <input type="checkbox" th:field="*{favoriteCommunitiesIds}" th:value="${community.id}"/>
+                    <h4 class="community_name" th:text="${community.name}"></h4>
+                </label>
+          </div>
+        </div>
+    </form>
+
+    <div th:if="${#lists.isEmpty(communities)}">
+        <h2 th:text="#{sign.not_available}"></h2>
+    </div>
+</div>
+
+<div  id="validate_share_favorite_modif" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="add_favorite_signe_white pull-left"></div>
+          <h4 class="pull-right" th:text="#{favorite.noShare}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{favorite.confirm_share_to_community(${'&laquo;'+title+'&raquo;'})}"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+
+</html>

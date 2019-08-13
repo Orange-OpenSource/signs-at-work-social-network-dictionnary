@@ -58,6 +58,10 @@ public class CommunityDB {
     @JsonBackReference
     private List<UserDB> users = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<FavoriteDB> favorites;
+
     public CommunityDB(String name, CommunityType type) {
         this.name = name;
         this.type = type;

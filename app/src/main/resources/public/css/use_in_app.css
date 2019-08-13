@@ -1196,3 +1196,7 @@ input[type=file] {
   bottom: 27px;
   margin-left: 29px;
 }
+
+#communities-container>label>h4 {
+  border-bottom: 1px solid #8C8C8C;
+}

@@ -25,14 +25,8 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.FavoriteType;
 import com.orange.signsatwork.biz.domain.Favorites;
-import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
-import com.orange.signsatwork.biz.persistence.model.SignDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
-import com.orange.signsatwork.biz.persistence.model.VideoDB;
-import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
-import com.orange.signsatwork.biz.persistence.repository.SignRepository;
-import com.orange.signsatwork.biz.persistence.repository.UserRepository;
-import com.orange.signsatwork.biz.persistence.repository.VideoRepository;
+import com.orange.signsatwork.biz.persistence.model.*;
+import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.FavoriteService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +44,7 @@ public class FavoriteServiceImpl implements FavoriteService {
   private final FavoriteRepository favoriteRepository;
   private final SignRepository signRepository;
   private final VideoRepository videoRepository;
+  private final CommunityRepository communityRepository;
   private final Services services;
 
   @Override
@@ -141,7 +136,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
   static Favorite favoriteFrom(FavoriteDB favoriteDB, Services services) {
     return favoriteDB == null ? null :
-      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getType(), null, services);
+      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getType(), null, null, services);
   }
 
   private FavoriteDB favoriteDBFrom(Favorite favorite) {
@@ -153,5 +148,15 @@ public class FavoriteServiceImpl implements FavoriteService {
     return favoriteRepository.findNbCommentForAllVideoByFavorite(favoriteId);
   }
 
+
+  @Override
+  public Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds) {
+    FavoriteDB favoriteDB = withDBId(favoriteId);
+    List<CommunityDB> favoriteCommunities = favoriteDB.getCommunities();
+    favoriteCommunities.clear();
+    communityRepository.findAll(communitiesIds).forEach(favoriteCommunities::add);
+    favoriteDB = favoriteRepository.save(favoriteDB);
+    return favoriteFrom(favoriteDB, services);
+  }
 
 }

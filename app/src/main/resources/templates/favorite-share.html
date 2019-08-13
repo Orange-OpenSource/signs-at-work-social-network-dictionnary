@@ -25,15 +25,15 @@
     <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
-<header role="banner" th:replace="fragments/header-favorite-associate-sign :: header">&nbsp;</header>
+<header role="banner" th:replace="fragments/header-favorite-share :: header">&nbsp;</header>
 
 <body class="container-fluid">
 
-<div th:fragment="div" class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
-    <div th:replace="fragments/frame-favorite-associate-sign :: div"/>
+<div th:fragment="div" class="title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
+    <div th:replace="fragments/frame-favorite-share :: div"/>
   <div class="footer">
     <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>
-    <button class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteRequest('+ ${favoriteProfileView.favorite.id} +')' " th:text="#{validate}"></button>
+    <button class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteCommunities('+ ${favoriteProfileView.favorite.id} +')' " th:text="#{validate}"></button>
   </div>
 </div>
 

@@ -116,4 +116,6 @@ public class RestApi {
   public static final String WS_SEC_VIDEO_ASSOCIATE = WS_SEC + "sign/{signId}/{videoId}/associate";
 
   public static final String WS_SEC_FAVORITE_VIDEO_ASSOCIATE = WS_SEC + "favorite/{favoriteId}/add/videos";
+
+  public static final String WS_SEC_FAVORITE_COMMUNITY_ASSOCIATE = WS_SEC + "favorite/{favoriteId}/add/communities";
 }

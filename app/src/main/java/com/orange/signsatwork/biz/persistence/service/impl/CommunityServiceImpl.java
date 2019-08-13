@@ -27,6 +27,7 @@ import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
+import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;
 import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -45,11 +46,17 @@ import java.util.List;
 public class CommunityServiceImpl implements CommunityService {
   private final UserRepository userRepository;
   private final CommunityRepository communityRepository;
+  private final FavoriteRepository favoriteRepository;
   private final Services services;
 
   @Override
   public Communities all() {
     return communitiesFrom(communityRepository.findAll());
+  }
+
+  @Override
+  public Communities allForFavorite() {
+    return communitiesFromFavoriteView(communityRepository.findAllForFavorite());
   }
 
   @Override
@@ -104,7 +111,24 @@ public class CommunityServiceImpl implements CommunityService {
     return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), CommunityType.Job);
   }
 
+  private Communities communitiesFromFavoriteView(Iterable<CommunityDB> communitiesDB) {
+    List<Community> communities = new ArrayList<>();
+    communitiesDB.forEach(communityDB -> communities.add(communityFromFavoriteView(communityDB)));
+    return new Communities(communities);
+  }
+
+  private Community communityFromFavoriteView(CommunityDB communityDB) {
+    return new Community(communityDB.getId(), communityDB.getName(), null, communityDB.getType());
+  }
+
   private CommunityDB communityDBFrom(Community community) {
     return new CommunityDB(community.name, community.type);
+  }
+
+  @Override
+  public Communities forFavorite(long favoriteId) {
+    return communitiesFromFavoriteView(
+      communityRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
+    );
   }
 }

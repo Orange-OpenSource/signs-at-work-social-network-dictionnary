@@ -75,6 +75,16 @@ public class FavoriteRestController {
     return "/sec/favorite/" + favoriteId;
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITE_COMMUNITY_ASSOCIATE, method = RequestMethod.POST)
+  public String favoriteAssociateCommunity(@RequestBody List<Long> favoriteCommunitiesIds, @PathVariable long favoriteId, HttpServletResponse response) {
+
+    services.favorite().changeFavoriteCommunities(favoriteId, favoriteCommunitiesIds);
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "/sec/favorite/" + favoriteId;
+  }
+
   /** API REST For Android and IOS **/
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_MY_FAVORITES)

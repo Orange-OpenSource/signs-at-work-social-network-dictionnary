@@ -34,6 +34,7 @@ public class Favorite {
     public final String name;
     public final FavoriteType type;
     public final Videos videos;
+    public final Communities communities;
 
     private final Services services;
 
@@ -41,10 +42,20 @@ public class Favorite {
   public Favorite loadVideos() {
     return videos != null ?
       this :
-      new Favorite(id, name, type, services.video().forFavorite(id), services);
+      new Favorite(id, name, type, services.video().forFavorite(id), null, services);
+  }
+
+  public Favorite loadCommunities() {
+    return communities != null ?
+      this :
+      new Favorite(id, name, type, null, services.community().forFavorite(id),  services);
   }
 
   public List<Long> videosIds() {
     return videos != null ? videos.ids() : null;
+  }
+
+  public List<Long> communitiesIds() {
+    return communities != null ? communities.ids() : null;
   }
 }

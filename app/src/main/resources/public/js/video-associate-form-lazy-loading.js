@@ -54,6 +54,7 @@ function onBackFavorite(backUrl){
 
 }
 
+
 function onContinue(signId, videoId) {
   var url = "/sign/"+signId+"/"+videoId;
   window.location = url;
@@ -136,6 +137,38 @@ function onAssociateFavoriteRequest(favoriteId) {
 
 };
 
+
+
+function onAssociateFavoriteCommunities(favoriteId) {
+  var favoriteCommunitiesIds = [];
+  i=1;
+  $("#communities-container").children("label").each(function () {
+    if (document.getElementById("favoriteCommunitiesIds"+i).checked) {
+      var selectedCommunityId = document.getElementById("favoriteCommunitiesIds"+i).value;
+      favoriteCommunitiesIds.push(selectedCommunityId);
+    }
+    i= i+1;
+  });
+
+  $.ajax({
+    url: "/ws/sec/favorite/" + favoriteId + "/add/communities",
+    type: 'post',
+    data: JSON.stringify(favoriteCommunitiesIds),
+    contentType: "application/json",
+    success: function(response) {
+      $("#validate_share_favorite_modif").modal('show');
+      setTimeout(function(){
+        $('#validate_share_favorite_modif').modal('hide');
+        var url = "/sec/favorite/"+favoriteId;
+        window.location = url;
+      }, 3000);
+
+    },
+    error: function(response) {
+    }
+  })
+
+};
 
 $.fn.extend({
   trackChanges: function() {

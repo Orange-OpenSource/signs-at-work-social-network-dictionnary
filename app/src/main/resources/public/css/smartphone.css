@@ -988,6 +988,14 @@
     width: 15px;
   }
 
+  [type="checkbox"] + h4::after, [type="checkbox"] + [type="hidden"] + h4::after {
+    float: right;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
 /*  label {
     font-size: 11px;
   }*/

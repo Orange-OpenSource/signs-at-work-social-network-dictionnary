@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
@@ -114,7 +115,7 @@ public class FavoriteController {
     videoViews = videosViewSort.sort(videoViews);
 
     model.addAttribute("videosView", videoViews);
-    model.addAttribute("shareNumber", 3);
+    model.addAttribute("shareNumber", services.community().forFavorite(favorite.id).stream().count());
 
     return "favorite";
   }
@@ -179,6 +180,7 @@ public class FavoriteController {
     if (favorite == null) {
       return("redirect:/");
     }
+    favorite = favorite.loadVideos();
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
@@ -264,6 +266,47 @@ public class FavoriteController {
       return new ArrayList<>();
     }
     return Arrays.asList(favoriteVideosIds).stream()
+      .map(Long::parseLong)
+      .collect(Collectors.toList());
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/share")
+  public String shareFavorite(@PathVariable long favoriteId, Model model)  {
+    Favorite favorite = services.favorite().withId(favoriteId);
+    if (favorite == null) {
+      return("redirect:/");
+    }
+    favorite = favorite.loadCommunities();
+    model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
+    Communities communities = services.community().allForFavorite();
+    model.addAttribute("communities", communities.list());
+
+
+    return "favorite-share";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/add/communities", method = RequestMethod.POST)
+  public String changeFavoriteCommunities(
+    HttpServletRequest req, @PathVariable long favoriteId, Model model) {
+
+    List<Long> communitiesIds =
+      transformCommunitiesIdsToLong(req.getParameterMap().get("favoriteCommunitiesIds"));
+
+    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds);
+    model.addAttribute("title", "");
+
+    return showFavorite(favoriteId);
+  }
+
+  private List<Long> transformCommunitiesIdsToLong(String[] favoriteCommunitiesIds) {
+    if (favoriteCommunitiesIds == null) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(favoriteCommunitiesIds).stream()
       .map(Long::parseLong)
       .collect(Collectors.toList());
   }

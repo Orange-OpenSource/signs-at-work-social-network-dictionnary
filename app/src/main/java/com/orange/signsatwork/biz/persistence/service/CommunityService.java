@@ -28,6 +28,8 @@ import com.orange.signsatwork.biz.domain.Community;
 public interface CommunityService {
   Communities all();
 
+  Communities allForFavorite();
+
   Communities forUser(long id);
 
   Community withId(long id);
@@ -37,4 +39,6 @@ public interface CommunityService {
   void delete(Community community);
 
   Community withCommunityName(String communityName);
+
+  Communities forFavorite(long favoriteId);
 }
