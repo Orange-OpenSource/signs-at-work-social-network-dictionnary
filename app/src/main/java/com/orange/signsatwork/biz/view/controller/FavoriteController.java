@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.view.controller;
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.Users;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -283,6 +284,7 @@ public class FavoriteController {
     model.addAttribute("favoriteProfileView", favoriteProfileView);
     Communities communities = services.community().allForFavorite();
     model.addAttribute("communities", communities.list());
+    model.addAttribute("communityCreationView", new CommunityCreationView());
 
 
     return "favorite-share";
@@ -297,7 +299,6 @@ public class FavoriteController {
       transformCommunitiesIdsToLong(req.getParameterMap().get("favoriteCommunitiesIds"));
 
     services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds);
-    model.addAttribute("title", "");
 
     return showFavorite(favoriteId);
   }
@@ -310,4 +311,17 @@ public class FavoriteController {
       .map(Long::parseLong)
       .collect(Collectors.toList());
   }
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/create_community", method = RequestMethod.POST)
+  public String createCommunity(@ModelAttribute CommunityCreationView communityCreationView,  @PathVariable long favoriteId, Model model) {
+
+    model.addAttribute("communityCreationView", communityCreationView);
+    model.addAttribute("communityProfileView", new CommunityProfileView());
+    Users users = services.user().allForCreateCommunity();
+    model.addAttribute("users", users.list());
+
+    return "favorite-create-community";
+    }
 }

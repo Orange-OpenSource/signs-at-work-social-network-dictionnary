@@ -140,6 +140,7 @@ function onAssociateFavoriteRequest(favoriteId) {
 
 
 function onAssociateFavoriteCommunities(favoriteId) {
+  var communityListName = document.getElementById('community_list_name');
   var favoriteCommunitiesIds = [];
   i=1;
   $("#communities-container").children("label").each(function () {
@@ -156,9 +157,51 @@ function onAssociateFavoriteCommunities(favoriteId) {
     data: JSON.stringify(favoriteCommunitiesIds),
     contentType: "application/json",
     success: function(response) {
+      console.log(response);
+      communityListName.textContent = response;
       $("#validate_share_favorite_modif").modal('show');
       setTimeout(function(){
         $('#validate_share_favorite_modif').modal('hide');
+        var url = "/sec/favorite/"+favoriteId;
+        window.location = url;
+      }, 3000);
+
+    },
+    error: function(response) {
+    }
+  })
+
+};
+
+
+function onCreateFavoriteCommunity(name) {
+
+  var userListName = document.getElementById('user_list_name');
+  var communityUsersIds = [];
+  i=1;
+  $("#users-container").children("label").each(function () {
+    if (document.getElementById("communityUsersIds"+i).checked) {
+      var selectedUserId = document.getElementById("communityUsersIds"+i).value;
+      communityUsersIds.push(selectedUserId);
+    }
+    i= i+1;
+  });
+
+  community = {
+    name: name,
+    communityUsersIds: communityUsersIds
+  };
+  $.ajax({
+    url: "/ws/sec/community/create",
+    type: 'post',
+    data: JSON.stringify(community),
+    contentType: "application/json",
+    success: function(response) {
+      console.log(response);
+      userListName.textContent = response;
+      $("#validate_create_community_favorite").modal('show');
+      setTimeout(function(){
+        $('#validate_create_community_favorite').modal('hide');
         var url = "/sec/favorite/"+favoriteId;
         window.location = url;
       }, 3000);

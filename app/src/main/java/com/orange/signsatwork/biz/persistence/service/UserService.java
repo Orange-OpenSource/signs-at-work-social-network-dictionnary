@@ -73,4 +73,6 @@ public interface UserService {
   void changeDescriptionVideoUrl(User user, String videoWebPath);
 
   void changeLastDeconnectionDate(String userName);
+
+  Users allForCreateCommunity();
 }

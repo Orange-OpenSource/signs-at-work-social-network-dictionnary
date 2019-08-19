@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.persistence.model;
  */
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.domain.FavoriteType;
 import lombok.Getter;
@@ -54,10 +55,15 @@ public class CommunityDB {
     @Enumerated(EnumType.STRING)
     private CommunityType type;
 
-    @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "communities_users", joinColumns = @JoinColumn(name = "communities_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"))
+    @JsonManagedReference
     private List<UserDB> users = new ArrayList<>();
 
+ /* @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<UserDB> users = new ArrayList<>();
+*/
     @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<FavoriteDB> favorites;

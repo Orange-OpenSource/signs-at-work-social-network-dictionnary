@@ -24,6 +24,8 @@ package com.orange.signsatwork.biz.domain;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class Community {
     public final long id;
@@ -36,6 +38,8 @@ public class Community {
         return new Community(-1, name, null, type);
     }
 
-
+  public List<Long> usersIds() {
+    return users != null ? users.ids() : null;
+  }
 
 }

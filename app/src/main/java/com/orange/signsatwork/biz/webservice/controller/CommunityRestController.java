@@ -121,4 +121,19 @@ public class CommunityRestController {
     response.setStatus(HttpServletResponse.SC_OK);
     return communityResponseApi;
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_CREATE_COMMUNITY, method = RequestMethod.POST)
+  public String createCommunity(@RequestBody CommunityCreationApi communityCreationApi, HttpServletResponse response) {
+
+    Community community = services.community().create(communityCreationApi.toCommunity());
+    if (community != null) {
+      services.community().changeCommunityUsers(community.id, communityCreationApi.getCommunityUsersIds());
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    List<String> usersName = community.users.stream().map(c -> c.username).collect(Collectors.toList());
+
+    return messageByLocaleService.getMessage("community.members", new Object[]{usersName.toString()});
+  }
 }

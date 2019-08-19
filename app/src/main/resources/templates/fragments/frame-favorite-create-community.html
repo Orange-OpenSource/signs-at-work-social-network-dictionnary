@@ -27,27 +27,27 @@
 <body>
 
 <div th:fragment="div">
-    <form id="shareFavoriteForm" th:if="${not #lists.isEmpty(communities)}"
-          th:action="@{/sec/favorite/{favoriteid}/add/communities(favoriteid=${favoriteProfileView.favorite.id})}"
-          th:object="${favoriteProfileView}"
+    <form id="FavoriteCreateCommunityForm" th:if="${not #lists.isEmpty(users)}"
+          th:action="@{/sec/community/create}"
+          th:object="${communityProfileView}"
           method="post">
         <div class="form-group">
-          <div id="communities-container">
-              <label th:id="${community.name}" th:each="community : ${communities}"
-                       th:for="${#ids.next('favoriteCommunitiesIds')}">
-                    <input type="checkbox" th:field="*{favoriteCommunitiesIds}" th:value="${community.id}"/>
-                    <h4 class="community_name" th:text="${community.name}"></h4>
+          <div id="users-container">
+              <label th:id="${user.username}" th:each="user : ${users}"
+                       th:for="${#ids.next('communityUsersIds')}">
+                    <input type="checkbox" th:field="*{communityUsersIds}" th:value="${user.id}"/>
+                    <h4 class="community_name" th:text="${user.username}"></h4>
                 </label>
           </div>
         </div>
     </form>
 
-    <div th:if="${#lists.isEmpty(communities)}">
+    <div th:if="${#lists.isEmpty(users)}">
         <h2 th:text="#{sign.not_available}"></h2>
     </div>
 </div>
 
-<div  id="validate_share_favorite_modif" class="modal" role="dialog">
+<div  id="validate_create_community_favorite" class="modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <h4 id="community_list_name"/>
+        <h4 id="user_list_name"/>
       </div>
     </div>
   </div>

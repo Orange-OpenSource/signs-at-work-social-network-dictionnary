@@ -314,4 +314,19 @@ public class UserServiceImpl implements UserService {
       );
     }
   }
+
+  @Override
+  public Users allForCreateCommunity() {
+    return usersFromFavoriteView(userRepository.findAll());
+  }
+
+  private Users usersFromFavoriteView(Iterable<UserDB> usersDB) {
+    List<User> users = new ArrayList<>();
+    usersDB.forEach(userDB -> users.add(userFromFavoriteView(userDB)));
+    return new Users(users);
+  }
+
+  private User userFromFavoriteView(UserDB userDB) {
+    return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null, null, null, null, null, null, null, null, null, null, null );
+  }
 }

@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
+import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
 import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
 import com.orange.signsatwork.biz.persistence.repository.UserRepository;
@@ -130,5 +131,19 @@ public class CommunityServiceImpl implements CommunityService {
     return communitiesFromFavoriteView(
       communityRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
     );
+  }
+
+  @Override
+  public Community changeCommunityUsers(long communityId, List<Long> usersIds) {
+    CommunityDB communityDB = withDBId(communityId);
+    List<UserDB> communityUsers = communityDB.getUsers();
+    communityUsers.clear();
+    userRepository.findAll(usersIds).forEach(communityUsers::add);
+    communityDB = communityRepository.save(communityDB);
+    return communityFrom(communityDB);
+  }
+
+  private CommunityDB withDBId(long id) {
+    return communityRepository.findOne(id);
   }
 }

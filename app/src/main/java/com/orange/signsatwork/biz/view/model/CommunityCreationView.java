@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.service;
+package com.orange.signsatwork.biz.view.model;
 
 /*
  * #%L
@@ -22,27 +22,15 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
-import com.orange.signsatwork.biz.domain.Community;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-
-public interface CommunityService {
-  Communities all();
-
-  Communities allForFavorite();
-
-  Communities forUser(long id);
-
-  Community withId(long id);
-
-  Community create(Community community);
-
-  void delete(Community community);
-
-  Community withCommunityName(String communityName);
-
-  Communities forFavorite(long favoriteId);
-
-  Community changeCommunityUsers(long communityId, List<Long> usersIds);
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class CommunityCreationView {
+  private String name;
 }
