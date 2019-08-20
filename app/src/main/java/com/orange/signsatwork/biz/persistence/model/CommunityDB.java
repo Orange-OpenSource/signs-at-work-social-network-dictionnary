@@ -62,9 +62,9 @@ public class CommunityDB {
 
  /* @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
     @JsonBackReference
-    private List<UserDB> users = new ArrayList<>();
-*/
-    @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
+    private List<UserDB> users = new ArrayList<>();*/
+
+  @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<FavoriteDB> favorites;
 

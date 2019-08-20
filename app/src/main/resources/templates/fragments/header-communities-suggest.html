@@ -22,24 +22,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="utf-8"/>
+    <meta charset="utf-8"/>
 </head>
 <body>
 
 <header role="banner" th:fragment="header">
-  <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-          <a href="/" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'">
-            <div class="signe_reverse_video"></div>
-            <div class="pull-left">
-              <div class="add_favorite_signe pull-left"></div>
-              <h1 class="text_hyphenation navbar_title pull-right" th:text="#{favorite.title_create_community(${'&laquo;'+communityName+'&raquo;'})}"/>
+    <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="/">
+                    <div class="signe_reverse_video"></div>
+                </a>
+                <h1 class="text_hyphenation navbar_title pull-right" th:text="${title}"/>
             </div>
-        </a>
-      </div>
-    </div>
-  </nav>
+        </div>
+    </nav>
 </header>
 
 </body>

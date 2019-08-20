@@ -50,7 +50,7 @@ public class Services {
 
   public void clearPersistence() {
     comment.all().stream().forEach(c -> comment.delete(c));
-    community.all().stream().forEach(c -> community.delete(c));
+/*    community.all().stream().forEach(c -> community.delete(c));*/
     favorite.all().stream().forEach(f -> favorite.delete(f));
     rating.deleteAll();
     video.all().stream().forEach(v -> video.delete(v));

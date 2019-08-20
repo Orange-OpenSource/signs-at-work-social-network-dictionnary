@@ -46,7 +46,7 @@ public interface UserService {
 
   void changeUserPassword(User user, String password);
 
-  User changeUserCommunities(long userId, List<Long> communitiesIds);
+/*  User changeUserCommunities(long userId, List<Long> communitiesIds);*/
 
   Request createUserRequest(long userId, String requestName);
 

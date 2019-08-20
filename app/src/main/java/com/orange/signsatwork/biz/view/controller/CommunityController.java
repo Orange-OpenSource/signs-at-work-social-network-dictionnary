@@ -27,17 +27,21 @@ import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.view.model.AuthentModel;
+import com.orange.signsatwork.biz.view.model.CommunityCreationView;
 import com.orange.signsatwork.biz.view.model.CommunityView;
+import com.orange.signsatwork.biz.view.model.SignCreationView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CommunityController {
@@ -77,4 +81,48 @@ public class CommunityController {
       Community community = services.community().create(communityView.toCommunity());
       return community(community.id, model);
     }
+
+
+  @Secured("ROLE_USER_A")
+  @RequestMapping(value = "/sec/community/search")
+  public String searchCommunity(@ModelAttribute CommunityCreationView communityCreationView, @RequestParam("id") Long favoriteId) {
+    if (favoriteId == null) {
+      favoriteId = 0L;
+    }
+    String name = communityCreationView.getName();
+    return "redirect:/sec/communities-suggest?name="+ URLEncoder.encode(name)+"&id="+favoriteId;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/communities-suggest")
+  public String showCommunitiesSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long favoriteId, Principal principal) {
+    String decodeName = URLDecoder.decode(name);
+    model.addAttribute("backUrl", "/sec/suggest");
+    model.addAttribute("title", messageByLocaleService.getMessage("favorite.create_community"));
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    Communities communities = services.community().search(decodeName);
+
+
+    model.addAttribute("communityName", decodeName);
+    model.addAttribute("isCommunityAlreadyExist", false);
+    List<Community> communitiesWithSameName = new ArrayList<>();
+    for (Community community:communities.list()) {
+      if (community.name.equals(decodeName) ) {
+        model.addAttribute("isCommunityAlreadyExist", true);
+        model.addAttribute("communityMatche", community);
+      } else {
+        communitiesWithSameName.add(community);
+      }
+    }
+
+    model.addAttribute("communitiesWithSameName", communitiesWithSameName);
+
+    CommunityCreationView communityCreationView = new CommunityCreationView();
+    communityCreationView.setName(decodeName);
+    model.addAttribute("communityCreationView", communityCreationView);
+
+    model.addAttribute("favoriteId", favoriteId);
+
+    return "communities-suggest";
+  }
 }

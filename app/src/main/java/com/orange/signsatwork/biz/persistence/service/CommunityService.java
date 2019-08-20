@@ -38,11 +38,13 @@ public interface CommunityService {
 
   Community create(Community community);
 
-  void delete(Community community);
+/*  void delete(Community community);*/
 
   Community withCommunityName(String communityName);
 
   Communities forFavorite(long favoriteId);
 
   Community changeCommunityUsers(long communityId, List<Long> usersIds);
+
+  Communities search(String communityName);
 }

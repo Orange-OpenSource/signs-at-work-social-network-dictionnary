@@ -94,7 +94,7 @@ public class UserServiceIntegrationTest {
     Assertions.assertThat(roles.stream().findFirst().get().getRole()).isEqualTo(AppSecurityRoles.Role.ROLE_USER.toString());
   }
 
-  @Test
+ /* @Test
   public void changeUserCommunities() {
     //given
     Community community = services.community().create(Community.create(communityName, CommunityType.Job));
@@ -110,7 +110,7 @@ public class UserServiceIntegrationTest {
     //then
     Assertions.assertThat(userWithCommunitiesRequestsFavorites.communities.list().size()).isEqualTo(1);
     Assertions.assertThat(userWithCommunitiesRequestsFavorites.communities.list().get(0).name).isEqualTo(communityName);
-  }
+  }*/
 
   @Test
   public void createUserRequest() {

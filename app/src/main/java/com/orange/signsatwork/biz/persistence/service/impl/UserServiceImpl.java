@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
     userRepository.save(userDB);
   }
 
-  @Override
+/*  @Override
   public User changeUserCommunities(long userId, List<Long> communitiesIds) {
     UserDB userDB = withDBId(userId);
     List<CommunityDB> userCommunities = userDB.getCommunities();
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
     communityRepository.findAll(communitiesIds).forEach(userCommunities::add);
     userDB = userRepository.save(userDB);
     return userFrom(userDB);
-  }
+  }*/
 
   @Override
   public Request createUserRequest(long userId, String requestName) {
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
     favoriteDBs.stream().map(f -> services.favorite().withId(f.getId())).forEach(f -> services.favorite().delete(f));
     videoDBs.stream().map(v -> services.video().withId(v.getId())).forEach(v -> services.video().delete(v));
 
-    userDB.getCommunities().forEach(c -> c.getUsers().remove(userDB));
+/*    userDB.getCommunities().forEach(c -> c.getUsers().remove(userDB));*/
 
     userRepository.delete(userDB);
   }

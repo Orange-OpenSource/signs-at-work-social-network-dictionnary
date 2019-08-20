@@ -34,6 +34,8 @@ import java.util.List;
 public interface CommunityRepository extends CrudRepository<CommunityDB, Long> {
     List<CommunityDB> findByName(String name);
 
+    List<CommunityDB> findByNameStartingWith(String name);
+
     @Query("select distinct c FROM CommunityDB c inner join c.users user where user = :userDB")
     List<CommunityDB> findByUser(@Param("userDB") UserDB userDB);
 

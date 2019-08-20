@@ -67,8 +67,9 @@ public class CommunityServiceImpl implements CommunityService {
 
   @Override
   public Communities forUser(long userId) {
+    UserDB userDB = userRepository.findOne(userId);
     return communitiesFrom(
-            communityRepository.findByUser(userRepository.findOne(userId))
+            communityRepository.findByUser(userDB)
     );
   }
 
@@ -79,12 +80,12 @@ public class CommunityServiceImpl implements CommunityService {
     return communityFrom(communityDB);
   }
 
-  @Override
+/*  @Override
   public void delete(Community community) {
     CommunityDB communityDB = communityRepository.findOne(community.id);
     communityDB.getUsers().forEach(userDB -> userDB.getCommunities().remove(communityDB));
     communityRepository.delete(communityDB);
-  }
+  }*/
 
 
   @Override
@@ -145,5 +146,12 @@ public class CommunityServiceImpl implements CommunityService {
 
   private CommunityDB withDBId(long id) {
     return communityRepository.findOne(id);
+  }
+
+  @Override
+  public Communities search(String communityName) {
+    List<CommunityDB> communitiesMatches = communityRepository.findByNameStartingWith(communityName);
+
+    return communitiesFromFavoriteView(communitiesMatches);
   }
 }

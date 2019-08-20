@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.persistence.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -70,11 +70,11 @@ public class UserDB {
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<UserRoleDB> userRoles = new HashSet<>();
 
-  // we use 'fetch = FetchType.EAGER' to be sure to avoid lazy loading
+/*  // we use 'fetch = FetchType.EAGER' to be sure to avoid lazy loading
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(name = "users_communities", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communities_id", referencedColumnName = "id"))
   @JsonManagedReference
-  private List<CommunityDB> communities = new ArrayList<>();
+  private List<CommunityDB> communities = new ArrayList<>();*/
 
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="user_id", referencedColumnName = "id")

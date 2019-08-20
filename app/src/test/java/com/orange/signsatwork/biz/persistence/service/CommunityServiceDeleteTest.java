@@ -43,7 +43,7 @@ public class CommunityServiceDeleteTest {
   @Autowired
   TestUser testUser;
 
-  @Test
+  /*@Test
   public void canRemoveCommunity() {
     // given
     User user = testUser.get("user-CanRemoveCommunity");
@@ -58,5 +58,5 @@ public class CommunityServiceDeleteTest {
     services.community().delete(community);
     Assertions.assertThat(services.user().withId(user.id).loadCommunitiesRequestsFavorites().communitiesIds()).doesNotContain(community.id);
     Assertions.assertThat(services.community().all().stream().filter(c -> c.id == community.id).count()).isEqualTo(0);
-  }
+  }*/
 }

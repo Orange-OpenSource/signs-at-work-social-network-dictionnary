@@ -116,7 +116,7 @@ public class CommunityRestController {
     communitiesId.add(communityId);
     User user = services.user().withUserName(communityCreationViewApi.getUsername());
     if (user != null) {
-      services.user().changeUserCommunities(user.id, communitiesId);
+     /* services.user().changeUserCommunities(user.id, communitiesId);*/
     }
     response.setStatus(HttpServletResponse.SC_OK);
     return communityResponseApi;
@@ -124,11 +124,14 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_CREATE_COMMUNITY, method = RequestMethod.POST)
-  public String createCommunity(@RequestBody CommunityCreationApi communityCreationApi, HttpServletResponse response) {
+  public String createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response) {
+    User user = services.user().withUserName(principal.getName());
+    List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
+    usersIds.add(user.id);
 
     Community community = services.community().create(communityCreationApi.toCommunity());
     if (community != null) {
-      services.community().changeCommunityUsers(community.id, communityCreationApi.getCommunityUsersIds());
+      community = services.community().changeCommunityUsers(community.id, usersIds);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);

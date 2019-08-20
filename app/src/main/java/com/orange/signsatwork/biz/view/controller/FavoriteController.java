@@ -36,12 +36,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -314,13 +312,16 @@ public class FavoriteController {
 
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/favorite/{favoriteId}/create_community", method = RequestMethod.POST)
-  public String createCommunity(@ModelAttribute CommunityCreationView communityCreationView,  @PathVariable long favoriteId, Model model) {
-
-    model.addAttribute("communityCreationView", communityCreationView);
+  @RequestMapping(value = "/sec/favorite/create_community")
+  public String createCommunity(@RequestParam("name") String name, @RequestParam("id") long favoriteId, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+    String decodeName = URLDecoder.decode(name);
+    model.addAttribute("communityName", decodeName);
     model.addAttribute("communityProfileView", new CommunityProfileView());
     Users users = services.user().allForCreateCommunity();
-    model.addAttribute("users", users.list());
+    List<User> usersWithoutMeAndWithoutAdmin = users.stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
+    model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
+    model.addAttribute("favoriteId", favoriteId);
 
     return "favorite-create-community";
     }

@@ -151,7 +151,7 @@ public class AdminController {
     List<Long> communitiesIds =
       transformCommunitiesIdsToLong(req.getParameterMap().get("userCommunitiesIds"));
 
-    userService.changeUserCommunities(userId, communitiesIds);
+ /*   userService.changeUserCommunities(userId, communitiesIds);*/
 
     return userAdminController.userDetails(userId, model);
   }

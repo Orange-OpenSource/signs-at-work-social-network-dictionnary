@@ -67,7 +67,7 @@
         </div>
       </div>
 
-      <form th:action="@{/sec/favorite/} + ${favoriteProfileView.favorite.id} + '/create_community'" th:object="${communityCreationView}" method="post">
+      <form th:action="@{/sec/community/search(id=${favoriteProfileView.favorite.id})}" th:object="${communityCreationView}" method="post" autocomplete="off">
         <div class="modal-body text-center">
           <input th:value="${favoriteProfileView.favorite.name}" type="text" class="form-control"
                  name="name" th:autofocus="true" /><br/>
@@ -82,7 +82,6 @@
 </div>
 
 </body>
-<script type="text/javascript" src="../public/js/video-associate-form-lazy-loading.js" th:src="@{/js/video-associate-form-lazy-loading.js}"></script>
-<script type="text/javascript" src="../public/js/object-fit_for_IE.js" th:src="@{/js/object-fit_for_IE.js}"></script>
+<script type="text/javascript" src="../public/js/favorite.js" th:src="@{/js/favorite.js}"></script>
 </html>
 
