@@ -124,7 +124,7 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_CREATE_COMMUNITY, method = RequestMethod.POST)
-  public String createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response) {
+  public CommunityResponseApi createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response) {
     User user = services.user().withUserName(principal.getName());
     List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
     usersIds.add(user.id);
@@ -134,9 +134,13 @@ public class CommunityRestController {
       community = services.community().changeCommunityUsers(community.id, usersIds);
     }
 
+    CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+
     response.setStatus(HttpServletResponse.SC_OK);
     List<String> usersName = community.users.stream().map(c -> c.username).collect(Collectors.toList());
 
-    return messageByLocaleService.getMessage("community.members", new Object[]{usersName.toString()});
+    communityResponseApi.communityId = community.id;
+    communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{usersName.toString()});
+    return communityResponseApi;
   }
 }

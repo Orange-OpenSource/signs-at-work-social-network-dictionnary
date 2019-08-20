@@ -270,8 +270,8 @@ public class FavoriteController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/favorite/{favoriteId}/share")
-  public String shareFavorite(@PathVariable long favoriteId, Model model)  {
+  @RequestMapping(value = "/sec/favorite/share")
+  public String shareFavorite(@RequestParam("id")  long favoriteId, @RequestParam("communityId") long communityId, Model model)  {
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favorite == null) {
       return("redirect:/");

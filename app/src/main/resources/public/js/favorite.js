@@ -177,7 +177,7 @@ function onAssociateFavoriteCommunities(favoriteId) {
 
 
 function onCreateFavoriteCommunity(name, favoriteId) {
-
+  var communityId;
   var userListName = document.getElementById('user_list_name');
   var communityUsersIds = [];
   i=1;
@@ -200,11 +200,12 @@ function onCreateFavoriteCommunity(name, favoriteId) {
     contentType: "application/json",
     success: function(response) {
       console.log(response);
-      userListName.textContent = response;
+      communityId = response.communityId;
+      userListName.textContent = response.errorMessage;
       $("#validate_create_community_favorite").modal('show');
       setTimeout(function(){
         $('#validate_create_community_favorite').modal('hide');
-        var url = "/sec/favorite/"+favoriteId+"/share";
+        var url = "/sec/favorite/share/?id="+favoriteId+"&communityId="+communityId;
         window.location = url;
       }, 3000);
 

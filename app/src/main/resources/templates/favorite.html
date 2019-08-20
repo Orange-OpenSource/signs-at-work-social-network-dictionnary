@@ -42,19 +42,19 @@
                          </a>
                     </li>
                   <li th:if="${#lists.isEmpty(videosView) and shareNumber == 0}" class="disabled aside_bckg_li">
-                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/share'">
+                    <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
                       <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
                       <div class="pull-right  chevron_right"/>
                     </a>
                   </li>
                   <li th:if="${!#lists.isEmpty(videosView) and shareNumber == 0}" class="aside_bckg_li">
-                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/share'">
+                    <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
                       <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
                       <div class="pull-right  chevron_right"/>
                     </a>
                   </li>
                   <li th:if="${shareNumber != 0}" class="aside_bckg_li">
-                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/share'">
+                    <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
                       <h2 class="container_H2" th:text="#{favorite.share(${shareNumber})}"></h2>
                       <div class="pull-right  chevron_right"/>
                     </a>
