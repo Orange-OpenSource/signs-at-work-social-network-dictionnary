@@ -155,7 +155,7 @@ function onReset(event) {
   $(':input', '#myform')
     .not(':button, :submit, :reset, :hidden')
     .val('');
-/*  $("#reset_search_request").css("visibility", "hidden");*/
+  $("#reset_search_request").css("visibility", "hidden");
 
   $("#requests_container").children("div").each(function () {
     $(this).show();
