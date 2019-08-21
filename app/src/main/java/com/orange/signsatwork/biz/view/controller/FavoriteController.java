@@ -287,6 +287,7 @@ public class FavoriteController {
     Communities communities = services.community().allForFavorite();
     model.addAttribute("communities", communities.list());
     model.addAttribute("communityCreationView", new CommunityCreationView());
+    model.addAttribute("communityId", communityId);
 
 
     return "favorite-share";
