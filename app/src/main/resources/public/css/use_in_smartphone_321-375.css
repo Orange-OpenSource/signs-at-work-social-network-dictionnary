@@ -497,4 +497,12 @@
   }
 
 
+  #reset_search_user{
+    position: absolute;
+    margin-top: -44px;
+    right: 10%;
+    background-color: #000000;
+    border:none;
+    color:#FFFFFF;
+  }
 }

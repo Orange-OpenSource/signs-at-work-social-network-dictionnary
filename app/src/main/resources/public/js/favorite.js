@@ -19,6 +19,31 @@
  * #L%
  */
 
+
+var search_user = document.getElementById("search_user");
+var button_reset = document.getElementById("reset_search_user");
+
+var accentMap = {
+  "é": "e",
+  "è": "e",
+  "ê": "e",
+  "à": "a",
+  "â": "a",
+  "î": "i",
+  "ô": "o",
+  "ù": "u",
+  "î": "i",
+  "ç": "c"
+};
+
+var normalize = function( term ) {
+  var ret = "";
+  for ( var i = 0; i < term.length; i++ ) {
+    ret += accentMap[ term.charAt(i) ] || term.charAt(i);
+  }
+  return ret;
+};
+
 /*function onSearch(){
   $("#search-criteria").show();
   var search_criteria = document.getElementById("search-criteria");
@@ -226,6 +251,31 @@ function onCreateFavoriteCommunity(name, favoriteId) {
 
 };
 
+function search(event) {
+  var display = 0;
+  var g = normalize($(this).val());
+
+  if (g!="") {
+    $("#users-container").children("label").each(function () {
+      $("#reset_search_user").css("visibility", "visible");
+      var userName = $(this).attr("id");
+      if (userName != null) {
+        var s = normalize(userName);
+        if (s.toUpperCase().indexOf(g.toUpperCase()) != -1) {
+          $(this).show();
+        }
+        else {
+          $(this).hide();
+        }
+      }
+    });
+  } else {
+    $("#reset_search_user").css("visibility", "hidden");
+    $("#users-container").children("label").each(function () {
+      $(this).show();
+    });
+  }
+}
 
 $.fn.extend({
   trackChanges: function() {
@@ -241,10 +291,24 @@ $.fn.extend({
   }
 });
 
+function onReset(event) {
 
-(function checkChange($) {
+  $(':input', '#myform')
+    .not(':button, :submit, :reset, :hidden')
+    .val('');
+  $("#reset_search_user").css("visibility", "hidden");
+
+  $("#users-container").children("label").each(function () {
+    $(this).show();
+  });
+
+}
+
+(function main($) {
   $("#shareFavoriteForm").trackChanges();
   $("#FavoriteCreateCommunityForm").trackChanges();
+  search_user .addEventListener('keyup', search);
+  button_reset.addEventListener('click', onReset);
 })($);
 /*
 (function signViewsLazyLoading($) {

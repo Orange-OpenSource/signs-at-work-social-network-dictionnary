@@ -874,6 +874,10 @@ ul#orange-navbar-collapse >li {
   visibility: hidden;
 }
 
+#reset_search_user{
+  visibility: hidden;
+}
+
 /*#signs-container{
   margin-top: 15px;
 }*/

@@ -110,7 +110,7 @@ function search(event) {
     nb.innerHTML = '('+display+')';
     $(nb).show();
   } else {
-
+    $("#reset_search_request").css("visibility", "hidden");
     $("#requests_container").children("div").each(function () {
       $(this).show();
     });
@@ -141,7 +141,7 @@ function searchAfterReload(search_value) {
     nb.innerHTML = '('+display+')';
     $(nb).show();
   } else {
-
+    $("#reset_search_request").css("visibility", "hidden");
     $("#requests_container").children("div").each(function () {
       $(this).show();
     });
