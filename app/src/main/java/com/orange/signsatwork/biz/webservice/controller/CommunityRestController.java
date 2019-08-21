@@ -137,10 +137,10 @@ public class CommunityRestController {
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
 
     response.setStatus(HttpServletResponse.SC_OK);
-    List<String> usersName = community.users.stream().map(c -> c.username).collect(Collectors.toList());
+    List<String> name = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
 
     communityResponseApi.communityId = community.id;
-    communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{usersName.toString()});
+    communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{name.toString()});
     return communityResponseApi;
   }
 }

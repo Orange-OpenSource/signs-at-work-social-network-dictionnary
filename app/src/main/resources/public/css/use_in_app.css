@@ -1200,3 +1200,7 @@ input[type=file] {
 #communities-container>label>h4 {
   border-bottom: 1px solid #8C8C8C;
 }
+
+#users-container>label>h4 {
+  border-bottom: 1px solid #8C8C8C;
+}

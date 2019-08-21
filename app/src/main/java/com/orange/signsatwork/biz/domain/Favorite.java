@@ -51,6 +51,14 @@ public class Favorite {
       new Favorite(id, name, type, null, services.community().forFavorite(id),  services);
   }
 
+  public Favorite addCommunity(Long communityId) {
+    Communities communities = this.communities;
+    Community community = services.community().withId(communityId);
+    communities.list().add(community);
+    return new Favorite(id, name, type, null, communities, services);
+  }
+
+
   public List<Long> videosIds() {
     return videos != null ? videos.ids() : null;
   }

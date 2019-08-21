@@ -277,6 +277,10 @@ public class FavoriteController {
       return("redirect:/");
     }
     favorite = favorite.loadCommunities();
+    if (communityId != 0) {
+      favorite = favorite.addCommunity(communityId);
+    }
+
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
