@@ -320,6 +320,7 @@ public class FavoriteController {
   public String createCommunity(@RequestParam("name") String name, @RequestParam("id") long favoriteId, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
+    model.addAttribute("backUrl", "/sec/favorite/share/?id=" + favoriteId +"&communityId=0");
     model.addAttribute("communityName", decodeName);
     model.addAttribute("communityProfileView", new CommunityProfileView());
     Users users = services.user().allForCreateCommunity();

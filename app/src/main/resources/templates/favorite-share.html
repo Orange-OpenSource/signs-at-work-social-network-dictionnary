@@ -49,7 +49,7 @@
     <div th:replace="fragments/frame-favorite-share :: div"/>
   <div class="footer">
     <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>
-    <button class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteCommunities('+ ${favoriteProfileView.favorite.id} +')' " th:text="#{validate}"></button>
+    <button class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteCommunities(\''+ ${favoriteProfileView.favorite.id} + '\',\'' +${communityId} + '\')'" th:text="#{validate}"></button>
   </div>
 </div>
 

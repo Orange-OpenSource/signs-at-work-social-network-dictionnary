@@ -141,82 +141,92 @@ function onAssociateFavoriteRequest(favoriteId) {
 
 
 
-function onAssociateFavoriteCommunities(favoriteId) {
-  var communityListName = document.getElementById('community_list_name');
-  var favoriteCommunitiesIds = [];
-  i=1;
-  $("#communities-container").children("label").each(function () {
-    if (document.getElementById("favoriteCommunitiesIds"+i).checked) {
-      var selectedCommunityId = document.getElementById("favoriteCommunitiesIds"+i).value;
-      favoriteCommunitiesIds.push(selectedCommunityId);
-    }
-    i= i+1;
-  });
+function onAssociateFavoriteCommunities(favoriteId, communityId) {
+  if ($("#shareFavoriteForm").isChanged() || (communityId != 0)) {
+    var communityListName = document.getElementById('community_list_name');
+    var favoriteCommunitiesIds = [];
+    i = 1;
+    $("#communities-container").children("label").each(function () {
+      if (document.getElementById("favoriteCommunitiesIds" + i).checked) {
+        var selectedCommunityId = document.getElementById("favoriteCommunitiesIds" + i).value;
+        favoriteCommunitiesIds.push(selectedCommunityId);
+      }
+      i = i + 1;
+    });
 
-  $.ajax({
-    url: "/ws/sec/favorite/" + favoriteId + "/add/communities",
-    type: 'post',
-    data: JSON.stringify(favoriteCommunitiesIds),
-    contentType: "application/json",
-    success: function(response) {
-      console.log(response);
-      communityListName.textContent = response;
-      $("#validate_share_favorite_modif").modal('show');
-      setTimeout(function(){
-        $('#validate_share_favorite_modif').modal('hide');
-        var url = "/sec/favorite/"+favoriteId;
-        window.location = url;
-      }, 3000);
+    $.ajax({
+      url: "/ws/sec/favorite/" + favoriteId + "/add/communities",
+      type: 'post',
+      data: JSON.stringify(favoriteCommunitiesIds),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        communityListName.textContent = response;
+        $("#validate_share_favorite_modif").modal('show');
+        setTimeout(function () {
+          $('#validate_share_favorite_modif').modal('hide');
+          var url = "/sec/favorite/" + favoriteId;
+          window.location = url;
+        }, 3000);
 
-    },
-    error: function(response) {
-    }
-  })
+      },
+      error: function (response) {
+      }
+    })
+  } else {
+    var url = "/sec/favorite/" + favoriteId;
+    window.location = url;
+  }
 
 };
 
 
 function onCreateFavoriteCommunity(name, favoriteId) {
-  var communityId;
-  var userListName = document.getElementById('user_list_name');
-  var communityUsersIds = [];
-  i=1;
-  $("#users-container").children("label").each(function () {
-    if (document.getElementById("communityUsersIds"+i).checked) {
-      var selectedUserId = document.getElementById("communityUsersIds"+i).value;
-      communityUsersIds.push(selectedUserId);
-    }
-    i= i+1;
-  });
+  if ($("#FavoriteCreateCommunityForm").isChanged()) {
+    var communityId;
+    var userListName = document.getElementById('user_list_name');
+    var communityUsersIds = [];
+    i = 1;
+    $("#users-container").children("label").each(function () {
+      if (document.getElementById("communityUsersIds" + i).checked) {
+        var selectedUserId = document.getElementById("communityUsersIds" + i).value;
+        communityUsersIds.push(selectedUserId);
+      }
+      i = i + 1;
+    });
 
-  community = {
-    name: name,
-    communityUsersIds: communityUsersIds
-  };
-  $.ajax({
-    url: "/ws/sec/community/create",
-    type: 'post',
-    data: JSON.stringify(community),
-    contentType: "application/json",
-    success: function(response) {
-      console.log(response);
-      communityId = response.communityId;
-      userListName.textContent = response.errorMessage;
-      $("#validate_create_community_favorite").modal('show');
-      setTimeout(function(){
-        $('#validate_create_community_favorite').modal('hide');
-        var url = "/sec/favorite/share/?id="+favoriteId+"&communityId="+communityId;
-        window.location = url;
-      }, 3000);
+    community = {
+      name: name,
+      communityUsersIds: communityUsersIds
+    };
+    $.ajax({
+      url: "/ws/sec/community/create",
+      type: 'post',
+      data: JSON.stringify(community),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        communityId = response.communityId;
+        userListName.textContent = response.errorMessage;
+        $("#validate_create_community_favorite").modal('show');
+        setTimeout(function () {
+          $('#validate_create_community_favorite').modal('hide');
+          var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=" + communityId;
+          window.location = url;
+        }, 3000);
 
-    },
-    error: function(response) {
-    }
-  })
+      },
+      error: function (response) {
+      }
+    })
+  } else {
+    var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
+    window.location = url;
+  }
 
 };
 
-/*
+
 $.fn.extend({
   trackChanges: function() {
     $(":input",this).change(function() {
@@ -232,6 +242,11 @@ $.fn.extend({
 });
 
 
+(function checkChange($) {
+  $("#shareFavoriteForm").trackChanges();
+  $("#FavoriteCreateCommunityForm").trackChanges();
+})($);
+/*
 (function signViewsLazyLoading($) {
   var VIDEO_HIDDEN_CLASS = 'video-view-hidden';
   var NB_VIDEO_VIEWS_INC = 8;
@@ -397,4 +412,5 @@ function initWithFirstVideos() {
 
   main();
 
-})($);*/
+})($);
+*/
