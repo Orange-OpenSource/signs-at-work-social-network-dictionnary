@@ -109,8 +109,9 @@
                   </a>
                 </li>
                 <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menu">
-                  <a href="#" data-toggle="modal"
-                     data-target="#favorite">
+                  <!--<a href="#" data-toggle="modal"
+                     data-target="#favorite">-->
+                  <a th:href="@{/sec/favorites}">
                     <div>
                       <div class="pull-left favorite_signe_black "></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation " th:text="#{favorites}"></h4>

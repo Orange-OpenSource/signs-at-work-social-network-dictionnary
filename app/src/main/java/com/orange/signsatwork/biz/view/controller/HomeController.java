@@ -148,10 +148,10 @@ public class HomeController {
     model.addAttribute("nbRecentSign", createdSinceLastDeconnection.size());
 //    model.addAttribute("signsView", signViews);
 //    model.addAttribute("signCreationView", new SignCreationView());
-    if (AuthentModel.isAuthenticated(principal)) {
+   /* if (AuthentModel.isAuthenticated(principal)) {
       fillModelWithFavorites(model, user);
     }
-    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());*/
 //    model.addAttribute("signSearchView", new SignSearchView());
     model.addAttribute("isDevProfile", appProfile.isDevProfile());
     model.addAttribute("isAlphabeticAsc", true);
@@ -165,10 +165,6 @@ public class HomeController {
 
 
 
-  private void fillModelWithFavorites(Model model, User user) {
-    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
-    model.addAttribute("myFavorites", myFavorites);
-  }
 
   @RequestMapping("/cgu")
   public String cgu(Model model) {

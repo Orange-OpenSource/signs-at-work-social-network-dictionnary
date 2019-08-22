@@ -1,0 +1,90 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div">
+  <div class="row ">
+    <div class="col-xs-12">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li">
+            <a  href="#" data-toggle="modal" data-target="#create-new-favorite">
+              <div class="new_favorite_signe_blue  pull-left"></div>
+              <h2 class="container_H2" th:text="#{favorite.new}"></h2>
+              <div><div class="pull-right add"></div></div>
+            </a>
+          </li>
+
+          <div th:if="${not #lists.isEmpty(myFavorites)}">
+            <div th:each="favorite :${myFavorites}">
+              <li class="clear aside_bckg_li">
+                <a th:href="@{/sec/favorite/} + ${favorite.id}">
+                  <div>
+                    <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="pull-left favorite_signe"></div>
+                    <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
+                    <h2 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Default}" class="label_favorite_Liste_H2 container_H2" th:text="#{list(${'&laquo;'+favorite.name+'&raquo;'})}"></h2>
+                    <h2 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="label_favorite_Liste_H2 container_H2" th:text="${'&laquo;'+favorite.name+'&raquo;'}"></h2>
+                    <div>
+                      <div class="pull-right chevron_right"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+            </div>
+          </div>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<div id="create-new-favorite" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="new_favorite_signe_white  pull-left"></div>
+          <h2 class="pull-right" th:text="#{favorite.modal.new}"></h2>
+        </div>
+      </div>
+      <form th:action="@{/sec/favorite/create}" th:object="${favoriteCreationView}" method="post">
+        <div class="modal-body text-center">
+          <input th:field="*{favoriteName}" type="text" class="form-control"
+                 th:placeholder="#{favorite.enter_name}" required=""/>
+        </div>
+        <div class="modal-footer">
+          <button th:text="#{continue}" type="submit" class="btn btn-default"
+                  data-dismiss=""></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

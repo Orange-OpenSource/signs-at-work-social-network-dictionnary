@@ -59,11 +59,11 @@ public class FavoriteController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
-  @RequestMapping(value = REQUEST_URL)
+/*  @RequestMapping(value = REQUEST_URL)
   public String favorite(Principal principal, Model model) {
 
     return "favorites";
-  }
+  }*/
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/create", method = RequestMethod.POST)
@@ -331,4 +331,20 @@ public class FavoriteController {
 
     return "favorite-create-community";
     }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorites")
+  public String favorites(Principal principal, Model model)  {
+    User user = services.user().withUserName(principal.getName());
+    fillModelWithFavorites(model, user);
+    model.addAttribute("title", messageByLocaleService.getMessage("favorites"));
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());
+
+    return "favorites";
+  }
+
+  private void fillModelWithFavorites(Model model, User user) {
+    List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+    model.addAttribute("myFavorites", myFavorites);
+  }
 }
