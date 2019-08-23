@@ -28,7 +28,7 @@
 
 <body class="container-fluid">
 
-<!--<div th:replace="fragments/modal-suggest :: div"/>-->
+
 <div th:replace="fragments/modal-new-community :: div"/>
 
 
@@ -43,7 +43,7 @@
             <div>
               <div class="pull-right  pen"/>
             </div>
-            <!--<span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>-->
+
           </a>
         </li>
         <li th:if="${isCommunityAlreadyExist}" class="aside_bckg_li">
@@ -56,15 +56,7 @@
             </div>
           </a>
         </li>
-       <!-- <li th:if="${!isCommunityAlreadyExist and requestId != 0}" class="aside_bckg_li">
-          <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${communityName} + ' \')'" data-toggle="modal" href="#">
-            <div class="pull-left create_video"></div>
-            <h4 class="container_H2" th:text="#{sign.create}"/>
-            <div>
-              <div class="pull-right add"></div>
-            </div>
-          </a>
-        </li>-->
+
         <li th:if="${!isCommunityAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sec/favorite/create_community(name=${communityName}, id=${favoriteId})}">
             <div class="pull-left create_video"></div>
@@ -77,10 +69,6 @@
       </ul>
     </aside>
 
-<!--    <div class="other_name_nearby  aside_bckg_li">
-      <div class="text-center" th:text="#{sign.with-same-name}"></div>
-    </div>-->
-
 
 
     <div th:if="${not #lists.isEmpty(communitiesWithSameName)}">
@@ -89,7 +77,7 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="dotted-top">
-              <a th:href="@{/community/} + ${community.id}">
+              <a th:href="@{/sec/community/} + ${community.id}">
                 <div>
                   <h2 class="container_H2" th:text="${community.name}"></h2>
                   <div>
@@ -107,8 +95,5 @@
 </div>
 </body>
 
-<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
-<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
-<script type="text/javascript" src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}"></script>
 
 </html>
