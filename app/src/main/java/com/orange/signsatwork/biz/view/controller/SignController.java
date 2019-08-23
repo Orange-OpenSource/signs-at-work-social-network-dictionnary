@@ -1212,6 +1212,8 @@ public class SignController {
   private void fillModelWithFavorites(Model model, User user) {
     if (user != null) {
       List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+      List<FavoriteModalView> favoritesShareToMe = FavoriteModalView.from(services.favorite().favoritesShareToUser(user.id));
+      myFavorites.addAll(favoritesShareToMe);
       model.addAttribute("myFavorites", myFavorites);
     }
   }
