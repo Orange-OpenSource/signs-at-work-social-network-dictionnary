@@ -51,6 +51,8 @@ public class FavoriteDB {
     @NotNull
     private String name;
 
+    private Long idForName;
+
     @Enumerated(EnumType.STRING)
     private FavoriteType type;
 

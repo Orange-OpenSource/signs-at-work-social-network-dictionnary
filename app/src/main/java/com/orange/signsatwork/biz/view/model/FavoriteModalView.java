@@ -40,19 +40,28 @@ import java.util.stream.Collectors;
 public class FavoriteModalView {
   private long id;
   private String name;
+  private long idForName;
   private FavoriteType type;
 
   public Favorite toFavorite() {
-    return new Favorite(id, name, type, null, null, null, null);
+    return new Favorite(id, name, idForName, type, null, null, null, null);
   }
 
   public static FavoriteModalView from(Favorite favorite) {
-    return new FavoriteModalView(favorite.id, favorite.name, favorite.type);
+    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, favorite.type);
   }
 
   public static List<FavoriteModalView> from(Favorites favorites) {
     return favorites.stream()
             .map(FavoriteModalView::from)
             .collect(Collectors.toList());
+  }
+
+  public String favoriteName() {
+    if (this.idForName != 0) {
+      return this.name  + " (" + this.idForName + ")";
+    } else {
+      return this.name;
+    }
   }
 }

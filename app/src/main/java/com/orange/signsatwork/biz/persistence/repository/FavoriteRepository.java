@@ -44,4 +44,7 @@ public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
 
     @Query(value="select * from favorites A, favorites_communities B, communities_users C where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId", nativeQuery = true)
     List<FavoriteDB> findFavoritesShareToUser(@Param("userId") long userId);
+
+    @Query(value="select max(id_for_name) from favorites A, favorites_communities B where A.name = :favoriteName and A.id != :favoriteId and A.id = B.favorites_id", nativeQuery = true)
+    Long findMaxIdForName(@Param("favoriteName") String favoriteName, @Param("favoriteId") Long favoriteId);
 }

@@ -32,6 +32,7 @@ import java.util.List;
 public class Favorite {
     public final long id;
     public final String name;
+    public final long idForName;
     public final FavoriteType type;
     public final Videos videos;
     public final Communities communities;
@@ -43,20 +44,20 @@ public class Favorite {
   public Favorite loadVideos() {
     return videos != null ?
       this :
-      new Favorite(id, name, type, services.video().forFavorite(id), null,null,  services);
+      new Favorite(id, name, idForName, type, services.video().forFavorite(id), null,null,  services);
   }
 
   public Favorite loadCommunities() {
     return communities != null ?
       this :
-      new Favorite(id, name, type, null, services.community().forFavorite(id), null,  services);
+      new Favorite(id, name, idForName, type, null, services.community().forFavorite(id), null,  services);
   }
 
   public Favorite addCommunity(Long communityId) {
     Communities communities = this.communities;
     Community community = services.community().withId(communityId);
     communities.list().add(community);
-    return new Favorite(id, name, type, null, communities, null, services);
+    return new Favorite(id, name, idForName, type, null, communities, null, services);
   }
 
 
@@ -66,5 +67,13 @@ public class Favorite {
 
   public List<Long> communitiesIds() {
     return communities != null ? communities.ids() : null;
+  }
+
+  public String favoriteName() {
+    if (this.idForName != 0) {
+      return this.name  + " (" + this.idForName + ")";
+    } else {
+      return this.name;
+    }
   }
 }

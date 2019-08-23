@@ -74,7 +74,7 @@ public class FavoriteServiceIntegrationTest {
     signService.create(userId, sign2Name, sign2Url, "");
     Signs signs = signService.all();
 
-    Favorite favorite = favoriteService.create(new Favorite(-1, favoriteName, favoriteType, null, null, null,  services));
+    Favorite favorite = favoriteService.create(new Favorite(-1, favoriteName, 0, favoriteType,  null, null, null,  services));
 
     // do
     //favoriteService.changeFavoriteSigns(favorite.id, signs.ids());

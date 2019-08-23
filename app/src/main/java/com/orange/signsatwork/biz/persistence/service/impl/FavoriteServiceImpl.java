@@ -92,6 +92,11 @@ public class FavoriteServiceImpl implements FavoriteService {
     return favoriteRepository.findOne(id);
   }
 
+
+  private Long maxIdForName(String name, long id) {
+    return favoriteRepository.findMaxIdForName(name, id);
+  }
+
   @Override
   public Favorite create(Favorite favorite) {
     FavoriteDB actualFavoriteDB = favoriteDBFrom(favorite);
@@ -143,7 +148,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
   static Favorite favoriteFrom(FavoriteDB favoriteDB, Services services) {
     return favoriteDB == null ? null :
-      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getType(), null, null, UserServiceImpl.userFromSignView(favoriteDB.getUser()), services);
+      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getIdForName(), favoriteDB.getType(), null, null, UserServiceImpl.userFromSignView(favoriteDB.getUser()), services);
   }
 
   private FavoriteDB favoriteDBFrom(Favorite favorite) {
@@ -162,11 +167,19 @@ public class FavoriteServiceImpl implements FavoriteService {
     List<CommunityDB> favoriteCommunities = favoriteDB.getCommunities();
     favoriteCommunities.clear();
     communityRepository.findAll(communitiesIds).forEach(favoriteCommunities::add);
+    if (favoriteDB.getType() != FavoriteType.Share) {
+      Long maxIdForName = maxIdForName(favoriteDB.getName(), favoriteId);
+      if (maxIdForName != null) {
+        favoriteDB.setIdForName(maxIdForName + 1);
+      }
+    }
     if (favoriteCommunities.size() != 0) {
       favoriteDB.setType(FavoriteType.Share);
     } else {
       favoriteDB.setType(FavoriteType.Individual);
     }
+
+
     favoriteDB = favoriteRepository.save(favoriteDB);
     return favoriteFrom(favoriteDB, services);
   }

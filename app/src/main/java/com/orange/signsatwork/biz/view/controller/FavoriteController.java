@@ -87,7 +87,7 @@ public class FavoriteController {
       return("redirect:/");
     }
 
-    model.addAttribute("title", favorite.name);
+    model.addAttribute("title", favorite.favoriteName());
     model.addAttribute("backUrl", "/");
     model.addAttribute("favoriteManageView", favorite);
 
@@ -162,7 +162,7 @@ public class FavoriteController {
       return("redirect:/");
     }
 
-    model.addAttribute("title", favorite.name);
+    model.addAttribute("title", favorite.favoriteName());
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
 
     model.addAttribute("favoriteManageView", favorite);
@@ -189,7 +189,7 @@ public class FavoriteController {
       return("redirect:/");
     }
     favorite = favorite.loadVideos();
-    model.addAttribute("title", favorite.name);
+    model.addAttribute("title", favorite.favoriteName());
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
@@ -226,7 +226,7 @@ public class FavoriteController {
     videosIds.add(videoId);
     services.favorite().changeFavoriteVideos(favorite.id, videosIds);
 
-    model.addAttribute("title", favorite.name);
+    model.addAttribute("title", favorite.favoriteName());
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
