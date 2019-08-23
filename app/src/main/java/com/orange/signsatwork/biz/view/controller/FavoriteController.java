@@ -247,7 +247,7 @@ public class FavoriteController {
     videosIds.add(videoId);
     services.favorite().changeFavoriteVideos(favorite.id, videosIds);
 
-    model.addAttribute("title", favorite.name);
+    model.addAttribute("title", favorite.favoriteName());
     model.addAttribute("backUrl", "/sec/favorite/" + favorite.id);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);

@@ -271,7 +271,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
-    model.addAttribute("dropdownTitle", favorite.name);
+    model.addAttribute("dropdownTitle", favorite.favoriteName());
     if(favorite.type.equals(FavoriteType.Default)) {
       model.addAttribute("classDropdownTitle", "favorite_signe pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
@@ -329,7 +329,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
-    model.addAttribute("dropdownTitle", favorite.name);
+    model.addAttribute("dropdownTitle", favorite.favoriteName());
     if(favorite.type.equals(FavoriteType.Default)) {
       model.addAttribute("classDropdownTitle", "favorite_signe pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
