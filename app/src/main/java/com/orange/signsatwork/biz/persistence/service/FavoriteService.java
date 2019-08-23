@@ -32,6 +32,8 @@ public interface FavoriteService {
 
   Favorites favoritesforUser(long id);
 
+  Favorites favoritesShareToUser(long userId);
+
   Favorite withId(long id);
 
   Favorites withName(String name);

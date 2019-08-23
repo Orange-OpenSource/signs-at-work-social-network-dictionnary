@@ -152,18 +152,27 @@ public class FavoriteController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/manage-favorite")
-  public String manageFavorite(@PathVariable long favoriteId, Model model)  {
+  public String manageFavorite(@PathVariable long favoriteId, Model model, Principal principal)  {
+    Boolean isFavoriteBelowToMe = true;
+    String name = null;
+    User user = services.user().withUserName(principal.getName());
 
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favorite == null) {
       return("redirect:/");
     }
+
     model.addAttribute("title", favorite.name);
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
 
     model.addAttribute("favoriteManageView", favorite);
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
-
+    if (favorite.user.id != user.id) {
+      name = favorite.user.name();
+      isFavoriteBelowToMe = false;
+    }
+    model.addAttribute("userName", name);
+    model.addAttribute("isFavoriteBelowToMe", isFavoriteBelowToMe);
 
     return "manage-favorite";
   }
@@ -345,6 +354,24 @@ public class FavoriteController {
 
   private void fillModelWithFavorites(Model model, User user) {
     List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+    List<FavoriteModalView> favoritesShareToMe = FavoriteModalView.from(services.favorite().favoritesShareToUser(user.id));
+    myFavorites.addAll(favoritesShareToMe);
     model.addAttribute("myFavorites", myFavorites);
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/favorite/{favoriteId}/communities")
+  public String favoritesCommunities(@PathVariable long favoriteId, Principal principal, Model model) {
+
+    Favorite favorite = services.favorite().withId(favoriteId);
+    if (favorite == null) {
+      return("redirect:/");
+    }
+    favorite = favorite.loadCommunities();
+
+    model.addAttribute("title", messageByLocaleService.getMessage("communities"));
+    model.addAttribute("communities", favorite.communities);
+
+    return "communities";
   }
 }

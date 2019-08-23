@@ -71,6 +71,13 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 
   @Override
+  public Favorites favoritesShareToUser(long userId) {
+    return favoritesFrom(
+      favoriteRepository.findFavoritesShareToUser(userId)
+    );
+  }
+
+  @Override
   public Favorite changeFavoriteVideos(long favoriteId, List<Long> videosIds) {
     FavoriteDB favoriteDB = withDBId(favoriteId);
     List<VideoDB> favoriteVideos = favoriteDB.getVideos();
@@ -136,7 +143,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
   static Favorite favoriteFrom(FavoriteDB favoriteDB, Services services) {
     return favoriteDB == null ? null :
-      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getType(), null, null, services);
+      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getType(), null, null, UserServiceImpl.userFromSignView(favoriteDB.getUser()), services);
   }
 
   private FavoriteDB favoriteDBFrom(Favorite favorite) {
@@ -155,6 +162,11 @@ public class FavoriteServiceImpl implements FavoriteService {
     List<CommunityDB> favoriteCommunities = favoriteDB.getCommunities();
     favoriteCommunities.clear();
     communityRepository.findAll(communitiesIds).forEach(favoriteCommunities::add);
+    if (favoriteCommunities.size() != 0) {
+      favoriteDB.setType(FavoriteType.Share);
+    } else {
+      favoriteDB.setType(FavoriteType.Individual);
+    }
     favoriteDB = favoriteRepository.save(favoriteDB);
     return favoriteFrom(favoriteDB, services);
   }

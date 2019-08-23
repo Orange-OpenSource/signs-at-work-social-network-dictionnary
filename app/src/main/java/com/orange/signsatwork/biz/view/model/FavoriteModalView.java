@@ -43,7 +43,7 @@ public class FavoriteModalView {
   private FavoriteType type;
 
   public Favorite toFavorite() {
-    return new Favorite(id, name, type, null, null, null);
+    return new Favorite(id, name, type, null, null, null, null);
   }
 
   public static FavoriteModalView from(Favorite favorite) {
