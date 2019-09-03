@@ -329,4 +329,11 @@ public class UserServiceImpl implements UserService {
   private User userFromFavoriteView(UserDB userDB) {
     return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null, null, null, null, null, null, null, null, null, null, null );
   }
+
+  @Override
+  public Users forFavorite(long favoriteId) {
+    return usersFromFavoriteView(
+      userRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
+    );
+  }
 }

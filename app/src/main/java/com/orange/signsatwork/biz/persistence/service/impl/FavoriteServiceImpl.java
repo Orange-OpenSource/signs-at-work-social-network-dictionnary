@@ -71,9 +71,16 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 
   @Override
-  public Favorites favoritesShareToUser(long userId) {
+  public Favorites oldFavoritesShareToUser(long userId) {
     return favoritesFrom(
-      favoriteRepository.findFavoritesShareToUser(userId)
+      favoriteRepository.findOldFavoritesShareToUser(userId)
+    );
+  }
+
+  @Override
+  public Favorites newFavoritesShareToUser(long userId) {
+    return favoritesFrom(
+      favoriteRepository.findNewFavoritesShareToUser(userId)
     );
   }
 
@@ -114,6 +121,8 @@ public class FavoriteServiceImpl implements FavoriteService {
     favoriteDB = new FavoriteDB();
     favoriteDB.setName(favoriteName);
     favoriteDB.setType(FavoriteType.Individual);
+    favoriteDB.setIdForName(0L);
+    favoriteDB.setUser(userDB);
     favoriteRepository.save(favoriteDB);
 
     userDB.getFavorites().add(favoriteDB);
@@ -148,7 +157,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
   static Favorite favoriteFrom(FavoriteDB favoriteDB, Services services) {
     return favoriteDB == null ? null :
-      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getIdForName(), favoriteDB.getType(), null, null, UserServiceImpl.userFromSignView(favoriteDB.getUser()), services);
+      new Favorite(favoriteDB.getId(), favoriteDB.getName(), favoriteDB.getIdForName(), favoriteDB.getType(), null, null, UserServiceImpl.userFromSignView(favoriteDB.getUser()), null, services);
   }
 
   private FavoriteDB favoriteDBFrom(Favorite favorite) {
@@ -184,4 +193,13 @@ public class FavoriteServiceImpl implements FavoriteService {
     return favoriteFrom(favoriteDB, services);
   }
 
+  @Override
+  public Favorite addUserOpenFavoritePage(long favoriteId, long userId) {
+    FavoriteDB favoriteDB = withDBId(favoriteId);
+    List<UserDB> favoriteUsers = favoriteDB.getUsers();
+    favoriteUsers.add(userRepository.findOne(userId));
+
+    favoriteDB = favoriteRepository.save(favoriteDB);
+    return favoriteFrom(favoriteDB, services);
+  }
 }

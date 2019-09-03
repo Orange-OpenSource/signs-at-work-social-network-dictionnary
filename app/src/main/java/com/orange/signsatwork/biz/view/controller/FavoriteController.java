@@ -116,6 +116,13 @@ public class FavoriteController {
     model.addAttribute("videosView", videoViews);
     model.addAttribute("shareNumber", services.community().forFavorite(favorite.id).stream().count());
 
+    if (favorite.user.id != user.id) {
+      favorite = favorite.loadUsers();
+      if (!favorite.users.list().contains(user.id)) {
+        services.favorite().addUserOpenFavoritePage(favoriteId, user.id);
+      }
+    }
+
     return "favorite";
   }
 
@@ -353,10 +360,19 @@ public class FavoriteController {
   }
 
   private void fillModelWithFavorites(Model model, User user) {
+    List<FavoriteModalView> favorites = new ArrayList<>();
+    List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.from(services.favorite().newFavoritesShareToUser(user.id));
+    favorites.addAll(newFavoritesShareToMe);
+
+    List<FavoriteModalView> favoritesAlpha = new ArrayList<>();
+    List<FavoriteModalView> oldFavoritesShareToMe = FavoriteModalView.from(services.favorite().oldFavoritesShareToUser(user.id));
+    favoritesAlpha.addAll(oldFavoritesShareToMe);
     List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
-    List<FavoriteModalView> favoritesShareToMe = FavoriteModalView.from(services.favorite().favoritesShareToUser(user.id));
-    myFavorites.addAll(favoritesShareToMe);
-    model.addAttribute("myFavorites", myFavorites);
+    favoritesAlpha.addAll(myFavorites);
+    favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
+    favorites.addAll(favoritesAlpha);
+
+    model.addAttribute("myFavorites", favorites);
   }
 
   @Secured("ROLE_USER")

@@ -37,6 +37,7 @@ public class Favorite {
     public final Videos videos;
     public final Communities communities;
     public final User user;
+    public final Users users;
 
     private final Services services;
 
@@ -44,22 +45,27 @@ public class Favorite {
   public Favorite loadVideos() {
     return videos != null ?
       this :
-      new Favorite(id, name, idForName, type, services.video().forFavorite(id), null,null,  services);
+      new Favorite(id, name, idForName, type, services.video().forFavorite(id), null,null,  null, services);
   }
 
   public Favorite loadCommunities() {
     return communities != null ?
       this :
-      new Favorite(id, name, idForName, type, null, services.community().forFavorite(id), null,  services);
+      new Favorite(id, name, idForName, type, null, services.community().forFavorite(id), null,  null, services);
+  }
+
+  public Favorite loadUsers() {
+    return users != null ?
+      this :
+      new Favorite(id, name, idForName, type, null, null, null,  services.user().forFavorite(id), services);
   }
 
   public Favorite addCommunity(Long communityId) {
     Communities communities = this.communities;
     Community community = services.community().withId(communityId);
     communities.list().add(community);
-    return new Favorite(id, name, idForName, type, null, communities, null, services);
+    return new Favorite(id, name, idForName, type, null, communities, null, null, services);
   }
-
 
   public List<Long> videosIds() {
     return videos != null ? videos.ids() : null;

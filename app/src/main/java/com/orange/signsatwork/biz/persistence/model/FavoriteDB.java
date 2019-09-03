@@ -73,8 +73,14 @@ public class FavoriteDB {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<CommunityDB> communities = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "favorites_users", joinColumns = @JoinColumn(name = "favorites_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"))
+    @JsonManagedReference
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserDB> users = new ArrayList<>();
 
-  public FavoriteDB(String name) {
+    public FavoriteDB(String name) {
         this.name = name;
     }
 }

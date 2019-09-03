@@ -1211,10 +1211,19 @@ public class SignController {
 
   private void fillModelWithFavorites(Model model, User user) {
     if (user != null) {
+      List<FavoriteModalView> favorites = new ArrayList<>();
+      List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.from(services.favorite().newFavoritesShareToUser(user.id));
+      favorites.addAll(newFavoritesShareToMe);
+
+      List<FavoriteModalView> favoritesAlpha = new ArrayList<>();
+      List<FavoriteModalView> oldFavoritesShareToMe = FavoriteModalView.from(services.favorite().oldFavoritesShareToUser(user.id));
+      favoritesAlpha.addAll(oldFavoritesShareToMe);
       List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
-      List<FavoriteModalView> favoritesShareToMe = FavoriteModalView.from(services.favorite().favoritesShareToUser(user.id));
-      myFavorites.addAll(favoritesShareToMe);
-      model.addAttribute("myFavorites", myFavorites);
+      favoritesAlpha.addAll(myFavorites);
+      favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
+      favorites.addAll(favoritesAlpha);
+
+      model.addAttribute("myFavorites", favorites);
     }
   }
 

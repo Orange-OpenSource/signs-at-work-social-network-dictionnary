@@ -75,4 +75,6 @@ public interface UserService {
   void changeLastDeconnectionDate(String userName);
 
   Users allForCreateCommunity();
+
+  Users forFavorite(long favoriteId);
 }

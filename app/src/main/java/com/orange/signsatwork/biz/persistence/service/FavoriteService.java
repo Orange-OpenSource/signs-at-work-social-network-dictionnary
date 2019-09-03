@@ -32,7 +32,9 @@ public interface FavoriteService {
 
   Favorites favoritesforUser(long id);
 
-  Favorites favoritesShareToUser(long userId);
+  Favorites oldFavoritesShareToUser(long userId);
+
+  Favorites newFavoritesShareToUser(long userId);
 
   Favorite withId(long id);
 
@@ -52,4 +54,5 @@ public interface FavoriteService {
 
   Long[] NbCommentForAllVideoByFavorite(long favoriteId);
 
+  Favorite addUserOpenFavoritePage(long favoriteId, long userId);
 }
