@@ -135,7 +135,7 @@
   }
 
   .tooltip_favorite {
-    background-position: -383px center;
+    background-position: -1647px center;
     background-size: auto 15px;
     height: 15px;
     width: 15px;
@@ -143,7 +143,7 @@
   }
 
   .tooltip_favorite_in_frame {
-    background-position: -383px center;
+    background-position: -1647px center;
     background-size: auto 15px;
     height: 15px;
     width: 15px;
@@ -355,6 +355,13 @@
     margin-top: 11px;
   }
 
+  .see_communities{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }
+
   /* End manage-favorite /sec/favorite/"id"/manage-favorite */
 
   /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
@@ -430,4 +437,28 @@
   }
   /* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 
+  /* Begin favorite /sec/favorite/"id" */
+  .manage_favorite_blue{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }
+
+  .share_favorite_blue{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }
+
+  .favorite_add_sign_blue{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }
+
+
+  /* End favorite /sec/favorite/"id" */
 }

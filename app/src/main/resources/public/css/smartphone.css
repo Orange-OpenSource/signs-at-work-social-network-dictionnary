@@ -426,6 +426,22 @@
   }
 
   .btn .personal_favorite_signe.pull-left {
+    background-position: -2940px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .share_favorite_signe.pull-left {
+    background-position: -314px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .new_share_favorite_signe.pull-left {
     background-position: -314px center;
     background-size: auto 30px;
     height: 30px;
@@ -1127,7 +1143,23 @@
   }
 
   .btn .personal_favorite_signe.pull-left {
-    background-position: -2341px center;
+    background-position: -3675px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .share_favorite_signe.pull-left {
+    background-position: -3612px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .new_share_favorite_signe.pull-left {
+    background-position: -3705px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
@@ -1652,6 +1684,22 @@
   }
 
   .btn .personal_favorite_signe.pull-left {
+    background-position: -2940px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .share_favorite_signe.pull-left {
+    background-position: -314px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+  }
+
+  .btn .new_share_favorite_signe.pull-left {
     background-position: -314px center;
     background-size: auto 30px;
     height: 30px;

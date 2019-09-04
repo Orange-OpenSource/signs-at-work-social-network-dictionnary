@@ -57,9 +57,20 @@ public class FavoriteModalView {
             .collect(Collectors.toList());
   }
 
+
+  public static FavoriteModalView fromNewShare(Favorite favorite) {
+    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare);
+  }
+
+  public static List<FavoriteModalView> fromNewShare(Favorites favorites) {
+    return favorites.stream()
+      .map(FavoriteModalView::fromNewShare)
+      .collect(Collectors.toList());
+  }
+
   public String favoriteName() {
     if (this.idForName != 0) {
-      return this.name  + " (" + this.idForName + ")";
+      return this.name  + "_" + this.idForName;
     } else {
       return this.name;
     }

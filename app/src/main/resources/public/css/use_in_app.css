@@ -285,7 +285,7 @@ h4, .h4 {
 
 .favorite_signe_black{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -588px center;
+  background-position: -2571px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 40px;
@@ -417,7 +417,25 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .personal_favorite_signe {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1871px center;
+  background-position: -2940px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 37px;
+  width: 24px;
+}
+
+.share_favorite_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2889px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 37px;
+  width: 24px;
+}
+
+.new_share_favorite_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2964px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 37px;
@@ -426,7 +444,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .new_favorite_signe_white{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2550px center;
+  background-position: -3481px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 44px;
@@ -436,7 +454,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .new_favorite_signe_blue{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2015px center;
+  background-position: -2758px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 37px;
@@ -940,7 +958,7 @@ input[type=file] {
 
 .add_favorite_signe_header {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3600px center;
+  background-position: -5640px center;
   background-repeat: no-repeat;
 }
 
@@ -1078,11 +1096,17 @@ input[type=file] {
 
 .delete_favorite_blue{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2153px center;
+  background-position: -2839px center;
   background-repeat: no-repeat;
 }
 
-/* End manage-favorite /sec/favorite/"id"/manage-favorite */
+.see_communities{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2269px center;
+  background-repeat: no-repeat;
+}
+
+/* End manage-favorite /sec/favorite/"id" */
 
 /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
 .rename_favorite_white{
@@ -1204,3 +1228,24 @@ input[type=file] {
 #users-container>label>h4 {
   border-bottom: 1px solid #8C8C8C;
 }
+
+/* Begin favorite /sec/favorite/"id" */
+.manage_favorite_blue{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2521px center;
+  background-repeat: no-repeat;
+}
+
+.share_favorite_blue{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -877px center;
+  background-repeat: no-repeat;
+}
+
+.favorite_add_sign_blue{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2733px center;
+  background-repeat: no-repeat;
+}
+
+/* End favorite /sec/favorite/"id" */

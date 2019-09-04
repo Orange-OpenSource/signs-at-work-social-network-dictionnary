@@ -272,8 +272,10 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.favoriteName());
-    if(favorite.type.equals(FavoriteType.Default)) {
-      model.addAttribute("classDropdownTitle", "favorite_signe pull-left");
+    if(favorite.type.equals(FavoriteType.NewShare)) {
+      model.addAttribute("classDropdownTitle", "new_share_favorite_signe pull-left");
+    } else if (favorite.type.equals(FavoriteType.Share)){
+      model.addAttribute("classDropdownTitle", "share_favorite_signe pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
       model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
     }
@@ -330,8 +332,11 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.favoriteName());
-    if(favorite.type.equals(FavoriteType.Default)) {
-      model.addAttribute("classDropdownTitle", "favorite_signe pull-left");
+    favorite = favorite.loadUsers();
+    if(favorite.type.equals(FavoriteType.Share) && !favorite.users.ids().contains(user.id)) {
+      model.addAttribute("classDropdownTitle", "new_share_favorite_signe pull-left");
+    } else if (favorite.type.equals(FavoriteType.Share)){
+      model.addAttribute("classDropdownTitle", "share_favorite_signe pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
       model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
     }
@@ -1212,7 +1217,7 @@ public class SignController {
   private void fillModelWithFavorites(Model model, User user) {
     if (user != null) {
       List<FavoriteModalView> favorites = new ArrayList<>();
-      List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.from(services.favorite().newFavoritesShareToUser(user.id));
+      List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
       favorites.addAll(newFavoritesShareToMe);
 
       List<FavoriteModalView> favoritesAlpha = new ArrayList<>();

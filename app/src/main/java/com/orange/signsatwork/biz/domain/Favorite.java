@@ -77,7 +77,7 @@ public class Favorite {
 
   public String favoriteName() {
     if (this.idForName != 0) {
-      return this.name  + " (" + this.idForName + ")";
+      return this.name  + "_" + this.idForName;
     } else {
       return this.name;
     }

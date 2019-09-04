@@ -195,8 +195,16 @@ public class FavoriteController {
     if (favorite == null) {
       return("redirect:/");
     }
+
+
     favorite = favorite.loadVideos();
-    model.addAttribute("title", favorite.favoriteName());
+
+    if (favorite.videos.list().size() > 0) {
+      model.addAttribute("title", messageByLocaleService.getMessage("favorite.choose_sign"));
+    } else {
+      model.addAttribute("title", messageByLocaleService.getMessage("favorite.add_sign_at_list"));
+    }
+
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
@@ -361,7 +369,7 @@ public class FavoriteController {
 
   private void fillModelWithFavorites(Model model, User user) {
     List<FavoriteModalView> favorites = new ArrayList<>();
-    List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.from(services.favorite().newFavoritesShareToUser(user.id));
+    List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
     favorites.addAll(newFavoritesShareToMe);
 
     List<FavoriteModalView> favoritesAlpha = new ArrayList<>();
