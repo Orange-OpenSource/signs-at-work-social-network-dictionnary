@@ -197,9 +197,12 @@ public class FavoriteServiceImpl implements FavoriteService {
   public Favorite addUserOpenFavoritePage(long favoriteId, long userId) {
     FavoriteDB favoriteDB = withDBId(favoriteId);
     List<UserDB> favoriteUsers = favoriteDB.getUsers();
-    favoriteUsers.add(userRepository.findOne(userId));
+    UserDB userDB = userRepository.findOne(userId);
+    if (!favoriteUsers.contains(userDB)) {
+      favoriteUsers.add(userDB);
+      favoriteDB = favoriteRepository.save(favoriteDB);
+    }
 
-    favoriteDB = favoriteRepository.save(favoriteDB);
     return favoriteFrom(favoriteDB, services);
   }
 }

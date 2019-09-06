@@ -36,47 +36,46 @@
                 <ul class="nav nav-list primary left-menu">
                     <li class="aside_bckg_li">
                         <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/manage-favorite'">
-                        <div class="pull-left manage_favorite_blue"></div>
-                        <h2 class="container_H2" th:text="#{favorite.manage}"></h2>
-                            <!--<div><div class="pull-right chevron_right"></div></div>-->
+                          <div class="pull-left manage_favorite_blue"></div>
+                          <h2 class="container_H2" th:text="#{favorite.manage}"></h2>
                           <div class="pull-right  chevron_right"/>
                          </a>
                     </li>
-                  <li th:if="${#lists.isEmpty(videosView) and shareNumber == 0}" class="disabled aside_bckg_li">
-                    <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
-                      <div class="pull-left share_favorite_blue"></div>
-                      <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
-                      <div class="pull-right  chevron_right"/>
-                    </a>
-                  </li>
-                  <li th:if="${!#lists.isEmpty(videosView) and shareNumber == 0}" class="aside_bckg_li">
-                    <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
-                      <div class="pull-left share_favorite_blue"></div>
-                      <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
-                      <div class="pull-right  chevron_right"/>
-                    </a>
-                  </li>
-                  <li th:if="${shareNumber != 0}" class="aside_bckg_li">
-                    <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
-                      <div class="pull-left share_favorite_blue"></div>
-                      <h2 class="container_H2" th:text="#{favorite.share(${shareNumber})}"></h2>
-                      <div class="pull-right  chevron_right"/>
-                    </a>
-                  </li>
-                  <li th:if="${#lists.isEmpty(videosView)}" class="aside_bckg_li">
-                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
-                      <div class="pull-left favorite_add_sign_blue"></div>
-                      <h2 class="container_H2" th:text="#{favorite.add_sign}"></h2>
-                      <div class="pull-right  pen"/>
-                    </a>
-                  </li>
-                  <li th:if="${!#lists.isEmpty(videosView)}" class="aside_bckg_li">
-                    <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
-                      <div class="pull-left favorite_add_sign_blue"></div>
-                      <h2 class="container_H2" th:text="#{favorite.choose_sign}"></h2>
-                      <div class="pull-right  pen"/>
-                    </a>
-                  </li>
+                    <li th:if="${#lists.isEmpty(videosView) and shareNumber == 0}" class="disabled aside_bckg_li">
+                      <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
+                        <div class="pull-left share_favorite_blue"></div>
+                        <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
+                        <div class="pull-right  chevron_right"/>
+                      </a>
+                    </li>
+                    <li th:if="${!#lists.isEmpty(videosView) and shareNumber == 0}" class="aside_bckg_li">
+                      <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
+                        <div class="pull-left share_favorite_blue"></div>
+                        <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
+                        <div class="pull-right  chevron_right"/>
+                      </a>
+                    </li>
+                    <li th:if="${shareNumber != 0}" class="aside_bckg_li">
+                      <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
+                        <div class="pull-left share_favorite_blue"></div>
+                        <h2 class="container_H2" th:text="#{favorite.share(${shareNumber})}"></h2>
+                        <div class="pull-right  chevron_right"/>
+                      </a>
+                    </li>
+                    <li th:if="${#lists.isEmpty(videosView)}" class="aside_bckg_li">
+                      <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
+                        <div class="pull-left favorite_add_sign_blue"></div>
+                        <h2 class="container_H2" th:text="#{favorite.add_sign}"></h2>
+                        <div class="pull-right  pin"/>
+                      </a>
+                    </li>
+                    <li th:if="${!#lists.isEmpty(videosView)}" class="aside_bckg_li">
+                      <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
+                        <div class="pull-left favorite_add_sign_blue"></div>
+                        <h2 class="container_H2" th:text="#{favorite.choose_sign}"></h2>
+                        <div class="pull-right  pin"/>
+                      </a>
+                    </li>
                 </ul>
               </aside>
            </div>

@@ -500,7 +500,7 @@
   }
 
   .community_name{
-    width:32rem;
+    width:34rem;
   }
 
 
@@ -537,4 +537,20 @@
 
 
   /* End favorite /sec/favorite/"id" */
+
+  /* Begin /sec/favorite/share/"id" */
+  .create_community_blue{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }
+
+  .create_community_white{
+    background-size: auto 30px;
+    height: 45px;
+    width: 30px;
+    margin-right: 20px;
+  }
+  /* End /sec/favorite/share/"id" */
 }

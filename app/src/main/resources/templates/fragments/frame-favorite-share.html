@@ -35,6 +35,8 @@
           <div id="communities-container">
               <label th:id="${community.name}" th:each="community : ${communities}"
                        th:for="${#ids.next('favoriteCommunitiesIds')}">
+                    <div th:if="${community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Job}" class="pull-left community_type_job_blue"></div>
+                    <div th:if="${community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}" class="pull-left community_type_project_blue"></div>
                     <input type="checkbox" th:field="*{favoriteCommunitiesIds}" th:value="${community.id}"/>
                     <h4 class="community_name" th:text="${community.name}"></h4>
                 </label>

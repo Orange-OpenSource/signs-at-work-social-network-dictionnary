@@ -269,7 +269,7 @@ h4, .h4 {
   font-size: 14px;
   -ms-overflow-style: none;
   overflow-scrolling: none;
-  overflow: hidden;
+ /* overflow: hidden;*/
   position: relative;
   font-weight: bold;
 }
@@ -447,7 +447,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-position: -3481px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 44px;
+  height: 45px;
   width: 30px;
   margin-right: 20px;
 }
@@ -686,7 +686,17 @@ button.close{
 
 .pen {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -348px center;
+  background-position: -351px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top:10px;
+}
+
+.pin {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2612px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1049,7 +1059,7 @@ input[type=file] {
   background-position: -1906px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 45px;
+  height: 45px;margin-top: 7px;
   width: 30px;
   margin-right: 20px;
 }
@@ -1249,3 +1259,49 @@ input[type=file] {
 }
 
 /* End favorite /sec/favorite/"id" */
+
+/* Begin favorite /sec/favorite/share/"id" */
+.create_community_blue{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2296px center;
+  background-repeat: no-repeat;
+}
+
+.community_type_job_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2268px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 30px;
+  width: 24px;
+  margin-right: 16px;
+}
+
+.community_type_project_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2241px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 30px;
+  width: 24px;
+  margin-right:16px;
+}
+
+.create_community_white{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2900px center;
+  background-repeat: no-repeat;
+}
+/* End favorite /sec/favorite/share/"id" */
+
+/* Begin communities-suggest /sec/communities-suggest */
+.add_members_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2423px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+}
+/* Begin communities-suggest /sec/communities-suggest */

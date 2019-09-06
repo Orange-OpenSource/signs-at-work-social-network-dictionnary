@@ -29,14 +29,14 @@
 
 <body class="container-fluid">
 
-<h2 th:text="#{favorite.select_communities_for_share(${'&laquo;'+favoriteProfileView.favorite.favoriteName()+'&raquo;'})}"></h2>
+<h2 th:text="#{favorite.select_communities_for_share(${favoriteProfileView.favorite.favoriteName()})}"></h2>
 <div class="row ">
   <div class="col-xs-12">
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
           <a href="#" data-toggle="modal" data-target="#create_community">
-            <div class="pull-left rename_favorite_blue"></div>
+            <div class="pull-left create_community_blue"></div>
             <h2 class="container_H2" th:text="#{favorite.create_community}"></h2>
             <div class="pull-right pen"></div>
           </a>
@@ -45,7 +45,7 @@
     </aside>
   </div>
 </div>
-<div th:fragment="div" class="title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
+<div th:fragment="div" class="title_middle">
     <div th:replace="fragments/frame-favorite-share :: div"/>
   <div class="footer">
     <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>
@@ -62,7 +62,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
-          <div class="rename_favorite_white pull-left"></div>
+          <div class="create_community_white pull-left"></div>
           <h2 class="pull-right" th:text="#{favorite.create_community}"></h2>
         </div>
       </div>

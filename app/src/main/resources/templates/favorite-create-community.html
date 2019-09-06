@@ -29,9 +29,9 @@
 
 <body class="container-fluid">
 
-<h2 th:text="#{favorite.select_member_community(${'&laquo;'+communityName+'&raquo;'})}"></h2>
+<h2 th:text="#{favorite.select_member_community(${communityName})}"></h2>
 
-<div th:fragment="div" class="title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
+<div th:fragment="div" class="title_middle">
     <div th:replace="fragments/frame-favorite-create-community :: div"/>
   <div class="footer">
     <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>

@@ -51,7 +51,7 @@
             <div>
               <h4 class="container_H2" th:text="#{community.see_members}"></h4>
               <div>
-                <div class="pull-right chevron_right "></div>
+                <div class="pull-right chevron_right"></div>
               </div>
             </div>
           </a>
@@ -59,10 +59,10 @@
 
         <li th:if="${!isCommunityAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sec/favorite/create_community(name=${communityName}, id=${favoriteId})}">
-            <div class="pull-left create_video"></div>
+            <div class="pull-left add_members_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
-              <div class="pull-right add"></div>
+              <div class="pull-right chevron_right"></div>
             </div>
           </a>
         </li>
@@ -79,6 +79,8 @@
             <li class="dotted-top">
               <a th:href="@{/sec/community/} + ${community.id}">
                 <div>
+                  <div th:if="${community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Job}" class="pull-left community_type_job_blue"></div>
+                  <div th:if="${community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}" class="pull-left community_type_project_blue"></div>
                   <h2 class="container_H2" th:text="${community.name}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>

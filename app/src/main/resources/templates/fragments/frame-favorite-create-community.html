@@ -40,6 +40,7 @@
           <div id="users-container">
               <label th:id="${user.username}" th:each="user : ${users}"
                        th:for="${#ids.next('communityUsersIds')}">
+                    <div class="pull-left add_members_blue"></div>
                     <input type="checkbox" th:field="*{communityUsersIds}" th:value="${user.id}"/>
                     <h4 class="community_name" th:text="${user.name()}"></h4>
                 </label>

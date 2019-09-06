@@ -843,7 +843,7 @@ public class SignController {
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
       model.addAttribute("title", messageByLocaleService.getMessage("card"));
-      fillModelWithFavorites(model, user);
+      /*fillModelWithFavorites(model, user);*/
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
       }
