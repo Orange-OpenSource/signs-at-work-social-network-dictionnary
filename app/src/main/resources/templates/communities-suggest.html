@@ -49,6 +49,7 @@
         <li th:if="${isCommunityAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sec/community/} + ${communityMatche.id}">
             <div>
+              <div class="pull-left add_members_blue"></div>
               <h4 class="container_H2" th:text="#{community.see_members}"></h4>
               <div>
                 <div class="pull-right chevron_right"></div>

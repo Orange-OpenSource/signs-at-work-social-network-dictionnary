@@ -70,7 +70,7 @@ span.form-signin-heading{
 }
 
 label {
-  display: block;
+  display: inline-block;
   cursor: pointer;
   line-height: 2.5;
   font-weight: normal;
@@ -1272,9 +1272,10 @@ input[type=file] {
   background-position: -2268px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 30px;
+  height: 24px;
   width: 24px;
   margin-right: 16px;
+  margin-top:10px;
 }
 
 .community_type_project_blue {
@@ -1282,9 +1283,10 @@ input[type=file] {
   background-position: -2241px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 30px;
+  height: 24px;
   width: 24px;
   margin-right:16px;
+  margin-top:10px;
 }
 
 .create_community_white{
@@ -1303,5 +1305,6 @@ input[type=file] {
   height: 24px;
   width: 24px;
   margin-right: 16px;
+  margin-top: 10px;
 }
 /* Begin communities-suggest /sec/communities-suggest */
