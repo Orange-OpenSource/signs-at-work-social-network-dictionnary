@@ -58,9 +58,13 @@ public class CommunityController {
   @RequestMapping(value = "/sec/communities")
   public String communities(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
-    Communities communities = services.community().forUser(user.id);
+    List<Object[]> queryCommunities = services.community().forCommunitiesUser(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .sorted((c1, c2) -> c1.name.compareTo(c2.name))
+      .collect(Collectors.toList());
     model.addAttribute("title", messageByLocaleService.getMessage("communities"));
-    model.addAttribute("communities", communities);
+    model.addAttribute("communities", communitiesViewData);
 
     return "communities";
   }

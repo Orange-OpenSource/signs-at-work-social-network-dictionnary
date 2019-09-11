@@ -66,13 +66,17 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   @Override
+  public List<Object[]> forCommunitiesUser(long userId) {
+    return communityRepository.findCommunitiesByUser(userId);
+  }
+
+  @Override
   public Communities forUser(long userId) {
     UserDB userDB = userRepository.findOne(userId);
     return communitiesFrom(
-            communityRepository.findByUser(userDB)
+      communityRepository.findByUser(userDB)
     );
   }
-
 
   @Override
   public Community create(Community community) {

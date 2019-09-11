@@ -34,6 +34,8 @@ public interface CommunityService {
 
   Communities forUser(long id);
 
+  List<Object[]> forCommunitiesUser(long id);
+
   Community withId(long id);
 
   Community create(Community community);

@@ -141,7 +141,7 @@ ul[role="tablist"]{
 
 }
 
-#lexical {
+.lexical {
   text-align: center;
   color: #4866F7;
   font-size:20px;
@@ -1330,3 +1330,13 @@ input[type=file] {
   margin-top: 10px;
 }
 /* Begin communities-suggest /sec/communities-suggest */
+
+
+.subtitle {
+  text-align: center;
+  color: #4866F7;
+  font-size:18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
