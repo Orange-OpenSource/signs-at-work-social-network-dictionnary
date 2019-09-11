@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.service;
+package com.orange.signsatwork.biz.persistence.model;
 
 /*
  * #%L
@@ -22,29 +22,27 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
-import com.orange.signsatwork.biz.domain.Community;
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.util.Date;
 
-import java.util.List;
+public class CommunityViewData {
+  public final Long id;
+  public final String type;
+  public final String name;
 
-public interface CommunityService {
-  Communities all();
+  public CommunityViewData(Object[] queryResultItem) {
+    id = toLong(queryResultItem[0]);
+    type = toString(queryResultItem[1]);
+    name = toString(queryResultItem[2]);
+  }
 
-  List<Object[]> allForFavorite(long userId);
+  private String toString(Object o) {
+    return (String) o;
+  }
 
-  Communities forUser(long id);
+  private long toLong(Object o) {
+    return ((BigInteger)o).longValue();
+  }
 
-  Community withId(long id);
-
-  Community create(Community community);
-
-/*  void delete(Community community);*/
-
-  Community withCommunityName(String communityName);
-
-  Communities forFavorite(long favoriteId);
-
-  Community changeCommunityUsers(long communityId, List<Long> usersIds);
-
-  Communities search(String communityName);
 }

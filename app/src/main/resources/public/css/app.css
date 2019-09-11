@@ -721,6 +721,26 @@ text-decoration-line: none;
   margin-right: 20px;
 }
 
+.share_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -995px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
+.community_created_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2647px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
 .recent_signe{
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: 0px center;

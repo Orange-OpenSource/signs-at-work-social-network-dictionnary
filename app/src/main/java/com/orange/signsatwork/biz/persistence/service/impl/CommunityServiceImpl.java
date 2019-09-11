@@ -56,8 +56,8 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   @Override
-  public Communities allForFavorite() {
-    return communitiesFromFavoriteView(communityRepository.findAllForFavorite());
+  public List<Object[]> allForFavorite(long userId) {
+    return communityRepository.findAllForFavorite(userId);
   }
 
   @Override

@@ -239,7 +239,6 @@ function onCreateFavoriteCommunity(name, favoriteId) {
           var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=" + communityId;
           window.location = url;
         }, 3000);
-
       },
       error: function (response) {
       }

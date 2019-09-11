@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.domain.Users;
+import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -295,7 +296,8 @@ public class FavoriteController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/share")
-  public String shareFavorite(@RequestParam("id")  long favoriteId, @RequestParam("communityId") long communityId, Model model)  {
+  public String shareFavorite(@RequestParam("id")  long favoriteId, @RequestParam("communityId") long communityId, Principal principal, Model model)  {
+    User user = services.user().withUserName(principal.getName());
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favorite == null) {
       return("redirect:/");
@@ -308,8 +310,13 @@ public class FavoriteController {
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
-    Communities communities = services.community().allForFavorite();
-    model.addAttribute("communities", communities.list());
+
+    List<Object[]> queryCommunities = services.community().allForFavorite(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .collect(Collectors.toList());
+    communitiesViewData = communitiesViewData.stream().sorted((c1, c2) -> c1.name.compareTo(c2.name)).collect(Collectors.toList());
+    model.addAttribute("communities", communitiesViewData);
     model.addAttribute("communityCreationView", new CommunityCreationView());
     model.addAttribute("communityId", communityId);
 
@@ -386,16 +393,25 @@ public class FavoriteController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/communities")
   public String favoritesCommunities(@PathVariable long favoriteId, Principal principal, Model model) {
-
+    User user = services.user().withUserName(principal.getName());
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favorite == null) {
       return("redirect:/");
     }
     favorite = favorite.loadCommunities();
+    FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
+    model.addAttribute("favoriteProfileView", favoriteProfileView);
+    List<Object[]> queryCommunities = services.community().allForFavorite(user.id);
+    Favorite finalFavorite = favorite;
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .filter(c -> finalFavorite.communities.ids().contains(c.id))
+      .sorted((c1, c2) -> c1.name.compareTo(c2.name))
+      .collect(Collectors.toList());
 
-    model.addAttribute("title", messageByLocaleService.getMessage("communities"));
-    model.addAttribute("communities", favorite.communities);
+    model.addAttribute("title", messageByLocaleService.getMessage("favorite.see_share_communities"));
+    model.addAttribute("communities", communitiesViewData);
 
-    return "communities";
+    return "favorite-communities";
   }
 }

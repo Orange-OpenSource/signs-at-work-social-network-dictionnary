@@ -1278,9 +1278,31 @@ input[type=file] {
   margin-top:10px;
 }
 
+.community_type_job_i_below_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2345px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+  margin-top:10px;
+}
+
 .community_type_project_blue {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -2241px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right:16px;
+  margin-top:10px;
+}
+
+.community_type_project_i_below_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2371px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;

@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.view.controller;
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
@@ -37,11 +38,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CommunityController {
@@ -66,9 +69,7 @@ public class CommunityController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/community/{communityId}")
   public String community(@PathVariable long communityId, Model model)  {
-
     Community community = services.community().withId(communityId);
-    model.addAttribute("title", community.name);
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
 
@@ -96,6 +97,7 @@ public class CommunityController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/communities-suggest")
   public String showCommunitiesSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long favoriteId, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("backUrl", "/sec/suggest");
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.create_community"));
@@ -115,7 +117,14 @@ public class CommunityController {
       }
     }
 
-    model.addAttribute("communitiesWithSameName", communitiesWithSameName);
+    List<Object[]> queryCommunities = services.community().allForFavorite(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .filter(c -> communitiesWithSameName.stream().map(co -> co.id).collect(Collectors.toList()).contains(c.id))
+      .sorted((c1, c2) -> c1.name.compareTo(c2.name))
+      .collect(Collectors.toList());
+
+    model.addAttribute("communitiesWithSameName", communitiesViewData);
 
     CommunityCreationView communityCreationView = new CommunityCreationView();
     communityCreationView.setName(decodeName);

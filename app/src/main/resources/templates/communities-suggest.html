@@ -80,8 +80,10 @@
             <li class="dotted-top">
               <a th:href="@{/sec/community/} + ${community.id}">
                 <div>
-                  <div th:if="${community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Job}" class="pull-left community_type_job_blue"></div>
-                  <div th:if="${community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}" class="pull-left community_type_project_blue"></div>
+                  <div th:if="${community.type == 'Job'}" class="pull-left community_type_job_blue"></div>
+                  <div th:if="${community.type == 'JobIBelow'}" class="pull-left community_type_job_i_below_blue"></div>
+                  <div th:if="${community.type == 'Project'}" class="pull-left community_type_project_blue"></div>
+                  <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left community_type_project_i_below_blue"></div>
                   <h2 class="container_H2" th:text="${community.name}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>

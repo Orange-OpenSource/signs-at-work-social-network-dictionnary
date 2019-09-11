@@ -42,7 +42,6 @@ public interface CommunityRepository extends CrudRepository<CommunityDB, Long> {
     @Query("select distinct s FROM CommunityDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<CommunityDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
-    @Query("select distinct c FROM CommunityDB c order by c.name")
-    List<CommunityDB> findAllForFavorite();
-
+    @Query(value="select A.id, 'ProjectIBelow', A.name from communities A where A.type='Project' and A.id in (select B.communities_id from communities_users B where B.users_id= :userId) union select A.id, 'Project', A.name from communities A where A.type='Project' and A.id not in (select B.communities_id from communities_users B where B.users_id = :userId) union select A.id, 'JobIBelow', A.name from communities A where A.type='Job' and A.id in (select B.communities_id from communities_users B where B.users_id= :userId) union select A.id, 'Job', A.name from communities A where A.type='Job' and A.id not in (select B.communities_id from communities_users B where B.users_id= :userId)",  nativeQuery = true)
+    List<Object[]> findAllForFavorite(@Param("userId") long userId);
 }
