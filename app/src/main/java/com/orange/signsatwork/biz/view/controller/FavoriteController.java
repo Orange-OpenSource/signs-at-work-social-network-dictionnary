@@ -202,8 +202,10 @@ public class FavoriteController {
 
     if (favorite.videos.list().size() > 0) {
       model.addAttribute("title", messageByLocaleService.getMessage("favorite.choose_sign"));
+      model.addAttribute("subtitle", messageByLocaleService.getMessage("favorite.modified"));
     } else {
-      model.addAttribute("title", messageByLocaleService.getMessage("favorite.add_sign_at_list"));
+      model.addAttribute("title", messageByLocaleService.getMessage("favorite.add_sign"));
+      model.addAttribute("subtitle", messageByLocaleService.getMessage("favorite.confirm_sign_add_to_list", new Object[]{favorite.favoriteName()}));
     }
 
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);

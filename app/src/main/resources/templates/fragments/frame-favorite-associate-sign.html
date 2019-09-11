@@ -73,11 +73,12 @@
         <button type="button" class="close" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'" data-dismiss="">x</button>
         <div class="pull-left">
           <div class="add_favorite_signe_white pull-left"></div>
-          <h4 class="pull-right" th:text="#{favorite.add}"/>
+          <h4 class="pull-right" th:text="${title}"/>
         </div>
       </div>
       <div class="modal-body text-center">
-        <h4 th:text="#{favorite.confirm_sign_add_to_list(${'&laquo;'+title+'&raquo;'})}"/>
+        <h4 th:text="${subtitle}"/>
+
       </div>
      <!-- <div class="modal-footer">
         <button id="button-top" type="submit" class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteRequest('+ ${favoriteProfileView.favorite.id} +')' " th:text="#{save}"></button><br/>
