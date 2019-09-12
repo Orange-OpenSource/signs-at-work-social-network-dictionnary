@@ -48,7 +48,6 @@
               <input type="checkbox" th:field="*{favoriteVideosIds}" th:value="${videoView.videoId}"/>
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>
               <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + ' (' + ${videoView.idForName} +')'"></span>
-              <!--<a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
               <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${videoView.signName} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
                   <img  th:attr="data-src=${videoView.pictureUri}"/>
               </a>
@@ -80,9 +79,6 @@
         <h4 th:text="${subtitle}"/>
 
       </div>
-     <!-- <div class="modal-footer">
-        <button id="button-top" type="submit" class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteRequest('+ ${favoriteProfileView.favorite.id} +')' " th:text="#{save}"></button><br/>
-      </div>-->
       <div class="modal-footer">
         <div class="check_blue pull-right"></div>
       </div>

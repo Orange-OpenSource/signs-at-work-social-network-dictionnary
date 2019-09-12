@@ -30,7 +30,7 @@
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-          <a href="/" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'">
+          <a href="#" th:onclick="'javascript:onAssociateFavoriteRequest('+ ${favoriteProfileView.favorite.id} +')'">
             <div class="signe_reverse_video"></div>
             <div class="pull-left">
               <div class="add_favorite_signe pull-left"></div>

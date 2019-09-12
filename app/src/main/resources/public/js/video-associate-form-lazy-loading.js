@@ -107,111 +107,43 @@ function onAssociateRequest(signId, videoId) {
 };
 
 function onAssociateFavoriteRequest(favoriteId) {
-  var favoriteVideosIds = [];
-  i=1;
-  $("#videos-container").children("label").each(function () {
-    if (document.getElementById("favoriteVideosIds"+i).checked) {
-      var selectedVideoId = document.getElementById("favoriteVideosIds"+i).value;
-      favoriteVideosIds.push(selectedVideoId);
-    }
-    i= i+1;
-  });
+  if ($("#associateForm").isChanged()) {
+    var favoriteVideosIds = [];
+    i = 1;
+    $("#videos-container").children("label").each(function () {
+      if (document.getElementById("favoriteVideosIds" + i).checked) {
+        var selectedVideoId = document.getElementById("favoriteVideosIds" + i).value;
+        favoriteVideosIds.push(selectedVideoId);
+      }
+      i = i + 1;
+    });
 
-  $.ajax({
-    url: "/ws/sec/favorite/" + favoriteId + "/add/videos",
-    type: 'post',
-    data: JSON.stringify(favoriteVideosIds),
-    contentType: "application/json",
-    success: function(response) {
-      $("#validate_favorite_modif").modal('show');
-      setTimeout(function(){
-        $('#validate_favorite_modif').modal('hide');
-        var url = "/sec/favorite/"+favoriteId;
-        window.location = url;
-      }, 3000);
+    $.ajax({
+      url: "/ws/sec/favorite/" + favoriteId + "/add/videos",
+      type: 'post',
+      data: JSON.stringify(favoriteVideosIds),
+      contentType: "application/json",
+      success: function (response) {
+        $("#validate_favorite_modif").modal('show');
+        setTimeout(function () {
+          $('#validate_favorite_modif').modal('hide');
+          var url = "/sec/favorite/" + favoriteId;
+          window.location = url;
+        }, 3000);
 
-    },
-    error: function(response) {
-    }
-  })
-
-};
-
-
-
-function onAssociateFavoriteCommunities(favoriteId) {
-  var communityListName = document.getElementById('community_list_name');
-  var favoriteCommunitiesIds = [];
-  i=1;
-  $("#communities-container").children("label").each(function () {
-    if (document.getElementById("favoriteCommunitiesIds"+i).checked) {
-      var selectedCommunityId = document.getElementById("favoriteCommunitiesIds"+i).value;
-      favoriteCommunitiesIds.push(selectedCommunityId);
-    }
-    i= i+1;
-  });
-
-  $.ajax({
-    url: "/ws/sec/favorite/" + favoriteId + "/add/communities",
-    type: 'post',
-    data: JSON.stringify(favoriteCommunitiesIds),
-    contentType: "application/json",
-    success: function(response) {
-      console.log(response);
-      communityListName.textContent = response;
-      $("#validate_share_favorite_modif").modal('show');
-      setTimeout(function(){
-        $('#validate_share_favorite_modif').modal('hide');
-        var url = "/sec/favorite/"+favoriteId;
-        window.location = url;
-      }, 3000);
-
-    },
-    error: function(response) {
-    }
-  })
+      },
+      error: function (response) {
+        console.log("erreur");
+      }
+    })
+  } else {
+    var url = "/sec/favorite/" + favoriteId;
+    window.location = url;
+  }
 
 };
 
 
-function onCreateFavoriteCommunity(name) {
-
-  var userListName = document.getElementById('user_list_name');
-  var communityUsersIds = [];
-  i=1;
-  $("#users-container").children("label").each(function () {
-    if (document.getElementById("communityUsersIds"+i).checked) {
-      var selectedUserId = document.getElementById("communityUsersIds"+i).value;
-      communityUsersIds.push(selectedUserId);
-    }
-    i= i+1;
-  });
-
-  community = {
-    name: name,
-    communityUsersIds: communityUsersIds
-  };
-  $.ajax({
-    url: "/ws/sec/community/create",
-    type: 'post',
-    data: JSON.stringify(community),
-    contentType: "application/json",
-    success: function(response) {
-      console.log(response);
-      userListName.textContent = response;
-      $("#validate_create_community_favorite").modal('show');
-      setTimeout(function(){
-        $('#validate_create_community_favorite').modal('hide');
-        var url = "/sec/favorite/"+favoriteId;
-        window.location = url;
-      }, 3000);
-
-    },
-    error: function(response) {
-    }
-  })
-
-};
 
 $.fn.extend({
   trackChanges: function() {
