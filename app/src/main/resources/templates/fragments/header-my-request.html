@@ -30,10 +30,13 @@
     <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
+              <a th:onclick="'javascript:goBack()'">
+                <div class="back pull-left"></div>
+              </a>
               <a href="/">
                 <div class="signe_reverse_video"></div>
               </a>
-              <h2 id="my-other-requests" class="navbar_title pull-right text_hyphenation" th:text="#{other-request(${'&laquo;'+title+'&raquo;'})}"/>
+              <h2 id="my-other-requests" class="navbar_title pull-right text_hyphenation" th:text="#{my-request(${'&laquo;'+title+'&raquo;'})}"/>
             </div>
         </div>
     </nav>

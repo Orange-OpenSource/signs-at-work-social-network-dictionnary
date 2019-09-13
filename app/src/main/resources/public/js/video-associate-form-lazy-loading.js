@@ -127,8 +127,8 @@ function onAssociateFavoriteRequest(favoriteId) {
         $("#validate_favorite_modif").modal('show');
         setTimeout(function () {
           $('#validate_favorite_modif').modal('hide');
-          var url = "/sec/favorite/" + favoriteId;
-          window.location = url;
+          window.history.go(-2);
+
         }, 3000);
 
       },
@@ -137,8 +137,7 @@ function onAssociateFavoriteRequest(favoriteId) {
       }
     })
   } else {
-    var url = "/sec/favorite/" + favoriteId;
-    window.location = url;
+      window.history.back();
   }
 
 };

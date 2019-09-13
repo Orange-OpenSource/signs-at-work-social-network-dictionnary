@@ -21,7 +21,7 @@ body{
 
 .container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
   margin-right: 0px;
-  margin-left: 0px;
+  /*margin-left: 0px;*/
 
 }
 
@@ -36,6 +36,7 @@ a {
   background-size: auto 40px;
   height: 70px;
   width: 100px;
+  margin-left: 10px;
 }
 
 .welcome_signe {
@@ -307,11 +308,21 @@ h4, .h4 {
 .signe_reverse_video {
   float: left;
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3528px center;
+  background-position: -3551px center;
   background-repeat: no-repeat;
   background-size: auto 50px;
   height: 70px;
-  width: 66px;
+  width: 50px;
+}
+
+.back {
+  float: left;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3513px center;
+  background-repeat: no-repeat;
+  background-size: auto 50px;
+  height: 70px;
+  width: 50px;
 }
 
 #myform input[type=search]{

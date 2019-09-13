@@ -30,13 +30,13 @@
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-          <a href="#" th:onclick="'javascript:onAssociateFavoriteRequest('+ ${favoriteProfileView.favorite.id} +')'">
-            <div class="signe_reverse_video"></div>
-            <div class="pull-left">
-              <div class="add_favorite_signe pull-left"></div>
-              <h1 class="text_hyphenation navbar_title pull-right" th:text="${title}"/>
-            </div>
+        <a href="#" th:onclick="'javascript:onAssociateFavoriteRequest(\''+ ${favoriteProfileView.favorite.id} +'\')'">
+          <div class="back pull-left"></div>
         </a>
+        <a href="/">
+          <div class="signe_reverse_video"></div>
+        </a>
+        <h1 class="text_hyphenation navbar_title pull-right" th:text="${title}"/>
       </div>
     </div>
   </nav>

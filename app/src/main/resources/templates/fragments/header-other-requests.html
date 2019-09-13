@@ -22,26 +22,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
 </head>
 <body>
 
 <header role="banner" th:fragment="header">
-    <!-- Primary navigation bar -->
-    <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <a th:onclick="'javascript:goBack()'">
-                <div class="back pull-left"></div>
-              </a>
-              <a href="/">
-                <div class="signe_reverse_video"></div>
-              </a>
-                <h1 class="navbar_title pull-right" th:text="${title}"></h1>
-            </div>
-        </div>
-    </nav>
+  <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <<a th:onclick="'javascript:goBack()'">
+          <div class="back pull-left"></div>
+        </a>
+        <a href="/">
+          <div class="signe_reverse_video"></div>
+        </a>
+        <h1 class="text_hyphenation navbar_title pull-right" th:text="${title}"/>
+      </div>
+    </div>
+  </nav>
 </header>
 
 </body>

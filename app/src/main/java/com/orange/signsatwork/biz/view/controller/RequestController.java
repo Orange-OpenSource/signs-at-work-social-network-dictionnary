@@ -37,6 +37,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class RequestController {
 
   @RequestMapping(value = REQUEST_URL)
   public String request(Principal principal, Model model) {
-    fillModelWithContext(model, "sign.request", principal, HOME_URL);
+    fillModelWithContext(model, "sign.request", principal);
     fillModelWithRequests(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
@@ -69,7 +70,8 @@ public class RequestController {
 
   @RequestMapping(value = "/sec/requests")
   public String requests(Principal principal, Model model) {
-    fillModelWithContext(model, "sign.requests", principal, HOME_URL);
+
+    fillModelWithContext(model, "sign.requests", principal);
     fillModelWithRequests(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
 
@@ -80,8 +82,9 @@ public class RequestController {
   @RequestMapping(value = "/sec/my-request-detail/{requestId}")
   public String requestDetails(@PathVariable long requestId, Principal principal, Model model) {
     Request request = services.request().withId(requestId);
+
     model.addAttribute("title", request.name);
-    model.addAttribute("backUrl", REQUEST_URL );
+
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     RequestView requestView = RequestView.from(request);
 
@@ -97,8 +100,9 @@ public class RequestController {
   @RequestMapping(value = "/sec/other-request-detail/{requestId}")
   public String OtherRequestDetails(@PathVariable long requestId, Principal principal, Model model) {
     Request request = services.request().withId(requestId);
+
     model.addAttribute("title", request.name);
-    model.addAttribute("backUrl", REQUEST_URL );
+
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     RequestView requestView = RequestView.from(request);
 
@@ -113,8 +117,7 @@ public class RequestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/request/{requestId}/add/sign", method = RequestMethod.POST)
-  public String changeSignRequest(
-          javax.servlet.http.HttpServletRequest req, @PathVariable long requestId, Model model, @ModelAttribute SignCreationView signCreationView, Principal principal) {
+  public String changeSignRequest(@PathVariable long requestId, Model model, @ModelAttribute SignCreationView signCreationView, Principal principal) {
 
     User user = services.user().withUserName(principal.getName());
     Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
@@ -124,9 +127,8 @@ public class RequestController {
     return "redirect:/sign/" + sign.id;
   }
 
-  private void fillModelWithContext(Model model, String messageEntry, Principal principal, String backUrl) {
+  private void fillModelWithContext(Model model, String messageEntry, Principal principal) {
     model.addAttribute("title", messageByLocaleService.getMessage(messageEntry));
-    model.addAttribute("backUrl", backUrl);
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
   }
 
@@ -148,7 +150,7 @@ public class RequestController {
   @RequestMapping(value = "/sec/request/search")
   public String showSignsRequest(Model model, @ModelAttribute RequestCreationView requestCreationView, Principal principal) {
     String name = requestCreationView.getRequestName();
-    model.addAttribute("backUrl", "/sec/request");
+
     model.addAttribute("title", messageByLocaleService.getMessage("sign.modal.request"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
@@ -223,7 +225,7 @@ public class RequestController {
   public String myRequestsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.my-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.my-requests", principal);
 
     Requests queryRequests;
     if (isMostRecent == true) {
@@ -257,7 +259,7 @@ public class RequestController {
   public String myRequestsMostRecentFrame(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.my-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.my-requests", principal);
 
     Requests queryRequests;
     if (isMostRecent == true) {
@@ -291,7 +293,7 @@ public class RequestController {
   public String myRequestsInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.my-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.my-requests", principal);
 
     Requests queryRequests;
     if (isAlphabeticAsc == true) {
@@ -325,7 +327,7 @@ public class RequestController {
   public String myRequestsInAlphabeticalOrderFrame(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.my-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.my-requests", principal);
 
     Requests queryRequests;
     if (isAlphabeticAsc == true) {
@@ -359,7 +361,7 @@ public class RequestController {
   public String myRequestsFrame(@RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.my-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.my-requests", principal);
 
     Requests queryRequests = services.request().requestsforUser(user.id);
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -390,7 +392,7 @@ public class RequestController {
   public String otherRequestsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.other-requests", principal);
 
     Requests queryRequests;
     if (isMostRecent == true) {
@@ -424,7 +426,7 @@ public class RequestController {
   public String otherRequestsMostRecentFrame(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.other-requests", principal);
 
     Requests queryRequests;
     if (isMostRecent == true) {
@@ -458,7 +460,7 @@ public class RequestController {
   public String otherRequestsInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.other-requests", principal);
 
     Requests queryRequests;
     if (isAlphabeticAsc == true) {
@@ -492,7 +494,7 @@ public class RequestController {
   public String otherRequestsInAlphabeticalOrderFrame(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.other-requests", principal, HOME_URL);
+    fillModelWithContext(model, "sign.other-requests", principal);
 
     Requests queryRequests;
     if (isAlphabeticAsc == true) {

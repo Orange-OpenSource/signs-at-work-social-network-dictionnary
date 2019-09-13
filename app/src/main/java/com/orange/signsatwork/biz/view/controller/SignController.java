@@ -64,7 +64,7 @@ public class SignController {
 
   @RequestMapping(value = SIGNS_URL)
   public String signs(@RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     fillModelWithSigns(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("isAll", true);
@@ -88,7 +88,7 @@ public class SignController {
 
   @RequestMapping(value = "/signs/frame")
   public String signsFrame(@RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     fillModelWithSigns(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("isAll", true);
@@ -113,7 +113,7 @@ public class SignController {
 
   @RequestMapping(value = "/sec/signs/alphabetic")
   public String signsAndRequestInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns;
 
@@ -171,7 +171,7 @@ public class SignController {
 
   @RequestMapping(value = "/sec/signs/alphabetic/frame")
   public String signsAndRequestInAlphabeticalOrderFrame(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns;
 
@@ -231,7 +231,7 @@ public class SignController {
   public String signsInFavorite(@PathVariable long favoriteId, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     Favorite favorite = services.favorite().withId(favoriteId);
     List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
     List<VideoViewData> videoViewsData = queryVideos.stream()
@@ -291,7 +291,7 @@ public class SignController {
   public String signsInFavoritFrame(@PathVariable long favoriteId, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     Favorite favorite = services.favorite().withId(favoriteId);
     List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
     List<VideoViewData> videoViewsData = queryVideos.stream()
@@ -353,7 +353,7 @@ public class SignController {
   public String signsMostCommented(@RequestParam("isMostCommented") boolean isMostCommented, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
     List<Object[]> querySigns = services.sign().SignsForSignsView();
     List<SignViewData> signViewsData = querySigns.stream()
@@ -418,7 +418,7 @@ public class SignController {
   public String signsMostRating(@RequestParam("isMostRating") boolean isMostRating, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
     List<Object[]> querySigns = services.sign().SignsForSignsView();
     List<SignViewData> signViewsData = querySigns.stream()
@@ -485,7 +485,7 @@ public class SignController {
   public String signsMostRatingFrame(@RequestParam("isMostRating") boolean isMostRating, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
     List<Object[]> querySigns = services.sign().SignsForSignsView();
     List<SignViewData> signViewsData = querySigns.stream()
@@ -554,7 +554,7 @@ public class SignController {
   public String signsMostViewed(@RequestParam("isMostViewed") boolean isMostViewed, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
     List<Object[]> querySigns = services.sign().SignsForSignsView();
     List<SignViewData> signViewsData = querySigns.stream()
@@ -620,9 +620,9 @@ public class SignController {
     User user = services.user().withUserName(principal.getName());
 
     if (isSearch) {
-      fillModelWithContext(model, "sign.search", principal, SHOW_ADD_FAVORITE, HOME_URL);
+      fillModelWithContext(model, "sign.search", principal, SHOW_ADD_FAVORITE);
     } else {
-      fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+      fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     }
 
     List<Object[]> querySigns;
@@ -683,7 +683,7 @@ public class SignController {
   public String signsMostRecentFrame(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE, HOME_URL);
+    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
     List<Object[]> querySigns;
     if (isMostRecent == true) {
@@ -740,12 +740,11 @@ public class SignController {
   }
 
   @RequestMapping(value = "/sign/{signId}")
-  public String sign(HttpServletRequest req, @PathVariable long signId, Principal principal, Model model) {
+  public String sign(@PathVariable long signId, Principal principal, Model model) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
-    String referer = req.getHeader("Referer");
-    String backUrl = referer != null && referer.contains(SIGNS_URL) ? SIGNS_URL + "/?isSearch=false" : HOME_URL;
-    fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE, backUrl);
+
+    fillModelWithContext(model, "sign.info", principal, SHOW_ADD_FAVORITE);
 
     List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
     List<VideoViewData> videoViewsData = querySigns.stream()
@@ -792,7 +791,7 @@ public class SignController {
 
     Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
-    String backUrl;
+
     model.addAttribute("videoBelowToFavorite", false);
     StringBuffer location = req.getRequestURL();
 
@@ -806,23 +805,6 @@ public class SignController {
     if (sign == null) {
       return "redirect:/";
     }
-    if (referer != null ) {
-      if (referer.contains(SIGNS_URL)) {
-        backUrl = SIGNS_URL + "/?isSearch=false";
-      }  else if (referer.contains(SIGN_URL)) {
-
-        if (sign.nbVideo == 1) {
-          backUrl = HOME_URL;
-        } else {
-          backUrl = signUrl(signId);
-        }
-      } else {
-        backUrl = HOME_URL;
-      }
-    } else {
-      backUrl = HOME_URL;
-    }
-    model.addAttribute("backUrl", backUrl);
 
     Video video = services.video().withId(videoId);
     if (video == null) {
@@ -895,7 +877,7 @@ public class SignController {
   public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
     Boolean isVideoCreatedByMe = false;
 
-    model.addAttribute("backUrl", videoUrl(signId, videoId));
+
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
     model.addAttribute("videoBelowToFavorite", false);
@@ -960,7 +942,7 @@ public class SignController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associates")
   public String associatesVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
-    fillModelWithContext(model, "sign.associated", principal, HIDE_ADD_FAVORITE, signUrl(signId));
+    fillModelWithContext(model, "sign.associated", principal, HIDE_ADD_FAVORITE);
     User user = services.user().withUserName(principal.getName());
 
     List<Object[]> queryVideos = services.video().AssociateVideos(videoId, videoId);
@@ -988,7 +970,7 @@ public class SignController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/video-associate-form")
   public String associateVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
-    fillModelWithContext(model, "sign.associate-form", principal, HIDE_ADD_FAVORITE, signUrl(signId));
+    fillModelWithContext(model, "sign.associate-form", principal, HIDE_ADD_FAVORITE);
     VideoService videoService = services.video();
     Video video = videoService.withIdLoadAssociates(videoId);
 
@@ -1064,7 +1046,7 @@ public class SignController {
   @RequestMapping(value = "/sec/signs-suggest")
   public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, Principal principal) {
     String decodeName = URLDecoder.decode(name);
-    model.addAttribute("backUrl", "/sec/suggest");
+
     model.addAttribute("title", messageByLocaleService.getMessage("sign.new"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
@@ -1101,7 +1083,7 @@ public class SignController {
 
     /*model.addAttribute("title", messageByLocaleService.getMessage("sign.definition", new Object[]{sign.name}));*/
     model.addAttribute("title", sign.name);
-    model.addAttribute("backUrl", signUrl(signId));
+
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     model.addAttribute("showAddFavorite", HIDE_ADD_FAVORITE);
 
@@ -1136,9 +1118,8 @@ public class SignController {
     return "redirect:/sign/" + signId + "/" + videoId;
   }
 
-  private void fillModelWithContext(Model model, String messageEntry, Principal principal, boolean showAddFavorite, String backUrl) {
+  private void fillModelWithContext(Model model, String messageEntry, Principal principal, boolean showAddFavorite) {
     model.addAttribute("title", messageByLocaleService.getMessage(messageEntry));
-    model.addAttribute("backUrl", backUrl);
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     model.addAttribute("showAddFavorite", showAddFavorite && AuthentModel.isAuthenticated(principal));
   }

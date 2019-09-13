@@ -22,21 +22,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
 </head>
 <body>
 
 <header role="banner" th:fragment="header">
-    <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-              <a href="/">
-                <div class="signe_reverse_video"></div>
-              </a>
-              <h2 id="my-other-requests" class="navbar_title pull-right text_hyphenation" th:text="#{my-request(${'&laquo;'+title+'&raquo;'})}"/>
-            </div>
-        </div>
-    </nav>
+  <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a th:onclick="'javascript:goBack()'">
+          <div class="back pull-left"></div>
+        </a>
+        <a href="/">
+          <div class="signe_reverse_video"></div>
+        </a>
+        <h1 class="text_hyphenation navbar_title pull-right" th:text="${title}"/>
+      </div>
+    </div>
+  </nav>
 </header>
 
 </body>

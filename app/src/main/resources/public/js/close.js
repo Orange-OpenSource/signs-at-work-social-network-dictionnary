@@ -82,6 +82,9 @@ function bindDOMEvents() {
 
 }
 
+function goBack() {
+  window.history.back();
+}
 
 // Wire up the events as soon as the DOM tree is ready
 $(document).ready(function()

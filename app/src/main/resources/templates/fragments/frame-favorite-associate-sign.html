@@ -69,7 +69,6 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'" data-dismiss="">x</button>
         <div class="pull-left">
           <div class="add_favorite_signe_white pull-left"></div>
           <h4 class="pull-right" th:text="${title}"/>
@@ -77,10 +76,6 @@
       </div>
       <div class="modal-body text-center">
         <h4 th:text="${subtitle}"/>
-
-      </div>
-      <div class="modal-footer">
-        <div class="check_blue pull-right"></div>
       </div>
     </div>
   </div>

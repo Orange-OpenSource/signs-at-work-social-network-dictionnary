@@ -79,7 +79,6 @@ function onAssociateFavoriteCommunities(favoriteId, communityId) {
           var url = "/sec/favorite/" + favoriteId;
           window.location = url;
         }, 3000);
-
       },
       error: function (response) {
       }
@@ -130,8 +129,10 @@ function onCreateFavoriteCommunity(name, favoriteId) {
       }
     })
   } else {
-    var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
-    window.location = url;
+    /*var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
+    window.location = url;*/
+    window.history.back();
+
   }
 
 };
