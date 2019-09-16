@@ -85,7 +85,7 @@ public class FavoriteRestController {
     response.setStatus(HttpServletResponse.SC_OK);
     List<String> communitiesName = favorite.communities.stream().map(c -> c.name).collect(Collectors.toList());
 
-    return messageByLocaleService.getMessage("favorite.confirm_share_to_community", new Object[]{communitiesName.toString()});
+    return messageByLocaleService.getMessage("favorite.confirm_share_to_community",  new Object[]{favorite.favoriteName(), communitiesName.toString()});
   }
 
   /** API REST For Android and IOS **/

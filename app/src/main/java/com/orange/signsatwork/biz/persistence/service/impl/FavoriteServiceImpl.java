@@ -191,7 +191,11 @@ public class FavoriteServiceImpl implements FavoriteService {
     if (favoriteDB.getType() != FavoriteType.Share) {
       Long maxIdForName = maxIdForName(favoriteDB.getName(), favoriteId);
       if (maxIdForName != null) {
-        favoriteDB.setIdForName(maxIdForName + 1);
+        if (maxIdForName == 0) {
+          favoriteDB.setIdForName(maxIdForName + 2);
+        } else {
+          favoriteDB.setIdForName(maxIdForName + 1);
+        }
       }
     }
 
