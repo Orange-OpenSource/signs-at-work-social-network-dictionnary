@@ -28,17 +28,22 @@ import com.orange.signsatwork.biz.domain.Favorites;
 import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.FavoriteService;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class FavoriteServiceImpl implements FavoriteService {
   private final UserRepository userRepository;
   private final FavoriteRepository favoriteRepository;
@@ -46,6 +51,8 @@ public class FavoriteServiceImpl implements FavoriteService {
   private final VideoRepository videoRepository;
   private final CommunityRepository communityRepository;
   private final Services services;
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
 
   @Override
   public Favorites all() {
@@ -171,10 +178,15 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 
   @Override
-  public Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds) {
+  public Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName) {
+    List<String> emails;
+    String title, bodyMail;
     FavoriteDB favoriteDB = withDBId(favoriteId);
     List<CommunityDB> favoriteCommunities = favoriteDB.getCommunities();
+    List<Long> oldFavoriteCommunitiesIds = favoriteCommunities.stream().map(c-> c.getId()).collect(Collectors.toList());
+
     favoriteCommunities.clear();
+
     communityRepository.findAll(communitiesIds).forEach(favoriteCommunities::add);
     if (favoriteDB.getType() != FavoriteType.Share) {
       Long maxIdForName = maxIdForName(favoriteDB.getName(), favoriteId);
@@ -182,15 +194,45 @@ public class FavoriteServiceImpl implements FavoriteService {
         favoriteDB.setIdForName(maxIdForName + 1);
       }
     }
+
+
+
     if (favoriteCommunities.size() != 0) {
       favoriteDB.setType(FavoriteType.Share);
     } else {
       favoriteDB.setType(FavoriteType.Individual);
     }
+    favoriteRepository.save(favoriteDB);
+    Favorite favorite = favoriteFrom(favoriteDB, services);
+
+    List<Long> addedFavoriteCommunitiesIds = communitiesIds
+      .stream()
+      .filter(id1 -> oldFavoriteCommunitiesIds.stream().noneMatch(id2 -> id2.equals(id1)))
+      .collect(Collectors.toList());
+
+    List<UserDB> userDBList = new ArrayList<>();
+    favoriteCommunities.forEach(c -> { if (addedFavoriteCommunitiesIds.contains(c.getId())) {
+      userDBList.addAll(c.getUsers());
+    }
+    });
 
 
-    favoriteDB = favoriteRepository.save(favoriteDB);
-    return favoriteFrom(favoriteDB, services);
+    if (userDBList.size() != 0) {
+      emails = userDBList.stream().filter(u-> u.getEmail() != null).map(u -> u.getEmail()).collect(Collectors.toList());
+      if (emails.size() != 0) {
+        title = messageByLocaleService.getMessage("favorite_share_by_user_title", new Object[]{userName});
+        bodyMail = messageByLocaleService.getMessage("favorite_share_by_user_body", new Object[]{userName, favorite.favoriteName(), "https://signsatwork.orange-labs.fr/sec/favorite/" + favorite.id});
+
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+          services.emailService().sendFavoriteShareMessage(emails.toArray(new String[emails.size()]), title, userName, favorite.favoriteName(), "https://signsatwork.orange-labs.fr/sec/favorite/" + favorite.id);
+        };
+
+        new Thread(task).start();
+      }
+    }
+
+    return favorite;
   }
 
   @Override

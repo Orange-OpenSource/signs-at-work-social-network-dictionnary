@@ -329,12 +329,13 @@ public class FavoriteController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/add/communities", method = RequestMethod.POST)
   public String changeFavoriteCommunities(
-    HttpServletRequest req, @PathVariable long favoriteId, Model model) {
+    HttpServletRequest req, @PathVariable long favoriteId, Model model, Principal principal) {
 
+    User user = services.user().withUserName(principal.getName());
     List<Long> communitiesIds =
       transformCommunitiesIdsToLong(req.getParameterMap().get("favoriteCommunitiesIds"));
 
-    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds);
+    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds, user.name());
 
     return showFavorite(favoriteId);
   }

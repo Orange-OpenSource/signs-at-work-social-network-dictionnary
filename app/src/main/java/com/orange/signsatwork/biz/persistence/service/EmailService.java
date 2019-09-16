@@ -27,4 +27,6 @@ public interface EmailService {
   public void sendSimpleMessage(String[] to, String subject, String text);
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url);
+
+  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String requestName, String url);
 }

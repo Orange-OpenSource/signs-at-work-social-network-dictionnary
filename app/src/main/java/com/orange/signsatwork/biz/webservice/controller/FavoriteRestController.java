@@ -77,9 +77,10 @@ public class FavoriteRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITE_COMMUNITY_ASSOCIATE, method = RequestMethod.POST)
-  public String favoriteAssociateCommunity(@RequestBody List<Long> favoriteCommunitiesIds, @PathVariable long favoriteId, HttpServletResponse response) {
+  public String favoriteAssociateCommunity(@RequestBody List<Long> favoriteCommunitiesIds, @PathVariable long favoriteId, Principal principal, HttpServletResponse response) {
 
-    Favorite favorite = services.favorite().changeFavoriteCommunities(favoriteId, favoriteCommunitiesIds);
+    User user = services.user().withUserName(principal.getName());
+    Favorite favorite = services.favorite().changeFavoriteCommunities(favoriteId, favoriteCommunitiesIds, user.name());
     favorite = favorite.loadCommunities();
     response.setStatus(HttpServletResponse.SC_OK);
     List<String> communitiesName = favorite.communities.stream().map(c -> c.name).collect(Collectors.toList());

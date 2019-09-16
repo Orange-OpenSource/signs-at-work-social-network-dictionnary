@@ -90,6 +90,31 @@ public class EmailServiceImpl implements EmailService {
       }
     }
   }
+
+  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url) {
+    InputStream imageIs = null;
+    try {
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom("admin@admin.com");
+      Context ctx = new Context();
+      ctx.setVariable("user_name", userName);
+      ctx.setVariable("favorite_name", favoriteName);
+      ctx.setVariable("url", url);
+      String htmlContent = templateEngine.process("email", ctx);
+      helper.setText(htmlContent, true);
+
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    }
+  }
+
+
   public void sendSimpleMessage(String[] to, String subject, String text) {
 
     try {

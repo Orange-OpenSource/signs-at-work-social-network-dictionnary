@@ -76,16 +76,18 @@ function onAssociateFavoriteCommunities(favoriteId, communityId) {
         $("#validate_share_favorite_modif").modal('show');
         setTimeout(function () {
           $('#validate_share_favorite_modif').modal('hide');
-          var url = "/sec/favorite/" + favoriteId;
-          window.location = url;
+      /*    var url = "/sec/favorite/" + favoriteId;
+          window.location = url;*/
+          window.history.go(-2);
         }, 3000);
       },
       error: function (response) {
       }
     })
   } else {
-    var url = "/sec/favorite/" + favoriteId;
-    window.location = url;
+   /* var url = "/sec/favorite/" + favoriteId;
+    window.location = url;*/
+    window.history.back();
   }
 
 };
