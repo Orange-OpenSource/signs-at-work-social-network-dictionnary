@@ -47,7 +47,7 @@
                      th:for="${#ids.next('favoriteVideosIds')}">
               <input type="checkbox" th:field="*{favoriteVideosIds}" th:value="${videoView.videoId}"/>
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>
-              <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + ' (' + ${videoView.idForName} +')'"></span>
+              <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + '_' + ${videoView.idForName}"></span>
               <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${videoView.signName} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
                   <img  th:attr="data-src=${videoView.pictureUri}"/>
               </a>

@@ -38,10 +38,10 @@
                     <div th:each="community:${communities}">
                         <li class="aside_bckg_li">
                             <a th:href="@{/sec/community/} + ${community.id}">
-                                <div th:if="${community.type == 'Job'}" class="pull-left community_type_job_blue"></div>
-                                <div th:if="${community.type == 'JobIBelow'}" class="pull-left community_type_job_i_below_blue"></div>
-                                <div th:if="${community.type == 'Project'}" class="pull-left community_type_project_blue"></div>
-                                <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left community_type_project_i_below_blue"></div>
+                                <div th:if="${community.type == 'Job'}" class="pull-left see_community_type_job_blue"></div>
+                                <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_community_type_job_i_below_blue"></div>
+                                <div th:if="${community.type == 'Project'}" class="pull-left see_community_type_project_blue"></div>
+                                <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_community_type_project_i_below_blue"></div>
                                 <h2 class="container_H2" th:text="${community.name}"></h2>
                                 <div><div class="pull-right chevron_right"></div> </div>
 
