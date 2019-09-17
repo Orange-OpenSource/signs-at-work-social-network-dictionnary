@@ -244,7 +244,7 @@ public class SignRestController {
     if ((video.idForName == 0) || (signData.nbVideo == 1 )){
       videoName = signData.name;
     } else {
-      videoName = signData.name + " (" + video.idForName + ")";
+      videoName = signData.name + "_" + video.idForName;
     }
 
     Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);

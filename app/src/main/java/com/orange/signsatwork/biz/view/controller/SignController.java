@@ -851,7 +851,7 @@ public class SignController {
     if ((video.idForName == 0) || (sign.nbVideo == 1 )){
       model.addAttribute("videoName", sign.name);
     } else {
-      model.addAttribute("videoName", sign.name + " (" + video.idForName + ")");
+      model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
     List<Object[]> queryVideos = services.video().AssociateVideos(videoId, videoId);
@@ -926,7 +926,7 @@ public class SignController {
     if ((video.idForName == 0) || (sign.nbVideo == 1 )){
       model.addAttribute("videoName", sign.name);
     } else {
-      model.addAttribute("videoName", sign.name + " (" + video.idForName + ")");
+      model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
     model.addAttribute("signView", sign);
