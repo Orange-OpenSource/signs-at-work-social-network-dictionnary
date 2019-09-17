@@ -71,7 +71,7 @@ span.form-signin-heading{
 }
 
 label {
-  display: inline-block;
+  display: block;
   cursor: pointer;
   line-height: 2.5;
   font-weight: normal;
@@ -1286,10 +1286,30 @@ input[type=file] {
   height: 24px;
   width: 24px;
   margin-right: 16px;
+}
+
+.see_community_type_job_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2268px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
   margin-top:10px;
 }
 
 .community_type_job_i_below_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2345px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+}
+
+.see_community_type_job_i_below_blue {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -2345px center;
   background-repeat: no-repeat;
@@ -1308,10 +1328,30 @@ input[type=file] {
   height: 24px;
   width: 24px;
   margin-right:16px;
+}
+
+.see_community_type_project_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2241px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right:16px;
   margin-top:10px;
 }
 
 .community_type_project_i_below_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2371px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right:16px;
+}
+
+.see_community_type_project_i_below_blue {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -2371px center;
   background-repeat: no-repeat;
@@ -1331,6 +1371,16 @@ input[type=file] {
 
 /* Begin communities-suggest /sec/communities-suggest */
 .add_members_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2423px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+}
+
+.see_members_blue {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -2423px center;
   background-repeat: no-repeat;

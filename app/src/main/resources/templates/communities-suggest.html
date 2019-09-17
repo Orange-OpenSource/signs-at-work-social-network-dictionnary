@@ -49,7 +49,7 @@
         <li th:if="${isCommunityAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sec/community/} + ${communityMatche.id}">
             <div>
-              <div class="pull-left add_members_blue"></div>
+              <div class="pull-left see_members_blue"></div>
               <h4 class="container_H2" th:text="#{community.see_members}"></h4>
               <div>
                 <div class="pull-right chevron_right"></div>
@@ -60,7 +60,7 @@
 
         <li th:if="${!isCommunityAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sec/favorite/create_community(name=${communityName}, id=${favoriteId})}">
-            <div class="pull-left add_members_blue"></div>
+            <div class="pull-left see_members_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
               <div class="pull-right chevron_right"></div>
@@ -80,10 +80,10 @@
             <li class="dotted-top">
               <a th:href="@{/sec/community/} + ${community.id}">
                 <div>
-                  <div th:if="${community.type == 'Job'}" class="pull-left community_type_job_blue"></div>
-                  <div th:if="${community.type == 'JobIBelow'}" class="pull-left community_type_job_i_below_blue"></div>
-                  <div th:if="${community.type == 'Project'}" class="pull-left community_type_project_blue"></div>
-                  <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left community_type_project_i_below_blue"></div>
+                  <div th:if="${community.type == 'Job'}" class="pull-left see_community_type_job_blue"></div>
+                  <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_community_type_job_i_below_blue"></div>
+                  <div th:if="${community.type == 'Project'}" class="pull-left see_community_type_project_blue"></div>
+                  <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_community_type_project_i_below_blue"></div>
                   <h2 class="container_H2" th:text="${community.name}"></h2>
                   <div>
                     <div class="pull-right chevron_right "></div>
