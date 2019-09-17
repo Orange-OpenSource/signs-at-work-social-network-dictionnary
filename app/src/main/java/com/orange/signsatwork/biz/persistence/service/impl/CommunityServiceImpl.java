@@ -114,7 +114,7 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFrom(CommunityDB communityDB) {
-    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), CommunityType.Job);
+    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), communityDB.getType());
   }
 
   private Communities communitiesFromFavoriteView(Iterable<CommunityDB> communitiesDB) {

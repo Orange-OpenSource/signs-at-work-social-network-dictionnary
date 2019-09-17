@@ -42,18 +42,25 @@ public class CommunityView {
   private long id;
   private String name;
   private Users users;
+  private CommunityType type;
 
   public Community toCommunity() {
-    return new Community(id, name, users, CommunityType.Job);
+    return new Community(id, name, users, type);
   }
 
   public static CommunityView from(Community community) {
-    return new CommunityView(community.id, community.name, community.users);
+    return new CommunityView(community.id, community.name, community.users, community.type);
   }
 
   public static List<CommunityView> from(Communities communities) {
     return communities.stream()
             .map(CommunityView::from)
             .collect(Collectors.toList());
+  }
+
+  public static List<CommunityView> from(List<Community> communities) {
+    return communities.stream()
+      .map(CommunityView::from)
+      .collect(Collectors.toList());
   }
 }

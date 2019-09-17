@@ -22,16 +22,15 @@ package com.orange.signsatwork.biz.view.controller.admin;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
-import com.orange.signsatwork.biz.view.model.AuthentModel;
-import com.orange.signsatwork.biz.view.model.CommunityView;
-import com.orange.signsatwork.biz.view.model.UserCreationView;
-import com.orange.signsatwork.biz.view.model.UserView;
+import com.orange.signsatwork.biz.view.model.*;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -90,7 +89,8 @@ public class AdminController {
   public String communities(Model model) {
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("communities"));
-    model.addAttribute("communities", CommunityView.from(communityService.all()));
+    List<Community> communities = communityService.all().stream().filter(c -> c.type == CommunityType.Job).collect(Collectors.toList());
+    model.addAttribute("communities", CommunityView.from(communities));
     return "admin/communities";
   }
 
@@ -111,6 +111,9 @@ public class AdminController {
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("community_details"));
     model.addAttribute("community", community);
+    CommunityProfileView communityProfileView = new CommunityProfileView(community, userService);
+    model.addAttribute("communityProfileView", communityProfileView);
+
     return "admin/community";
   }
 
@@ -157,6 +160,19 @@ public class AdminController {
   }
 
   @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/community/{communityId}/add/users", method = RequestMethod.POST)
+  public String changeCommunityUsers(
+    HttpServletRequest req, @PathVariable long communityId, Model model) {
+
+    List<Long> usersIds =
+      transformUsersIdsToLong(req.getParameterMap().get("communityUsersIds"));
+
+    communityService.changeCommunityUsers(communityId, usersIds);
+
+    return community(communityId, model);
+  }
+
+  @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/{userId}/changePassword", method = RequestMethod.POST)
   public String changeUserPassword(@ModelAttribute UserCreationView userCreationView, @PathVariable long userId, Model model) {
 
@@ -172,6 +188,15 @@ public class AdminController {
       return new ArrayList<>();
     }
     return Arrays.asList(userCommunitiesIds).stream()
+      .map(Long::parseLong)
+      .collect(Collectors.toList());
+  }
+
+  private List<Long> transformUsersIdsToLong(String[] communityUsersIds) {
+    if (communityUsersIds == null) {
+      return new ArrayList<>();
+    }
+    return Arrays.asList(communityUsersIds).stream()
       .map(Long::parseLong)
       .collect(Collectors.toList());
   }

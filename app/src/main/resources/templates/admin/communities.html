@@ -46,7 +46,7 @@
             </thead>
             <tbody>
             <tr th:each="community : ${communities}">
-                <td th:text="${community.id}"></td>
+                <td><a th:href="@{/sec/admin/community/{communityid}(communityid=${community.id})}" th:text="${community.id}"/></td>
                 <td th:text="${community.name}"></td>
             </tr>
             </tbody>

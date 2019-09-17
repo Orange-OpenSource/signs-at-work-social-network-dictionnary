@@ -25,6 +25,8 @@ package com.orange.signsatwork.biz.view.model;
 
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.Favorite;
+import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.service.UserService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,10 +37,12 @@ import java.util.List;
 public class CommunityProfileView {
   private Community community;
   private List<Long> communityUsersIds;
+  private List<User> allUsers;
 
-  public CommunityProfileView(Community communityWithoutUsers) {
+  public CommunityProfileView(Community communityWithoutUsers, UserService userService) {
     community = communityWithoutUsers;
     this.communityUsersIds = community.usersIds();
+    this.allUsers = userService.all().list();
   }
 
 }
