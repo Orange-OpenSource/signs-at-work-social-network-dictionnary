@@ -136,7 +136,9 @@ public class UserServiceImpl implements UserService {
     FavoriteDB favoriteDB = new FavoriteDB();
 
     favoriteDB.setName(favoriteName);
-    favoriteDB.setType(FavoriteType.Default);
+    favoriteDB.setType(FavoriteType.Individual);
+    favoriteDB.setIdForName(0L);
+    favoriteDB.setUser(userDB);
     favoriteRepository.save(favoriteDB);
 
     userDB.getFavorites().add(favoriteDB);

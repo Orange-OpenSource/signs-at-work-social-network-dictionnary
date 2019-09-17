@@ -23,7 +23,6 @@ package com.orange.signsatwork.biz.domain;
  */
 
 public enum FavoriteType {
-    Default,
     Share,
     Individual,
     NewShare,
