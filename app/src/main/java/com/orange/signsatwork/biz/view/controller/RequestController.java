@@ -38,6 +38,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -148,20 +150,28 @@ public class RequestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/request/search")
-  public String showSignsRequest(Model model, @ModelAttribute RequestCreationView requestCreationView, Principal principal) {
+  public String searchRequestSign(@ModelAttribute RequestCreationView requestCreationView) {
+
     String name = requestCreationView.getRequestName();
+    return "redirect:/sec/signs-request?name="+ URLEncoder.encode(name);
+  }
+
+  @Secured("ROLE_USER_A")
+  @RequestMapping(value = "/sec/signs-request")
+  public String showSignsRequest(Model model,@RequestParam("name") String name,  Principal principal) {
+    String decodeName = URLDecoder.decode(name);
 
     model.addAttribute("title", messageByLocaleService.getMessage("sign.modal.request"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
-    Signs signs = services.sign().search(name);
+    Signs signs = services.sign().search(decodeName);
 
 
-    model.addAttribute("signName", name);
+    model.addAttribute("signName", decodeName);
     model.addAttribute("isSignAlreadyExist", false);
     List<Sign> signsWithSameName = new ArrayList<>();
     for (Sign sign: signs.list()) {
-      if (sign.name.equals(name) ) {
+      if (sign.name.equals(decodeName) ) {
         model.addAttribute("isSignAlreadyExist", true);
         model.addAttribute("signMatche", sign);
       } else {
@@ -172,13 +182,13 @@ public class RequestController {
     model.addAttribute("signsWithSameName", signsWithSameName);
 
     model.addAttribute("isRequestAlreadyExist", false);
-    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(name, user.id);
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(decodeName, user.id);
     List<RequestViewData> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
       .map(objectArray -> new RequestViewData(objectArray))
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
-      if (requestViewData.requestName.equals(name)) {
+      if (requestViewData.requestName.equals(decodeName)) {
         model.addAttribute("isRequestAlreadyExist", true);
         model.addAttribute("requestMatche", requestViewData);
       } else {
@@ -189,13 +199,13 @@ public class RequestController {
     model.addAttribute("requestsWithSameName", requestsWithNoAssociateSignWithSameName);
 
     model.addAttribute("isRequestWithAssociateSignAlreadyExist", false);
-    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(name, user.id);
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(decodeName, user.id);
     List<RequestViewData> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
       .map(objectArray -> new RequestViewData(objectArray))
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithAssociateSign) {
-      if (requestViewData.requestName.equals(name)) {
+      if (requestViewData.requestName.equals(decodeName)) {
         model.addAttribute("isRequestWithAssociateSignAlreadyExist", true);
         model.addAttribute("requestWithAssociateSignMatche", requestViewData);
       } else {
@@ -206,6 +216,8 @@ public class RequestController {
     model.addAttribute("requestsWithAssociateSignWithSameName", requestsWithAssociateSignWithSameName);
 
 
+    RequestCreationView requestCreationView = new RequestCreationView();
+    requestCreationView.setRequestName(decodeName);
     model.addAttribute("requestCreationView", requestCreationView);
     model.addAttribute("requestView", new RequestView());
 
