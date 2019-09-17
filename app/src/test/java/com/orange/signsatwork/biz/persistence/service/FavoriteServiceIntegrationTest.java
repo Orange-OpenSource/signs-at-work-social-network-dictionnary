@@ -29,6 +29,7 @@ import com.orange.signsatwork.biz.domain.FavoriteType;
 import com.orange.signsatwork.biz.domain.Signs;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,7 @@ public class FavoriteServiceIntegrationTest {
   }
 
   @Test
+  @Ignore
   public void changeFavoriteSigns() {
     //given
     SignService signService = services.sign();

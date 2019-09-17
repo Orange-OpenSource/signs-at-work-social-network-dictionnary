@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.persistence.service;
 import com.orange.signsatwork.biz.TestUser;
 import com.orange.signsatwork.biz.domain.*;
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +44,14 @@ public class CommunityServiceDeleteTest {
   @Autowired
   TestUser testUser;
 
-  /*@Test
+  @Test
+  @Ignore
   public void canRemoveCommunity() {
     // given
     User user = testUser.get("user-CanRemoveCommunity");
     Community community = services.community().create(Community.create("community-canRemoveCommunity", CommunityType.Job));
 
-    // do/then
+   /* // do/then
     services.user().changeUserCommunities(user.id, Arrays.asList(new Long[]{community.id}));
     Assertions.assertThat(services.community().all().stream().filter(c -> c.id == community.id).count()).isEqualTo(1);
     Assertions.assertThat(services.user().withId(user.id).loadCommunitiesRequestsFavorites().communitiesIds()).contains(community.id);
@@ -57,6 +59,6 @@ public class CommunityServiceDeleteTest {
     // do/then
     services.community().delete(community);
     Assertions.assertThat(services.user().withId(user.id).loadCommunitiesRequestsFavorites().communitiesIds()).doesNotContain(community.id);
-    Assertions.assertThat(services.community().all().stream().filter(c -> c.id == community.id).count()).isEqualTo(0);
-  }*/
+    Assertions.assertThat(services.community().all().stream().filter(c -> c.id == community.id).count()).isEqualTo(0);*/
+  }
 }
