@@ -74,7 +74,7 @@ function displayVideo(url, name, idForName, nbVideo) {
   if (nbVideo == 1) {
     document.getElementById("videoName").innerText = name;
   } else {
-    document.getElementById("videoName").innerText = name + ' (' + idForName + ')';
+    document.getElementById("videoName").innerText = name + '_' + idForName;
   }
 
   document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';

@@ -575,7 +575,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .open>.dropdown-menu {
   /*display: inline-table;*/
-  width: 29rem;
+  width: 31rem;
 }
 
 /* End Voir les signes /sec/signs */
