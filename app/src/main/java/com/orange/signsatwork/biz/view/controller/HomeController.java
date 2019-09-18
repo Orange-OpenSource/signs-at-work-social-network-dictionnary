@@ -88,74 +88,9 @@ public class HomeController {
 
   private String doIndex(HttpServletRequest req, Principal principal, Model model) {
     boolean admin = appSecurityAdmin.isAdmin(principal);
-    User user = AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
-    StringBuffer location = req.getRequestURL();
 
-    model.addAttribute("title", messageByLocaleService.getMessage("app_name"));
-    if(user != null) {
-      model.addAttribute("mail_body", messageByLocaleService.getMessage("share_application_body", new Object[]{user.name(), location}));
-    }
-
-    List<Long> signInFavorite = null;
-
-    List<Object[]> querySigns = services.sign().SignsForSignsView();
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
-      .collect(Collectors.toList());
-
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
-
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
-
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
-    List<SignView2> signViews;
-
-    if (user != null) {
-      signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
-      List<Long> finalSignInFavorite = signInFavorite;
-      signViews = signViewsData.stream()
-        .map(signViewData -> new SignView2(
-          signViewData,
-          signWithCommentList.contains(signViewData.id),
-          SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
-          signWithView.contains(signViewData.id),
-          signWithPositiveRate.contains(signViewData.id),
-          finalSignInFavorite.contains(signViewData.id))
-        )
-        .collect(Collectors.toList());
-    } else {
-      signViews = signViewsData.stream()
-        .map(signViewData -> new SignView2(
-          signViewData,
-          signWithCommentList.contains(signViewData.id),
-          SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
-          signWithView.contains(signViewData.id),
-          signWithPositiveRate.contains(signViewData.id),
-          false)
-        )
-        .collect(Collectors.toList());
-    }
-
-
-
-    SignsViewSort2 signsViewSort2 = new SignsViewSort2();
-    signViews = signsViewSort2.sort(signViews, true);
-
-    List<SignView2> createdSinceLastDeconnection = signViews.stream()
-      .filter(SignView2::createdSinceLastDeconnection)
-      .collect(Collectors.toList());
-
-    model.addAttribute("nbRecentSign", createdSinceLastDeconnection.size());
-//    model.addAttribute("signsView", signViews);
-//    model.addAttribute("signCreationView", new SignCreationView());
-   /* if (AuthentModel.isAuthenticated(principal)) {
-      fillModelWithFavorites(model, user);
-    }
-    model.addAttribute("favoriteCreationView", new FavoriteCreationView());*/
-//    model.addAttribute("signSearchView", new SignSearchView());
+    AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
     model.addAttribute("isDevProfile", appProfile.isDevProfile());
-    model.addAttribute("isAlphabeticAsc", true);
-    model.addAttribute("isSearch", true);
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("display_url", display_url);
 
