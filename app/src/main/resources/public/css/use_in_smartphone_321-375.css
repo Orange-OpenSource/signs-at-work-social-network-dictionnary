@@ -154,7 +154,7 @@
   }
 
   .tooltip_positif {
-    background-position: -486px center;
+    background-position: -488px center;
     background-size: auto 15px;
     height: 15px;
     width: 15px;
@@ -246,7 +246,7 @@
 
   #requests_container .aside_bckg_li h4{
     white-space: normal;
-    width: 26rem;
+    width: 23rem;
   }
 
   .text_hyphenation.navbar_title.pull-left{
@@ -558,4 +558,10 @@
     margin-right: 20px;
   }
   /* End /sec/favorite/share/"id" */
+
+  .container_H2{
+    float: left;
+    margin-left: 15px;
+    width: 22rem;
+  }
 }
