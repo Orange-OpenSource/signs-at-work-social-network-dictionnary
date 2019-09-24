@@ -301,7 +301,8 @@ function initWithFirstVideos() {
         $(this).addClass(VIDEO_HIDDEN_CLASS);
         $(this).hide();
       }});
-    displayedVideosCount = 0;
+    /*displayedVideosCount = 0;*/
+    $(signNotAvailable).hide();
     initWithFirstVideos();
 
   }

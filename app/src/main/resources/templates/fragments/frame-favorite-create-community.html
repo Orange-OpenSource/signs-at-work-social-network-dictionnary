@@ -28,8 +28,10 @@
 
 <div th:fragment="div">
   <div id="myform" >
-    <input type="search" id="search_user" th:placeholder="#{search_name}" class="text-center border form-control"/>
-    <input type='button' id='reset_search_user' value='x' />
+    <input type='button' class="pull-rigth" id='reset_search_user' value='X'/>
+    <div id="container-input">
+      <input type="search" id="search_user" th:placeholder="#{search_name}" class="border form-control"/>
+    </div>
   </div>
 
     <form id="FavoriteCreateCommunityForm" th:if="${not #lists.isEmpty(users)}"

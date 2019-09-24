@@ -31,7 +31,7 @@
 
 <h2 class="subtitle" th:text="#{favorite.select_member_community(${communityName})}"></h2>
 
-<div th:fragment="div" class="title_middle">
+<div th:fragment="div">
     <div th:replace="fragments/frame-favorite-create-community :: div"/>
   <div class="footer">
     <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>

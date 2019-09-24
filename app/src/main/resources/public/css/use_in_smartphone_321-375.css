@@ -68,7 +68,7 @@
     margin-bottom: 10px;
     line-height: 40px;
     height: 40px;
-    width: 29rem;
+    /*width: 29rem;*/
   }
 
   button[data-toggle="dropdown"].btn {
@@ -237,7 +237,7 @@
   /* Begin Mes Demandes /sec/my-requests */
   #reset_search_request{
     position: absolute;
-    margin-top: -44px;
+    margin-top: -40px;
     right: 10%;
     background-color: #000000;
     border:none;
@@ -511,8 +511,8 @@
 
   #reset_search_user{
     position: absolute;
-    margin-top: -44px;
-    right: 10%;
+    margin-top: 9px;
+    right: 14%;
     background-color: #000000;
     border:none;
     color:#FFFFFF;
