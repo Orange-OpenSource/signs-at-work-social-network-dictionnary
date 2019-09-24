@@ -461,4 +461,13 @@
 
 
   /* End favorite /sec/favorite/"id" */
+
+  #reset_search_user{
+    position: absolute;
+    margin-top: 12px;
+    right: 13%;
+    background-color: #000000;
+    border:none;
+    color:#FFFFFF;
+  }
 }
