@@ -28,5 +28,7 @@ public interface EmailService {
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url);
 
-  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String requestName, String url);
+  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url);
+
+  public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url);
 }

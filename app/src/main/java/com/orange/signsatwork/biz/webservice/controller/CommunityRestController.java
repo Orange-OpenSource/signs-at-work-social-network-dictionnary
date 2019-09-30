@@ -143,13 +143,13 @@ public class CommunityRestController {
 
     emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
     if (emails.size() != 0) {
-      title = messageByLocaleService.getMessage("community_create_by_user_title", new Object[]{user.name()});
-      bodyMail = messageByLocaleService.getMessage("community_create_by_user_body", new Object[]{user.name(), community.name, "https://signsatwork.orange-labs.fr/sec/community/" + community.id});
+      title = messageByLocaleService.getMessage("community_created_by_user_title", new Object[]{user.name()});
+      bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), community.name, "https://signsatwork.orange-labs.fr/sec/community/" + community.id});
 
       Community finalCommunity = community;
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-        services.emailService().sendFavoriteShareMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, "https://signsatwork.orange-labs.fr/sec/community/" + finalCommunity.id);
+        services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, "https://signsatwork.orange-labs.fr/sec/community/" + finalCommunity.id);
       };
 
       new Thread(task).start();
