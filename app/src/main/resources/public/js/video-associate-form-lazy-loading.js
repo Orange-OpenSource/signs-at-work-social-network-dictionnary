@@ -127,7 +127,8 @@ function onAssociateFavoriteRequest(favoriteId) {
         $("#validate_favorite_modif").modal('show');
         setTimeout(function () {
           $('#validate_favorite_modif').modal('hide');
-          window.history.go(-2);
+          /*window.history.go(-2);*/
+          window.history.back();
 
         }, 3000);
 
