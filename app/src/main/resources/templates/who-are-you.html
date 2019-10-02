@@ -42,7 +42,9 @@
   <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
     <div class="pull-right col-md-8 col-xs-12 col-sm-4">
       <div th:if="${user.nameVideo} != null">
-        <iframe th:src="${user.nameVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" th:src="${user.nameVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+        </div>
       </div>
     </div>
 
@@ -109,7 +111,7 @@
 
 
 </body>
-<script type="text/javascript" src="../public/js/inputProfilLSF.js" th:src="@{/js/inputProfilLSF.js}"></script>
+<!--<script type="text/javascript" src="../public/js/inputProfilLSF.js" th:src="@{/js/inputProfilLSF.js}"></script>-->
 <script type="text/javascript" src="../public/js/recorderProfilLSF.js" th:src="@{/js/recorderProfilLSF.js}"></script>
 
 </html>
