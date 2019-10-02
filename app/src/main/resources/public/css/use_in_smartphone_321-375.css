@@ -505,7 +505,9 @@
   }
 
   .community_name{
-    width:34rem;
+    width:28rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
 
@@ -562,6 +564,6 @@
   .container_H2{
     float: left;
     margin-left: 15px;
-    width: 22rem;
+    width: 23rem;
   }
 }

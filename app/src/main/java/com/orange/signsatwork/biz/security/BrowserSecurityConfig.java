@@ -66,8 +66,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
             // setup login & logout
             .formLogin()
             .loginPage("/login")
-            // always redirect to home after login
-            .defaultSuccessUrl("/", true)
+            // always redirect to home after login   .defaultSuccessUrl("/", true)
             .permitAll()
             .and()
             .logout()
@@ -80,7 +79,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private void disableSecurityOnAssets(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/img/**", "/font/**","/files/**").permitAll();
+    http.authorizeRequests().antMatchers("/img/**", "/font/**","/files/**", "/.well-known/**").permitAll();
   }
 
   private void disableSecForDBConsole(HttpSecurity http) throws Exception {
