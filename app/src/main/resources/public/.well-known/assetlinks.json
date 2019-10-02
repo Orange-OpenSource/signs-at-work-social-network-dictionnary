@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "com.orange.signsatwork",
+    "sha256_cert_fingerprints": ["98:9E:03:BA:F1:D6:8A:A0:C4:C3:6D:A7:5F:C4:17:EA:95:1A:64:F1:64:C4:9C:19:D2:47:BC:F5:50:64:CE:4F"] }
+}]
