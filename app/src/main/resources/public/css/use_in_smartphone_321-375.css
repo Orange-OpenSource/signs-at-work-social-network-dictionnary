@@ -78,6 +78,7 @@
     width: 31rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: normal;
   }
 
   .btn .caret {
@@ -505,9 +506,9 @@
   }
 
   .community_name{
-    width:28rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width:34rem;
+   /* overflow: hidden;
+    text-overflow: ellipsis;*/
   }
 
 
