@@ -79,85 +79,154 @@
     </div>
 </div>
 <!-- Modal -->
-        <!--modal delete favorite-->
-        <div id="delete_favorite" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+<!--modal delete favorite-->
+<div id="delete_favorite" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <div class="pull-left">
-                            <div class="delete_favorite_white pull-left"></div>
-                            <h2 class="pull-right" th:text="#{favorite.delete_list}"></h2>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <h4 th:text="#{favorite.confirm_delete}"></h4>
-                    </div>
-
-                        <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/delete'" method="post">
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-default" data-dismiss="" th:text="#{favorite.validate}"/>
-                          </div>
-                        </form>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="pull-left">
+                    <div class="delete_favorite_white pull-left"></div>
+                    <h2 class="pull-right" th:text="#{favorite.delete_list}"></h2>
                 </div>
             </div>
+
+
+              <!--<form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/delete'" method="post">-->
+            <div class="modal-body">
+              <h4 th:text="#{favorite.confirm_delete(${favoriteManageView.name})}"></h4>
+            </div>
+            <div class="modal-footer">
+              <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                <span th:text="#{cancel}"></span>
+              </button>
+              <button type="submit" th:onclick="'javascript:onDeleteFavorite(\''+ ${favoriteManageView.id} + '\')'"  class="btn btn-default" data-dismiss="" th:text="#{confirm}"/>
+            </div>
+              <!--</form>-->
         </div>
-            <!--modal rename list favorite-->
-                <div id="rename_favorite" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+    </div>
+</div>
+    <!--modal rename list favorite-->
+<div id="rename_favorite" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <div class="pull-left">
-                                    <div class="rename_favorite_white pull-left"></div>
-                                    <h2 class="pull-right" th:text="#{favorite.rename_list}"></h2>
-                                </div>
-                            </div>
-
-                            <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/rename'" th:object="${favoriteCreationView}" method="post">
-                                <div class="modal-body text-center">
-                                    <input th:value="${favoriteManageView.name}" type="text" class="form-control"
-                                           name="favoriteName" th:autofocus="true" /><br/>
-                                </div>
-                                <div class="modal-footer">
-                                    <button th:text="#{favorite.validate}" type="submit" class="btn btn-default"
-                                            data-dismiss=""></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            <!--modal duplicate list favorite-->
-            <div id="duplicate_favorite" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <div class="pull-left">
-                                <div class="duplicate_favorite_white pull-left"></div>
-                                <h2 class="pull-right" th:text="#{favorite.duplicate_list}"></h2>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                          <h4 th:text="#{favorite.duplicate_text}"></h4>
-                        </div>
-                            <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/duplicate'" method="post">
-                              <div class="modal-footer">
-                                <button type="submit" class="btn btn-default" data-dismiss="" th:text="#{favorite.validate}"/>
-                              </div>
-                            </form>
-                    </div>
-
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="pull-left">
+                    <div class="rename_favorite_white pull-left"></div>
+                    <h2 class="pull-right" th:text="#{favorite.rename_list}"></h2>
                 </div>
             </div>
+
+          <!--  <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/rename'" th:object="${favoriteCreationView}" method="post">-->
+                <div class="modal-body text-center">
+                    <input id="favoriteName" th:value="${favoriteManageView.name}" type="text" class="form-control"
+                           name="favoriteName" th:autofocus="true" />
+                    <span id="errorRename" style="visibility: hidden"></span>
+                </div>
+                <div class="modal-footer">
+                  <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                    <span th:text="#{cancel}"></span>
+                  </button>
+                    <button id="submit-rename-modal" th:text="#{continue}" type="submit" th:onclick="'javascript:onRenameFavorite(\'' + ${favoriteId} + '\')'" class="btn btn-default"
+                            data-dismiss=""></button>
+                </div>
+           <!-- </form>-->
+        </div>
+    </div>
+</div>
+
+    <!--modal duplicate list favorite-->
+<div id="duplicate_favorite" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="pull-left">
+                    <div class="duplicate_favorite_white pull-left"></div>
+                    <h2 class="pull-right" th:text="#{favorite.duplicate_list}"></h2>
+                </div>
+            </div>
+            <div class="modal-body">
+              <h4 th:text="#{favorite.duplicate_text(${favoriteManageView.name})}"></h4>
+            </div>
+                <!--<form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/duplicate'" method="post">
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-dismiss="" th:text="#{favorite.validate}"/>
+                  </div>
+                </form>-->
+          <div class="modal-body text-center">
+            <input id="duplicateFavoriteName" th:value="${favoriteManageView.name}" type="text" class="form-control"
+                   name="favoriteName" th:autofocus="true" />
+              <span id="errorDuplicate"  style="visibility: hidden"></span>
+          </div>
+          <div class="modal-footer">
+            <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+              <span th:text="#{cancel}"></span>
+            </button>
+            <button th:text="#{continue}" type="submit" th:onclick="'javascript:onDuplicateFavorite(\'' + ${favoriteId} + '\')'" class="btn btn-default"
+                    data-dismiss=""></button>
+          </div>
+        </div>
+
+    </div>
+</div>
+
+<div  id="validate_delete_favorite" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="delete_favorite_white pull-left"></div>
+          <h4 class="pull-right" th:text="#{favorite.deleted_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{favorite.deleted(${favoriteManageView.name})}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div  id="validate_rename_favorite" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="rename_favorite_white pull-left"></div>
+          <h4 class="pull-right" th:text="#{favorite.renamed_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 id="renamed_favorite"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div  id="validate_duplicate_favorite" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="duplicate_favorite_white pull-left"></div>
+          <h4 class="pull-right" th:text="#{favorite.duplicated_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 id="duplicated_favorite"></h4>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 </body>
+<script type="text/javascript" src="../public/js/manage-favorite.js" th:src="@{/js/manage-favorite.js}"></script>
 </html>

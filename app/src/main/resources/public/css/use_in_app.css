@@ -1149,7 +1149,7 @@ input[type=file] {
 /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
 .delete_favorite_white{
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2717px center;
+  background-position: -3516px center;
   background-repeat: no-repeat;
 }
 /* End Fenêtre modale Renommer Liste id=delete_favorite */
@@ -1400,4 +1400,9 @@ input[type=file] {
   margin-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+#cancel-modal {
+  background-color: #fff;
+  color: black;
 }

@@ -85,7 +85,7 @@ public class FavoriteController {
 
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favorite == null) {
-      return("redirect:/");
+      return("redirect:/sec/favorites");
     }
 
     model.addAttribute("title", favorite.favoriteName());

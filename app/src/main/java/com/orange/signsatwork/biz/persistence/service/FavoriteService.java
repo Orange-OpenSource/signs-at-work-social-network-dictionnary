@@ -55,4 +55,7 @@ public interface FavoriteService {
   Long[] NbCommentForAllVideoByFavorite(long favoriteId);
 
   Favorite addUserOpenFavoritePage(long favoriteId, long userId);
+
+  Long maxIdForName(String name, long id);
+
 }

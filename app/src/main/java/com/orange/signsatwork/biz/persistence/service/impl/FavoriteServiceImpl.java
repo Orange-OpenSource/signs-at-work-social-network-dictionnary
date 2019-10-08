@@ -107,7 +107,8 @@ public class FavoriteServiceImpl implements FavoriteService {
   }
 
 
-  private Long maxIdForName(String name, long id) {
+  @Override
+  public Long maxIdForName(String name, long id) {
     return favoriteRepository.findMaxIdForName(name, id);
   }
 

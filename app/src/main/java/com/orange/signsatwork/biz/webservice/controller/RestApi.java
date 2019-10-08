@@ -51,6 +51,7 @@ public class RestApi {
   public static final String WS_SEC_REQUESTS = WS_SEC + "requests";
   public static final String WS_SEC_MY_FAVORITES = WS_SEC + "users/me/favorites";
   public static final String WS_SEC_FAVORITE = WS_SEC + "favorites/{favoriteId}";
+  public static final String WS_SEC_FAVORITE_DUPLICATE = WS_SEC + "favorites/{favoriteId}/duplicate";
   public static final String WS_SEC_FAVORITES_VIDEOS = WS_SEC + "favorites/{favoriteId}/videos";
   public static final String WS_SEC_FAVORITES = WS_SEC + "favorites";
   public static final String WS_SEC_REQUEST_SIGNS = WS_SEC + "requests/{requestId}/signs";

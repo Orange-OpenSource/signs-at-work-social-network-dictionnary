@@ -216,8 +216,19 @@ public class FavoriteRestController {
 
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favoriteCreationViewApi.getName() != null) {
-      if (favorite.name != favoriteCreationViewApi.getName()) {
+      if (!favorite.name.equals(favoriteCreationViewApi.getName())) {
+        Long maxIdForName = services.favorite().maxIdForName(favoriteCreationViewApi.getName(), favoriteId);
+        if (maxIdForName != null) {
+            favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite.name_already_exist");
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            return favoriteResponseApi;
+        }
         services.favorite().updateName(favoriteId, favoriteCreationViewApi.getName());
+        favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite.renamed", new Object[]{favorite.name, favoriteCreationViewApi.getName()});
+      } else {
+        favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite.name_already_exist");
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        return favoriteResponseApi;
       }
     }
 
@@ -234,6 +245,42 @@ public class FavoriteRestController {
         }
       }
     }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return favoriteResponseApi;
+
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITE_DUPLICATE, method = RequestMethod.POST)
+  public FavoriteResponseApi duplicateFavorite(@RequestBody FavoriteCreationViewApi favoriteCreationViewApi, @PathVariable long favoriteId, HttpServletResponse response, Principal principal) {
+
+    FavoriteResponseApi favoriteResponseApi = new FavoriteResponseApi();
+    User user = services.user().withUserName(principal.getName());
+    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
+
+    boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
+    if (!isFavoriteBelowToMe) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite_not_below_to_you");
+      return favoriteResponseApi;
+    }
+
+    Long maxIdForName = services.favorite().maxIdForName(favoriteCreationViewApi.getName(), favoriteId);
+    if (maxIdForName != null) {
+      favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite.name_already_exist");
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      return favoriteResponseApi;
+    }
+
+    Favorite favorite = services.favorite().withId(favoriteId);
+    favorite = favorite.loadVideos();
+    Favorite duplicateFavorite = services.favorite().create(user.id, favoriteCreationViewApi.getName());
+    if (favorite.videos != null) {
+      services.favorite().changeFavoriteVideos(duplicateFavorite.id, favorite.videosIds());
+    }
+    favoriteResponseApi.favoriteId = duplicateFavorite.id;
+    favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite.duplicated", new Object[]{favorite.name, favoriteCreationViewApi.getName()});
 
     response.setStatus(HttpServletResponse.SC_OK);
     return favoriteResponseApi;
