@@ -112,10 +112,12 @@ public class CommunityRestController {
   public CommunityResponseApi addUserToCommunity(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response) {
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
 
-    List<Long> communitiesId = new ArrayList<>();
-    communitiesId.add(communityId);
+    Community community = services.community().withId(communityId);
     User user = services.user().withUserName(communityCreationViewApi.getUsername());
+    List<Long> usersIds = community.usersIds();
+    usersIds.add(user.id);
     if (user != null) {
+      services.community().changeCommunityUsers(communityId, usersIds);
      /* services.user().changeUserCommunities(user.id, communitiesId);*/
     }
     response.setStatus(HttpServletResponse.SC_OK);
