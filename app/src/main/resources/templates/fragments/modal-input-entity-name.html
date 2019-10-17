@@ -32,13 +32,13 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
-                    <div class="profil_signe pull-left"></div>
-                    <h4 class="pull-right" th:text="#{your_entity}"></h4>
+                    <div class="pen_white pull-left"></div>
+                    <h2 class="pull-right" th:text="#{your_entity}"></h2>
                 </div>
             </div>
             <form id="profileEntity" th:action="@{/sec/profil/entity}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
-                <input   type="text" value="" th:value="${user.entity}"  class="text-center border form-control" name="entity" th:autofocus="true" required="true"/>
+                <input   type="text" value="" th:value="${user.entity}"  class="form-control" name="entity" th:autofocus="true" required="true"/>
               </div>
                 <div class="modal-footer">
                     <button th:text="#{continue}" type="submit" class="btn btn-default"

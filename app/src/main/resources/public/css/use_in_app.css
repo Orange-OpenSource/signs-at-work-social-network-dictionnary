@@ -1406,3 +1406,33 @@ input[type=file] {
   background-color: #fff;
   color: black;
 }
+
+.pen_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2579px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.lsf_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3764px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 47px;
+  width: 25px;
+  margin-right: 20px;
+}
+
+.lsf {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3030px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top:10px;
+}
