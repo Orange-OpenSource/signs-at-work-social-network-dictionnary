@@ -101,6 +101,34 @@ public class FavoriteRestController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITES)
+  public ResponseEntity<?> favorites(Principal principal) {
+
+    User user = services.user().withUserName(principal.getName());
+
+    List<FavoriteViewApi> myFavorites = fillModelWithFavorites(user);
+
+    return  new ResponseEntity<>(myFavorites, HttpStatus.OK);
+  }
+
+
+  private List<FavoriteViewApi> fillModelWithFavorites(User user) {
+    List<FavoriteViewApi> favorites = new ArrayList<>();
+    List<FavoriteViewApi> newFavoritesShareToMe = FavoriteViewApi.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
+    favorites.addAll(newFavoritesShareToMe);
+
+    List<FavoriteViewApi> favoritesAlpha = new ArrayList<>();
+    List<FavoriteViewApi> oldFavoritesShareToMe = FavoriteViewApi.from(services.favorite().oldFavoritesShareToUser(user.id));
+    favoritesAlpha.addAll(oldFavoritesShareToMe);
+    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
+    favoritesAlpha.addAll(myFavorites);
+    favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
+    favorites.addAll(favoritesAlpha);
+
+    return favorites;
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITE)
   public ResponseEntity<?> favorite(@PathVariable long favoriteId, Principal principal) {
 
@@ -125,12 +153,14 @@ public class FavoriteRestController {
 
     String messageError;
     User user = services.user().withUserName(principal.getName());
-    List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
-
-    boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
-    if (!isFavoriteBelowToMe) {
-      messageError = messageByLocaleService.getMessage("favorite_not_below_to_you");
-      return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
+    Favorite favorite = services.favorite().withId(favoriteId);
+    if (favorite.type == FavoriteType.Individual) {
+      List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
+      boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
+      if (!isFavoriteBelowToMe) {
+        messageError = messageByLocaleService.getMessage("favorite_not_below_to_you");
+        return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
+      }
     }
 
     List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);

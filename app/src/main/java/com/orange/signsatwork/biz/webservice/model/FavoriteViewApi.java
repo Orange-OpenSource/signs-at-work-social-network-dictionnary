@@ -40,16 +40,27 @@ import java.util.stream.Collectors;
 public class FavoriteViewApi {
   private long id;
   private String name;
+  private long idForName;
   private FavoriteType type;
 
 
   public static FavoriteViewApi from(Favorite favorite) {
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.type);
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, favorite.type);
   }
 
   public static List<FavoriteViewApi> from(Favorites favorites) {
     return favorites.stream()
             .map(FavoriteViewApi::from)
             .collect(Collectors.toList());
+  }
+
+  public static FavoriteViewApi fromNewShare(Favorite favorite) {
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare);
+  }
+
+  public static List<FavoriteViewApi> fromNewShare(Favorites favorites) {
+    return favorites.stream()
+      .map(FavoriteViewApi::fromNewShare)
+      .collect(Collectors.toList());
   }
 }

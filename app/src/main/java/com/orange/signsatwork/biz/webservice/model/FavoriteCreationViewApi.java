@@ -37,4 +37,5 @@ public class FavoriteCreationViewApi {
   private String name;
   private List<Long> videosIds;
   private Long videoIdToAdd;
+  private List<Long> communitiesIds;
 }

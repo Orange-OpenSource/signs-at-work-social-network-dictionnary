@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.CommunityView;
@@ -67,6 +68,20 @@ public class CommunityRestController {
 
   }
 
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi. WS_SEC_COMMUNITIES)
+  public ResponseEntity<?> communities(Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+
+    List<Object[]> queryCommunities = services.community().allForFavorite(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .collect(Collectors.toList());
+
+    return new ResponseEntity<>(communitiesViewData, HttpStatus.OK);
+
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi. WS_SEC_COMMUNITY_USERS)
@@ -125,7 +140,7 @@ public class CommunityRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_CREATE_COMMUNITY, method = RequestMethod.POST)
+  @RequestMapping(value = RestApi.WS_SEC_COMMUNITIES, method = RequestMethod.POST)
   public CommunityResponseApi createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response) {
     List<String> emails;
     String title, bodyMail;

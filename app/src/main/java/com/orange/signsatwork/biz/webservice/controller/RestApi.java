@@ -32,7 +32,7 @@ public class RestApi {
   public static final String WS_ADMIN_USERS = WS_ADMIN + "users";
   public static final String WS_ADMIN_COMMUNITIES = WS_ADMIN + "communities";
   public static final String WS_ADMIN_COMMUNITY_USERS = WS_ADMIN + "communities/{communityId}/users";
-  public static final String WS_SEC_CREATE_COMMUNITY= WS_SEC + "community/create";
+  /*public static final String WS_SEC_CREATE_COMMUNITY= WS_SEC + "community/create";*/
 
   public static final String WS_SEC_CLOSE = WS_SEC + "close";
 
@@ -53,6 +53,7 @@ public class RestApi {
   public static final String WS_SEC_FAVORITE = WS_SEC + "favorites/{favoriteId}";
   public static final String WS_SEC_FAVORITE_DUPLICATE = WS_SEC + "favorites/{favoriteId}/duplicate";
   public static final String WS_SEC_FAVORITES_VIDEOS = WS_SEC + "favorites/{favoriteId}/videos";
+  public static final String WS_SEC_FAVORITES_COMMUNITIES = WS_SEC + "favorites/{favoriteId}/communities";
   public static final String WS_SEC_FAVORITES = WS_SEC + "favorites";
   public static final String WS_SEC_REQUEST_SIGNS = WS_SEC + "requests/{requestId}/signs";
   public static final String WS_SEC_SIGN_VIDEO = WS_SEC + "signs/{signId}/videos/{videoId}";
@@ -61,6 +62,7 @@ public class RestApi {
   public static final String WS_SEC_SIGN = WS_SEC + "signs/{signId}";
   public static final String WS_SEC_MY_COMMUNITIES = WS_SEC + "users/me/communities";
   public static final String WS_SEC_COMMUNITY_USERS = WS_SEC + "communities/{communityId}/users";
+  public static final String WS_SEC_COMMUNITIES = WS_SEC + "/communities";
   /** Fin API REST For Android and IOS **/
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";

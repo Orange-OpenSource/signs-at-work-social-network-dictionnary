@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.webservice.model;
  */
 
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,10 +33,12 @@ import lombok.Getter;
 
 public class CommunityViewApi {
   private Long id;
+  private CommunityType type;
   private String name;
 
   public CommunityViewApi(Community community) {
     this.id = community.id;
+    this.type = community.type;
     this.name = community.name;
   }
 }
