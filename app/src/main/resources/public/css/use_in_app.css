@@ -1194,6 +1194,26 @@ input[type=file] {
   border: none;
 }
 
+.priorise_request_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3817px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.delete_request_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3817px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
 .priorise_request {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -1210px center;
@@ -1433,6 +1453,6 @@ input[type=file] {
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
-  width: 24px;
-  margin-top:10px;
+  width: 29px;
+  margin-top:14px;
 }

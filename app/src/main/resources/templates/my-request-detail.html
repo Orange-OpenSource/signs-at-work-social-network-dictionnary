@@ -84,7 +84,7 @@
             <div th:if="${requestView.requestVideoDescription != null}">
               <div class="pull-left create_sign"></div>
               <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-              <div class="pull-right  pen"/>
+              <div class="pull-right  lsf"/>
             </div>
           </a>
         </li>
@@ -150,17 +150,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="">x</button>
         <div class="pull-left">
-          <div class="priorise_request pull-left"></div>
+          <div class="priorise_request_white pull-left"></div>
           <h2 class="pull-right" th:text="#{request.priorise_title}"/>
         </div>
       </div>
         <div class="modal-body text-center">
           <h4 th:text="#{request.priorised}"/>
-        </div>
-        <div class="modal-footer">
-          <div class="check_blue pull-right"></div>
         </div>
     </div>
   </div>
@@ -173,9 +169,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" th:onclick="'javascript:onContinue()'" class="close" data-dismiss="modal">x</button>
+        <button type="button" class="close" data-dismiss="modal">x</button>
         <div class="pull-left">
-          <div class="delete_picto pull-left"></div>
+          <div class="delete_request_white pull-left"></div>
           <h2 class="pull-right" th:text="#{request.delete_title}"/>
         </div>
       </div>
@@ -183,7 +179,10 @@
         <h4 th:text="#{request.confirm_delete}"/>
       </div>
       <div class="modal-footer">
-        <button th:text="#{validate}" th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' " class="btn btn-default"></button>
+        <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button type="submit" th:text="#{confirm}" th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' "  data-dismiss=""  class="btn btn-default"></button>
       </div>
     </div>
   </div>
@@ -194,17 +193,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinue()'" data-dismiss="">x</button>
         <div class="pull-left">
-          <div class="priorise_request pull-left"></div>
+          <div class="delete_request_white pull-left"></div>
           <h2 class="pull-right" th:text="#{request.confirm_delete_title}"/>
         </div>
       </div>
       <div class="modal-body text-center">
         <h4 th:text="#{request.deleted}"/>
-      </div>
-      <div class="modal-footer">
-        <div class="check_blue pull-right"></div>
       </div>
     </div>
   </div>
