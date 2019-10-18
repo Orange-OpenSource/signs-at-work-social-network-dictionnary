@@ -31,7 +31,6 @@ function onPrioriseRequest(id){
         $('#priorise_request').modal('hide');
         window.location = "/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
       }, 3000);
-
     },
     error: function(response) {
       }

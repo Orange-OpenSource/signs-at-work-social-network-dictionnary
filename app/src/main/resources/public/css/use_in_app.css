@@ -1196,7 +1196,7 @@ input[type=file] {
 
 .priorise_request_white {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3817px center;
+  background-position: -3848px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1449,10 +1449,10 @@ input[type=file] {
 
 .lsf {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3030px center;
+  background-position: -3660px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
+  background-size: auto 29px;
+  height: 28px;
   width: 29px;
-  margin-top:14px;
+  margin-top:10px;
 }
