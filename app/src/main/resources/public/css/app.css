@@ -25,11 +25,15 @@
 
 .noAccount.aside_bckg_li{
   border-bottom: 1px solid;
-  border-top: 1px solid;
   width: 90%;
   margin: 0 auto;
 }
 
+.lostPassword.aside_bckg_li{
+  border-top: 1px solid;
+  width: 90%;
+  margin: 0 auto;
+}
 
 #container-button > button >span{
   margin-left: 5px;
@@ -489,12 +493,14 @@ text-decoration-line: none;
 
 
 .cgu_signe {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2500px center;
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1635px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
+  background-size: auto 30px;
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
+  margin-top: 10px;
 }
 
 .my_request_signe {

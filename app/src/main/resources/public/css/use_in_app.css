@@ -96,6 +96,7 @@ input[type="text"],[type="email"],[type="password"] {
   width: 50%;
   margin-top:20px;
   padding: 12px 12px;
+  margin-bottom:20px;
 }
 
 /* End login page /login */

@@ -66,10 +66,20 @@
 </form>
 
 <!--fix me!!!! en attente de savoir si les gcu sont embarquees et il faudra enlever le display none -->
-<div class="row " style="display:none;">
+<div class="row ">
   <div class="col-xs-12">
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
+        <li class="lostPassword clear aside_bckg_li ">
+          <a href="/resetPassword">
+            <div>
+              <h5 class="container_H2" th:text="#{lost_password}"/>
+              <div>
+                <div class="pull-right chevron_right"></div>
+              </div>
+            </div>
+          </a>
+        </li>
         <li class="noAccount clear aside_bckg_li ">
           <a href="/cgu">
             <div>

@@ -32,13 +32,13 @@
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <a th:href="${backUrl}">
-          <div class="chevron_left pull-left"></div>
-          <div class="pull-left">
-            <div class="cgu_signe pull-left"></div>
-            <h1 class="text_hyphenation navbar_title pull-left" th:text="${title}"></h1>
-          </div>
+        <a th:onclick="'javascript:goBack()'">
+          <div class="back pull-left"></div>
         </a>
+        <a href="/">
+          <div class="signe_reverse_video"></div>
+        </a>
+        <h1 class="navbar_title pull-right" th:text="${title}"></h1>
       </div>
     </div>
   </nav>
