@@ -1457,3 +1457,29 @@ input[type=file] {
   width: 29px;
   margin-top:10px;
 }
+
+.cgu_button {
+  margin-top: 35px;
+}
+
+.cgu_button>.btn{
+  color: #4866F7;
+  font-size: 14px;
+  border-style:none;
+  font-weight: bold;
+}
+
+.cgu_button>.btn-secondary{
+  background-color: #fff;
+  color: black;
+}
+
+.lock_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3950px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}

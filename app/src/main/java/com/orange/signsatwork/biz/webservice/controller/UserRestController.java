@@ -109,6 +109,34 @@ public class UserRestController {
     return userResponseApi;
   }
 
+  @RequestMapping(value = RestApi.FORGET_PASSWORD)
+  public UserResponseApi forgotPassword(@RequestBody UserCreationView userCreationView, HttpServletResponse response) {
+    String title, bodyMail;
+    UserResponseApi userResponseApi = new UserResponseApi();
+    if (services.user().withUserName(userCreationView.getUsername()) == null) {
+      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_not_exist");
+      return userResponseApi;
+    }
+
+    if (!userCreationView.getUsername().isEmpty()) {
+        title = messageByLocaleService.getMessage("password_reset_title");
+        bodyMail = messageByLocaleService.getMessage("password_reset_body", new Object[]{"https://signsatwork.orange-labs.fr/sec/favorite/"});
+
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
+          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), title, "https://signsatwork.orange-labs.fr/sec/favorite/");
+        };
+
+        new Thread(task).start();
+    }
+    /*User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
+    services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));*/
+    response.setStatus(HttpServletResponse.SC_OK);
+    return userResponseApi;
+  }
+
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_CLOSE, method = RequestMethod.POST)
   public void close( Principal principal) {

@@ -57,7 +57,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@admin.com");
+      helper.setFrom("admin@signsatwork.com");
       Context ctx = new Context();
       ctx.setVariable("user_name", userName);
       ctx.setVariable("request_name", requestName);
@@ -144,6 +144,43 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
       String htmlContent = templateEngine.process("email-favorite", ctx);
+      helper.setText(htmlContent, true);
+      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  public void sendResetPasswordMessage(String to, String subject, String url) {
+    InputStream imageIs = null;
+    try {
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom("admin@signsatwork.com");
+      Context ctx = new Context();
+      ctx.setVariable("url", url);
+      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      String htmlContent = templateEngine.process("email-reset-password", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);

@@ -50,13 +50,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     disableSecurityOnAssets(http);
     disableSecForDBConsole(http);
 
-    http
+    http.csrf().disable()
             // configure the HttpSecurity to only be invoked when matching the provided ant pattern
             .antMatcher("/**")
             // configure restricting access
             .authorizeRequests()
             // open api is... opened
-            .antMatchers("/cgu", "/sendMail").permitAll()
+            .antMatchers("/cgu", "/sendMail", "/forgetPassword").permitAll()
 //            .antMatchers("/", "/signs/**", "/sign/**").permitAll()
             // admin api restricted to... ADMIN
             .antMatchers("/sec/admin/**").hasRole("ADMIN")
