@@ -1483,3 +1483,29 @@ input[type=file] {
   width: 30px;
   margin-right: 20px;
 }
+
+
+.see_password {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -5181px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.not_see_password {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -5225px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+#password, #confirm-password {
+  width: 85%;
+  display: inline-block;
+}

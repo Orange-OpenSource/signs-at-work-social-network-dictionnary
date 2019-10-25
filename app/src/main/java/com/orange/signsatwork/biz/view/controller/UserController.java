@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.PasswordResetToken;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -32,6 +33,9 @@ import com.orange.signsatwork.biz.view.model.*;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -245,6 +250,23 @@ public class UserController {
       videoViewData.nbView > 0,
       videoViewData.averageRate > 0,
       videoBelowToFavorite.contains(videoViewData.videoId));
+  }
+
+  @RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
+  public String changePassword(Model model, @RequestParam("id") final long userId, @RequestParam("token") final String token) {
+    User user = services.user().withId(userId);
+
+    PasswordResetToken passToken = services.user().getPasswordResetToken(token);
+    if ((passToken == null) || (user.id != passToken.user.id)) {
+      return "redirect:/login";
+    }
+
+    Calendar cal = Calendar.getInstance();
+    if ((passToken.expiryDate.getTime() - cal.getTime().getTime()) <= 0) {
+      return "redirect:/login";
+    }
+
+    return "update-password";
   }
 
 

@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
   private final FavoriteRepository favoriteRepository;
   private final PasswordEncoder passwordEncoder;
   private final Services services;
+  private final PasswordResetTokenRepository passwordResetTokenRepository;
 
 
   @Override
@@ -337,5 +338,25 @@ public class UserServiceImpl implements UserService {
     return usersFromFavoriteView(
       userRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
     );
+  }
+
+  @Override
+  public void createPasswordResetTokenForUser(final User user, final String token) {
+    UserDB userDB = userRepository.findOne(user.id);
+    final PasswordResetTokenDB myToken = new PasswordResetTokenDB(token, userDB);
+    passwordResetTokenRepository.save(myToken);
+  }
+
+  @Override
+  public PasswordResetToken getPasswordResetToken(final String token) {
+    return passwordResetTokenFrom(passwordResetTokenRepository.findByToken(token));
+  }
+
+  private PasswordResetToken passwordResetTokenFrom(PasswordResetTokenDB passwordResetTokenDB) {
+    if (passwordResetTokenDB != null) {
+      return new PasswordResetToken(passwordResetTokenDB.getId(), passwordResetTokenDB.getToken(), userFromFavoriteView(passwordResetTokenDB.getUser()), passwordResetTokenDB.getExpiryDate());
+    } else {
+      return null;
+    }
   }
 }

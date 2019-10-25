@@ -52,12 +52,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -110,32 +112,41 @@ public class UserRestController {
   }
 
   @RequestMapping(value = RestApi.FORGET_PASSWORD)
-  public UserResponseApi forgotPassword(@RequestBody UserCreationView userCreationView, HttpServletResponse response) {
+  public UserResponseApi forgotPassword(@RequestBody UserCreationView userCreationView, HttpServletResponse response, HttpServletRequest request) {
     String title, bodyMail;
     UserResponseApi userResponseApi = new UserResponseApi();
-    if (services.user().withUserName(userCreationView.getUsername()) == null) {
+    User user = services.user().withUserName(userCreationView.getUsername());
+    if ( user == null) {
       response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       userResponseApi.errorMessage = messageByLocaleService.getMessage("user_not_exist");
       return userResponseApi;
     }
 
     if (!userCreationView.getUsername().isEmpty()) {
+        final String token = UUID.randomUUID().toString();
+        services.user().createPasswordResetTokenForUser(user, token);
+        final String url = getAppUrl(request) + "/user/changePassword?id=" + user.id + "&token=" + token;
         title = messageByLocaleService.getMessage("password_reset_title");
-        bodyMail = messageByLocaleService.getMessage("password_reset_body", new Object[]{"https://signsatwork.orange-labs.fr/sec/favorite/"});
+        bodyMail = messageByLocaleService.getMessage("password_reset_body", new Object[]{url});
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), title, "https://signsatwork.orange-labs.fr/sec/favorite/");
+          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), title, url);
         };
 
         new Thread(task).start();
     }
+
+
     /*User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
     services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));*/
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;
   }
 
+  private String getAppUrl(HttpServletRequest request) {
+    return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_CLOSE, method = RequestMethod.POST)

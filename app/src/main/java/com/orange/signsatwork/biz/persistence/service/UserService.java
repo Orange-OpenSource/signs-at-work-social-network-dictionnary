@@ -22,10 +22,8 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Favorite;
-import com.orange.signsatwork.biz.domain.Request;
-import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.domain.Users;
+import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.UserDB;
 
 import java.util.List;
 
@@ -77,4 +75,8 @@ public interface UserService {
   Users allForCreateCommunity();
 
   Users forFavorite(long favoriteId);
+
+  void createPasswordResetTokenForUser(User user, String token);
+
+  PasswordResetToken getPasswordResetToken(String token);
 }
