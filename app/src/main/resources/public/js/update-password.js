@@ -47,6 +47,30 @@ $(function() {
 
 });
 
-function savePassword() {
-  console.log("save Password");
+function savePassword(userId) {
+  console.log("save Password " + userId);
+  if($("#password").val() != $("#confirm-password").val()) {
+    $('#globalError').show();
+  } else {
+    $('#globalError').hide();
+    user = {
+      password: $("#password").val()
+    };
+    $.ajax({
+      url: "/user/" + userId + "/savePassword",
+      type: 'post',
+      data: JSON.stringify(user),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        $("#validate_save_password").modal('show');
+        setTimeout(function () {
+          $("#validate_save_password").modal('hide');
+          window.location = "/login";
+        }, 3000);
+      },
+      error: function (response) {
+      }
+    })
+  }
 }

@@ -360,4 +360,14 @@ public class UserRestController {
 
     return;
   }
+
+  @RequestMapping(value = RestApi.SAVE_PASSWORD)
+  public UserResponseApi saveUserPassword(@RequestBody UserCreationView userCreationView, @PathVariable long userId, HttpServletResponse response) {
+    UserResponseApi userResponseApi = new UserResponseApi();
+
+    services.user().changeUserPassword(services.user().withId(userId), userCreationView.getPassword());
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return  userResponseApi;
+  }
 }

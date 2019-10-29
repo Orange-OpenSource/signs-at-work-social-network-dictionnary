@@ -266,6 +266,8 @@ public class UserController {
       return "redirect:/login";
     }
 
+    model.addAttribute("userId", userId);
+    model.addAttribute("userCreationView", new UserCreationView());
     return "update-password";
   }
 
