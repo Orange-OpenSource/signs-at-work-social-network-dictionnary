@@ -65,6 +65,7 @@ public class RestApi {
   public static final String WS_SEC_COMMUNITIES = WS_SEC + "/communities";
   public static final String FORGET_PASSWORD = "/forgetPassword";
   public static final String SAVE_PASSWORD = "/user/{userId}/savePassword";
+  public static final String SEND_MAIL = "/sendMail";
   /** Fin API REST For Android and IOS **/
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";

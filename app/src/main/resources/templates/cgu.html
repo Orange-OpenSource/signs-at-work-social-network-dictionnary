@@ -65,71 +65,42 @@
 </div>
 
 <div id="accountRequest" class="hidden">
-  <!--beggin account-->
-  <div class="row" >
-    <div class=" col-xs-12 col-lg-12">
-      <h2 class="form-signin-heading text-center" th:text="#{account_request_invite}"></h2>
-      <div class="divider"></div>
-      <aside class="sidebar" id="create_user">
-        <form class="form-inline" th:action="@{/sendMail}" enctype="multipart/form-data" th:object="${user}" method="post" autocomplete="off">
-          <div id="accountProfile" class="hidden">
-            <!--start input name-->
-            <div class="divider-space">
-              <H2 th:text="#{last_name}"></H2><div class="blink_me errorRegexLastName hidden" th:text="#{errorName}"/>
-              <input id="lastName"  type="text" th:field="*{lastName}" th:placeholder="#{placeholder_last_name}"  class="container_H2 text-center border " name="lastName" th:autofocus="true" />
-            </div>
-            <div class="divider-space">
-              <H2 th:text="#{first_name}"></H2><div class="blink_me errorRegexFirstName hidden" th:text="#{errorName}"/>
-              <input  id="firstName"  th:field="*{firstName}"  th:placeholder="#{placeholder_first_name}" class="container_H2 text-center border " name="firstName" />
-            </div>
-            <!--end input name-->
 
-            <!--start input entity-->
-            <div class="divider-space">
-              <H2 th:text="#{entity}"></H2><div class="blink_me errorRegexEntity hidden" th:text="#{errorEntity}"/>
-              <input id="entity" type="text" th:field="*{entity}" th:placeholder="#{placeholder_entity}" class="container_H2 text-center border " name="entity" />
-            </div>
-            <!--end input entity-->
+  <div class="col-xs-12 create-user">
+    <span class="form-signin-heading text-center" th:text="#{ask_to_create_user_title}"></span>
 
-            <!--start input email-->
-            <div class="divider-space">
-              <H2 th:text="#{email}"></H2><div class="blink_me errorRegexEmail hidden" th:text="#{errorEmail}"/>
-              <input id="mail" type="text" th:field="*{email}"  th:placeholder="#{placeholder_email}" class="container_H2 text-center border " name="email" />
-            </div>
-            <div class="divider"></div>
-            <!--end input entity-->
-            <br/>
-            <div class="text-center"><div class="blink_me errorSubmit alert alert-warning hidden" th:text="#{errorAllInputsBlanks}"/>
-              <a href="#privacySettings" id="buttonOnNext"  class=" btn btn-default  btn-sm" th:text="#{continue}">
-              </a>
-            </div>
-          </div>
-
-          <div id="privacySettings" class="hidden">
-            <!--start input login password-->
-            <div class="divider-space">
-              <H2 th:text="#{your_login}"></H2>
-              <input   type="text"  th:field="*{username}" th:placeholder="#{placeholder_login}" class="container_H2 text-center border " name="username" />
-            </div>
-            <div class="divider-space">
-              <H2 th:text="#{your_password}"></H2>
-              <input  type="password" th:field="*{password}"  th:placeholder="#{placeholder_password}" class="container_H2 text-center border " name="password" />
-            </div>
-            <div class="divider"></div>
-            <!--end input login password-->
-          </div>
-
-          <div class="text-center ">
-            <a>
-              <input type="submit"   class="hidden btn btn-default  btn-sm" th:value="#{continue}" />
-            </a>
-          </div>
-        </form>
-      </aside>
+    <div class="form-group">
+      <div class="errorRegexFirstName hidden" th:text="#{errorName}"/>
+      <input  id="firstName" type="text" th:placeholder="#{placeholder_first_name}" class="form-control" name="firstName" th:autofocus="true" />
+    </div>
+    <div class="form-group">
+      <div class="errorRegexLastName hidden" th:text="#{errorName}"/>
+      <input id="lastName" type="text" th:placeholder="#{placeholder_last_name}"  class="form-control" name="lastName" />
+    </div>
+    <div class="form-group">
+      <div class="errorRegexEmail hidden" th:text="#{errorEmail}"/>
+      <input id="mail" type="email" th:placeholder="#{placeholder_email}" class="form-control" name="email" />
+    </div>
+    <div class="text-center">
+      <button id="submit-create-user" type="submit" class="btn_signin btn btn-default" th:onclick="'javascript:sendMail()'" th:text="#{continue}"></button>
     </div>
   </div>
-  <!--end account-->
+</div>
 
+<div  id="validate_send_mail" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="lock_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{validate_send_mail_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{validate_send_mail_body}"></h4>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>

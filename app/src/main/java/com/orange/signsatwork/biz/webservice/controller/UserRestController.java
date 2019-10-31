@@ -370,4 +370,22 @@ public class UserRestController {
     response.setStatus(HttpServletResponse.SC_OK);
     return  userResponseApi;
   }
+
+  @RequestMapping(value = RestApi.SEND_MAIL)
+  public UserResponseApi sendMail(@ModelAttribute UserCreationView userCreationView, HttpServletResponse response) {
+    UserResponseApi userResponseApi = new UserResponseApi();
+    User admin = services.user().getAdmin();
+
+    String body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName(), userCreationView.getEmail()});
+
+    Runnable task = () -> {
+      services.emailService().sendSimpleMessage(admin.email.split(""), messageByLocaleService.getMessage("ask_to_create_user_title"), body );
+    };
+
+    new Thread(task).start();
+
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return  userResponseApi;
+  }
 }

@@ -25,50 +25,42 @@ console.log("Cool, create_user.js is loaded :)");
 function onAccepted() {
   $('#cguAccepted').css('display', 'none');
   $('#accountRequest').removeClass("hidden");
-  $('#accountRequest #accountProfile ').removeClass("hidden");
 };
 
 var inputLastName =document.getElementById('lastName');
 var inputFirstName =document.getElementById('firstName');
-var inputEntity =document.getElementById('entity');
 var inputEmail =document.getElementById('mail');
-var buttonOnNext =document.getElementById('buttonOnNext');
+var submitCreateUser = document.getElementById("submit-create-user");
 
 var lastName = new Boolean(false);
 var firstName = new Boolean(false);
-var entity = new Boolean(false);
 var mail = new Boolean(false);
 
 
 var regexName = new RegExp('[A-Za-z]');
-var regexEntity = new RegExp('[\\sA-Za-z_:-\\\\/\\\\]');
 var regexEmail = new RegExp('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}');
 
 inputLastName.addEventListener('keyup',checkLastName);
 inputFirstName.addEventListener('keyup',checkFirstName);
-inputEntity.addEventListener('keyup',checkEntity);
 inputEmail.addEventListener('keyup',checkEmail);
-buttonOnNext.addEventListener('click',onNext);
+submitCreateUser.disabled = true;
 
-$('html').bind('keypress', function(e)
-{
-  if(e.keyCode == 13)
-  {
-    return false;
-  }
-});
 
 function checkLastName() {
   var valueLastName = inputLastName.value;
 
   if (!regexName.test(valueLastName)) {
-    $('#lastName').addClass("alert alert-warning");
-    $('.blink_me.errorRegexLastName').removeClass("hidden");
+    /*$('#lastName').addClass("alert alert-warning");*/
+    $('.errorRegexLastName').removeClass("hidden");
     lastName = false;
+    submitCreateUser.disabled = true;
   }else {
     lastName = true;
-    $('#lastName').removeClass("alert alert-warning");
+    /*$('#lastName').removeClass("alert alert-warning");*/
     $('.errorRegexLastName').addClass("hidden");
+    if ((firstName != false) && (mail != false)) {
+      submitCreateUser.disabled = false;
+    }
   }
 }
 
@@ -76,61 +68,61 @@ function checkFirstName() {
   var valueFirstName = inputFirstName.value;
 
   if (!regexName.test(valueFirstName)) {
-    $('#firstName').addClass("alert alert-warning");
+   /* $('#firstName').addClass("alert alert-warning");*/
     $('.errorRegexFirstName').removeClass("hidden");
     firstName = false;
+    submitCreateUser.disabled = true;
   } else {
     firstName = true;
-    $('#firstName').removeClass("alert alert-warning");
+    /*$('#firstName').removeClass("alert alert-warning");*/
     $('.errorRegexFirstName').addClass("hidden");
+    if ((lastName != false) && (mail != false)) {
+      submitCreateUser.disabled = false;
+    }
   }
 }
 
-function checkEntity() {
-  var valueEntity = inputEntity.value;
-
-  if(!regexEntity.test(valueEntity)) {
-    $('#entity').addClass("alert alert-warning");
-    $('.errorRegexEntity').removeClass("hidden");
-    entity = false;
-  }else {
-    entity = true;
-    $('#entity').removeClass("alert alert-warning");
-    $('.errorRegexEntity').addClass("hidden");
-  }
-}
 
 function checkEmail() {
   var valueEmail = inputEmail.value;
 
   if(!regexEmail.test(valueEmail)) {
-    $('#mail').addClass("alert alert-warning");
+    /*$('#mail').addClass("alert alert-warning");*/
     $('.errorRegexEmail').removeClass("hidden");
     mail = false;
+    submitCreateUser.disabled = true;
   }else {
     mail = true;
-    $('#mail').removeClass("alert alert-warning");
+    /*$('#mail').removeClass("alert alert-warning");*/
     $('.errorRegexEmail').addClass("hidden");
+    if ((lastName != false) && (firstName != false)) {
+      submitCreateUser.disabled = false;
+    }
   }
 }
 
-function onNext(){
+function sendMail() {
+  console.log("send Mail");
+    user = {
+      firstName: inputFirstName.value,
+      lastName: inputLastName.value,
+      email: inputEmail.value
+    };
+    $.ajax({
+      url: "/sendMail",
+      type: 'post',
+      data: JSON.stringify(user),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        $("#validate_send_mail").modal('show');
+        setTimeout(function () {
+          $("#validate_send_mail").modal('hide');
+          window.location = "/login";
+        }, 3000);
+      },
+      error: function (response) {
+      }
+    })
+}
 
-  if( (lastName !=false) &&
-    (firstName !=false) &&
-    (entity !=false) &&
-    (mail !=false)) {
-    $('#accountRequest #accountProfile').addClass("hidden");
-    $('#privacySettings').removeClass("hidden");
-    $('.btn').removeClass("hidden");
-  }else{
-    $('.errorSubmit').removeClass("hidden");
-    $('#mail').addClass("alert alert-warning");
-    $('#entity').addClass("alert alert-warning");
-    $('#firstName').addClass("alert alert-warning");
-    $('#lastName').addClass("alert alert-warning");
-
-  }
-
-
-};

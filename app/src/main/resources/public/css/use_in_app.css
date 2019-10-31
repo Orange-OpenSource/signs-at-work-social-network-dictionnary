@@ -1509,3 +1509,12 @@ input[type=file] {
   width: 85%;
   display: inline-block;
 }
+
+.create-user{
+  margin-top: 20px;
+}
+
+.errorRegexLastName, .errorRegexFirstName, .errorRegexEmail {
+  font-size: 14px;
+  color: red;
+}
