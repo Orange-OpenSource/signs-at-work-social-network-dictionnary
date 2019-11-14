@@ -31,6 +31,7 @@ import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.view.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -46,8 +47,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Controller
 public class AdminController {
 
@@ -127,13 +130,30 @@ public class AdminController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/create", method = RequestMethod.POST)
-  public String user(@ModelAttribute UserCreationView userCreationView, Model model) throws IOException, JCodecException {
-
+  public String user(@ModelAttribute UserCreationView userCreationView, Model model, HttpServletRequest request) throws IOException, JCodecException {
+    String title, bodyMail;
     User user = userService.create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
-    userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
+    if (user != null) {
+      userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
+      final String token = UUID.randomUUID().toString();
+      services.user().createPasswordResetTokenForUser(user, token);
+      final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
+      title = messageByLocaleService.getMessage("password_create_title");
+      bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{userCreationView.getUsername(), url});
+
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
+        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, url);
+      };
+
+      new Thread(task).start();
+    }
     return userAdminController.userDetails(user.id, model);
   }
 
+  private String getAppUrl(HttpServletRequest request) {
+    return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+  }
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/{userId}/add/communities", method = RequestMethod.POST)

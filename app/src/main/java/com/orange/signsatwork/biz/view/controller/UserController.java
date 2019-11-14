@@ -271,5 +271,23 @@ public class UserController {
     return "update-password";
   }
 
+  @RequestMapping(value = "/user/createPassword", method = RequestMethod.GET)
+  public String createPassword(Model model, @RequestParam("id") final long userId, @RequestParam("token") final String token) {
+    User user = services.user().withId(userId);
+
+    PasswordResetToken passToken = services.user().getPasswordResetToken(token);
+    if ((passToken == null) || (user.id != passToken.user.id)) {
+      return "redirect:/login";
+    }
+
+    Calendar cal = Calendar.getInstance();
+    if ((passToken.expiryDate.getTime() - cal.getTime().getTime()) <= 0) {
+      return "redirect:/login";
+    }
+
+    model.addAttribute("userId", userId);
+    model.addAttribute("userCreationView", new UserCreationView());
+    return "create-password";
+  }
 
 }

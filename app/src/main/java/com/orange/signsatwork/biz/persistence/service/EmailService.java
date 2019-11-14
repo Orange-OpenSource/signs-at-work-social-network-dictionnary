@@ -33,4 +33,6 @@ public interface EmailService {
   public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url);
 
   public void sendResetPasswordMessage(String to, String subject, String url);
+
+  public void sendCreatePasswordMessage(String to, String subject, String url);
 }
