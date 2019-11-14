@@ -31,6 +31,7 @@ var inputLastName =document.getElementById('lastName');
 var inputFirstName =document.getElementById('firstName');
 var inputEmail =document.getElementById('mail');
 var submitCreateUser = document.getElementById("submit-create-user");
+var errorCreateUser = document.getElementById('errorCreateUser');
 
 var lastName = new Boolean(false);
 var firstName = new Boolean(false);
@@ -85,7 +86,7 @@ function checkFirstName() {
 
 function checkEmail() {
   var valueEmail = inputEmail.value;
-
+  errorCreateUser.style.visibility = "hidden";
   if(!regexEmail.test(valueEmail)) {
     /*$('#mail').addClass("alert alert-warning");*/
     $('.errorRegexEmail').removeClass("hidden");
@@ -122,6 +123,9 @@ function sendMail() {
         }, 3000);
       },
       error: function (response) {
+        console.log(response.responseJSON);
+        errorCreateUser.textContent = response.responseJSON.errorMessage;
+        errorCreateUser.style.visibility = "visible";
       }
     })
 }

@@ -24,7 +24,7 @@ package com.orange.signsatwork.biz.persistence.service;
 
 public interface EmailService {
 
-  public void sendSimpleMessage(String[] to, String subject, String text);
+  public void sendSimpleMessage(String to, String subject, String text);
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url);
 

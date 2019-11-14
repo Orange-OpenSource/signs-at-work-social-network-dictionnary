@@ -82,6 +82,7 @@
       <input id="mail" type="email" th:placeholder="#{placeholder_email}" class="form-control" name="email" />
     </div>
     <div class="text-center">
+      <span id="errorCreateUser" style="visibility: hidden"></span>
       <button id="submit-create-user" type="submit" class="btn_signin btn btn-default" th:onclick="'javascript:sendMail()'" th:text="#{continue}"></button>
     </div>
   </div>
