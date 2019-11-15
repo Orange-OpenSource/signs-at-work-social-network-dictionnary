@@ -26,12 +26,17 @@ import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
 import com.orange.signsatwork.biz.persistence.model.PasswordResetTokenDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PasswordResetTokenRepository extends CrudRepository<PasswordResetTokenDB, Long> {
  PasswordResetTokenDB findByToken(String token);
+
+ @Query(value="select * from password_reset_tokens t where t.expiry_date <= :now", nativeQuery = true)
+ List<PasswordResetTokenDB> selectAllExpiredSince(@Param("now") Date now);
 }

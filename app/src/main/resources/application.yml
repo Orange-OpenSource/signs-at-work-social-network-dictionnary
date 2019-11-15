@@ -34,3 +34,5 @@ spring:
     host: mailhost.rd.francetelecom.fr
     port: 2525
 
+#    5am every day
+purge.cron.expression: 0 0 5 * * ?
