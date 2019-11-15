@@ -145,7 +145,7 @@ public class UserRestController {
   }
 
   private String getAppUrl(HttpServletRequest request) {
-    return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
 
   @Secured("ROLE_USER")

@@ -335,9 +335,13 @@ public class FavoriteController {
     List<Long> communitiesIds =
       transformCommunitiesIdsToLong(req.getParameterMap().get("favoriteCommunitiesIds"));
 
-    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds, user.name());
+    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds, user.name(), getAppUrl(req));
 
     return showFavorite(favoriteId);
+  }
+
+  private String getAppUrl(HttpServletRequest request) {
+    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
 
   private List<Long> transformCommunitiesIdsToLong(String[] favoriteCommunitiesIds) {

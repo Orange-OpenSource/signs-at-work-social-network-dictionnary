@@ -39,6 +39,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -141,9 +142,8 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITIES, method = RequestMethod.POST)
-  public CommunityResponseApi createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response) {
+  public CommunityResponseApi createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response, HttpServletRequest request) {
     List<String> emails;
-    String title, bodyMail;
     User user = services.user().withUserName(principal.getName());
     List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
     usersIds.add(user.id);
@@ -160,13 +160,14 @@ public class CommunityRestController {
 
     emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
     if (emails.size() != 0) {
-      title = messageByLocaleService.getMessage("community_created_by_user_title", new Object[]{user.name()});
-      bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), community.name, "https://signsatwork.orange-labs.fr/sec/community/" + community.id});
-
       Community finalCommunity = community;
       Runnable task = () -> {
+        String title, bodyMail;
+        final String url = getAppUrl(request) + "/sec/community/" + finalCommunity.id;
+        title = messageByLocaleService.getMessage("community_created_by_user_title", new Object[]{user.name()});
+        bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
         log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-        services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, "https://signsatwork.orange-labs.fr/sec/community/" + finalCommunity.id);
+        services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, url);
       };
 
       new Thread(task).start();
@@ -176,5 +177,9 @@ public class CommunityRestController {
     communityResponseApi.communityId = community.id;
     communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{name.toString()});
     return communityResponseApi;
+  }
+
+  private String getAppUrl(HttpServletRequest request) {
+    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
 }

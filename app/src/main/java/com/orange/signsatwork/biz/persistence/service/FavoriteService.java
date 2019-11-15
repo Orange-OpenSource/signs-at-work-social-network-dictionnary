@@ -48,7 +48,7 @@ public interface FavoriteService {
 
   Favorite changeFavoriteVideos(long favoriteId, List<Long> videosIds);
 
-  Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName);
+  Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName, String url);
 
   void delete(Favorite favorite);
 

@@ -143,7 +143,7 @@ public class AdminController {
 
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, url);
+        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, userCreationView.getUsername(), url);
       };
 
       new Thread(task).start();
@@ -152,7 +152,7 @@ public class AdminController {
   }
 
   private String getAppUrl(HttpServletRequest request) {
-    return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
 
   @Secured("ROLE_ADMIN")

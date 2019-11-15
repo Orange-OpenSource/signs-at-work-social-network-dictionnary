@@ -49,6 +49,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.security.Principal;
@@ -82,7 +83,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_CREATE, method = RequestMethod.POST)
-  public RequestResponse createRequest(@RequestBody RequestCreationView requestCreationView, Principal principal, HttpServletResponse response) {
+  public RequestResponse createRequest(@RequestBody RequestCreationView requestCreationView, Principal principal, HttpServletResponse response, HttpServletRequest req) {
     List<String> emails;
     String title, bodyMail;
     Request request;
@@ -94,11 +95,11 @@ public class RequestRestController {
         log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
         emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
         title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-        bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
+        bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, "https://signsatwork.orange-labs.fr" );
+          services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id );
         };
 
         new Thread(task).start();
@@ -363,7 +364,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST, method = RequestMethod.PUT,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
-  public RequestResponseApi modifyRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<RequestCreationViewApi> requestCreationViewApi, @PathVariable long requestId, HttpServletResponse response, Principal principal) throws InterruptedException {
+  public RequestResponseApi modifyRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<RequestCreationViewApi> requestCreationViewApi, @PathVariable long requestId, HttpServletResponse response, HttpServletRequest req, Principal principal) throws InterruptedException {
     RequestResponseApi requestResponseApi = new RequestResponseApi();
     Request request = services.request().withId(requestId);
     User user = services.user().withUserName(principal.getName());
@@ -405,7 +406,7 @@ public class RequestRestController {
     }
 
     if (file.isPresent()) {
-      return createRequestWithVideoFileForRequestDescription(file.get(), requestId, Optional.empty(), principal, response);
+      return createRequestWithVideoFileForRequestDescription(file.get(), requestId, Optional.empty(), principal, response, req);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -416,7 +417,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUESTS, method = RequestMethod.POST,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
-  public RequestResponseApi createRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") RequestCreationViewApi requestCreationViewApi, HttpServletResponse response, Principal principal) throws InterruptedException {
+  public RequestResponseApi createRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") RequestCreationViewApi requestCreationViewApi, HttpServletResponse response, HttpServletRequest req, Principal principal) throws InterruptedException {
     List<String> emails;
     String title, bodyMail;
     Request request;
@@ -440,11 +441,11 @@ public class RequestRestController {
           log.info("createRequest: username = {} / request name = {}", user.username, requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription());
           emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
           title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-          bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
+          bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
           Runnable task = () -> {
             log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, "https://signsatwork.orange-labs.fr");
+            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id);
           };
 
           new Thread(task).start();
@@ -453,7 +454,7 @@ public class RequestRestController {
           return requestResponseApi;
 
     } else {
-      return createRequestWithVideoFileForRequestDescription(file.get(), 0,  Optional.of(requestCreationViewApi) , principal, response);
+      return createRequestWithVideoFileForRequestDescription(file.get(), 0,  Optional.of(requestCreationViewApi) , principal, response, req);
     }
 
   }
@@ -461,7 +462,7 @@ public class RequestRestController {
 
 
 
-  private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
     {
       String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
       Request request = null;
@@ -569,12 +570,12 @@ public class RequestRestController {
                 log.info("createRequest: username = {} / request name = {}", user.username, requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription());
                 emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
                 title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-                bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, "https://signsatwork.orange-labs.fr"});
+                bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
                 Request finalRequest = request;
                 Runnable task = () -> {
                   log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, "https://signsatwork.orange-labs.fr" );
+                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id );
                 };
 
                 new Thread(task).start();
@@ -603,6 +604,10 @@ public class RequestRestController {
         return requestResponseApi;
       }
     }
+  }
+
+  private String getAppUrl(HttpServletRequest request) {
+    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
 
   @Secured("ROLE_USER_A")

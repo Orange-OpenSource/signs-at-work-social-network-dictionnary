@@ -143,7 +143,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
-      String htmlContent = templateEngine.process("email-favorite", ctx);
+      String htmlContent = templateEngine.process("email-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
@@ -207,7 +207,7 @@ public class EmailServiceImpl implements EmailService {
   }
 
 
-  public void sendCreatePasswordMessage(String to, String subject, String url) {
+  public void sendCreatePasswordMessage(String to, String subject, String username, String url) {
     InputStream imageIs = null;
     try {
       MimeMessage message = emailSender.createMimeMessage();
@@ -216,9 +216,10 @@ public class EmailServiceImpl implements EmailService {
       helper.setSubject(subject);
       helper.setFrom("admin@signsatwork.com");
       Context ctx = new Context();
+      ctx.setVariable("username", username);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
-      String htmlContent = templateEngine.process("email-reset-password", ctx);
+      String htmlContent = templateEngine.process("email-create-password", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);

@@ -34,5 +34,5 @@ public interface EmailService {
 
   public void sendResetPasswordMessage(String to, String subject, String url);
 
-  public void sendCreatePasswordMessage(String to, String subject, String url);
+  public void sendCreatePasswordMessage(String to, String subject, String username, String url);
 }

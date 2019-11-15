@@ -179,7 +179,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 
   @Override
-  public Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName) {
+  public Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName, String url) {
     List<String> emails;
     String title, bodyMail;
     FavoriteDB favoriteDB = withDBId(favoriteId);
@@ -226,11 +226,11 @@ public class FavoriteServiceImpl implements FavoriteService {
       emails = userDBList.stream().filter(u-> u.getEmail() != null).map(u -> u.getEmail()).collect(Collectors.toList());
       if (emails.size() != 0) {
         title = messageByLocaleService.getMessage("favorite_share_by_user_title", new Object[]{userName});
-        bodyMail = messageByLocaleService.getMessage("favorite_share_by_user_body", new Object[]{userName, favorite.favoriteName(), "https://signsatwork.orange-labs.fr/sec/favorite/" + favorite.id});
+        bodyMail = messageByLocaleService.getMessage("favorite_share_by_user_body", new Object[]{userName, favorite.favoriteName(), url + "/sec/favorite/" + favorite.id});
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendFavoriteShareMessage(emails.toArray(new String[emails.size()]), title, userName, favorite.favoriteName(), "https://signsatwork.orange-labs.fr/sec/favorite/" + favorite.id);
+          services.emailService().sendFavoriteShareMessage(emails.toArray(new String[emails.size()]), title, userName, favorite.favoriteName(), url + "/sec/favorite/" + favorite.id);
         };
 
         new Thread(task).start();

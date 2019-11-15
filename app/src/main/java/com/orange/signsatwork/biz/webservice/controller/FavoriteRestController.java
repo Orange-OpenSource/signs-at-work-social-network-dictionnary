@@ -43,6 +43,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -77,15 +78,19 @@ public class FavoriteRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITE_COMMUNITY_ASSOCIATE, method = RequestMethod.POST)
-  public String favoriteAssociateCommunity(@RequestBody List<Long> favoriteCommunitiesIds, @PathVariable long favoriteId, Principal principal, HttpServletResponse response) {
+  public String favoriteAssociateCommunity(@RequestBody List<Long> favoriteCommunitiesIds, @PathVariable long favoriteId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
 
     User user = services.user().withUserName(principal.getName());
-    Favorite favorite = services.favorite().changeFavoriteCommunities(favoriteId, favoriteCommunitiesIds, user.name());
+    Favorite favorite = services.favorite().changeFavoriteCommunities(favoriteId, favoriteCommunitiesIds, user.name(), getAppUrl(request));
     favorite = favorite.loadCommunities();
     response.setStatus(HttpServletResponse.SC_OK);
     List<String> communitiesName = favorite.communities.stream().map(c -> c.name).collect(Collectors.toList());
 
     return messageByLocaleService.getMessage("favorite.confirm_share_to_community",  new Object[]{favorite.favoriteName(), communitiesName.toString()});
+  }
+
+  private String getAppUrl(HttpServletRequest request) {
+    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
 
   /** API REST For Android and IOS **/
