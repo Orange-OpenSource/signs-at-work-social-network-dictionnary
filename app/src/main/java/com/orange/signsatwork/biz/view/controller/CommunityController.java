@@ -98,6 +98,7 @@ public class CommunityController {
     return "redirect:/sec/communities-suggest?name="+ URLEncoder.encode(name)+"&id="+favoriteId;
   }
 
+
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/communities-suggest")
   public String showCommunitiesSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long favoriteId, Principal principal) {

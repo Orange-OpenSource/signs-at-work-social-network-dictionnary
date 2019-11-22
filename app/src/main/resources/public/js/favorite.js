@@ -96,6 +96,7 @@ function onAssociateFavoriteCommunities(favoriteId, communityId) {
 
 function onCreateFavoriteCommunity(name, favoriteId) {
   if ($("#FavoriteCreateCommunityForm").isChanged()) {
+    var url;
     var communityId;
     var userListName = document.getElementById('user_list_name');
     var communityUsersIds = [];
@@ -124,7 +125,12 @@ function onCreateFavoriteCommunity(name, favoriteId) {
         $("#validate_create_community_favorite").modal('show');
         setTimeout(function () {
           $('#validate_create_community_favorite').modal('hide');
-          var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=" + communityId;
+          if (favoriteId == 0) {
+            url = "/sec/community/" + communityId;
+          } else {
+            url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=" + communityId;
+          }
+
           window.location = url;
         }, 3000);
       },
