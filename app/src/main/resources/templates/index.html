@@ -23,6 +23,29 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <th:block th:include="fragments/header-head :: head"></th:block>
+  <script>
+    // This is the "Offline page" service worker
+
+    // Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
+
+    // Check compatibility for the browser we're running this in
+    if ("serviceWorker" in navigator) {
+      if (navigator.serviceWorker.controller) {
+        console.log("[PWA Builder] active service worker found, no need to register");
+      } else {
+        // Register the service worker
+        navigator.serviceWorker
+          .register("pwabuilder-sw.js", {
+            scope: "./"
+          })
+          .then(function (reg) {
+            console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
+          });
+      }
+    }
+
+  </script>
+  <link rel='manifest' href='/manifest/manifest.json'/>
 </head>
 
 <header role="banner" th:replace="fragments/header-home :: header">&nbsp;</header>

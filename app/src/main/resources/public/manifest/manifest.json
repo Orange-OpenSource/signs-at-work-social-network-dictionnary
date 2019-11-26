@@ -1,0 +1,22 @@
+{"dir" : "ltr",
+  "lang" : "French",
+  "name" : "SignsAtForm",
+  "scope" : "/",
+  "display" : "standalone",
+  "start_url" : "https://signsatform.orange-labs.fr/",
+  "short_name" : "SignsAtForm",
+  "theme_color" : "transparent",
+  "description" : "",
+  "orientation" : "any",
+  "background_color" : "transparent",
+  "generated" : "true",
+  "icons" : [
+    {
+      "src": "https://signsatform.orange-labs.fr/img/icons/icon-72x72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "https://signsatform.orange-labs.fr/img/icons/icon-144x144.png",
+      "sizes": "144x144"
+    }
+  ]}
