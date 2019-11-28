@@ -38,7 +38,7 @@ var firstName = new Boolean(false);
 var mail = new Boolean(false);
 
 
-var regexName = new RegExp('[A-Za-z]');
+var regexName = new RegExp('^[a-zA-Z_-]{1,30}$');
 var regexEmail = new RegExp('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}');
 
 inputLastName.addEventListener('keyup',checkLastName);
