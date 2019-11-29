@@ -130,3 +130,13 @@ function sendMail() {
     })
 }
 
+
+function onRefused() {
+  $("#cgu_disagree").modal('show');
+};
+
+
+function returnToHome() {
+  $("#cgu_disagree").modal('hide');
+  window.location = "/login";
+};

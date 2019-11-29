@@ -1518,3 +1518,23 @@ input[type=file] {
   font-size: 14px;
   color: red;
 }
+
+.form-signin-heading {
+  color: #4866F7;
+}
+
+#read_condition_of_use .modal-dialog,
+#read_condition_of_use .modal-content {
+  height: 80%;
+}
+
+#read_condition_of_use .modal-dialog .modal-content .modal-body {
+  max-height: calc(100% - 140px);
+  overflow-y:scroll;
+}
+
+#cgu_disagree_body {
+  font-size: 16px;
+  padding-left: 40px;
+  color: #4866F7;
+}
