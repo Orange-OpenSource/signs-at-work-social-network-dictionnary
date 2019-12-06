@@ -22,16 +22,21 @@
 var password = document.getElementById('password');
 
 $('#confirm-password').prop("disabled", true);
+$('#submit-password').prop("disabled", true);
 
 password.addEventListener('keyup',checkPassword);
+
 function checkPassword() {
+  $('#globalError').hide();
   if (!password.value) {
     $('#errors').hide();
+    $('#submit-password').prop("disabled", true);
   } else {
     $('#errors').show();
+    $('#submit-password').prop("disabled", false);
   };
-
 }
+
 
 $(function() {
   $('#logo-password').click(function () {
