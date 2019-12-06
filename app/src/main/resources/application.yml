@@ -36,6 +36,3 @@ spring:
 
 #    5am every day
 purge.cron.expression: 0 0 5 * * ?
-
-google.recaptcha.key.site: 6LclbMYUAAAAADeYyj3uCYYi4mIZlcIi7q5P5q3U
-google.recaptcha.key.secret: 6LclbMYUAAAAAIhxRIKibP47VOHpDVzsJXL3Ci0T
