@@ -1487,7 +1487,7 @@ input[type=file] {
 
 .lock_white {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3950px center;
+  background-position: -3948px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1552,4 +1552,14 @@ input[type=file] {
 
 pre {
   margin-top: 10px;
+}
+
+.cgu_disagree_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -4077px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
 }
