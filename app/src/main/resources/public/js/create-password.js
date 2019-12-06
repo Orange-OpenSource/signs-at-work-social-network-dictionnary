@@ -21,11 +21,13 @@
 
 
 var password = document.getElementById('password');
+var confirm_password = document.getElementById('confirm-password');
 
 $('#confirm-password').prop("disabled", true);
 $('#submit-password').prop("disabled", true);
 
 password.addEventListener('keyup',checkPassword);
+confirm_password.addEventListener('keyup',checkConfirmPassword);
 
 function checkPassword() {
   $('#globalError').hide();
@@ -37,6 +39,10 @@ function checkPassword() {
     $('#submit-password').prop("disabled", false);
   };
 
+}
+
+function checkConfirmPassword() {
+  $('#globalError').hide();
 }
 
 $(function() {
