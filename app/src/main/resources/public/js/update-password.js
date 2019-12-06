@@ -20,11 +20,13 @@
  */
 
 var password = document.getElementById('password');
+var confirm_password = document.getElementById('confirm-password');
 
 $('#confirm-password').prop("disabled", true);
 $('#submit-password').prop("disabled", true);
 
 password.addEventListener('keyup',checkPassword);
+confirm_password.addEventListener('keyup',checkConfirmPassword);
 
 function checkPassword() {
   $('#globalError').hide();
@@ -37,6 +39,9 @@ function checkPassword() {
   };
 }
 
+function checkConfirmPassword() {
+  $('#globalError').hide();
+}
 
 $(function() {
   $('#logo-password').click(function () {
@@ -100,10 +105,13 @@ $("#password").passwordValidation({"confirmField": "#confirm-password"}, functio
     $("#errors").html("<pre>" + failedCases.join("\n") + "</pre>");
     $("#errors").show();
     $('#confirm-password').prop("disabled", true);
+    $('#submit-password').prop("disabled", true);
   } else {
     $("#errors").hide();
     if($("#password").val().length > 0) {
       $('#confirm-password').prop("disabled", false);
+      $('#submit-password').prop("disabled", false);
+
     }
   }
 
