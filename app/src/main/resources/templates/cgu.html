@@ -81,6 +81,12 @@
       <div class="errorRegexEmail hidden" th:text="#{errorEmail}"/>
       <input id="mail" type="email" th:placeholder="#{placeholder_email}" class="form-control" name="email" />
     </div>
+    <div class="form-group row">
+      <!-- to enable captcha uncomment the keys in application.properties -->
+      <label class="col-sm-3">Captcha</label>
+      <div class="g-recaptcha col-sm-5" th:attr="data-sitekey=${@captchaService.getReCaptchaSite()}" data-callback="onReCaptchaSuccess" data-expired-callback="onReCaptchaExpired"></div>
+      <span id="captchaError" class="alert alert-danger col-sm-4" style="display:none"></span>
+    </div>
     <div class="text-center">
       <span id="errorCreateUser" style="visibility: hidden"></span>
       <button id="submit-create-user" type="submit" class="btn_signin btn btn-default" th:onclick="'javascript:sendMail()'" th:text="#{continue}"></button>
