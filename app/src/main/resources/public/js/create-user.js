@@ -27,9 +27,9 @@ function onAccepted() {
   $('#accountRequest').removeClass("hidden");
 };
 
-var inputLastName =document.getElementById('lastName');
-var inputFirstName =document.getElementById('firstName');
-var inputEmail =document.getElementById('mail');
+var inputLastName = document.getElementById('lastName');
+var inputFirstName = document.getElementById('firstName');
+var inputEmail = document.getElementById('mail');
 var submitCreateUser = document.getElementById("submit-create-user");
 var errorCreateUser = document.getElementById('errorCreateUser');
 
