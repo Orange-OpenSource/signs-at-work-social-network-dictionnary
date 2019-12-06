@@ -19,6 +19,21 @@
  * #L%
  */
 
+
+var password = document.getElementById('password');
+
+$('#confirm-password').prop("disabled", true);
+
+password.addEventListener('keyup',checkPassword);
+function checkPassword() {
+  if (!password.value) {
+    $('#errors').hide();
+  } else {
+    $('#errors').show();
+  };
+
+}
+
 $(function() {
   $('#logo-password').click(function () {
     console.log("click on show password");
@@ -74,3 +89,17 @@ function createPassword(userId) {
     })
   }
 }
+
+$("#password").passwordValidation({"confirmField": "#confirm-password"}, function(element, valid, match, failedCases) {
+  if (typeof failedCases !== "undefined" && failedCases.length > 0)
+  {
+    $("#errors").html("<pre>" + failedCases.join("\n") + "</pre>");
+    $("#errors").show();
+    $('#confirm-password').prop("disabled", true);
+  } else {
+    $("#errors").hide();
+    if($("#password").val().length > 0) {
+      $('#confirm-password').prop("disabled", false);
+    }
+  }
+});

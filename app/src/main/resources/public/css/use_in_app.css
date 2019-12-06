@@ -1549,3 +1549,7 @@ input[type=file] {
   padding-left: 40px;
   color: #4866F7;
 }
+
+pre {
+  margin-top: 10px;
+}
