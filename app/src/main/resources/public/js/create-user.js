@@ -140,3 +140,12 @@ function returnToHome() {
   $("#cgu_disagree").modal('hide');
   window.location = "/login";
 };
+
+var onReCaptchaSuccess = function(response) {
+  $("#captchaError").html("").hide();
+};
+
+var onReCaptchaExpired = function(response) {
+  $("#captchaError").html("reCaptcha has expired.  Please solve a new reCaptcha").show();
+  grecaptcha.reset();
+};
