@@ -85,7 +85,7 @@
     <div class="form-group">
       <!-- to enable captcha uncomment the keys in application.properties -->
       <div class="g-recaptcha" th:attr="data-sitekey=${@captchaService.getReCaptchaSite()}" data-callback="onReCaptchaSuccess" data-expired-callback="onReCaptchaExpired"></div>
-      <span id="captchaError" class="alert alert-danger col-sm-4" style="display:none"></span>
+      <!--<span id="captchaError" class="alert alert-danger col-sm-4" style="display:none"></span>-->
     </div>
     <div class="text-center">
       <span id="errorCreateUser" style="visibility: hidden"></span>
