@@ -25,17 +25,12 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
-import com.orange.signsatwork.biz.persistence.model.VideoViewData;
-import com.orange.signsatwork.biz.persistence.repository.UserRepository;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.UserCreationView;
 import com.orange.signsatwork.biz.view.model.UserView;
-import com.orange.signsatwork.biz.view.model.VideoView2;
 import com.orange.signsatwork.biz.webservice.model.UserCreationViewApi;
 import com.orange.signsatwork.biz.webservice.model.UserResponseApi;
 import com.orange.signsatwork.biz.webservice.model.UserViewApi;
@@ -60,7 +55,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -208,7 +202,7 @@ public class UserRestController {
       }
 
       if (userCreationViewApi.get().getJobTextDescription() != null) {
-        if ((!userCreationViewApi.get().getJobTextDescription().isEmpty()) && (userCreationViewApi.get().getJobTextDescription() != user.jobTextDescription)) {
+        if ((!userCreationViewApi.get().getJobTextDescription().isEmpty()) && (userCreationViewApi.get().getJobTextDescription() != user.jobDescriptionText)) {
           services.user().changeDescription(user, userCreationViewApi.get().getJobTextDescription());
         }
       }
@@ -299,10 +293,16 @@ public class UserRestController {
         while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
 
+        String pictureUri = null;
+        if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+          pictureUri = videoDailyMotion.thumbnail_360_url;
+          log.warn("handleSelectedVideoFileUploadForProfil : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+        }
+
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (inputType.equals("JobDescription")) {
-            if (user.jobVideoDescription != null) {
-              dailymotionId = user.jobVideoDescription.substring(user.jobVideoDescription.lastIndexOf('/') + 1);
+            if (user.jobDescriptionVideo != null) {
+              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               }
@@ -312,7 +312,7 @@ public class UserRestController {
                 return  userResponseApi;
               }
             }
-            services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url);
+            services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
           } else {
             if (user.nameVideo != null) {
               dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
@@ -324,7 +324,7 @@ public class UserRestController {
                 userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
               }
             }
-            services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url);
+            services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
           }
 
           log.warn("handleSelectedVideoFileUploadForProfil : embed_url = {}", videoDailyMotion.embed_url);

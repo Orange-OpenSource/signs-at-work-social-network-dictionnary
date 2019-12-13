@@ -10,12 +10,12 @@ package com.orange.signsatwork.biz.view.model;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -37,22 +37,23 @@ public class UserView {
   public final String firstName;
   public final String lastName;
   public final String nameVideo;
+  public final String namePicture;
   public final String email;
   public final String entity;
   public final String job;
-  public final String jobTextDescription;
-  public final String jobVideoDescription;
-
+  public final String jobDescriptionText;
+  public final String jobDescriptionVideo;
+  public final String jobDescriptionPicture;
   public final Date lastDeconnectionDate;
 
   public User toUser() {
-    return User.create(username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription, lastDeconnectionDate);
+    return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate);
   }
 
   public static UserView from(User user) {
     return new UserView(
-            user.id, user.username, user.firstName, user.lastName, user.nameVideo,
-            user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription, user.lastDeconnectionDate);
+            user.id, user.username, user.firstName, user.lastName, user.nameVideo, user.namePicture,
+            user.email, user.entity, user.job, user.jobDescriptionText, user.jobDescriptionVideo, user.jobDescriptionPicture, user.lastDeconnectionDate);
   }
 
   public static List<UserView> from(Users users) {

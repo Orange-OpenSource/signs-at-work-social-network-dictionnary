@@ -30,9 +30,6 @@ import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.security.AppSecurityRoles;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationListener;
-import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -178,8 +175,8 @@ public class UserServiceImpl implements UserService {
     userDB.setNameVideo(nameVideo);
     userDB.setJob(job);
     userDB.setEntity(entity);
-    userDB.setJobTextDescription(jobTextDescription);
-    userDB.setJobVideoDescription(jobVideoDescription);
+    userDB.setJobDescriptionText(jobTextDescription);
+    userDB.setJobDescriptionVideo(jobVideoDescription);
     userRepository.save(userDB);
   }
 
@@ -222,21 +219,23 @@ public class UserServiceImpl implements UserService {
   @Override
   public void changeDescription(User user, String jobTextDescription) {
     UserDB userDB = userRepository.findOne(user.id);
-    userDB.setJobTextDescription(jobTextDescription);
+    userDB.setJobDescriptionText(jobTextDescription);
     userRepository.save(userDB);
   }
 
   @Override
-  public void changeNameVideoUrl(User user, String videoWebPath) {
+  public void changeNameVideoUrl(User user, String videoWebPath, String pictureUri) {
     UserDB userDB = userRepository.findOne(user.id);
     userDB.setNameVideo(videoWebPath);
+    userDB.setNamePicture(pictureUri);
     userRepository.save(userDB);
   }
 
   @Override
-  public void changeDescriptionVideoUrl(User user, String videoWebPath) {
+  public void changeDescriptionVideoUrl(User user, String videoWebPath, String pictureUri) {
     UserDB userDB = userRepository.findOne(user.id);
-    userDB.setJobVideoDescription(videoWebPath);
+    userDB.setJobDescriptionVideo(videoWebPath);
+    userDB.setJobDescriptionPicture(pictureUri);
     userRepository.save(userDB);
   }
 
@@ -269,16 +268,16 @@ public class UserServiceImpl implements UserService {
   private User userFrom(UserDB userDB) {
     return User.create(
             userDB.getId(),
-            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastDeconnectionDate(),
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(),
             services);
   }
 
   static User userFromSignView(UserDB userDB) {
     return User.create(
             userDB.getId(),
-            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastDeconnectionDate());
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate());
   }
 
 
@@ -291,8 +290,8 @@ public class UserServiceImpl implements UserService {
   static User userFromCommunityView(UserDB userDB) {
     return User.create(
             userDB.getId(),
-            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobTextDescription(), userDB.getJobVideoDescription(), userDB.getLastDeconnectionDate());
+            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate());
   }
 
   /**
@@ -302,7 +301,7 @@ public class UserServiceImpl implements UserService {
    * @return the UserDB object to persist
    */
   private UserDB userDBFrom(User user, String password, String role) {
-    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.email, user.entity, user.job, user.jobTextDescription, user.jobVideoDescription);
+    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.namePicture, user.email, user.entity, user.job, user.jobDescriptionText, user.jobDescriptionVideo, user.jobDescriptionPicture);
     addUserRole(userDB, role);
     return userDB;
   }
@@ -330,7 +329,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private User userFromFavoriteView(UserDB userDB) {
-    return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null, null, null, null, null, null, null, null, null, null, null );
+    return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null,  null, null, null, null, null, null, null, null, null, null, null, null );
   }
 
   @Override

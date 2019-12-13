@@ -33,7 +33,7 @@
 <div class="row ">
   <div class="col-xs-12">
     <aside class="sidebar">
-      <h2 th:if="${user.firstName} == null and ${user.lastName} == null and ${user.job} == null and ${user.jobTextDescription} == null" th:text="#{input}"/>
+      <h2 th:if="${user.firstName} == null and ${user.lastName} == null and ${user.job} == null and ${user.jobDescriptionText} == null" th:text="#{input}"/>
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
           <a th:if="${user.firstName} == null and ${user.lastName} == null" th:href="@{/sec/who-are-you/}">
@@ -56,12 +56,12 @@
           </a>
         </li>
         <li class="aside_bckg_li">
-          <a th:if="${user.jobTextDescription} == null" th:href="@{/sec/your-job-description}">
+          <a th:if="${user.jobDescriptionText} == null" th:href="@{/sec/your-job-description}">
             <h2 class="container_H2"  th:text="#{input_your_job_description}"></h2>
             <div class="pull-right add"></div>
           </a>
-          <a th:unless="${user.jobTextDescription} == null" th:href="@{/sec/your-job-description}">
-            <h2 class="container_H2"  th:text="${user.jobTextDescription}"></h2>
+          <a th:unless="${user.jobDescriptionText} == null" th:href="@{/sec/your-job-description}">
+            <h2 class="container_H2"  th:text="${user.jobDescriptionText}"></h2>
             <div class="pull-right pen"></div>
           </a>
         </li>

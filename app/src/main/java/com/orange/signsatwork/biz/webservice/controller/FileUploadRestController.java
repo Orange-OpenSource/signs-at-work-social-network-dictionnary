@@ -46,7 +46,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.search.RecipientStringTerm;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
@@ -510,10 +509,16 @@ public class FileUploadRestController {
         while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
 
+        String pictureUri = null;
+        if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+          pictureUri = videoDailyMotion.thumbnail_360_url;
+          log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+        }
+
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (inputType.equals("JobDescription")) {
-            if (user.jobVideoDescription != null) {
-              dailymotionId = user.jobVideoDescription.substring(user.jobVideoDescription.lastIndexOf('/') + 1);
+            if (user.jobDescriptionVideo != null) {
+              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               }
@@ -522,7 +527,7 @@ public class FileUploadRestController {
                 return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
               }
             }
-            services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url);
+            services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
           } else {
             if (user.nameVideo != null) {
               dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
@@ -534,7 +539,7 @@ public class FileUploadRestController {
                 return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
               }
             }
-            services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url);
+            services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
           }
 
           log.warn("handleSelectedVideoFileUploadForProfil : embed_url = {}", videoDailyMotion.embed_url);
@@ -678,11 +683,16 @@ public class FileUploadRestController {
       }
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
+      String pictureUri = null;
+      if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+        pictureUri = videoDailyMotion.thumbnail_360_url;
+        log.warn("handleRecordedVideoFileForProfil : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+      }
 
       if (!videoDailyMotion.embed_url.isEmpty()) {
         if (inputType.equals("JobDescription")) {
-          if (user.jobVideoDescription != null) {
-            dailymotionId = user.jobVideoDescription.substring(user.jobVideoDescription.lastIndexOf('/') + 1);
+          if (user.jobDescriptionVideo != null) {
+            dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionId);
             }
@@ -691,7 +701,7 @@ public class FileUploadRestController {
               return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
             }
           }
-          services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url);
+          services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
         } else {
           if (user.nameVideo != null) {
             dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
@@ -703,7 +713,7 @@ public class FileUploadRestController {
               return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
             }
           }
-          services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url);
+          services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
         }
 
         log.warn("handleRecordedVideoFileForProfil : embed_url = {}", videoDailyMotion.embed_url);

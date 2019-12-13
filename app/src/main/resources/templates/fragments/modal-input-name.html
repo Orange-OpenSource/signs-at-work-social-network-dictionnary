@@ -14,6 +14,7 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
 
+
   You should have received a copy of the GNU General Public
   License along with this program.  If not, see
   <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -26,23 +27,28 @@
 </head>
 <body>
 
-<div th:fragment="div"  id="add_description_job" class="modal fade" role="dialog">
+<div th:fragment="div"  id="add_name" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                     <div class="pen_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{your_job_description}"></h2>
+                    <h2 class="pull-right" th:text="#{your_name}"></h2>
                 </div>
             </div>
-            <form id="profileDescription" th:action="@{/sec/profil/description}" th:object="${userCreationView}" method="post">
+            <form id="profileName" th:action="@{/sec/profil/name}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
-                <textarea  th:text="${user.jobDescriptionText}"  type="text"   class="testinput  border  form-control" name="jobTextDescription" rows="3" cols="40" th:autofocus="true" required="true"/>
+                <h4 th:text="#{your_name_title}"></h4>
+                <input  id="firstName" type="text" th:value="${user.firstName}"  th:placeholder="#{your_first_name}" class="form-control" name="firstName" th:autofocus="true" required="true"/>
+                <input  id="lastName" type="text" th:value="${user.lastName}"   th:placeholder="#{your_last_name}" class="form-control" name="lastName" required="true"/>
               </div>
                 <div class="modal-footer">
-                    <button th:text="#{continue}" type="submit" class="btn btn-default"
-                            data-dismiss=""></button>
+                  <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                    <span th:text="#{cancel}"></span>
+                  </button>
+                  <button th:text="#{finish}" type="submit" class="btn btn-default"
+                          data-dismiss=""></button>
                 </div>
             </form>
         </div>
