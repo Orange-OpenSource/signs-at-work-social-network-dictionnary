@@ -22,15 +22,9 @@ package com.orange.signsatwork.biz.webservice.model;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Rating;
 import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.view.model.VideoView2;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -54,7 +48,7 @@ public class UserViewApi {
     this.email = user.email;
     this.entity = user.entity;
     this.job = user.job;
-    this.jobTextDescription = user.jobTextDescription;
-    this.jobVideoDescription = user.jobVideoDescription;
+    this.jobTextDescription = user.jobDescriptionText;
+    this.jobVideoDescription = user.jobDescriptionVideo;
   }
 }

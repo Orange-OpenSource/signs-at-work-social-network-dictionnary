@@ -41,14 +41,16 @@ public class UserCreationView {
   private String firstName;
   private String lastName;
   private String nameVideo;
+  private String namePicture;
   private String email;
   private String entity;
   private String job;
-  private String jobTextDescription;
-  private String jobVideoDescription;
+  private String jobDescriptionText;
+  private String jobDescriptionVideo;
+  private String jobDescriptionPicture;
 
 
   public User toUser() {
-    return User.create(username, firstName, lastName, nameVideo, email, entity, job, jobTextDescription, jobVideoDescription);
+    return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture);
   }
 }

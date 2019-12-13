@@ -22,7 +22,6 @@ package com.orange.signsatwork.biz.persistence.model;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -53,6 +52,8 @@ public class UserDB {
 
   private String nameVideo;
 
+  private String namePicture;
+
   private String email;
 
   private String entity;
@@ -60,9 +61,11 @@ public class UserDB {
   private String job;
 
   @Column(length = 1000)
-  private String jobTextDescription;
+  private String jobDescriptionText;
 
-  private String jobVideoDescription;
+  private String jobDescriptionVideo;
+
+  private String jobDescriptionPicture;
 
   private Date lastDeconnectionDate;
 
@@ -100,16 +103,18 @@ public class UserDB {
   @NotNull
   private String passwordHash;
 
-  public UserDB(String username, String passwordHash, String firstName, String lastName, String nameVideo, String email, String entity, String job, String jobTextDescription, String jobVideoDescription) {
+  public UserDB(String username, String passwordHash, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture) {
     this.username = username;
     this.passwordHash = passwordHash;
     this.firstName = firstName;
     this.lastName = lastName;
     this.nameVideo = nameVideo;
+    this.namePicture = namePicture;
     this.email = email;
     this.entity = entity;
     this.job = job;
-    this.jobTextDescription = jobTextDescription;
-    this.jobVideoDescription = jobVideoDescription;
+    this.jobDescriptionText = jobDescriptionText;
+    this.jobDescriptionVideo = jobDescriptionVideo;
+    this.jobDescriptionPicture = jobDescriptionPicture;
   }
 }

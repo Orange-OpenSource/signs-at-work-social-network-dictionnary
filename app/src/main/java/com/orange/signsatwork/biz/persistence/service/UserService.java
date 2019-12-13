@@ -66,9 +66,9 @@ public interface UserService {
 
   void createProfile(User user, String lastName, String firstName, String nameVideo, String job, String entity, String jobTextDescription, String jobVideoDescription);
 
-  void changeNameVideoUrl(User user, String videoWebPath);
+  void changeNameVideoUrl(User user, String videoWebPath, String pictureUri);
 
-  void changeDescriptionVideoUrl(User user, String videoWebPath);
+  void changeDescriptionVideoUrl(User user, String videoWebPath, String pictureUri);
 
   void changeLastDeconnectionDate(String userName);
 

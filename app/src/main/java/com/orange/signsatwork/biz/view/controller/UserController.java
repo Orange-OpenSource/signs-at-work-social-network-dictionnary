@@ -30,18 +30,12 @@ import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.*;
-import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -139,7 +133,7 @@ public class UserController {
     UserService userService = services.user();
 
     User user = userService.withUserName(principal.getName());
-    userService.changeDescription(user, userCreationView.getJobTextDescription());
+    userService.changeDescription(user, userCreationView.getJobDescriptionText());
     model.addAttribute("user", user);
 
     return "redirect:/sec/your-job-description";
@@ -196,6 +190,20 @@ public class UserController {
   }
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/profil/name", method = RequestMethod.POST)
+  public String changeUserName(
+    @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
+    UserService userService = services.user();
+
+    User user = userService.withUserName(principal.getName());
+    userService.changeFirstName(user, userCreationView.getFirstName());
+    userService.changeLastName(user, userCreationView.getLastName());
+    model.addAttribute("user", user);
+
+    return "redirect:/sec/who-are-you";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/profil/email", method = RequestMethod.POST)
   public String changeEmail(
     @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
@@ -211,7 +219,10 @@ public class UserController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")
-  public String userDetails(@PathVariable long userId, @PathVariable long communityId, Model model) {
+  public String userDetails(@PathVariable long userId, @PathVariable long communityId, Model model, Principal principal) {
+    Boolean isConnectedUser = false;
+    User connectedUser = services.user().withUserName(principal.getName());
+
     User user = services.user().withId(userId);
     model.addAttribute("title", user.name());
     model.addAttribute("backUrl", "/sec/community/"+communityId);
@@ -233,7 +244,10 @@ public class UserController {
     model.addAttribute("videosView", videoViews);
 
     model.addAttribute("user", user);
-
+    if (connectedUser.id == user.id) {
+      isConnectedUser = true;
+    }
+    model.addAttribute("isConnectedUser", isConnectedUser);
     return "profile-from-community";
   }
 
