@@ -39,7 +39,7 @@
                 <div class="signe_reverse_video"></div>
               </a>
               <h1 class="text_hyphenation navbar_title" style="display: inline-block; text-align: center; width: 20rem;" th:text="${title}"></h1>
-              <a th:onclick="'javascript:editProfil()'">
+              <a th:if="${isConnectedUser}" th:onclick="'javascript:editProfil()'">
                 <div class="edit-profil"></div>
               </a>
             </div>
