@@ -45,7 +45,7 @@
                   <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.nameVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
                     <img th:src="${user.namePicture}" style="margin-bottom: 10px;"/>
                   </a>
-                  <a data-target="#add_video_file_recording_name_lsf" data-toggle="modal" href="#">
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
                     <div id="nameVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
                   </a>
                 </div>
@@ -81,7 +81,7 @@
                   <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.job, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
                     <img th:src="${user.jobDescriptionPicture}"  style="margin-bottom: 10px;margin-left: 58px;"/>
                   </a>
-                  <a data-target="#add_video_file_recording_name_lsf" data-toggle="modal" href="#">
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
                     <div id="jobVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
                   </a>
                 </div>
@@ -180,7 +180,7 @@
         </div>
       </div>
 
-      <div id="add_video_file_recording_name_lsf" class="modal fade" role="dialog">
+      <div id="add_video_file_recording" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -191,8 +191,10 @@
               </div>
             </div>
             <div  class="container_record text-center">
-              <h4 id="label_record" th:text="#{record_name_lsf(${'&laquo;'+user.name()+'&raquo;'})}"></h4>
+              <h4 id="label_record" th:text="#{record_name_lsf(${'&laquo;'+user.name()+'&raquo;'})}" style="display: none"></h4>
               <h4 id="label_after_record" th:text="#{after_record_name_lsf(${'&laquo;'+user.name()+'&raquo;'})}" style="display: none"></h4>
+              <h4 id="label_record_job_description" th:text="#{record_job_lsf(${'&laquo;'+user.job+'&raquo;'})}" style="display: none"></h4>
+              <h4 id="label_after_record_job_description" th:text="#{after_record_job_lsf(${'&laquo;'+user.job+'&raquo;'})}" style="display: none"></h4>
               <div id="container_video" class="col-xs-offset-1 col-xs-10" >
                 <div class="spinner spinner_hidden"></div>
                 <span id="counter"></span>
