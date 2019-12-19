@@ -40,6 +40,8 @@ var errorSpan = document.getElementById('errorSpan');
 var counter = 3;
 var t;
 
+var nameVideoRecord = document.getElementById('nameVideo-record');
+
 function timedCount() {
   document.getElementById("counter").textContent = counter;
   counter = counter - 1;
@@ -246,7 +248,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
 });
 
-document.getElementById('nameVideo-record').onclick = function() {
+nameVideoRecord.onclick = function() {
   console.log("click on record name lsf");
   $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
   labelRecord = document.getElementById('label_record');
