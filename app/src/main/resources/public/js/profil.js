@@ -22,11 +22,75 @@
 
 
 function editProfil() {
-  $('#nameVideo-record').show();
-  $('#name-pen').show();
-  $('#entity-pen').show();
-  $('#jobName-pen').show();
-  $('#jobVideo-record').show();
-  $('#jobText-pen').show();
+/*  if ($('#nameVideo-record').is(":hidden")) {
+    $('#nameVideo-record').show();
+    $('#changeName').css('pointer-events', '');
+    $('#name-pen').show();
+    $('#changeEntity').css('pointer-events', '');
+    $('#entity-pen').show();
+    $('#changeJobName').css('pointer-events', '');
+    $('#jobName-pen').show();
+    $('#jobVideo-record').show();
+    $('#changeJobDescriptionText').css('pointer-events', '');
+    $('#jobText-pen').show();
+  } else {
+    $('#nameVideo-record').hide();
+    $('#changeName').css('pointer-events', 'none');
+    $('#name-pen').hide();
+    $('#changeEntity').css('pointer-events', 'none');
+    $('#entity-pen').hide();
+    $('#changeJobName').css('pointer-events', 'none');
+    $('#jobName-pen').hide();
+    $('#jobVideo-record').hide();
+    $('#changeJobDescriptionText').css('pointer-events', 'none');
+    $('#jobText-pen').hide();
+  }*/
+  if ($('#nameVideo-record').is(":hidden")) {
+    $('#nameVideo-record').show();
+  } else {
+    $('#nameVideo-record').hide();
+  }
+  if ($('#name-pen').is(":hidden")) {
+    $('#changeName').css('pointer-events', '');
+    $('#name-pen').show();
+  } else {
+    $('#changeName').css('pointer-events', 'none');
+    $('#name-pen').hide();
+  }
 
+  if ($('#entity-pen').is(":hidden")) {
+    $('#changeEntity').css('pointer-events', '');
+    $('#entity-pen').show();
+  } else {
+    $('#changeEntity').css('pointer-events', 'none');
+    $('#entity-pen').hide();
+  }
+
+  if ($('#jobName-pen').is(":hidden")) {
+    $('#changeJobName').css('pointer-events', '');
+    $('#jobName-pen').show();
+  } else {
+    $('#changeJobName').css('pointer-events', 'none');
+    $('#jobName-pen').hide();
+  }
+  if ($('#jobVideo-record').is(":hidden")) {
+    $('#jobVideo-record').show();
+  } else {
+    $('#jobVideo-record').hide();
+  }
+  if ($('#jobText-pen').is(":hidden")) {
+    $('#changeJobDescriptionText').css('pointer-events', '');
+    $('#jobText-pen').show();
+  } else {
+    $('#changeJobDescriptionText').css('pointer-events', 'none');
+    $('#jobText-pen').hide();
+  }
 }
+
+function displayVideo(url, name) {
+  console.log(url);
+  console.log(name);
+  document.getElementById("videoName").innerText = name;
+
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+};
