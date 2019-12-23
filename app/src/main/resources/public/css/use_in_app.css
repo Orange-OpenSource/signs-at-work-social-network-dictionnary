@@ -1525,7 +1525,7 @@ input[type=file] {
   margin-top: 20px;
 }
 
-.errorRegexLastName, .errorRegexFirstName, .errorRegexEmail, #errorForgetPassword, #errorCreateUser {
+.errorRegexLastName, .errorRegexFirstName, .errorRegexEmail, #errorForgetPassword, #errorCreateUser, #errorUserExist {
   font-size: 14px;
   color: red;
 }
@@ -1595,4 +1595,14 @@ pre {
   height: 40px;
   width: 40px;
   margin-top: 17px;
+}
+
+.mail_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3980px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
 }
