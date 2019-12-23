@@ -363,29 +363,6 @@ document.getElementById('jobVideo-record').onclick = function() {
 };
 
 function editProfil() {
-/*  if ($('#nameVideo-record').is(":hidden")) {
-    $('#nameVideo-record').show();
-    $('#changeName').css('pointer-events', '');
-    $('#name-pen').show();
-    $('#changeEntity').css('pointer-events', '');
-    $('#entity-pen').show();
-    $('#changeJobName').css('pointer-events', '');
-    $('#jobName-pen').show();
-    $('#jobVideo-record').show();
-    $('#changeJobDescriptionText').css('pointer-events', '');
-    $('#jobText-pen').show();
-  } else {
-    $('#nameVideo-record').hide();
-    $('#changeName').css('pointer-events', 'none');
-    $('#name-pen').hide();
-    $('#changeEntity').css('pointer-events', 'none');
-    $('#entity-pen').hide();
-    $('#changeJobName').css('pointer-events', 'none');
-    $('#jobName-pen').hide();
-    $('#jobVideo-record').hide();
-    $('#changeJobDescriptionText').css('pointer-events', 'none');
-    $('#jobText-pen').hide();
-  }*/
   if ($('#nameVideo-record').is(":hidden")) {
     $('#nameVideo-record').show();
   } else {
@@ -397,6 +374,14 @@ function editProfil() {
   } else {
     $('#changeName').css('pointer-events', 'none');
     $('#name-pen').hide();
+  }
+
+  if ($('#user_name-pen').is(":hidden")) {
+    $('#changeUserName').css('pointer-events', '');
+    $('#user_name-pen').show();
+  } else {
+    $('#changeUserName').css('pointer-events', 'none');
+    $('#user_name-pen').hide();
   }
 
   if ($('#entity-pen').is(":hidden")) {
@@ -435,3 +420,56 @@ function displayVideo(url, name) {
 
   document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
 };
+
+var inputEmail = document.getElementById('email');
+inputEmail.addEventListener('keyup',checkEmail);
+var submitChangeMail = document.getElementById("submit-change-mail");
+var regexEmail = new RegExp('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}');
+var errorUserExist = document.getElementById('errorUserExist');
+
+function checkEmail() {
+  $('#errorUserExist').addClass("hidden");
+  var valueEmail = inputEmail.value;
+  if(!regexEmail.test(valueEmail)) {
+    $('.errorRegexEmail').removeClass("hidden");
+    submitChangeMail.disabled = true;
+  }else {
+    $('.errorRegexEmail').addClass("hidden");
+      submitChangeMail.disabled = false;
+  }
+}
+
+function sendMail() {
+  console.log("send Mail");
+  user = {
+    email: inputEmail.value
+  };
+  $.ajax({
+    url: "/ws/sec/sendMailForChangeEmail",
+    type: 'post',
+    data: JSON.stringify(user),
+    contentType: "application/json",
+    success: function (response) {
+      console.log(response);
+      $('#add_email').modal('hide');
+      $("#validate_send_mail").modal('show');
+      setTimeout(function () {
+        $("#validate_send_mail").modal('hide');
+        location.reload();
+      }, 3000);
+    },
+    error: function (response) {
+      console.log(response.responseJSON);
+      errorUserExist.textContent = response.responseJSON.errorMessage;
+      $('#errorUserExist').removeClass("hidden");
+      submitChangeMail.disabled = true;
+    }
+  })
+}
+
+var $add_email = $('#add_email');
+$add_email.on('hidden.bs.modal', function() {
+  $('#errorUserExist').addClass("hidden");
+  submitChangeMail.disabled = true;
+  $('#email').val("");
+});

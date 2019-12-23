@@ -425,14 +425,44 @@ public class UserRestController {
 
   @RequestMapping(value = RestApi.SEND_MAIL)
   public UserResponseApi sendMail(@RequestBody UserCreationView userCreationView, HttpServletResponse response) {
+    String title, body;
     UserResponseApi userResponseApi = new UserResponseApi();
     User admin = services.user().getAdmin();
 
     User user = services.user().withUserName(userCreationView.getEmail());
     if (user == null) {
-      String body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName(), userCreationView.getEmail()});
+      body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName(), userCreationView.getEmail()});
+      title = messageByLocaleService.getMessage("ask_to_create_user_title");
       Runnable task = () -> {
-        services.emailService().sendSimpleMessage(admin.email, messageByLocaleService.getMessage("ask_to_create_user_title"), body);
+        log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
+        services.emailService().sendSimpleMessage(admin.email, title, body);
+      };
+
+      new Thread(task).start();
+
+      response.setStatus(HttpServletResponse.SC_OK);
+    } else {
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
+    }
+    return  userResponseApi;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.SEND_MAIL_FOR_CHANGE_EMAIL)
+  public UserResponseApi sendMailForChangeEmail(@RequestBody UserCreationView userCreationView, HttpServletResponse response, Principal principal) {
+    String title, body;
+    UserResponseApi userResponseApi = new UserResponseApi();
+    User admin = services.user().getAdmin();
+    User user = services.user().withUserName(principal.getName());
+
+    User userSearch = services.user().withUserName(userCreationView.getEmail());
+    if (userSearch == null) {
+      body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationView.getEmail()});
+      title = messageByLocaleService.getMessage("ask_to_change_email_title");
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
+        services.emailService().sendSimpleMessage(admin.email, title , body);
       };
 
       new Thread(task).start();

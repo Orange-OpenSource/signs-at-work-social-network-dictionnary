@@ -34,6 +34,7 @@
       <div th:replace="fragments/modal-input-entity-name :: div"/>
       <div th:replace="fragments/modal-input-job-name :: div"/>
       <div th:replace="fragments/modal-input-description-job :: div"/>
+      <div th:replace="fragments/modal-input-email :: div"/>
       <div class="row">
 
        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
@@ -57,6 +58,15 @@
                   <div th:if="${user.namePicture == null}" style="display: inline;">
                     <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
                     <div id="name-pen" class="pull-right picto-pen" style="display: none;"></div>
+                  </div>
+                </a>
+              </li>
+              <li class="aside_bckg_li">
+                <a id="changeUserName" data-target="#add_email" data-toggle="modal" href="#" style="pointer-events: none">
+                  <div>
+                    <h2 style="display: inline;" th:text="#{email}"></h2>
+                    <h2 style="display: inline;margin-left: 25px; color: #4866F7;" th:text="${user.username}"></h2>
+                    <div id="user_name-pen" class="pull-right picto-pen" style="display: none;"></div>
                   </div>
                 </a>
               </li>
@@ -230,6 +240,21 @@
         </div>
       </div>
 
+      <div  id="validate_send_mail" class="modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="pull-left">
+                <div class="mail_white pull-left"></div>
+                <h2 class="pull-right" th:text="#{modify_your_email}"/>
+              </div>
+            </div>
+            <div class="modal-body">
+              <h4 class="blue" th:text="#{validate_send_mail_for_change_email_body}"></h4>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
 <script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
 <script type="text/javascript" src="../public/js/profil.js" th:src="@{/js/profil.js}"></script>
