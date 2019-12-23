@@ -46,10 +46,13 @@
               <div class="modal-body text-center">
                 <input  id="job" type="text" th:value="${user.job}"   class="form-control" name="job" th:autofocus="true" required="true"/>
               </div>
-                <div class="modal-footer">
-                    <button th:text="#{continue}" type="submit" class="btn btn-default"
-                            data-dismiss=""></button>
-                </div>
+              <div class="modal-footer">
+                <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                  <span th:text="#{cancel}"></span>
+                </button>
+                <button th:text="#{continue}" type="submit" class="btn btn-default"
+                        data-dismiss=""></button>
+              </div>
             </form>
         </div>
     </div>
