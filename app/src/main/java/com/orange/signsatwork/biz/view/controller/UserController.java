@@ -84,6 +84,34 @@ public class UserController {
 
 
   @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/my-profil")
+  public String myProfil(Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+    
+    model.addAttribute("user", user);
+    fillModelWithFavorites(model, user);
+
+    model.addAttribute("title", user.name());
+
+    List<Object[]> queryVideos = services.video().AllVideosCreateByUser(user.id);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
+
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
+      .collect(Collectors.toList());
+
+
+    model.addAttribute("videosView", videoViews);
+
+    model.addAttribute("isConnectedUser", true);
+    return "profile-from-community";
+  }
+
+  @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/your-job")
   public String yourJob(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());

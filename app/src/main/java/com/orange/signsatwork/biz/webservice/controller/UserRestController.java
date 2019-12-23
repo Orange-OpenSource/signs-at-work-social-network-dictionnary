@@ -150,7 +150,7 @@ public class UserRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi. WS_SEC_USER)
+  @RequestMapping(value = RestApi. WS_SEC_USER, method = RequestMethod.GET)
   public ResponseEntity<?> user(Principal principal) {
 
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
@@ -161,8 +161,8 @@ public class UserRestController {
 
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_USER, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
+ /* @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_USER, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
   public UserResponseApi updateVideo(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     UserResponseApi userResponseApi = new UserResponseApi();
@@ -218,7 +218,59 @@ public class UserRestController {
 
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;
+  }*/
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_USER, method = RequestMethod.PUT, headers = {"content-type=application/json"})
+  public UserResponseApi updateDataProfil(@RequestBody UserCreationViewApi userCreationViewApi, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    UserResponseApi userResponseApi = new UserResponseApi();
+
+    User user = services.user().withUserName(principal.getName());
+
+    if (userCreationViewApi != null) {
+
+      if (userCreationViewApi.getFirstName() != null) {
+        if ((!userCreationViewApi.getFirstName().isEmpty()) && (userCreationViewApi.getFirstName() != user.firstName)) {
+          services.user().changeFirstName(user, userCreationViewApi.getFirstName());
+        }
+      }
+
+      if (userCreationViewApi.getLastName() != null) {
+        if ((!userCreationViewApi.getLastName().isEmpty()) && (userCreationViewApi.getLastName() != user.lastName)) {
+          services.user().changeLastName(user, userCreationViewApi.getLastName());
+        }
+      }
+
+      if (userCreationViewApi.getEmail() != null) {
+        if ((!userCreationViewApi.getEmail().isEmpty()) && (userCreationViewApi.getEmail() != user.email)) {
+          services.user().changeEmail(user, userCreationViewApi.getEmail());
+        }
+      }
+
+      if (userCreationViewApi.getEntity() != null) {
+        if ((!userCreationViewApi.getEntity().isEmpty()) && (userCreationViewApi.getEntity() != user.entity)) {
+          services.user().changeEntity(user, userCreationViewApi.getEntity());
+        }
+      }
+
+      if (userCreationViewApi.getJob() != null) {
+        if ((!userCreationViewApi.getJob().isEmpty()) && (userCreationViewApi.getJob() != user.job)) {
+          services.user().changeJob(user, userCreationViewApi.getJob());
+        }
+      }
+
+      if (userCreationViewApi.getJobTextDescription() != null) {
+        if ((!userCreationViewApi.getJobTextDescription().isEmpty()) && (userCreationViewApi.getJobTextDescription() != user.jobDescriptionText)) {
+          services.user().changeDescription(user, userCreationViewApi.getJobTextDescription());
+        }
+      }
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return userResponseApi;
   }
+
 
   private UserResponseApi handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
