@@ -91,7 +91,19 @@
                 </a>
               </li>
               <li class="aside_bckg_li">
-                <a id="changeJobName" data-target="#add_job_name" data-toggle="modal" href="#" style="pointer-events: none">
+             <!--   <a id="changeJobName" data-target="#add_job_name" data-toggle="modal" href="#" style="pointer-events: none">
+                  <div th:if="${user.job != null}">
+                    <h2 style="display: inline;" th:text="#{job}"></h2>
+                    <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+                    <div id="jobName-pen" class="pull-right picto-pen" style="display: none;"></div>
+                  </div>
+                  <div th:if="${user.job == null}">
+                    <h2 style="display: inline;" th:text="#{job}"></h2>
+                    <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+                    <div id="jobName-pen" class="pull-right picto-pen" style="display: none;"></div>
+                  </div>
+                </a>-->
+                <a id="changeJobName" href="/sec/my-job" style="pointer-events: none">
                   <div th:if="${user.job != null}">
                     <h2 style="display: inline;" th:text="#{job}"></h2>
                     <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>

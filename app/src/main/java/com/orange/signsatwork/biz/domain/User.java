@@ -80,6 +80,14 @@ public class User {
                     services);
   }
 
+  public User loadCommunities() {
+    return communities != null ?
+      this :
+      new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate,
+        services.community().forUser(id),  null, null, videos,
+        services);
+  }
+
   public User loadVideos() {
     return videos != null ? this :
             new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate,

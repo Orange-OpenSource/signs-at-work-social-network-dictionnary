@@ -22,8 +22,10 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.PasswordResetToken;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -87,7 +89,7 @@ public class UserController {
   @RequestMapping(value = "/sec/my-profil")
   public String myProfil(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
-    
+
     model.addAttribute("user", user);
     fillModelWithFavorites(model, user);
 
@@ -332,4 +334,23 @@ public class UserController {
     return "create-password";
   }
 
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/my-job")
+  public String myJob(Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+
+    UserJobView userJobView = new UserJobView(user, services.community());
+    model.addAttribute("userJobView", userJobView);
+
+    model.addAttribute("user", user);
+    List<Object[]> queryCommunities = services.community().allForJob(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .collect(Collectors.toList());
+    communitiesViewData = communitiesViewData.stream().sorted((c1, c2) -> c1.name.compareTo(c2.name)).collect(Collectors.toList());
+    model.addAttribute("communities", communitiesViewData);
+
+    return "job-community";
+  }
 }
