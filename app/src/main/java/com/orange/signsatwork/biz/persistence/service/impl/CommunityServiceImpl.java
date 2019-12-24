@@ -61,6 +61,11 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   @Override
+  public List<Object[]> allForJob(long userId) {
+    return communityRepository.findAllForJob(userId);
+  }
+
+  @Override
   public Community withId(long id) {
     return communityFrom(communityRepository.findOne(id));
   }

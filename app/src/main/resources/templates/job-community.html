@@ -1,0 +1,92 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="en">
+<head>
+    <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-job-community :: header">&nbsp;</header>
+
+<body class="container-fluid">
+
+<h2 class="subtitle_job" th:text="#{choose_job}"></h2>
+<div class="row ">
+  <div class="col-xs-12">
+    <aside class="sidebar">
+      <ul class="nav nav-list primary left-menu">
+        <li class="aside_bckg_li action">
+         <!-- <a href="#" data-toggle="modal" data-target="#create_community">
+            <div class="pull-left create_community_blue"></div>
+            <h2 class="container_H2" th:text="#{favorite.create_community}"></h2>
+            <div class="pull-right pen"></div>
+          </a>-->
+        </li>
+      </ul>
+    </aside>
+  </div>
+</div>
+<div th:fragment="div">
+    <div th:replace="fragments/frame-job-community :: div"/>
+  <div class="footer">
+    <!--<button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>
+    <button class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteCommunities(\''+ ${favoriteProfileView.favorite.id} + '\',\'' +${communityId} + '\')'" th:text="#{validate}"></button>-->
+    <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:goBack()'"></button>
+    <button class="btn btn-default" th:text="#{validate}" th:onclick="'javascript:onAssociateJobToUser()'"></button>
+  </div>
+</div>
+
+
+<!--<div id="create_community" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    &lt;!&ndash; Modal content&ndash;&gt;
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="create_community_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{favorite.create_community}"></h2>
+        </div>
+      </div>
+
+      <form th:action="@{/sec/community/search(id=${favoriteProfileView.favorite.id})}" th:object="${communityCreationView}" method="post" autocomplete="off">
+        <div class="modal-body text-center">
+          <input th:value="${favoriteProfileView.favorite.favoriteName()}" type="text" class="border form-control"
+                 name="name" th:autofocus="true" />
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button th:text="#{continue}" type="submit" class="btn btn-default"
+                  data-dismiss=""></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>-->
+
+</body>
+<script type="text/javascript" src="../public/js/job.js" th:src="@{/js/job.js}"></script>
+</html>
+

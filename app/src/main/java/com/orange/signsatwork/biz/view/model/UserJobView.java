@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.service;
+package com.orange.signsatwork.biz.view.model;
 
 /*
  * #%L
@@ -22,33 +22,25 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
+
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.Favorites;
+import com.orange.signsatwork.biz.domain.Requests;
+import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.service.CommunityService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public interface CommunityService {
-  Communities all();
+@Getter
+@NoArgsConstructor
+public class UserJobView {
+  private User user;
+  private List<Long> userCommunitiesIds;
 
-  List<Object[]> allForFavorite(long userId);
-
-  List<Object[]> allForJob(long userId);
-
-  Communities forUser(long id);
-
-  List<Object[]> forCommunitiesUser(long id);
-
-  Community withId(long id);
-
-  Community create(Community community);
-
-/*  void delete(Community community);*/
-
-  Community withCommunityName(String communityName);
-
-  Communities forFavorite(long favoriteId);
-
-  Community changeCommunityUsers(long communityId, List<Long> usersIds);
-
-  Communities search(String communityName);
+  public UserJobView(User userWithoutCommunities, CommunityService communityService) {
+    user = userWithoutCommunities.loadCommunities();
+    this.userCommunitiesIds = user.communitiesIds();
+  }
 }
