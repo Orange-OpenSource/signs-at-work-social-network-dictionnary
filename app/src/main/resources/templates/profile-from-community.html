@@ -41,13 +41,20 @@
           <aside class="sidebar">
             <ul th:if="${isConnectedUser}" class="nav nav-list primary left-menu">
               <li class="aside_bckg_li">
-                <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
                 <div th:if="${user.namePicture != null}" style="display: inline;">
+                  <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
                   <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.nameVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
                     <img th:src="${user.namePicture}" style="margin-bottom: 10px;"/>
                   </a>
                   <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
                     <div id="nameVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
+                  </a>
+                </div>
+                <div th:if="${user.namePicture == null}" style="display: inline;">
+                  <h2 style="display: inline;" th:text="#{name_LSF}"></h2>
+                  <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                    <div id="nameVideo-record" class="pull-right picto-record" style="margin-top: 2px; display: none;"></div>
                   </a>
                 </div>
               </li>
@@ -71,41 +78,69 @@
               </li>
               <li class="aside_bckg_li" style="border-bottom: 3px solid;">
                 <a id="changeEntity" data-target="#add_entity_name" data-toggle="modal" href="#" style="pointer-events: none">
-                  <div>
+                  <div th:if="${user.entity != null}">
                     <h2 style="display: inline;" th:text="#{entity}"></h2>
                     <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
+                    <div id="entity-pen" class="pull-right picto-pen" style="display: none;"></div>
+                  </div>
+                  <div th:if="${user.entity == null}">
+                    <h2 style="display: inline;" th:text="#{entity}"></h2>
+                    <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
                     <div id="entity-pen" class="pull-right picto-pen" style="display: none;"></div>
                   </div>
                 </a>
               </li>
               <li class="aside_bckg_li">
                 <a id="changeJobName" data-target="#add_job_name" data-toggle="modal" href="#" style="pointer-events: none">
-                  <div>
+                  <div th:if="${user.job != null}">
                     <h2 style="display: inline;" th:text="#{job}"></h2>
-                    <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+                    <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+                    <div id="jobName-pen" class="pull-right picto-pen" style="display: none;"></div>
+                  </div>
+                  <div th:if="${user.job == null}">
+                    <h2 style="display: inline;" th:text="#{job}"></h2>
+                    <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
                     <div id="jobName-pen" class="pull-right picto-pen" style="display: none;"></div>
                   </div>
                 </a>
               </li>
               <li class="aside_bckg_li">
-                <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
                 <div th:if="${user.jobDescriptionPicture != null}" style="display: inline;">
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.job, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
+                  <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
+                  <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${user.job} + '\')'" style="margin-left: 35px;">
                     <img th:src="${user.jobDescriptionPicture}"  style="margin-bottom: 10px;margin-left: 110px;"/>
                   </a>
                   <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
                     <div id="jobVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
                   </a>
                 </div>
+                <div th:if="${user.jobDescriptionPicture == null}" style="display: inline;">
+                  <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
+                  <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                    <div id="jobVideo-record" class="pull-right picto-record" style="margin-top: 2px; display: none;"></div>
+                  </a>
+                </div>
               </li>
               <li class="aside_bckg_li" style="border-bottom: 3px solid #4866F7;">
-                <h2 style="display: inline;" th:text="#{description_text}"></h2>
-                <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
-                  <div>
-                    <h2 style="display: inline-block; color: #4866F7;width: 90%;" th:text="${user.jobDescriptionText}"></h2>
-                    <div id="jobText-pen" class="pull-right picto-pen" style="margin-top: 13px; display: none;"></div>
-                  </div>
-                </a>
+                <div th:if="${user.jobDescriptionText != null}">
+                  <h2 style="display: inline;" th:text="#{description_text}"></h2>
+                  <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
+                    <div>
+                      <h2 style="display: inline-block; color: #4866F7;width: 90%;" th:text="${user.jobDescriptionText}"></h2>
+                      <div id="jobText-pen" class="pull-right picto-pen" style="margin-top: 13px; display: none;"></div>
+                    </div>
+                  </a>
+                </div>
+                <div th:if="${user.jobDescriptionText == null}">
+                  <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
+                    <div>
+                      <h2 style="display: inline;" th:text="#{description_text}"></h2>
+                      <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+                      <div id="jobText-pen" class="pull-right picto-pen" style="display: none;"></div>
+                    </div>
+                  </a>
+                </div>
               </li>
             </ul>
             <ul th:unless="${isConnectedUser}" class="nav nav-list primary left-menu">
@@ -135,7 +170,7 @@
                   <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
                 </div>
                 <div th:if="${user.jobDescriptionPicture != null}" style="display: inline;">
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.job, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
+                  <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${user.job} + '\')'" style="margin-left: 35px;">
                     <img th:src="${user.jobDescriptionPicture}"  style="margin-bottom: 10px;margin-left: 58px;"/>
                   </a>
                 </div>

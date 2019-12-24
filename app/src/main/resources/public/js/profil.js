@@ -202,12 +202,13 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
     data: JSON.stringify(videoFile),
     contentType: "application/json",
     success: function(response) {
-      var url = response;
-      window.location = url;
+     /* var url = response;
+      window.location = url;*/
       errorSpan.style.visibility="hidden";
       $(".spinner").visibility="hidden";
       $("video").css("z-index","1500").css("opacity","1");
       console.log("Success " + response);
+      location.reload();
     },
     error: function(response) {
       errorSpan.textContent = response.responseText;
@@ -400,7 +401,11 @@ function editProfil() {
     $('#jobName-pen').hide();
   }
   if ($('#jobVideo-record').is(":hidden")) {
-    $('#jobVideo-record').show();
+    if ($('#jobName').val() != null ) {
+      $('#jobVideo-record').show();
+    } else {
+      $('#jobVideo-record').hide();
+    }
   } else {
     $('#jobVideo-record').hide();
   }
