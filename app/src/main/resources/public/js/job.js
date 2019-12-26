@@ -21,7 +21,6 @@
 
 
 
-
 function onContinueFavorite(backUrl) {
   var url = backUrl;
   window.location = url;
@@ -50,7 +49,7 @@ function onAssociateJobToUser() {
     var data = {
       "job": communityName
     };
-    event.preventDefault();
+   /* event.preventDefault();*/
     $.ajax({
       url: "/ws/sec/users/me",
       type: 'put',

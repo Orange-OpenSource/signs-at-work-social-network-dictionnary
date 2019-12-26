@@ -30,6 +30,7 @@ import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.UserCreationView;
+import com.orange.signsatwork.biz.view.model.UserJobView;
 import com.orange.signsatwork.biz.view.model.UserView;
 import com.orange.signsatwork.biz.webservice.model.UserCreationViewApi;
 import com.orange.signsatwork.biz.webservice.model.UserResponseApi;
@@ -55,6 +56,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -257,6 +259,19 @@ public class UserRestController {
       if (userCreationViewApi.getJob() != null) {
         if ((!userCreationViewApi.getJob().isEmpty()) && (userCreationViewApi.getJob() != user.job)) {
           services.user().changeJob(user, userCreationViewApi.getJob());
+          user = user.loadCommunities();
+          List<Community> oldCommunitiesJob = user.communities.stream().filter(c -> c.type == CommunityType.Job).collect(Collectors.toList());
+          for(Community community:oldCommunitiesJob) {
+            Community community1 = services.community().withCommunityName(community.name);
+            List<Long> listUsersIds = community1.usersIds();
+            listUsersIds.remove(user.id);
+            services.community().changeCommunityUsers(community1.id, listUsersIds);
+          }
+
+          Community community = services.community().withCommunityName(userCreationViewApi.getJob());
+          List<Long> usersIds = community.usersIds();
+          usersIds.add(user.id);
+          services.community().changeCommunityUsers(community.id, usersIds);
         }
       }
 
