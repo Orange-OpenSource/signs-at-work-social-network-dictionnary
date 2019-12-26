@@ -32,96 +32,45 @@ function onAssociateJobToUser() {
   if ($("#associateJobToUserForm").isChanged()) {
     var communityListName = document.getElementById('community_list_name');
     var userCommunitiesIds = [];
+    var communityName;
+    var communityId;
     i = 1;
     $("#communities-container").children("label").each(function () {
       if (document.getElementById("userCommunitiesIds" + i).checked) {
         var selectedCommunityId = document.getElementById("userCommunitiesIds" + i).value;
         userCommunitiesIds.push(selectedCommunityId);
+        communityName = $(this).attr("id");
+        communityId = selectedCommunityId;
+        console.log(communityName);
       }
       i = i + 1;
     });
 
     console.log(userCommunitiesIds);
-/*   $.ajax({
-      url: "/ws/sec/favorite/" + favoriteId + "/add/communities",
-      type: 'post',
-      data: JSON.stringify(favoriteCommunitiesIds),
-      contentType: "application/json",
-      success: function (response) {
-        console.log(response);
-        communityListName.textContent = response;
-        $("#validate_share_favorite_modif").modal('show');
-        setTimeout(function () {
-          $('#validate_share_favorite_modif').modal('hide');
-      /!*    var url = "/sec/favorite/" + favoriteId;
-          window.location = url;*!/
-          /!*window.history.go(-2);*!/
-          window.history.back();
-        }, 3000);
-      },
-      error: function (response) {
-      }
-    })*/
-  } else {
-/*   var url = "/sec/favorite/" + favoriteId;
-    window.location = url;*/
-    window.history.back();
-  }
-
-};
-
-
-function onCreateFavoriteCommunity(name, favoriteId) {
-  if ($("#FavoriteCreateCommunityForm").isChanged()) {
-    var url;
-    var communityId;
-    var userListName = document.getElementById('user_list_name');
-    var communityUsersIds = [];
-    i = 1;
-    $("#users-container").children("label").each(function () {
-      if (document.getElementById("communityUsersIds" + i).checked) {
-        var selectedUserId = document.getElementById("communityUsersIds" + i).value;
-        communityUsersIds.push(selectedUserId);
-      }
-      i = i + 1;
-    });
-
-    community = {
-      name: name,
-      communityUsersIds: communityUsersIds
+    var data = {
+      "job": communityName
     };
+    event.preventDefault();
     $.ajax({
-      url: "/ws/sec/communities",
-      type: 'post',
-      data: JSON.stringify(community),
+      url: "/ws/sec/users/me",
+      type: 'put',
+      data: JSON.stringify(data),
       contentType: "application/json",
-      success: function (response) {
-        console.log(response);
-        communityId = response.communityId;
-        userListName.textContent = response.errorMessage;
-        $("#validate_create_community_favorite").modal('show');
-        setTimeout(function () {
-          $('#validate_create_community_favorite').modal('hide');
-          if (favoriteId == 0) {
-            url = "/sec/community/" + communityId;
-          } else {
-            url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=" + communityId;
-          }
-
-          window.location = url;
-        }, 3000);
+      success: function(response) {
+        console.log("Success " + response);
+        window.history.back();
       },
-      error: function (response) {
+      error: function(response) {
+        console.log("Erreur " + response.responseText);
       }
     })
   } else {
-    /*var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
-    window.location = url;*/
     window.history.back();
-
   }
 
 };
+
+
 
 
 $.fn.extend({
@@ -142,6 +91,5 @@ $.fn.extend({
 
 (function main($) {
   $("#associateJobToUserForm").trackChanges();
-  $("#FavoriteCreateCommunityForm").trackChanges();
 })($);
 
