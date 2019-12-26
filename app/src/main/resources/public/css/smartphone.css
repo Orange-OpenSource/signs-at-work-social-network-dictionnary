@@ -211,6 +211,11 @@
     margin: 0 auto;
   }
 
+  .container_label_radio{
+    width: 90%;
+    margin: 0 auto;
+  }
+
   .table-responsive {
     font-size: 1.2rem;
   }
@@ -698,6 +703,14 @@
     width: 15px;
   }
 
+  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
   label {
     font-size: 11px;
   }
@@ -1012,11 +1025,33 @@
     width: 15px;
   }
 
+
+  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
+  [type="radio"] + h4::after, [type="radio"] + [type="hidden"] + h4::after {
+    float: right;
+    height: 15px;
+    /*margin-left: 5px;*/
+    margin-top: 6px;
+    width: 15px;
+  }
+
 /*  label {
     font-size: 11px;
   }*/
 
   .container_label_checkbox{
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .container_label_radio{
     width: 90%;
     margin: 0 auto;
   }
@@ -1646,6 +1681,14 @@
     width: 15px;
   }
 
+  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
   .text_hyphenation.navbar_title{
     width: 23rem;
   }
@@ -2159,6 +2202,14 @@
     width: 15px;
   }
 
+  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
   .col-xs-12 iframe, .col-xs-12 img, .col-xs-12 embed {
     width: 100%;
   }
@@ -2510,6 +2561,14 @@
     width: 15px;
   }
 
+  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
  /* .col-xs-12 iframe, .col-xs-12 img, .col-xs-12 embed {
     width: 100%;
   }*/
@@ -2843,6 +2902,14 @@
   }
 
   [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
+  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;

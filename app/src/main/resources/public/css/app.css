@@ -920,7 +920,6 @@ ul#orange-navbar-collapse >li {
 /*  see here the subtlety for Thymeleaf https://github.com/Dogfalo/materialize/issues/1582 */
 
 /* HTML5 Boilerplate accessible hidden styles */
-/*
 input[type="checkbox"] {
 	border: 0;
 	clip: rect(0 0 0 0);
@@ -942,7 +941,7 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
 }
-!* the basic, unchecked style *!
+/* the basic, unchecked style */
 [type="checkbox"] + span:before,
 [type="checkbox"] + [type="hidden"] + span:before  {
 	content: '';
@@ -957,7 +956,7 @@ input[type="checkbox"] {
   height: 20px;
 }
 
-!* the checked style using the :checked pseudo class *!
+/* the checked style using the :checked pseudo class */
 [type="checkbox"]:checked + span:before ,
 [type="checkbox"]:checked + [type="hidden"] + span:before {
   background-image: url("/img/done_blue.png");
@@ -976,7 +975,7 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
 }
-!* the basic, unchecked style *!
+/* the basic, unchecked style */
 [type="checkbox"] + h4:after,
 [type="checkbox"] + [type="hidden"] + h4:after  {
   content: '';
@@ -992,7 +991,7 @@ input[type="checkbox"] {
   margin-top:1px;
 }
 
-!* the checked style using the :checked pseudo class *!
+/* the checked style using the :checked pseudo class */
 [type="checkbox"]:checked + h4:after ,
 [type="checkbox"]:checked + [type="hidden"] + h4:after {
   background-image: url("/img/done_blue.png");
@@ -1001,8 +1000,87 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
 }
-*/
 
+input[type="radio"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px; margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+
+
+[type="radio"] + span,
+[type="radio"] + [type="hidden"] + span{
+  display: block;
+}
+
+[type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before{
+  width: 20px;
+  height: 20px;
+}
+/* the basic, unchecked style */
+[type="radio"] + span:before,
+[type="radio"] + [type="hidden"] + span:before  {
+  content: '';
+  display: inline-block;
+  vertical-align: -0.25em;
+  border-radius: 1px;
+  border: 0.125em solid #fff;
+  box-shadow: 0 0 0 1px #000;
+  margin-right: 0.75em;
+  transition: 0.5s ease all;
+  width: 20px;
+  height: 20px;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked + span:before ,
+[type="radio"]:checked + [type="hidden"] + span:before {
+  background-image: url("/img/done_blue.png");
+  background-repeat: no-repeat;
+  background-size: auto 15px;
+  width: 20px;
+  height: 20px;
+}
+
+[type="radio"] + h4,
+[type="radio"] + [type="hidden"] + h4{
+  display: block;
+}
+
+[type="radio"] + h4::after, [type="radio"] + [type="hidden"] + h4::after{
+  width: 20px;
+  height: 20px;
+}
+/* the basic, unchecked style */
+[type="radio"] + h4:after,
+[type="radio"] + [type="hidden"] + h4:after  {
+  content: '';
+  display: inline-block;
+  border-radius: 1px;
+  border: 0.125em solid #fff;
+  box-shadow: 0 0 0 1px #000;
+  margin-right: 0.75em;
+  transition: 0.5s ease all;
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin-top:1px;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked + h4:after ,
+[type="radio"]:checked + [type="hidden"] + h4:after {
+  background-image: url("/img/done_blue.png");
+  background-repeat: no-repeat;
+  background-size: auto 15px;
+  width: 20px;
+  height: 20px;
+}
 
 #myform{
   margin: 0 auto;
