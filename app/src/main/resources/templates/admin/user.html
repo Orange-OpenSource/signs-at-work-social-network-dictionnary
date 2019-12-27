@@ -64,23 +64,6 @@
     </table>
 </section>
 
-<section class="jumbotron text-xs-center">
-    <div class="container">
-        <h1 class="jumbotron-heading" th:text="#{communities}">
-        </h1>
-    </div>
-    <br/>
-
-    <form id="addcommunitiesform" class="form-inline" action="#" th:action="@{/sec/admin/user/{userid}/add/communities(userid=${userProfileView.user.id})}" th:object="${userProfileView}" method="post">
-        <div class="form-group">
-            <label th:each="community : ${userProfileView.allCommunities}" th:for="${#ids.next('userCommunitiesIds')}">
-                <input type="checkbox" th:field="*{userCommunitiesIds}" th:text="${community.name}" th:value="${community.id}"/>
-            </label>
-        </div>
-        <br/>
-        <button type="submit" class="btn btn-primary" th:text="#{add_user_to_communities}"></button>
-    </form>
-</section>
 
 <section class="jumbotron text-xs-center">
   <div class="container">
