@@ -30,11 +30,6 @@
 
 <body class="container-fluid">
 <div class="row ">
-
-    <div th:if="${#lists.isEmpty(community.users.list())}">
-        <h2 th:text="#{community.user_below_to_no_community}"></h2>
-    </div>
-
     <div class="col-md-4 col-xs-12 col-lg-12">
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
@@ -51,6 +46,10 @@
                 </div>
             </ul>
         </aside>
+      <div th:if="${#lists.isEmpty(community.users.list())}" class="text-center">
+        <h2 th:text="#{no_users_in_community}"></h2>
+      </div>
+
     </div>
 </div>
 </body>
