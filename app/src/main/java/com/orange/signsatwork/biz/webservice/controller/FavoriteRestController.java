@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -193,6 +194,36 @@ public class FavoriteRestController {
 
     return  new ResponseEntity<>(videoViews, HttpStatus.OK);
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITES_COMMUNITIES)
+  public ResponseEntity<?> communitiesFavorite(@PathVariable long favoriteId, Principal principal) {
+
+    String messageError;
+    User user = services.user().withUserName(principal.getName());
+    Favorite favorite = services.favorite().withId(favoriteId);
+    if (favorite.type == FavoriteType.Individual) {
+      List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
+      boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
+      if (!isFavoriteBelowToMe) {
+        messageError = messageByLocaleService.getMessage("favorite_not_below_to_you");
+        return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
+      }
+    }
+
+    favorite = favorite.loadCommunities();
+    List<Object[]> queryCommunities = services.community().allForFavorite(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .collect(Collectors.toList());
+    Favorite finalFavorite = favorite;
+    communitiesViewData = communitiesViewData.stream()
+      .filter(c -> finalFavorite.communitiesIds().contains(c.id))
+      .sorted((c1, c2) -> c1.name.compareTo(c2.name)).collect(Collectors.toList());
+
+    return  new ResponseEntity<>(communitiesViewData, HttpStatus.OK);
+  }
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_FAVORITE, method = RequestMethod.DELETE)
