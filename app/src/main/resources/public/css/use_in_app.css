@@ -1615,3 +1615,12 @@ pre {
   margin-right: 10px;
 }
 
+.job_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1665px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
