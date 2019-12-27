@@ -102,6 +102,14 @@ public class UserServiceImpl implements UserService {
     userRepository.save(userDB);
   }
 
+
+  @Override
+  public void changeUserLogin(User user, String login) {
+    UserDB userDB = userRepository.findOne(user.id);
+    userDB.setUsername(login);
+    userRepository.save(userDB);
+  }
+
 /*  @Override
   public User changeUserCommunities(long userId, List<Long> communitiesIds) {
     UserDB userDB = withDBId(userId);

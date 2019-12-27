@@ -65,7 +65,7 @@
 </section>
 
 
-<section class="jumbotron text-xs-center">
+<!--<section class="jumbotron text-xs-center">
   <div class="container">
     <h1 class="jumbotron-heading" th:text="#{change_password}">
     </h1>
@@ -75,14 +75,42 @@
   <form id="changepasswordform" class="form-inline" action="#" th:action="@{/sec/admin/user/{userid}/changePassword(userid=${userProfileView.user.id})}" th:object="${userCreationView}" method="post">
     <div class="form-group">
       <div class="form-group">
-        <label for="password" th:text="#{password}"></label>
+        <label for="password" th:text="#{admin.password}"></label>
         <input th:field="*{password}" class="form-control" required="" />
       </div>
     </div>
     <br/>
     <button type="submit" class="btn btn-primary" th:text="#{change_password}"></button>
   </form>
+</section>-->
+
+<section class="jumbotron text-xs-center">
+  <div class="container">
+    <h1 class="jumbotron-heading" th:text="#{change_login_and_name}">
+    </h1>
+  </div>
+  <br/>
+
+  <form id="changeloginform" class="form-inline" action="#" th:action="@{/sec/admin/user/{userid}/changeLogin(userid=${userProfileView.user.id})}" th:object="${userCreationView}" method="post">
+    <div class="form-group">
+      <div class="form-group">
+        <label for="username" th:text="#{admin.user_name}"></label>
+        <input th:field="*{username}" class="form-control" required="" />
+      </div>
+      <div class="form-group">
+        <label for="firstName" th:text="#{admin.first_name}"></label>
+        <input th:field="*{firstName}" type="text" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label for="lastName" th:text="#{admin.last_name}"></label>
+        <input th:field="*{lastName}" type="text" class="form-control"/>
+      </div>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary" th:text="#{change_login_and_name}"></button>
+  </form>
 </section>
+
 
 </body>
 </html>

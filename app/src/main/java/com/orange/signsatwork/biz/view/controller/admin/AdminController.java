@@ -201,6 +201,22 @@ public class AdminController {
     return userAdminController.userDetails(userId, model);
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/user/{userId}/changeLogin", method = RequestMethod.POST)
+  public String changeUserLogin(@ModelAttribute UserCreationView userCreationView, @PathVariable long userId, Model model) {
+
+    User user = userService.withId(userId);
+    userService.changeUserLogin(user , userCreationView.getUsername());
+    if (!userCreationView.getFirstName().isEmpty()) {
+      userService.changeFirstName(user, userCreationView.getFirstName());
+    }
+
+    if (!userCreationView.getLastName().isEmpty()) {
+      userService.changeLastName(user, userCreationView.getLastName());
+    }
+
+    return userAdminController.userDetails(userId, model);
+  }
 
   /** The form POST provides Ids as String, we convert it back to Long */
   private List<Long> transformCommunitiesIdsToLong(String[] userCommunitiesIds) {
