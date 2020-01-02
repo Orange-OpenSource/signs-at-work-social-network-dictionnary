@@ -76,6 +76,12 @@ public class FavoriteServiceImpl implements FavoriteService {
     );
   }
 
+  @Override
+  public Favorites favoritesforUserForSignFilter(long userId) {
+    return favoritesFrom(
+      favoriteRepository.findByUserForSignFilter(userId)
+    );
+  }
 
   @Override
   public Favorites oldFavoritesShareToUser(long userId) {
@@ -90,6 +96,21 @@ public class FavoriteServiceImpl implements FavoriteService {
       favoriteRepository.findNewFavoritesShareToUser(userId)
     );
   }
+
+  @Override
+  public Favorites oldFavoritesShareToUserForSignFilter(long userId) {
+    return favoritesFrom(
+      favoriteRepository.findOldFavoritesShareToUserForSignFilter(userId)
+    );
+  }
+
+  @Override
+  public Favorites newFavoritesShareToUserForSignFilter(long userId) {
+    return favoritesFrom(
+      favoriteRepository.findNewFavoritesShareToUserForSignFilter(userId)
+    );
+  }
+
 
   @Override
   public Favorite changeFavoriteVideos(long favoriteId, List<Long> videosIds) {
