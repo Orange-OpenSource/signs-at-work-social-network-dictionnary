@@ -123,7 +123,7 @@
                 </div>
               </li>
               <li class="aside_bckg_li" style="border-bottom: 3px solid #4866F7;">
-                <div th:if="${user.jobDescriptionText != null}">
+                <div th:if="${user.jobDescriptionText != null and !#strings.isEmpty(user.jobDescriptionText)}">
                   <h2 style="display: inline;" th:text="#{description_text}"></h2>
                   <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
                     <div>
@@ -132,7 +132,7 @@
                     </div>
                   </a>
                 </div>
-                <div th:if="${user.jobDescriptionText == null}">
+                <div th:if="${user.jobDescriptionText == null or #strings.isEmpty(user.jobDescriptionText)}">
                   <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
                     <div>
                       <h2 style="display: inline;" th:text="#{description_text}"></h2>

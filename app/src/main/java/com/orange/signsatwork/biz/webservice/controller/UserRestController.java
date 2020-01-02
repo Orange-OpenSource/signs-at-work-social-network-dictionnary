@@ -276,7 +276,7 @@ public class UserRestController {
       }
 
       if (userCreationViewApi.getJobTextDescription() != null) {
-        if ((!userCreationViewApi.getJobTextDescription().isEmpty()) && (userCreationViewApi.getJobTextDescription() != user.jobDescriptionText)) {
+        if ((userCreationViewApi.getJobTextDescription() != user.jobDescriptionText)) {
           services.user().changeDescription(user, userCreationViewApi.getJobTextDescription());
         }
       }
