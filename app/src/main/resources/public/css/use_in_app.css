@@ -1629,3 +1629,7 @@ pre {
 .margin-for-footer {
   margin-bottom: 30px;
 }
+
+#profil li:last-child {
+  border-bottom: 3px solid #4866F7;
+}
