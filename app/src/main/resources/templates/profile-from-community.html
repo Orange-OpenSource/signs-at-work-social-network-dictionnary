@@ -143,7 +143,7 @@
                 </div>
               </li>
             </ul>
-            <ul th:unless="${isConnectedUser}" class="nav nav-list primary left-menu">
+            <ul id="profil" th:unless="${isConnectedUser}" class="nav nav-list primary left-menu">
               <li th:if="${user.namePicture != null}" class="aside_bckg_li">
                 <div style="display: inline;">
                   <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
@@ -184,7 +184,7 @@
                   </a>
                 </div>
               </li>
-              <li th:if="${user.jobDescriptionText != null}" class="aside_bckg_li" style="border-bottom: 3px solid #4866F7;">
+              <li th:if="${user.jobDescriptionText != null}" class="aside_bckg_li">
                 <div>
                   <h2 style="display: inline;" th:text="#{description_text}"></h2>
                     <div>

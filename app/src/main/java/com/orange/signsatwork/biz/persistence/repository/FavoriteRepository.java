@@ -42,10 +42,10 @@ public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
     @Query(value=" select  a.video_id, count(a.rating) as nbr from ratings a inner join favorites_videos b on a.video_id = b.videos_id  and a.rating='Positive' and b.favorites_id = :favoriteId group by a.video_id order by nbr asc", nativeQuery = true)
     Long[] findNbPositiveRateForAllVideoByFavorite(@Param("favoriteId") long favoriteId);
 
-    @Query(value="select * from favorites A, favorites_communities B, communities_users C where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId and C.users_id not in (select users_id from favorites_users D where D.users_id = C.users_id and D.favorites_id = A.id)", nativeQuery = true)
+    @Query(value="select distinct A.id,A.name, A.type, A.user_id, A.id_for_name from favorites A, favorites_communities B, communities_users C where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId and C.users_id not in (select users_id from favorites_users D where D.users_id = C.users_id and D.favorites_id = A.id)", nativeQuery = true)
     List<FavoriteDB> findNewFavoritesShareToUser(@Param("userId") long userId);
 
-    @Query(value="select * from favorites A, favorites_communities B, communities_users C where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId and C.users_id in (select users_id from favorites_users D where D.users_id = C.users_id and D.favorites_id = A.id)", nativeQuery = true)
+    @Query(value="select distinct A.id,A.name, A.type, A.user_id, A.id_for_name from favorites A, favorites_communities B, communities_users C where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId and C.users_id in (select users_id from favorites_users D where D.users_id = C.users_id and D.favorites_id = A.id)", nativeQuery = true)
     List<FavoriteDB> findOldFavoritesShareToUser(@Param("userId") long userId);
 
     @Query(value="select max(id_for_name) from favorites A, favorites_communities B where A.name = :favoriteName and A.id != :favoriteId and A.id = B.favorites_id", nativeQuery = true)
