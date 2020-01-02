@@ -148,7 +148,7 @@ public class SignController {
       .collect(Collectors.toList());
 
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("requestCreationView", new RequestCreationView());
@@ -206,7 +206,7 @@ public class SignController {
       .collect(Collectors.toList());
 
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("requestCreationView", new RequestCreationView());
@@ -256,7 +256,7 @@ public class SignController {
 
     model.addAttribute("videosView", videoViews);
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -316,7 +316,7 @@ public class SignController {
 
     model.addAttribute("videosView", videoViews);
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -394,7 +394,7 @@ public class SignController {
 
 
     model.addAttribute("signsView", signViews);
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -461,7 +461,7 @@ public class SignController {
     model.addAttribute("signsView", signViews);
 
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -528,7 +528,7 @@ public class SignController {
     model.addAttribute("signsView", signViews);
 
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -595,7 +595,7 @@ public class SignController {
     model.addAttribute("signsView", signViews);
 
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -659,7 +659,7 @@ public class SignController {
     model.addAttribute("signsView", signViews);
 
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -719,7 +719,7 @@ public class SignController {
     model.addAttribute("signsView", signViews);
 
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("requestCreationView", new RequestCreationView());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("isAll", false);
@@ -1162,7 +1162,7 @@ public class SignController {
     SignsViewSort2 signsViewSort2 = new SignsViewSort2();
     signViews = signsViewSort2.sort(signViews, false);
 
-    fillModelWithFavorites(model, user);
+    fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
   }
@@ -1195,7 +1195,7 @@ public class SignController {
         .collect(Collectors.toList());
   }
 
-  private void fillModelWithFavorites(Model model, User user) {
+  private void fillModelWithFavoritesForSignFilter(Model model, User user) {
     if (user != null) {
       List<FavoriteModalView> favorites = new ArrayList<>();
       List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUserForSignFilter(user.id));
@@ -1205,6 +1205,24 @@ public class SignController {
       List<FavoriteModalView> oldFavoritesShareToMe = FavoriteModalView.from(services.favorite().oldFavoritesShareToUserForSignFilter(user.id));
       favoritesAlpha.addAll(oldFavoritesShareToMe);
       List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUserForSignFilter(user.id));
+      favoritesAlpha.addAll(myFavorites);
+      favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
+      favorites.addAll(favoritesAlpha);
+
+      model.addAttribute("myFavorites", favorites);
+    }
+  }
+
+  private void fillModelWithFavorites(Model model, User user) {
+    if (user != null) {
+      List<FavoriteModalView> favorites = new ArrayList<>();
+      List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
+      favorites.addAll(newFavoritesShareToMe);
+
+      List<FavoriteModalView> favoritesAlpha = new ArrayList<>();
+      List<FavoriteModalView> oldFavoritesShareToMe = FavoriteModalView.from(services.favorite().oldFavoritesShareToUser(user.id));
+      favoritesAlpha.addAll(oldFavoritesShareToMe);
+      List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
       favoritesAlpha.addAll(myFavorites);
       favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
       favorites.addAll(favoritesAlpha);
