@@ -578,7 +578,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .open > .dropdown-menu {
   right: auto;
-  left: 50%;
+  left: 51%;
   -webkit-transform: translate(-50%, 0);
   -o-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
@@ -587,7 +587,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .open>.dropdown-menu {
   /*display: inline-table;*/
-  width: 31rem;
+  width: 32rem;
 }
 
 /* End Voir les signes /sec/signs */
