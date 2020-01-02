@@ -32,9 +32,15 @@ public interface FavoriteService {
 
   Favorites favoritesforUser(long id);
 
+  Favorites favoritesforUserForSignFilter(long userId);
+
   Favorites oldFavoritesShareToUser(long userId);
 
   Favorites newFavoritesShareToUser(long userId);
+
+  Favorites oldFavoritesShareToUserForSignFilter(long userId);
+
+  Favorites newFavoritesShareToUserForSignFilter(long userId);
 
   Favorite withId(long id);
 

@@ -48,6 +48,16 @@ public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
     @Query(value="select distinct A.id,A.name, A.type, A.user_id, A.id_for_name from favorites A, favorites_communities B, communities_users C where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId and C.users_id in (select users_id from favorites_users D where D.users_id = C.users_id and D.favorites_id = A.id)", nativeQuery = true)
     List<FavoriteDB> findOldFavoritesShareToUser(@Param("userId") long userId);
 
+    @Query(value="select distinct A.id,A.name, A.type, A.user_id, A.id_for_name from favorites A, favorites_communities B, communities_users C, favorites_videos D where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId and C.users_id not in (select users_id from favorites_users D where D.users_id = C.users_id and D.favorites_id = A.id) and A.id = D.favorites_id", nativeQuery = true)
+    List<FavoriteDB> findNewFavoritesShareToUserForSignFilter(@Param("userId") long userId);
+
+    @Query(value="select distinct A.id,A.name, A.type, A.user_id, A.id_for_name from favorites A, favorites_communities B, communities_users C, favorites_videos D where A.id = B.favorites_id and B.communities_id = C.communities_id and A.user_id != C.users_id and C.users_id = :userId and C.users_id in (select users_id from favorites_users D where D.users_id = C.users_id and D.favorites_id = A.id) and A.id = D.favorites_id", nativeQuery = true)
+    List<FavoriteDB> findOldFavoritesShareToUserForSignFilter(@Param("userId") long userId);
+
+
+    @Query(value="select distinct A.id,A.name, A.type, A.user_id, A.id_for_name from favorites A, favorites_videos B where A.user_id = :userId and A.id = B.favorites_id order by A.id", nativeQuery = true)
+    List<FavoriteDB> findByUserForSignFilter(@Param("userId") long userId);
+
     @Query(value="select max(id_for_name) from favorites A, favorites_communities B where A.name = :favoriteName and A.id != :favoriteId and A.id = B.favorites_id", nativeQuery = true)
-    Long findMaxIdForName(@Param("favoriteName") String favoriteName, @Param("favoriteId") Long favoriteId);
+      Long findMaxIdForName(@Param("favoriteName") String favoriteName, @Param("favoriteId") Long favoriteId);
 }
