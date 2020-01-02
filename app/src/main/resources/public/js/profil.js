@@ -478,3 +478,46 @@ $add_email.on('hidden.bs.modal', function() {
   submitChangeMail.disabled = true;
   $('#email').val("");
 });
+
+var inputLastName = document.getElementById('lastName');
+var inputFirstName = document.getElementById('firstName');
+var regexName = new RegExp('^[a-zA-Z_-]{1,30}$');
+inputLastName.addEventListener('keyup',checkLastName);
+inputFirstName.addEventListener('keyup',checkFirstName);
+var lastName = new Boolean(true);
+var firstName = new Boolean(true);
+var submitChangeName = document.getElementById("submit-change-name");
+
+
+
+function checkLastName() {
+  var valueLastName = inputLastName.value;
+
+  if (!regexName.test(valueLastName)) {
+    lastName = false;
+    $('.errorRegexLastName').removeClass("hidden");
+    submitChangeName.disabled = true;
+  }else {
+    lastName = true;
+    $('.errorRegexLastName').addClass("hidden");
+    if (firstName != false) {
+      submitChangeName.disabled = false;
+    }
+  }
+}
+
+function checkFirstName() {
+  var valueFirstName = inputFirstName.value;
+
+  if (!regexName.test(valueFirstName)) {
+    firstName = false;
+    $('.errorRegexFirstName').removeClass("hidden");
+    submitChangeName.disabled = true;
+  } else {
+    firstName = true;
+    $('.errorRegexFirstName').addClass("hidden");
+    if (lastName != false) {
+      submitChangeName.disabled = false;
+    }
+  }
+}
