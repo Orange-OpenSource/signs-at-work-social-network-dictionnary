@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.model;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.FavoriteType;
 import com.orange.signsatwork.biz.domain.Favorites;
+import com.orange.signsatwork.biz.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,10 +43,11 @@ public class FavoriteViewApi {
   private String name;
   private long idForName;
   private FavoriteType type;
+  private String ownerName;
 
 
   public static FavoriteViewApi from(Favorite favorite) {
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, favorite.type);
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, favorite.type, favorite.user.name());
   }
 
   public static List<FavoriteViewApi> from(Favorites favorites) {
@@ -55,7 +57,7 @@ public class FavoriteViewApi {
   }
 
   public static FavoriteViewApi fromNewShare(Favorite favorite) {
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare);
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name());
   }
 
   public static List<FavoriteViewApi> fromNewShare(Favorites favorites) {
