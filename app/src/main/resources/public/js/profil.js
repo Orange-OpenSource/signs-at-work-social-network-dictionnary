@@ -231,7 +231,7 @@ $profileEntity.on('submit', function(event) {
   };
   event.preventDefault();
   $.ajax({
-    url: "/ws/sec/users/me",
+    url: "/ws/sec/users/me/datas",
     type: 'put',
     data: JSON.stringify(data),
     contentType: "application/json",
@@ -256,7 +256,7 @@ $profileName.on('submit', function(event) {
   };
   event.preventDefault();
   $.ajax({
-    url: "/ws/sec/users/me",
+    url: "/ws/sec/users/me/datas",
     type: 'put',
     data: JSON.stringify(data),
     contentType: "application/json",
@@ -278,7 +278,7 @@ $profileJob.on('submit', function(event) {
   };
   event.preventDefault();
   $.ajax({
-    url: "/ws/sec/users/me",
+    url: "/ws/sec/users/me/datas",
     type: 'put',
     data: JSON.stringify(data),
     contentType: "application/json",
@@ -296,11 +296,11 @@ var $profileDescription = $('#profileDescription');
 $profileDescription.on('submit', function(event) {
   var jobDescription = document.getElementById('jobDescription').value;
   var data = {
-    "jobTextDescription": jobDescription
+    "jobDescriptionText": jobDescription
   };
   event.preventDefault();
   $.ajax({
-    url: "/ws/sec/users/me",
+    url: "/ws/sec/users/me/datas",
     type: 'put',
     data: JSON.stringify(data),
     contentType: "application/json",

@@ -33,6 +33,7 @@ import com.orange.signsatwork.biz.view.model.UserCreationView;
 import com.orange.signsatwork.biz.view.model.UserJobView;
 import com.orange.signsatwork.biz.view.model.UserView;
 import com.orange.signsatwork.biz.webservice.model.UserCreationViewApi;
+import com.orange.signsatwork.biz.webservice.model.UserMeViewApi;
 import com.orange.signsatwork.biz.webservice.model.UserResponseApi;
 import com.orange.signsatwork.biz.webservice.model.UserViewApi;
 import lombok.extern.slf4j.Slf4j;
@@ -152,20 +153,36 @@ public class UserRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi. WS_SEC_USER, method = RequestMethod.GET)
-  public ResponseEntity<?> user(Principal principal) {
+  @RequestMapping(value = RestApi. WS_SEC_USER_ME, method = RequestMethod.GET)
+  public ResponseEntity<?> userMe(Principal principal) {
 
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
-    UserViewApi userViewApi = new UserViewApi(user);
+    UserMeViewApi userMeViewApi = new UserMeViewApi(user);
 
-    return new ResponseEntity<>(userViewApi, HttpStatus.OK);
+    return new ResponseEntity<>(userMeViewApi, HttpStatus.OK);
 
   }
 
- /* @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_USER, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
-  public UserResponseApi updateVideo(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, HttpServletResponse response, Principal principal) throws
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi. WS_SEC_USER, method = RequestMethod.GET)
+  public ResponseEntity<?> user(@PathVariable long userId, Principal principal) {
+
+    User userConnected = services.user().withUserName(principal.getName());
+    if (userConnected.id == userId) {
+      UserMeViewApi userMeViewApi = new UserMeViewApi(userConnected);
+      return new ResponseEntity<>(userMeViewApi, HttpStatus.OK);
+    } else {
+      User user = services.user().withId(userId);
+      UserViewApi userViewApi = new UserViewApi(user);
+      return new ResponseEntity<>(userViewApi, HttpStatus.OK);
+    }
+
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_USER_ME, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
+  public UserResponseApi updateProfil(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     UserResponseApi userResponseApi = new UserResponseApi();
 
@@ -186,8 +203,27 @@ public class UserRestController {
       }
 
       if (userCreationViewApi.get().getEmail() != null) {
-        if ((!userCreationViewApi.get().getEmail().isEmpty()) && (userCreationViewApi.get().getEmail() != user.email)) {
+       /* if ((!userCreationViewApi.get().getEmail().isEmpty()) && (userCreationViewApi.get().getEmail() != user.email)) {
           services.user().changeEmail(user, userCreationViewApi.get().getEmail());
+        }*/
+        String title, body;
+        User admin = services.user().getAdmin();
+
+        User userSearch = services.user().withUserName(userCreationViewApi.get().getEmail());
+        if (userSearch == null) {
+          body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationViewApi.get().getEmail()});
+          title = messageByLocaleService.getMessage("ask_to_change_email_title");
+          Runnable task = () -> {
+            log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
+            services.emailService().sendSimpleMessage(admin.email, title , body);
+          };
+
+          new Thread(task).start();
+
+          response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
         }
       }
 
@@ -200,12 +236,25 @@ public class UserRestController {
       if (userCreationViewApi.get().getJob() != null) {
         if ((!userCreationViewApi.get().getJob().isEmpty()) && (userCreationViewApi.get().getJob() != user.job)) {
           services.user().changeJob(user, userCreationViewApi.get().getJob());
+          user = user.loadCommunities();
+          List<Community> oldCommunitiesJob = user.communities.stream().filter(c -> c.type == CommunityType.Job).collect(Collectors.toList());
+          for(Community community:oldCommunitiesJob) {
+            Community community1 = services.community().withCommunityName(community.name);
+            List<Long> listUsersIds = community1.usersIds();
+            listUsersIds.remove(user.id);
+            services.community().changeCommunityUsers(community1.id, listUsersIds);
+          }
+
+          Community community = services.community().withCommunityName(userCreationViewApi.get().getJob());
+          List<Long> usersIds = community.usersIds();
+          usersIds.add(user.id);
+          services.community().changeCommunityUsers(community.id, usersIds);
         }
       }
 
-      if (userCreationViewApi.get().getJobTextDescription() != null) {
-        if ((!userCreationViewApi.get().getJobTextDescription().isEmpty()) && (userCreationViewApi.get().getJobTextDescription() != user.jobDescriptionText)) {
-          services.user().changeDescription(user, userCreationViewApi.get().getJobTextDescription());
+      if (userCreationViewApi.get().getJobDescriptionText() != null) {
+        if ((!userCreationViewApi.get().getJobDescriptionText().isEmpty()) && (userCreationViewApi.get().getJobDescriptionText() != user.jobDescriptionText)) {
+          services.user().changeDescription(user, userCreationViewApi.get().getJobDescriptionText());
         }
       }
     }
@@ -220,10 +269,10 @@ public class UserRestController {
 
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;
-  }*/
+  }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_USER, method = RequestMethod.PUT, headers = {"content-type=application/json"})
+  @RequestMapping(value = RestApi.WS_SEC_USER_ME_DATAS, method = RequestMethod.PUT, headers = {"content-type=application/json"})
   public UserResponseApi updateDataProfil(@RequestBody UserCreationViewApi userCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     UserResponseApi userResponseApi = new UserResponseApi();
@@ -275,9 +324,9 @@ public class UserRestController {
         }
       }
 
-      if (userCreationViewApi.getJobTextDescription() != null) {
-        if ((userCreationViewApi.getJobTextDescription() != user.jobDescriptionText)) {
-          services.user().changeDescription(user, userCreationViewApi.getJobTextDescription());
+      if (userCreationViewApi.getJobDescriptionText() != null) {
+        if ((userCreationViewApi.getJobDescriptionText() != user.jobDescriptionText)) {
+          services.user().changeDescription(user, userCreationViewApi.getJobDescriptionText());
         }
       }
     }

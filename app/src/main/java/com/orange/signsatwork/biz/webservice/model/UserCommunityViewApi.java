@@ -31,16 +31,12 @@ import lombok.Getter;
 @AllArgsConstructor
 
 public class UserCommunityViewApi {
-  private Long userId;
+  private Long id;
   private String name;
-  private String entity;
-  private String job;
 
   public UserCommunityViewApi(User user) {
-    this.userId = user.id;
+    this.id = user.id;
     this.name = name(user.username, user.firstName, user.lastName);
-    this.entity = user.entity;
-    this.job = user.job;
   }
 
   public String name(String userName,String  firstName, String lastName) {

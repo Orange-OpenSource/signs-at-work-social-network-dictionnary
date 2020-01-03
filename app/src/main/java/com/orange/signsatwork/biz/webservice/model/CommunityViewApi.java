@@ -33,12 +33,22 @@ import lombok.Getter;
 
 public class CommunityViewApi {
   private Long id;
-  private CommunityType type;
+  private String type;
   private String name;
 
   public CommunityViewApi(Community community) {
     this.id = community.id;
-    this.type = community.type;
+    this.type = community.type.toString();
     this.name = community.name;
+  }
+
+  public static CommunityViewApi fromMe(Community community) {
+    String type = null;
+    if (community.type == CommunityType.Job) {
+      type = "JobIBelow";
+    } else if (community.type == CommunityType.Project) {
+      type = "ProjectIBelow";
+    }
+    return new CommunityViewApi(community.id, type, community.name);
   }
 }

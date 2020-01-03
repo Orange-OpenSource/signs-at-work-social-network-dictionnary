@@ -29,11 +29,28 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 
-public class UserCreationViewApi {
+public class UserMeViewApi {
+  private String username;
   private String firstName;
   private String lastName;
-  private String email;
+  private String nameVideo;
+  private String namePicture;
   private String entity;
   private String job;
   private String jobDescriptionText;
+  private String jobDescriptionVideo;
+  private String jobDescriptionPicture;
+
+  public UserMeViewApi(User user) {
+    this.username = user.username;
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
+    this.nameVideo = user.nameVideo;
+    this.namePicture = user.namePicture;
+    this.entity = user.entity;
+    this.job = user.job;
+    this.jobDescriptionText = user.jobDescriptionText;
+    this.jobDescriptionVideo = user.jobDescriptionVideo;
+    this.jobDescriptionPicture = user.jobDescriptionPicture;
+  }
 }

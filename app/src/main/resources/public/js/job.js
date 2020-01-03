@@ -51,7 +51,7 @@ function onAssociateJobToUser() {
     };
    /* event.preventDefault();*/
     $.ajax({
-      url: "/ws/sec/users/me",
+      url: "/ws/sec/users/me/datas",
       type: 'put',
       data: JSON.stringify(data),
       contentType: "application/json",
