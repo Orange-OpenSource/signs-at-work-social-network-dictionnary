@@ -44,6 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -62,7 +63,7 @@ public class CommunityRestController {
     Communities communities = services.community().forUser(user.id);
 
     List<CommunityViewApi> communitiesViewApi = communities.stream()
-      .map(community -> new CommunityViewApi(community))
+      .map(community -> CommunityViewApi.fromMe(community))
       .collect(Collectors.toList());
 
     return new ResponseEntity<>(communitiesViewApi, HttpStatus.OK);
@@ -72,10 +73,19 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi. WS_SEC_COMMUNITIES)
-  public ResponseEntity<?> communities(Principal principal) {
+  public ResponseEntity<?> communities(@RequestParam("type") Optional<String> type, Principal principal) {
     User user = services.user().withUserName(principal.getName());
+    List<Object[]> queryCommunities;
+    if (type.isPresent()) {
+      if (type.get().equals("Job")) {
+        queryCommunities = services.community().allForJob(user.id);
+      } else {
+        queryCommunities = services.community().allForFavorite(user.id);
+      }
 
-    List<Object[]> queryCommunities = services.community().allForFavorite(user.id);
+    } else {
+      queryCommunities = services.community().allForFavorite(user.id);
+    }
     List<CommunityViewData> communitiesViewData = queryCommunities.stream()
       .map(objectArray -> new CommunityViewData(objectArray))
       .collect(Collectors.toList());

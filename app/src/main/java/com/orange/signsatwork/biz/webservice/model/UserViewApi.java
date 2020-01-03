@@ -30,25 +30,25 @@ import lombok.Getter;
 @AllArgsConstructor
 
 public class UserViewApi {
-  private String username;
   private String firstName;
   private String lastName;
   private String nameVideo;
-  private String email;
+  private String namePicture;
   private String entity;
   private String job;
-  private String jobTextDescription;
-  private String jobVideoDescription;
+  private String jobDescriptionText;
+  private String jobDescriptionVideo;
+  private String jobDescriptionPicture;
 
   public UserViewApi(User user) {
-    this.username = user.username;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
     this.nameVideo = user.nameVideo;
-    this.email = user.email;
+    this.namePicture = user.namePicture;
     this.entity = user.entity;
     this.job = user.job;
-    this.jobTextDescription = user.jobDescriptionText;
-    this.jobVideoDescription = user.jobDescriptionVideo;
+    this.jobDescriptionText = user.jobDescriptionText;
+    this.jobDescriptionVideo = user.jobDescriptionVideo;
+    this.jobDescriptionPicture = user.jobDescriptionPicture;
   }
 }
