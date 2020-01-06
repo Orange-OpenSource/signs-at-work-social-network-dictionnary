@@ -22,6 +22,9 @@ package com.orange.signsatwork.biz.persistence.model;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Communities;
+import com.orange.signsatwork.biz.domain.Community;
+
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -35,6 +38,12 @@ public class CommunityViewData {
     id = toLong(queryResultItem[0]);
     type = toString(queryResultItem[1]);
     name = toString(queryResultItem[2]);
+  }
+
+  public CommunityViewData(Community community) {
+    this.id = community.id;
+    this.type = community.type.toString();
+    this.name = community.name;
   }
 
   private String toString(Object o) {

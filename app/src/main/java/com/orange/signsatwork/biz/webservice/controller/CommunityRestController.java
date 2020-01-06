@@ -73,22 +73,37 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi. WS_SEC_COMMUNITIES)
-  public ResponseEntity<?> communities(@RequestParam("type") Optional<String> type, Principal principal) {
+  public ResponseEntity<?> communities(@RequestParam("type") Optional<String> type, @RequestParam("name") Optional<String> name, Principal principal) {
     User user = services.user().withUserName(principal.getName());
-    List<Object[]> queryCommunities;
+    List<Object[]> queryCommunities = new ArrayList<>();
+    Communities communities = null;
+    List<CommunityViewData> communitiesViewData;
     if (type.isPresent()) {
       if (type.get().equals("Job")) {
         queryCommunities = services.community().allForJob(user.id);
       } else {
         queryCommunities = services.community().allForFavorite(user.id);
       }
-
     } else {
-      queryCommunities = services.community().allForFavorite(user.id);
+      if (name.isPresent()) {
+        communities = services.community().search(name.get());
+        queryCommunities = services.community().allForFavorite(user.id);
+      } else {
+        queryCommunities = services.community().allForFavorite(user.id);
+      }
     }
-    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
-      .map(objectArray -> new CommunityViewData(objectArray))
-      .collect(Collectors.toList());
+    if (communities != null) {
+      Communities finalCommunities = communities;
+      communitiesViewData = queryCommunities.stream()
+        .map(objectArray -> new CommunityViewData(objectArray))
+        .filter(c-> finalCommunities.stream().map(co -> co.id).collect(Collectors.toList()).contains(c.id))
+        .collect(Collectors.toList());
+    } else {
+      communitiesViewData = queryCommunities.stream()
+        .map(objectArray -> new CommunityViewData(objectArray))
+        .collect(Collectors.toList());
+
+    }
 
     return new ResponseEntity<>(communitiesViewData, HttpStatus.OK);
 
