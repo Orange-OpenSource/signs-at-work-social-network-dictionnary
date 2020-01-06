@@ -25,6 +25,8 @@ package com.orange.signsatwork.biz.persistence.repository;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
+import com.orange.signsatwork.biz.persistence.service.Services;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +49,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CommunityRepositoryIntegrationTest {
 
   @Autowired
+  Services services;
+  @Autowired
   private TestEntityManager entityManager;
 
   @MockBean
@@ -66,6 +70,11 @@ public class CommunityRepositoryIntegrationTest {
   private String community1Name = "aristochat";
   private String community2Name = "gangster";
 
+  @Before
+  public void setup() {
+    services.clearPersistence();
+
+  }
 
   @Test
   public void returnAllPersisted() throws IOException {
