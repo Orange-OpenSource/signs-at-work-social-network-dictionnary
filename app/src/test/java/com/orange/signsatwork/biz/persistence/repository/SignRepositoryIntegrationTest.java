@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.repository.SignRepository;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestOperations;
 import org.thymeleaf.TemplateEngine;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 
@@ -58,6 +61,11 @@ public class SignRepositoryIntegrationTest {
 
   @Autowired
   private SignRepository signRepository;
+
+  @MockBean
+  HttpServletRequest request;
+  @MockBean
+  RestOperations restTemplate;
 
   private String sign1Name = "cloud";
   private String sign1Url ="//www.dailymotion.com/embed/video/x2mnl8q";

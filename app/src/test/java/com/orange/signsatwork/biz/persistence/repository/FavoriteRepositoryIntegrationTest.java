@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.persistence.repository;
 
 import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
 import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestOperations;
 import org.thymeleaf.TemplateEngine;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,7 +55,10 @@ public class FavoriteRepositoryIntegrationTest {
   public JavaMailSender emailSender;
   @MockBean
   TemplateEngine templateEngine;
-
+  @MockBean
+  HttpServletRequest request;
+  @MockBean
+  RestOperations restTemplate;
 
   private String favorite1Name = "Favoris";
   private String favorite2Name = "Interfaces";

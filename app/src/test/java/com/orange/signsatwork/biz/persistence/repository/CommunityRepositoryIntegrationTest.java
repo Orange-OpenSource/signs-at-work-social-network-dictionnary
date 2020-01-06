@@ -34,8 +34,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestOperations;
 import org.thymeleaf.TemplateEngine;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,6 +54,10 @@ public class CommunityRepositoryIntegrationTest {
 
   @MockBean
   TemplateEngine templateEngine;
+  @MockBean
+  HttpServletRequest request;
+  @MockBean
+  RestOperations restTemplate;
 
 
   @Autowired
@@ -62,7 +68,6 @@ public class CommunityRepositoryIntegrationTest {
 
 
   @Test
-  @Ignore
   public void returnAllPersisted() throws IOException {
     // given
     entityManager.persist(new CommunityDB(community1Name, CommunityType.Job));
@@ -83,7 +88,6 @@ public class CommunityRepositoryIntegrationTest {
   }
 
   @Test
-  @Ignore
   public void createCommunity() {
     // given
     // do
