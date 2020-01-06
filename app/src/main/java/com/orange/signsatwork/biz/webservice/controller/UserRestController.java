@@ -32,10 +32,7 @@ import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.UserCreationView;
 import com.orange.signsatwork.biz.view.model.UserJobView;
 import com.orange.signsatwork.biz.view.model.UserView;
-import com.orange.signsatwork.biz.webservice.model.UserCreationViewApi;
-import com.orange.signsatwork.biz.webservice.model.UserMeViewApi;
-import com.orange.signsatwork.biz.webservice.model.UserResponseApi;
-import com.orange.signsatwork.biz.webservice.model.UserViewApi;
+import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -89,8 +86,8 @@ public class UserRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(RestApi.WS_SEC_GET_USERS)
-  public List<UserView> users() {
-    return UserView.from(services.user().all());
+  public List<UserCommunityViewApi> users() {
+    return services.user().all().stream().map(u -> new UserCommunityViewApi(u)).collect(Collectors.toList());
   }
 
   @Secured("ROLE_ADMIN")
