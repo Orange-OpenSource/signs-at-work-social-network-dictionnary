@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.repository.RequestRepository;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestOperations;
 import org.thymeleaf.TemplateEngine;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 
@@ -57,6 +60,10 @@ public class RequestRepositoryIntegrationTest {
   public JavaMailSender emailSender;
   @MockBean
   TemplateEngine templateEngine;
+  @MockBean
+  HttpServletRequest request;
+  @MockBean
+  RestOperations restTemplate;
 
 
   private String request1Name = "chatBis";

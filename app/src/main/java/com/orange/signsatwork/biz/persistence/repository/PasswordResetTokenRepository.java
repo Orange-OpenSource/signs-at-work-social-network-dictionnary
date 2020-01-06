@@ -37,6 +37,8 @@ import java.util.List;
 public interface PasswordResetTokenRepository extends CrudRepository<PasswordResetTokenDB, Long> {
  PasswordResetTokenDB findByToken(String token);
 
+ PasswordResetTokenDB findByUser(UserDB userDB);
+
  @Query(value="select * from password_reset_tokens t where t.expiry_date <= :now", nativeQuery = true)
  List<PasswordResetTokenDB> selectAllExpiredSince(@Param("now") Date now);
 }

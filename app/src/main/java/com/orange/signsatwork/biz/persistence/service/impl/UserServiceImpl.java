@@ -164,6 +164,10 @@ public class UserServiceImpl implements UserService {
     favoriteDBs.addAll(userDB.getFavorites());
     List<VideoDB> videoDBs = new ArrayList<>();
     videoDBs.addAll(userDB.getVideos());
+    PasswordResetTokenDB passwordResetTokenDB = passwordResetTokenRepository.findByUser(userDB);
+    if (passwordResetTokenDB != null) {
+      passwordResetTokenRepository.delete(passwordResetTokenDB.getId());
+    }
 
     requestDBs.stream().map(r -> services.request().withId(r.getId())).forEach(r -> services.request().delete(r));
     commentDBs.stream().map(c -> services.comment().withId(c.getId())).forEach(c -> services.comment().delete(c));

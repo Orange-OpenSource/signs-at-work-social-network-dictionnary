@@ -123,7 +123,6 @@ public class RestApiSecurityTest {
   }
 
   @Test
-  @Ignore
   public void authorizedToCreateUserWithBasicAuth() throws Exception {
     // given
     mockMvc

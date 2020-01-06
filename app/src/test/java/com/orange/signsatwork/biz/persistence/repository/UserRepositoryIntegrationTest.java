@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.persistence.repository;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestOperations;
 import org.thymeleaf.TemplateEngine;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,6 +50,10 @@ public class UserRepositoryIntegrationTest {
   public JavaMailSender emailSender;
   @MockBean
   TemplateEngine templateEngine;
+  @MockBean
+  HttpServletRequest request;
+  @MockBean
+  RestOperations restTemplate;
 
   @Autowired
   private TestEntityManager entityManager;
@@ -142,7 +149,7 @@ public class UserRepositoryIntegrationTest {
     assertThat(user2.getJob()).isEqualTo(job2);
     assertThat(user2.getJobDescriptionText()).isEqualTo(jobTextDescription2);
     assertThat(user2.getJobDescriptionVideo()).isEqualTo(jobVideoDescription2);
-    assertThat(user1.getJobDescriptionPicture()).isEqualTo(jobPictureDescription2);
+    assertThat(user2.getJobDescriptionPicture()).isEqualTo(jobPictureDescription2);
   }
 
   @Test
