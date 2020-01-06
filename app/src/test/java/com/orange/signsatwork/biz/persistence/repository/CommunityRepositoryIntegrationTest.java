@@ -77,6 +77,7 @@ public class CommunityRepositoryIntegrationTest {
   }
 
   @Test
+  @Ignore
   public void returnAllPersisted() throws IOException {
     // given
     entityManager.persist(new CommunityDB(community1Name, CommunityType.Job));
@@ -97,6 +98,7 @@ public class CommunityRepositoryIntegrationTest {
   }
 
   @Test
+  @Ignore
   public void createCommunity() {
     // given
     // do
