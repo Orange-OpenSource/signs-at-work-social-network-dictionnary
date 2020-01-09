@@ -96,6 +96,19 @@ public class SignRestController {
       if (request != null) {
         if (request.requestVideoDescription != sign.videoDefinition) {
           String dailymotionIdForSignDefinition;
+          if (sign.videoDefinition != null) {
+            dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            }
+          }
+        }
+      } else {
+        String dailymotionIdForSignDefinition;
+        if (sign.videoDefinition != null) {
           dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
@@ -430,6 +443,20 @@ public class SignRestController {
       if (request != null) {
         if (request.requestVideoDescription != sign.videoDefinition) {
           String dailymotionIdForSignDefinition;
+          if (sign.videoDefinition != null) {
+            dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              return videoResponseApi;
+            }
+          }
+        }
+      } else {
+        String dailymotionIdForSignDefinition;
+        if (sign.videoDefinition != null) {
           dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
