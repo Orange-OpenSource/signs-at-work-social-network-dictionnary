@@ -341,16 +341,7 @@
 					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"videoIdToAdd\":118 }"
-						},
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/ws/sec/favorites/{{favoriteID}}",
 							"protocol": "http",
@@ -495,16 +486,7 @@
 					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"videoIdToAdd\":118 }"
-						},
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/ws/sec/favorites/{{favoriteID}}",
 							"protocol": "http",
@@ -808,16 +790,7 @@
 					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"videoIdToAdd\":118 }"
-						},
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/ws/sec/favorites/{{favoriteID}}",
 							"protocol": "http",
@@ -1098,16 +1071,7 @@
 					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"videoIdToAdd\":118 }"
-						},
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/ws/sec/favorites/{{favoriteID}}",
 							"protocol": "http",
@@ -1126,6 +1090,430 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "CreateNewFavoriteAndAddVideosAndShareToCommunities",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/favorites",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d24899aa-9136-428c-9e44-66e9e4b9191b",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var favoriteID = jsonData.favoriteId;",
+									"postman.setEnvironmentVariable(\"favoriteID\", favoriteID);",
+									"console.log(\"favoriteID \"+favoriteID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a favoriteID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.favoriteId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Nouveau Favoris avec une Vidéo\", \"videoIdToAdd\": \"126\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": " http://{{domain}}/ws/sec/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7d6d1326-9de1-48c6-8fa5-662e4f9112b5",
+								"exec": [
+									"console.log(\"/ws/sec/users/favorites/\"+postman.getEnvironmentVariable(\"favoriteID\")+\"/videos\");\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"properties\": {\r",
+									"        \"signId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"signName\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"         \"createDate\": {\r",
+									"           \"type\": \"number\"\r",
+									"        },\r",
+									"          \"videoId\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"          \"url\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"           \"pictureUri\": {\r",
+									"                \"type\": \"string\"\r",
+									"        },\r",
+									"         \"nbView\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"averageRate\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"nbComment\": {\r",
+									"           \"type\": \"integer\"\r",
+									"        },\r",
+									"         \"idForName\": {\r",
+									"           \"type\": \"integer\"\r",
+									"        },\r",
+									"          \"nbVideo\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"required\": [\"signId\",\"signName\",\"createDate\",\"videoId\",\"url\",\"pictureUri\",\"nbView\",\"averageRate\",\"nbComment\",\"idForName\",\"nbVideo\"]\r",
+									"}\r",
+									"\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"jsonData.forEach(function(video) {\r",
+									"        var testTitle = \"video \" +video.videoId + \" conforms to schema\";\r",
+									"        tests[testTitle] = tv4.validate(video, schema);\r",
+									"    });\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/videos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "814c0d89-ae00-4446-aa48-1259b01c0f19",
+								"exec": [
+									"pm.test(\"response must be valid\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"videosIds\": [90,96]}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/favorites/{{favoriteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"favorites",
+								"{{favoriteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}/videos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb9ffaf1-28ec-4c18-bfdd-e3e800d8c07d",
+								"exec": [
+									"console.log(\"/ws/sec/users/favorites/\"+postman.getEnvironmentVariable(\"favoriteID\")+\"/videos\");\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"\r",
+									"pm.test(\"favorite has two videos with id 90 and 96\", function () {\r",
+									"   pm.expect(jsonData.length).to.eq(2);\r",
+									"   pm.expect(jsonData[0].videoId).to.eq(90);\r",
+									"   pm.expect(jsonData[1].videoId).to.eq(96);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"favorites",
+								"{{favoriteID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "814c0d89-ae00-4446-aa48-1259b01c0f19",
+								"exec": [
+									"pm.test(\"response must be valid\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"communitiesIds\": [1,2]}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/favorites/{{favoriteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"favorites",
+								"{{favoriteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}/communities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb9ffaf1-28ec-4c18-bfdd-e3e800d8c07d",
+								"exec": [
+									"console.log(\"/ws/sec/users/favorites/\"+postman.getEnvironmentVariable(\"favoriteID\")+\"/videos\");\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"\r",
+									"pm.test(\"favorite has two videos with id 90 and 96\", function () {\r",
+									"   pm.expect(jsonData.length).to.eq(2);\r",
+									"   pm.expect(jsonData[0].videoId).to.eq(90);\r",
+									"   pm.expect(jsonData[1].videoId).to.eq(96);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}/videos",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"favorites",
+								"{{favoriteID}}",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://{{domain}}/ws/sec/favorites/{{favoriteID}}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ws/sec/favorites/{{favoriteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"sec",
+								"favorites",
+								"{{favoriteID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Create a new favorite\nAdd 2 videos in this favorite with id 90 and 95\nVerify there are only 2 videos in this favorite and these videos are the id 90 and 95\nDelete the favorite",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cba8131c-b05d-4c18-879b-560588217ce6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "961cfccb-fb39-4af7-ae2d-4ed8a0ca05f1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	]
 }
