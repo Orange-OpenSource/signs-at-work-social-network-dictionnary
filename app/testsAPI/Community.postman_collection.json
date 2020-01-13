@@ -82,6 +82,83 @@
 			]
 		},
 		{
+			"name": "CreateProjectCommunity",
+			"item": [
+				{
+					"name": "http://{{domain}}/ws/sec/communities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "43d41e5e-6b83-4c86-b66d-537d8552169d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"console.log(jsonData);",
+									"var communityID = jsonData.communityId;",
+									"postman.setEnvironmentVariable(\"communityID\", communityID);",
+									"console.log(\"communityID \"+communityID);",
+									"",
+									"pm.test(\"response must be valid and have a body and a communityID\", function () {",
+									"     // assert that the status code is 200",
+									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+									"     // assert that the response has a valid JSON body",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+									"     pm.expect(jsonData.communityId).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "boisset",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "denisB",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"project\", \"communityUsersIds\": [2]}'}"
+						},
+						"url": {
+							"raw": "http://{{domain}}/ws/sec/communities",
+							"protocol": "http",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"ws",
+								"sec",
+								"communities"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "AddUsersToCommunity",
 			"item": [
 				{
