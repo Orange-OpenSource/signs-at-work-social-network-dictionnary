@@ -84,17 +84,24 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   @Override
-  public Community create(Community community) {
-    CommunityDB communityDB = communityRepository.save(communityDBFrom(community));
+  public Community create(long userId, Community community) {
+    CommunityDB communityDB;
+    UserDB userDB = userRepository.findOne(userId);
+
+    communityDB = new CommunityDB(community.name, community.type);
+    communityDB.setUser(userDB);
+    communityRepository.save(communityDB);
+
+
     return communityFrom(communityDB);
   }
 
-/*  @Override
+  @Override
   public void delete(Community community) {
     CommunityDB communityDB = communityRepository.findOne(community.id);
-    communityDB.getUsers().forEach(userDB -> userDB.getCommunities().remove(communityDB));
+    communityDB.getFavorites().forEach(favoriteDB -> favoriteDB.getCommunities().remove(communityDB));
     communityRepository.delete(communityDB);
-  }*/
+  }
 
 
   @Override
@@ -119,7 +126,7 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFrom(CommunityDB communityDB) {
-    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), communityDB.getType());
+    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), communityDB.getType(), UserServiceImpl.userFromCommunityView(communityDB.getUser()));
   }
 
   private Communities communitiesFromFavoriteView(Iterable<CommunityDB> communitiesDB) {
@@ -129,7 +136,7 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFromFavoriteView(CommunityDB communityDB) {
-    return new Community(communityDB.getId(), communityDB.getName(), null, communityDB.getType());
+    return new Community(communityDB.getId(), communityDB.getName(), null, communityDB.getType(), null);
   }
 
   private CommunityDB communityDBFrom(Community community) {

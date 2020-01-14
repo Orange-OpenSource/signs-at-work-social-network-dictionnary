@@ -40,9 +40,9 @@ public interface CommunityService {
 
   Community withId(long id);
 
-  Community create(Community community);
+  Community create(long userId, Community community);
 
-/*  void delete(Community community);*/
+  void delete(Community community);
 
   Community withCommunityName(String communityName);
 

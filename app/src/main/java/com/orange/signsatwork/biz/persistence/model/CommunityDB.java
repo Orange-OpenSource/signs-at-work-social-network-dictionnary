@@ -55,16 +55,15 @@ public class CommunityDB {
     @Enumerated(EnumType.STRING)
     private CommunityType type;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserDB user;
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "communities_users", joinColumns = @JoinColumn(name = "communities_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"))
     @JsonManagedReference
     private List<UserDB> users = new ArrayList<>();
 
- /* @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
-    @JsonBackReference
-    private List<UserDB> users = new ArrayList<>();*/
-
-  @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<FavoriteDB> favorites;
 

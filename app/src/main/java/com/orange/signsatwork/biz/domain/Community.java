@@ -32,13 +32,14 @@ public class Community {
     public final String name;
     public final Users users;
     public final CommunityType type;
+    public final User user;
 
 
     public static Community create(String name, CommunityType type) {
-        return new Community(-1, name, null, type);
+        return new Community(-1, name, null, type, null);
     }
 
-  public List<Long> usersIds() {
+    public List<Long> usersIds() {
     return users != null ? users.ids() : null;
   }
 

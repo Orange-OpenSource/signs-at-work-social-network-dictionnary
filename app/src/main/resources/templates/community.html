@@ -33,6 +33,13 @@
     <div class="col-md-4 col-xs-12 col-lg-12">
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
+                <li class="aside_bckg_li action">
+                  <a th:href="@{/sec/community/} + ${community.id} +  '/manage-community'">
+                    <div class="pull-left manage_favorite_blue"></div>
+                    <h2 class="container_H2" th:text="#{community.manage}"></h2>
+                    <div class="pull-right  chevron_right"/>
+                  </a>
+                </li>
                 <div th:if="${not #lists.isEmpty(community.users.list())}">
                     <div th:each="user:${community.users.list()}">
                         <li class="aside_bckg_li">

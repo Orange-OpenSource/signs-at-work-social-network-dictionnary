@@ -82,8 +82,9 @@ public class CommunityController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/sec/community/create", method = RequestMethod.POST)
-    public String createCommunity(@ModelAttribute CommunityView communityView, Model model) {
-      Community community = services.community().create(communityView.toCommunity());
+    public String createCommunity(@ModelAttribute CommunityView communityView, Model model, Principal principal) {
+      User user = services.user().withUserName(principal.getName());
+      Community community = services.community().create(user.id, communityView.toCommunity());
       return community(community.id, model);
     }
 
@@ -138,5 +139,30 @@ public class CommunityController {
     model.addAttribute("favoriteId", favoriteId);
 
     return "communities-suggest";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/community/{communityId}/manage-community")
+  public String manageCommunity(@PathVariable long communityId, Model model, Principal principal)  {
+    Boolean isCommunityBelowToMe = true;
+    String name = null;
+    User user = services.user().withUserName(principal.getName());
+
+    Community community = services.community().withId(communityId);
+    if (community == null) {
+      return("redirect:/");
+    }
+
+    model.addAttribute("title", community.name);
+
+    if (community.user.id != user.id) {
+      name = community.user.name();
+      isCommunityBelowToMe = false;
+    }
+    model.addAttribute("userName", name);
+    model.addAttribute("isCommunityBelowToMe", isCommunityBelowToMe);
+    model.addAttribute("community", community);
+
+    return "manage-community";
   }
 }

@@ -35,6 +35,6 @@ public class CommunityCreationViewApi {
   private String username;
 
   public Community toCommunity() {
-    return new Community(-1, this.name, null, CommunityType.Job);
+    return new Community(-1, this.name, null, CommunityType.Job, null);
   }
 }
