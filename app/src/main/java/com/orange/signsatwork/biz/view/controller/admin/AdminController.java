@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,8 +124,10 @@ public class AdminController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/community/create", method = RequestMethod.POST)
-  public String community(@ModelAttribute CommunityView communityView, Model model) {
-    Community community = communityService.create(communityView.toCommunity());
+  public String community(@ModelAttribute CommunityView communityView, Model model, Principal principal) {
+    User user = userService.withUserName(principal.getName());
+    communityView.setType(CommunityType.Job);
+    Community community = communityService.create(user.id, communityView.toCommunity());
     return community(community.id, model);
   }
 

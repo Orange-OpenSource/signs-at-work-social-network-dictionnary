@@ -134,7 +134,7 @@ public class CommunityRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_ADMIN_COMMUNITIES, method = RequestMethod.POST, headers = {"content-type=application/json"})
-  public CommunityResponseApi community(@RequestBody CommunityCreationViewApi communityCreationViewApi, HttpServletResponse response) {
+  public CommunityResponseApi community(@RequestBody CommunityCreationViewApi communityCreationViewApi, HttpServletResponse response, Principal principal) {
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     if (services.community().withCommunityName(communityCreationViewApi.getName()) != null) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -142,7 +142,9 @@ public class CommunityRestController {
       return communityResponseApi;
     }
 
-    Community community = services.community().create(communityCreationViewApi.toCommunity());
+    User user = services.user().withUserName(principal.getName());
+
+    Community community = services.community().create(user.id, communityCreationViewApi.toCommunity());
     communityResponseApi.communityId = community.id;
     response.setStatus(HttpServletResponse.SC_OK);
     return communityResponseApi;
@@ -173,7 +175,7 @@ public class CommunityRestController {
     List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
     usersIds.add(user.id);
 
-    Community community = services.community().create(communityCreationApi.toCommunity());
+    Community community = services.community().create(user.id, communityCreationApi.toCommunity());
     if (community != null) {
       community = services.community().changeCommunityUsers(community.id, usersIds);
     }
@@ -206,5 +208,39 @@ public class CommunityRestController {
 
   private String getAppUrl(HttpServletRequest request) {
     return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.DELETE)
+  public CommunityResponseApi deleteFavorite(@PathVariable long communityId, HttpServletResponse response, Principal principal)  {
+    List<String> emails;
+    CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+    Community community = services.community().withId(communityId);
+    User user = services.user().withUserName(principal.getName());
+
+    if (community.user.id != user.id) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
+      return communityResponseApi;
+    }
+
+    emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+    if (emails.size() != 0) {
+      Community finalCommunity = community;
+      Runnable task = () -> {
+        String title, bodyMail;
+        title = messageByLocaleService.getMessage("community_deleted_by_user_title", new Object[]{user.name()});
+        bodyMail = messageByLocaleService.getMessage("community_deleted_by_user_body", new Object[]{user.name(), finalCommunity.name});
+        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+        services.emailService().sendCommunityDeleteMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name);
+      };
+
+      new Thread(task).start();
+    }
+
+    services.community().delete(community);
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return communityResponseApi;
   }
 }

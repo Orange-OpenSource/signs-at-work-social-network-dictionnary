@@ -45,7 +45,7 @@ public class CommunityView {
   private CommunityType type;
 
   public Community toCommunity() {
-    return new Community(id, name, users, type);
+    return new Community(id, name, users, type, null);
   }
 
   public static CommunityView from(Community community) {
