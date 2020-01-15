@@ -33,6 +33,7 @@ import lombok.Getter;
 public class CommunityCreationViewApi {
   private String name;
   private String username;
+  private long userIdToRemove;
 
   public Community toCommunity() {
     return new Community(-1, this.name, null, CommunityType.Job, null);

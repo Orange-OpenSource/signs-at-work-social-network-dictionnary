@@ -284,6 +284,17 @@ public class CommunityRestController {
           return communityResponseApi;
         }
       }
+    } else {
+      if (communityCreationViewApi.getUserIdToRemove() != 0) {
+        User userToRemove = services.user().withId(communityCreationViewApi.getUserIdToRemove());
+        if (userToRemove != null && userToRemove.id != user.id) {
+          response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+          communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.remove_user_forbidden");
+          return communityResponseApi;
+        } else {
+          services.community().removeMeFromCommunity(communityId, userToRemove.id);
+        }
+      }
     }
 
       response.setStatus(HttpServletResponse.SC_OK);

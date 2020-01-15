@@ -160,6 +160,17 @@ public class CommunityServiceImpl implements CommunityService {
     return communityFrom(communityDB);
   }
 
+
+  @Override
+  public Community removeMeFromCommunity(long communityId, long userId) {
+    CommunityDB communityDB = withDBId(communityId);
+    List<UserDB> communityUsers = communityDB.getUsers();
+    UserDB userDB = userRepository.findOne(userId);
+    communityUsers.remove(userDB);
+    communityDB = communityRepository.save(communityDB);
+    return communityFrom(communityDB);
+  }
+
   private CommunityDB withDBId(long id) {
     return communityRepository.findOne(id);
   }

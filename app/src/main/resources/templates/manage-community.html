@@ -46,6 +46,21 @@
                     <div class="pull-right pen"></div>
                   </a>
                 </li>
+
+                <li th:if="${!isCommunityBelowToMe}" class="aside_bckg_li">
+                  <a href="#" data-toggle="modal" data-target="#remove_me_from_community">
+                    <div class="pull-left favorite_add_sign_blue"></div>
+                    <h2 class="container_H2" th:text="#{community.remove_me}"></h2>
+                    <div class="pull-right pen"></div>
+                  </a>
+                </li>
+                <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
+                  <a th:href="@{/sec/community/} + ${community.id} + '/modify'">
+                    <div class="pull-left favorite_add_sign_blue"></div>
+                    <h2 class="container_H2" th:text="#{community.choose_members}"></h2>
+                    <div class="pull-right pen"></div>
+                  </a>
+                </li>
                 <li th:if="${!isCommunityBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#delete_community">
                         <div class="pull-left delete_favorite_blue"></div>
@@ -115,6 +130,28 @@
     </div>
 </div>
 
+<div id="remove_me_from_community" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="pull-left">
+          <div class="delete_favorite_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{community.remove_me}"></h2>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h4 th:text="#{community.confirm_remove_me}"></h4>
+      </div>
+      <div class="modal-footer">
+        <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button type="submit" th:onclick="'javascript:onRemoveMeFromCommunity(\'' + ${community.id} + '\',\'' + ${user.id}  +'\')'"  class="btn btn-default" data-dismiss="" th:text="#{confirm}"/>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div  id="validate_delete_community" class="modal" role="dialog">
   <div class="modal-dialog">
@@ -122,7 +159,7 @@
       <div class="modal-header">
         <div class="pull-left">
           <div class="delete_favorite_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{community.deleted_title}"/>
+          <h2 class="pull-right" th:text="#{community.remove_me}"/>
         </div>
       </div>
       <div class="modal-body text-center">
@@ -148,6 +185,22 @@
   </div>
 </div>
 
+
+<div  id="validate_remove_me_from_community" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="delete_favorite_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{community.deleted_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{community.removed_me(${community.name})}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 <script type="text/javascript" src="../public/js/manage-community.js" th:src="@{/js/manage-community.js}"></script>

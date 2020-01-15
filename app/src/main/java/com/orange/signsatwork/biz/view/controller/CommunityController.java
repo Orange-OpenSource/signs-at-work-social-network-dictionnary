@@ -162,6 +162,7 @@ public class CommunityController {
     model.addAttribute("userName", name);
     model.addAttribute("isCommunityBelowToMe", isCommunityBelowToMe);
     model.addAttribute("community", community);
+    model.addAttribute("user", user);
 
     return "manage-community";
   }

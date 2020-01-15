@@ -53,4 +53,6 @@ public interface CommunityService {
   Communities search(String communityName);
 
   Community updateName(long communityId, String communityName);
+
+  Community removeMeFromCommunity(long communityId, long userId);
 }
