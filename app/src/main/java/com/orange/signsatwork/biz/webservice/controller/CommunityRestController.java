@@ -191,7 +191,7 @@ public class CommunityRestController {
       Runnable task = () -> {
         String title, bodyMail;
         final String url = getAppUrl(request) + "/sec/community/" + finalCommunity.id;
-        title = messageByLocaleService.getMessage("community_created_by_user_title", new Object[]{user.name()});
+        title = messageByLocaleService.getMessage("community_created_by_user_title");
         bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
         log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
         services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, url);
@@ -224,12 +224,14 @@ public class CommunityRestController {
       return communityResponseApi;
     }
 
+    services.community().delete(community);
+
     emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
     if (emails.size() != 0) {
       Community finalCommunity = community;
       Runnable task = () -> {
         String title, bodyMail;
-        title = messageByLocaleService.getMessage("community_deleted_by_user_title", new Object[]{user.name()});
+        title = messageByLocaleService.getMessage("community_deleted_by_user_title");
         bodyMail = messageByLocaleService.getMessage("community_deleted_by_user_body", new Object[]{user.name(), finalCommunity.name});
         log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
         services.emailService().sendCommunityDeleteMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name);
@@ -238,9 +240,55 @@ public class CommunityRestController {
       new Thread(task).start();
     }
 
-    services.community().delete(community);
-
     response.setStatus(HttpServletResponse.SC_OK);
     return communityResponseApi;
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT)
+  public CommunityResponseApi updateCommunity(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
+    List<String> emails;
+    CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+    communityResponseApi.communityId = communityId;
+    User user = services.user().withUserName(principal.getName());
+
+
+    Community community = services.community().withId(communityId);
+    if (communityCreationViewApi.getName() != null) {
+      if (community.user.id != user.id) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
+        return communityResponseApi;
+      }
+
+      if (!community.name.equals(communityCreationViewApi.getName())) {
+        if (services.community().withCommunityName(communityCreationViewApi.getName()) == null) {
+          services.community().updateName(communityId, communityCreationViewApi.getName());
+          communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.renamed", new Object[]{community.name, communityCreationViewApi.getName()});
+          emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          if (emails.size() != 0) {
+            Runnable task = () -> {
+              String title, bodyMail;
+              final String url = getAppUrl(request) + "/sec/community/" + community.id;
+              title = messageByLocaleService.getMessage("community_renamed_by_user_title");
+              bodyMail = messageByLocaleService.getMessage("community_renamed_by_user_body", new Object[]{community.name, communityCreationViewApi.getName(), url});
+              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+              services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, community.name, communityCreationViewApi.getName(), url);
+            };
+
+            new Thread(task).start();
+          }
+        } else {
+          communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.name_already_exist");
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          return communityResponseApi;
+        }
+      }
+    }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      return communityResponseApi;
+
+    }
+
 }

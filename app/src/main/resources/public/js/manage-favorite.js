@@ -130,7 +130,7 @@ $('#duplicate_favorite').on('hidden.bs.modal', function (e) {
 function resetRenameError(event) {
   var errorRename = document.getElementById('errorRename');
   errorRename.style.visibility = "hidden";
-  if (oldFavoriteName == favoriteName.name) {
+  if (oldFavoriteName == favoriteName.value) {
     submitRenameModal.disabled = true;
   } else {
     submitRenameModal.disabled = false;

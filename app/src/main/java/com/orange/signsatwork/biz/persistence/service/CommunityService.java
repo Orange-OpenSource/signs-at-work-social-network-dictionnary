@@ -51,4 +51,6 @@ public interface CommunityService {
   Community changeCommunityUsers(long communityId, List<Long> usersIds);
 
   Communities search(String communityName);
+
+  Community updateName(long communityId, String communityName);
 }
