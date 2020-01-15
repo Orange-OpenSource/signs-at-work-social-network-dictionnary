@@ -170,4 +170,15 @@ public class CommunityServiceImpl implements CommunityService {
 
     return communitiesFromFavoriteView(communitiesMatches);
   }
+
+  @Override
+  public Community updateName(long communityId, String communityName) {
+    CommunityDB communityDB = communityRepository.findOne(communityId);
+
+    communityDB.setName(communityName);
+    communityRepository.save(communityDB);
+
+    return communityFrom(communityDB);
+  }
+
 }

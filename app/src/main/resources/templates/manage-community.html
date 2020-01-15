@@ -33,14 +33,14 @@
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
                 <li th:if="${!isCommunityBelowToMe}" class="disabled aside_bckg_li">
-                    <a href="#" data-toggle="modal" data-target="#rename_favorite">
+                    <a href="#" data-toggle="modal" data-target="#rename_community">
                         <div class="pull-left rename_favorite_blue"></div>
                         <h2 class="container_H2" th:text="#{community.rename_managed_by(${userName})}"></h2>
                         <div class="pull-right pen"></div>
                     </a>
                 </li>
                 <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
-                  <a href="#" data-toggle="modal" data-target="#rename_favorite">
+                  <a href="#" data-toggle="modal" data-target="#rename_community">
                     <div class="pull-left rename_favorite_blue"></div>
                     <h2 class="container_H2" th:text="#{community.rename}"></h2>
                     <div class="pull-right pen"></div>
@@ -66,11 +66,8 @@
 </div>
 
 <!-- Modal -->
-<!--modal delete favorite-->
 <div id="delete_community" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -91,37 +88,32 @@
         </div>
     </div>
 </div>
-    <!--modal rename list favorite-->
-<!--<div id="rename_favorite" class="modal fade" role="dialog">
-    <div class="modal-dialog">
 
-        &lt;!&ndash; Modal content&ndash;&gt;
+<div id="rename_community" class="modal fade" role="dialog">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                     <div class="rename_favorite_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{favorite.rename_list}"></h2>
+                    <h2 class="pull-right" th:text="#{community.rename_list}"></h2>
                 </div>
             </div>
-
-          &lt;!&ndash;  <form th:action="@{/sec/favorite/} + ${favoriteManageView.id} + '/rename'" th:object="${favoriteCreationView}" method="post">&ndash;&gt;
-                <div class="modal-body text-center">
-                    <input id="favoriteName" th:value="${favoriteManageView.name}" type="text" class="form-control"
-                           name="favoriteName" th:autofocus="true" />
-                    <span id="errorRename" style="visibility: hidden"></span>
-                </div>
-                <div class="modal-footer">
-                  <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                    <span th:text="#{cancel}"></span>
-                  </button>
-                    <button id="submit-rename-modal" th:text="#{continue}" type="submit" th:onclick="'javascript:onRenameFavorite(\'' + ${favoriteId} + '\')'" class="btn btn-default"
-                            data-dismiss=""></button>
-                </div>
-           &lt;!&ndash; </form>&ndash;&gt;
+            <div class="modal-body text-center">
+                <input id="communityName" th:value="${community.name}" type="text" class="form-control"
+                       name="communityName" th:autofocus="true" />
+                <span id="errorRename" style="visibility: hidden"></span>
+            </div>
+            <div class="modal-footer">
+              <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                <span th:text="#{cancel}"></span>
+              </button>
+                <button id="submit-rename-modal" th:text="#{continue}" type="submit" th:onclick="'javascript:onRenameCommunity(\'' + ${community.id} + '\')'" class="btn btn-default"
+                        data-dismiss=""></button>
+            </div>
         </div>
     </div>
-</div>-->
+</div>
 
 
 <div  id="validate_delete_community" class="modal" role="dialog">
@@ -140,21 +132,21 @@
   </div>
 </div>
 
-<!--<div  id="validate_rename_favorite" class="modal" role="dialog">
+<div  id="validate_rename_community" class="modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
           <div class="rename_favorite_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{favorite.renamed_title}"/>
+          <h2 class="pull-right" th:text="#{community.renamed_title}"/>
         </div>
       </div>
       <div class="modal-body text-center">
-        <h4 id="renamed_favorite"></h4>
+        <h4 id="renamed_community"></h4>
       </div>
     </div>
   </div>
-</div>-->
+</div>
 
 
 </body>

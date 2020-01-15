@@ -19,10 +19,8 @@
  * #L%
  */
 
-var favoriteName = document.getElementById("favoriteName");
-var duplicateFavoriteName = document.getElementById("duplicateFavoriteName");
-var oldFavoriteName;
-var oldDuplicateFavoriteName;
+var communityName = document.getElementById("communityName");
+var oldCommunityName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
 
 function onDeleteCommunity(communityId) {
@@ -47,25 +45,25 @@ function onDeleteCommunity(communityId) {
 
 };
 
-function onRenameFavorite(favoriteId) {
+function onRenameCommunity(communityId) {
 
-  if (favoriteName.value != oldFavoriteName) {
-    favorite = {
-      name: favoriteName.value
+  if (communityName.value != oldCommunityName) {
+    community = {
+      name: communityName.value
     };
     $.ajax({
-      url: "/ws/sec/favorites/" + favoriteId,
+      url: "/ws/sec/communities/" + communityId,
       type: 'put',
-      data: JSON.stringify(favorite),
+      data: JSON.stringify(community),
       contentType: "application/json",
       success: function (response) {
         console.log(response);
         errorRename.style.visibility = "hidden";
-        $('#rename_favorite').modal('hide');
-        renamed_favorite.textContent = response.errorMessage;
-        $("#validate_rename_favorite").modal('show');
+        $('#rename_community').modal('hide');
+        renamed_community.textContent = response.errorMessage;
+        $("#validate_rename_community").modal('show');
         setTimeout(function () {
-          $('#validate_rename_favorite').modal('hide');
+          $('#validate_rename_community').modal('hide');
           window.history.back();
         }, 3000);
       },
@@ -83,71 +81,28 @@ function onRenameFavorite(favoriteId) {
 };
 
 
-function onDuplicateFavorite(favoriteId) {
-
-  favorite = {
-    name: duplicateFavoriteName.value
-  };
-  $.ajax({
-    url: "/ws/sec/favorites/" + favoriteId + "/duplicate",
-    type: 'post',
-    data: JSON.stringify(favorite),
-    contentType: "application/json",
-    success: function (response) {
-      console.log(response);
-      errorDuplicate.style.visibility="hidden";
-      $('#duplicate_favorite').modal('hide');
-      duplicated_favorite.textContent = response.errorMessage;
-      $("#validate_duplicate_favorite").modal('show');
-      setTimeout(function () {
-        $('#validate_duplicate_favorite').modal('hide');
-        var url = "/sec/favorite/" + response.favoriteId;
-        window.location = url;
-      }, 3000);
-    },
-    error: function (response) {
-      console.log(response.responseJSON);
-      errorDuplicate.textContent = response.responseJSON.errorMessage;
-      errorDuplicate.style.visibility="visible";
-    }
-  })
-
-
-};
-
-$('#rename_favorite').on('hidden.bs.modal', function (e) {
+$('#rename_community').on('hidden.bs.modal', function (e) {
   var errorRename = document.getElementById('errorRename');
   errorRename.style.visibility = "hidden";
-  favoriteName.value= oldFavoriteName;
+  communityName.value= oldCommunityName;
   submitRenameModal.disabled = true;
 })
 
-$('#duplicate_favorite').on('hidden.bs.modal', function (e) {
-  var errorDuplicate = document.getElementById('errorDuplicate');
-  errorDuplicate.style.visibility = "hidden";
-  duplicateFavoriteName.value = oldDuplicateFavoriteName;
-})
 
 function resetRenameError(event) {
   var errorRename = document.getElementById('errorRename');
   errorRename.style.visibility = "hidden";
-  if (oldFavoriteName == favoriteName.name) {
+  if (oldCommunityName == communityName.value) {
     submitRenameModal.disabled = true;
   } else {
     submitRenameModal.disabled = false;
   }
 }
 
-function resetDuplicateError(event) {
-  var errorDuplicate = document.getElementById('errorDuplicate');
-  errorDuplicate.style.visibility = "hidden";
-}
 
 function main() {
-  favoriteName.addEventListener('keyup', resetRenameError);
-  duplicateFavoriteName.addEventListener('keyup', resetDuplicateError);
-  oldFavoriteName = favoriteName.value;
-  oldDuplicateFavoriteName = duplicateFavoriteName.value;
+  communityName.addEventListener('keyup', resetRenameError);
+  oldCommunityName = communityName.value;
   submitRenameModal.disabled = true;
 }
 
