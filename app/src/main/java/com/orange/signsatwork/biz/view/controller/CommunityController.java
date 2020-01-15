@@ -72,10 +72,13 @@ public class CommunityController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/community/{communityId}")
-  public String community(@PathVariable long communityId, Model model)  {
+  public String community(@PathVariable long communityId, Model model, Principal principal)  {
+    User user = services.user().withUserName(principal.getName());
     Community community = services.community().withId(communityId);
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
+    Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
+    model.addAttribute("iBelowToCommunity", iBelowToCommunity);
 
     return "community";
   }
@@ -85,7 +88,7 @@ public class CommunityController {
     public String createCommunity(@ModelAttribute CommunityView communityView, Model model, Principal principal) {
       User user = services.user().withUserName(principal.getName());
       Community community = services.community().create(user.id, communityView.toCommunity());
-      return community(community.id, model);
+      return community(community.id, model, principal);
     }
 
 
@@ -159,6 +162,7 @@ public class CommunityController {
       name = community.user.name();
       isCommunityBelowToMe = false;
     }
+
     model.addAttribute("userName", name);
     model.addAttribute("isCommunityBelowToMe", isCommunityBelowToMe);
     model.addAttribute("community", community);
