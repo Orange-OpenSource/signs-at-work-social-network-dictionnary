@@ -81,6 +81,35 @@ function onRenameCommunity(communityId) {
 };
 
 
+function onRemoveMeFromCommunity(communityId, userId) {
+    community = {
+      userIdToRemove: userId
+    };
+    $.ajax({
+      url: "/ws/sec/communities/" + communityId,
+      type: 'put',
+      data: JSON.stringify(community),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        errorRename.style.visibility = "hidden";
+        $('#rmove_me_from_community').modal('hide');
+        renamed_community.textContent = response.errorMessage;
+        $("#validate_remove_me_from_community").modal('show');
+        setTimeout(function () {
+          $('#validate_remove_me_from_community').modal('hide');
+          window.history.back();
+        }, 3000);
+      },
+      error: function (response) {
+        console.log(response.responseJSON);
+        errorRename.textContent = response.responseJSON.errorMessage;
+        errorRename.style.visibility = "visible";
+      }
+    })
+};
+
+
 $('#rename_community').on('hidden.bs.modal', function (e) {
   var errorRename = document.getElementById('errorRename');
   errorRename.style.visibility = "hidden";
