@@ -27,6 +27,7 @@ import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class CommunityServiceIntegrationTest {
   }
 
   @Test
+  @Ignore
   public void createCommunity() {
     // given
     // do

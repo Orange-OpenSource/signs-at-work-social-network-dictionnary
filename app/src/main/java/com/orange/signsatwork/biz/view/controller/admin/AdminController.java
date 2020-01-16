@@ -135,7 +135,7 @@ public class AdminController {
   @RequestMapping(value = "/sec/admin/user/create", method = RequestMethod.POST)
   public String user(@ModelAttribute UserCreationView userCreationView, Model model, HttpServletRequest request) throws IOException, JCodecException {
     String title, bodyMail;
-    User user = userService.create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
+    User user = userService.create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole(), userCreationView.getUsername());
     if (user != null) {
       userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
       final String token = UUID.randomUUID().toString();
