@@ -25,13 +25,11 @@ package com.orange.signsatwork.biz.view.controller;
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.Users;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.view.model.AuthentModel;
-import com.orange.signsatwork.biz.view.model.CommunityCreationView;
-import com.orange.signsatwork.biz.view.model.CommunityView;
-import com.orange.signsatwork.biz.view.model.SignCreationView;
+import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -169,5 +167,21 @@ public class CommunityController {
     model.addAttribute("user", user);
 
     return "manage-community";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/community/{communityId}/modify")
+  public String modifyCommunity(@PathVariable long communityId, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+    Community community = services.community().withId(communityId);
+
+   /* model.addAttribute("backUrl", "/sec/favorite/share/?id=" + favoriteId +"&communityId=0");*/
+    model.addAttribute("community", community);
+    CommunityProfileView communityProfileView = new CommunityProfileView(community, services.user());
+    model.addAttribute("communityProfileView", communityProfileView);
+    List<User> usersWithoutMeAndWithoutAdmin = communityProfileView.getAllUsers().stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
+    model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
+
+    return "modify-community";
   }
 }
