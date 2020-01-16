@@ -99,7 +99,7 @@ public class UserRestController {
       userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
       return userResponseApi;
     }
-    User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
+    User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole(), userCreationView.getUsername());
     services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;

@@ -90,8 +90,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User create(User user, String password, String role) {
-    UserDB userDB = userRepository.save(userDBFrom(user, password, role));
+  public User create(User user, String password, String role, String email) {
+    UserDB userDB = userRepository.save(userDBFrom(user, password, role, user.username));
     return userFrom(userDB);
   }
 
@@ -107,6 +107,7 @@ public class UserServiceImpl implements UserService {
   public void changeUserLogin(User user, String login) {
     UserDB userDB = userRepository.findOne(user.id);
     userDB.setUsername(login);
+    userDB.setEmail(login);
     userRepository.save(userDB);
   }
 
@@ -312,8 +313,8 @@ public class UserServiceImpl implements UserService {
    * @param password raw password
    * @return the UserDB object to persist
    */
-  private UserDB userDBFrom(User user, String password, String role) {
-    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.namePicture, user.email, user.entity, user.job, user.jobDescriptionText, user.jobDescriptionVideo, user.jobDescriptionPicture);
+  private UserDB userDBFrom(User user, String password, String role, String email) {
+    UserDB userDB = new UserDB(user.username, passwordEncoder.encode(password), user.firstName, user.lastName, user.nameVideo, user.namePicture, email, user.entity, user.job, user.jobDescriptionText, user.jobDescriptionVideo, user.jobDescriptionPicture);
     addUserRole(userDB, role);
     return userDB;
   }
