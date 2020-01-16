@@ -1,0 +1,78 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div">
+  <div id="myform" >
+    <input type='button' class="pull-rigth" id='reset_search_user' value='X'/>
+    <div id="container-input">
+      <input type="search" id="search_user" th:placeholder="#{search_name}" class="border form-control"/>
+    </div>
+  </div>
+
+    <form id="ModifyCommunityForm" th:if="${not #lists.isEmpty(users)}"
+          th:action="@{/sec/community/create}"
+          th:object="${communityProfileView}"
+          method="post">
+        <div class="form-group">
+          <div id="users-container">
+              <label th:id="${user.username}" th:each="user : ${users}"
+                       th:for="${#ids.next('communityUsersIds')}">
+                    <div class="pull-left add_members_blue"></div>
+                    <input type="checkbox" th:field="*{communityUsersIds}" th:value="${user.id}"/>
+                    <h4 class="community_name" th:text="${user.name()}"></h4>
+                </label>
+          </div>
+        </div>
+    </form>
+
+    <div th:if="${#lists.isEmpty(users)}">
+        <h2 th:text="#{sign.not_available}"></h2>
+    </div>
+</div>
+
+<div  id="validate_modify_community" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="community_created_white pull-left"></div>
+          <h4 class="pull-right" th:text="#{community.modified}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 id="user_list_name"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+
+</html>

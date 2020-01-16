@@ -25,23 +25,23 @@
     <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
-<header role="banner" th:replace="fragments/header-favorite-create-community :: header">&nbsp;</header>
+<header role="banner" th:replace="fragments/header-modify-community :: header">&nbsp;</header>
 
 <body class="container-fluid margin-for-footer">
 
-<h2 class="subtitle" th:text="#{favorite.select_member_community(${communityName})}"></h2>
+<h2 class="subtitle" th:text="#{community.select_member_community(${community.name})}"></h2>
 
 <div th:fragment="div">
-    <div th:replace="fragments/frame-favorite-create-community :: div"/>
+    <div th:replace="fragments/frame-modify-community :: div"/>
   <div class="footer">
     <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>
-    <button class="btn btn-default" th:onclick="'javascript:onCreateFavoriteCommunity(\'' + ${communityName} + '\',\'' + ${favoriteId} + '\')'" th:text="#{validate}"></button>
+    <button class="btn btn-default" th:onclick="'javascript:onModifyCommunity(\'' + ${community.id} + '\')'" th:text="#{validate}"></button>
   </div>
 </div>
 
 
 
 </body>
-<script type="text/javascript" src="../public/js/favorite.js" th:src="@{/js/favorite.js}"></script>
+<script type="text/javascript" src="../public/js/community.js" th:src="@{/js/community.js}"></script>
 </html>
 

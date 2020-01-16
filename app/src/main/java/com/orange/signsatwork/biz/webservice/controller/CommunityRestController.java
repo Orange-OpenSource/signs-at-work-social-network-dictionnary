@@ -247,7 +247,7 @@ public class CommunityRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT)
   public CommunityResponseApi updateCommunity(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
-    List<String> emails;
+    List<String> emails, emailsUsersAdded, emailsUsersRemoved;
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
     User user = services.user().withUserName(principal.getName());
@@ -284,8 +284,7 @@ public class CommunityRestController {
           return communityResponseApi;
         }
       }
-    } else {
-      if (communityCreationViewApi.getUserIdToRemove() != 0) {
+    } else if (communityCreationViewApi.getUserIdToRemove() != 0) {
         User userToRemove = services.user().withId(communityCreationViewApi.getUserIdToRemove());
         if (userToRemove != null && userToRemove.id != user.id) {
           response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -293,6 +292,45 @@ public class CommunityRestController {
           return communityResponseApi;
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
+        }
+    } else {
+
+      List<Long> usersIds = communityCreationViewApi.getCommunityUsersIds();
+      usersIds.add(user.id);
+      List<Long> usersIdsToAdd = usersIds.stream().filter(u -> !community.usersIds().contains(u)).collect(Collectors.toList());
+      List<Long> usersIdsToRemove = community.usersIds().stream().filter(u -> !usersIds.contains(u)).collect(Collectors.toList());
+      if (!usersIds.isEmpty()) {
+        Community newCommunity = services.community().changeCommunityUsers(community.id, usersIds);
+        List<String> name = newCommunity.users.stream().map(c -> c.name()).collect(Collectors.toList());
+        communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{name.toString()});
+        List<User> usersAdded = usersIdsToAdd.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
+        List<User> usersRemoved = usersIdsToRemove.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
+        emailsUsersAdded = usersAdded.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        if (emailsUsersAdded.size() != 0) {
+          Community finalCommunity = community;
+          Runnable task = () -> {
+            String title, bodyMail;
+            final String url = getAppUrl(request) + "/sec/community/" + finalCommunity.id;
+            title = messageByLocaleService.getMessage("community_created_by_user_title");
+            bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
+            log.info("send mail email = {} / title = {} / body = {}", emailsUsersAdded.toString(), title, bodyMail);
+            services.emailService().sendCommunityCreateMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url);
+          };
+
+          new Thread(task).start();
+        }
+        emailsUsersRemoved = usersRemoved.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        if (emailsUsersRemoved.size() != 0) {
+          Community finalCommunity = community;
+          Runnable task = () -> {
+            String title, bodyMail;
+            title = messageByLocaleService.getMessage("community_removed_user_title");
+            bodyMail = messageByLocaleService.getMessage("community_removed_user_body", new Object[]{finalCommunity.name});
+            log.info("send mail email = {} / title = {} / body = {}", emailsUsersRemoved.toString(), title, bodyMail);
+            services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, finalCommunity.name);
+          };
+
+          new Thread(task).start();
         }
       }
     }

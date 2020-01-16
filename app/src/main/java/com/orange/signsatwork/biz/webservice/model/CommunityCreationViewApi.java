@@ -27,6 +27,8 @@ import com.orange.signsatwork.biz.domain.CommunityType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 
@@ -34,6 +36,7 @@ public class CommunityCreationViewApi {
   private String name;
   private String username;
   private long userIdToRemove;
+  private List<Long> communityUsersIds;
 
   public Community toCommunity() {
     return new Community(-1, this.name, null, CommunityType.Job, null);
