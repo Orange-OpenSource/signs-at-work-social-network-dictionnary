@@ -22,10 +22,7 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
-import com.orange.signsatwork.biz.domain.Community;
-import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.domain.Users;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -76,6 +73,9 @@ public class CommunityController {
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
+    if (community.type == CommunityType.Job) {
+      iBelowToCommunity = false;
+    }
     model.addAttribute("iBelowToCommunity", iBelowToCommunity);
 
     return "community";
