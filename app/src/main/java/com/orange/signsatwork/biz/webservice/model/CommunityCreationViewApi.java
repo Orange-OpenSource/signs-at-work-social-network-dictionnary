@@ -37,8 +37,9 @@ public class CommunityCreationViewApi {
   private String username;
   private long userIdToRemove;
   private List<Long> communityUsersIds;
+  private String descriptionText;
 
   public Community toCommunity() {
-    return new Community(-1, this.name, null, CommunityType.Job, null);
+    return new Community(-1, this.name, null, null, null, CommunityType.Job, null);
   }
 }

@@ -52,6 +52,10 @@ public class CommunityDB {
     @NotNull
     private String name;
 
+    private String descriptionText;
+
+    private String descriptionVideo;
+
     @Enumerated(EnumType.STRING)
     private CommunityType type;
 

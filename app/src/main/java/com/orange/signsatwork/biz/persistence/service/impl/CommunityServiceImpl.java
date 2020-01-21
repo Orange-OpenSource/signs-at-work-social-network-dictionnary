@@ -126,7 +126,7 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFrom(CommunityDB communityDB) {
-    return new Community(communityDB.getId(), communityDB.getName(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), communityDB.getType(), UserServiceImpl.userFromCommunityView(communityDB.getUser()));
+    return new Community(communityDB.getId(), communityDB.getName(), communityDB.getDescriptionText(), communityDB.getDescriptionVideo(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), communityDB.getType(), UserServiceImpl.userFromCommunityView(communityDB.getUser()));
   }
 
   private Communities communitiesFromFavoriteView(Iterable<CommunityDB> communitiesDB) {
@@ -136,7 +136,7 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFromFavoriteView(CommunityDB communityDB) {
-    return new Community(communityDB.getId(), communityDB.getName(), null, communityDB.getType(), null);
+    return new Community(communityDB.getId(), communityDB.getName(), null, null, null, communityDB.getType(), null);
   }
 
   private CommunityDB communityDBFrom(Community community) {
@@ -187,6 +187,27 @@ public class CommunityServiceImpl implements CommunityService {
     CommunityDB communityDB = communityRepository.findOne(communityId);
 
     communityDB.setName(communityName);
+    communityRepository.save(communityDB);
+
+    return communityFrom(communityDB);
+  }
+
+
+  @Override
+  public Community updateDescriptionText(long communityId, String communityDescriptionText) {
+    CommunityDB communityDB = communityRepository.findOne(communityId);
+
+    communityDB.setDescriptionText(communityDescriptionText);
+    communityRepository.save(communityDB);
+
+    return communityFrom(communityDB);
+  }
+
+  @Override
+  public Community changeDescriptionVideo(long communityId, String communityDescriptionVideo) {
+    CommunityDB communityDB = communityRepository.findOne(communityId);
+
+    communityDB.setDescriptionVideo(communityDescriptionVideo);
     communityRepository.save(communityDB);
 
     return communityFrom(communityDB);
