@@ -293,8 +293,12 @@ public class CommunityRestController {
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
         }
-    } else {
-
+    } else if (!communityCreationViewApi.getDescriptionText().isEmpty()) {
+      if (community.descriptionText != communityCreationViewApi.getDescriptionText()) {
+        services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
+      }
+    }
+    else {
       List<Long> usersIds = communityCreationViewApi.getCommunityUsersIds();
       usersIds.add(user.id);
       List<Long> usersIdsToAdd = usersIds.stream().filter(u -> !community.usersIds().contains(u)).collect(Collectors.toList());

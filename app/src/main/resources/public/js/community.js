@@ -46,7 +46,7 @@ var normalize = function( term ) {
 
 
 
-function onContinueFavorite(backUrl) {
+function onContinueCommunity(backUrl) {
   var url = backUrl;
   window.location = url;
 };
@@ -104,6 +104,7 @@ function onModifyCommunity(communityId) {
   }
 
 };
+
 
 function search(event) {
   var display = 0;

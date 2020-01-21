@@ -37,6 +37,6 @@ public class CommunityCreationApi {
   private List<Long> communityUsersIds;
 
   public Community toCommunity() {
-    return new Community(-1, this.name, null, CommunityType.Project, null);
+    return new Community(-1, this.name, null, null, null, CommunityType.Project, null);
   }
 }

@@ -55,4 +55,8 @@ public interface CommunityService {
   Community updateName(long communityId, String communityName);
 
   Community removeMeFromCommunity(long communityId, long userId);
+
+  Community updateDescriptionText(long communityId, String communityDescriptionText);
+
+  Community changeDescriptionVideo(long communityId, String communityDescriptionVideo);
 }

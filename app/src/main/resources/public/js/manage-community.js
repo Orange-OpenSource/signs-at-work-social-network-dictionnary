@@ -93,7 +93,7 @@ function onRemoveMeFromCommunity(communityId, userId) {
       success: function (response) {
         console.log(response);
         errorRename.style.visibility = "hidden";
-        $('#rmove_me_from_community').modal('hide');
+        $('#remove_me_from_community').modal('hide');
         renamed_community.textContent = response.errorMessage;
         $("#validate_remove_me_from_community").modal('show');
         setTimeout(function () {

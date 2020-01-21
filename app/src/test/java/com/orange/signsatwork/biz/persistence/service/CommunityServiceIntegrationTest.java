@@ -56,7 +56,7 @@ public class CommunityServiceIntegrationTest {
   public void createCommunity() {
     // given
     // do
-    Community community = communityService.create(0, new Community(0, name, null, CommunityType.Job, null));
+    Community community = communityService.create(0, new Community(0, name, null, null, null, CommunityType.Job, null));
     community = communityService.withId(community.id);
 
     // then

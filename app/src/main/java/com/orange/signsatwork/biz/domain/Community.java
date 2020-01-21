@@ -30,13 +30,15 @@ import java.util.List;
 public class Community {
     public final long id;
     public final String name;
+    public final String descriptionText;
+    public final String descriptionVideo;
     public final Users users;
     public final CommunityType type;
     public final User user;
 
 
     public static Community create(String name, CommunityType type) {
-        return new Community(-1, name, null, type, null);
+        return new Community(-1, name, null, null, null, type, null);
     }
 
     public List<Long> usersIds() {

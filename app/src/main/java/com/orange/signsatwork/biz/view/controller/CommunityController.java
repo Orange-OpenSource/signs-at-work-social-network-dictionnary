@@ -73,9 +73,6 @@ public class CommunityController {
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
-    if (community.type == CommunityType.Job) {
-      iBelowToCommunity = false;
-    }
     model.addAttribute("iBelowToCommunity", iBelowToCommunity);
 
     return "community";
@@ -183,5 +180,24 @@ public class CommunityController {
     model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
 
     return "modify-community";
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/community/{communityId}/description")
+  public String descriptionCommunity(@PathVariable long communityId, Principal principal, Model model)  {
+    Community community = services.community().withId(communityId);
+
+    /*model.addAttribute("title", messageByLocaleService.getMessage("sign.definition", new Object[]{sign.name}));*/
+   /* model.addAttribute("title", sign.name);
+
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    model.addAttribute("showAddFavorite", HIDE_ADD_FAVORITE);
+
+    model.addAttribute("signView", sign);
+    model.addAttribute("signDefinitionCreationView", new SignDefinitionCreationView());*/
+
+   model.addAttribute("community", community);
+
+    return "community-description";
   }
 }
