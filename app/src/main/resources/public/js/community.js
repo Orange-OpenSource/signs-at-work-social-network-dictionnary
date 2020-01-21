@@ -72,7 +72,7 @@ function onModifyCommunity(communityId) {
       communityUsersIds: communityUsersIds
     };
     $.ajax({
-      url: "/ws/sec/communities/" + communityId,
+      url: "/ws/sec/communities/" + communityId + "/datas",
       type: 'put',
       data: JSON.stringify(community),
       contentType: "application/json",
