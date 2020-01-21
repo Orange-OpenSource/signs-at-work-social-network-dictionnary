@@ -52,7 +52,7 @@ function onRenameCommunity(communityId) {
       name: communityName.value
     };
     $.ajax({
-      url: "/ws/sec/communities/" + communityId,
+      url: "/ws/sec/communities/" + communityId + "/datas",
       type: 'put',
       data: JSON.stringify(community),
       contentType: "application/json",
@@ -86,7 +86,7 @@ function onRemoveMeFromCommunity(communityId, userId) {
       userIdToRemove: userId
     };
     $.ajax({
-      url: "/ws/sec/communities/" + communityId,
+      url: "/ws/sec/communities/" + communityId + "/datas",
       type: 'put',
       data: JSON.stringify(community),
       contentType: "application/json",

@@ -22,27 +22,36 @@ package com.orange.signsatwork.biz.webservice.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
-import com.orange.signsatwork.biz.domain.Community;
-import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.DalymotionToken;
+import com.orange.signsatwork.SpringRestClient;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.CommunityView;
 import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,9 +61,21 @@ import java.util.stream.Collectors;
 public class CommunityRestController {
 
   @Autowired
+  private StorageService storageService;
+  @Autowired
   private Services services;
   @Autowired
+  DalymotionToken dalymotionToken;
+  @Autowired
+  private SpringRestClient springRestClient;
+  @Autowired
   MessageByLocaleService messageByLocaleService;
+  @Autowired
+  private Environment environment;
+
+  String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
+  String VIDEO_EMBED_FIELD = "embed_url";
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi. WS_SEC_MY_COMMUNITIES)
@@ -245,8 +266,8 @@ public class CommunityRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT)
-  public CommunityResponseApi updateCommunity(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
+  @RequestMapping(value = RestApi.WS_SEC_COMMUNITY_DATAS, method = RequestMethod.PUT)
+  public CommunityResponseApi updateCommunityDatas(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
@@ -293,7 +314,7 @@ public class CommunityRestController {
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
         }
-    } else if (!communityCreationViewApi.getDescriptionText().isEmpty()) {
+    } else if (communityCreationViewApi.getDescriptionText() != null && !communityCreationViewApi.getDescriptionText().isEmpty()) {
       if (community.descriptionText != communityCreationViewApi.getDescriptionText()) {
         services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
       }
@@ -343,5 +364,231 @@ public class CommunityRestController {
       return communityResponseApi;
 
     }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
+  public CommunityResponseApi updateCommunity(@RequestPart("fileCommunityDescriptionVideo") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
+    List<String> emails, emailsUsersAdded, emailsUsersRemoved;
+    CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+    communityResponseApi.communityId = communityId;
+    User user = services.user().withUserName(principal.getName());
+
+
+    Community community = services.community().withId(communityId);
+    if (communityCreationViewApi.isPresent()) {
+      if (communityCreationViewApi.get().getName() != null) {
+        if (community.user.id != user.id) {
+          response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+          communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
+          return communityResponseApi;
+        }
+
+        if (!community.name.equals(communityCreationViewApi.get().getName())) {
+          if (services.community().withCommunityName(communityCreationViewApi.get().getName()) == null) {
+            services.community().updateName(communityId, communityCreationViewApi.get().getName());
+            communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.renamed", new Object[]{community.name, communityCreationViewApi.get().getName()});
+            emails = community.users.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
+            if (emails.size() != 0) {
+              Runnable task = () -> {
+                String title, bodyMail;
+                final String url = getAppUrl(request) + "/sec/community/" + community.id;
+                title = messageByLocaleService.getMessage("community_renamed_by_user_title");
+                bodyMail = messageByLocaleService.getMessage("community_renamed_by_user_body", new Object[]{community.name, communityCreationViewApi.get().getName(), url});
+                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, community.name, communityCreationViewApi.get().getName(), url);
+              };
+
+              new Thread(task).start();
+            }
+          } else {
+            communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.name_already_exist");
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            return communityResponseApi;
+          }
+        }
+      } else if (communityCreationViewApi.get().getUserIdToRemove() != 0) {
+        User userToRemove = services.user().withId(communityCreationViewApi.get().getUserIdToRemove());
+        if (userToRemove != null && userToRemove.id != user.id) {
+          response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+          communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.remove_user_forbidden");
+          return communityResponseApi;
+        } else {
+          services.community().removeMeFromCommunity(communityId, userToRemove.id);
+        }
+      } else if (!communityCreationViewApi.get().getDescriptionText().isEmpty()) {
+        if (community.descriptionText != communityCreationViewApi.get().getDescriptionText()) {
+          services.community().updateDescriptionText(communityId, communityCreationViewApi.get().getDescriptionText());
+        }
+      } else {
+        List<Long> usersIds = communityCreationViewApi.get().getCommunityUsersIds();
+        usersIds.add(user.id);
+        List<Long> usersIdsToAdd = usersIds.stream().filter(u -> !community.usersIds().contains(u)).collect(Collectors.toList());
+        List<Long> usersIdsToRemove = community.usersIds().stream().filter(u -> !usersIds.contains(u)).collect(Collectors.toList());
+        if (!usersIds.isEmpty()) {
+          Community newCommunity = services.community().changeCommunityUsers(community.id, usersIds);
+          List<String> name = newCommunity.users.stream().map(c -> c.name()).collect(Collectors.toList());
+          communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{name.toString()});
+          List<User> usersAdded = usersIdsToAdd.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
+          List<User> usersRemoved = usersIdsToRemove.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
+          emailsUsersAdded = usersAdded.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          if (emailsUsersAdded.size() != 0) {
+            Community finalCommunity = community;
+            Runnable task = () -> {
+              String title, bodyMail;
+              final String url = getAppUrl(request) + "/sec/community/" + finalCommunity.id;
+              title = messageByLocaleService.getMessage("community_created_by_user_title");
+              bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
+              log.info("send mail email = {} / title = {} / body = {}", emailsUsersAdded.toString(), title, bodyMail);
+              services.emailService().sendCommunityCreateMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url);
+            };
+
+            new Thread(task).start();
+          }
+          emailsUsersRemoved = usersRemoved.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          if (emailsUsersRemoved.size() != 0) {
+            Community finalCommunity = community;
+            Runnable task = () -> {
+              String title, bodyMail;
+              title = messageByLocaleService.getMessage("community_removed_user_title");
+              bodyMail = messageByLocaleService.getMessage("community_removed_user_body", new Object[]{finalCommunity.name});
+              log.info("send mail email = {} / title = {} / body = {}", emailsUsersRemoved.toString(), title, bodyMail);
+              services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, finalCommunity.name);
+            };
+
+            new Thread(task).start();
+          }
+        }
+      }
+    }
+
+    if (fileCommunityDescriptionVideo.isPresent()) {
+      return handleSelectedVideoFileUploadForCommunityDescription(fileCommunityDescriptionVideo.get(), communityId, principal, response);
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return communityResponseApi;
+
+  }
+
+  private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response) throws InterruptedException {
+    {
+
+      CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+      Community community = null;
+      community = services.community().withId(communityId);
+
+      try {
+        String dailymotionId;
+        String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
+        AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+        if (authTokenInfo.isExpired()) {
+          dalymotionToken.retrieveToken();
+          authTokenInfo = dalymotionToken.getAuthTokenInfo();
+        }
+
+        User user = services.user().withUserName(principal.getName());
+        storageService.store(file);
+        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+
+        UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
+
+
+        Resource resource = new FileSystemResource(inputFile.getAbsolutePath());
+        MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
+        parts.add("file", resource);
+
+        RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
+
+        ResponseEntity<FileUploadDailymotion> responseDailyMotion = restTemplate.exchange(urlfileUploadDailymotion.upload_url,
+          HttpMethod.POST, requestEntity, FileUploadDailymotion.class);
+        FileUploadDailymotion fileUploadDailyMotion = responseDailyMotion.getBody();
+
+
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+        body.add("url", fileUploadDailyMotion.url);
+        body.add("title", "Description LSF de la communauté " + community.name);
+        body.add("channel", "tech");
+        body.add("published", true);
+        body.add("private", true);
+
+
+        RestTemplate restTemplate1 = springRestClient.buildRestTemplate();
+        HttpHeaders headers1 = new HttpHeaders();
+        headers1.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers1.set("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+        headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
+        String videosUrl = REST_SERVICE_URI + "/videos";
+        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
+          HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
+        VideoDailyMotion videoDailyMotion = response1.getBody();
+
+
+        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        int i=0;
+        do {
+          videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+          Thread.sleep(2 * 1000);
+          if (i > 30) {
+            break;
+          }
+          i++;
+        }
+        while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
+
+        if (!videoDailyMotion.embed_url.isEmpty()) {
+          if (community.descriptionVideo != null) {
+            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            }
+            catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              return communityResponseApi;
+            }
+          }
+          services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        communityResponseApi.communityId = community.id;
+        return communityResponseApi;
+
+      } catch (Exception errorDailymotionUploadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionUploadFile");
+        return communityResponseApi;
+      }
+    }
+  }
+
+  private void DeleteVideoOnDailyMotion(String dailymotionId) {
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    final String uri = environment.getProperty("app.dailymotion_url") + "/video/"+dailymotionId;
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+    MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    headers.add("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+
+    HttpEntity<?> request = new HttpEntity<Object>(headers);
+
+    restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
+
+    return;
+  }
 
 }
