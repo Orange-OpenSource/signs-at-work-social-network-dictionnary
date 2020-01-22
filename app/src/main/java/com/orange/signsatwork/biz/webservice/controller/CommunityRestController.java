@@ -315,8 +315,21 @@ public class CommunityRestController {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
         }
     } else if (communityCreationViewApi.getDescriptionText() != null && !communityCreationViewApi.getDescriptionText().isEmpty()) {
-      if (community.descriptionText != communityCreationViewApi.getDescriptionText()) {
+      if (!community.descriptionText.equals(communityCreationViewApi.getDescriptionText())) {
         services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
+        emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        if (emails.size() != 0) {
+          Runnable task = () -> {
+            String title, bodyMail;
+            final String url = getAppUrl(request) + "/sec/community/" + community.id + "/description";
+            title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+            bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url);
+          };
+
+          new Thread(task).start();
+        }
       }
     }
     else {
@@ -416,8 +429,21 @@ public class CommunityRestController {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
         }
       } else if (!communityCreationViewApi.get().getDescriptionText().isEmpty()) {
-        if (community.descriptionText != communityCreationViewApi.get().getDescriptionText()) {
+        if (!community.descriptionText.equals(communityCreationViewApi.get().getDescriptionText())) {
           services.community().updateDescriptionText(communityId, communityCreationViewApi.get().getDescriptionText());
+          emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          if (emails.size() != 0) {
+            Runnable task = () -> {
+              String title, bodyMail;
+              final String url = getAppUrl(request) + "/sec/community/" + community.id + "/description";
+              title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+              bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
+              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+              services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url);
+            };
+
+            new Thread(task).start();
+          }
         }
       } else {
         List<Long> usersIds = communityCreationViewApi.get().getCommunityUsersIds();
