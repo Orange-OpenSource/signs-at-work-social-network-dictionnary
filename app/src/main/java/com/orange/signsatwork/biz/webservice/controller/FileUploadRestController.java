@@ -56,6 +56,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalLong;
+import java.util.stream.Collectors;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -1331,11 +1332,11 @@ public class FileUploadRestController {
   /****/
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_COMMUNITY_DESCRIPTION , method = RequestMethod.POST)
-  public String uploadRecordedVideoFileForCommunityDescription(@RequestBody VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFileForCommunityDescription(videoFile, communityId, principal, response);
+  public String uploadRecordedVideoFileForCommunityDescription(@RequestBody VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
+    return handleRecordedVideoFileForCommunityDescription(videoFile, communityId, principal, response, request);
   }
 
-  private String handleRecordedVideoFileForCommunityDescription(VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response) {
+  private String handleRecordedVideoFileForCommunityDescription(VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
 
@@ -1460,6 +1461,20 @@ public class FileUploadRestController {
           }
         }
         services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
+        List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        if (emails.size() != 0) {
+          Community finalCommunity = community;
+          Runnable task = () -> {
+            String title, bodyMail;
+            final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+            title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+            bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity);
+          };
+
+          new Thread(task).start();
+        }
 
       }
 
@@ -1474,11 +1489,11 @@ public class FileUploadRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_COMMUNITY_DESCRIPTION, method = RequestMethod.POST)
-  public String uploadSelectedVideoFileForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUploadForCommunityDescription(file, communityId, principal, response);
+  public String uploadSelectedVideoFileForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws IOException, JCodecException, InterruptedException {
+    return handleSelectedVideoFileUploadForCommunityDescription(file, communityId, principal, response, request);
   }
 
-  private String handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private String handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
       Community community = null;
       community = services.community().withId(communityId);
@@ -1561,6 +1576,20 @@ public class FileUploadRestController {
             }
           }
           services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
+          List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          if (emails.size() != 0) {
+            Community finalCommunity = community;
+            Runnable task = () -> {
+              String title, bodyMail;
+              final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+              title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+              bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+              services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity);
+            };
+
+            new Thread(task).start();
+          }
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
@@ -1572,4 +1601,5 @@ public class FileUploadRestController {
       }
     }
   }
+
 }
