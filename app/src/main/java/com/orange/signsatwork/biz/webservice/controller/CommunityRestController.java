@@ -315,7 +315,6 @@ public class CommunityRestController {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
         }
     } else if (communityCreationViewApi.getDescriptionText() != null && !communityCreationViewApi.getDescriptionText().isEmpty()) {
-      if (!community.descriptionText.equals(communityCreationViewApi.getDescriptionText())) {
         services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
         emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
         if (emails.size() != 0) {
@@ -330,9 +329,13 @@ public class CommunityRestController {
 
           new Thread(task).start();
         }
-      }
     }
     else {
+      if (community.user.id != user.id) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
+        return communityResponseApi;
+      }
       List<Long> usersIds = communityCreationViewApi.getCommunityUsersIds();
       usersIds.add(user.id);
       List<Long> usersIdsToAdd = usersIds.stream().filter(u -> !community.usersIds().contains(u)).collect(Collectors.toList());
@@ -428,8 +431,7 @@ public class CommunityRestController {
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
         }
-      } else if (!communityCreationViewApi.get().getDescriptionText().isEmpty()) {
-        if (!community.descriptionText.equals(communityCreationViewApi.get().getDescriptionText())) {
+      } else if (communityCreationViewApi.get().getDescriptionText() != null && !communityCreationViewApi.get().getDescriptionText().isEmpty()) {
           services.community().updateDescriptionText(communityId, communityCreationViewApi.get().getDescriptionText());
           emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
           if (emails.size() != 0) {
@@ -444,8 +446,13 @@ public class CommunityRestController {
 
             new Thread(task).start();
           }
-        }
       } else {
+        if (community.user.id != user.id) {
+          response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+          communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
+          return communityResponseApi;
+        }
+
         List<Long> usersIds = communityCreationViewApi.get().getCommunityUsersIds();
         usersIds.add(user.id);
         List<Long> usersIdsToAdd = usersIds.stream().filter(u -> !community.usersIds().contains(u)).collect(Collectors.toList());
@@ -488,7 +495,7 @@ public class CommunityRestController {
     }
 
     if (fileCommunityDescriptionVideo.isPresent()) {
-      return handleSelectedVideoFileUploadForCommunityDescription(fileCommunityDescriptionVideo.get(), communityId, principal, response);
+      return handleSelectedVideoFileUploadForCommunityDescription(fileCommunityDescriptionVideo.get(), communityId, principal, response, request);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -496,7 +503,7 @@ public class CommunityRestController {
 
   }
 
-  private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
 
       CommunityResponseApi communityResponseApi = new CommunityResponseApi();
@@ -582,6 +589,20 @@ public class CommunityRestController {
             }
           }
           services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
+          List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          if (emails.size() != 0) {
+            Community finalCommunity = community;
+            Runnable task = () -> {
+              String title, bodyMail;
+              final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+              title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+              bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+              services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity);
+            };
+
+            new Thread(task).start();
+          }
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
