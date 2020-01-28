@@ -51,7 +51,53 @@ function onContinueCommunity(backUrl) {
   window.location = url;
 };
 
+function onCreateCommunity(name) {
+  if ($("#FavoriteCreateCommunityForm").isChanged()) {
+    var url;
+    var communityId;
+    var userListName = document.getElementById('user_list_name');
+    var communityUsersIds = [];
+    i = 1;
+    $("#users-container").children("label").each(function () {
+      if (document.getElementById("communityUsersIds" + i).checked) {
+        var selectedUserId = document.getElementById("communityUsersIds" + i).value;
+        communityUsersIds.push(selectedUserId);
+      }
+      i = i + 1;
+    });
 
+    community = {
+      name: name,
+      communityUsersIds: communityUsersIds
+    };
+    $.ajax({
+      url: "/ws/sec/communities",
+      type: 'post',
+      data: JSON.stringify(community),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        communityId = response.communityId;
+        userListName.textContent = response.errorMessage;
+        $("#validate_create_community_favorite").modal('show');
+        setTimeout(function () {
+          $('#validate_create_community_favorite').modal('hide');
+          url = "/sec/community/" + communityId;
+
+          window.location = url;
+        }, 3000);
+      },
+      error: function (response) {
+      }
+    })
+  } else {
+    /*var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
+    window.location = url;*/
+    window.history.back();
+
+  }
+
+};
 
 function onModifyCommunity(communityId) {
   if ($("#ModifyCommunityForm").isChanged()) {
@@ -162,6 +208,7 @@ function onReset(event) {
 (function main($) {
   $("#shareFavoriteForm").trackChanges();
   $("#ModifyCommunityForm").trackChanges();
+  $("#FavoriteCreateCommunityForm").trackChanges();
   search_user .addEventListener('keyup', search);
   button_reset.addEventListener('click', onReset);
 })($);
