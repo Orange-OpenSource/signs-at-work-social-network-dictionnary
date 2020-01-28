@@ -35,7 +35,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                   <div class="lsf_white pull-left"></div>
-                  <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
+                  <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -76,13 +76,13 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="lsf_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
+          <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
         </div>
         </div>
 
         <div  class="container_record text-center">
-          <h4 id="label_record" th:text="#{record_description_request_lsf(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h4>
-          <h4 id="label_after_record" th:text="#{after_record_description_request_lsf(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}" style="display: none"></h4>
+          <h4 id="label_record" th:text="#{record_description_request_lsf(${requestCreationView.requestName})}"></h4>
+          <h4 id="label_after_record" th:text="#{after_record_description_request_lsf(${requestCreationView.requestName})}" style="display: none"></h4>
           <div id="container_video" class="col-xs-offset-1 col-xs-10" >
             <div class="spinner spinner_hidden"></div>
             <span id="counter"></span>
@@ -136,7 +136,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="lsf_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${'&laquo;'+requestCreationView.requestName+'&raquo;'})}"></h2>
+          <h2 class="pull-right text_hyphenation" th:text="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
@@ -148,6 +148,9 @@
           <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
         </div>
         <div class="modal-footer">
+          <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <span th:text="#{cancel}"></span>
+          </button>
           <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"
                   data-dismiss=""></button>
         </div>

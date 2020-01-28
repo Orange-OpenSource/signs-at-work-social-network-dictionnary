@@ -88,7 +88,7 @@
               <li th:if="${request.sign == null}" class="aside_bckg_li">
                 <a th:href="@{/sec/my-request-detail/} + ${request.id}">
                   <div>
-                    <h4 class="text_hyphenation container_H2 " th:text="${'&laquo;'+request.name+'&raquo;'}"></h4>
+                    <h4 class="text_hyphenation container_H2 " th:text="${request.name}"></h4>
                     <div>
                       <div class="pull-right chevron_right "></div>
                     </div>
@@ -99,8 +99,8 @@
                 <a th:href="@{/sign/} + ${request.sign.id}">
                   <div>
                     <div class="pull-left most_recent"></div>
-                    <h4 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${'&laquo;'+request.name+'&raquo;'}"></h4>
-                    <h4 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${'&laquo;'+request.name+'&raquo;'}, ${'&laquo;'+request.sign.name+'&raquo;'})}"></h4>
+                    <h4 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${request.name}"></h4>
+                    <h4 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${request.name}, ${request.sign.name})}"></h4>
                     <div >
                       <div class="pull-right chevron_right"></div>
                     </div>
