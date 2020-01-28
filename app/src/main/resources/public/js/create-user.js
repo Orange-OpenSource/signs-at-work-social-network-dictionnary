@@ -25,6 +25,8 @@ console.log("Cool, create_user.js is loaded :)");
 function onAccepted() {
   $('#cguAccepted').css('display', 'none');
   $('#accountRequest').removeClass("hidden");
+  $('#cgu_title').css('display', 'none');
+  $('#create_account_title').removeClass("hidden");
 };
 
 var inputLastName = document.getElementById('lastName');
