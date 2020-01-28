@@ -203,4 +203,19 @@ public class CommunityController {
 
     return "community-description";
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = "/sec/community/create")
+  public String createCommunity(@RequestParam("name") String name, Principal principal, Model model) {
+    User user = services.user().withUserName(principal.getName());
+    String decodeName = URLDecoder.decode(name);
+    model.addAttribute("backUrl", "/sec/communities");
+    model.addAttribute("communityName", decodeName);
+    model.addAttribute("communityProfileView", new CommunityProfileView());
+    Users users = services.user().allForCreateCommunity();
+    List<User> usersWithoutMeAndWithoutAdmin = users.stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
+    model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
+
+    return "create-community";
+  }
 }
