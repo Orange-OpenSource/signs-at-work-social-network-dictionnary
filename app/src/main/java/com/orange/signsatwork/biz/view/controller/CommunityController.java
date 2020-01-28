@@ -70,6 +70,9 @@ public class CommunityController {
   public String community(@PathVariable long communityId, Model model, Principal principal)  {
     User user = services.user().withUserName(principal.getName());
     Community community = services.community().withId(communityId);
+    if (community == null) {
+      return "redirect:/sec/communities";
+    }
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
@@ -148,7 +151,7 @@ public class CommunityController {
 
     Community community = services.community().withId(communityId);
     if (community == null) {
-      return("redirect:/");
+      return("redirect:/sec/communities");
     }
 
     model.addAttribute("title", community.name);

@@ -126,6 +126,9 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   private Community communityFrom(CommunityDB communityDB) {
+    if (communityDB == null) {
+      return null;
+    }
     return new Community(communityDB.getId(), communityDB.getName(), communityDB.getDescriptionText(), communityDB.getDescriptionVideo(), UserServiceImpl.usersFromCommunityView(communityDB.getUsers()), communityDB.getType(), UserServiceImpl.userFromCommunityView(communityDB.getUser()));
   }
 
