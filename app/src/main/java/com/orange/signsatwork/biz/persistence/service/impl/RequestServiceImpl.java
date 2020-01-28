@@ -192,6 +192,9 @@ public class RequestServiceImpl implements RequestService {
   }
 
   static Request requestFrom(RequestDB requestDB, Services services) {
+    if (requestDB == null) {
+      return null;
+    }
     return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestVideoDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services), UserServiceImpl.userFromSignView(requestDB.getUser()));
   }
 

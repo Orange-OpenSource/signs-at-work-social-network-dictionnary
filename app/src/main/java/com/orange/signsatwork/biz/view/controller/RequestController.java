@@ -84,6 +84,9 @@ public class RequestController {
   @RequestMapping(value = "/sec/my-request-detail/{requestId}")
   public String requestDetails(@PathVariable long requestId, Principal principal, Model model) {
     Request request = services.request().withId(requestId);
+    if (request == null) {
+      return "redirect:/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
+    }
 
     model.addAttribute("title", request.name);
 
