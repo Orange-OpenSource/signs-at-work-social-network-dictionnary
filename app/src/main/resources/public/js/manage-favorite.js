@@ -36,7 +36,8 @@ function onDeleteFavorite(favoriteId) {
         $("#validate_delete_favorite").modal('show');
         setTimeout(function () {
           $('#validate_delete_favorite').modal('hide');
-          window.history.back();
+          var url = "/sec/favorites";
+          window.location = url;
         }, 3000);
       },
       error: function (response) {

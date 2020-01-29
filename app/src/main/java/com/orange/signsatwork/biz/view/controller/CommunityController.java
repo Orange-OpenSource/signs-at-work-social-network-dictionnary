@@ -151,7 +151,7 @@ public class CommunityController {
 
     Community community = services.community().withId(communityId);
     if (community == null) {
-      return("redirect:/sec/communities");
+      return("redirect:/");
     }
 
     model.addAttribute("title", community.name);
