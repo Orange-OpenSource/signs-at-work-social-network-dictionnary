@@ -42,7 +42,11 @@ $formRequest.on('submit', function(event) {
          $("#confirm-request-created").modal('show');
          setTimeout(function(){
            $('#confirm-request-created').modal('hide');
-           window.location = "/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
+           var url = "/sec/my-request-detail/"+response.requestId;
+           console.log(window.location.href);
+           window.history.replaceState({}, 'foo', url);
+           console.log(window.location.href);
+           window.location = url;
            requestSpan.style.visibility="hidden";
          }, 3000);
        },
@@ -106,10 +110,17 @@ $formRequestDescription.on('submit', function(event) {
           contentType: false,
           processData: false,
           success: function(response) {
-            var url = "/sec/my-request-detail/"+response.requestId;
-            window.location = url;
-            errorSelectedSpan.style.visibility="hidden";
-            $(".spinner").visibility="hidden";
+            $("#confirm-request-created").modal('show');
+            setTimeout(function(){
+              $('#confirm-request-created').modal('hide');
+              var url = "/sec/my-request-detail/"+response.requestId;
+              console.log(window.location.href);
+              window.history.replaceState({}, 'foo', url);
+              console.log(window.location.href);
+              window.location = url;
+              errorSelectedSpan.style.visibility="hidden";
+              $(".spinner").visibility="hidden";
+            }, 3000);
           },
           error: function(response) {
             var returnedData = JSON.parse(response.responseText);
