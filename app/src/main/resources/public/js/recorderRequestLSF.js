@@ -202,12 +202,21 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       data: JSON.stringify(videoFile),
       contentType: "application/json",
       success: function(response) {
-        var url = "/sec/my-request-detail/"+response.requestId;
-        window.location = url;
-        errorSpan.style.visibility="hidden";
-        $(".spinner").visibility="hidden";
-        $("video").css("z-index","1500").css("opacity","1");
-        console.log("Success " + response);
+        $("#confirm-request-created").modal('show');
+        setTimeout(function(){
+          $('#confirm-request-created').modal('hide');
+          errorSpan.style.visibility="hidden";
+          $(".spinner").visibility="hidden";
+          $("video").css("z-index","1500").css("opacity","1");
+          console.log("Success " + response);
+          var url = "/sec/my-request-detail/"+response.requestId;
+          console.log(window.location.href);
+          window.history.replaceState({}, 'foo', url);
+          console.log(window.location.href);
+          window.location = url;
+        }, 3000);
+
+
       },
       error: function(response) {
         var returnedData = JSON.parse(response.responseText);

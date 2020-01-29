@@ -83,6 +83,9 @@ function onCreateCommunity(name) {
         setTimeout(function () {
           $('#validate_create_community_favorite').modal('hide');
           url = "/sec/community/" + communityId;
+          console.log(window.location.href);
+          window.history.replaceState({}, 'foo', url);
+          console.log(window.location.href);
           window.location = url;
         }, 3000);
       },
