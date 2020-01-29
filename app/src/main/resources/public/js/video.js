@@ -43,10 +43,13 @@ $formDeleteVideo.on('submit', function(event) {
       //dataType: 'json',
       success: function(response) {
         var url = response;
-        window.location = url;
+        console.log(window.location.href);
+        window.history.replaceState({}, 'foo', url);
+        console.log(window.location.href);
         errorDeletedSpan.style.visibility="hidden";
         $(".spinner").visibility="hidden";
         console.log("Success " + response);
+        window.location = url;
       },
       error: function(response) {
         errorDeletedSpan.textContent = response.responseText;
