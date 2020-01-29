@@ -32,7 +32,7 @@
 
 <div th:fragment="div" class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col">
     <div id="myform" >
-      <input type="search" id="search-criteria" th:placeholder="#{search}" class="border form-control"/>
+      <input type="search" id="search-criteria" th:placeholder="#{search}" th:autocomplete="off" class="border form-control"/>
       <input type='button' class="pull-rigth" id='reset_search_request' value='X' />
     </div>
     <div th:replace="fragments/frame-other-requests :: div"/>
