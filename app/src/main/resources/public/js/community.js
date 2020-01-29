@@ -83,7 +83,6 @@ function onCreateCommunity(name) {
         setTimeout(function () {
           $('#validate_create_community_favorite').modal('hide');
           url = "/sec/community/" + communityId;
-
           window.location = url;
         }, 3000);
       },
@@ -91,10 +90,7 @@ function onCreateCommunity(name) {
       }
     })
   } else {
-    /*var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
-    window.location = url;*/
     window.history.back();
-
   }
 
 };
@@ -129,13 +125,6 @@ function onModifyCommunity(communityId) {
         $("#validate_modify_community").modal('show');
         setTimeout(function () {
           $('#validate_modify_community').modal('hide');
-         /* if (favoriteId == 0) {
-            url = "/sec/community/" + communityId;
-          } else {
-            url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=" + communityId;
-          }
-
-          window.location = url;*/
           window.history.back();
         }, 3000);
       },
@@ -143,8 +132,6 @@ function onModifyCommunity(communityId) {
       }
     })
   } else {
-    /*var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
-    window.location = url;*/
     window.history.back();
 
   }

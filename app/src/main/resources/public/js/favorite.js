@@ -76,9 +76,6 @@ function onAssociateFavoriteCommunities(favoriteId, communityId) {
         $("#validate_share_favorite_modif").modal('show');
         setTimeout(function () {
           $('#validate_share_favorite_modif').modal('hide');
-      /*    var url = "/sec/favorite/" + favoriteId;
-          window.location = url;*/
-          /*window.history.go(-2);*/
           window.history.back();
         }, 3000);
       },
@@ -86,8 +83,6 @@ function onAssociateFavoriteCommunities(favoriteId, communityId) {
       }
     })
   } else {
-   /* var url = "/sec/favorite/" + favoriteId;
-    window.location = url;*/
     window.history.back();
   }
 
@@ -130,7 +125,6 @@ function onCreateFavoriteCommunity(name, favoriteId) {
           } else {
             url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=" + communityId;
           }
-
           window.location = url;
         }, 3000);
       },
@@ -138,8 +132,6 @@ function onCreateFavoriteCommunity(name, favoriteId) {
       }
     })
   } else {
-    /*var url = "/sec/favorite/share/?id=" + favoriteId + "&communityId=0";
-    window.location = url;*/
     window.history.back();
 
   }
