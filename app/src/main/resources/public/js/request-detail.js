@@ -47,7 +47,11 @@ function onDeleteRequest(id){
       $("#confirm_delete").modal('show');
       setTimeout(function(){
         $('#confirm_delete').modal('hide');
-        window.location = "/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
+        var url = "/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
+        console.log(window.location.href);
+        window.history.replaceState({}, 'foo', url);
+        console.log(window.location.href);
+        window.location = url;
       }, 3000);
 
     },
