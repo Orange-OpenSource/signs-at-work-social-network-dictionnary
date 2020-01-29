@@ -202,11 +202,14 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
     success: function(response) {
       //var url = "/sign/"+response;
       var url = response;
-      window.location = url;
       errorSpan.style.visibility="hidden";
       $(".spinner").visibility="hidden";
       $("video").css("z-index","1500").css("opacity","1");
       console.log("Success " + response);
+      console.log(window.location.href);
+      window.history.replaceState({}, 'foo', url);
+      console.log(window.location.href);
+      window.location = url;
     },
     error: function(response) {
       errorSpan.textContent = response.responseText;

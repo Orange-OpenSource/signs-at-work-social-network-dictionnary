@@ -190,6 +190,9 @@ public class VideoServiceImpl implements VideoService {
   }
 
   static Video videoFrom(VideoDB videoDB) {
+    if (videoDB == null) {
+      return null;
+    }
     return new Video(videoDB.getId(), videoDB.getIdForName(), videoDB.getUrl(), videoDB.getPictureUri(), 0, videoDB.getAverageRate(), videoDB.getCreateDate(), UserServiceImpl.userFromSignView(videoDB.getUser()), null, RatingServiceImpl.ratingsFrom(videoDB.getRatings()),null,null);
   }
 

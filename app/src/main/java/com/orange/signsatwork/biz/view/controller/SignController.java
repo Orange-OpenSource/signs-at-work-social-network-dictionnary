@@ -803,12 +803,12 @@ public class SignController {
 
     Sign sign = services.sign().withIdSignsView(signId);
     if (sign == null) {
-      return "redirect:/";
+      return "redirect:/sec/signs/mostrecent?isMostRecent=false&isSearch=false";
     }
 
     Video video = services.video().withId(videoId);
     if (video == null) {
-      return "redirect:/";
+      return "redirect:/sign/" +signId;
     }
 
     if (principal != null) {

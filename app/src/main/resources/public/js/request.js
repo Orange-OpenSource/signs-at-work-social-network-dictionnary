@@ -42,12 +42,12 @@ $formRequest.on('submit', function(event) {
          $("#confirm-request-created").modal('show');
          setTimeout(function(){
            $('#confirm-request-created').modal('hide');
+           requestSpan.style.visibility="hidden";
            var url = "/sec/my-request-detail/"+response.requestId;
            console.log(window.location.href);
            window.history.replaceState({}, 'foo', url);
            console.log(window.location.href);
            window.location = url;
-           requestSpan.style.visibility="hidden";
          }, 3000);
        },
        error: function(response) {
