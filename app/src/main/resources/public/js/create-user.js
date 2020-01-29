@@ -53,13 +53,11 @@ function checkLastName() {
   var valueLastName = inputLastName.value;
 
   if (!regexName.test(valueLastName)) {
-    /*$('#lastName').addClass("alert alert-warning");*/
     $('.errorRegexLastName').removeClass("hidden");
     lastName = false;
     submitCreateUser.disabled = true;
   }else {
     lastName = true;
-    /*$('#lastName').removeClass("alert alert-warning");*/
     $('.errorRegexLastName').addClass("hidden");
     if ((firstName != false) && (mail != false)) {
       submitCreateUser.disabled = false;
@@ -71,13 +69,11 @@ function checkFirstName() {
   var valueFirstName = inputFirstName.value;
 
   if (!regexName.test(valueFirstName)) {
-   /* $('#firstName').addClass("alert alert-warning");*/
     $('.errorRegexFirstName').removeClass("hidden");
     firstName = false;
     submitCreateUser.disabled = true;
   } else {
     firstName = true;
-    /*$('#firstName').removeClass("alert alert-warning");*/
     $('.errorRegexFirstName').addClass("hidden");
     if ((lastName != false) && (mail != false)) {
       submitCreateUser.disabled = false;
@@ -90,13 +86,11 @@ function checkEmail() {
   var valueEmail = inputEmail.value;
   errorCreateUser.style.visibility = "hidden";
   if(!regexEmail.test(valueEmail)) {
-    /*$('#mail').addClass("alert alert-warning");*/
     $('.errorRegexEmail').removeClass("hidden");
     mail = false;
     submitCreateUser.disabled = true;
   }else {
     mail = true;
-    /*$('#mail').removeClass("alert alert-warning");*/
     $('.errorRegexEmail').addClass("hidden");
     if ((lastName != false) && (firstName != false)) {
       submitCreateUser.disabled = false;
