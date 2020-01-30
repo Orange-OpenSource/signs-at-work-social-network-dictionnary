@@ -59,14 +59,14 @@
         </li>
 
         <li th:if="${!isCommunityAlreadyExist}" class="aside_bckg_li">
-          <a th:if="${favoriteId != 0}" th:href="@{/sec/favorite/create_community(name=${communityName}, id=${favoriteId})}">
+          <a th:onclick="'javascript:onChangeFavoriteBrowserHistory('+ ${favoriteId} +')' " th:if="${favoriteId != 0}" th:href="@{/sec/favorite/create_community(name=${communityName}, id=${favoriteId})}">
             <div class="pull-left see_members_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
               <div class="pull-right chevron_right"></div>
             </div>
           </a>
-          <a th:if="${favoriteId == 0}" th:href="@{/sec/community/create(name=${communityName}, id=${favoriteId})}">
+          <a th:onclick="'javascript:onChangeBrowserHistory()'" th:if="${favoriteId == 0}" th:href="@{/sec/community/create(name=${communityName}, id=${favoriteId})}">
             <div class="pull-left see_members_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
@@ -107,5 +107,6 @@
 </div>
 </body>
 
+<script type="text/javascript" src="../public/js/suggest-communities.js" th:src="@{/js/suggest-communities.js}"></script>
 
 </html>
