@@ -194,7 +194,11 @@ function onReset(event) {
 (function main($) {
   $("#shareFavoriteForm").trackChanges();
   $("#FavoriteCreateCommunityForm").trackChanges();
-  search_user .addEventListener('keyup', search);
-  button_reset.addEventListener('click', onReset);
+  if (search_user) {
+    search_user.addEventListener('keyup', search);
+  }
+  if (button_reset) {
+    button_reset.addEventListener('click', onReset);
+  }
 })($);
 
