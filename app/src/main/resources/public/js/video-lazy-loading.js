@@ -26,9 +26,15 @@
 
   var videosContainer = document.getElementById("videos-container");
   /** Live node list (updated while we iterate over it...) */
-  var videoViewsHidden = videosContainer.getElementsByClassName(HIDDEN_CLASS);
+  var videoViewsHidden, videosCount;
+  if (videosContainer) {
+    videoViewsHidden = videosContainer.getElementsByClassName(HIDDEN_CLASS);
+    videosCount = videosContainer.children.length;
+  } else {
+    videoViewsHidden = '';
+    videosCount = 0;
+  }
 
-  var videosCount = videosContainer.children.length;
 
   var displayedVideosCount = 0;
   var modeSearch = new Boolean(false);

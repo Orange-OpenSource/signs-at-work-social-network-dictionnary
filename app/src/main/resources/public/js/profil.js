@@ -43,6 +43,7 @@ var counter = 3;
 var t;
 
 var nameVideoRecord = document.getElementById('nameVideo-record');
+var jobVideoRecord = document.getElementById('jobVideo-record')
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -343,25 +344,29 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
 });
 
-nameVideoRecord.onclick = function() {
-  console.log("click on record name lsf");
-  $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
-  labelRecord = document.getElementById('label_record');
-  document.getElementById('label_record').style.visibility="visible";
-  document.getElementById('label_record').style.display="block";
-  document.getElementById('label_record_job_description').style.display="none";
-  labelAfterRecord = document.getElementById('label_after_record');
-};
+if (nameVideoRecord) {
+  nameVideoRecord.onclick = function () {
+    console.log("click on record name lsf");
+    $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
+    labelRecord = document.getElementById('label_record');
+    document.getElementById('label_record').style.visibility = "visible";
+    document.getElementById('label_record').style.display = "block";
+    document.getElementById('label_record_job_description').style.display = "none";
+    labelAfterRecord = document.getElementById('label_after_record');
+  };
+}
 
-document.getElementById('jobVideo-record').onclick = function() {
-  console.log("click on record job description lsf");
-  $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForJobDescription');
-  document.getElementById('label_record_job_description').style.visibility="visible";
-  document.getElementById('label_record_job_description').style.display="block";
-  document.getElementById('label_record').style.display="none";
-  labelRecord = document.getElementById('label_record_job_description');
-  labelAfterRecord = document.getElementById('label_after_record_job_description');
-};
+if (jobVideoRecord) {
+  jobVideoRecord.onclick = function () {
+    console.log("click on record job description lsf");
+    $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForJobDescription');
+    document.getElementById('label_record_job_description').style.visibility = "visible";
+    document.getElementById('label_record_job_description').style.display = "block";
+    document.getElementById('label_record').style.display = "none";
+    labelRecord = document.getElementById('label_record_job_description');
+    labelAfterRecord = document.getElementById('label_after_record_job_description');
+  };
+}
 
 function editProfil() {
   if ($('#nameVideo-record').is(":hidden")) {
