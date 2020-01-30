@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 import com.orange.signsatwork.biz.persistence.service.EmailService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.*;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -45,6 +46,9 @@ import java.io.InputStream;
 @Component
 public class EmailServiceImpl implements EmailService {
 
+  @Value("${app.admin.username}")
+  String adminUsername;
+
   @Autowired
   public JavaMailSender emailSender;
   @Autowired
@@ -57,7 +61,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("user_name", userName);
       ctx.setVariable("request_name", requestName);
@@ -98,7 +102,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("user_name", userName);
       ctx.setVariable("favorite_name", favoriteName);
@@ -137,7 +141,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
@@ -176,7 +180,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("old_name", oldName);
       ctx.setVariable("new_name", newName);
@@ -215,7 +219,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
@@ -253,7 +257,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
@@ -290,7 +294,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
@@ -328,7 +332,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("username", username);
       ctx.setVariable("url", url);
@@ -366,7 +370,7 @@ public class EmailServiceImpl implements EmailService {
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
       helper.setSubject(subject);
-      helper.setFrom("admin@signsatwork.com");
+      helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
@@ -405,7 +409,7 @@ public class EmailServiceImpl implements EmailService {
       message.setTo(to);
       message.setSubject(subject);
       message.setText(text);
-      message.setFrom("admin@admin.com");
+      message.setFrom(adminUsername);
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
