@@ -38,9 +38,12 @@
             </div>
             <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/add/comment'" th:object="${commentCreationView}" method="post">
                 <div class="modal-body text-center">
-                    <textarea required="" th:placeholder="#{sign.enter_comment}" id="text" th:field="*{text}" rows="3" cols="40"></textarea><br/>
+                    <textarea required="" th:placeholder="#{sign.enter_comment}" id="text" th:field="*{text}" rows="3" cols="40"></textarea>
                 </div>
                 <div class="modal-footer">
+                  <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                    <span th:text="#{cancel}"></span>
+                  </button>
                     <button th:text="#{continue}" type="submit" class="btn btn-default"
                             data-dismiss=""></button>
                 </div>

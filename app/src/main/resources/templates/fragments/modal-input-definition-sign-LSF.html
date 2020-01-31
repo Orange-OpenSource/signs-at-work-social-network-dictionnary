@@ -35,7 +35,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="pull-left">
                   <div class="definition_lsf_white pull-left"></div>
-                  <h2 class="pull-right text_hyphenation" th:text="#{sign.definition(${'&laquo;'+signView.name+'&raquo;'})}"></h2>
+                  <h2 class="pull-right text_hyphenation" th:text="#{sign.definition(${signView.name})}"></h2>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -76,7 +76,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="suggest pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:text="#{sign.definition(${'&laquo;'+signView.name+'&raquo;'})}"></h2>
+          <h2 class="pull-right text_hyphenation" th:text="#{sign.definition(${signView.name})}"></h2>
         </div>
         </div>
 
@@ -135,7 +135,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <div class="pull-left">
           <div class="suggest pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:text="#{sign.definition(${'&laquo;'+signView.name+'&raquo;'})}"></h2>
+          <h2 class="pull-right text_hyphenation" th:text="#{sign.definition(${signView.name})}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
