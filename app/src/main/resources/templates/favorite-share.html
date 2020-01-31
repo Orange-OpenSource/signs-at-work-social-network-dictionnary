@@ -69,7 +69,7 @@
 
       <form th:action="@{/sec/community/search(id=${favoriteProfileView.favorite.id})}" th:object="${communityCreationView}" method="post" autocomplete="off">
         <div class="modal-body text-center">
-          <input th:value="${favoriteProfileView.favorite.favoriteName()}" type="text" class="border form-control"
+          <input th:value="${favoriteProfileView.favorite.favoriteName()}" type="text" class="border form-control" th:placeholder="#{community.enter_name}"
                  name="name" th:autofocus="true" />
         </div>
         <div class="modal-footer">

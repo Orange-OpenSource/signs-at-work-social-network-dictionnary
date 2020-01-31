@@ -76,7 +76,7 @@
 
       <form th:action="@{/sec/community/search(id='0')}" th:object="${communityCreationView}" method="post" autocomplete="off">
         <div class="modal-body text-center">
-          <input type="text" class="border form-control" name="name" th:autofocus="true" />
+          <input type="text" class="border form-control" name="name" th:autofocus="true" th:placeholder="#{community.enter_name}"/>
         </div>
         <div class="modal-footer">
           <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">

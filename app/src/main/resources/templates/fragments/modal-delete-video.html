@@ -40,19 +40,19 @@
           <h2 class="pull-right" th:text="#{video.delete}"></h2>
         </div>
       </div>
-      <div class="modal-body text-center">
-        <h4 th:text="#{video.confirm_delete}"></h4>
-      </div>
       <div class="spinner spinner_hidden"></div>
-        <form id="deleteVideo" th:action="@{/ws/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/delete'" method="post">
-          <span id="errorDeletedSpan"  style="visibility: hidden"></span>
-          <div class="modal-footer">
-            <button id="submitButtonDelete" type="submit" class="btn btn-default" data-dismiss="" th:text="#{video.validate}"/>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+      <form id="deleteVideo" th:action="@{/ws/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/delete'" method="post">
+        <div class="modal-body text-center">
+          <h4 th:text="#{video.confirm_delete}"></h4>
+        </div>
+        <span id="errorDeletedSpan"  style="visibility: hidden"></span>
+        <div class="modal-footer">
+          <button id="submitButtonDelete" type="submit" class="btn btn-default" data-dismiss="" th:text="#{video.validate}"/>
+        </div>
+      </form>
+     </div>
+   </div>
+ </div>
 
 </body>
 </html>
