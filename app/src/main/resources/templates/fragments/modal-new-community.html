@@ -39,7 +39,7 @@
             <form th:action="@{/sec/community/search(id=${favoriteId})}" th:object="${communityCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
                     <input th:field="*{name}" id="name" name="name" type="text" class="form-control"
-                           th:placeholder="#{sign.enter_name}" required=""/><br/>
+                           th:placeholder="#{community.enter_name}" required=""/><br/>
                 </div>
 
                 <div class="modal-footer">
