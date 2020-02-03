@@ -486,7 +486,7 @@ $add_email.on('hidden.bs.modal', function() {
 
 var inputLastName = document.getElementById('lastName');
 var inputFirstName = document.getElementById('firstName');
-var regexName = new RegExp('^[a-zA-Z_-]{1,30}$');
+var regexName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{1,30}$');
 inputLastName.addEventListener('keyup',checkLastName);
 inputFirstName.addEventListener('keyup',checkFirstName);
 var lastName = new Boolean(true);
