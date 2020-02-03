@@ -45,7 +45,8 @@
     }
 
   </script>
-  <link rel='manifest' href='/manifest/manifest.json'/>
+  <link rel='manifest' th:href="${manifest}"/>
+
 </head>
 
 <header role="banner" th:replace="fragments/header-home :: header">&nbsp;</header>
