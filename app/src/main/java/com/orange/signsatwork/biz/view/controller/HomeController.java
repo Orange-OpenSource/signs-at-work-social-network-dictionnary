@@ -71,7 +71,6 @@ public class HomeController {
   @Value("${app.name}")
   String appName;
 
-
   @Value("${app.manifest}")
   private String manifest;
 
