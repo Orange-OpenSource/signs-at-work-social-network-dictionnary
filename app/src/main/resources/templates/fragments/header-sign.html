@@ -33,11 +33,11 @@
               <a th:onclick="'javascript:goBack()'">
                 <div class="back pull-left"></div>
               </a>
-              <a href="/">
+              <a href="/" th:attr="aria-label=#{home}">
                 <div class="signe_reverse_video"></div>
               </a>
               <ul th:if="${isAuthenticated}" role="tablist" class="hidden-sm hidden-lg hidden-md navbar-toggle-complement nav navbar-nav">
-                <li role="presentation">
+                <li role="tab">
                   <a data-target="#add_sign_to_favorite" data-toggle="modal" href="#" title="add favorite">
                     <div class="hidden-lg hidden-md hidden-sm add_favorite_signe_header text-center"></div>
                     <span th:text="#{favorite.add}" class="text-hide"></span></a>
