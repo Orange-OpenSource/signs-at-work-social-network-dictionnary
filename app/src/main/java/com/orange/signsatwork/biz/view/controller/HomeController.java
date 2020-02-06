@@ -74,6 +74,9 @@ public class HomeController {
   @Value("${app.manifest}")
   private String manifest;
 
+  @Value("${app.name}")
+  String appName;
+
   @Autowired
   public EmailServiceImpl emailService;
 
