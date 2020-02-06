@@ -92,12 +92,6 @@
           <div class="btn-group-vertical" role="group">
             <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
             <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
-             <!-- <button id="retry-recording" class="btn" title="Cliquer pour enregistrer">
-                <div class="retry_recording pull-left"></div><span th:text="#{retry}"></span>
-              </button>-->
-             <!-- <button id="cancel-recording" class="btn" title="Cliquer pour annuler">
-                <div class="cancel_recording pull-left"></div><span th:text="#{cancel}"></span>
-              </button>-->
             </div>
             <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
           </div>
@@ -148,7 +142,7 @@
           <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
         </div>
         <div class="modal-footer">
-          <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
             <span th:text="#{cancel}"></span>
           </button>
           <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"

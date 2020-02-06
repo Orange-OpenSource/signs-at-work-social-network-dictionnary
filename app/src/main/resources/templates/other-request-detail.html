@@ -51,7 +51,7 @@
     </div>
     <div class="pull-right col-md-8 col-xs-12 col-sm-4">
       <div class="embed-responsive embed-responsive-16by9" th:if="${requestView.requestVideoDescription} != null">
-        <iframe class="embed-responsive-item" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+        <iframe class="embed-responsive-item" th:attr="title=#{other-request(${title})}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
       </div>
     </div>
 
@@ -72,16 +72,13 @@
               <h4 class="grey-color" th:text="#{request.no_definition_lsf}"/>
             </div>
           </li>
-
-          <div sec:authorize="hasRole('USER_A')">
-            <li class="aside_bckg_li">
-              <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
-                <div class="pull-left suggest_black"></div>
-                <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
-                <div ><div class="pull-right chevron_right"></div></div>
-              </a>
-            </li>
-          </div>
+          <li sec:authorize="hasRole('USER_A')" class="aside_bckg_li">
+            <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
+              <div class="pull-left suggest_black"></div>
+              <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
+              <div ><div class="pull-right chevron_right"></div></div>
+            </a>
+          </li>
         </ul>
       </aside>
     </div>
