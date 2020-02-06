@@ -65,29 +65,24 @@
                         <div class="signe"></div>
                         <h2 class="text_hyphenation container_H2" th:text="#{sign.advise}"></h2>
                             <div>
-                                <div class="pull-right chevron_right " >
-                                   <!-- <span class="nbRecentSign_0-9" th:if="${nbRecentSign lt 9 and nbRecentSign ge 0}" id="container_badge_new_signe" th:text="${nbRecentSign}"></span>
-                                    <span class="nbRecentSign_9-99" th:if="${nbRecentSign lt 99 and nbRecentSign gt 9}" id="container_badge_new_signe" th:text="${nbRecentSign}"></span>
-                                    <span class="nbRecentSign_99-999" th:if="${nbRecentSign lt 999 and nbRecentSign gt 99}" id="container_badge_new_signe" th:text="${nbRecentSign}"></span>
-                                    <span class="nbRecentSign_999" th:if="${nbRecentSign gt 999}" id="container_badge_new_signe" th:text="${nbRecentSign}"></span>-->
+                                <div class="pull-right chevron_right ">
                                 </div>
                             </div>
                         </div>
                     </a>
                 </li>
-              <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                <a th:href="@{/sec/requests}">
-                  <div>
-                    <div class="pull-left require_black"></div>
-                    <h2 class="text_hyphenation container_H2" th:text="#{sign.request.advise}"></h2>
-                    <div >
-                      <div class="pull-right chevron_right"></div>
+                <li th:if="${isAuthenticated}" class="aside_bckg_li">
+                  <a th:href="@{/sec/requests}">
+                    <div>
+                      <div class="pull-left require_black"></div>
+                      <h2 class="text_hyphenation container_H2" th:text="#{sign.request.advise}"></h2>
+                      <div >
+                        <div class="pull-right chevron_right"></div>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </li>
-              <div sec:authorize="hasRole('USER_A')">
-                <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+                  </a>
+                </li>
+                <li sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a  data-target="#new-suggest" data-toggle="modal" href="#" >
                         <div>
                         <div class="pull-left suggest_black"></div>
@@ -98,17 +93,16 @@
                         </div>
                     </a>
                 </li>
-              </div>
             </ul>
         </aside>
       <div id="display_url" class="embed-responsive embed-responsive-16by9">
-        <iframe th:src="${display_url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+        <iframe th:attr="title=#{video_site}" th:src="${display_url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
       </div>
     </div>
 
 </div>
 
-<!--<div th:replace="fragments/modal-favorite :: div"/>-->
+
 <div id="prefetch" style="visibility:hidden;">
 </div>
 

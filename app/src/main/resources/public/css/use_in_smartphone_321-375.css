@@ -16,7 +16,7 @@
     margin-top: 0px;
   }
 
-  li[role="presentation_header"] {
+  #presentation_header {
     margin-right: 6px;
     margin-left: 20px;
   }
@@ -47,7 +47,7 @@
   /* End index page /index */
 
   /* Begin Menu */
-  li[role="menu"] {
+  li[role="menuitem"] {
     margin-left: 14px;
   }
 

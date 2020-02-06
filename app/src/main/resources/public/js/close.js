@@ -90,11 +90,6 @@ function goBack() {
 $(document).ready(function()
 {
   bindDOMEvents();
-/*  $("#sidebar").mCustomScrollbar({
-    theme: "minimal"
-  });*/
-
-/*  $('.overlay').fadeOut();*/
 
   $('#dismiss, .overlay').on('click', function () {
     $('#sidebar').removeClass('active');
