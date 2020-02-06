@@ -33,7 +33,7 @@
               <a th:onclick="'javascript:goBack()'">
                 <div class="back pull-left"></div>
               </a>
-              <a href="/">
+              <a href="/" th:attr="aria-label=#{home}">
                 <div class="signe_reverse_video"></div>
               </a>
               <h2 id="my-other-requests" class="navbar_title pull-right text_hyphenation" th:text="#{my-request(${title})}"/>
