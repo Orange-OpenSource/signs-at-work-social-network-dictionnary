@@ -113,8 +113,6 @@
     </ul>
   </div>
 
-  <div th:replace="fragments/modal-new-suggest :: div"/>
- <!-- <div th:replace="fragments/modal-new-request :: div"/>-->
   <div class="row" id="add-new-suggest-request" style="display: none">
     <div class="col-xs-12">
       <h2 id="sign_not_available" th:text="#{sign.not_available}"></h2>
@@ -177,18 +175,11 @@
                 <div th:if="${signView.videoHasComment}" class="tooltip_comment"></div>
                 <div th:if="${!signView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
               </div>
-              <img th:attr="data-src=${signView.pictureUri}">
-
-              </img>
+              <img th:attr="data-src=${signView.pictureUri}, alt=${signView.name}"/>
             </a>
             <a th:if="${signView.id == 0}" th:href="@{${signView.url} + ${signView.lastVideoId}}" >
-              <img th:attr="data-src=${signView.pictureUri}"/>
+              <img th:attr="data-src=${signView.pictureUri}, alt=${signView.name}"/>
             </a>
-            <!--<div class="col-lg-12 col-xl-12" >
-              <div id="labelSigne" class="text_hyphenation">
-                <div th:if="${signView.nbVideo >1}" class="tooltip_variante" th:text="${signView.nbVideo}"></div>
-              </div>
-            </div>-->
           </div>
         </div>
       </div>
@@ -219,8 +210,7 @@
                   <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
                   <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
                 </div>
-                  <img th:attr="data-src=${videoView.pictureUri}">
-                </img>
+                  <img th:attr="data-src=${videoView.pictureUri}, alt=${signView.name}"/>
               </a>
             </div>
           </div>

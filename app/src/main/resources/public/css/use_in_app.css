@@ -703,6 +703,11 @@ button.close{
   font-weight: bold;
 }
 
+.modal-footer>.btn.btn-secondary{
+  background-color: #fff;
+  color: black;
+}
+
 /* End Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest */
 
 /* Begin Nouveau signe /sec/signs-suggest */
