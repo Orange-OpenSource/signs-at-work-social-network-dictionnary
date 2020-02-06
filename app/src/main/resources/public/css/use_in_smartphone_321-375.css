@@ -349,10 +349,22 @@
     height: 2rem;
   }
 
+  ul.hidden-sm > li[role="tab"] {
+    /* margin-right: 15px;*/
+    width: 2rem;
+    height: 2rem;
+  }
+
   li[role="presentation"] {
     margin-right: 42px;
     margin-left: 20px;
   }
+
+  li[role="tab"] {
+    margin-right: 42px;
+    margin-left: 20px;
+  }
+
 
   .add_favorite_signe_header {
     background-size: auto 50px;

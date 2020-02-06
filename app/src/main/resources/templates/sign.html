@@ -43,7 +43,7 @@
               <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite_in_frame"></div>
             </div>
               <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item"  th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+                    <iframe class="embed-responsive-item"  th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
               </div>
         </div>
 
@@ -63,35 +63,28 @@
                             </div>
                         </a>
                     </li>
-                    <div th:if="${!isVideoCreatedByMe}">
-                        <li th:if="${isAuthenticated and ratingData.rateNoRate}" class="aside_bckg_li">
-                            <a href="#" data-toggle="modal" data-target="#evaluation_modal">
-                                <div>
-                                  <div class="pull-left evaluate_sign"></div>
-                                  <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
-                                  <div>
-                                      <div class="pull-right  chevron_right"/>
-                                  </div>
-                                </div>
-                            </a>
-                        </li>
-                    </div>
-
-                    <div sec:authorize="hasRole('USER_A')">
-                      <li th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
-                        <a href="#" data-toggle="modal" data-target="#new-video">
-                          <div>
-                            <div class="pull-left add_video"></div>
-                            <h2 class="container_H2" th:text="#{video.add}"></h2>
+                    <li th:if="${!isVideoCreatedByMe and isAuthenticated and ratingData.rateNoRate}" class="aside_bckg_li">
+                        <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                             <div>
-                              <div class="pull-right  add"/>
+                              <div class="pull-left evaluate_sign"></div>
+                              <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
+                              <div>
+                                  <div class="pull-right  chevron_right"/>
+                              </div>
                             </div>
-                          </div>
                         </a>
-                      </li>
-                    </div>
-
-
+                    </li>
+                    <li sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
+                      <a href="#" data-toggle="modal" data-target="#new-video">
+                        <div>
+                          <div class="pull-left add_video"></div>
+                          <h2 class="container_H2" th:text="#{video.add}"></h2>
+                          <div>
+                            <div class="pull-right  add"/>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
                     <li th:if="${isAuthenticated}"  class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#comment_modal">
                             <div>
@@ -103,15 +96,14 @@
                             </div>
                         </a>
                     </li>
-                    <div th:if="${not #lists.isEmpty(commentDatas)}">
-                      <div th:each="comment :${commentDatas}">
-                        <h4 class="comment_name" th:text="${comment.name()}"></h4>
-                        <h4 class="comment_date" th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
-                        <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
-                      </div>
-                    </div>
-
                 </ul>
+                <div th:if="${not #lists.isEmpty(commentDatas)}">
+                  <div th:each="comment :${commentDatas}">
+                    <h4 class="comment_name" th:text="${comment.name()}"></h4>
+                    <h4 class="comment_date" th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
+                    <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
+                  </div>
+                </div>
             </aside>
         </div>
     </div>
