@@ -68,6 +68,9 @@ public class HomeController {
   @Value("${display-url}")
   private String display_url;
 
+  @Value("${app.name}")
+  String appName;
+
   @Autowired
   public EmailServiceImpl emailService;
 
@@ -90,6 +93,7 @@ public class HomeController {
     boolean admin = appSecurityAdmin.isAdmin(principal);
 
     AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
+    model.addAttribute("title", appName);
     model.addAttribute("isDevProfile", appProfile.isDevProfile());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("display_url", display_url);
