@@ -44,16 +44,16 @@
                 <div th:if="${user.namePicture != null}" style="display: inline;">
                   <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
                   <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.nameVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
-                    <img th:src="${user.namePicture}" style="margin-bottom: 10px;"/>
+                    <img th:src="${user.namePicture}" th:attr="alt=#{name_LSF}" style="margin-bottom: 10px;"/>
                   </a>
-                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}">
                     <div id="nameVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
                   </a>
                 </div>
                 <div th:if="${user.namePicture == null}" style="display: inline;">
                   <h2 style="display: inline;" th:text="#{name_LSF}"></h2>
                   <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}">
                     <div id="nameVideo-record" class="pull-right picto-record" style="margin-top: 2px; display: none;"></div>
                   </a>
                 </div>
@@ -108,16 +108,16 @@
                 <div th:if="${user.jobDescriptionPicture != null}" style="display: inline;">
                   <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
                   <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${user.job} + '\')'" style="margin-left: 35px;">
-                    <img th:src="${user.jobDescriptionPicture}"  style="margin-bottom: 10px;margin-left: 110px;"/>
+                    <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px;"/>
                   </a>
-                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
                     <div id="jobVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
                   </a>
                 </div>
                 <div th:if="${user.jobDescriptionPicture == null}" style="display: inline;">
                   <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
                   <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
                     <div id="jobVideo-record" class="pull-right picto-record" style="margin-top: 2px; display: none;"></div>
                   </a>
                 </div>
@@ -148,7 +148,7 @@
                 <div style="display: inline;">
                   <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
                   <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.nameVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
-                    <img th:src="${user.namePicture}" style="margin-bottom: 10px;"/>
+                    <img th:src="${user.namePicture}" th:attr="alt=#{name_LSF}" style="margin-bottom: 10px;"/>
                   </a>
                 </div>
               </li>
@@ -180,7 +180,7 @@
                 <div style="display: inline;">
                   <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
                   <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${user.job} + '\')'" style="margin-left: 35px;">
-                    <img th:src="${user.jobDescriptionPicture}"  style="margin-bottom: 10px;margin-left: 110px;"/>
+                    <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px;"/>
                   </a>
                 </div>
               </li>
@@ -217,7 +217,7 @@
                         <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
                         <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
                       </div>
-                      <img th:attr="data-src=${videoView.pictureUri}"/>
+                      <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
                     </a>
                   </div>
                 </div>
