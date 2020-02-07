@@ -308,7 +308,7 @@ public class FavoriteController {
     if (communityId != 0) {
       favorite = favorite.addCommunity(communityId);
     }
-
+    model.addAttribute("title", messageByLocaleService.getMessage("favorite.share_with"));
     model.addAttribute("backUrl", "/sec/favorite/" + favoriteId);
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);

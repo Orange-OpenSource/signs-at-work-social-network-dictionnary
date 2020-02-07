@@ -100,7 +100,7 @@
                         <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
                         <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
                       </div>
-                      <img th:src="${videoView.pictureUri}">
+                      <img th:src="${videoView.pictureUri}" th:attr="alt=${videoView.videoName}">
                       </img>
                     </a>
                     </div>
@@ -113,7 +113,6 @@
 
           <div th:if="${#lists.isEmpty(videosView)}">
             <span class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col" th:text="#{favorite.empty}"></span>
-              <!--<h2 th:text="#{sign.not_available}"></h2>-->
           </div>
       </div>
 </body>

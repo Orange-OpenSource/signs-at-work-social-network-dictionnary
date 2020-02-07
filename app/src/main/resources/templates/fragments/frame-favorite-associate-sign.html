@@ -30,8 +30,8 @@
   <div id="myform" >
     <input type='button' class="pull-rigth" id='reset' value='X'/>
     <div id="container-input">
-      <input th:if="${not #lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" class="border form-control"/>
-      <input th:if="${#lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" class="border form-control search-hidden"/>
+      <input th:if="${not #lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" th:attr="aria-label=#{sign.search}" class="border form-control"/>
+      <input th:if="${#lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" th:attr="aria-label=#{sign.search}" class="border form-control search-hidden"/>
     </div>
   </div>
 
@@ -47,8 +47,8 @@
               <input type="checkbox" th:field="*{favoriteVideosIds}" th:value="${videoView.videoId}"/>
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>
               <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + '_' + ${videoView.idForName}"></span>
-              <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
-                  <img  th:attr="data-src=${videoView.pictureUri}"/>
+              <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
+                  <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.signName}"/>
               </a>
              </label>
 

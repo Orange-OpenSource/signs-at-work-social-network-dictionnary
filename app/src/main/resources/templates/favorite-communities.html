@@ -34,23 +34,22 @@
     <div class="col-md-4 col-xs-12 col-lg-12">
         <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
-                <div th:if="${not #lists.isEmpty(communities)}">
-                    <div th:each="community:${communities}">
-                        <li class="aside_bckg_li">
-                            <a th:href="@{/sec/community/} + ${community.id}">
-                                <div th:if="${community.type == 'Job'}" class="pull-left see_community_type_job_blue"></div>
-                                <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_community_type_job_i_below_blue"></div>
-                                <div th:if="${community.type == 'Project'}" class="pull-left see_community_type_project_blue"></div>
-                                <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_community_type_project_i_below_blue"></div>
-                                <h2 class="container_H2" th:text="${community.name}"></h2>
-                                <div><div class="pull-right chevron_right"></div> </div>
+                <li th:each="community:${communities}" class="aside_bckg_li">
+                    <a th:href="@{/sec/community/} + ${community.id}">
+                        <div th:if="${community.type == 'Job'}" class="pull-left see_community_type_job_blue"></div>
+                        <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_community_type_job_i_below_blue"></div>
+                        <div th:if="${community.type == 'Project'}" class="pull-left see_community_type_project_blue"></div>
+                        <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_community_type_project_i_below_blue"></div>
+                        <h2 class="container_H2" th:text="${community.name}"></h2>
+                        <div><div class="pull-right chevron_right"></div> </div>
 
-                            </a>
-                        </li>
-                    </div>
-                </div>
+                    </a>
+                </li>
             </ul>
         </aside>
+      <div th:if="${#lists.isEmpty(communities)}" class="text-center">
+        <h2 th:text="#{community.no_community}"></h2>
+      </div>
     </div>
 </div>
 </body>
