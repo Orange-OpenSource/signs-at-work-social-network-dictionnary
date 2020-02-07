@@ -41,7 +41,7 @@
 
   <div class="pull-right col-md-8 col-xs-12 col-sm-4">
     <div th:if="${community.descriptionVideo} != null">
-      <iframe th:src="${community.descriptionVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+      <iframe th:attr="title=${title}" th:src="${community.descriptionVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
     </div>
   </div>
 

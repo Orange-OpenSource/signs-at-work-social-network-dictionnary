@@ -47,17 +47,17 @@
                     <div class="pull-right  chevron_right"/>
                   </a>
                 </li>
-                <div th:if="${not #lists.isEmpty(community.users.list())}">
-                    <div th:each="user:${community.users.list()}">
-                        <li class="aside_bckg_li">
+               <!-- <div th:if="${not #lists.isEmpty(community.users.list())}">
+                    <div th:each="user:${community.users.list()}">-->
+                        <li th:each="user:${community.users.list()}" class="aside_bckg_li">
                             <a th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
                               <div class="pull-left see_members_blue"></div>
                                 <h2 class="container_H2" th:text="${user.name()}"></h2>
                                 <div class="pull-right chevron_right"></div>
                             </a>
                         </li>
-                    </div>
-                </div>
+                <!--    </div>
+                </div>-->
             </ul>
         </aside>
       <div th:if="${#lists.isEmpty(community.users.list())}" class="text-center">

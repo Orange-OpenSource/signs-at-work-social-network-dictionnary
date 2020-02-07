@@ -35,10 +35,10 @@
               <a th:onclick="'javascript:goBack()'">
                 <div class="back pull-left"></div>
               </a>
-              <a href="/">
+              <a href="/" th:attr="aria-label=#{home}">
                 <div class="signe_reverse_video"></div>
               </a>
-                <h1 class="text_hyphenation navbar_title pull-right" th:text="#{community.title(${community.name})}"></h1>
+                <h1 class="text_hyphenation navbar_title pull-right" th:text="${title}"></h1>
             </div>
         </div>
     </nav>
