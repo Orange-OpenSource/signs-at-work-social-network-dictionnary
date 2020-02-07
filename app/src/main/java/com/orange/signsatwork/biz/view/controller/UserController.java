@@ -340,6 +340,7 @@ public class UserController {
   public String myJob(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
 
+    model.addAttribute("title", messageByLocaleService.getMessage("your_job_title"));
     UserJobView userJobView = new UserJobView(user, services.community());
     model.addAttribute("userJobView", userJobView);
 
