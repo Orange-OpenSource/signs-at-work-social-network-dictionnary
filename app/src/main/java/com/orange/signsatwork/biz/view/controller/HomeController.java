@@ -68,14 +68,12 @@ public class HomeController {
   @Value("${display-url}")
   private String display_url;
 
+
   @Value("${app.name}")
   String appName;
 
   @Value("${app.manifest}")
   private String manifest;
-
-  @Value("${app.name}")
-  String appName;
 
   @Autowired
   public EmailServiceImpl emailService;
