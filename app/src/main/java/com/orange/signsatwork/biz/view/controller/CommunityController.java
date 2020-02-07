@@ -69,10 +69,13 @@ public class CommunityController {
   @RequestMapping(value = "/sec/community/{communityId}")
   public String community(@PathVariable long communityId, Model model, Principal principal)  {
     User user = services.user().withUserName(principal.getName());
+
+
     Community community = services.community().withId(communityId);
     if (community == null) {
       return "redirect:/sec/communities";
     }
+    model.addAttribute("title", messageByLocaleService.getMessage("community.title", new Object[]{community.name}));
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
@@ -175,7 +178,8 @@ public class CommunityController {
     User user = services.user().withUserName(principal.getName());
     Community community = services.community().withId(communityId);
 
-   /* model.addAttribute("backUrl", "/sec/favorite/share/?id=" + favoriteId +"&communityId=0");*/
+
+    model.addAttribute("title", messageByLocaleService.getMessage("favorite.title_create_community", new Object[]{community.name}));
     model.addAttribute("community", community);
     CommunityProfileView communityProfileView = new CommunityProfileView(community, services.user());
     model.addAttribute("communityProfileView", communityProfileView);
@@ -190,14 +194,7 @@ public class CommunityController {
   public String descriptionCommunity(@PathVariable long communityId, Principal principal, Model model)  {
     Community community = services.community().withId(communityId);
 
-    /*model.addAttribute("title", messageByLocaleService.getMessage("sign.definition", new Object[]{sign.name}));*/
-   /* model.addAttribute("title", sign.name);
-
-    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
-    model.addAttribute("showAddFavorite", HIDE_ADD_FAVORITE);
-
-    model.addAttribute("signView", sign);
-    model.addAttribute("signDefinitionCreationView", new SignDefinitionCreationView());*/
+    model.addAttribute("title", messageByLocaleService.getMessage("community.description_title", new Object[]{community.name}));
 
    model.addAttribute("community", community);
 
