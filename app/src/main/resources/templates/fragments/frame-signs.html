@@ -210,7 +210,7 @@
                   <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
                   <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
                 </div>
-                  <img th:attr="data-src=${videoView.pictureUri}, alt=${signView.name}"/>
+                  <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.signName}"/>
               </a>
             </div>
           </div>
