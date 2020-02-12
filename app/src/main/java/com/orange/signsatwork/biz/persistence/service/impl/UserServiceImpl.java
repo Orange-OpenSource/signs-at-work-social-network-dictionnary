@@ -30,6 +30,7 @@ import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.security.AppSecurityRoles;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +52,8 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
   private final Services services;
   private final PasswordResetTokenRepository passwordResetTokenRepository;
-
+  @Value("${app.admin.username}")
+  String adminUsername;
 
   @Override
   public List<String> findEmailForUserHaveSameCommunityAndCouldCreateSign(long userId) {
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User getAdmin() {
-    return(userFrom(userRepository.findByUsername("admin").get(0)));
+    return(userFrom(userRepository.findByUsername(adminUsername).get(0)));
   }
 
   @Override
