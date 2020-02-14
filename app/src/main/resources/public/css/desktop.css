@@ -126,7 +126,7 @@
     border: 1px solid;
   }
 
-  #labelSigne > a {
+  .labelSigne > a {
     padding-left: 15px;
     padding-right: 18px;
   }
@@ -378,7 +378,7 @@
     border: 1px solid;
   }
 
-  #labelSigne > a {
+  .labelSigne > a {
     padding-left: 15px;
     padding-right: 18px;
   }
@@ -728,7 +728,7 @@
   }
 
 
-  #labelSigne > a{
+  .labelSigne > a{
     padding-left: 60px;
   }
 
@@ -956,7 +956,7 @@
   }
 
 
-  #labelSigne > a{
+  .labelSigne > a{
     padding-left: 60px;
   }
 
@@ -984,7 +984,7 @@
   li.forIE.aside_bckg_li {
     display:none;
   }
-  #labelSigne > a{
+  .labelSigne > a{
     padding-left: 100px;
   }
 

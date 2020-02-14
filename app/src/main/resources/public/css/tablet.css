@@ -236,7 +236,7 @@
     border: 1px solid;
   }
 
-  #labelSigne > a {
+  .labelSigne > a {
     padding-left: 15px;
     padding-right: 18px;
   }
