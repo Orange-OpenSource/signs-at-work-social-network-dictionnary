@@ -123,7 +123,7 @@
     padding-left: 33px;
   }
 
-  #labelVideo.text_hyphenation {
+  .labelVideo {
     font-size: 14px;
     white-space: nowrap;
     text-align: center;
