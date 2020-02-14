@@ -138,7 +138,7 @@
     width: 21rem;
   }
 
-  #labelSigne.text_hyphenation {
+  .labelSigne {
     width: 11rem;
   }
 
@@ -176,7 +176,7 @@
   width:auto;
   }
 
-  #labelSigne a{
+  .labelSigne a{
     font-size:10px;
   }
 
@@ -574,7 +574,7 @@
     width: 30px;
   }
 
-  #labelSigne > a {
+  .labelSigne > a {
     padding-right: 18px;
   }
 
@@ -1613,7 +1613,7 @@
     left: 25%;
   }
 
-  #labelSigne.text_hyphenation {
+  .labelSigne {
     width: 10rem;
   }
 
@@ -1651,7 +1651,7 @@
     width:214px;
   }
 
-  #labelSigne a{
+  .labelSigne a{
     font-size:10px;
   }
 
@@ -2135,7 +2135,7 @@
     left: 32%;
   }
 
-  #labelSigne.text_hyphenation {
+  .labelSigne {
     width: 10rem;
   }
 
@@ -2173,7 +2173,7 @@
     width:214px;
   }
 
-  #labelSigne a{
+  .labelSigne a{
     font-size:10px;
   }
 
@@ -2531,7 +2531,7 @@
     width:214px;
   }
 
-  #labelSigne a{
+  .labelSigne a{
     font-size:10px;
   }
 
@@ -2841,7 +2841,7 @@
     left: 32%;
   }
 
-  #labelSigne.text_hyphenation {
+  .labelSigne {
     width: 10rem;
   }
 
@@ -2879,7 +2879,7 @@
     width:214px;
   }
 
-  #labelSigne a{
+  .labelSigne a{
     font-size:10px;
   }
 

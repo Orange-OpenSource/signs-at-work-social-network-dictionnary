@@ -79,12 +79,12 @@
     color:#FFFFFF;
   }
 
-  #labelSigne a{
+  .labelSigne a{
     font-size:14px;
     white-space: nowrap;
   }
 
-  #labelSigne.text_hyphenation {
+  .labelSigne {
     font-size: 14px;
     white-space: nowrap;
     max-width: 223px;

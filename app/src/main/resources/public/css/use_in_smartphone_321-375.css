@@ -115,7 +115,7 @@
     padding-right: 42px;
   }
 
-  #labelSigne.text_hyphenation {
+  .labelSigne {
     font-size: 14px;
     white-space: nowrap;
     max-width: 116px;
@@ -214,7 +214,7 @@
 
 
 
-  #labelSigne a{
+  .labelSigne a{
     font-size:14px;
     white-space: nowrap;
   }
