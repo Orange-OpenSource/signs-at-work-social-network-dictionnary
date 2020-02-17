@@ -1,0 +1,46 @@
+{"dir" : "ltr",
+  "lang" : "French",
+  "name" : "SignsAtLocalhost",
+  "scope" : "/",
+  "display" : "standalone",
+  "start_url" : "http://localhost:8080/",
+  "short_name" : "SignsAtLocalhost",
+  "theme_color" : "transparent",
+  "description" : "",
+  "orientation" : "any",
+  "background_color" : "transparent",
+  "generated" : "true",
+  "icons" : [
+    {
+      "src": "http://localhost:8080/img/icons/icon-72x72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "http://localhost:8080/img/icons/icon-96x96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "http://localhost:8080/img/icons/icon-128x128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "http://localhost:8080/img/icons/icon-144x144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "http://localhost:8080/img/icons/icon-152x152.png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "http://localhost:8080/img/icons/icon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "http://localhost:8080/img/icons/icon-384x384.png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "http://localhost:8080/img/icons/icon-512x512.png",
+      "sizes": "512x512"
+    }
+  ]}

@@ -68,8 +68,12 @@ public class HomeController {
   @Value("${display-url}")
   private String display_url;
 
+
   @Value("${app.name}")
   String appName;
+
+  @Value("${app.manifest}")
+  private String manifest;
 
   @Autowired
   public EmailServiceImpl emailService;
@@ -97,6 +101,7 @@ public class HomeController {
     model.addAttribute("isDevProfile", appProfile.isDevProfile());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("display_url", display_url);
+    model.addAttribute("manifest", manifest);
 
 
     return "index";
