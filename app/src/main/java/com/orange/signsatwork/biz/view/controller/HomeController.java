@@ -78,6 +78,7 @@ public class HomeController {
   public String index(HttpServletRequest req, Principal principal, Model model) {
     long t0 = System.currentTimeMillis();
     String pageName;
+    model.addAttribute("title", appName);
     if (AuthentModel.isAuthenticated(principal)) {
       pageName = doIndex(req, principal, model);
     } else {
@@ -93,7 +94,7 @@ public class HomeController {
     boolean admin = appSecurityAdmin.isAdmin(principal);
 
     AuthentModel.addAuthentModelWithUserDetails(model, principal, admin, services.user());
-    model.addAttribute("title", appName);
+
     model.addAttribute("isDevProfile", appProfile.isDevProfile());
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("display_url", display_url);
