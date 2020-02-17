@@ -25,6 +25,8 @@ app.dailymotion_url: "https://api.dailymotion.com"
 
 app.admin.username: "admin"
 app.admin.password: "adminpassword"
+app.name: "SignsAtWork"
+app.manifest: "/manifest/signsatwork/manifest.json"
 
 cgu-url: "https://www.dailymotion.com/embed/video/k12tO5H7YXMWlTnNXly"
 display-url: "https://www.dailymotion.com/embed/video/k6yTqZLiEei3cPrRynl"
