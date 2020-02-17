@@ -51,12 +51,12 @@
     <div th:if="${param.logout}" class="alert alert-info text-center" role="alert" th:text="#{logged_out}"/>
 
     <div class="form-group">
-        <label class="sr-only">Username</label>
+        <label for="username" class="sr-only">Username</label>
         <input type="text" id="username" name="username" class="form-control" th:placeholder="#{user_name}" required=""
                autofocus=""/>
     </div>
-    <label class="sr-only">Password</label>
-    <input type="password" class="form-control" name="password" th:placeholder="#{password}"
+    <label for="password"  class="sr-only">Password</label>
+    <input id="password" type="password" class="form-control" name="password" th:placeholder="#{password}"
            required=""/>
     <div class="form-group">
     </div>
