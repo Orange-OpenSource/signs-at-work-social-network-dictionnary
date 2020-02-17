@@ -33,6 +33,7 @@ import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,9 @@ public class UserController {
   private Services services;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+
+  @Value("${app.name}")
+  String appName;
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/new-profil")
@@ -309,7 +313,7 @@ public class UserController {
     if ((passToken.expiryDate.getTime() - cal.getTime().getTime()) <= 0) {
       return "redirect:/login";
     }
-
+    model.addAttribute("title", appName);
     model.addAttribute("userId", userId);
     model.addAttribute("userCreationView", new UserCreationView());
     return "update-password";
@@ -329,6 +333,7 @@ public class UserController {
       return "redirect:/login";
     }
 
+    model.addAttribute("title", appName);
     model.addAttribute("userId", userId);
     model.addAttribute("userCreationView", new UserCreationView());
     return "create-password";
