@@ -324,7 +324,7 @@ public class CommunityRestController {
             title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
             log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url);
+            services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url);
           };
 
           new Thread(task).start();
@@ -441,7 +441,7 @@ public class CommunityRestController {
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url);
+              services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url);
             };
 
             new Thread(task).start();
@@ -598,7 +598,7 @@ public class CommunityRestController {
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity);
+              services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity);
             };
 
             new Thread(task).start();
