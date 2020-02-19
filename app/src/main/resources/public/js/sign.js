@@ -21,11 +21,11 @@
 console.log("Cool, sign.js is loaded :)");
 
 var errorSelectedSpan = document.getElementById('errorSelectedSpan');
+var cancelSelectVideo = document.getElementById('cancel-select-video');
 
 
 var $formUploadSelectedVideoFile = $('#uploadSelectedVideoFile');
 $formUploadSelectedVideoFile.on('submit', function(event) {
-  //document.getElementById('submitButtonFileDailymotion').disabled = true;
   if (document.getElementById("InputFile").value) {
     $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
     $(".spinner").css("z-index", "1500").visibility = "visible";
@@ -41,14 +41,11 @@ $formUploadSelectedVideoFile.on('submit', function(event) {
       data: data,
       contentType: false,
       processData: false,
-      //dataType: 'json',
       success: function (response) {
-        //var url = "/sign/"+response;
-        var url = response;
-        window.location = url;
         errorSelectedSpan.style.visibility = "hidden";
         $(".spinner").visibility = "hidden";
         console.log("Success " + response);
+        location.reload();
       },
       error: function (response) {
         errorSelectedSpan.textContent = response.responseText;
@@ -73,11 +70,13 @@ $formUploadSelectedVideoFile.on('input', function(event) {
 var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
 $add_video_file_dailymotion.on('hidden.bs.modal', function() {
  console.log("hidden add_video_file_dailymotion modal");
-  //document.getElementById('submitButtonFileDailymotion').disabled = true;
   if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
     errorSelectedSpan.style.visibility="hidden";
     $('#signNameSelected').val("");
   }
 });
 
-
+cancelSelectVideo.onclick = function() {
+  $('#add_sign_definition_LSF').modal('hide');
+  location.reload();
+};

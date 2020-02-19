@@ -202,12 +202,11 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       data: JSON.stringify(videoFile),
       contentType: "application/json",
       success: function(response) {
-        var url = "/sign/"+response;
-        window.location = url;
         errorSpan.style.visibility="hidden";
         $(".spinner").visibility="hidden";
         $("video").css("z-index","1500").css("opacity","1");
         console.log("Success " + response);
+        location.reload();
       },
       error: function(response) {
         errorSpan.textContent = response;
