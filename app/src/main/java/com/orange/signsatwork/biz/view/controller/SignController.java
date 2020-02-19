@@ -1081,7 +1081,6 @@ public class SignController {
   public String definition(@PathVariable long signId, Principal principal, Model model)  {
     Sign sign = services.sign().withId(signId);
 
-    /*model.addAttribute("title", messageByLocaleService.getMessage("sign.definition", new Object[]{sign.name}));*/
     model.addAttribute("title", sign.name);
 
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
@@ -1099,7 +1098,7 @@ public class SignController {
 
     services.sign().changeSignTextDefinition(signId, signDefinitionCreationView.getTextDefinition());
 
-    return "redirect:/sign/" + signId;
+    return "redirect:/sec/sign/" + signId + "/definition";
   }
 
   private String signUrl(long signId) {

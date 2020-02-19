@@ -40,7 +40,7 @@
 
   <div class="pull-right col-md-8 col-xs-12 col-sm-4">
     <div th:if="${signView.videoDefinition} != null">
-      <iframe th:attr="title=#{sign.definition(${title})}"  th:src="${signView.videoDefinition} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+      <iframe th:attr="title=#{sign.description(${title})}"  th:src="${signView.videoDefinition} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
     </div>
   </div>
 
