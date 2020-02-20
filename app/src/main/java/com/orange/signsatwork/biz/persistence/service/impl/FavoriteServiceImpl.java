@@ -273,4 +273,15 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     return favoriteFrom(favoriteDB, services);
   }
+
+  @Override
+  public Favorite removeMeFromSeeFavorite(long favoriteId, long userId) {
+    FavoriteDB favoriteDB = withDBId(favoriteId);
+    List<UserDB> favoriteUsers = favoriteDB.getUsers();
+    UserDB userDB = userRepository.findOne(userId);
+    favoriteUsers.remove(userDB);
+    favoriteDB = favoriteRepository.save(favoriteDB);
+    return favoriteFrom(favoriteDB, services);
+  }
+
 }

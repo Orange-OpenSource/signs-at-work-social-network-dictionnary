@@ -35,6 +35,7 @@ import com.orange.signsatwork.biz.view.model.UserView;
 import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -79,6 +80,9 @@ public class UserRestController {
   @Autowired
   private Environment environment;
 
+  @Value("${app.admin.username}")
+  String adminUsername;
+
 
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
@@ -102,6 +106,91 @@ public class UserRestController {
     User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole(), userCreationView.getUsername());
     services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
     response.setStatus(HttpServletResponse.SC_OK);
+    return userResponseApi;
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi. WS_ADMIN_USER, method = RequestMethod.DELETE)
+  public UserResponseApi deleteUser(@PathVariable long userId, HttpServletResponse response) {
+    String dailymotionId;
+    UserResponseApi userResponseApi = new UserResponseApi();
+    User user = services.user().withId(userId);
+    if (user.username == adminUsername) {
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_admin");
+      return userResponseApi;
+    }
+
+
+    user = user.loadVideos();
+    if (!user.videos.list().isEmpty()) {
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_videos");
+      return userResponseApi;
+    }
+
+    user = user.loadCommunitiesRequestsFavorites();
+    if (!user.requests.list().isEmpty()) {
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_requests");
+      return userResponseApi;
+    }
+
+    if (!user.communities.list().isEmpty()) {
+      for (Community c:user.communities.list()) {
+        if (c.user.id == user.id) {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_communities");
+          return userResponseApi;
+        }
+      }
+    }
+
+    if (!user.favorites.list().isEmpty()) {
+      for (Favorite f:user.favorites.list()) {
+        if (f.user.id == user.id && f.type == FavoriteType.Share) {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_favorites_shared");
+          return userResponseApi;
+        }
+      }
+    }
+
+    if (user.nameVideo != null) {
+      dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      } catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
+    }
+
+    if (user.jobDescriptionVideo != null) {
+      dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        return  userResponseApi;
+      }
+    }
+
+    Favorites favorites = services.favorite().oldFavoritesShareToUser(user.id);
+    for(Favorite favorite:favorites.list()) {
+      services.favorite().removeMeFromSeeFavorite(favorite.id, user.id);
+    }
+
+    for (Community community:user.communities.list()) {
+      services.community().removeMeFromCommunity(community.id, user.id);
+    }
+
+
+    services.user().delete(user);
+
+
     return userResponseApi;
   }
 

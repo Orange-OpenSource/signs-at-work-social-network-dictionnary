@@ -64,4 +64,6 @@ public interface FavoriteService {
 
   Long maxIdForName(String name, long id);
 
+  Favorite removeMeFromSeeFavorite(long favoriteId, long userId);
+
 }

@@ -95,6 +95,7 @@ public class User {
                     services);
   }
 
+
   public List<Long> communitiesIds() {
     return communities.ids();
   }

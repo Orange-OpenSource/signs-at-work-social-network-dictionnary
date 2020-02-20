@@ -60,11 +60,41 @@
                 <td th:text="${user.entity}"></td>
                 <td th:text="${user.job}"></td>
                 <td th:text="${user.lastDeconnectionDate}"></td>
+                <td>
+                  <a th:if="${user.username != adminUserName}"  data-toggle="modal" th:attr="data-target='#delete_user'+${user.id}" href="#">
+                    <div class="delete_user_picto"></div>
+                  </a>
+                </td>
+                <div  th:id="delete_user+${user.id}" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <div class="pull-left">
+                          <div class="delete_request_white pull-left"></div>
+                          <h2 class="pull-right" th:text="#{request.delete_user(${user.username})}"/>
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        <h4 th:text="#{user.confirm_delete}"/>
+                        <span th:id="errorDeleteUser+${user.id}" style="visibility: hidden"></span>
+                      </div>
+                      <div class="modal-footer">
+                        <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                          <span th:text="#{cancel}"></span>
+                        </button>
+                        <button type="submit" th:text="#{confirm}" th:onclick="'javascript:onDeleteUser('+ ${user.id}  +')' "  data-dismiss=""  class="btn btn-default"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </tr>
             </tbody>
         </table>
     </div>
 
 </section>
+
 </body>
+<script type="text/javascript" src="../public/js/user.js" th:src="@{/js/user.js}"></script>
 </html>

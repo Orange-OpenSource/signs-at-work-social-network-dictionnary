@@ -34,6 +34,7 @@ import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,6 +68,8 @@ public class AdminController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
+  @Value("${app.admin.username}")
+  String adminUsername;
 
   @Secured("ROLE_ADMIN")
   @RequestMapping("/sec/admin")
@@ -85,6 +88,8 @@ public class AdminController {
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("users"));
     model.addAttribute("users", UserView.from(userService.all()));
+    model.addAttribute("adminUserName", adminUsername);
+
     return "admin/users";
   }
 

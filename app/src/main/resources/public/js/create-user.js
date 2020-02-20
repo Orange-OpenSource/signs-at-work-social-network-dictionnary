@@ -120,7 +120,7 @@ function sendMail() {
       },
       error: function (response) {
         console.log(response.responseJSON);
-        errorCreateUser.textContent = response.responseJSON.errorMessage;
+        errorCreateUser.textContent = response.responseJSON;
         errorCreateUser.style.visibility = "visible";
       }
     })
