@@ -43,4 +43,6 @@ public interface EmailService {
   public void sendCreatePasswordMessage(String to, String subject, String username, String url);
 
   public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url);
+
+  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url);
 }
