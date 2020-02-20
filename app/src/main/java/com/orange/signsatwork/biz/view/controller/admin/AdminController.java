@@ -233,7 +233,7 @@ public class AdminController {
 
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, userCreationView.getUsername(), url);
+        services.emailService().sendCreatePasswordMessageAfterChangeEmail(userCreationView.getUsername(), title,  url);
       };
 
       new Thread(task).start();

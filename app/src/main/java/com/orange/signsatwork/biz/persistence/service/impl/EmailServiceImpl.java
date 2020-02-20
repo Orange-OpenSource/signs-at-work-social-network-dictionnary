@@ -363,6 +363,43 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
+  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url) {
+    InputStream imageIs = null;
+    try {
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom(adminUsername);
+      Context ctx = new Context();
+      ctx.setVariable("url", url);
+      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      String htmlContent = templateEngine.process("email-create-password-after-change-email", ctx);
+      helper.setText(htmlContent, true);
+      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
   public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url) {
     InputStream imageIs = null;
     try {
