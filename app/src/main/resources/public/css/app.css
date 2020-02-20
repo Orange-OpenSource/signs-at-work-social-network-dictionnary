@@ -688,6 +688,14 @@ text-decoration-line: none;
   width: 20px;
 }
 
+.delete_user_picto {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -330px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+}
 
 .replyToRequest_picto {
   background-image: url("/img/sprite_picto_400X400.png");

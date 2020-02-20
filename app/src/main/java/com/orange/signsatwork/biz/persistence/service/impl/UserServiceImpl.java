@@ -167,9 +167,11 @@ public class UserServiceImpl implements UserService {
     favoriteDBs.addAll(userDB.getFavorites());
     List<VideoDB> videoDBs = new ArrayList<>();
     videoDBs.addAll(userDB.getVideos());
-    PasswordResetTokenDB passwordResetTokenDB = passwordResetTokenRepository.findByUser(userDB);
-    if (passwordResetTokenDB != null) {
-      passwordResetTokenRepository.delete(passwordResetTokenDB.getId());
+    List<PasswordResetTokenDB> passwordResetTokenDBList = passwordResetTokenRepository.findByUser(userDB);
+    if (!passwordResetTokenDBList.isEmpty()) {
+      for(PasswordResetTokenDB p: passwordResetTokenDBList) {
+        passwordResetTokenRepository.delete(p.getId());
+      }
     }
 
     requestDBs.stream().map(r -> services.request().withId(r.getId())).forEach(r -> services.request().delete(r));
@@ -177,7 +179,6 @@ public class UserServiceImpl implements UserService {
     favoriteDBs.stream().map(f -> services.favorite().withId(f.getId())).forEach(f -> services.favorite().delete(f));
     videoDBs.stream().map(v -> services.video().withId(v.getId())).forEach(v -> services.video().delete(v));
 
-/*    userDB.getCommunities().forEach(c -> c.getUsers().remove(userDB));*/
 
     userRepository.delete(userDB);
   }
@@ -365,6 +366,7 @@ public class UserServiceImpl implements UserService {
   public PasswordResetToken getPasswordResetToken(final String token) {
     return passwordResetTokenFrom(passwordResetTokenRepository.findByToken(token));
   }
+
 
   private PasswordResetToken passwordResetTokenFrom(PasswordResetTokenDB passwordResetTokenDB) {
     if (passwordResetTokenDB != null) {
