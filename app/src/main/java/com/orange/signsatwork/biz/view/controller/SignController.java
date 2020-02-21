@@ -813,9 +813,6 @@ public class SignController {
 
     if (principal != null) {
       User user = services.user().withUserName(principal.getName());
-      if(user != null) {
-        model.addAttribute("mail_body", messageByLocaleService.getMessage("share_application_body", new Object[]{user.name(), location}));
-      }
       Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);
       RatingData ratingData = new RatingData(queryRating);
       model.addAttribute("ratingData", ratingData);
