@@ -1021,7 +1021,7 @@ input[type=file] {
   background-position: -2106px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 47px;
+  height: 45px;
   width: 24px;
 }
 
@@ -1030,7 +1030,7 @@ input[type=file] {
   background-position: -1799px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 47px;
+  height: 45px;
   width: 24px;
 }
 
@@ -1044,12 +1044,12 @@ input[type=file] {
   margin-right: 20px;
 }
 
-.delete_picto_detail {
+.delete_picto {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -444px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 47px;
+  height: 45px;
   width: 24px;
 }
 
@@ -1233,11 +1233,11 @@ input[type=file] {
 
 .priorise_request {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1210px center;
+  background-position: -1453px center;
   background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 46px;
-  width: 20px;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
 }
 
 /* End Fiche détail de ma demande /sec/my-request-detail */
@@ -1637,4 +1637,73 @@ pre {
 
 #profil li:last-child {
   border-bottom: 3px solid #4866F7;
+}
+
+.description_blue {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3287px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 48px;
+  width: 24px;
+}
+
+.description_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3589px center;
+  background-repeat: no-repeat;
+  background-size: auto 26px;
+  height: 45px;
+  width: 26px;
+  margin-right: 20px;
+}
+
+.cgu_signe {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -1635px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.add_favorite_signe_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3486px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
+.share_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -995px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
+.community_created_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -2647px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
+.delete_user_picto {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -330px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
 }
