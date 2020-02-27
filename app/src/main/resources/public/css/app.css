@@ -1,5 +1,5 @@
 #prefetch {
-  background: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/sprite_picto_400X400.png"), url("/img/new_sprite_picto_400X400.png")  no-repeat;
+  background: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/sprite_picto_400X400.png")  no-repeat;
 }
 
 
@@ -375,16 +375,6 @@ text-decoration-line: none;
 	width: 40px;
 }
 
-
-.chevron_left{
-	background-image: url("/img/new_sprite_picto_400X400.png");
-	background-position: -347px center;
-	background-repeat: no-repeat;
-	background-size: auto 30px;
-	height: 70px;
-	width: 30px;}
-
-
 .search_signe {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -440px center;
@@ -492,17 +482,6 @@ text-decoration-line: none;
 }
 
 
-.cgu_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1635px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 30px;
-  width: 30px;
-  margin-right: 20px;
-  margin-top: 10px;
-}
-
 .my_request_signe {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2240px center;
@@ -588,17 +567,6 @@ text-decoration-line: none;
   width: 60px;
 }
 
-.suggest {
-	background-image: url("/img/new_sprite_picto_400X400.png");
-	background-position: -1156px center;
-	background-repeat: no-repeat;
-	background-size: auto 30px;
-	height: 46px;
-	width: 30px;
-  margin-right: 20px;
-}
-
-
 .newSigne {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -1740px center;
@@ -668,34 +636,6 @@ text-decoration-line: none;
 }
 
 
-.direction_up{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1390px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 28px;
-  width: 20px;
-}
-
-
-
-.delete_picto {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -370px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 44px;
-  width: 20px;
-}
-
-.delete_user_picto {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -330px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 20px;
-  width: 20px;
-}
 
 .replyToRequest_picto {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -714,46 +654,6 @@ text-decoration-line: none;
   width: 60px;
 }
 
-
-
-.add_favorite_signe {
-	background-image: url("/img/new_sprite_picto_400X400.png");
-	background-position: -516px center;
-	background-repeat: no-repeat;
-	background-size: auto 24px;
-	height: 47px;
-	width: 24px;
-}
-
-.add_favorite_signe_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3486px center;
-  background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 45px;
-  width: 28px;
-  margin-right: 20px;
-}
-
-.share_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -995px center;
-  background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 45px;
-  width: 28px;
-  margin-right: 20px;
-}
-
-.community_created_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2647px center;
-  background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 45px;
-  width: 28px;
-  margin-right: 20px;
-}
 
 .recent_signe{
 	background-image: url("/img/sprite_picto_400X400.png");
