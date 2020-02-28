@@ -509,7 +509,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .tooltip_newSigne {
-  background-image: url("/img/new_blue.png");
+  background-image: url("/img/new_sprite_picto_400X400.png");
   background-repeat: no-repeat;
   position: absolute;
 }
