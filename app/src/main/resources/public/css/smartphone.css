@@ -72,36 +72,6 @@
     line-height:10px;
   }
 
-  .check {
-    background-image: url("/img/checked.png");
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    width: 10px;
-    height: 10px;
-  }
-
-  .retry_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -400px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
-
-  .cancel_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -455px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
-
 
   .navbar_title{
     font-size: 14px;
@@ -495,60 +465,7 @@
   }
 
   /*end dropdown*/
-  .add_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1004px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
 
-  .add_favorite_signe_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -285px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .share_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -420px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .newSigne {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1305px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .require_video_inverse_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -750px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-
-  .my_request_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1680px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
 
   .labelSigne > a {
     padding-right: 18px;
@@ -594,23 +511,6 @@
     right: 15px;
   }
 
-  .search_signe_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -450px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .menu_detail {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -346px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
 
   #backtoHomepage {
     width: 24%;
@@ -775,28 +675,6 @@
 
   #container-button >.btn{
     font-size:10px;
-  }
-
-
-
-  .check {
-    background-image: url("/img/checked.png");
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    width: 10px;
-    height: 10px;
-  }
-
-
-  .cancel_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -455px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
   }
 
 
@@ -1027,46 +905,6 @@
   }
 
 
-  .add_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1004px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-
-  .share_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -420px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .newSigne {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1305px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .require_video_inverse_header{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -750px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-
-
-
   .text_hyphenation.navbar_title{
     /*width: 23rem;*/
    /* width: 16rem;*/
@@ -1157,35 +995,6 @@
     line-height:10px;
   }
 
-  .check {
-    background-image: url("/img/checked.png");
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    width: 10px;
-    height: 10px;
-  }
-
-  .retry_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -400px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
-
-  .cancel_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -455px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
 
   .container_picto_request_other,
   .container_picto_my_request{
@@ -1392,70 +1201,6 @@
     margin-left: 5px;
   }
 
-  .add_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1004px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .search_signe_header{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -450px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .add_favorite_signe_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -285px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .share_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -420px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .newSigne {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1305px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .require_video_inverse_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -750px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-
-  .my_request_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1680px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
   .col-xs-1 .caret{
     position: absolute;
     left: 15px;
@@ -1537,14 +1282,6 @@
     border: 1px solid;
   }
 
-  .menu_detail {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -346px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
 
   button[data-target="#orange-navbar-collapse"]{
     padding: 0px 10px;
@@ -1666,35 +1403,6 @@
     line-height:10px;
   }
 
-  .check {
-    background-image: url("/img/checked.png");
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    width: 10px;
-    height: 10px;
-  }
-
-  .retry_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -400px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
-
-  .cancel_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -455px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
 
   .container_picto_request_other,
   .container_picto_my_request{
@@ -1915,10 +1623,6 @@
     border: 1px solid;
   }
 
-  .menu_detail {
-    background-position: -460px center;
-    background-image: url("/img/sprite_picto_400X400.png");
-  }
 
   button[data-target="#orange-navbar-collapse"]{
     padding: 0px 10px;
@@ -2014,35 +1718,6 @@
     line-height:10px;
   }
 
-  .check {
-    background-image: url("/img/checked.png");
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    width: 10px;
-    height: 10px;
-  }
-
-  .retry_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -400px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
-
-  .cancel_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -455px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
 
   .container_picto_request_other,
   .container_picto_my_request{
@@ -2221,10 +1896,6 @@
   }
 
 
-  .menu_detail {
-    background-position: -460px center;
-    background-image: url("/img/sprite_picto_400X400.png");
-  }
 
 
   button[data-target="#orange-navbar-collapse"]{
@@ -2325,35 +1996,6 @@
     line-height:10px;
   }
 
-  .check {
-    background-image: url("/img/checked.png");
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    width: 10px;
-    height: 10px;
-  }
-
-  .retry_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -400px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
-
-  .cancel_recording {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -455px center;
-    background-repeat: no-repeat;
-    background-size: auto 10px;
-    height: 10px;
-    width: 10px;
-    border: none;
-    background-color: transparent;
-  }
 
   .container_picto_request_other,
   .container_picto_my_request{
