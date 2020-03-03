@@ -1,5 +1,5 @@
 #prefetch {
-    background-image: url("/img/checked.png"), url("/img/checked_down.png"), url("/img/checked_up.png"), url("/img/ajoutRecent3.png"), url("/img/commentaire2.png"), url("/img/sprite_picto_400X400.png");
+    background-image: url("/img/new_sprite_picto_400X400.png");
     background-repeat: no-repeat;
 }
 
@@ -320,131 +320,6 @@ a:hover, a:focus {
 
 /************picto***********/
 
-.signe {
-    float: left;
-    margin-right: 8px;
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1300px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.picto_search {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1680px center;
-    background-repeat: no-repeat;
-    background-size: auto 60px;
-    height: 60px;
-    width: 60px;
-    margin: 0 auto;
-}
-
-.logo_signe {
-    float: left;
-    margin-right: 8px;
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1380px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-
-.chevron_left{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -920px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;}
-
-.chevron_right{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -880px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;}
-
-
-.search_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -440px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.share_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -200px center;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;}
-
-
-.sentiment_negatif, .modal-body .containerRight_signes .sentiment_negatif{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-color: Transparent;
-    border: none;
-    background-position: -160px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;}
-
-.sentiment_neutre, .modal-body .containerRight_signes .sentiment_neutre{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-color: Transparent;
-    border: none;
-    background-position: -200px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.sentiment_positif, .modal-body .containerRight_signes .sentiment_positif {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-color: Transparent;
-    border: none;
-    background-position: -240px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.sentiment_evaluation {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -280px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 60px;
-}
-
-.containerRight_signes .sentiment_neutre {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -150px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-}
-
-.containerRight_signes .sentiment_negatif {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -120px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-}
 
 .sentiment_In_Modal{
     margin: 0 auto;
@@ -492,226 +367,6 @@ a:hover, a:focus {
     color:#F16E00;
 }
 
-
-
-.logo_app {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1200px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 100px;
-}
-
-.add_whith_chevron {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -60px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 60px;
-}
-
-.request_signe_whith_chevron {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1460px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 60px;
-}
-
-.associate_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1520px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.replace_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1600px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.history_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1640px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-
-.suggest {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1040px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.suggest_video_inverse {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1080px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.require {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -960px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.add {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1340px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.require_video_inverse {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1000px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.duplicate_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -120px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.delete_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -760px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.rename_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -800px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.favorite_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -340px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.personal_favorite_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -420px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.profil_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -640px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.community_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -680px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.parameters_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -720px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-.add_favorite_signe {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -380px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-
-
-.recent_signe{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: 0px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 60px;
-}
-.menu_detail {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -360px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-}
-.menu_detail_with_chevron {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -500px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 60px;
-}
-.check_signe {
-    background-image: url("/img/checked.png");
-    background-position: right 20px top 16px;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-}
-
-.checked_down {
-    background-image: url("/img/checked_down.png");
-    background-position: right 20px top 16px;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-}
-.checked_up {
-    background-image: url("/img/checked_up.png");
-    background-position: right 20px top 16px;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-}
 
 
 #evaluate{
@@ -806,14 +461,7 @@ textarea{
     input.border[type="search"] {
         width: 14rem;
     }
-    .search_signe {
-        background-image: url("/img/sprite_picto_400X400.png");
-        background-position: -600px center;
-        background-repeat: no-repeat;
-        background-size: auto 40px;
-        height: 40px;
-        width: 40px;
-    }
+
     button.search_signe{
         background-color: transparent;
         border: none;
@@ -860,33 +508,6 @@ textarea{
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 12rem;
-    }
-
-    .add {
-        background-image: url("/img/sprite_picto_400X400.png");
-        background-position: -1004px center;
-        background-repeat: no-repeat;
-        background-size: auto 30px;
-        height: 30px;
-        width: 30px;
-    }
-
-    .search_signe{
-        background-image: url("/img/sprite_picto_400X400.png");
-        background-position: -450px center;
-        background-repeat: no-repeat;
-        background-size: auto 30px;
-        height: 30px;
-        width: 30px;
-    }
-
-    .menu_detail {
-        background-image: url("/img/sprite_picto_400X400.png");
-        background-position: -346px center;
-        background-repeat: no-repeat;
-        background-size: auto 30px;
-        height: 30px;
-        width: 30px;
     }
 
     #backtoHomepage {
@@ -1009,14 +630,6 @@ textarea{
     }
 
 
-    .search_signe {
-        background-image: url("/img/sprite_picto_400X400.png");
-        background-position: -600px center;
-        background-repeat: no-repeat;
-        background-size: auto 40px;
-        height: 40px;
-        width: 40px;
-    }
     button.search_signe{
         background-color: transparent;
         border: none;
@@ -1042,14 +655,6 @@ textarea{
         border: none;
         width: 40px;
         height: 40px;
-    }
-    .search_signe {
-        background-image: url("/img/sprite_picto_400X400.png");
-        background-position: -600px center;
-        background-repeat: no-repeat;
-        background-size: auto 40px;
-        height: 40px;
-        width: 40px;
     }
     li.hidden-xs:first-child {
         margin-right: 10rem;

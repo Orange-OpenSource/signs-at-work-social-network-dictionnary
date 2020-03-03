@@ -109,7 +109,6 @@ public class CommunityController {
   public String showCommunitiesSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long favoriteId, Principal principal) {
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
-    model.addAttribute("backUrl", "/sec/suggest");
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.create_community"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     Communities communities = services.community().search(decodeName);

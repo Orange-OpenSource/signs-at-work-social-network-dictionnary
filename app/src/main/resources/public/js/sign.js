@@ -76,7 +76,9 @@ $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   }
 });
 
-cancelSelectVideo.onclick = function() {
-  $('#add_sign_definition_LSF').modal('hide');
-  location.reload();
-};
+if (cancelSelectVideo) {
+  cancelSelectVideo.onclick = function () {
+    $('#add_sign_definition_LSF').modal('hide');
+    location.reload();
+  };
+}

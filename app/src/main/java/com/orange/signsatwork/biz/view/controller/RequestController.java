@@ -51,8 +51,6 @@ import static jdk.nashorn.internal.runtime.JSType.toLong;
 @Controller
 public class RequestController {
 
-  private static final String HOME_URL = "/";
-  private static final String REQUEST_URL = "/sec/request";
 
   @Autowired
   private Services services;
@@ -60,15 +58,6 @@ public class RequestController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
-  @RequestMapping(value = REQUEST_URL)
-  public String request(Principal principal, Model model) {
-    fillModelWithContext(model, "sign.request", principal);
-    fillModelWithRequests(model, principal);
-    model.addAttribute("requestCreationView", new RequestCreationView());
-    model.addAttribute("signCreationView", new SignCreationView());
-
-    return "request";
-  }
 
   @RequestMapping(value = "/sec/requests")
   public String requests(Principal principal, Model model) {

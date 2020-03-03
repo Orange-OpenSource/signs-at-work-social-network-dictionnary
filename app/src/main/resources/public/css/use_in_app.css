@@ -840,10 +840,10 @@ button.close{
 }
 
 .stop {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3630px center;
+  background-image: url("/img/stop.png");
+  background-position: -17px center;
   background-repeat: no-repeat;
-  background-size: auto 60px;
+  background-size: auto 70px;
   height: 60px;
   width: 60px;
   border: none;
