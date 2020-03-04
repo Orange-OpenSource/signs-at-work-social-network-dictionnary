@@ -753,7 +753,7 @@ public class SignRestController {
 
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
-      body.add("title", "Définition LSF du signe " + sign.name);
+      body.add("title", messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{sign.name}));
       body.add("channel", "tech");
       body.add("published", true);
       body.add("private", true);
