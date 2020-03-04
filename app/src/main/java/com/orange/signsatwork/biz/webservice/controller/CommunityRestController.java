@@ -545,7 +545,7 @@ public class CommunityRestController {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
-        body.add("title", "Description LSF de la communauté " + community.name);
+        body.add("title", messageByLocaleService.getMessage("community.title_description_LSF", new Object[]{community.name}));
         body.add("channel", "tech");
         body.add("published", true);
         body.add("private", true);

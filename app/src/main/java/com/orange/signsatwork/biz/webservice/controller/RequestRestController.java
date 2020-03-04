@@ -509,9 +509,9 @@ public class RequestRestController {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         if (requestId != 0) {
-          body.add("title", "Description LSF de la demande " + request.name);
+          body.add("title", messageByLocaleService.getMessage("request.title_description_LSF", new Object[]{request.name}));
         } else {
-          body.add("title", "Description LSF de la demande " + requestCreationViewApi.get().getName());
+          body.add("title", messageByLocaleService.getMessage("request.title_description_LSF", new Object[]{requestCreationViewApi.get().getName()}));
         }
         body.add("channel", "tech");
         body.add("published", true);

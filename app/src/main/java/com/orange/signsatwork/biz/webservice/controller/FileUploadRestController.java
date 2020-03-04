@@ -476,9 +476,9 @@ public class FileUploadRestController {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         if (inputType.equals("JobDescription")) {
-          body.add("title", "Description du métier de " + user.name());
+          body.add("title", messageByLocaleService.getMessage("user.job_description"));
         } else {
-          body.add("title", user.name());
+          body.add("title", messageByLocaleService.getMessage("user.name_LSF"));
         }
         body.add("channel", "tech");
         body.add("published", true);
@@ -650,9 +650,9 @@ public class FileUploadRestController {
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
       if (inputType.equals("JobDescription")) {
-        body.add("title", "Description du métier de " + user.name());
+        body.add("title", messageByLocaleService.getMessage("user.job_description"));
       } else {
-        body.add("title", user.name());
+        body.add("title", messageByLocaleService.getMessage("user.name_LSF"));
       }
 
       body.add("channel", "tech");
@@ -802,7 +802,7 @@ public class FileUploadRestController {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
-        body.add("title", "Description LSF de la demande " + requestCreationView.getRequestName());
+        body.add("title", messageByLocaleService.getMessage("request.title_description_LSF", new Object[]{requestCreationView.getRequestName()}));
         body.add("channel", "tech");
         body.add("published", true);
         body.add("private", true);
@@ -989,7 +989,7 @@ public class FileUploadRestController {
 
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
-      body.add("title", "Description LSF de la demande " + videoFile.requestNameRecording);
+      body.add("title", messageByLocaleService.getMessage("request.title_description_LSF", new Object[]{videoFile.requestNameRecording}));
       body.add("channel", "tech");
       body.add("published", true);
       body.add("private", true);
@@ -1170,7 +1170,7 @@ public class FileUploadRestController {
 
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
-      body.add("title", "Définition LSF du signe " + sign.name);
+      body.add("title", messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{sign.name}));
       body.add("channel", "tech");
       body.add("published", true);
       body.add("private", true);
@@ -1273,7 +1273,7 @@ public class FileUploadRestController {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
-        body.add("title", "Définition LSF du signe " + sign.name);
+        body.add("title", messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{sign.name}));
         body.add("channel", "tech");
         body.add("published", true);
         body.add("private", true);
@@ -1416,7 +1416,7 @@ public class FileUploadRestController {
 
       MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
       body.add("url", fileUploadDailyMotion.url);
-      body.add("title", "Description LSF de la communauté " + community.name);
+      body.add("title", messageByLocaleService.getMessage("community.title_description_LSF", new Object[]{community.name}));
       body.add("channel", "tech");
       body.add("published", true);
       body.add("private", true);
@@ -1532,8 +1532,7 @@ public class FileUploadRestController {
 
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
-        body.add("url", fileUploadDailyMotion.url);
-        body.add("title", "Description LSF de la communauté " + community.name);
+        body.add("title", messageByLocaleService.getMessage("community.title_description_LSF", new Object[]{community.name}));
         body.add("channel", "tech");
         body.add("published", true);
         body.add("private", true);

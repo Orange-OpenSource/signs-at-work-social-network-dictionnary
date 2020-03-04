@@ -461,9 +461,9 @@ public class UserRestController {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("url", fileUploadDailyMotion.url);
         if (inputType.equals("JobDescription")) {
-          body.add("title", "Description du métier de " + user.name());
+          body.add("title", messageByLocaleService.getMessage("user.job_description"));
         } else {
-          body.add("title", user.name());
+          body.add("title", messageByLocaleService.getMessage("user.name_LSF"));
         }
         body.add("channel", "tech");
         body.add("published", true);
