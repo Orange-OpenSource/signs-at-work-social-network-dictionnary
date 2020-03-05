@@ -121,7 +121,6 @@
     height: 300px;
     width: 300px;
     object-fit: contain;
-    font-family: 'object-fit: contain'; /* for IE*/
     overflow: hidden;
     border: 1px solid;
   }
@@ -373,7 +372,6 @@
     height: 260px;
     width: 260px;
     object-fit: contain;
-    font-family: 'object-fit: contain'; /* for IE*/
     overflow: hidden;
     border: 1px solid;
   }
@@ -667,7 +665,6 @@
     height: 320px;
     width: 320px;
     object-fit: contain;
-    font-family: 'object-fit: contain'; /* for IE*/
     overflow: hidden;
     border: 1px solid;
   }
@@ -895,7 +892,6 @@
     height: 320px;
     width: 320px;
     object-fit: contain;
-    font-family: 'object-fit: contain'; /* for IE*/
     overflow: hidden;
     border: 1px solid;
   }
