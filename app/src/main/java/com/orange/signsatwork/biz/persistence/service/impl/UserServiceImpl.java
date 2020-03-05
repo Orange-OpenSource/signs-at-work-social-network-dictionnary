@@ -350,9 +350,8 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public Users forFavorite(long favoriteId) {
-    return usersFromFavoriteView(
-      userRepository.findByFavorite(favoriteRepository.findOne(favoriteId))
-    );
+    FavoriteDB favoriteDB = favoriteRepository.findOne(favoriteId);
+    return usersFromFavoriteView(favoriteDB.getUsers());
   }
 
   @Override
