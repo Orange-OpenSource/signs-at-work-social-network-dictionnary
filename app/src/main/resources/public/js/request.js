@@ -70,9 +70,15 @@ $new_request.on('hidden.bs.modal', function() {
     if ($('#requestInfo').find('#requestSpan').length) {
         requestSpan.style.visibility="hidden";
         seeSignButton.style.visibility="hidden";
-        $('#requestName').val("");
-        $('#requestTextDescription').val("");
+       /* $('#requestName').val("");
+        $('#requestTextDescription').val("");*/
     }
+  $('#requestName').val(oldRequestName);
+});
+
+var oldRequestName;
+$new_request.on('show.bs.modal', function() {
+  oldRequestName= $('#requestName').val();
 });
 
 var $modify_request = $('#modify_request');
