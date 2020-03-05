@@ -35,7 +35,7 @@ function addCommunityDescriptionText(communityId) {
     success: function (response) {
       console.log(response);
       communityId = response.communityId;
-      window.history.back();
+      location.reload();
     },
     error: function (response) {
     }
