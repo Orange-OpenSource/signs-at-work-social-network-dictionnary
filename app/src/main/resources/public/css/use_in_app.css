@@ -1786,3 +1786,25 @@ pre {
   width: 22px;
   margin-top: 10px;
 }
+
+
+.add-remove_white {
+  background-image: url("/img/add-remove_white.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
+
+.pin_add_white {
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -3159px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
