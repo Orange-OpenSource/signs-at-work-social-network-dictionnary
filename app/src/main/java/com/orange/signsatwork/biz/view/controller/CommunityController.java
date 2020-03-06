@@ -80,7 +80,7 @@ public class CommunityController {
     model.addAttribute("community", community);
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
     model.addAttribute("iBelowToCommunity", iBelowToCommunity);
-
+    model.addAttribute("userId", user.id);
     return "community";
   }
 

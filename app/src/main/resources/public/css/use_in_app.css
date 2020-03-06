@@ -1139,8 +1139,8 @@ input[type=file] {
 }
 
 .see_communities{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2269px center;
+  background-image: url("/img/Group_blue.png");
+  background-position: 0px center;
   background-repeat: no-repeat;
 }
 
@@ -1315,9 +1315,9 @@ input[type=file] {
   background-repeat: no-repeat;
 }
 
-.community_type_job_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2268px center;
+.group_blue {
+  background-image: url("/img/Group_blue.png");
+  background-position: 0px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1325,9 +1325,9 @@ input[type=file] {
   margin-right: 16px;
 }
 
-.see_community_type_job_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2268px center;
+.see_group_blue {
+  background-image: url("/img/Group_blue.png");
+  background-position: 0px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1777,13 +1777,13 @@ pre {
   margin-top: 10px;
 }
 
-.community_member_other_settings_me_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3430px center;
+.member_empty_white {
+  background-image: url("/img/Member_empty-white.png");
+  background-position: 0px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
-  width: 22px;
+  width: 24px;
   margin-top: 10px;
 }
 
@@ -1807,4 +1807,24 @@ pre {
   height: 45px;
   width: 28px;
   margin-right: 20px;
+}
+
+.member_project_admin {
+  background-image: url("/img/Member_project_admin.png");
+  background-position: -0px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top: 10px;
+}
+
+.member_project_admin_me {
+  background-image: url("/img/Member_project_admin_me.png");
+  background-position: -0px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top: 10px;
 }

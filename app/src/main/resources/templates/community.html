@@ -51,8 +51,9 @@
                     <div th:each="user:${community.users.list()}">-->
                         <li th:each="user:${community.users.list()}" class="aside_bckg_li">
                             <a th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
-                              <div th:if="${user.id == community.user.id}" class="pull-left community_member_settings_me_blue"></div>
-                              <div th:if="${user.id != community.user.id}" class="pull-left community_member_other_settings_me_blue"></div>
+                              <div th:if="${user.id == community.user.id and user.id == userId}" class="pull-left member_project_admin_me"></div>
+                              <div th:if="${user.id == community.user.id and user.id != userId}" class="pull-left member_project_admin"></div>
+                              <div th:if="${user.id != community.user.id}" class="pull-left member_empty_white"></div>
                                 <h2 class="container_H2" th:text="${user.name()}"></h2>
                                 <div class="pull-right chevron_right"></div>
                             </a>
