@@ -333,7 +333,7 @@ public class SignController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.favoriteName());
     favorite = favorite.loadUsers();
-    if(favorite.type.equals(FavoriteType.Share) && !favorite.users.ids().contains(user.id)) {
+    if(favorite.type.equals(FavoriteType.Share) && !favorite.users.ids().contains(user.id) && favorite.user.id != user.id) {
       model.addAttribute("classDropdownTitle", "new_share_favorite_signe pull-left");
     } else if (favorite.type.equals(FavoriteType.Share)){
       model.addAttribute("classDropdownTitle", "share_favorite_signe pull-left");
