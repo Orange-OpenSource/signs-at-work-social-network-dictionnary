@@ -81,15 +81,6 @@ public class HomeController {
   @Value("${app.contact.support}")
   String appContactSupport;
 
-
-  @Value("${app.manifest}")
-  private String manifest;
-  @Value("${app.version}")
-  String appVersion;
-
-  @Value("${app.contact.support}")
-  String appContactSupport;
-
   @Autowired
   public EmailServiceImpl emailService;
 
