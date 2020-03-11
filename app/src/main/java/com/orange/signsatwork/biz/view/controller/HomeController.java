@@ -74,6 +74,7 @@ public class HomeController {
 
   @Value("${app.manifest}")
   private String manifest;
+
   @Value("${app.version}")
   String appVersion;
 
