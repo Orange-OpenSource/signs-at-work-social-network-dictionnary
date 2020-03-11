@@ -68,7 +68,6 @@ public class HomeController {
   @Value("${display-url}")
   private String display_url;
 
-
   @Value("${app.name}")
   String appName;
 
