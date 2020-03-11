@@ -314,6 +314,15 @@ h4, .h4 {
   width: 20px;
 }
 
+.about{
+  background-image: url("/img/about.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 44px;
+  width: 20px;
+}
+
 /* End Menu */
 
 /* Begin Voir les signes /sec/signs */
@@ -328,13 +337,13 @@ h4, .h4 {
 }
 
 .back {
-  float: left;
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -3513px center;
   background-repeat: no-repeat;
   background-size: auto 50px;
   height: 70px;
   width: 50px;
+  cursor:pointer;
 }
 
 #myform input[type=search]{
@@ -1554,7 +1563,7 @@ input[type=file] {
 }
 
 #read_condition_of_use .modal-dialog .modal-content .modal-body {
-  max-height: calc(100% - 140px);
+  max-height: calc(100% - 160px);
   overflow-y:scroll;
 }
 
@@ -1836,5 +1845,74 @@ pre {
   background-size: auto 24px;
   height: 24px;
   width: 24px;
+  margin-top: 10px;
+}
+
+.about_title {
+  text-align: center;
+  color: #4866F7;
+  font-size:18px;
+}
+
+
+.cgu_conditions_blue_about {
+  background-image: url("/img/cgu_conditions_blue.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 20px;
+}
+
+.chevron_right_about_see_cgu{
+  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-position: -270px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 25px;
+}
+
+.contact {
+  background-image: url("/img/contact.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 30px;
+  width: 30px;
+  margin-top: 10px;
+  margin-left:5px;
+}
+
+.cgu_conditions_blue {
+  background-image: url("/img/cgu_conditions_blue.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 32px;
+  height: 40px;
+  width: 30px;
+  margin-top: 4px;
+}
+
+.cgu_conditions_lsf_blue {
+  background-image: url("/img/cgu_conditions_lsf_blue.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 32px;
+  height: 40px;
+  width: 30px;
+  margin-top: 4px;
+}
+
+.cgu_conditions_lsf_white {
+  background-image: url("/img/cgu_conditions_lsf_white.png");
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
   margin-top: 10px;
 }

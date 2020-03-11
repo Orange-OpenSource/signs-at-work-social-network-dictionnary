@@ -124,6 +124,17 @@
                     </div>
                   </a>
                 </li>
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menuitem">
+                  <a th:href="@{/sec/about}">
+                    <div>
+                      <div class="pull-left about "></div>
+                      <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{about}"></h4>
+                      <div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
               </ul>
             </nav>
           </div>
