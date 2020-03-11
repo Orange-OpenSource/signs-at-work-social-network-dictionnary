@@ -26,8 +26,6 @@ app.dailymotion_url: "https://api.dailymotion.com"
 app.admin.username: "admin"
 app.admin.password: "adminpassword"
 app.name: "SignsAtWork"
-app.version: "2.4.0"
-app.contact.support: "signsatwork.support@orange.com"
 
 app.manifest: "/manifest/signsatwork/manifest.json"
 app.version: "2.4.0"
