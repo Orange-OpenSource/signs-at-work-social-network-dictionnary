@@ -71,6 +71,8 @@ public class HomeController {
   @Value("${app.name}")
   String appName;
 
+  @Value("${app.manifest}")
+  private String manifest;
   @Value("${app.version}")
   String appVersion;
 
@@ -122,24 +124,5 @@ public class HomeController {
     return "cgu";
   }
 
-  @RequestMapping("/sec/about")
-  public String about(Model model) {
-
-    model.addAttribute("title", messageByLocaleService.getMessage("about"));
-    model.addAttribute("appVersion", appVersion);
-    model.addAttribute("appName", appName);
-    model.addAttribute("appContactSupport", appContactSupport);
-
-    return "about";
-  }
-
-  @RequestMapping("/sec/about-cgu")
-  public String aboutCgu(Model model) {
-
-    model.addAttribute("title", messageByLocaleService.getMessage("about.cgu"));
-    model.addAttribute("cgu_url", cgu_url);
-
-    return "about-cgu";
-  }
 
 }
