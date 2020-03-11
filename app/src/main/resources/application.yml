@@ -28,6 +28,8 @@ app.admin.password: "adminpassword"
 app.name: "SignsAtWork"
 
 app.manifest: "/manifest/signsatwork/manifest.json"
+app.version: "2.4.0"
+app.contact.support: "signsatwork.support@orange.com"
 
 app.version: "2.4.0"
 app.contact.support: "signsatwork.support@orange.com"

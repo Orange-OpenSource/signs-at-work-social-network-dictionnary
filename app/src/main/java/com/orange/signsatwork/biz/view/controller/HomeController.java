@@ -74,6 +74,11 @@ public class HomeController {
 
   @Value("${app.manifest}")
   private String manifest;
+  @Value("${app.version}")
+  String appVersion;
+
+  @Value("${app.contact.support}")
+  String appContactSupport;
 
   @Value("${app.version}")
   String appVersion;
