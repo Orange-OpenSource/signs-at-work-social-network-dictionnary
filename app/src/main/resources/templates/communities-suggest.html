@@ -41,7 +41,7 @@
           <a data-target="#new-community" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="${communityName}"/>
             <div>
-              <div class="pull-right  pen"/>
+              <div class="pull-right  edit_black"/>
             </div>
 
           </a>
@@ -52,7 +52,7 @@
               <div class="pull-left see_members_blue"></div>
               <h4 class="container_H2" th:text="#{community.see_members}"></h4>
               <div>
-                <div class="pull-right chevron_right"></div>
+                <div class="pull-right chevron"></div>
               </div>
             </div>
           </a>
@@ -63,14 +63,14 @@
             <div class="pull-left add_member_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
-              <div class="pull-right chevron_right"></div>
+              <div class="pull-right chevron"></div>
             </div>
           </a>
           <a th:if="${favoriteId == 0}" th:onclick="'javascript:onChangeBrowserHistory()'"  th:href="@{/sec/community/create(name=${communityName}, id=${favoriteId})}">
             <div class="pull-left add_member_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
-              <div class="pull-right chevron_right"></div>
+              <div class="pull-right chevron"></div>
             </div>
           </a>
         </li>
@@ -93,7 +93,7 @@
                   <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_community_type_project_i_below_blue"></div>
                   <h2 class="container_H2" th:text="${community.name}"></h2>
                   <div>
-                    <div class="pull-right chevron_right "></div>
+                    <div class="pull-right chevron"></div>
                   </div>
                 </div>
               </a>

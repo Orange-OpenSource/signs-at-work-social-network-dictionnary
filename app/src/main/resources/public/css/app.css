@@ -1,5 +1,5 @@
 #prefetch {
-  background: url("/img/member_me_black.png"), url("/img/contact.png"), url("/img/cgu_conditions_lsf_white.png"), url("/img/cgu_conditions_lsf_blue.png"), url("/img/cgu_conditions_blue.png"), url("/img/about.png"), url("/img/member_me.png"), url("/img/Member_project_admin_me.png"), url("/img/Member_project_admin.png"), url("/img/Member_empty-white.png"), url("/img/Group_blue.png"), url("/img/add-remove_white.png"), url("/img/member_choose.png"), url("/img/done_black.png"), url("/img/done_blue.png"), url("/img/new_checked_down.png"), url("/img/new_checked_up.png"), url("/img/stop.png"), url("/img/new_sprite_picto_400X400.png")  no-repeat;
+  background: url("/img/contact.png"), url("/img/member_me.png"), url("/img/Member_project_admin_me.png"), url("/img/Member_project_admin.png"), url("/img/Member_empty-white.png"), url("/img/Group_blue.png"), url("/img/add-remove_white.png"), url("/img/member_choose.png"), url("/img/done_black.png"), url("/img/done_blue.png"), url("/img/new_checked_down.png"), url("/img/new_checked_up.png"), url("/img/stop.png"), url("/img/new_sprite_picto_400X400.png")  no-repeat;
 }
 
 
@@ -51,7 +51,7 @@
 }
 
 
-.retry_recording >span,
+.rewind_black >span,
 .cancel_recording >span{
   line-height: 20px;
 }

@@ -62,10 +62,10 @@
                 <li class="aside_bckg_li">
                       <a th:href="@{/sec/signs/mostrecent(isMostRecent=false, isSearch=false)}">
                         <div>
-                        <div class="signe"></div>
+                        <div class="pull-left sign_see"></div>
                         <h2 class="text_hyphenation container_H2" th:text="#{sign.advise}"></h2>
                             <div>
-                                <div class="pull-right chevron_right ">
+                                <div class="pull-right chevron">
                                 </div>
                             </div>
                         </div>
@@ -74,10 +74,10 @@
                 <li th:if="${isAuthenticated}" class="aside_bckg_li">
                   <a th:href="@{/sec/requests}">
                     <div>
-                      <div class="pull-left require_black"></div>
+                      <div class="pull-left sign_ask-for_black"></div>
                       <h2 class="text_hyphenation container_H2" th:text="#{sign.request.advise}"></h2>
                       <div >
-                        <div class="pull-right chevron_right"></div>
+                        <div class="pull-right chevron"></div>
                       </div>
                     </div>
                   </a>
@@ -85,10 +85,10 @@
                 <li sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated}" class="clear aside_bckg_li">
                     <a  data-target="#new-suggest" data-toggle="modal" href="#" >
                         <div>
-                        <div class="pull-left suggest_black"></div>
+                        <div class="pull-left sign_add"></div>
                         <h2  class="text_hyphenation container_H2" th:text="#{sign.suggest}"></h2>
                             <div>
-                                <div class="pull-right chevron_right"></div>
+                                <div class="pull-right chevron"></div>
                             </div>
                         </div>
                     </a>

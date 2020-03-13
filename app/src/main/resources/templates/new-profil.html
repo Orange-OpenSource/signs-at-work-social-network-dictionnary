@@ -38,31 +38,31 @@
         <li class="aside_bckg_li">
           <a th:if="${user.firstName} == null and ${user.lastName} == null" th:href="@{/sec/who-are-you/}">
             <h2 class="container_H2"  th:text="#{input_your_name}"></h2>
-            <div class="pull-right add"></div>
+            <div class="pull-right add_black"></div>
           </a>
           <a th:unless="${user.firstName} == null and ${user.lastName} == null" th:href="@{/sec/who-are-you/}">
             <h2 class="container_H2_blue"  th:text="${user.name()}"></h2>
-            <div class="pull-right pen"></div>
+            <div class="pull-right edit_black"></div>
           </a>
         </li>
         <li class="aside_bckg_li">
           <a th:if="${user.job} == null" th:href="@{/sec/your-job}">
             <h2 class="container_H2"  th:text="#{input_your_job}"></h2>
-            <div class="pull-right add"></div>
+            <div class="pull-right add_black"></div>
           </a>
           <a th:unless="${user.job} == null" th:href="@{/sec/your-job}">
             <h2 class="container_H2"  th:text="${user.job}"></h2>
-            <div class="pull-right pen"></div>
+            <div class="pull-right edit_black"></div>
           </a>
         </li>
         <li class="aside_bckg_li">
           <a th:if="${user.jobDescriptionText} == null" th:href="@{/sec/your-job-description}">
             <h2 class="container_H2"  th:text="#{input_your_job_description}"></h2>
-            <div class="pull-right add"></div>
+            <div class="pull-right add_black"></div>
           </a>
           <a th:unless="${user.jobDescriptionText} == null" th:href="@{/sec/your-job-description}">
             <h2 class="container_H2"  th:text="${user.jobDescriptionText}"></h2>
-            <div class="pull-right pen"></div>
+            <div class="pull-right edit_black"></div>
           </a>
         </li>
       </ul>

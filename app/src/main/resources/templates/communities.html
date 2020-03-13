@@ -37,7 +37,7 @@
                 <a href="#" data-toggle="modal" data-target="#create_community">
                   <div class="pull-left create_community_blue"></div>
                   <h2 class="container_H2" th:text="#{favorite.create_community}"></h2>
-                  <div class="pull-right pen"></div>
+                  <div class="pull-right edit_black"></div>
                 </a>
               </li>
               <li th:each="community:${communities}" class="aside_bckg_li">
@@ -45,7 +45,7 @@
                   <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_community_type_job_i_below_blue"></div>
                   <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_community_type_project_i_below_blue"></div>
                   <h4 class="container_H2" th:text="${community.name}"></h4>
-                  <div class="pull-right chevron_right"></div>
+                  <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>
@@ -63,7 +63,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal"></button>
         <div class="pull-left">
           <div class="create_community_white pull-left"></div>
           <h2 class="pull-right" th:text="#{favorite.create_community}"></h2>

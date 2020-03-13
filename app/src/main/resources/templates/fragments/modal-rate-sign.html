@@ -31,7 +31,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="button" class="close" data-dismiss="modal"></button>
               <div class="pull-left">
                 <div class="evaluate_sign_modal pull-left"></div>
                   <h2 th:if="${isAuthenticated and !ratingData.rateNoRate}" class="pull-right" th:text="#{sign.modal.reevaluate}"/>
@@ -63,7 +63,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal">&times;</button>
+        <button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal"></button>
         <div class="pull-left">
           <div class="evaluate_sign_modal pull-left"></div>
           <h2 th:if="${isAuthenticated and !ratingData.rateNoRate}" class="pull-right" th:text="#{sign.modal.reevaluate}"/>

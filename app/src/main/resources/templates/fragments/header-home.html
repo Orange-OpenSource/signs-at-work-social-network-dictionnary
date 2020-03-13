@@ -43,21 +43,21 @@
                 <button id="sidebarCollapse" th:if="${isAuthenticated}" class="navbar-toggle"
                         type="button">
                     <span class="sr-only">Toggle navigation (FIXME: pas traduit !)</span>
-                    <div class="menu_detail"></div>
+                    <div class="menu"></div>
                 </button>
               <div th:if="${isAuthenticated}" class="hidden-sm hidden-lg hidden-md navbar-toggle-complement">
 
               <ul role="tablist" class="nav navbar-nav">
                 <li id="presentation_header" role="tab">
                   <a th:href="@{/sec/signs/mostrecent(isMostRecent=false, isSearch=true)}" th:attr="aria-label=#{sign.search}">
-                    <div class="search_signe_header pull-left"></div>
+                    <div class="search_circle pull-left"></div>
                   </a>
                 </li>
               </ul>
             </div>
 
                 <a href="/" class="text-center" th:attr="aria-label=#{home}">
-                    <div class="logo_app pull-left" alt="logo de sign@works, une main verticale stylisée"></div>
+                    <div class="logo-text_white pull-left" alt="logo de sign@works, une main verticale stylisée"></div>
                 </a>
                 <a class="hidden-xs pull-left" th:if="${isAuthenticated and isDevProfile}" href="">
                     <form th:action="@{/logout}" method = "post">
@@ -84,7 +84,7 @@
                       <div class="pull-left member_me_black "></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{profile}"></h4>
                       <div>
-                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron"></div>
                       </div>
                     </div>
                   </a>
@@ -92,10 +92,10 @@
                 <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menuitem">
                   <a th:href="@{/sec/communities}">
                     <div>
-                      <div class="pull-left community_signe "></div>
+                      <div class="pull-left group_black"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{communities}"></h4>
                       <div>
-                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron"></div>
                       </div>
                     </div>
 
@@ -104,10 +104,10 @@
                 <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menuitem">
                   <a th:href="@{/sec/favorites}">
                     <div>
-                      <div class="pull-left favorite_signe_black "></div>
+                      <div class="pull-left pinlist_black"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation " th:text="#{favorites}"></h4>
                       <div>
-                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron"></div>
                       </div>
                     </div>
 
@@ -116,10 +116,10 @@
                 <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menuitem">
                   <a href="#">
                     <div>
-                      <div class="pull-left parameters_signe "></div>
+                      <div class="pull-left settings_black"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{settings}"></h4>
                       <div>
-                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron"></div>
                       </div>
                     </div>
                   </a>
@@ -130,7 +130,7 @@
                       <div class="pull-left about "></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{about}"></h4>
                       <div>
-                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron_right"></div>
+                        <div class="hidden-sm hidden-lg hidden-md pull-right chevron"></div>
                       </div>
                     </div>
                   </a>

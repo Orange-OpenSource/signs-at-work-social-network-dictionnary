@@ -61,13 +61,13 @@
                         <div th:if="${signView.textDefinition == null} and ${signView.videoDefinition == null}">
                           <h2 id="definition" class="container_H2" th:text="#{sign.description-empty}"/>
                           <div>
-                            <div class="pull-right  add"/>
+                            <div class="pull-right add_black"/>
                           </div>
                         </div>
                         <div th:if="${signView.textDefinition != null} or ${signView.videoDefinition != null}">
                           <h2 id="definition" class="container_H2" th:text="#{sign.description-not-empty}"/>
                           <div>
-                            <div class="pull-right  pen"/>
+                            <div class="pull-right edit_black"/>
                           </div>
                         </div>
                       </a>
@@ -77,7 +77,7 @@
                             <div class="pull-left replace_signe_blue"></div>
                             <h2 class="container_H2" th:text="#{sign.redo}"/>
                             <div>
-                                <div class="pull-right chevron_right"/>
+                                <div class="pull-right chevron"/>
                             </div>
                         </a>
                     </li>
@@ -86,7 +86,7 @@
                             <div class="pull-left evaluate_sign"></div>
                             <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
                             <div>
-                                <div class="pull-right chevron_right"/>
+                                <div class="pull-right chevron"/>
                                 <div th:if="${ratingData.ratePositive}" class="pull-right sentiment_positif"/>
                                 <div th:if="${ratingData.rateNegative}" class="pull-right sentiment_negatif"/>
                             </div>
@@ -97,7 +97,7 @@
                         <div class="pull-left delete_picto"></div>
                         <h2 class="container_H2" th:text="#{video.delete}"/>
                         <div>
-                          <div class="pull-right chevron_right"/>
+                          <div class="pull-right chevron"/>
                         </div>
                       </a>
                     </li>

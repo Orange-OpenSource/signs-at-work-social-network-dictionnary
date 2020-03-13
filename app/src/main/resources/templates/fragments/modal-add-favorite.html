@@ -33,7 +33,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class=" modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="pin_add_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{favorite.add}"/>
@@ -46,7 +46,7 @@
                         <div class="new_favorite_signe_blue  pull-left"></div>
                         <h2  class="label_favorite_Liste_H2 container_H2" th:text="#{favorite.new}"></h2>
                         <div>
-                          <div class="pull-right pen"></div>
+                          <div class="pull-right edit_black"></div>
                         </div>
                     </a>
                   </li>
@@ -63,7 +63,7 @@
                             <h2 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h2>
                             <h2 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h2>
                             <div>
-                              <div class="pull-right chevron_right"></div>
+                              <div class="pull-right chevron"></div>
                             </div>
                           </div>
                         </a>

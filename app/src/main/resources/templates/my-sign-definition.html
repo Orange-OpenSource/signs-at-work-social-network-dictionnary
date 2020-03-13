@@ -53,12 +53,12 @@
             <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
-              <div class="pull-right  add"/>
+              <div class="pull-right add_black"/>
             </div>
             <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2" th:text="${signView.textDefinition}"/>
-              <div class="pull-right  pen"/>
+              <div class="pull-right edit_black"/>
             </div>
           </a>
         </li>
@@ -67,12 +67,12 @@
             <div th:if="${signView.videoDefinition == null}">
               <div class="pull-left create_sign"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right  add"/>
+              <div class="pull-right add_black"/>
             </div>
             <div th:if="${signView.videoDefinition != null}">
               <div class="pull-left create_sign"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right  pen"/>
+              <div class="pull-right edit_black"/>
             </div>
           </a>
         </li>

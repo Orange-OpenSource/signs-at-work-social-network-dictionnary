@@ -48,7 +48,7 @@
           <a data-target="#new_request" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="${signName}"/>
             <div>
-              <div class="pull-right  pen"/>
+              <div class="pull-right edit_black"/>
             </div>
           </a>
         </li>
@@ -57,7 +57,7 @@
             <div>
               <h4 class="container_H2" th:text="#{see_sign}"></h4>
               <div>
-                <div class="pull-right chevron_right "></div>
+                <div class="pull-right chevron"></div>
               </div>
             </div>
           </a>
@@ -67,7 +67,7 @@
             <div>
               <h4 class="container_H2" th:text="#{see.request}"></h4>
               <div>
-                <div class="pull-right chevron_right "></div>
+                <div class="pull-right chevron"></div>
               </div>
             </div>
           </a>
@@ -77,7 +77,7 @@
             <div>
               <h4 class="container_H2" th:text="#{see_sign}"></h4>
               <div>
-                <div class="pull-right chevron_right "></div>
+                <div class="pull-right chevron"></div>
               </div>
             </div>
           </a>
@@ -88,7 +88,7 @@
               <div class="pull-left description_blue"></div>
               <h4 class="container_H2" th:text="#{request.create}"/>
               <div>
-                <div class="pull-right add"></div>
+                <div class="pull-right add_black"></div>
               </div>
             </div>
           </a>
@@ -112,7 +112,7 @@
                 <div>
                   <h2 class="container_H2" th:text="${sign.name}"></h2>
                   <div>
-                    <div class="pull-right chevron_right "></div>
+                    <div class="pull-right chevron"></div>
                   </div>
                 </div>
               </a>
@@ -142,7 +142,7 @@
                   <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left my_request_signe_whithout_chevron"></div>
                   <h2 class="container_H2" th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
                   <div>
-                    <div class="pull-right chevron_right "></div>
+                    <div class="pull-right chevron"></div>
                   </div>
                 </div>
               </a>
@@ -162,7 +162,7 @@
                   <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left my_request_signe_whithout_chevron"></div>
                   <h2 class="container_H2" th:text="${request.requestName}"></h2>
                   <div>
-                    <div class="pull-right chevron_right "></div>
+                    <div class="pull-right chevron"></div>
                   </div>
                 </div>
               </a>

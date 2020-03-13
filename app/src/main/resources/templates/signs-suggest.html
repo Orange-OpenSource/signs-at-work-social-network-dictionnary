@@ -47,7 +47,7 @@
           <a data-target="#new-suggest" data-toggle="modal" href="#">
             <h2 class="container_H2" th:text="${signName}"/>
             <div>
-              <div class="pull-right  pen"/>
+              <div class="pull-right edit_black"/>
             </div>
             <!--<span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>-->
           </a>
@@ -57,26 +57,26 @@
             <div>
               <h4 class="container_H2" th:text="#{see_sign}"></h4>
               <div>
-                <div class="pull-right chevron_right "></div>
+                <div class="pull-right chevron"></div>
               </div>
             </div>
           </a>
         </li>
         <li th:if="${!isSignAlreadyExist and requestId != 0}" class="aside_bckg_li">
           <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} + ' \')'" data-toggle="modal" href="#">
-            <div class="pull-left create_video"></div>
+            <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>
-              <div class="pull-right add"></div>
+              <div class="pull-right add_black"></div>
             </div>
           </a>
         </li>
         <li th:if="${!isSignAlreadyExist and requestId == 0}" class="aside_bckg_li">
           <a th:if="${requestId == 0}" data-target="#suggest" data-toggle="modal" href="#">
-            <div class="pull-left create_video"></div>
+            <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>
-              <div class="pull-right add"></div>
+              <div class="pull-right add_black"></div>
             </div>
           </a>
         </li>
@@ -99,7 +99,7 @@
                 <div>
                   <h2 class="container_H2" th:text="${sign.name}"></h2>
                   <div>
-                    <div class="pull-right chevron_right "></div>
+                    <div class="pull-right chevron"></div>
                   </div>
                 </div>
               </a>

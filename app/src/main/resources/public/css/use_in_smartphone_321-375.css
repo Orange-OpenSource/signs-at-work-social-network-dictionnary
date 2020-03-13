@@ -21,14 +21,14 @@
     margin-left: 20px;
   }
 
-  .search_signe_header {
+  .search_circle {
     background-size: auto 50px;
     height: 50px;
     width: 50px;
-    margin-top: 2px;
+    margin-top: 3px;
   }
 
-  .menu_detail {
+  .menu {
     background-size: auto 50px;
     height: 50px;
     width: 50px;
@@ -306,7 +306,7 @@
     top: 32%;
   }
 
-  .retry_recording {
+  .rewind_black {
     background-size: auto 24px;
     height: 24px;
     width: 24px;

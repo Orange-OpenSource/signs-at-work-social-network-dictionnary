@@ -36,42 +36,42 @@
                     <a href="#" data-toggle="modal" data-target="#rename_favorite">
                         <div class="pull-left rename_favorite_blue"></div>
                         <h2 class="container_H2" th:text="#{favorite.rename_managed_by(${userName})}"></h2>
-                        <div class="pull-right pen"></div>
+                        <div class="pull-right edit_black"></div>
                     </a>
                 </li>
                 <li th:if="${isFavoriteBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#rename_favorite">
                     <div class="pull-left rename_favorite_blue"></div>
                     <h2 class="container_H2" th:text="#{favorite.rename}"></h2>
-                    <div class="pull-right pen"></div>
+                    <div class="pull-right edit_black"></div>
                   </a>
                 </li>
                 <li class="aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#duplicate_favorite">
                         <div class="pull-left duplicate_favorite_blue"></div>
                         <h2 class="container_H2" th:text="#{favorite.duplicate}"></h2>
-                        <div class="pull-right pen"></div>
+                        <div class="pull-right edit_black"></div>
                     </a>
                 </li>
                 <li th:if="${!isFavoriteBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#delete_favorite">
                         <div class="pull-left delete_favorite_blue"></div>
                         <h2 class="container_H2" th:text="#{favorite.delete_managed_by(${userName})}"></h2>
-                        <div class="pull-right chevron_right"></div>
+                        <div class="pull-right chevron"></div>
                     </a>
                 </li>
                 <li th:if="${isFavoriteBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#delete_favorite">
                     <div class="pull-left delete_favorite_blue"></div>
                     <h2 class="container_H2" th:text="#{favorite.delete}"></h2>
-                    <div class="pull-right chevron_right"></div>
+                    <div class="pull-right chevron"></div>
                   </a>
                 </li>
                 <li th:if="${favoriteManageView.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="clear aside_bckg_li">
                   <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} + '/communities'">
                     <div class="pull-left see_communities"></div>
                     <h2 class="container_H2"  th:text="#{favorite.see_share_communities}"></h2>
-                    <div class="pull-right chevron_right"></div>
+                    <div class="pull-right chevron"></div>
                   </a>
                 </li>
             </ul>
@@ -86,7 +86,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="delete_favorite_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{favorite.delete_list}"></h2>
@@ -112,7 +112,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="rename_favorite_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{favorite.rename_list}"></h2>
@@ -142,7 +142,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="duplicate_favorite_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{favorite.duplicate_list}"></h2>

@@ -1,18 +1,18 @@
 @media only screen and (min-width:625px) and (max-width:667px) {
 
   /* Begin index page /index */
-  .search_signe_header {
+  .search_circle {
     background-size: auto 50px;
     height: 50px;
     width: 50px;
-    margin-top: 10px;
+    margin-top: 11px;
   }
 
   .navbar-toggle {
    margin-top: 0px;
   }
 
-  .menu_detail {
+  .menu {
     background-size: auto 50px;
     height: 50px;
     width: 50px;
@@ -277,7 +277,7 @@
     color: #4866F7;
   }
 
-  .retry_recording {
+  .rewind_black {
     background-size: auto 24px;
     height: 24px;
     width: 24px;

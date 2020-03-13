@@ -36,14 +36,14 @@
                     <a href="#" data-toggle="modal" data-target="#rename_community">
                         <div class="pull-left rename_favorite_blue"></div>
                         <h2 class="container_H2" th:text="#{community.rename_managed_by(${userName})}"></h2>
-                        <div class="pull-right pen"></div>
+                        <div class="pull-right edit_black"></div>
                     </a>
                 </li>
                 <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#rename_community">
                     <div class="pull-left rename_favorite_blue"></div>
                     <h2 class="container_H2" th:text="#{community.rename}"></h2>
-                    <div class="pull-right pen"></div>
+                    <div class="pull-right edit_black"></div>
                   </a>
                 </li>
 
@@ -51,28 +51,28 @@
                   <a href="#" data-toggle="modal" data-target="#remove_me_from_community">
                     <div class="pull-left member_choose_blue"></div>
                     <h2 class="container_H2" th:text="#{community.remove_me}"></h2>
-                    <div class="pull-right pen"></div>
+                    <div class="pull-right edit_black"></div>
                   </a>
                 </li>
                 <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
                   <a th:href="@{/sec/community/} + ${community.id} + '/modify'">
                     <div class="pull-left member_choose_blue"></div>
                     <h2 class="container_H2" th:text="#{community.choose_members}"></h2>
-                    <div class="pull-right pen"></div>
+                    <div class="pull-right edit_black"></div>
                   </a>
                 </li>
                 <li th:if="${!isCommunityBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#delete_community">
                         <div class="pull-left group_delete_blue"></div>
                         <h2 class="container_H2" th:text="#{community.delete_managed_by(${userName})}"></h2>
-                        <div class="pull-right chevron_right"></div>
+                        <div class="pull-right chevron"></div>
                     </a>
                 </li>
                 <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#delete_community">
                     <div class="pull-left group_delete_blue"></div>
                     <h2 class="container_H2" th:text="#{community.delete}"></h2>
-                    <div class="pull-right chevron_right"></div>
+                    <div class="pull-right chevron"></div>
                   </a>
                 </li>
             </ul>
@@ -85,7 +85,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="group_delete_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{community.delete_list}"></h2>
@@ -108,7 +108,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="rename_favorite_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{community.rename_list}"></h2>
@@ -134,7 +134,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal"></button>
         <div class="pull-left">
           <div class="member_choose_white pull-left"></div>
           <h2 class="pull-right" th:text="#{community.remove_me}"></h2>

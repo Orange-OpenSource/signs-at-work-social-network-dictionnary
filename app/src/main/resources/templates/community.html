@@ -37,14 +37,14 @@
                   <a th:href="@{/sec/community/} + ${community.id} +  '/description'">
                     <div class="pull-left definition_signe"></div>
                     <h2 class="container_H2" th:text="#{community.description}"></h2>
-                    <div class="pull-right  chevron_right"/>
+                    <div class="pull-right chevron"/>
                   </a>
                 </li>
                 <li th:if="${iBelowToCommunity and community.type != T(com.orange.signsatwork.biz.domain.CommunityType).Job}" class="aside_bckg_li action">
                   <a th:href="@{/sec/community/} + ${community.id} +  '/manage-community'">
                     <div class="pull-left manage_favorite_blue"></div>
                     <h2 class="container_H2" th:text="#{community.manage}"></h2>
-                    <div class="pull-right  chevron_right"/>
+                    <div class="pull-right chevron"/>
                   </a>
                 </li>
                <!-- <div th:if="${not #lists.isEmpty(community.users.list())}">
@@ -56,7 +56,7 @@
                               <div th:if="${user.id != community.user.id and user.id != userId}" class="pull-left member_empty_white"></div>
                               <div th:if="${user.id != community.user.id and user.id == userId}" class="pull-left member_me"></div>
                                 <h2 class="container_H2" th:text="${user.name()}"></h2>
-                                <div class="pull-right chevron_right"></div>
+                                <div class="pull-right chevron"></div>
                             </a>
                         </li>
                 <!--    </div>

@@ -73,9 +73,9 @@
           </li>
           <li sec:authorize="hasRole('USER_A')" class="aside_bckg_li">
             <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
-              <div class="pull-left suggest_black"></div>
+              <div class="pull-left sign_add"></div>
               <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
-              <div ><div class="pull-right chevron_right"></div></div>
+              <div ><div class="pull-right chevron"></div></div>
             </a>
           </li>
         </ul>

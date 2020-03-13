@@ -29,9 +29,9 @@ a {
   color: #333333;
 }
 
-.logo_app {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -0px center;
+.logo-text_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1739px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 70px;
@@ -39,9 +39,9 @@ a {
   margin-left: 10px;
 }
 
-.welcome_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -260px center;
+.illustration_welcome {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -4070px center;
   background-repeat: no-repeat;
   background-size: auto 100px;
   height: 100px;
@@ -185,10 +185,9 @@ h1, .h1, h2, .h2, h3, .h3 {
   border-style:none;
 }
 
-.signe {
-  float: left;
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1980px center;
+.sign_see {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3866px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;
@@ -222,9 +221,9 @@ h1, .h1, h2, .h2, h3, .h3 {
   /*white-space: nowrap;*/
 }
 
-.chevron_right{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -270px center;
+.chevron{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3257px center;
   background-repeat: no-repeat;
   background-size: auto 28px;
   height: 28px;
@@ -232,9 +231,9 @@ h1, .h1, h2, .h2, h3, .h3 {
   margin-top: 10px;
 }
 
-.require_black {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2020px center;
+.sign_ask-for_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3740px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;
@@ -242,9 +241,9 @@ h1, .h1, h2, .h2, h3, .h3 {
   margin-top: 4px;
 }
 
-.suggest_black {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1940px center;
+.sign_add {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3656px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;
@@ -252,15 +251,15 @@ h1, .h1, h2, .h2, h3, .h3 {
   margin-top: 4px;
 }
 
-.search_signe_header {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2275px center;
+.search_circle {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -4094px center;
   background-repeat: no-repeat;
 }
 
-.menu_detail {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2375px center;
+.menu {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2924px center;
   background-repeat: no-repeat;
 }
 
@@ -270,8 +269,8 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 
 .member_me_black{
-  background-image: url("/img/member_me_black.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1049px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 45px;
@@ -287,27 +286,27 @@ h4, .h4 {
   font-weight: bold;
 }
 
-.community_signe{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -531px center;
+.group_black{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -575px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 42px;
   width: 20px;
 }
 
-.favorite_signe_black{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2571px center;
+.pinlist_black{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1690px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 40px;
   width: 24px;
 }
 
-.parameters_signe{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -830px center;
+.settings_black{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1703px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 44px;
@@ -315,7 +314,7 @@ h4, .h4 {
 }
 
 .about{
-  background-image: url("/img/about.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-position: 0px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
@@ -326,23 +325,22 @@ h4, .h4 {
 /* End Menu */
 
 /* Begin Voir les signes /sec/signs */
-.signe_reverse_video {
-  float: left;
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3551px center;
+.logo-SW_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2124px center;
   background-repeat: no-repeat;
   background-size: auto 50px;
   height: 70px;
   width: 50px;
 }
 
-.back {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3513px center;
+.back_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -106px center;
   background-repeat: no-repeat;
-  background-size: auto 50px;
+  background-size: auto 29px;
   height: 70px;
-  width: 50px;
+  width: 43px;
   cursor:pointer;
 }
 
@@ -671,14 +669,21 @@ input[type=search].form-control,input[type=search].form-control:focus{
 /* Begin Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest*/
 
 button.close{
-  color:#FFFFFF;
+ /* color:#FFFFFF;
   opacity:1;
-  padding-top: 15px;
+  padding-top: 15px;*/
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3464px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 51px;
+  width: 30px;
+  opacity: 1;
 }
 
-.newAddition_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1936px center;
+.sign_add_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2773px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 47px;
@@ -721,9 +726,9 @@ button.close{
 
 /* Begin Nouveau signe /sec/signs-suggest */
 
-.pen {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -351px center;
+.edit_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -571px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -749,9 +754,9 @@ button.close{
   width: 24px;
 }
 
-.create_video {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -900px center;
+.description_movie_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -398px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -787,14 +792,15 @@ button.close{
   margin-right: 20px;
 }
 
-.add {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -551px center;
+.add_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -32px center;
   background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 28px;
-  width: 28px;
+  background-size: auto 31px;
+  height: 31px;
+  width: 24px;
   margin-top: 9px;
+  margin-right: 9px;
 }
 
 .same_name{
@@ -811,18 +817,18 @@ button.close{
 
 /* Begin Fenêtre modale Ajouter un signe id=suggest modal-suggest */
 
-.webCam_picto {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -948px center;
+.camera_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -116px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 46px;
   width: 24px;
 }
 
-.folderCamera_picto {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -972px center;
+.folder_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -666px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 46px;
@@ -834,8 +840,8 @@ button.close{
 /* Begin Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
 
 .record {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3336px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -4631px center;
   background-repeat: no-repeat;
   background-size: auto 58px;
   height: 58px;
@@ -908,9 +914,9 @@ video{
   width: 100%;
 }
 
-.retry_recording {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1066px center;
+.rewind_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1942px center;
   background-repeat: no-repeat;
 }
 
@@ -1509,8 +1515,8 @@ input[type=file] {
 }
 
 .lock_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3948px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1248px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1577,9 +1583,9 @@ pre {
   margin-top: 10px;
 }
 
-.cgu_disagree_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -4077px center;
+.cgu_conditions_white_no {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -318px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1609,10 +1615,9 @@ pre {
   width: 24px;
 }
 
-.edit-profil {
-  float: right;
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -4079px center;
+.edit_white_circle {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1068px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;
@@ -1676,9 +1681,9 @@ pre {
   margin-right: 20px;
 }
 
-.cgu_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1635px center;
+.cgu_conditions_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -288px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 30px;
@@ -1856,8 +1861,8 @@ pre {
 
 
 .cgu_conditions_blue_about {
-  background-image: url("/img/cgu_conditions_blue.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -272px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;
@@ -1865,9 +1870,9 @@ pre {
   margin-top: 20px;
 }
 
-.chevron_right_about_see_cgu{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -270px center;
+.chevron_about_see_cgu{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3257px center;
   background-repeat: no-repeat;
   background-size: auto 28px;
   height: 28px;
@@ -1887,8 +1892,8 @@ pre {
 }
 
 .cgu_conditions_blue {
-  background-image: url("/img/cgu_conditions_blue.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -219px center;
   background-repeat: no-repeat;
   background-size: auto 32px;
   height: 40px;
@@ -1897,8 +1902,8 @@ pre {
 }
 
 .cgu_conditions_lsf_blue {
-  background-image: url("/img/cgu_conditions_lsf_blue.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -248px center;
   background-repeat: no-repeat;
   background-size: auto 32px;
   height: 40px;
@@ -1907,8 +1912,8 @@ pre {
 }
 
 .cgu_conditions_lsf_white {
-  background-image: url("/img/cgu_conditions_lsf_white.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -260px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 30px;

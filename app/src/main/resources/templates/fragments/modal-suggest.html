@@ -31,9 +31,9 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class=" modal-header" >
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal"></button>
         <div class="pull-left">
-          <div class="newAddition_signe pull-left"></div>
+          <div class="sign_add_white pull-left"></div>
           <h2 class="pull-right" th:text="#{sign.suggest}"/>
         </div>
       </div>
@@ -42,10 +42,10 @@
           <li th:if="${isAuthenticated}" class="forIE aside_bckg_li">
             <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
               <div>
-                <div class="pull-left webCam_picto"></div>
+                <div class="pull-left camera_blue"></div>
                 <h4 class="container_H2" th:text="#{sign.new_from_file_recording}"/>
                 <div>
-                  <div class="pull-right add"></div>
+                  <div class="pull-right add_black"></div>
                 </div>
               </div>
             </a>
@@ -54,10 +54,10 @@
           <li th:if="${isAuthenticated}" class="aside_bckg_li">
             <a data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
               <div>
-                <div class="pull-left folderCamera_picto"></div>
+                <div class="pull-left folder_blue"></div>
                 <h4 class="container_H2" th:text="#{sign.new_from_file_dailymotion}"/>
                 <div>
-                  <div class="pull-right add"></div>
+                  <div class="pull-right add_black"></div>
                 </div>
               </div>
             </a>
@@ -72,9 +72,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="padding: 5px;">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal"></button>
         <div class="pull-left">
-          <div class="newAddition_signe pull-left"></div>
+          <div class="sign_add_white pull-left"></div>
           <h2 class="pull-right" th:text="#{sign.suggest}"/>
         </div>
       </div>
@@ -106,7 +106,7 @@
           <span id="errorSpan" style="visibility: hidden"></span>
         </div>
         <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
-          <div class="retry_recording pull-left"></div>
+          <div class="rewind_black pull-left"></div>
           <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary" title="Cliquer pour annuler">
             <span th:text="#{cancel}"></span>
           </button>
@@ -130,9 +130,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal"></button>
         <div class="pull-left">
-          <div class="newAddition_signe pull-left"></div>
+          <div class="sign_add_white pull-left"></div>
           <h2 class="pull-right" th:text="#{sign.suggest}"/>
         </div>
       </div>

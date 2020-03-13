@@ -43,7 +43,7 @@
               <div class="pull-left cgu_conditions_blue"></div>
               <h2 class="container_CGU" th:text="#{read.condition_of_use}"/>
               <div>
-                <div class="pull-right chevron_right"></div>
+                <div class="pull-right chevron"></div>
               </div>
             </a>
           </li>
@@ -52,7 +52,7 @@
               <div class="pull-left cgu_conditions_lsf_blue"></div>
               <h2 class="container_CGU" th:text="#{see.condition_of_use}"/>
               <div>
-                <div class="pull-right chevron_right"></div>
+                <div class="pull-right chevron"></div>
               </div>
             </a>
           </li>
@@ -115,9 +115,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:returnToHome()'">&times;</button>
+        <button type="button" class="close" th:onclick="'javascript:returnToHome()'"></button>
         <div class="pull-left">
-          <div class="cgu_disagree_white pull-left"></div>
+          <div class="cgu_conditions_white_no pull-left"></div>
           <h2 class="pull-right" th:text="#{cgu_disagree_title}"/>
         </div>
       </div>

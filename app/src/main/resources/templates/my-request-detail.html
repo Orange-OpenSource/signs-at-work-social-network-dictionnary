@@ -64,11 +64,11 @@
             <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
-              <div class="pull-right  add"/>
+              <div class="pull-right add_black"/>
             </div>
             <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
               <h4 class="container_H2" th:text="${requestView.requestTextDescription}"/>
-              <div class="pull-right  pen"/>
+              <div class="pull-right edit_black"/>
             </div>
           </a>
         </li>
@@ -77,7 +77,7 @@
             <div th:if="${requestView.requestVideoDescription== null}">
               <div class="pull-left create_sign"></div>
               <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-              <div class="pull-right  add"/>
+              <div class="pull-right add_black"/>
             </div>
             <div th:if="${requestView.requestVideoDescription != null}">
               <div class="pull-left create_sign"></div>
@@ -90,14 +90,14 @@
           <a  th:onclick="'javascript:onPrioriseRequest('+ ${requestView.id}  +')' " href="#">
             <div class="pull-left priorise_request"></div>
             <h4 class="container_H2" th:text="#{request.priorise}"/>
-            <div><div class="pull-right chevron_right"></div></div>
+            <div><div class="pull-right chevron"></div></div>
           </a>
         </li>
         <li class="aside_bckg_li">
           <a data-target="#delete_request" data-toggle="modal" href="#">
             <div class="pull-left delete_picto"></div>
             <h4 class="container_H2" th:text="#{request.delete}"/>
-            <div ><div class="pull-right chevron_right"></div></div>
+            <div ><div class="pull-right chevron"></div></div>
           </a>
         </li>
       </ul>
@@ -111,9 +111,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal"></button>
         <div class="pull-left">
-          <div class="pen pull-left"></div>
+          <div class="edit_black pull-left"></div>
           <h4 class="pull-right" th:text="#{request.rename}"/>
         </div>
       </div>
