@@ -47,14 +47,14 @@
                     <img th:src="${user.namePicture}" th:attr="alt=#{name_LSF}" style="margin-bottom: 10px;"/>
                   </a>
                   <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}">
-                    <div id="nameVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
+                    <div id="nameVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
                   </a>
                 </div>
                 <div th:if="${user.namePicture == null}" style="display: inline;">
                   <h2 style="display: inline;" th:text="#{name_LSF}"></h2>
                   <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
                   <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}">
-                    <div id="nameVideo-record" class="pull-right picto-record" style="margin-top: 2px; display: none;"></div>
+                    <div id="nameVideo-record" class="pull-right record-profil" style="margin-top: 2px; display: none;"></div>
                   </a>
                 </div>
               </li>
@@ -63,7 +63,7 @@
                   <div>
                     <h2 style="display: inline;" th:text="#{name}"></h2>
                     <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
-                    <div id="name-pen" class="pull-right picto-pen" style="display: none;"></div>
+                    <div id="name-pen" class="pull-right edit_black-profil" style="display: none;"></div>
                   </div>
                 </a>
               </li>
@@ -72,7 +72,7 @@
                   <div>
                     <h2 style="display: inline;" th:text="#{email}"></h2>
                     <h2 style="display: inline;margin-left: 25px; color: #4866F7;" th:text="${user.username}"></h2>
-                    <div id="user_name-pen" class="pull-right picto-pen" style="display: none;"></div>
+                    <div id="user_name-pen" class="pull-right edit_black-profil" style="display: none;"></div>
                   </div>
                 </a>
               </li>
@@ -81,12 +81,12 @@
                   <div th:if="${user.entity != null}">
                     <h2 style="display: inline;" th:text="#{entity}"></h2>
                     <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
-                    <div id="entity-pen" class="pull-right picto-pen" style="display: none;"></div>
+                    <div id="entity-pen" class="pull-right edit_black-profil" style="display: none;"></div>
                   </div>
                   <div th:if="${user.entity == null}">
                     <h2 style="display: inline;" th:text="#{entity}"></h2>
                     <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                    <div id="entity-pen" class="pull-right picto-pen" style="display: none;"></div>
+                    <div id="entity-pen" class="pull-right edit_black-profil" style="display: none;"></div>
                   </div>
                 </a>
               </li>
@@ -95,12 +95,12 @@
                   <div th:if="${user.job != null}">
                     <h2 style="display: inline;" th:text="#{job}"></h2>
                     <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
-                    <div id="jobName-pen" class="pull-right picto-pen" style="display: none;"></div>
+                    <div id="jobName-pen" class="pull-right edit_black-profil" style="display: none;"></div>
                   </div>
                   <div th:if="${user.job == null}">
                     <h2 style="display: inline;" th:text="#{job}"></h2>
                     <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                    <div id="jobName-pen" class="pull-right picto-pen" style="display: none;"></div>
+                    <div id="jobName-pen" class="pull-right edit_black-profil" style="display: none;"></div>
                   </div>
                 </a>
               </li>
@@ -111,14 +111,14 @@
                     <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px;"/>
                   </a>
                   <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
-                    <div id="jobVideo-record" class="pull-right picto-record" style="margin-top: 55px; display: none;"></div>
+                    <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
                   </a>
                 </div>
                 <div th:if="${user.jobDescriptionPicture == null}" style="display: inline;">
                   <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
                   <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
                   <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
-                    <div id="jobVideo-record" class="pull-right picto-record" style="margin-top: 2px; display: none;"></div>
+                    <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 2px; display: none;"></div>
                   </a>
                 </div>
               </li>
@@ -128,7 +128,7 @@
                   <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
                     <div>
                       <h2 style="display: inline-block; color: #4866F7;width: 90%;" th:text="${user.jobDescriptionText}"></h2>
-                      <div id="jobText-pen" class="pull-right picto-pen" style="margin-top: 13px; display: none;"></div>
+                      <div id="jobText-pen" class="pull-right edit_black-profil" style="margin-top: 13px; display: none;"></div>
                     </div>
                   </a>
                 </div>
@@ -137,7 +137,7 @@
                     <div>
                       <h2 style="display: inline;" th:text="#{description_text}"></h2>
                       <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                      <div id="jobText-pen" class="pull-right picto-pen" style="display: none;"></div>
+                      <div id="jobText-pen" class="pull-right edit_black-profil" style="display: none;"></div>
                     </div>
                   </a>
                 </div>
@@ -250,7 +250,7 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal"></button>
               <div class="pull-left">
-                <div class="lsf_white pull-left"></div>
+                <div class="signlanguage_white pull-left"></div>
                 <h2 class="pull-right" th:text="#{recording}"></h2>
               </div>
             </div>
@@ -299,7 +299,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <div class="pull-left">
-                <div class="mail_white pull-left"></div>
+                <div class="message_white pull-left"></div>
                 <h2 class="pull-right" th:text="#{modify_your_email}"/>
               </div>
             </div>

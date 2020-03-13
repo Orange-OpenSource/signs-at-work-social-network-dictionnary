@@ -855,11 +855,11 @@ button.close{
 }
 
 .stop {
-  background-image: url("/img/stop.png");
-  background-position: -17px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -7503px center;
   background-repeat: no-repeat;
   background-size: auto 70px;
-  height: 60px;
+  height: 35px;
   width: 60px;
   border: none;
   background-color: transparent;
@@ -1468,9 +1468,9 @@ input[type=file] {
   color: black;
 }
 
-.pen_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2579px center;
+.edit_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -771px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1478,9 +1478,9 @@ input[type=file] {
   margin-right: 20px;
 }
 
-.lsf_white {
+.signlanguage_white {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3764px center;
+  background-position: -2996px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 47px;
@@ -1594,9 +1594,9 @@ pre {
 }
 
 
-.picto-record {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1381px center;
+.record-profil {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1916px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1606,14 +1606,6 @@ pre {
 }
 
 
-.picto-pen {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -351px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-}
 
 .edit_white_circle {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -1625,9 +1617,9 @@ pre {
   margin-top: 17px;
 }
 
-.mail_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3980px center;
+.message_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1820px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1920,4 +1912,13 @@ pre {
   width: 30px;
   margin-right: 20px;
   margin-top: 10px;
+}
+
+.edit_black-profil {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -571px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
 }
