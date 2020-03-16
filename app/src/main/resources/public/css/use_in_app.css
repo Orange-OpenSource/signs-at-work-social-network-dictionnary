@@ -1331,8 +1331,8 @@ input[type=file] {
 }
 
 .group_blue {
-  background-image: url("/img/Group_blue.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -715px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1341,8 +1341,8 @@ input[type=file] {
 }
 
 .see_group_blue {
-  background-image: url("/img/Group_blue.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -715px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
