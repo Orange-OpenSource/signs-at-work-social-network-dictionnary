@@ -60,14 +60,14 @@
 
         <li th:if="${!isCommunityAlreadyExist}" class="aside_bckg_li">
           <a th:if="${favoriteId != 0}" th:onclick="'javascript:onChangeFavoriteBrowserHistory('+ ${favoriteId} +')' "  th:href="@{/sec/favorite/create_community(name=${communityName}, id=${favoriteId})}">
-            <div class="pull-left add_member_blue"></div>
+            <div class="pull-left member_add_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
               <div class="pull-right chevron"></div>
             </div>
           </a>
           <a th:if="${favoriteId == 0}" th:onclick="'javascript:onChangeBrowserHistory()'"  th:href="@{/sec/community/create(name=${communityName}, id=${favoriteId})}">
-            <div class="pull-left add_member_blue"></div>
+            <div class="pull-left member_add_blue"></div>
             <h4 class="container_H2" th:text="#{community.add_members}"/>
             <div>
               <div class="pull-right chevron"></div>
@@ -88,9 +88,9 @@
               <a th:href="@{/sec/community/} + ${community.id}">
                 <div>
                   <div th:if="${community.type == 'Job'}" class="pull-left see_group_blue"></div>
-                  <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_community_type_job_i_below_blue"></div>
-                  <div th:if="${community.type == 'Project'}" class="pull-left see_community_type_project_blue"></div>
-                  <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_community_type_project_i_below_blue"></div>
+                  <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_group_member_blue"></div>
+                  <div th:if="${community.type == 'Project'}" class="pull-left see_group_project_blue"></div>
+                  <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_group_project_me_blue"></div>
                   <h2 class="container_H2" th:text="${community.name}"></h2>
                   <div>
                     <div class="pull-right chevron"></div>

@@ -36,9 +36,9 @@
               <label th:id="${community.name}" th:each="community : ${communities}"
                        th:for="${#ids.next('favoriteCommunitiesIds')}">
                     <div th:if="${community.type == 'Job'}" class="pull-left group_blue"></div>
-                    <div th:if="${community.type == 'JobIBelow'}" class="pull-left community_type_job_i_below_blue"></div>
-                    <div th:if="${community.type == 'Project'}" class="pull-left community_type_project_blue"></div>
-                    <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left community_type_project_i_below_blue"></div>
+                    <div th:if="${community.type == 'JobIBelow'}" class="pull-left group_member_blue"></div>
+                    <div th:if="${community.type == 'Project'}" class="pull-left group_project_blue"></div>
+                    <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left group_project_me_blue"></div>
                     <input type="checkbox" th:field="*{favoriteCommunitiesIds}" th:value="${community.id}"/>
                     <h4 class="community_name" th:text="${community.name}"></h4>
                 </label>

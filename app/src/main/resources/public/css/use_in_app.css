@@ -1324,9 +1324,9 @@ input[type=file] {
 /* End favorite /sec/favorite/"id" */
 
 /* Begin favorite /sec/favorite/share/"id" */
-.create_community_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2296px center;
+.group_project_add{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -818px center;
   background-repeat: no-repeat;
 }
 
@@ -1351,30 +1351,30 @@ input[type=file] {
   margin-top:10px;
 }
 
-.community_type_job_i_below_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2345px center;
+.group_member_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -794px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
-  width: 24px;
+  width: 25px;
   margin-right: 16px;
 }
 
-.see_community_type_job_i_below_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2345px center;
+.see_group_member_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -794px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
-  width: 24px;
+  width: 25px;
   /*margin-right: 16px;*/
   margin-top:10px;
 }
 
-.community_type_project_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2241px center;
+.group_project_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -872px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1382,9 +1382,9 @@ input[type=file] {
   margin-right:16px;
 }
 
-.see_community_type_project_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2241px center;
+.see_group_project_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -872px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1393,38 +1393,38 @@ input[type=file] {
   margin-top:10px;
 }
 
-.community_type_project_i_below_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2371px center;
+.group_project_me_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -898px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
-  width: 24px;
+  width: 25px;
   margin-right:16px;
 }
 
-.see_community_type_project_i_below_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2371px center;
+.see_group_project_me_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -898px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
-  width: 24px;
+  width: 25px;
   /*margin-right:16px;*/
   margin-top:10px;
 }
 
-.create_community_white{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2900px center;
+.group_project_add_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1057px center;
   background-repeat: no-repeat;
 }
 /* End favorite /sec/favorite/share/"id" */
 
 /* Begin communities-suggest /sec/communities-suggest */
-.add_members_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2423px center;
+.member_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1153px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1444,9 +1444,9 @@ input[type=file] {
 /* Begin communities-suggest /sec/communities-suggest */
 
 
-.add_member_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3406px center;
+.member_add_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1104px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1479,7 +1479,7 @@ input[type=file] {
 }
 
 .signlanguage_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2996px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
@@ -1723,15 +1723,6 @@ pre {
   width: 20px;
 }
 
-.group_project_add_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2707px center;
-  background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 45px;
-  width: 28px;
-  margin-right: 20px;
-}
 
 .member_choose_blue{
   background-image: url("/img/member_choose.png");
