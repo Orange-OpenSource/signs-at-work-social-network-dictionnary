@@ -99,8 +99,7 @@
     padding-left: 73px;
   }
 
-  .tooltip_comment {
-    background-position: -458px center;
+  .commentary_white {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
@@ -108,8 +107,7 @@
     bottom: 6px;
   }
 
-  .tooltip_eye {
-    background-position: -502px center;
+  .sign_see_white {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
@@ -117,8 +115,7 @@
     bottom: 7px;
   }
 
-  .tooltip_positif {
-    background-position: -486px center;
+  .simley_happy_white {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
@@ -126,7 +123,7 @@
     bottom: 7px;
   }
 
-  .tooltip_positif_in_frame {
+  .simley_happy_white_in_frame {
     background-position: -486px center;
     background-size: auto 15px;
     height: 15px;
@@ -134,15 +131,14 @@
     right: 54px;
   }
 
-  .tooltip_favorite {
-    background-position: -1647px center;
+  .pin_blue {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     left: 70px;
   }
 
-  .tooltip_favorite_in_frame {
+  .pin_blue_in_frame {
     background-position: -1647px center;
     background-size: auto 15px;
     height: 15px;
@@ -161,7 +157,7 @@
     color: white;
   }
 
-  .tooltip_newSigne {
+  .new_blue {
     /*background-position: right 2px top 0;*/
     background-size: auto 15px;
     height: 15px;
@@ -343,21 +339,21 @@
     margin-top: 11px;
   }
 
-  .duplicate_favorite_blue{
+  .copy_blue{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
     margin-top: 11px;
   }
 
-  .delete_favorite_blue{
+  .pinlist_delete{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
     margin-top: 11px;
   }
 
-  .see_communities{
+  .group_blue{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
@@ -367,17 +363,12 @@
   /* End manage-favorite /sec/favorite/"id"/manage-favorite */
 
   /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
-/*  .rename_favorite_white{
-    background-size: auto 30px;
-    height: 44px;
-    width: 30px;
-    margin-right: 12px;
-  }*/
+
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
 
   /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
-  .duplicate_favorite_white{
+  .copy_white{
     background-size: auto 30px;
     height: 44px;
     width: 30px;
@@ -394,7 +385,7 @@
   /* End manage-favorite /sec/favorite/"id"/associate-sign */
 
   /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
-  .delete_favorite_white{
+  .pinlist_delete_white{
     background-size: auto 30px;
     height: 44px;
     width: 30px;
@@ -447,14 +438,14 @@
     margin-top: 11px;
   }
 
-  .share_favorite_blue{
+  .share_blue{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
     margin-top: 11px;
   }
 
-  .favorite_add_sign_blue{
+  .add-remove{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
@@ -471,5 +462,9 @@
     background-color: #000000;
     border:none;
     color:#FFFFFF;
+  }
+
+  .btn .pinlist_shared.pull-left {
+    margin-left: 5px;
   }
 }

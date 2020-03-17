@@ -454,9 +454,9 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 24px;
 }
 
-.share_favorite_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2889px center;
+.pinlist_shared {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1790px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 37px;
@@ -482,9 +482,9 @@ input[type=search].form-control,input[type=search].form-control:focus{
   margin-right: 20px;
 }
 
-.new_favorite_signe_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2758px center;
+.pinlist_add{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1635px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 37px;
@@ -515,46 +515,51 @@ input[type=search].form-control,input[type=search].form-control:focus{
   color: #4866F7;
 }
 
-.tooltip_newSigne {
-  background-image: url("/img/new_sprite_picto_400X400.png");
+.new_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -926px center;
   background-repeat: no-repeat;
   position: absolute;
 }
 
-.tooltip_comment {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-repeat: no-repeat;
-  position: absolute;
-  bottom: 7px;
-}
-
-.tooltip_eye {
-  background-image: url("/img/new_sprite_picto_400X400.png");
+.commentary_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -190px center;
   background-repeat: no-repeat;
   position: absolute;
   bottom: 7px;
 }
 
-.tooltip_positif {
-  background-image: url("/img/new_sprite_picto_400X400.png");
+.sign_see_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1466px center;
   background-repeat: no-repeat;
   position: absolute;
   bottom: 7px;
 }
 
-.tooltip_positif_in_frame {
+.simley_happy_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1557px center;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 7px;
+}
+
+.simley_happy_white_in_frame {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-repeat: no-repeat;
   position: absolute;
 }
 
-.tooltip_favorite {
-  background-image: url("/img/new_sprite_picto_400X400.png");
+.pin_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -991px center;
   background-repeat: no-repeat;
   position: absolute;
 }
 
-.tooltip_favorite_in_frame {
+.pin_blue_in_frame {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-repeat: no-repeat;
   position: absolute;
@@ -736,9 +741,9 @@ button.close{
   margin-top:10px;
 }
 
-.pin {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2612px center;
+.pin_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1560px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -947,27 +952,27 @@ input[type=file] {
   width: 24px;
 }
 
-.evaluate_sign {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1500px center;
+.smiley_happy_menu_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2442px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
   width: 24px;
 }
 
-.add_video {
+.variant_blue {
   background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1621px center;
+  background-position: -2599px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
   width: 24px;
 }
 
-.add_comment {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -708px center;
+.commentary_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -280px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1089,7 +1094,7 @@ input[type=file] {
 /* End Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
 
 /* Begin Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
-.evaluate_sign_modal {
+.smiley_happy_menu_blue_modal {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -1906px center;
   background-repeat: no-repeat;
@@ -1133,47 +1138,37 @@ input[type=file] {
   background-repeat: no-repeat;
 }
 
-.duplicate_favorite_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1043px center;
+.copy_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -351px center;
   background-repeat: no-repeat;
 }
 
-.delete_favorite_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2839px center;
-  background-repeat: no-repeat;
-}
-
-.see_communities{
-  background-image: url("/img/Group_blue.png");
-  background-position: 0px center;
+.pinlist_delete{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1733px center;
   background-repeat: no-repeat;
 }
 
 /* End manage-favorite /sec/favorite/"id" */
 
 /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
-/*.rename_favorite_white{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2579px center;
-  background-repeat: no-repeat;
-}*/
+
 /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
 /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
-.duplicate_favorite_white{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2607px center;
+.copy_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -470px center;
   background-repeat: no-repeat;
 }
 /* End Fenêtre modale Renommer Liste id=duplicate_favorite */
 
 
 /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
-.delete_favorite_white{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3516px center;
+.pinlist_delete_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2202px center;
   background-repeat: no-repeat;
 }
 /* End Fenêtre modale Renommer Liste id=delete_favorite */
@@ -1301,15 +1296,15 @@ input[type=file] {
   background-repeat: no-repeat;
 }
 
-.share_favorite_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -877px center;
+.share_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2121px center;
   background-repeat: no-repeat;
 }
 
-.favorite_add_sign_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2733px center;
+.add-remove{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -44px center;
   background-repeat: no-repeat;
 }
 

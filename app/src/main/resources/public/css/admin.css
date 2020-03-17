@@ -435,7 +435,7 @@ textarea{
         float: right;
     }
 
-    .tooltip_newSigne {
+    .new_blue {
         background-image: url("/img/ajoutRecent3.png");
         background-position: right 2px top 0;
         background-repeat: no-repeat;
@@ -445,7 +445,7 @@ textarea{
     }
 
 
-    .tooltip_comment {
+    .commentary_white {
         background-image: url("/img/commentaire2.png");
         background-position: right 2px top 7px;
         background-repeat: no-repeat;
@@ -542,7 +542,7 @@ textarea{
     }
 
 
-    .tooltip_newSigne {
+    .new_blue {
         background-image: url("/img/ajoutRecent3.png");
         background-position: right 2px top 0;
         background-repeat: no-repeat;
@@ -552,7 +552,7 @@ textarea{
     }
 
 
-    .tooltip_comment {
+    .commentary_white {
         background-image: url("/img/commentaire2.png");
         background-position: right 2px top 7px;
         background-repeat: no-repeat;
@@ -584,7 +584,7 @@ textarea{
         width: 100%;
     }
 
-    .tooltip_newSigne {
+    .new_blue {
         background-image: url("/img/ajoutRecent3.png");
         background-repeat: no-repeat;
         background-size: auto 50px;
@@ -593,7 +593,7 @@ textarea{
         background-position: 5px;
     }
 
-    .tooltip_comment {
+    .commentary_white {
         background-image: url("/img/commentaire2.png");
         background-position: 0 25px;
         background-repeat: no-repeat;

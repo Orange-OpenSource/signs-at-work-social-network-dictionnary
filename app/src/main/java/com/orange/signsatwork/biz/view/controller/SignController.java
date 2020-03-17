@@ -275,7 +275,7 @@ public class SignController {
     if(favorite.type.equals(FavoriteType.NewShare)) {
       model.addAttribute("classDropdownTitle", "new_share_favorite_signe pull-left");
     } else if (favorite.type.equals(FavoriteType.Share)){
-      model.addAttribute("classDropdownTitle", "share_favorite_signe pull-left");
+      model.addAttribute("classDropdownTitle", "pinlist_shared pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
       model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
     }
@@ -336,7 +336,7 @@ public class SignController {
     if(favorite.type.equals(FavoriteType.Share) && !favorite.users.ids().contains(user.id) && favorite.user.id != user.id) {
       model.addAttribute("classDropdownTitle", "new_share_favorite_signe pull-left");
     } else if (favorite.type.equals(FavoriteType.Share)){
-      model.addAttribute("classDropdownTitle", "share_favorite_signe pull-left");
+      model.addAttribute("classDropdownTitle", "pinlist_shared pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
       model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
     }

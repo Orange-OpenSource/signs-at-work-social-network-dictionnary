@@ -36,10 +36,10 @@
         <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
           <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
             <div id="tooltipInframe" class="pull-right" >
-              <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="tooltip_positif_in_frame"></div>
-              <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif_in_frame"></div>
-              <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="tooltip_favorite_in_frame"></div>
-              <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite_in_frame"></div>
+              <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="simley_happy_white_in_frame"></div>
+              <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="simley_happy_white_in_frame"></div>
+              <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="pin_blue_in_frame"></div>
+              <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="pin_blue_in_frame"></div>
             </div>
               <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item"  th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
@@ -64,7 +64,7 @@
                     <li th:if="${!isVideoCreatedByMe and isAuthenticated and ratingData.rateNoRate}" class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                             <div>
-                              <div class="pull-left evaluate_sign"></div>
+                              <div class="pull-left smiley_happy_menu_blue"></div>
                               <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
                               <div>
                                   <div class="pull-right chevron"/>
@@ -75,7 +75,7 @@
                     <li sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
                       <a href="#" data-toggle="modal" data-target="#new-video">
                         <div>
-                          <div class="pull-left add_video"></div>
+                          <div class="pull-left variant_blue"></div>
                           <h2 class="container_H2" th:text="#{video.add}"></h2>
                           <div>
                             <div class="pull-right add_black"/>
@@ -86,7 +86,7 @@
                     <li th:if="${isAuthenticated}"  class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#comment_modal">
                             <div>
-                              <div class="pull-left add_comment"></div>
+                              <div class="pull-left commentary_blue"></div>
                               <h2 class="container_H2" th:text="#{sign.modal.comments}"></h2>
                               <div>
                                   <div class="pull-right add_black"/>

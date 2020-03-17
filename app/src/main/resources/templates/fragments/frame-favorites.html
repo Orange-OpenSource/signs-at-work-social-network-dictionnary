@@ -33,7 +33,7 @@
         <ul class="nav nav-list primary left-menu">
           <li class="aside_bckg_li action">
             <a  href="#" data-toggle="modal" data-target="#create-new-favorite">
-              <div class="new_favorite_signe_blue  pull-left"></div>
+              <div class="pinlist_add  pull-left"></div>
               <h2 class="container_H2" th:text="#{favorite.new}"></h2>
               <div><div class="pull-right pen"></div></div>
             </a>
@@ -42,7 +42,7 @@
             <a th:href="@{/sec/favorite/} + ${favorite.id}">
               <div>
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left personal_favorite_signe"></div>
-                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="pull-left share_favorite_signe"></div>
+                <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="pull-left pinlist_shared"></div>
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="pull-left new_share_favorite_signe"></div>
                 <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h4>
                 <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h4>

@@ -38,20 +38,20 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="tooltip_newSigne"></div>
-          <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="tooltip_newSigne"></div>
-          <div th:if="${videoView.signBelowToFavorite}" class="tooltip_favorite"></div>
-          <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="tooltip_favorite"></div>
+          <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue"></div>
+          <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue"></div>
+          <div th:if="${videoView.signBelowToFavorite}" class="pin_blue"></div>
+          <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="pin_blue"></div>
           <div class="labelVideo text_hyphenation">
             <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/></div>
             <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
             <div class="container_tooltip_in_image">
-            <div th:if="${videoView.videoHasComment}" class="tooltip_comment"></div>
-            <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="tooltip_comment"></div>
-              <div th:if="${videoView.videoHasPositiveRate}" class="tooltip_positif"></div>
-              <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="tooltip_positif"></div>
-            <div th:if="${videoView.videoHasView}" class="tooltip_eye"></div>
-            <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="tooltip_eye"></div>
+            <div th:if="${videoView.videoHasComment}" class="commentary_white"></div>
+            <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="commentary_white"></div>
+              <div th:if="${videoView.videoHasPositiveRate}" class="simley_happy_white"></div>
+              <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="simley_happy_white"></div>
+            <div th:if="${videoView.videoHasView}" class="sign_see_white"></div>
+            <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="sign_see_white"></div>
             </div>
             <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
           </a>

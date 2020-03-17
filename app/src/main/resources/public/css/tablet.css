@@ -175,7 +175,7 @@
   }
 
 
-  .tooltip_newSigne {
+  .new_blue {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;
@@ -209,7 +209,7 @@
     padding-right: 18px;
   }
 
-  .tooltip_newSigne {
+  .new_blue {
     background-position:right 5px top 0px;
     background-size: auto 25px;
     height: 50px;
@@ -217,7 +217,7 @@
     right: 120px;
   }
 
-  .tooltip_comment {
+  .commentary_white {
     background-position: right 0px top 0px;
     background-size: auto 25px;
     height: 42px;
@@ -225,7 +225,7 @@
     right: 94px;
   }
 
-  .tooltip_eye {
+  .sign_see_white {
     background-position: right 22px top 0px;
     background-size: auto 25px;
     height: 50px;
@@ -233,7 +233,7 @@
     right: 43px;
   }
 
-  .tooltip_positif {
+  .simley_happy_white {
     background-position: right 2px top 0px;
     background-size: auto 25px;
     height: 50px;
@@ -241,7 +241,7 @@
     right: 35px;
   }
 
-  .tooltip_favorite {
+  .pin_blue {
     background-position: right 2px top 0px;
     background-size: auto 25px;
     height: 50px;
