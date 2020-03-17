@@ -745,14 +745,6 @@ button.close{
   width: 24px;
 }
 
-.create_sign {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -903px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
 
 .description_movie_blue {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -764,17 +756,17 @@ button.close{
 }
 
 .definition_text_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1943px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -468px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
   width: 24px;
 }
 
-.definition_text_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2459px center;
+.description_text_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -616px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 46px;
@@ -782,13 +774,13 @@ button.close{
   margin-right: 20px;
 }
 
-.definition_lsf_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1156px center;
+.description_movie_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -529px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 46px;
-  width: 30px;
+  width: 28px;
   margin-right: 20px;
 }
 
@@ -1031,9 +1023,9 @@ input[type=file] {
   width: 24px;
 }
 
-.definition_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2106px center;
+.description_sign {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -443px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1135,9 +1127,9 @@ input[type=file] {
 /* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
 
 /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
-.rename_favorite_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -371px center;
+.edit_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -592px center;
   background-repeat: no-repeat;
 }
 
@@ -1162,11 +1154,11 @@ input[type=file] {
 /* End manage-favorite /sec/favorite/"id" */
 
 /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
-.rename_favorite_white{
+/*.rename_favorite_white{
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-position: -2579px center;
   background-repeat: no-repeat;
-}
+}*/
 /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
 /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
@@ -1303,9 +1295,9 @@ input[type=file] {
 }
 
 /* Begin favorite /sec/favorite/"id" */
-.manage_favorite_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2521px center;
+.settings2_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2068px center;
   background-repeat: no-repeat;
 }
 
@@ -1725,8 +1717,8 @@ pre {
 
 
 .member_choose_blue{
-  background-image: url("/img/member_choose.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1179px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1735,18 +1727,18 @@ pre {
 }
 
 .member_choose_white{
-  background-image: url("/img/member_choose_white.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1507px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 44px;
-  width: 30px;
-  margin-right: 12px;
+  width: 31px;
+  margin-right: 20px;
 }
 
 .group_delete_blue{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3495px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -740px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1755,8 +1747,8 @@ pre {
 }
 
 .group_delete_white{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -4399px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -960px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 44px;
@@ -1774,9 +1766,9 @@ pre {
   margin-top: 10px;
 }
 
-.member_empty_white {
-  background-image: url("/img/Member_empty-white.png");
-  background-position: 0px center;
+.member_project_empty-white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1354px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1807,8 +1799,8 @@ pre {
 }
 
 .member_project_admin {
-  background-image: url("/img/Member_project_admin.png");
-  background-position: -0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1307px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1817,8 +1809,8 @@ pre {
 }
 
 .member_project_admin_me {
-  background-image: url("/img/Member_project_admin_me.png");
-  background-position: -0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1331px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1827,8 +1819,8 @@ pre {
 }
 
 .member_me {
-  background-image: url("/img/member_me.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1233px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1864,8 +1856,8 @@ pre {
 }
 
 .contact {
-  background-image: url("/img/contact.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -410px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 30px;

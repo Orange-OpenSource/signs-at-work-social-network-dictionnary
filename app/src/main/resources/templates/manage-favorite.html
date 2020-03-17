@@ -34,14 +34,14 @@
             <ul class="nav nav-list primary left-menu">
                 <li th:if="${!isFavoriteBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#rename_favorite">
-                        <div class="pull-left rename_favorite_blue"></div>
+                        <div class="pull-left edit_blue"></div>
                         <h2 class="container_H2" th:text="#{favorite.rename_managed_by(${userName})}"></h2>
                         <div class="pull-right edit_black"></div>
                     </a>
                 </li>
                 <li th:if="${isFavoriteBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#rename_favorite">
-                    <div class="pull-left rename_favorite_blue"></div>
+                    <div class="pull-left edit_blue"></div>
                     <h2 class="container_H2" th:text="#{favorite.rename}"></h2>
                     <div class="pull-right edit_black"></div>
                   </a>
@@ -114,7 +114,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
-                    <div class="rename_favorite_white pull-left"></div>
+                    <div class="edit_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{favorite.rename_list}"></h2>
                 </div>
             </div>
@@ -189,7 +189,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <div class="rename_favorite_white pull-left"></div>
+          <div class="edit_white pull-left"></div>
           <h2 class="pull-right" th:text="#{favorite.renamed_title}"/>
         </div>
       </div>

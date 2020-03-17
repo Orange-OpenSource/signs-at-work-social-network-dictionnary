@@ -433,7 +433,7 @@
   /* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
 
   /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
-  .rename_favorite_blue{
+  .edit_blue{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
@@ -464,12 +464,12 @@
   /* End manage-favorite /sec/favorite/"id"/manage-favorite */
 
   /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
-  .rename_favorite_white{
+/*  .rename_favorite_white{
     background-size: auto 30px;
     height: 44px;
     width: 30px;
     margin-right: 12px;
-  }
+  }*/
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
   /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
@@ -536,7 +536,7 @@
   }
 
   /* Begin favorite /sec/favorite/"id" */
-  .manage_favorite_blue{
+  .settings2_blue{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
