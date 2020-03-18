@@ -33,7 +33,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"></button>
             <div class="pull-left">
-              <div class="smiley_happy_menu_blue_modal pull-left"></div>
+              <div class="smiley_happy_menu_white pull-left"></div>
               <h2 th:if="${isAuthenticated and !ratingData.rateNoRate}" class="pull-right" th:text="#{sign.modal.reevaluate}"/>
               <h2 th:if="${isAuthenticated and ratingData.rateNoRate}" class="pull-right" th:text="#{sign.evaluate}"/>
             </div>
@@ -42,13 +42,13 @@
             <ul class="nav nav-list primary left-menu">
               <li class="aside_bckg_li">
                 <a th:onclick="'javascript:onRatePositif('+ ${signView.id} + ',' + ${videoView.id}  +')' " href="#">
-                  <div class="pull-left sentiment_positif"></div>
+                  <div class="pull-left smiley_happy_blue"></div>
                   <h4 class="container_H2" th:text="#{sign.positif}"></h4>
                 </a>
               </li>
               <li class="aside_bckg_li">
                 <a  th:onclick="'javascript:onRateNegatif('+ ${signView.id} + ',' + ${videoView.id}  +')' " href="#">
-                  <div class="pull-left sentiment_negatif"></div>
+                  <div class="pull-left smiley_unhappy_blue"></div>
                   <h4 class="container_H2" th:text="#{sign.negatif}"></h4>
                 </a>
               </li>
@@ -64,7 +64,7 @@
       <div class="modal-header">
         <button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal"></button>
         <div class="pull-left">
-          <div class="smiley_happy_menu_blue_modal pull-left"></div>
+          <div class="smiley_happy_menu_white pull-left"></div>
           <h2 th:if="${isAuthenticated and !ratingData.rateNoRate}" class="pull-right" th:text="#{sign.modal.reevaluate}"/>
           <h2 th:if="${isAuthenticated and ratingData.rateNoRate}" class="pull-right" th:text="#{sign.evaluate}"/>
         </div>
@@ -74,11 +74,11 @@
           <h4 th:text="#{sign.after.rate}"/>
         </div>
         <div class="text_center" id="positif" style="display: none">
-          <div class="pull-left sentiment_positif_after_rate"></div>
+          <div class="pull-left smiley_happy_blue_after_rate"></div>
           <h4 class="rate container_H2" th:text="#{sign.positif}"></h4>
         </div>
         <div class="text_center" id="negatif" style="display: none">
-          <div class="pull-left sentiment_negatif_after_rate"></div>
+          <div class="pull-left smiley_unhappy_blue_after_rate"></div>
           <h4 class="rate container_H2" th:text="#{sign.negatif}"></h4>
         </div>
       </div>

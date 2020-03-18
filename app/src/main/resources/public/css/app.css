@@ -463,9 +463,8 @@ ul#orange-navbar-collapse >li {
 
 
 
-.containerRight_signes.sentiment_positif,
-.containerRight_signes.sentiment_negatif,
-.containerRight_signes.sentiment_neutre{
+.containerRight_signes.smiley_happy_blue,
+.containerRight_signes.smiley_unhappy_blue{
   margin: 0 auto;
 }
 

@@ -38,8 +38,8 @@
   <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
     <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
       <div id="tooltipInframe" class="pull-right" >
-        <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="simley_happy_white_in_frame"></div>
-        <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="simley_happy_white_in_frame"></div>
+        <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="smiley_happy_white_in_frame"></div>
+        <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="smiley_happy_white_in_frame"></div>
         <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="pin_blue_in_frame"></div>
         <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="pin_blue_in_frame"></div>
       </div>
@@ -83,18 +83,18 @@
                     </li>
                     <li th:if="${!ratingData.rateNoRate and !isVideoCreatedByMe}" class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#evaluation_modal">
-                            <div class="pull-left simley_happy_menu_blue"></div>
+                            <div class="pull-left smiley_happy_menu_blue"></div>
                             <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
                             <div>
                                 <div class="pull-right chevron"/>
-                                <div th:if="${ratingData.ratePositive}" class="pull-right sentiment_positif"/>
-                                <div th:if="${ratingData.rateNegative}" class="pull-right sentiment_negatif"/>
+                                <div th:if="${ratingData.ratePositive}" class="pull-right smiley_happy_blue"/>
+                                <div th:if="${ratingData.rateNegative}" class="pull-right smiley_unhappy_blue"/>
                             </div>
                         </a>
                     </li>
                     <li th:if="${isVideoCreatedByMe}" class="aside_bckg_li">
                       <a href="#" data-toggle="modal" data-target="#video_delete_modal">
-                        <div class="pull-left delete_picto"></div>
+                        <div class="pull-left x-close_blue"></div>
                         <h2 class="container_H2" th:text="#{video.delete}"/>
                         <div>
                           <div class="pull-right chevron"/>

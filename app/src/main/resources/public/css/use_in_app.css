@@ -540,7 +540,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   bottom: 7px;
 }
 
-.simley_happy_white {
+.smiley_happy_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1557px center;
   background-repeat: no-repeat;
@@ -548,7 +548,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   bottom: 7px;
 }
 
-.simley_happy_white_in_frame {
+.smiley_happy_white_in_frame {
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-repeat: no-repeat;
   position: absolute;
@@ -633,16 +633,6 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-size: auto 24px;
   height: 48px;
   width: 24px;
-}
-
-.plus_right{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -550px center;
-  background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 28px;
-  width: 28px;
-  margin-top: 10px;
 }
 
 .disabled {
@@ -934,20 +924,20 @@ input[type=file] {
 /* End Fenêtre modale Demander un signe id=new_request modal-new-request */
 
 /* Begin Fiche signe /sign */
-.sentiment_positif, .modal-body .containerRight_signes .sentiment_positif {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -756px center;
+.smiley_happy_blue, .modal-body .containerRight_signes .smiley_happy_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2415px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 46px;
   width: 24px;
 }
 
-.sentiment_negatif, .modal-body .containerRight_signes .sentiment_negatif{
-  background-image: url("/img/new_sprite_picto_400X400.png");
+.smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
   background-color: Transparent;
   border: none;
-  background-position: -827px center;
+  background-position: -2514px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 46px;
@@ -1058,9 +1048,9 @@ input[type=file] {
   margin-right: 20px;
 }
 
-.delete_picto {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -444px center;
+.x-close_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2745px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1096,9 +1086,9 @@ input[type=file] {
 /* End Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
 
 /* Begin Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
-.smiley_happy_menu_blue_modal {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1906px center;
+.smiley_happy_menu_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3084px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1109,9 +1099,9 @@ input[type=file] {
 /* End Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
 
 /* Begin Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
-.sentiment_positif_after_rate {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1133px center;
+.smiley_happy_blue_after_rate {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3625px center;
   background-repeat: no-repeat;
   background-size: auto 36px;
   height: 46px;
@@ -1119,11 +1109,11 @@ input[type=file] {
   margin-left: 100px;
 }
 
-.sentiment_negatif_after_rate{
+.smiley_unhappy_blue_after_rate{
   background-image: url("/img/new_sprite_picto_400X400.png");
   background-color: Transparent;
   border: none;
-  background-position: -1240px center;
+  background-position: -3774px center;
   background-repeat: no-repeat;
   background-size: auto 36px;
   height: 46px;
