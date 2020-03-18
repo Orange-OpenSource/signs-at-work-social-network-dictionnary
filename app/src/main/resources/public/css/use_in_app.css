@@ -1773,8 +1773,8 @@ pre {
 
 
 .add-remove_white {
-  background-image: url("/img/add-remove_white.png");
-  background-position: 0px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -81px center;
   background-repeat: no-repeat;
   background-size: auto 28px;
   height: 45px;
