@@ -82,13 +82,13 @@
             <div th:if="${requestView.requestVideoDescription != null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-              <div class="pull-right  lsf"/>
+              <div class="pull-right signlanguage_black"/>
             </div>
           </a>
         </li>
         <li class="aside_bckg_li">
           <a  th:onclick="'javascript:onPrioriseRequest('+ ${requestView.id}  +')' " href="#">
-            <div class="pull-left priorise_request"></div>
+            <div class="pull-left prio_blue"></div>
             <h4 class="container_H2" th:text="#{request.priorise}"/>
             <div><div class="pull-right chevron"></div></div>
           </a>
@@ -144,7 +144,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <div class="priorise_request_white pull-left"></div>
+          <div class="prio_blue_whitebackground pull-left"></div>
           <h2 class="pull-right" th:text="#{request.priorise_title}"/>
         </div>
       </div>
@@ -162,9 +162,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">x</button>
+        <button type="button" class="close" data-dismiss="modal"></button>
         <div class="pull-left">
-          <div class="delete_request_white pull-left"></div>
+          <div class="x-close_blue_whitecircle pull-left"></div>
           <h2 class="pull-right" th:text="#{request.delete_title}"/>
         </div>
       </div>
@@ -187,7 +187,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <div class="delete_request_white pull-left"></div>
+          <div class="x-close_blue_whitecircle pull-left"></div>
           <h2 class="pull-right" th:text="#{request.confirm_delete_title}"/>
         </div>
       </div>

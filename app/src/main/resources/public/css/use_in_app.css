@@ -1213,9 +1213,9 @@ input[type=file] {
   border: none;
 }
 
-.priorise_request_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3848px center;
+.prio_blue_whitebackground {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2363px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1223,19 +1223,19 @@ input[type=file] {
   margin-right: 20px;
 }
 
-.delete_request_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3817px center;
+.x-close_blue_whitecircle {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3430px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
-  width: 30px;
+  width: 31px;
   margin-right: 20px;
 }
 
-.priorise_request {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1453px center;
+.prio_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1865px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1475,9 +1475,9 @@ input[type=file] {
   margin-right: 20px;
 }
 
-.lsf {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3660px center;
+.signlanguage_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2866px center;
   background-repeat: no-repeat;
   background-size: auto 29px;
   height: 28px;
@@ -1641,18 +1641,18 @@ pre {
   border-bottom: 3px solid #4866F7;
 }
 
-.description_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3287px center;
+.descriptions_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -518px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 48px;
   width: 24px;
 }
 
-.description_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3589px center;
+.descriptions_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -589px center;
   background-repeat: no-repeat;
   background-size: auto 26px;
   height: 45px;
