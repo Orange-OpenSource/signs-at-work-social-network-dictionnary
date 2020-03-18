@@ -58,7 +58,7 @@
                           <div>
                             <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left pinlist_blue"></div>
                             <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="pull-left pinlist_shared"></div>
-                            <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="pull-left new_share_favorite_signe"></div>
+                            <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="pull-left pinlist_shared_new"></div>
                             <h2 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h2>
                             <h2 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h2>
                             <h2 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h2>

@@ -465,12 +465,12 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 24px;
 }
 
-.new_share_favorite_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2964px center;
+.pinlist_shared_new {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1815px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 37px;
+  height: 48px;
   width: 24px;
 }
 
@@ -1515,8 +1515,8 @@ input[type=file] {
 
 
 .see_password {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -5181px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3317px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;
@@ -1525,8 +1525,8 @@ input[type=file] {
 }
 
 .not_see_password {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -5225px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3361px center;
   background-repeat: no-repeat;
   background-size: auto 40px;
   height: 40px;
