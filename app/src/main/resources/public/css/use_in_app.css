@@ -445,13 +445,15 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 24px;
 }
 
-.personal_favorite_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2940px center;
+.pinlist_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1714px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 37px;
-  width: 24px;
+  height: 48px;
+  width: 20px;
+  margin-right: 4px;
+
 }
 
 .pinlist_shared {
@@ -459,7 +461,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-position: -1790px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 37px;
+  height: 48px;
   width: 24px;
 }
 
@@ -472,9 +474,9 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 24px;
 }
 
-.new_favorite_signe_white{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3481px center;
+.pinlist_add_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2077px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -487,7 +489,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-position: -1635px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 37px;
+  height: 48px;
   width: 24px;
 }
 
@@ -1682,8 +1684,8 @@ pre {
 }
 
 .share_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -995px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2531px center;
   background-repeat: no-repeat;
   background-size: auto 28px;
   height: 45px;
