@@ -138,8 +138,8 @@
             <li class="dotted-top">
               <a th:href="@{/sign/} + ${request.signId}">
                 <div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left request_signe_whithout_chevron"></div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left my_request_signe_whithout_chevron"></div>
+                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left group_ask_blue"></div>
+                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left member_ask_blue"></div>
                   <h2 class="container_H2" th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
                   <div>
                     <div class="pull-right chevron"></div>
@@ -158,8 +158,8 @@
             <li class="dotted-top">
               <a th:href="@{${request.urlForAccessToRequestDetail}}">
                 <div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left request_signe_whithout_chevron"></div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left my_request_signe_whithout_chevron"></div>
+                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left group_ask_blue"></div>
+                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left member_ask_blue"></div>
                   <h2 class="container_H2" th:text="${request.requestName}"></h2>
                   <div>
                     <div class="pull-right chevron"></div>

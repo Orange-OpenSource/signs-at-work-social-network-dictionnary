@@ -606,30 +606,30 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 /* Begin Demandes de signes /sec/requests */
 
-.my_request_signe_whithout_chevron {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1404px center;
+.member_ask_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1129px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 40px;
   width: 24px;
 }
 
-.request_signe_whithout_chevron {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1428px center;
+.group_ask_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2846px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 40px;
+  height: 42px;
   width: 24px;
 }
 
-.add_request {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1236px center;
+.sign_ask-for_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2270px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 40px;
+  height: 48px;
   width: 24px;
 }
 
@@ -665,9 +665,9 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 
 /* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
-.add_request_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1365px center;
+.sign_ask-for_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2486px center;
   background-repeat: no-repeat;
 }
 
@@ -1068,9 +1068,9 @@ input[type=file] {
 /* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 
 /* Begin Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
-.add_video_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1898px center;
+.variant_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3109px center;
   background-repeat: no-repeat;
   background-size: auto 26px;
   height: 45px;
@@ -1623,8 +1623,8 @@ pre {
 }
 
 .job_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1665px center;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3524px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
