@@ -162,7 +162,7 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
-    model.addAttribute("classDropdownTitle", " alphabetic pull-left");
+    model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -220,7 +220,7 @@ public class SignController {
     model.addAttribute("isMostRecent", false);
     model.addAttribute("isLowRecent", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("alphabetic"));
-    model.addAttribute("classDropdownTitle", " alphabetic pull-left");
+    model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 

@@ -49,15 +49,15 @@
       </li>
       <li>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAlphabeticAsc}" class="checked_down" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
-          <div class="pull-left alphabetic"></div>
+          <div class="pull-left sort_alpha_blue"></div>
           <span th:text="#{alphabetic}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
-          <div class="pull-left alphabetic"></div>
+          <div class="pull-left sort_alpha_blue"></div>
           <span th:text="#{alphabetic}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAlphabeticDesc}" class="checked_up" th:href="@{/sec/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
-          <div class="pull-left alphabetic"></div>
+          <div class="pull-left sort_alpha_blue"></div>
           <span th:text="#{alphabetic}"></span>
         </a>
       </li>
