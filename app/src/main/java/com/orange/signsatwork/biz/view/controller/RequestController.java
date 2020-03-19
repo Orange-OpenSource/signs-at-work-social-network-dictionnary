@@ -236,12 +236,12 @@ public class RequestController {
       queryRequests = services.request().myRequestlowRecent(user.id);
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().myRequestMostRecent(user.id);
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -270,12 +270,12 @@ public class RequestController {
       queryRequests = services.request().myRequestlowRecent(user.id);
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().myRequestMostRecent(user.id);
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -304,12 +304,12 @@ public class RequestController {
       queryRequests = services.request().myRequestAlphabeticalOrderDesc(user.id);
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().myRequestAlphabeticalOrderAsc(user.id);
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -338,12 +338,12 @@ public class RequestController {
       queryRequests = services.request().myRequestAlphabeticalOrderDesc(user.id);
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().myRequestAlphabeticalOrderAsc(user.id);
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -403,12 +403,12 @@ public class RequestController {
       queryRequests = services.request().otherRequestWithNoSignlowRecent(user.id);
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().otherRequestWithNoSignMostRecent(user.id);
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -437,12 +437,12 @@ public class RequestController {
       queryRequests = services.request().otherRequestWithNoSignlowRecent(user.id);
       model.addAttribute("isLowRecent", true);
       model.addAttribute("isMostRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().otherRequestWithNoSignMostRecent(user.id);
       model.addAttribute("isMostRecent", true);
       model.addAttribute("isLowRecent", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -471,12 +471,12 @@ public class RequestController {
       queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderDesc(user.id);
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderAsc(user.id);
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);
@@ -505,12 +505,12 @@ public class RequestController {
       queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderDesc(user.id);
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
-      model.addAttribute("classDropdownDirection", "  direction_up pull-right");
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
       queryRequests = services.request().otherRequestWithNoSignAlphabeticalOrderAsc(user.id);
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
-      model.addAttribute("classDropdownDirection", "  direction_down pull-right");
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
     List<RequestView> myrequestsView = RequestView.from(queryRequests);

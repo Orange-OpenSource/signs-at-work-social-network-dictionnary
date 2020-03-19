@@ -94,13 +94,12 @@
     margin-top: 2px;
   }
 
-  .btn .direction_down {
-    background-position: -1370px center;
+  .btn .down_black {
+    background-position: -2224px center;
     background-repeat: no-repeat;
     background-size: auto 20px;
     height: 28px;
     width: 20px;
-    margin-left: 5px;
   }
 
   .dropdown-menu > li > a {

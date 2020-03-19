@@ -424,7 +424,7 @@
     margin-left: 5px;
   }
 
-  .btn .direction_up {
+  .btn .up_black {
     background-position: -1620px center;
     background-size: auto 30px;
     height: 30px;
@@ -432,7 +432,7 @@
     margin-left: 5px;
   }
 
-  .btn .direction_down {
+  .btn .down_black {
     background-position: -1590px center;
     background-size: auto 30px;
     height: 30px;
@@ -850,8 +850,8 @@
     margin-left: 5px;
   }
 
-  .btn .direction_up {
-    background-position: -1390px center;
+  .btn .up_black {
+    background-position: -2264px center;
     background-repeat: no-repeat;
     background-size: auto 20px;
     height: 28px;
@@ -1158,7 +1158,7 @@
     margin-left: 5px;
   }
 
-  .btn .direction_up {
+  .btn .up_black {
     background-position: -1620px center;
     background-size: auto 30px;
     height: 30px;
@@ -1166,7 +1166,7 @@
     margin-left: 5px;
   }
 
-  .btn .direction_down {
+  .btn .down_black {
     background-position: -1590px center;
     background-size: auto 30px;
     height: 30px;

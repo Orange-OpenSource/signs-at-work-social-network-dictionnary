@@ -370,9 +370,18 @@ input[type=search].form-control,input[type=search].form-control:focus{
   margin-right: 5px;
 }
 
-.direction_down{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1370px center;
+.down_black{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2224px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 28px;
+  width: 20px;
+}
+
+.up_black{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2264px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 28px;
