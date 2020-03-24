@@ -444,15 +444,6 @@ input[type=search].form-control,input[type=search].form-control:focus{
   margin-right: 5px;
 }
 
-.favorite_signe{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -563px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 37px;
-  width: 24px;
-}
-
 .pinlist_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1714px center;
