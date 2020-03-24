@@ -1083,9 +1083,9 @@ input[type=file] {
 /* End Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
 
 /* Begin Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
-.newComment {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -915px center;
+.commentary_white-modal_header {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -382px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
@@ -1261,15 +1261,6 @@ input[type=file] {
   background-size: auto 20px;
   height: 20px;
   width: 20px;
-}
-
-.request_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1546px center;
-  background-repeat: no-repeat;
-  background-size: auto 26px;
-  height: 42px;
-  width: 26px;
 }
 
 .container_tooltip_in_image {
