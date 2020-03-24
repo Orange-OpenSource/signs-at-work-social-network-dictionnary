@@ -557,7 +557,8 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .smiley_happy_white_in_frame {
-  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1558px center;
   background-repeat: no-repeat;
   position: absolute;
 }
@@ -570,7 +571,8 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .pin_blue_in_frame {
-  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -991px center;
   background-repeat: no-repeat;
   position: absolute;
 }
