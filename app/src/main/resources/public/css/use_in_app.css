@@ -399,10 +399,9 @@ input[type=search].form-control,input[type=search].form-control:focus{
   clear: both;
 }
 
-.all_signe {
-  float: left;
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1599px center;
+.all-signs_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2494px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 20px;

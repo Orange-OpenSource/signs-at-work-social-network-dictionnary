@@ -39,11 +39,11 @@
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAll}" class="check_signe" th:href="@{/signs/frame/(isSearch=${isSearch})}">
-          <div class="pull-left all_signe"></div>
+          <div class="pull-left all-signs_blue"></div>
           <span th:text="#{all}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
-          <div class="pull-left all_signe"></div>
+          <div class="pull-left all-signs_blue"></div>
           <span th:text="#{all}"></span>
         </a>
       </li>

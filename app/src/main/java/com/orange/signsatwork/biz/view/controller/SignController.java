@@ -79,7 +79,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
-    model.addAttribute("classDropdownTitle", " all_signe pull-left");
+    model.addAttribute("classDropdownTitle", " all-signs_blue pull-left");
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -103,7 +103,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all"));
-    model.addAttribute("classDropdownTitle", " all_signe pull-left");
+    model.addAttribute("classDropdownTitle", " all-signs_blue pull-left");
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
