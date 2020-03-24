@@ -1421,9 +1421,9 @@ input[type=file] {
   margin-right: 16px;
 }
 
-.see_members_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2423px center;
+.member_blue-communities-suggest {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1153px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 24px;
@@ -1685,15 +1685,6 @@ pre {
   margin-right: 20px;
 }
 
-.community_created_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2647px center;
-  background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 45px;
-  width: 28px;
-  margin-right: 20px;
-}
 
 .delete_user_picto {
   background-image: url("/img/new_sprite_picto_400X400.png");
@@ -1745,15 +1736,6 @@ pre {
   margin-right: 12px;
 }
 
-.community_member_settings_me_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -3473px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 22px;
-  margin-top: 10px;
-}
 
 .member_project_empty-white {
   background-image: url("/img/sprite_picto_400X400.png");
