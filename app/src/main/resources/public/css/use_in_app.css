@@ -1120,7 +1120,7 @@ input[type=file] {
 }
 
 .smiley_unhappy_blue_after_rate{
-  background-image: url("/img/new_sprite_picto_400X400.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-color: Transparent;
   border: none;
   background-position: -3774px center;
