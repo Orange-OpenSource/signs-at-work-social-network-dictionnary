@@ -1020,9 +1020,9 @@ input[type=file] {
   margin-left: 15px;
 }
 
-.history_signe {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1824px center;
+.history_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2967px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1038,18 +1038,18 @@ input[type=file] {
   width: 24px;
 }
 
-.replace_signe_blue {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1799px center;
+.rewind_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2916px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
   width: 24px;
 }
 
-.replace_signe_white {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2001px center;
+.rewind_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3188px center;
   background-repeat: no-repeat;
   background-size: auto 26px;
   height: 45px;
