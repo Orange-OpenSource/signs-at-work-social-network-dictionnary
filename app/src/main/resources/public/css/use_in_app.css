@@ -501,17 +501,6 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 24px;
 }
 
-.favorite_signe_white{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -2369px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 44px;
-  width: 30px;
-  margin-right: 20px;
-
-}
-
 #signs-container{
   margin-top: 15px;
 }

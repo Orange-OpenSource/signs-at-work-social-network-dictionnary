@@ -273,11 +273,11 @@ public class SignController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.favoriteName());
     if(favorite.type.equals(FavoriteType.NewShare)) {
-      model.addAttribute("classDropdownTitle", "new_share_favorite_signe pull-left");
+      model.addAttribute("classDropdownTitle", "pinlist_shared_new pull-left");
     } else if (favorite.type.equals(FavoriteType.Share)){
       model.addAttribute("classDropdownTitle", "pinlist_shared pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
-      model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
+      model.addAttribute("classDropdownTitle", "pinlist_blue pull-left");
     }
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
@@ -334,11 +334,11 @@ public class SignController {
     model.addAttribute("dropdownTitle", favorite.favoriteName());
     favorite = favorite.loadUsers();
     if(favorite.type.equals(FavoriteType.Share) && !favorite.users.ids().contains(user.id) && favorite.user.id != user.id) {
-      model.addAttribute("classDropdownTitle", "new_share_favorite_signe pull-left");
+      model.addAttribute("classDropdownTitle", "pinlist_shared_new pull-left");
     } else if (favorite.type.equals(FavoriteType.Share)){
       model.addAttribute("classDropdownTitle", "pinlist_shared pull-left");
     } else if (favorite.type.equals(FavoriteType.Individual)){
-      model.addAttribute("classDropdownTitle", "personal_favorite_signe pull-left");
+      model.addAttribute("classDropdownTitle", "pinlist_blue pull-left");
     }
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
