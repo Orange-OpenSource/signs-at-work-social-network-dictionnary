@@ -357,7 +357,7 @@
     top: 14px;
   }
 
-  .btn .most_recent.pull-left {
+  .btn .new_blue.pull-left {
     background-position: -1425px center;
     background-size: auto 30px;
     height: 30px;
@@ -462,7 +462,7 @@
     padding-right: 18px;
   }
 
-  .new_blue {
+  .new_blue-signs {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;
@@ -841,7 +841,7 @@
 
 
   .btn .smiley_happy_blue.pull-left {
-    background-position: -630px center;
+    background-position: -2013px center;
     background-size: auto 20px;
     height: 20px;
     width: 20px;
@@ -1070,7 +1070,7 @@
   }
 
 
-  .btn .most_recent.pull-left {
+  .btn .new_blue.pull-left {
     background-position: -1425px center;
     background-size: auto 30px;
     height: 30px;
@@ -1179,7 +1179,7 @@
     right: 25px;
   }
 
-  .new_blue {
+  .new_blue-signs {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;
@@ -1516,7 +1516,7 @@
     right: 25px;
   }
 
-  .new_blue {
+  .new_blue-signs {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;
@@ -2083,7 +2083,7 @@
     right: 40px;
   }
 
-  .new_blue {
+  .new_blue-signs {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;

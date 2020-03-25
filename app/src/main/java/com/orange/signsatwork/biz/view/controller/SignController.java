@@ -474,7 +474,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
-    model.addAttribute("classDropdownTitle", " sentiment_positif pull-left");
+    model.addAttribute("classDropdownTitle", " smiley_happy_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -541,7 +541,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_rating"));
-    model.addAttribute("classDropdownTitle", " sentiment_positif pull-left");
+    model.addAttribute("classDropdownTitle", " smiley_happy_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -672,7 +672,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
-    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -732,7 +732,7 @@ public class SignController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent"));
-    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 

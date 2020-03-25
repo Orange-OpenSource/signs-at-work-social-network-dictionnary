@@ -435,7 +435,7 @@ textarea{
         float: right;
     }
 
-    .new_blue {
+    .new_blue-signs {
         background-image: url("/img/ajoutRecent3.png");
         background-position: right 2px top 0;
         background-repeat: no-repeat;
@@ -542,7 +542,7 @@ textarea{
     }
 
 
-    .new_blue {
+    .new_blue-signs {
         background-image: url("/img/ajoutRecent3.png");
         background-position: right 2px top 0;
         background-repeat: no-repeat;
@@ -584,7 +584,7 @@ textarea{
         width: 100%;
     }
 
-    .new_blue {
+    .new_blue-signs {
         background-image: url("/img/ajoutRecent3.png");
         background-repeat: no-repeat;
         background-size: auto 50px;

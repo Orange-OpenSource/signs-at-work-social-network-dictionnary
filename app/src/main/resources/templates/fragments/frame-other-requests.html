@@ -53,15 +53,15 @@
       </li>
       <li>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isMostRecent}" class="checked_up" th:href="@{/sec/other-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
-          <div class="pull-left most_recent"></div>
+          <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent_request}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${!isMostRecent and !isLowRecent}" th:href="@{/sec/other-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
-          <div class="pull-left most_recent"></div>
+          <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent_request}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isLowRecent}" class="checked_down" th:href="@{/sec/other-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
-          <div class="pull-left most_recent"></div>
+          <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent_request}"></span>
         </a>
       </li>

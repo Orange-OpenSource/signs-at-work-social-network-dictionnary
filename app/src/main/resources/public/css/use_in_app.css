@@ -359,16 +359,6 @@ input[type=search].form-control,input[type=search].form-control:focus{
   border-radius: 0px;
 }
 
-.most_recent{
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1230px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 20px;
-  width: 20px;
-  margin-top: 10px;
-  margin-right: 5px;
-}
 
 .down_black{
   background-image: url("/img/sprite_picto_400X400.png");
@@ -433,17 +423,6 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-size: auto 20px;
 }
 
-.most_rating {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -1250px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 20px;
-  width: 20px;
-  margin-top: 10px;
-  margin-right: 5px;
-}
-
 .pinlist_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1714px center;
@@ -505,11 +484,21 @@ input[type=search].form-control,input[type=search].form-control:focus{
   color: #4866F7;
 }
 
-.new_blue {
+.new_blue-signs {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -926px center;
   background-repeat: no-repeat;
   position: absolute;
+}
+
+.new_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1235px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 44px;
+  width: 20px;
+  margin-right: 5px;
 }
 
 .commentary_white {
@@ -916,7 +905,7 @@ input[type=file] {
 /* Begin Fiche signe /sign */
 .smiley_happy_blue, .modal-body .containerRight_signes .smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2415px center;
+  background-position: -2418px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 46px;
@@ -1234,9 +1223,9 @@ input[type=file] {
 
 /* End Fiche détail autre demande /sec/other-request-detail */
 
-.check_blue {
-  background-image: url(/img/new_sprite_picto_400X400.png);
-  background-position: -147px center;
+.v-done_blue {
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2186px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 20px;

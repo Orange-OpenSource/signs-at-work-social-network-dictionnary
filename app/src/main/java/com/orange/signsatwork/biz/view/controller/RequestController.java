@@ -252,7 +252,7 @@ public class RequestController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent_request"));
-    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -286,7 +286,7 @@ public class RequestController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent_request"));
-    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -419,7 +419,7 @@ public class RequestController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent_request"));
-    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 
@@ -453,7 +453,7 @@ public class RequestController {
     model.addAttribute("isAlphabeticAsc", false);
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("most_recent_request"));
-    model.addAttribute("classDropdownTitle", "  most_recent pull-left");
+    model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
 

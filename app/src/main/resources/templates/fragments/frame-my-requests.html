@@ -63,15 +63,15 @@
       </li>
       <li>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isMostRecent}" class="checked_down" th:href="@{/sec/my-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
-          <div class="pull-left most_recent"></div>
+          <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent_request}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${!isMostRecent and !isLowRecent}" th:href="@{/sec/my-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
-          <div class="pull-left most_recent"></div>
+          <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent_request}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreRequest(event, this.href)'" th:if="${isLowRecent}" class="checked_up" th:href="@{/sec/my-requests/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
-          <div class="pull-left most_recent"></div>
+          <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent_request}"></span>
         </a>
       </li>
@@ -98,7 +98,7 @@
               <li th:if="${request.sign != null}" class="aside_bckg_li">
                 <a th:href="@{/sign/} + ${request.sign.id}">
                   <div>
-                    <div class="pull-left most_recent"></div>
+                    <div class="pull-left new_blue"></div>
                     <h4 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${request.name}"></h4>
                     <h4 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${request.name}, ${request.sign.name})}"></h4>
                     <div >

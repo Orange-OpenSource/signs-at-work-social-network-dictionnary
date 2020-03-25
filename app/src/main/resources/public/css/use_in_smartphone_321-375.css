@@ -85,8 +85,8 @@
     margin-top: 1rem;
   }
 
-  .btn .most_recent.pull-left {
-    background-position: -1230px center;
+  .btn .new_blue.pull-left {
+    background-position: -1235px center;
     background-size: auto 20px;
     height: 20px;
     width: 20px;
@@ -129,7 +129,7 @@
     padding-left: 33px;
   }
 
-  .new_blue {
+  .new_blue-signs {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
