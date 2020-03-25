@@ -411,16 +411,27 @@ input[type=search].form-control,input[type=search].form-control:focus{
   margin-right: 5px;
 }
 
-.dropdown-menu > li > a.checked_down{
+.dropdown-menu > li > a.v-done-down_black{
   background-color: #989898;
   color: #4866F7;
 }
 
-.checked_down {
-  background-image: url("/img/new_checked_down.png");
-  background-position: right 0px top 16px;
+.v-done-down_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2204px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
+  height: 48px;
+  width: 40px;
+}
+
+.v-done-up_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2244px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 48px;
+  width: 40px;
 }
 
 .pinlist_blue {

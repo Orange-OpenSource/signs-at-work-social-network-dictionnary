@@ -357,12 +357,12 @@ a:hover, a:focus {
     color:#F16E00;
 }
 
-.dropdown-menu > li > a.checked_down{
+.dropdown-menu > li > a.v-done-down_black{
     background-color: #989898;
     color:#F16E00;
 }
 
-.dropdown-menu > li > a.checked_up{
+.dropdown-menu > li > a.v-done-up_black{
     background-color: #989898;
     color:#F16E00;
 }
