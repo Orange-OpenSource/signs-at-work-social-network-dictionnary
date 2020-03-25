@@ -436,12 +436,12 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .pinlist_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1714px center;
+  background-position: -1500px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 21px;
   height: 48px;
-  width: 20px;
-  margin-right: 4px;
+  width: 17px;
+  margin-right: 9px;
 
 }
 
@@ -450,8 +450,9 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-position: -1790px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 48px;
+  height: 27px;
   width: 24px;
+  margin-top: 9px;
 }
 
 .pinlist_shared_new {
@@ -916,11 +917,11 @@ input[type=file] {
 /* Begin Fiche signe /sign */
 .smiley_happy_blue, .modal-body .containerRight_signes .smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2418px center;
+  background-position: -2015px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 20px;
   height: 46px;
-  width: 24px;
+  width: 20px;
 }
 
 .smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{

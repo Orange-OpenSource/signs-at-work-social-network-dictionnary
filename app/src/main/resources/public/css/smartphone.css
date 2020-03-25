@@ -784,7 +784,7 @@
 
   .btn .sort_alpha_blue.pull-left {
     margin-left: 5px;
-    margin-top: 5px;
+    margin-top: 3px;
   }
 
 
@@ -793,22 +793,22 @@
     height: 20px;
     width: 20px;
     margin-left: 5px;
-    margin-top: 5px;
+    margin-top: 3px;
   }
 
 
   .btn .pinlist_blue.pull-left {
-    background-position: -2137px center;
-    background-size: auto 30px;
+    background-position: -1712px center;
+    background-size: auto 24px;
     height: 30px;
-    width: 30px;
+    width: 21px;
     margin-left: 5px;
   }
 
 
   .btn .pinlist_shared_new.pull-left {
-    background-position: -2270px center;
-    background-size: auto 30px;
+    background-position: -1815px center;
+    background-size: auto 24px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
@@ -845,8 +845,7 @@
     background-size: auto 20px;
     height: 20px;
     width: 20px;
-    margin-left: 0px;
-    margin-top: 5px;
+    margin-top: 3px;
   }
 
   .btn .signe.pull-left {
