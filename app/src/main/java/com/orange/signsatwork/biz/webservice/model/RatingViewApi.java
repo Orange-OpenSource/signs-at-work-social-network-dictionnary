@@ -49,9 +49,6 @@ public class RatingViewApi {
     if (Rating.Negative.toString().equals(o)) {
       rating = Rating.Negative;
     }
-    if (Rating.Neutral.toString().equals(o)) {
-      rating = Rating.Neutral;
-    }
     if (Rating.NoRate.toString().equals(o)) {
       rating = Rating.NoRate;
     }

@@ -25,10 +25,10 @@ function onSearch(){
   search_criteria.classList.remove("search-hidden");
   $("#videos-container").children("label").each(function () {
     $(this).hide();
-    $("#button-top").css("visibility", "hidden");
-    $("#button-top").hide();
-    $("#button-bottom").css("visibility", "hidden");
-    $("#button-bottom").hide();
+/*    $("#button-top").css("visibility", "hidden");
+    $("#button-top").hide();*/
+/*    $("#button-bottom").css("visibility", "hidden");
+    $("#button-bottom").hide();*/
   });
 }
 
@@ -149,8 +149,8 @@ $.fn.extend({
   trackChanges: function() {
     $(":input",this).change(function() {
       $(this.form).data("changed", true);
-      $("#button-top").css("visibility", "visible");
-      $("#button-top").show();
+/*      $("#button-top").css("visibility", "visible");
+      $("#button-top").show();*/
     });
   }
   ,

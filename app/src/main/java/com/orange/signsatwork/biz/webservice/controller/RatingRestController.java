@@ -59,14 +59,6 @@ public class RatingRestController {
     return;
   }
 
-  // kanban 473325 suite retour test utilisateurs
-  @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_VIDEO_RATE_NEUTRAL, method = RequestMethod.POST)
-  public void videoRateNeutral(@PathVariable long signId, @PathVariable long videoId, Principal principal) {
-    videoDoRate(signId, videoId, principal, Rating.Neutral);
-    return;
-  }
-
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEO_RATE_NEGATIVE, method = RequestMethod.POST)
   public void videoRateNegative(@PathVariable long signId, @PathVariable long videoId, Principal principal) {

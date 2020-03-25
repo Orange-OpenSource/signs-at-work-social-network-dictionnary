@@ -172,8 +172,8 @@ $.fn.extend({
   trackChanges: function() {
     $(":input",this).change(function() {
       $(this.form).data("changed", true);
-      $("#button-top").css("visibility", "visible");
-      $("#button-top").show();
+/*      $("#button-top").css("visibility", "visible");
+      $("#button-top").show();*/
     });
   }
   ,

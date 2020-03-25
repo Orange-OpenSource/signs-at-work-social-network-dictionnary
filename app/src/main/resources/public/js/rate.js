@@ -37,20 +37,6 @@ function onRatePositif(signId, videoId){
 
 };
 
-// kanban 473325 suite retour test utilisateurs
-function onRateNeutre(signId, videoId){
-  $.ajax({
-    url: "/ws/sec/sign/"+ signId +"/"+ videoId + "/rate-neutral",
-    type: 'post',
-    success: function(response) {
-      $("#after-rate-sign").modal('show');
-      $("#sentiment-after-rate").addClass("containerRight_signes sentiment_neutre")
-    },
-    error: function(response) {
-    }
-  })
-
-};
 
 function onRateNegatif(signId, videoId){
   $.ajax({
