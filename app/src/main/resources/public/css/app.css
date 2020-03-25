@@ -1,5 +1,5 @@
 #prefetch {
-  background:  url("/img/done_black.png"), url("/img/done_blue.png"), url("/img/new_checked_down.png"), url("/img/new_checked_up.png"), url("/img/sprite_picto_400X400.png")  no-repeat;
+  background: url("/img/done_blue.png"), url("/img/new_checked_down.png"), url("/img/new_checked_up.png"), url("/img/sprite_picto_400X400.png")  no-repeat;
 }
 
 
@@ -373,7 +373,7 @@ text-decoration-line: none;
 
 
 
-.dropdown-menu > li > a.check_signe{
+.dropdown-menu > li > a.v-done_black{
 	background-color: #989898;
   color: #4866F7;
 	/*color:#F16E00;*/
@@ -390,12 +390,13 @@ text-decoration-line: none;
 
 
 
-.check_signe {
-	background-image: url("/img/done_black.png");
-	background-position: right 20px top 16px;
+.v-done_black {
+	background-image: url("/img/sprite_picto_400X400.png");
+	background-position: -2205px center;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
-
+  height: 40px;
+  width: 20px;
 }
 
 

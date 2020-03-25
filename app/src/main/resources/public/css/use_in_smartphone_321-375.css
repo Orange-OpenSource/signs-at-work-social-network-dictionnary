@@ -111,7 +111,7 @@
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: 42px;
+    padding-right: 12px;
   }
 
   .labelSigne {

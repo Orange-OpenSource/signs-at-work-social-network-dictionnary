@@ -352,7 +352,7 @@ a:hover, a:focus {
 }
 
 
-.dropdown-menu > li > a.check_signe{
+.dropdown-menu > li > a.v-done_black{
     background-color: #989898;
     color:#F16E00;
 }
