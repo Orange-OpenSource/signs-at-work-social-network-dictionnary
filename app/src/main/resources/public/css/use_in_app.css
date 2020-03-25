@@ -1029,7 +1029,7 @@ input[type=file] {
 
 .x-close_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2745px center;
+  background-position: -2894px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1643,16 +1643,6 @@ pre {
   height: 45px;
   width: 28px;
   margin-right: 20px;
-}
-
-
-.delete_user_picto {
-  background-image: url("/img/new_sprite_picto_400X400.png");
-  background-position: -330px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 20px;
-  width: 20px;
 }
 
 

@@ -62,7 +62,7 @@
                 <td th:text="${user.lastDeconnectionDate}"></td>
                 <td>
                   <a th:if="${user.username != adminUserName}"  data-toggle="modal" th:attr="data-target='#delete_user'+${user.id}" href="#">
-                    <div class="delete_user_picto"></div>
+                    <div class="x-close_blue"></div>
                   </a>
                 </td>
                 <div  th:id="delete_user+${user.id}" class="modal fade" role="dialog">
