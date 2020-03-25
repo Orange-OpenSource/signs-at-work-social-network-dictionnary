@@ -99,6 +99,18 @@ input[type="text"],[type="email"],[type="password"] {
   margin-bottom:20px;
 }
 
+.noAccount.aside_bckg_li{
+  border-bottom: 1px solid;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.lostPassword.aside_bckg_li{
+  border-top: 1px solid;
+  width: 90%;
+  margin: 0 auto;
+}
+
 /* End login page /login */
 
 /* Begin index page /index */
@@ -484,6 +496,10 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 #signs-container{
+  margin-top: 15px;
+}
+
+#videos-container{
   margin-top: 15px;
 }
 

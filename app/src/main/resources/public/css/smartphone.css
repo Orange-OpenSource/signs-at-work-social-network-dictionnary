@@ -77,25 +77,25 @@
     font-size: 14px;
   }
 
-  .container_picto_request_other,
+/*  .container_picto_request_other,
   .container_picto_my_request{
     left: 13%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other,
+/*  .container_title_request_other,
   .container_title_my_request{
     left: 27%;
-  }
+  }*/
 
-  .container_picto_request_other_in_suggest{
+/*  .container_picto_request_other_in_suggest{
     left: 5%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other_in_suggest{
+/*  .container_title_request_other_in_suggest{
     left: 20%;
-  }
+  }*/
 
   a[data-toggle=modal] div h2.container_H2.text_hyphenation{
     width: 21rem;
@@ -670,25 +670,25 @@
 
 
 
-  .container_picto_request_other,
+/*  .container_picto_request_other,
   .container_picto_my_request{
     left: 13%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other,
+/*  .container_title_request_other,
   .container_title_my_request{
     left: 27%;
-  }
+  }*/
 
-  .container_picto_request_other_in_suggest{
+/*  .container_picto_request_other_in_suggest{
     left: 5%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other_in_suggest{
+/*  .container_title_request_other_in_suggest{
     left: 20%;
-  }
+  }*/
 
 
   li[role="presentation"].aside_bckg_li > a > div {
@@ -964,25 +964,25 @@
   }
 
 
-  .container_picto_request_other,
+/*  .container_picto_request_other,
   .container_picto_my_request{
     left: 18%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other,
+/*  .container_title_request_other,
   .container_title_my_request{
     left: 30%;
-  }
+  }*/
 
-  .container_picto_request_other_in_suggest{
+/*  .container_picto_request_other_in_suggest{
     left: 12%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other_in_suggest{
+/*  .container_title_request_other_in_suggest{
     left: 25%;
-  }
+  }*/
 
   .labelSigne {
     width: 10rem;
@@ -1360,25 +1360,25 @@
   }
 
 
-  .container_picto_request_other,
+/*  .container_picto_request_other,
   .container_picto_my_request{
     left: 26%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other,
+/*  .container_title_request_other,
   .container_title_my_request{
     left: 35%;
-  }
+  }*/
 
-  .container_picto_request_other_in_suggest{
+/*  .container_picto_request_other_in_suggest{
     left: 22%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other_in_suggest{
+/*  .container_title_request_other_in_suggest{
     left: 32%;
-  }
+  }*/
 
   .labelSigne {
     width: 10rem;
@@ -1671,25 +1671,25 @@
   }
 
 
-  .container_picto_request_other,
+/*  .container_picto_request_other,
   .container_picto_my_request{
     left: 26%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other,
+/*  .container_title_request_other,
   .container_title_my_request{
     left: 35%;
-  }
+  }*/
 
-  .container_picto_request_other_in_suggest{
+/*  .container_picto_request_other_in_suggest{
     left: 22%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other_in_suggest{
+/*  .container_title_request_other_in_suggest{
     left: 32%;
-  }
+  }*/
 
 
 
@@ -1944,25 +1944,27 @@
   }
 
 
-  .container_picto_request_other,
+/*  .container_picto_request_other,
   .container_picto_my_request{
     left: 33%;
     top: 5px;
-  }
+  }*/
 
+  /*
   .container_title_request_other,
   .container_title_my_request{
     left: 40%;
   }
+  */
 
-  .container_picto_request_other_in_suggest{
+/*  .container_picto_request_other_in_suggest{
     left: 22%;
     top: 5px;
-  }
+  }*/
 
-  .container_title_request_other_in_suggest{
+/*  .container_title_request_other_in_suggest{
     left: 32%;
-  }
+  }*/
 
   .labelSigne {
     width: 10rem;
