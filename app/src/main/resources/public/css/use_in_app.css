@@ -931,13 +931,22 @@ input[type=file] {
 /* End Fenêtre modale Demander un signe id=new_request modal-new-request */
 
 /* Begin Fiche signe /sign */
-.smiley_happy_blue, .modal-body .containerRight_signes .smiley_happy_blue {
+.smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2015px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 46px;
   width: 20px;
+}
+
+.modal-body .smiley_happy_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2416px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 46px;
+  width: 24px;
 }
 
 .smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{

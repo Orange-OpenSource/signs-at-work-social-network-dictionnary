@@ -384,9 +384,9 @@ a:hover, a:focus {
     border-top: medium solid;
 }*/
 
-.dotted-bottom{
+/*.dotted-bottom{
     border-bottom: 1px dotted;
-}
+}*/
 .dotted-top{
     border-top: 1px dotted;
 }
@@ -403,9 +403,9 @@ a:hover, a:focus {
 }*/
 
 
-.backgroundColor {
+/*.backgroundColor {
     background-color: #989898;
-}
+}*/
 
 h4.container_signes .pull-right {
     margin-left: 15px;

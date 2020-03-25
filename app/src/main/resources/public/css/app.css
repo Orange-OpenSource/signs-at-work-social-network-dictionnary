@@ -234,14 +234,14 @@ a.form-control{
   border-top: medium solid;
 }*/
 
-.divider {
+/*.divider {
 	height: 3px;
 	width:100%;
-	display:block; /* for use on default inline elements like span */
+	display:block; !* for use on default inline elements like span *!
 	margin: 9px 0;
 	overflow: hidden;
 	background-color: #333333;
-}
+}*/
 
 
 /*#discussion{
@@ -422,9 +422,9 @@ text-decoration-line: none;
   line-height:50px
 }*/
 
-.dotted-bottom{
+/*.dotted-bottom{
 	border-bottom: 1px dotted;
-}
+}*/
 .dotted-top{
 	border-top: 1px dotted;
 }
@@ -441,9 +441,9 @@ text-decoration-line: none;
 }*/
 
 
-.backgroundColor {
+/*.backgroundColor {
 	background-color: #989898;
-}
+}*/
 
 h4.container_signes .pull-right {
 	margin-left: 15px;
@@ -703,7 +703,7 @@ input[type="radio"] {
 }*/
 
 
-@-moz-keyframes blinker {
+/*@-moz-keyframes blinker {
   0% { opacity: 1.0; }
   50% { opacity: 0.0; }
   100% { opacity: 1.0; }
@@ -725,7 +725,7 @@ input[type="radio"] {
   100% {
     opacity: 1.0;
   }
-}
+}*/
 
 
 

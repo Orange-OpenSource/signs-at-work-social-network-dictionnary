@@ -5,7 +5,7 @@
     margin-right: 7px;
   }
 
-  .divider-space input[name="lastName"],
+/*  .divider-space input[name="lastName"],
   .divider-space input[name="firstName"],
   .divider-space input[name="entity"],
   .divider-space input[name="email"],
@@ -13,20 +13,20 @@
   .divider-space input[name="password"],
   .divider-space input[name="username"] {
     width: 60%;
-  }
+  }*/
 
-  .divider-space {
+/*  .divider-space {
     margin-bottom: 10%;
-  }
+  }*/
 
-  .divider-space H2{
+/*  .divider-space H2{
     color:#F16E00;
-  }
+  }*/
 
-  .divider-space input{
+/*  .divider-space input{
     height: 40px;
     border-radius: 15px;
-  }
+  }*/
 
 
   .col-xs-offset-2{
