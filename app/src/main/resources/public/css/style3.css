@@ -67,11 +67,14 @@ a, a:hover, a:focus {
 }
 
 #dismiss {
-    width: 35px;
-    height: 35px;
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2537px center;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    width: 23px;
+    height: 45px;
     line-height: 35px;
     text-align: center;
-    background: white;
     position: absolute;
     top: 22px;
     right: 10px;
