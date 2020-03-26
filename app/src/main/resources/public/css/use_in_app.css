@@ -21,8 +21,6 @@ body{
 
 .container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
   margin-right: 0px;
-  /*margin-left: 0px;*/
-
 }
 
 a {
@@ -31,11 +29,8 @@ a {
 
 .logo-text_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1739px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
   height: 70px;
-  width: 100px;
   margin-left: 10px;
 }
 

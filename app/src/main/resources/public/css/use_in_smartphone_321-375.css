@@ -44,6 +44,12 @@
     width:23rem;
   }
 
+  .logo-text_white {
+    background-position: -1739px center;
+    background-size: auto 40px;
+    width: 100px;
+  }
+
   /* End index page /index */
 
   /* Begin Menu */

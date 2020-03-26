@@ -32,6 +32,12 @@
     margin-bottom: 20px;
   }
 
+  .logo-text_white {
+    background-position: -2179px center;
+    background-size: auto 50px;
+    width: 117px;
+  }
+
   /* End index page /index */
 
   /* Begin Menu */
@@ -482,5 +488,19 @@
 
   .btn .pinlist_shared.pull-left {
     margin-left: 5px;
+  }
+
+  .group_project_add{
+    background-size: auto 24px;
+    height: 24px;
+    width: 25px;
+    margin-top: 11px;
+  }
+
+  .group_project_add_white{
+    background-size: auto 30px;
+    height: 45px;
+    width: 31px;
+    margin-right: 20px;
   }
 }
