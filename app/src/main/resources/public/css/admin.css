@@ -325,11 +325,11 @@ a:hover, a:focus {
     margin: 0 auto;
     width: 40px;
 }*/
-.containerRight_signes .search_signe{
+/*.containerRight_signes .search_signe{
     display: inline-block;
     width: 20px;
 
-}
+}*/
 
 /*.containerLeft_signes {
     float: left;
@@ -462,12 +462,12 @@ textarea{
         width: 14rem;
     }
 
-    button.search_signe{
+/*    button.search_signe{
         background-color: transparent;
         border: none;
         width: 40px;
         height: 40px;
-    }
+    }*/
 
     li.hidden-xs:first-child {
         margin-right: 20px;
@@ -630,12 +630,12 @@ textarea{
     }
 
 
-    button.search_signe{
+/*    button.search_signe{
         background-color: transparent;
         border: none;
         width: 40px;
         height: 40px;
-    }
+    }*/
 
     li.hidden-xs:first-child {
         margin-right: 5rem;
@@ -650,12 +650,12 @@ textarea{
         width: 30rem;
     }
 
-    button.search_signe{
+/*    button.search_signe{
         background-color: transparent;
         border: none;
         width: 40px;
         height: 40px;
-    }
+    }*/
     li.hidden-xs:first-child {
         margin-right: 10rem;
     }
