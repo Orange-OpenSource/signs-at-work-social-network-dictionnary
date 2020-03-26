@@ -50,6 +50,38 @@
     width: 100px;
   }
 
+  .sign_see {
+    background-position: -3866px center;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+  }
+
+  .chevron{
+    background-position: -3257px center;
+    background-size: auto 28px;
+    height: 28px;
+    width: 28px;
+    margin-top: 10px;
+  }
+
+  .sign_ask-for_black {
+    background-position: -3740px center;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+  }
+
+  .sign_add {
+    background-position: -3656px center;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+  }
+
   /* End index page /index */
 
   /* Begin Menu */

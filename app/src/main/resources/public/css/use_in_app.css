@@ -194,12 +194,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 .sign_see {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3866px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
-  margin-top: 4px;
 }
 
 .container_H2{
@@ -230,32 +225,17 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 .chevron{
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3257px center;
   background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 28px;
-  width: 28px;
-  margin-top: 10px;
 }
 
 .sign_ask-for_black {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3740px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
-  margin-top: 4px;
 }
 
 .sign_add {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3656px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
-  margin-top: 4px;
 }
 
 .search_circle {

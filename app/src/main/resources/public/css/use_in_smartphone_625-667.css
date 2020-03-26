@@ -1,6 +1,7 @@
 @media only screen and (min-width:625px) and (max-width:667px) {
 
   /* Begin index page /index */
+
   .search_circle {
     background-size: auto 50px;
     height: 50px;
@@ -36,6 +37,38 @@
     background-position: -2179px center;
     background-size: auto 50px;
     width: 117px;
+  }
+
+  .sign_see {
+    background-position: -4350px center;
+    background-size: auto 45px;
+    height: 45px;
+    width: 45px;
+    margin-top: 2px;
+  }
+
+  .chevron{
+    background-position: -3489px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+  }
+
+  .sign_ask-for_black {
+    background-position: -4208px center;
+    background-size: auto 45px;
+    height: 45px;
+    width: 45px;
+    margin-top: 2px;
+  }
+
+  .sign_add {
+    background-position: -4113px center;
+    background-size: auto 45px;
+    height: 45px;
+    width: 45px;
+    margin-top: 2px;
   }
 
   /* End index page /index */
