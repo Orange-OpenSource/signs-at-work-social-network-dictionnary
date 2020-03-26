@@ -1,8 +1,8 @@
 @media only screen and (max-width:320px) {
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1rem;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 3rem;
@@ -343,19 +343,19 @@
     width: 7em;
   }
 
-  .col-xs-1 .caret {
+/*  .col-xs-1 .caret {
     position: absolute;
     left: 15px;
     position: absolute;
     top: 14px;
-  }
+  }*/
 
-  .col-sm-1 .caret { /* for iphone6*/
+/*  .col-sm-1 .caret { !* for iphone6*!
     position: absolute;
     left: 15px;
     position: absolute;
     top: 14px;
-  }
+  }*/
 
   .btn .new_blue.pull-left {
     background-position: -1425px center;
@@ -857,12 +857,12 @@
   }
 
 
-  .col-xs-1 .caret{
+/*  .col-xs-1 .caret{
     position: absolute;
     left: 15px;
     position: absolute;
     top: 14px;
-  }
+  }*/
 
   .btn .signe.pull-left{
     background-position: -975px center;
@@ -898,9 +898,9 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1rem;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 3rem;
@@ -1157,12 +1157,12 @@
     margin-left: 5px;
   }
 
-  .col-xs-1 .caret{
+/*  .col-xs-1 .caret{
     position: absolute;
     left: 15px;
     position: absolute;
     top: 14px;
-  }
+  }*/
 
   .dropdown-menu > li > a {
     display: block;
@@ -1295,9 +1295,9 @@
 
 @media only screen and (min-width:496px) and (max-width:624px) {
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1rem;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 3rem;
@@ -1494,12 +1494,12 @@
     width: 8em;
   }
 
-  .col-xs-1 .caret{
+/*  .col-xs-1 .caret{
     position: absolute;
     left: 15px;
     position: absolute;
     top: 14px;
-  }
+  }*/
 
   .dropdown-menu > li > a {
     display: block;
@@ -1610,9 +1610,9 @@
 @media only screen and (min-width:625px) and (max-width:667px) {
 
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1rem;
-  }
+  }*/
 
 
   #label_dictionary{
@@ -1776,12 +1776,12 @@
     width: 8em;
   }
 
-  .col-xs-1 .caret{
+ /* .col-xs-1 .caret{
     position: absolute;
     left: 15px;
     position: absolute;
     top: 14px;
-  }
+  }*/
 
   .dropdown-menu > li > a {
     display: block;
@@ -1875,9 +1875,9 @@
 @media only screen and (min-width:668px) and (max-width:767px) {
 
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1rem;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 3rem;
@@ -2071,12 +2071,12 @@
     width: 8em;
   }
 
-  .col-xs-1 .caret{
+/*  .col-xs-1 .caret{
     position: absolute;
     left: 15px;
     position: absolute;
     top: 14px;
-  }
+  }*/
 
   .container_tooltip {
     background-color: red !important;

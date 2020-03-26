@@ -611,6 +611,15 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 32rem;
 }
 
+.menu_down_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2521px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 26px;
+  width: 9px;
+}
+
 /* End Voir les signes /sec/signs */
 
 /* Begin Demandes de signes /sec/requests */

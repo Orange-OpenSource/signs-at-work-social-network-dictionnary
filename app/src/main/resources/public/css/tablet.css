@@ -1,9 +1,9 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1.5rem;
     margin-right: 7px;
-  }
+  }*/
 
 /*  .divider-space input[name="lastName"],
   .divider-space input[name="firstName"],
@@ -249,11 +249,11 @@
     right: 10px;
   }
 
-  .col-lg-3 span.caret {
+/*  .col-lg-3 span.caret {
     position: absolute;
     left: 17px;
     top: 24px;
-  }
+  }*/
 
   .dropdown-menu > li > a {
     display: block;

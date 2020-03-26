@@ -1,9 +1,9 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1.5rem;
     margin-right: 7px;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -170,11 +170,11 @@
     right: 0px;
   }
 
-  .col-lg-3 span.caret {
+/*  .col-lg-3 span.caret {
     position: absolute;
     left: 12px;
     top: 24px;
-  }
+  }*/
 
   .col-lg-3 span.hidden-xs {
     width: 100%;
@@ -243,10 +243,10 @@
 @media only screen and (min-width:1200px) and (max-width:1365px) {
 
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1.5rem;
     margin-right: 7px;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -421,11 +421,11 @@
     right: 0px;
   }
 
-  .col-lg-3 span.caret {
+/*  .col-lg-3 span.caret {
     position: absolute;
     left: 17px;
     top: 24px;
-  }
+  }*/
 
   .col-lg-3 span.hidden-xs {
     width: 100%;
@@ -492,10 +492,10 @@
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1.5rem;
     margin-right: 7px;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -592,11 +592,11 @@
   }
 
 
-  .col-lg-3 span.caret {
+/*  .col-lg-3 span.caret {
     position: absolute;
     left: 17px;
     top: 24px;
-  }
+  }*/
 
   .col-lg-3 .dropdown-toggle {
     width: 20em;
@@ -757,10 +757,10 @@
 
 @media only screen  and (min-width:1541px)  {
 
-  .btn .caret{
+/*  .btn .caret{
     margin-top: 1.5rem;
     margin-right: 7px;
-  }
+  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -816,11 +816,11 @@
     width: 100%;
   }
 
-  .col-lg-3 span.caret {
+/*  .col-lg-3 span.caret {
     position: absolute;
     left: 17px;
     top: 24px;
-  }
+  }*/
 
   .col-lg-3 .dropdown-toggle {
     width: 20em;
