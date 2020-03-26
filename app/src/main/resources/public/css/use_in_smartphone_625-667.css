@@ -71,6 +71,12 @@
   }
 
   #reset{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2310px center;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    height: 26px;
+    width: 14px;
     position: absolute;
     margin-top: 10px;
     right: 15%;
@@ -198,12 +204,18 @@
 
   /* Begin Mes Demandes /sec/my-requests */
   #reset_search_request{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2310px center;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    height: 26px;
+    width: 14px;
     position: absolute;
-    margin-top: -44px;
-    right: 10%;
+    margin-top: -46px;
+    right: 11%;
     background-color: #000000;
-    border:none;
-    color:#FFFFFF;
+    border: none;
+    color: #FFFFFF;
   }
 
   .text_hyphenation.navbar_title.pull-left{
@@ -454,12 +466,18 @@
   /* End favorite /sec/favorite/"id" */
 
   #reset_search_user{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2310px center;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    height: 26px;
+    width: 14px;
     position: absolute;
-    margin-top: 12px;
+    margin-top: 9px;
     right: 13%;
     background-color: #000000;
-    border:none;
-    color:#FFFFFF;
+    border: none;
+    color: #FFFFFF;
   }
 
   .btn .pinlist_shared.pull-left {
