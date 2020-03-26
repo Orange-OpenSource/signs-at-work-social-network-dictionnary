@@ -42,10 +42,14 @@ $formUploadSelectedVideoFile.on('submit', function(event) {
       contentType: false,
       processData: false,
       success: function (response) {
+        var url = response;
         errorSelectedSpan.style.visibility = "hidden";
         $(".spinner").visibility = "hidden";
         console.log("Success " + response);
-        location.reload();
+        console.log(window.location.href);
+        window.history.replaceState({}, 'foo', url);
+        console.log(window.location.href);
+        window.location = url;
       },
       error: function (response) {
         errorSelectedSpan.textContent = response.responseText;
