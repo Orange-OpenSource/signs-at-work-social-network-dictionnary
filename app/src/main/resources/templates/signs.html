@@ -37,7 +37,7 @@
 
 
 <div id="myform" >
-  <input type='button' class="pull-rigth" id='reset' value='X'>
+  <input type='button' class="pull-rigth" id='reset'>
   <div id="container-input">
     <div th:if="${favoriteId} == null">
       <input th:if="${#lists.isEmpty(signsView)}" type="search" id="search-criteria" th:placeholder="#{search}" th:autocomplete="off" th:attr="aria-label=#{sign.search}" class="border form-control search-hidden"/>

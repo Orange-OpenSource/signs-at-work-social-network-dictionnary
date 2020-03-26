@@ -196,12 +196,18 @@
   }
 
   #reset{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2310px center;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    height: 26px;
+    width: 14px;
     position: absolute;
-    margin-top: 10px;
+    margin-top: 6px;
     right: 15%;
     background-color: #000000;
-    border:none;
-    color:#FFFFFF;
+    border: none;
+    color: #FFFFFF;
   }
 
 
@@ -229,12 +235,18 @@
 
   /* Begin Mes Demandes /sec/my-requests */
   #reset_search_request{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2310px center;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    height: 26px;
+    width: 14px;
     position: absolute;
-    margin-top: -40px;
+    margin-top: -43px;
     right: 10%;
     background-color: #000000;
-    border:none;
-    color:#FFFFFF;
+    border: none;
+    color: #FFFFFF;
   }
 
   #requests_container .aside_bckg_li h4{
@@ -508,12 +520,18 @@
 
 
   #reset_search_user{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2310px center;
+    background-repeat: no-repeat;
+    background-size: auto 20px;
+    height: 26px;
+    width: 14px;
     position: absolute;
-    margin-top: 9px;
+    margin-top: 6px;
     right: 14%;
     background-color: #000000;
-    border:none;
-    color:#FFFFFF;
+    border: none;
+    color: #FFFFFF;
   }
 
   /* Begin favorite /sec/favorite/"id" */
