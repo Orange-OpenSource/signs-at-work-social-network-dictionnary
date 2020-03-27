@@ -21,66 +21,11 @@
     margin-left: 20px;
   }
 
-  .search_circle {
-    background-size: auto 50px;
-    height: 50px;
-    width: 50px;
-    margin-top: 3px;
-  }
-
-  .menu {
-    background-size: auto 50px;
-    height: 50px;
-    width: 50px;
-    margin-right: -20px;
-  }
-
-  h2, .h2 {
-    font-size: 16px;
-    font-weight: bold;
-  }
 
   .label_favorite_Liste_H2.container_H2{
     width:23rem;
   }
 
-  .logo-text_white {
-    background-position: -1739px center;
-    background-size: auto 40px;
-    width: 100px;
-  }
-
-  .sign_see {
-    background-position: -3866px center;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-    margin-top: 4px;
-  }
-
-  .chevron{
-    background-position: -3257px center;
-    background-size: auto 28px;
-    height: 28px;
-    width: 28px;
-    margin-top: 10px;
-  }
-
-  .sign_ask-for_black {
-    background-position: -3740px center;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-    margin-top: 4px;
-  }
-
-  .sign_add {
-    background-position: -3656px center;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-    margin-top: 4px;
-  }
 
   /* End index page /index */
 
@@ -88,6 +33,7 @@
   li[role="menuitem"] {
     margin-left: 14px;
   }
+
 
   /* End Menu */
 
@@ -537,9 +483,6 @@
     margin-left: 0px;
   }
 
-  h4.container_H2{
-      width: 23rem;
-  }
   /* Begin Fiche détail de ma demande /sec/my-request-detail */
 
   h4.container_header_H2{

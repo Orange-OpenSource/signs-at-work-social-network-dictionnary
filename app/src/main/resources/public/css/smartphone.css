@@ -898,9 +898,6 @@
 
 @media only screen and (min-width:376px) and (max-width:495px) {
 
-/*  .btn .caret{
-    margin-top: 1rem;
-  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 3rem;
@@ -910,12 +907,6 @@
   #label_dictionary{
     display: inline-block;
   }
-
-/*  #label_signatwork{
-    display: inline-block;
-    margin-left: 2px;
-    font-size: small;
-  }*/
 
   .col-xs-9{
     padding-left: 0px;
@@ -964,26 +955,6 @@
   }
 
 
-/*  .container_picto_request_other,
-  .container_picto_my_request{
-    left: 18%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other,
-  .container_title_my_request{
-    left: 30%;
-  }*/
-
-/*  .container_picto_request_other_in_suggest{
-    left: 12%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other_in_suggest{
-    left: 25%;
-  }*/
-
   .labelSigne {
     width: 10rem;
   }
@@ -996,10 +967,6 @@
     width:19rem;
   }
 
-/*  .request_whitout_answer.aside_bckg_li{
-    width: 100%;
-    font-size: 17px;
-  }*/
 
   #requestTextDescription{
     width: 28rem;
@@ -1157,12 +1124,6 @@
     margin-left: 5px;
   }
 
-/*  .col-xs-1 .caret{
-    position: absolute;
-    left: 15px;
-    position: absolute;
-    top: 14px;
-  }*/
 
   .dropdown-menu > li > a {
     display: block;
@@ -1284,11 +1245,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 200px;
+    width: 27rem;
+  }
+
+  #sidebar.active {
+    width: 362px;
+    left: 52px!important;
   }
 
   .navbar-collapse .navbar-nav > li {
     width: 100%;
+  }
+
+  .search_circle {
+    margin-top: 18px!important;
+    margin-right: 8px;
   }
 
 }
@@ -1874,6 +1845,16 @@
 
 @media only screen and (min-width:668px) and (max-width:767px) {
 
+
+  .search_circle {
+    margin-top: 18px!important;
+    margin-right: 8px;
+  }
+
+  #sidebar.active {
+    width: 427px;
+    left: 303px!important;
+  }
 
 /*  .btn .caret{
     margin-top: 1rem;

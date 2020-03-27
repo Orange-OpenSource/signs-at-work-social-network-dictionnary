@@ -71,6 +71,23 @@
     margin-top: 2px;
   }
 
+  h2, .h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .lexical {
+    font-size:24px;
+  }
+
+  .sidebar-header>h2 {
+    font-size: 24px;
+  }
+
+  h4, .h4 {
+    font-size: 18px;
+  }
+
   /* End index page /index */
 
   /* Begin Menu */
@@ -81,6 +98,48 @@
   #sidebar{
     width: 483px;
     left: -500px;
+  }
+
+  .member_me_black{
+    background-position: -1574px center;
+    background-size: auto 30px;
+    height: 45px;
+    width: 30px;
+  }
+
+  .group_black{
+    background-position: -864px center;
+    background-size: auto 30px;
+    height: 42px;
+    width: 30px;
+  }
+
+  .pinlist_black{
+    background-position: -2112px center;
+    background-size: auto 30px;
+    height: 40px;
+    width: 30px;
+  }
+
+  .settings_black{
+    background-position: -2556px center;
+    background-size: auto 30px;
+    height: 44px;
+    width: 30px;
+  }
+
+  .about{
+    background-position: 0px center;
+    background-size: auto 30px;
+    height: 44px;
+    width: 30px;
+  }
+
+  #dismiss {
+    background-position: -3805px center;
+    background-size: auto 30px;
+    height: 45px;
+    width: 30px;
   }
 
   /* End Menu */

@@ -30,6 +30,9 @@ a {
 .logo-text_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
+  background-position: -1739px center;
+  background-size: auto 40px;
+  width: 100px;
   height: 70px;
   margin-left: 10px;
 }
@@ -151,9 +154,9 @@ ul[role="tablist"]{
 }
 
 .lexical {
+  font-size:20px;
   text-align: center;
   color: #4866F7;
-  font-size:20px;
   margin-bottom: 30px;
   margin-left: 65px;
   margin-right: 65px;
@@ -161,7 +164,8 @@ ul[role="tablist"]{
 }
 
 h2, .h2 {
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -195,6 +199,11 @@ h1, .h1, h2, .h2, h3, .h3 {
 .sign_see {
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
+  background-position: -3866px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
 }
 
 .container_H2{
@@ -226,28 +235,51 @@ h1, .h1, h2, .h2, h3, .h3 {
 .chevron{
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
+  background-position: -3257px center;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 10px;
 }
 
 .sign_ask-for_black {
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
+  background-position: -3740px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
 }
 
 .sign_add {
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
+  background-position: -3656px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
 }
 
 .search_circle {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -4094px center;
   background-repeat: no-repeat;
+  background-size: auto 50px;
+  height: 50px;
+  width: 50px;
+  margin-top: 3px;
 }
 
 .menu {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2924px center;
   background-repeat: no-repeat;
+  background-size: auto 50px;
+  height: 50px;
+  width: 50px;
+  margin-right: -20px;
 }
 
 /* End index page /index */
@@ -257,11 +289,11 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 .member_me_black{
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1049px center;
   background-repeat: no-repeat;
-  background-size: auto 20px;
+  background-position: -1311px center;
+  background-size: auto 25px;
   height: 45px;
-  width: 20px;
+  width: 25px;
 }
 
 h4, .h4 {
@@ -275,38 +307,38 @@ h4, .h4 {
 
 .group_black{
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -575px center;
   background-repeat: no-repeat;
-  background-size: auto 20px;
+  background-position: -719px center;
+  background-size: auto 25px;
   height: 42px;
-  width: 20px;
+  width: 25px;
 }
 
 .pinlist_black{
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1690px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-position: -1760px center;
+  background-size: auto 25px;
   height: 40px;
-  width: 21px;
+  width: 25px;
 }
 
 .settings_black{
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1703px center;
   background-repeat: no-repeat;
-  background-size: auto 20px;
+  background-position: -2130px center;
+  background-size: auto 25px;
   height: 44px;
-  width: 20px;
+  width: 25px;
 }
 
 .about{
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: 0px center;
   background-repeat: no-repeat;
-  background-size: auto 20px;
+  background-position: 0px center;
+  background-size: auto 25px;
   height: 44px;
-  width: 20px;
+  width: 25px;
 }
 
 /* End Menu */

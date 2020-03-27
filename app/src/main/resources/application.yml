@@ -32,7 +32,7 @@ app.version: "2.4.0"
 app.contact.support: "signsatwork.support@orange.com"
 
 cgu-url: "https://www.dailymotion.com/embed/video/k2HwFhjhimHm1uvOU3g"
-display-url: "https://www.dailymotion.com/embed/video/k6yTqZLiEei3cPrRynl"
+display-url: "https://www.dailymotion.com/embed/video/k2ADmPrk2ekIL2vU8hf"
 
 spring:
   mail:
