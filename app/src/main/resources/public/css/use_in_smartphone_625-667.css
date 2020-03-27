@@ -1,5 +1,35 @@
 @media only screen and (min-width:625px) and (max-width:667px) {
 
+  /* Begin login */
+  .illustration_welcome {
+    background-position: -4480px center;
+    background-size: auto 110px;
+    height: 110px;
+    width: 110px;
+  }
+
+  #label_invite {
+    font-size: 20px;
+  }
+
+  span.form-signin-heading {
+    font-size: 20px;
+  }
+
+  .h5, h5 {
+    font-size: 16px;
+  }
+
+  .btn_signin {
+    font-size: 16px;
+  }
+
+  input[type="text"],[type="email"],[type="password"] {
+    font-size: 18px;
+  }
+
+    /* End login */
+
   /* Begin index page /index */
 
   .search_circle {
