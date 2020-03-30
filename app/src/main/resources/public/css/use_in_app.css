@@ -800,29 +800,29 @@ img{
 
 .member_ask_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1129px center;
+  background-position: -1411px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 30px;
   height: 40px;
-  width: 24px;
+  width: 30px;
 }
 
 .group_ask_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2846px center;
+  background-position: -3558px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 42px;
-  width: 24px;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
 }
 
 .sign_ask-for_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2270px center;
+  background-position: -2838px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 30px;
   height: 48px;
-  width: 24px;
+  width: 30px;
 }
 
 .disabled {
@@ -833,6 +833,22 @@ img{
 /* End Demandes de signes /sec/requests */
 
 /* Begin Mes Demandes /sec/my-requests */
+#reset_search_request{
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2310px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 26px;
+  width: 14px;
+  position: absolute;
+  margin-top: -43px;
+  right: 10%;
+  background-color: #000000;
+  border: none;
+  color: #FFFFFF;
+  visibility: hidden;
+}
+
 #requests_container{
   padding-top:15px;
 }
@@ -851,6 +867,10 @@ img{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2486px center;
   background-repeat: no-repeat;
+  background-size: auto 26px;
+  height: 45px;
+  width: 26px;
+  margin-right: 20px;
 }
 
 /* Begin Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest*/
@@ -979,7 +999,7 @@ button.close{
   height: 31px;
   width: 24px;
   margin-top: 9px;
-  margin-right: 9px;
+  margin-right: 5px;
 }
 
 .same_name{

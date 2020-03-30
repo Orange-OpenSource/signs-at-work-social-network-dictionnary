@@ -281,7 +281,7 @@
     margin-bottom: 10px;
     line-height: 45px;
     height: 45px;
-    width: 52rem;
+/*    width: 52rem;*/
     font-size: 18px;
   }
 
@@ -487,14 +487,14 @@
   /* Begin Mes Demandes /sec/my-requests */
   #reset_search_request{
     background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2310px center;
+    background-position: -2885px center;
     background-repeat: no-repeat;
-    background-size: auto 20px;
+    background-size: auto 25px;
     height: 26px;
-    width: 14px;
+    width: 25px;
     position: absolute;
-    margin-top: -46px;
-    right: 11%;
+    margin-top: 10px;
+    right: 13%;
     background-color: #000000;
     border: none;
     color: #FFFFFF;
@@ -607,6 +607,34 @@
   H2.text_hyphenation {
     width: 48rem;
   }
+
+  .member_ask_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1882px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+  }
+
+  .group_ask_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4745px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .sign_ask-for_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3784px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 48px;
+    width: 40px;
+  }
+
   /* End Demandes de signes /sec/request */
 
   /* Begin Mes Demandes /sec/other-request-detail */

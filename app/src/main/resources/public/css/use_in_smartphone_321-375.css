@@ -218,7 +218,7 @@
   /* End Demandes de signes /sec/requests */
 
   /* Begin Mes Demandes /sec/my-requests */
-  #reset_search_request{
+/*  #reset_search_request{
     background-image: url(/img/sprite_picto_400X400.png);
     background-position: -2310px center;
     background-repeat: no-repeat;
@@ -231,7 +231,7 @@
     background-color: #000000;
     border: none;
     color: #FFFFFF;
-  }
+  }*/
 
   #requests_container .aside_bckg_li h4{
     white-space: normal;
@@ -321,12 +321,12 @@
   /* End Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
 
   /* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
-  .sign_ask-for_white {
+/*  .sign_ask-for_white {
     background-size: auto 26px;
     height: 45px;
     width: 26px;
     margin-right: 20px;
-  }
+  }*/
 
   /* End Fenêtre modale Demander un signe id=new_request modal-new-request */
 
