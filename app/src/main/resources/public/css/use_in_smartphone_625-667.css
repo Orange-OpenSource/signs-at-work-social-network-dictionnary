@@ -118,6 +118,10 @@
     font-size: 18px;
   }
 
+  .modal-footer>.btn {
+    font-size: 18px;
+  }
+
   /* End index page /index */
 
   /* Begin Menu */
@@ -175,6 +179,95 @@
   /* End Menu */
 
   /* Begin Voir les signes /sec/signs */
+
+  .logo-SW_blue {
+    background-position: -2336px center;
+    background-size: auto 55px;
+    width: 55px;
+  }
+
+  .back_white {
+    background-position: -122px center;
+    background-size: auto 33px;
+    width: 46px;
+  }
+
+  .down_black {
+    background-position: -2782px center;
+    background-size: auto 25px;
+    height: 28px;
+    width: 25px;
+  }
+
+  .new_blue {
+    background-position: -1544px center;
+    background-size: auto 25px;
+    height: 44px;
+    width: 25px;
+  }
+
+  .btn .new_blue.pull-left {
+    background-position: -1544px center;
+    background-size: auto 25px;
+    height: 30px;
+    width: 25px;
+  }
+
+  .v-done-down_black {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2758px center;
+    background-repeat: no-repeat;
+    background-size: auto 25px;
+    height: 48px;
+    width: 46px;
+  }
+
+  .menu_down_black {
+    background-position: -3151px center;
+    background-size: auto 25px;
+    height: 30px;
+    width: 17px;
+  }
+
+  .all-signs_blue {
+    background-position: -3118px center;
+    background-size: auto 25px;
+    height: 25px;
+    width: 25px;
+    margin-right: 5px;
+  }
+
+  .btn .all-signs_blue.pull-left {
+    background-size: auto 25px;
+    height: 25px;
+    width: 25px;
+    margin-left: 5px;
+    margin-top: 3px;
+  }
+
+  .v-done_black {
+    background-position: -2754px center;
+    background-size: auto 25px;
+    height: 48px;
+    width: 25px;
+  }
+
+  .sort_alpha_blue {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2648px center;
+    background-repeat: no-repeat;
+    background-size: auto 25px;
+    height: 25px;
+    width: 25px;
+    margin-top: 10px;
+    margin-right: 5px;
+  }
+
+  .btn .sort_alpha_blue.pull-left {
+    margin-left: 5px;
+    margin-top: 3px;
+  }
+
   .navbar_title {
     font-size: 18px;
     font-weight: bold;
@@ -189,6 +282,7 @@
     line-height: 45px;
     height: 45px;
     width: 52rem;
+    font-size: 18px;
   }
 
   #myform input::placeholder{
@@ -200,21 +294,21 @@
 
   #reset{
     background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2310px center;
+    background-position: -2885px center;
     background-repeat: no-repeat;
-    background-size: auto 20px;
+    background-size: auto 25px;
     height: 26px;
-    width: 14px;
+    width: 25px;
     position: absolute;
     margin-top: 10px;
-    right: 15%;
+    right: 13%;
     background-color: #000000;
     border:none;
     color:#FFFFFF;
   }
 
   .labelSigne a{
-    font-size:14px;
+    font-size:16px;
     white-space: nowrap;
   }
 
@@ -234,27 +328,30 @@
   }
 
   .commentary_white {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
+    background-position: -254px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     right: 11px;
-    bottom: 6px;
+    bottom: 4px;
   }
 
   .sign_see_white {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
+    background-position: -1954px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     right: 95px;
-    bottom: 7px;
+    bottom: 5px;
   }
 
   .smiley_happy_white {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
+    background-position: -2077px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     right: 54px;
-    bottom: 7px;
+    bottom: 5px;
   }
 
   .smiley_happy_white_in_frame {
@@ -265,10 +362,64 @@
   }
 
   .pin_blue {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
+    background-position: -1321px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     left: 70px;
+  }
+
+  .smiley_happy_blue {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2518px center;
+    background-repeat: no-repeat;
+    background-size: auto 25px;
+    height: 44px;
+    width: 25px;
+  }
+
+  .pinlist_shared {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2161px center;
+    background-repeat: no-repeat;
+    background-size: auto 29px;
+    height: 27px;
+    width: 32px;
+    margin-top: 9px;
+  }
+
+  .pinlist_shared_new {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2193px center;
+    background-repeat: no-repeat;
+    background-size: auto 29px;
+    height: 48px;
+    width: 32px;
+  }
+
+  .btn .pinlist_shared_new.pull-left {
+    background-position: -2193px center;
+    background-size: auto 29px;
+    height: 33px;
+    width: 30px;
+  }
+
+  .pinlist_blue {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -1927px center;
+    background-repeat: no-repeat;
+    background-size: auto 27px;
+    height: 48px;
+    width: 24px;
+    margin-right: 0px;
+  }
+
+  .btn .smiley_happy_blue.pull-left {
+    background-position: -2518px center;
+    background-size: auto 25px;
+    height: 25px;
+    width: 25px;
+    margin-top: 3px;
   }
 
   .pin_blue_in_frame {
@@ -282,18 +433,19 @@
     background-color: blue;
     margin-left: 152px;
     position: absolute;
-    width: 10px;
-    border-radius: 10px;
-    font-size: 9px;
-    top: 4px;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    top: 0px;
     color: white;
   }
 
   .new_blue-signs {
-    /*background-position: right 2px top 0;*/
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
+    background-position: -1234px center;
+    background-size: auto 20px;
+    height: 20px;
+    width: 20px;
     left: 52px;
   }
 
@@ -303,6 +455,7 @@
     vertical-align: middle;
     font-weight: bold;
     width: 52rem;
+    font-size: 18px;
   }
 
   .dropdown-menu > li > a {
@@ -312,6 +465,7 @@
     white-space: nowrap;
     line-height: 46px;
     font-weight: bold;
+    font-size: 16px;
   }
 
   .open > .dropdown-menu {
@@ -352,6 +506,7 @@
 
   .text_hyphenation.navbar_title.pull-right{
     width: 51rem;
+    font-size: 24px;
   }
   /* End Mes Demandes /sec/my-requests */
 
@@ -609,7 +764,7 @@
   }
 
   .btn .pinlist_shared.pull-left {
-    margin-left: 5px;
+    margin-top: 3px;
   }
 
   .group_project_add{
