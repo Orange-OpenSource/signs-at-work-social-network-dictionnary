@@ -344,6 +344,35 @@ h4, .h4 {
 /* End Menu */
 
 /* Begin Voir les signes /sec/signs */
+.navbar_title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 25px;
+  width: 23rem;
+  text-align:right;
+  color: white;
+}
+
+#myform input::placeholder{
+  color:white;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.labelSigne a{
+    font-size:14px;
+    white-space: nowrap;
+}
+
+.labelSigne {
+  font-size: 14px;
+  white-space: nowrap;
+  max-width: 116px;
+  text-align: center;
+  padding-left: 33px;
+}
+
 .logo-SW_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2124px center;
@@ -364,11 +393,14 @@ h4, .h4 {
 }
 
 #myform input[type=search]{
+  padding-left: 25px;
+  margin-bottom: 10px;
+  line-height: 40px;
+  height: 40px;
   border-radius: 30px;
   background-color: #000000;
   box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
   box-sizing: border-box;
-  margin: auto;
   color:white;
 }
 
@@ -531,6 +563,10 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-position: -926px center;
   background-repeat: no-repeat;
   position: absolute;
+  background-size: auto 15px;
+  height: 15px;
+  width: 15px;
+  left: 20px;
 }
 
 .new_blue {
@@ -549,6 +585,10 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-repeat: no-repeat;
   position: absolute;
   bottom: 7px;
+  background-size: auto 15px;
+  height: 15px;
+  width: 15px;
+  right: 11px;
 }
 
 .sign_see_white {
@@ -557,6 +597,10 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-repeat: no-repeat;
   position: absolute;
   bottom: 7px;
+  background-size: auto 15px;
+  height: 15px;
+  width: 15px;
+  right: 64px;
 }
 
 .smiley_happy_white {
@@ -565,6 +609,10 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-repeat: no-repeat;
   position: absolute;
   bottom: 7px;
+  background-size: auto 15px;
+  height: 15px;
+  width: 15px;
+  right: 38px;
 }
 
 .smiley_happy_white_in_frame {
@@ -579,6 +627,10 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-position: -991px center;
   background-repeat: no-repeat;
   position: absolute;
+  background-size: auto 15px;
+  height: 15px;
+  width: 15px;
+  left: 33px;
 }
 
 .pin_blue_in_frame {
@@ -633,6 +685,104 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-size: auto 20px;
   height: 26px;
   width: 9px;
+}
+
+#reset{
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2310px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 26px;
+  width: 14px;
+  position: absolute;
+  margin-top: 6px;
+  right: 15%;
+  background-color: #000000;
+  border: none;
+  color: #FFFFFF;
+  visibility: hidden;
+}
+
+.btn .new_blue.pull-left {
+  background-position: -1235px center;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
+.btn .down_black {
+  background-position: -2224px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 28px;
+  width: 20px;
+}
+
+button[data-toggle="dropdown"].btn {
+  line-height: 3rem;
+  vertical-align: middle;
+  font-weight: bold;
+  width: 32rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.dropdown-menu > li > a {
+  display: block;
+  padding-left: 1px;
+  padding-top: 3px;
+  white-space: nowrap;
+  line-height: 46px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 12px;
+}
+
+.btn .all-signs_blue.pull-left {
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
+.btn .sort_alpha_blue.pull-left {
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
+.btn .smiley_happy_blue.pull-left {
+  background-position: -2013px center;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+  margin-top: 3px;
+}
+
+.btn .pinlist_shared_new.pull-left {
+  background-position: -1815px center;
+  background-size: auto 24px;
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+}
+
+.btn .pinlist_shared.pull-left {
+  margin-left: 5px;
+  margin-top: 0px;
+}
+
+img{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  overflow: hidden;
+  border: 1px solid;
+  margin-bottom: 20px;
 }
 
 /* End Voir les signes /sec/signs */
@@ -1295,13 +1445,13 @@ input[type=file] {
 
 .container_tooltip_in_image {
   height: 30px;
-  width: 90px;
+  width: 52%;
   border-radius: 15px;
   background-color: #4866F7;
   box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
   position: absolute;
   bottom: 27px;
-  margin-left: 29px;
+  margin-left: 17%;
 }
 
 #communities-container>label>h4 {

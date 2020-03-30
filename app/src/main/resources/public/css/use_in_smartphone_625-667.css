@@ -55,8 +55,8 @@
   }
 
   img{
-    height:225px;
-    width: 225px;
+    height:100%;
+    width: 100%;
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
@@ -704,7 +704,7 @@
 
   .container_tooltip_in_image {
     height: 30px;
-    width: 131px;
+    width: 52%;
     border-radius: 15px;
     background-color: #4866F7;
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);

@@ -38,24 +38,24 @@
   /* End Menu */
 
   /* Begin Voir les signes /sec/signs */
-  .navbar_title {
+/*  .navbar_title {
     font-size: 18px;
     font-weight: bold;
     margin-top: 25px;
     width: 23rem;
     text-align:right;
-  }
+  }*/
 
-  #myform input[type=search] {
+/*  #myform input[type=search] {
     box-sizing: border-box;
     padding-left: 25px;
     margin-bottom: 10px;
     line-height: 40px;
     height: 40px;
-    /*width: 29rem;*/
-  }
+    !*width: 29rem;*!
+  }*/
 
-  button[data-toggle="dropdown"].btn {
+/*  button[data-toggle="dropdown"].btn {
     line-height: 3rem;
     vertical-align: middle;
     font-weight: bold;
@@ -63,30 +63,30 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
-  }
+  }*/
 
 /*  .btn .caret {
     margin-top: 1rem;
   }*/
 
-  .btn .new_blue.pull-left {
+/*  .btn .new_blue.pull-left {
     background-position: -1235px center;
     background-size: auto 20px;
     height: 20px;
     width: 20px;
     margin-left: 5px;
     margin-top: 3px;
-  }
+  }*/
 
-  .btn .down_black {
+/*  .btn .down_black {
     background-position: -2224px center;
     background-repeat: no-repeat;
     background-size: auto 20px;
     height: 28px;
     width: 20px;
-  }
+  }*/
 
-  .dropdown-menu > li > a {
+/*  .dropdown-menu > li > a {
     display: block;
     padding-left: 1px;
     padding-top: 3px;
@@ -96,15 +96,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 12px;
-  }
+  }*/
 
-  .labelSigne {
+/*  .labelSigne {
     font-size: 14px;
     white-space: nowrap;
     max-width: 116px;
     text-align: center;
     padding-left: 33px;
-  }
+  }*/
 
   .labelVideo {
     font-size: 14px;
@@ -113,33 +113,33 @@
     padding-left: 33px;
   }
 
-  .new_blue-signs {
+/*  .new_blue-signs {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     left: 20px;
-  }
-
+  }*/
+/*
   .commentary_white {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     right: 11px;
-  }
+  }*/
 
-  .sign_see_white {
+/*  .sign_see_white {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     right: 64px;
-  }
+  }*/
 
-  .smiley_happy_white {
+/*  .smiley_happy_white {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     right: 38px;
-  }
+  }*/
 
   .smiley_happy_white_in_frame {
     background-size: auto 15px;
@@ -149,12 +149,12 @@
     top: 1px;
   }
 
-  .pin_blue {
+/*  .pin_blue {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     left: 33px;
-  }
+  }*/
 
   .pin_blue_in_frame {
     background-size: auto 15px;
@@ -163,23 +163,23 @@
     left:-23px;
   }
 
-  #myform input::placeholder{
+/*  #myform input::placeholder{
     color:white;
     height: 40px;
     line-height: 40px;
     text-align: center;
-  }
+  }*/
 
-  img{
+/*  img{
     height: 140px;
     width: 140px;
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
     margin-bottom: 20px;
-  }
+  }*/
 
-  #reset{
+/*  #reset{
     background-image: url(/img/sprite_picto_400X400.png);
     background-position: -2310px center;
     background-repeat: no-repeat;
@@ -192,14 +192,14 @@
     background-color: #000000;
     border: none;
     color: #FFFFFF;
-  }
+  }*/
 
 
 
-  .labelSigne a{
+/*  .labelSigne a{
     font-size:14px;
     white-space: nowrap;
-  }
+  }*/
 
   /* End Voir les signes /sec/signs */
 
@@ -562,9 +562,9 @@
     width: 22rem;
   }
 
-  .btn .pinlist_shared.pull-left {
+/*  .btn .pinlist_shared.pull-left {
     margin-left: 5px;
     margin-top: 0px;
-  }
+  }*/
 }
 

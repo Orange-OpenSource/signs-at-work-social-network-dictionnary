@@ -782,19 +782,19 @@
 
 
 
-  .btn .sort_alpha_blue.pull-left {
+/*  .btn .sort_alpha_blue.pull-left {
     margin-left: 5px;
     margin-top: 3px;
-  }
+  }*/
 
 
-  .btn .all-signs_blue.pull-left {
+/*  .btn .all-signs_blue.pull-left {
     background-size: auto 20px;
     height: 20px;
     width: 20px;
     margin-left: 5px;
     margin-top: 3px;
-  }
+  }*/
 
 
   .btn .pinlist_blue.pull-left {
@@ -806,13 +806,13 @@
   }
 
 
-  .btn .pinlist_shared_new.pull-left {
+/*  .btn .pinlist_shared_new.pull-left {
     background-position: -1815px center;
     background-size: auto 24px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
   .btn .most_viewed.pull-left {
     background-position: -1560px center;
@@ -840,13 +840,13 @@
   }
 
 
-  .btn .smiley_happy_blue.pull-left {
+/*  .btn .smiley_happy_blue.pull-left {
     background-position: -2013px center;
     background-size: auto 20px;
     height: 20px;
     width: 20px;
     margin-top: 3px;
-  }
+  }*/
 
   .btn .signe.pull-left {
     background-position: -975px center;
@@ -899,10 +899,10 @@
 @media only screen and (min-width:376px) and (max-width:495px) {
 
 
-  button[data-toggle="dropdown"].btn{
+/*  button[data-toggle="dropdown"].btn{
     line-height: 3rem;
     vertical-align: middle;
-  }
+  }*/
 
   #label_dictionary{
     display: inline-block;
@@ -985,9 +985,9 @@
     width:214px;
   }
 
-  .labelSigne a{
+/*  .labelSigne a{
     font-size:10px;
-  }
+  }*/
 
   h2, .h2 {
     font-size: 17px;
@@ -1044,13 +1044,13 @@
     margin-left: 5px;
   }
 
-  .btn .sort_alpha_blue.pull-left {
+/*  .btn .sort_alpha_blue.pull-left {
     background-position: -1650px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
   .btn .pinlist_blue.pull-left {
     background-position: -2940px center;
@@ -1060,21 +1060,21 @@
     margin-left: 5px;
   }
 
-  .btn .pinlist_shared.pull-left {
+/*  .btn .pinlist_shared.pull-left {
     background-position: -314px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
-  .btn .pinlist_shared_new.pull-left {
+/*  .btn .pinlist_shared_new.pull-left {
     background-position: -314px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
   .btn .most_viewed.pull-left {
     background-position: -1560px center;
@@ -1100,21 +1100,21 @@
     margin-left: 5px;
   }
 
-  .btn .down_black {
+/*  .btn .down_black {
     background-position: -1590px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
-  .btn .smiley_happy_blue.pull-left {
+/*  .btn .smiley_happy_blue.pull-left {
     background-position: -180px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
   .btn .signe.pull-left {
     background-position: -975px center;
@@ -1125,13 +1125,13 @@
   }
 
 
-  .dropdown-menu > li > a {
+/*  .dropdown-menu > li > a {
     display: block;
     padding-left: 1px;
     padding-top: 3px;
     white-space: nowrap;
     line-height: 46px;
-  }
+  }*/
 
   .container_tooltip {
     background-color: red !important;
@@ -1139,29 +1139,29 @@
     right: 25px;
   }
 
-  .new_blue-signs {
+/*  .new_blue-signs {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
     right: 80px;
-  }
+  }*/
 
-  .commentary_white {
+/*  .commentary_white {
     background-position: right 0px top 0px;
     background-size: auto 16px;
     height: 14px;
     width: 16px;
     right: 63px;
-  }
+  }*/
 
-  .sign_see_white {
+/*  .sign_see_white {
     background-position: right 2px top 0px;
     background-size: auto 15px;
     height: 14px;
     width: 16px;
     right: 46px;
-  }
+  }*/
 
 
   .smiley_happy_white {
@@ -1172,15 +1172,15 @@
     right: 32px;
   }
 
-  .pin_blue {
+/*  .pin_blue {
     background-position: right 2px top 0px;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
     right: 15px;
-  }
+  }*/
 
-  .tooltip_variante {
+/*  .tooltip_variante {
     bottom: 25px;
     background-color: aliceblue;
     height: 10px;
@@ -1189,7 +1189,7 @@
     width: 10px;
     border-radius: 10px;
     font-size: 8px;
-  }
+  }*/
 
   img{
     height:170px;
@@ -1229,17 +1229,17 @@
     border: 2px solid ;
     border-radius: 11px;
     box-sizing: border-box;
-    padding-right: 18%;
+    /*padding-right: 18%;*/
     margin-bottom:10px;
   }
 
-  #reset {
+/*  #reset {
     position: absolute;
     margin-top: 7px;
     right: 22%;
     background-color: #E2E2E2;
     border: none;
-  }
+  }*/
 
   .aside_bckg_li h2,.aside_bckg_li h4 {
     overflow: hidden;
@@ -1731,7 +1731,7 @@
     border: 2px solid ;
     border-radius: 11px;
     box-sizing: border-box;
-    padding-right: 18%;
+/*    padding-right: 18%;*/
     margin-bottom:10px;
   }
 
@@ -2024,7 +2024,7 @@
     border: 2px solid ;
     border-radius: 11px;
     box-sizing: border-box;
-    padding-right: 18%;
+    /*padding-right: 18%;*/
     margin-bottom:10px;
   }
 

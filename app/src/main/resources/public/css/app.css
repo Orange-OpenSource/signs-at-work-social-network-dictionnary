@@ -146,12 +146,12 @@ clear: both;
 	width: 55px;
 }
 
-.navbar_title {
+/*.navbar_title {
 	color: white;
 	cursor: default;
 	font-size: 17px;
 	margin-top: 10px;
-}
+}*/
 
 
 .right-inner-addon {
@@ -481,9 +481,9 @@ ul#orange-navbar-collapse >li {
   visibility: hidden;
 
 }*/
-#reset{
+/*#reset{
   visibility: hidden;
-}
+}*/
 
 #reset_search_request{
   visibility: hidden;
