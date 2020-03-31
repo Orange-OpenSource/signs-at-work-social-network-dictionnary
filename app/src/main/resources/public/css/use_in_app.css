@@ -1275,6 +1275,12 @@ input[type=file] {
 /* End Fiche signe /sign */
 
 /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
+
+.col-md-4.col-xs-12 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 #definition{
   margin-left: 15px;
 }
