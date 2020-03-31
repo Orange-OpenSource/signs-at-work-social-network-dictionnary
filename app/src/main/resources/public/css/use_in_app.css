@@ -19,6 +19,11 @@ body{
   padding-left: 8px;
 }
 
+.row{
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
 .container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
   margin-right: 0px;
 }
