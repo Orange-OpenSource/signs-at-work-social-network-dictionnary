@@ -118,6 +118,7 @@ input[type="text"],[type="email"],[type="password"] {
 
 /* Begin index page /index */
 
+
 #display_url{
   top: 30px
 }
@@ -349,6 +350,13 @@ h4, .h4 {
 /* End Menu */
 
 /* Begin Voir les signes /sec/signs */
+
+.col-xs-12.middle-col{
+  margin-bottom: 20px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
 .navbar_title {
   font-size: 18px;
   font-weight: bold;
@@ -671,7 +679,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .open > .dropdown-menu {
   right: auto;
-  left: 51%;
+  left: 50%;
   -webkit-transform: translate(-50%, 0);
   -o-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
@@ -680,7 +688,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .open>.dropdown-menu {
   /*display: inline-table;*/
-  width: 32rem;
+  width: 33rem;
 }
 
 .menu_down_black {
@@ -729,7 +737,7 @@ button[data-toggle="dropdown"].btn {
   line-height: 3rem;
   vertical-align: middle;
   font-weight: bold;
-  width: 32rem;
+  width: 33rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -1122,6 +1130,42 @@ video{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1942px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background-color: transparent;
+  margin-left: 148px;
+  margin-right: 148px;
+}
+
+H4#label_record,
+H4#label_after_record,
+H4#label_record_job_description,
+H4#label_after_record_job_description {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #4866F7;
+}
+
+#continue, #cancel-recording {
+  font-size: 14px;
+}
+
+#container-button > button,
+#cancel-recording {
+  border: none;
+  background-color: transparent;
+  color: #000000;
+  padding: 0px;
+  /*padding-right: 28px;*/
+}
+
+#container-button > button,
+#continue {
+  border: none;
+  background-color: transparent;
+  color: #4866F7;
 }
 
 /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */

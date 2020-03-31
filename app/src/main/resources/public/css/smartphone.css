@@ -714,9 +714,9 @@
 
 
 
-  .col-xs-12.middle-col{
+ /* .col-xs-12.middle-col{
     margin-bottom: 20px;
-  }
+  }*/
 
 
   [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {

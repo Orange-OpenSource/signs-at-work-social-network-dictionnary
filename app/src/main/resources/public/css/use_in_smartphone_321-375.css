@@ -265,23 +265,23 @@
   /* End Fenêtre modale Ajouter un signe id=suggest modal-suggest */
 
   /* Begin Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
-  H4#label_record,
+/*  H4#label_record,
   H4#label_after_record,
   H4#label_record_job_description,
   H4#label_after_record_job_description {
     margin-top: 5px;
     margin-bottom: 5px;
     color: #4866F7;
-  }
+  }*/
 
-  #container-button > button,
+/*  #container-button > button,
   #cancel-recording {
     border: none;
     background-color: transparent;
     color: #000000;
     padding: 0px;
-    /*padding-right: 28px;*/
-  }
+    !*padding-right: 28px;*!
+  }*/
 
   #container_video {
     display: none;
@@ -294,7 +294,7 @@
     top: 32%;
   }
 
-  .rewind_black {
+/*  .rewind_black {
     background-size: auto 24px;
     height: 24px;
     width: 24px;
@@ -302,18 +302,18 @@
     background-color: transparent;
     margin-left: 160px;
     margin-right: 82px;
-  }
+  }*/
 
-  #container-button > button,
+/*  #container-button > button,
   #continue {
     border: none;
     background-color: transparent;
     color: #4866F7;
-  }
+  }*/
 
-  #continue, #cancel-recording {
+ /* #continue, #cancel-recording {
     font-size: 14px;
-  }
+  }*/
 
   /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
 
@@ -559,7 +559,7 @@
   .container_H2{
     float: left;
     margin-left: 15px;
-    width: 22rem;
+    width: 21rem;
   }
 
 /*  .btn .pinlist_shared.pull-left {
