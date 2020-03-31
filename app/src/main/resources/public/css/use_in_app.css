@@ -990,17 +990,17 @@ button.close{
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 46px;
-  width: 30px;
+  width: 28px;
   margin-right: 20px;
 }
 
 .description_movie_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -529px center;
+  background-position: -531px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 46px;
-  width: 28px;
+  width: 23px;
   margin-right: 20px;
 }
 
@@ -1272,11 +1272,22 @@ input[type=file] {
   background-repeat: no-repeat;
 }
 
+.label_sign_H2.container_H2{
+  width: 26rem;
+  margin-left: 0px;
+}
+
+h1, .h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color:#4866F7;
+}
+
 /* End Fiche signe /sign */
 
 /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 
-.col-md-4.col-xs-12 {
+.sign_menu {
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -1355,6 +1366,16 @@ input[type=file] {
   height: 45px;
   width: 30px;
   margin-right: 20px;
+}
+
+textarea#text {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #EBEBEB;
+  border-style: none;
+  border-radius: 0px;
+  font-size: 14px;
+  color: #4866F7;
 }
 
 /* End Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */

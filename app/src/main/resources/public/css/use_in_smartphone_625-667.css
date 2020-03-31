@@ -544,7 +544,7 @@
     background-color: #EBEBEB;
     border-style: none;
     border-radius: 0px;
-    font-size: 14px;
+    font-size: 18px;
     color: #4866F7;
   }
 
@@ -854,7 +854,8 @@
 
   .description_movie_blue {
     background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -660px center;
+    /*background-position: -660px center;*/
+    background-position: -670px center;
     background-repeat: no-repeat;
     background-size: auto 40px;
     height: 45px;
@@ -873,20 +874,20 @@
 
   .camera_blue {
     background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -196px center;
+    background-position: -169px center;
     background-repeat: no-repeat;
-    background-size: auto 40px;
+    background-size: auto 35px;
     height: 46px;
-    width: 40px;
+    width: 35px;
   }
 
   .folder_blue{
     background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1112px center;
+    background-position: -970px center;
     background-repeat: no-repeat;
-    background-size: auto 40px;
+    background-size: auto 35px;
     height: 46px;
-    width: 40px;
+    width: 35px;
   }
 
   .record {
@@ -916,5 +917,80 @@
     border: none;
     font-size: 18px;
     color: #000000;
+  }
+
+  .variant_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4330px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+  .commentary_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -467px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-color: Transparent;
+    border: none;
+    background-position: -4192px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 49px;
+    width: 40px;
+  }
+
+  .variant_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4783px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .commentary_white-modal_header {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -509px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .smiley_happy_menu_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4070px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 49px;
+    width: 40px;
+  }
+
+  .description_sign {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -740px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 48px;
+    width: 40px;
+  }
+
+  .history_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4946px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 48px;
+    width: 40px;
   }
 }

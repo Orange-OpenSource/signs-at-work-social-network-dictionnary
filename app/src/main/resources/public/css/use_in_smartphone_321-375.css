@@ -360,18 +360,18 @@
     width: 50px;
   }
 
-  .label_sign_H2.container_H2{
+/*  .label_sign_H2.container_H2{
     width: 26rem;
     margin-left: 0px;
-  }
+  }*/
 
-  h1, .h1 {
+/*  h1, .h1 {
     font-size: 20px;
     font-weight: bold;
     color:#4866F7;
-  }
+  }*/
 
-  textarea#text {
+/*  textarea#text {
     width: 100%;
     margin-bottom: 10px;
     background-color: #EBEBEB;
@@ -379,7 +379,7 @@
     border-radius: 0px;
     font-size: 14px;
     color: #4866F7;
-  }
+  }*/
 
   textarea::-webkit-input-placeholder {
     color: #8C8C8C;
@@ -556,11 +556,11 @@
   }
   /* End /sec/favorite/share/"id" */
 
-  .container_H2{
+/*  .container_H2{
     float: left;
     margin-left: 15px;
     width: 21rem;
-  }
+  }*/
 
 /*  .btn .pinlist_shared.pull-left {
     margin-left: 5px;
