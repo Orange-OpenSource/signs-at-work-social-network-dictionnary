@@ -35,42 +35,42 @@
                 <li th:if="${!isFavoriteBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#rename_favorite">
                         <div class="pull-left edit_blue"></div>
-                        <h2 class="container_H2" th:text="#{favorite.rename_managed_by(${userName})}"></h2>
+                        <h2 class="text_hyphenation container_H2" th:text="#{favorite.rename_managed_by(${userName})}"></h2>
                         <div class="pull-right edit_black"></div>
                     </a>
                 </li>
                 <li th:if="${isFavoriteBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#rename_favorite">
                     <div class="pull-left edit_blue"></div>
-                    <h2 class="container_H2" th:text="#{favorite.rename}"></h2>
+                    <h2 class="text_hyphenation container_H2" th:text="#{favorite.rename}"></h2>
                     <div class="pull-right edit_black"></div>
                   </a>
                 </li>
                 <li class="aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#duplicate_favorite">
                         <div class="pull-left copy_blue"></div>
-                        <h2 class="container_H2" th:text="#{favorite.duplicate}"></h2>
+                        <h2 class="text_hyphenation container_H2" th:text="#{favorite.duplicate}"></h2>
                         <div class="pull-right edit_black"></div>
                     </a>
                 </li>
                 <li th:if="${!isFavoriteBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#delete_favorite">
                         <div class="pull-left pinlist_delete"></div>
-                        <h2 class="container_H2" th:text="#{favorite.delete_managed_by(${userName})}"></h2>
+                        <h2 class="text_hyphenation container_H2" th:text="#{favorite.delete_managed_by(${userName})}"></h2>
                         <div class="pull-right chevron"></div>
                     </a>
                 </li>
                 <li th:if="${isFavoriteBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#delete_favorite">
                     <div class="pull-left pinlist_delete"></div>
-                    <h2 class="container_H2" th:text="#{favorite.delete}"></h2>
+                    <h2 class="text_hyphenation container_H2" th:text="#{favorite.delete}"></h2>
                     <div class="pull-right chevron"></div>
                   </a>
                 </li>
                 <li th:if="${favoriteManageView.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="clear aside_bckg_li">
                   <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} + '/communities'">
                     <div class="pull-left see_group_blue"></div>
-                    <h2 class="container_H2"  th:text="#{favorite.see_share_communities}"></h2>
+                    <h2 class="text_hyphenation container_H2"  th:text="#{favorite.see_share_communities}"></h2>
                     <div class="pull-right chevron"></div>
                   </a>
                 </li>
@@ -89,7 +89,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="pinlist_delete_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{favorite.delete_list}"></h2>
+                    <h2 class="text_hyphenation" th:text="#{favorite.delete_list}"></h2>
                 </div>
             </div>
 
@@ -115,7 +115,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="edit_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{favorite.rename_list}"></h2>
+                    <h2 class="text_hyphenation" th:text="#{favorite.rename_list}"></h2>
                 </div>
             </div>
 
@@ -145,7 +145,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="copy_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{favorite.duplicate_list}"></h2>
+                    <h2 class="text_hyphenation" th:text="#{favorite.duplicate_list}"></h2>
                 </div>
             </div>
             <div class="modal-body">
@@ -174,7 +174,7 @@
       <div class="modal-header">
         <div class="pull-left">
           <div class="pinlist_delete_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{favorite.deleted_title}"/>
+          <h2 class="text_hyphenation" th:text="#{favorite.deleted_title}"/>
         </div>
       </div>
       <div class="modal-body text-center">
@@ -190,7 +190,7 @@
       <div class="modal-header">
         <div class="pull-left">
           <div class="edit_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{favorite.renamed_title}"/>
+          <h2 class="text_hyphenation" th:text="#{favorite.renamed_title}"/>
         </div>
       </div>
       <div class="modal-body text-center">
@@ -206,7 +206,7 @@
       <div class="modal-header">
         <div class="pull-left">
           <div class="copy_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{favorite.duplicated_title}"/>
+          <h2 class="text_hyphenation" th:text="#{favorite.duplicated_title}"/>
         </div>
       </div>
       <div class="modal-body text-center">

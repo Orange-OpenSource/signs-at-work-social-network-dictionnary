@@ -1451,18 +1451,30 @@ textarea#text {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -592px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top: 11px;
 }
 
 .copy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -351px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top: 11px;
 }
 
 .pinlist_delete{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1733px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top: 11px;
 }
 
 /* End manage-favorite /sec/favorite/"id" */
@@ -1476,6 +1488,10 @@ textarea#text {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -470px center;
   background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 30px;
+  margin-right: 12px;
 }
 /* End Fenêtre modale Renommer Liste id=duplicate_favorite */
 
@@ -1485,6 +1501,10 @@ textarea#text {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2202px center;
   background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 30px;
+  margin-right: 12px;
 }
 /* End Fenêtre modale Renommer Liste id=delete_favorite */
 
@@ -1600,18 +1620,30 @@ textarea#text {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2068px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 25px;
+  margin-top: 11px;
 }
 
 .share_blue{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2121px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 25px;
+  margin-top: 11px;
 }
 
 .add-remove{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -44px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 25px;
+  margin-top: 11px;
 }
 
 /* End favorite /sec/favorite/"id" */
@@ -1621,6 +1653,10 @@ textarea#text {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -818px center;
   background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 25px;
+  margin-top: 11px;
 }
 
 .group_blue {
@@ -1711,6 +1747,10 @@ textarea#text {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1057px center;
   background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 31px;
+  margin-right: 20px;
 }
 /* End favorite /sec/favorite/share/"id" */
 
@@ -2172,4 +2212,38 @@ pre {
 
 H2.text_hyphenation{
   width: 22rem;
+}
+
+label .text_hyphenation {
+  width:13rem;
+  padding-left: 0rem;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+#reset_search_user{
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2310px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 26px;
+  width: 14px;
+  position: absolute;
+  margin-top: 6px;
+  right: 14%;
+  background-color: #000000;
+  border: none;
+  color: #FFFFFF;
+  visibility: hidden;
+}
+
+#users-container {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#communities-container {
+  padding-left: 8px;
+  padding-right: 8px;
 }

@@ -1190,4 +1190,24 @@
     height: 46px;
     width: 31px;
   }
+
+  .pin_add_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2557px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .pinlist_add_white{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2769px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
 }

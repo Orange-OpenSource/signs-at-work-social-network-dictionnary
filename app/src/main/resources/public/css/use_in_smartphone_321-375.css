@@ -421,27 +421,27 @@
   /* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
 
   /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
-  .edit_blue{
+/*  .edit_blue{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }*/
+
+/*  .copy_blue{
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    margin-top: 11px;
+  }*/
+
+ /* .pinlist_delete{
     background-size: auto 24px;
     height: 24px;
     width: 24px;
     margin-top: 11px;
   }
-
-  .copy_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
-  }
-
-  .pinlist_delete{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
-  }
-
+*/
 
   /* End manage-favorite /sec/favorite/"id"/manage-favorite */
 
@@ -450,31 +450,31 @@
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
   /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
-  .copy_white{
+/*  .copy_white{
     background-size: auto 30px;
     height: 44px;
     width: 30px;
     margin-right: 12px;
-  }
+  }*/
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
   /* Begin manage-favorite /sec/favorite/"id"/associate-sign */
-  label .text_hyphenation {
+/*  label .text_hyphenation {
     width:13rem;
     padding-left: 0rem;
     font-size: 14px;
     font-weight: bold;
     white-space: nowrap;
-  }
+  }*/
   /* End manage-favorite /sec/favorite/"id"/associate-sign */
 
   /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
-  .pinlist_delete_white{
+/*  .pinlist_delete_white{
     background-size: auto 30px;
     height: 44px;
     width: 30px;
     margin-right: 12px;
-  }
+  }*/
   /* End Fenêtre modale Renommer Liste id=delete_favorite */
 
   /* Begin Fiche détail de ma demande /sec/my-request-detail */
@@ -500,7 +500,7 @@
   }
 
 
-  #reset_search_user{
+/*  #reset_search_user{
     background-image: url(/img/sprite_picto_400X400.png);
     background-position: -2310px center;
     background-repeat: no-repeat;
@@ -513,47 +513,47 @@
     background-color: #000000;
     border: none;
     color: #FFFFFF;
-  }
+  }*/
 
   /* Begin favorite /sec/favorite/"id" */
-  .settings2_blue{
+/*  .settings2_blue{
     background-size: auto 24px;
     height: 24px;
     width: 25px;
     margin-top: 11px;
-  }
+  }*/
 
-  .share_blue{
+/*  .share_blue{
     background-size: auto 24px;
     height: 24px;
     width: 25px;
     margin-top: 11px;
-  }
+  }*/
 
-  .add-remove{
+/*  .add-remove{
     background-size: auto 24px;
     height: 24px;
     width: 25px;
     margin-top: 11px;
-  }
+  }*/
 
 
   /* End favorite /sec/favorite/"id" */
 
   /* Begin /sec/favorite/share/"id" */
-  .group_project_add{
+/*  .group_project_add{
     background-size: auto 24px;
     height: 24px;
     width: 25px;
     margin-top: 11px;
-  }
+  }*/
 
-  .group_project_add_white{
+/*  .group_project_add_white{
     background-size: auto 30px;
     height: 45px;
     width: 31px;
     margin-right: 20px;
-  }
+  }*/
   /* End /sec/favorite/share/"id" */
 
 /*  .container_H2{
