@@ -2247,3 +2247,8 @@ label .text_hyphenation {
   padding-left: 8px;
   padding-right: 8px;
 }
+
+#create_description_lsf_request {
+  padding-left: 8px;
+  padding-right: 8px;
+}

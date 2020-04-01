@@ -46,7 +46,7 @@
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
           <a data-target="#new_request" data-toggle="modal" href="#">
-            <h2 class="container_H2" th:text="${signName}"/>
+            <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
             <div>
               <div class="pull-right edit_black"/>
             </div>
@@ -110,7 +110,7 @@
             <li class="dotted-top">
               <a th:href="@{/sign/} + ${sign.id}">
                 <div>
-                  <h2 class="container_H2" th:text="${sign.name}"></h2>
+                  <h2 class="text_hyphenation container_H2" th:text="${sign.name}"></h2>
                   <div>
                     <div class="pull-right chevron"></div>
                   </div>
@@ -140,7 +140,7 @@
                 <div>
                   <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left group_ask_blue"></div>
                   <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left member_ask_blue"></div>
-                  <h2 class="container_H2" th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
+                  <h2 class=" text_hyphenation container_H2" th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
                   <div>
                     <div class="pull-right chevron"></div>
                   </div>
@@ -160,7 +160,7 @@
                 <div>
                   <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left group_ask_blue"></div>
                   <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left member_ask_blue"></div>
-                  <h2 class="container_H2" th:text="${request.requestName}"></h2>
+                  <h2 class="text_hyphenation container_H2" th:text="${request.requestName}"></h2>
                   <div>
                     <div class="pull-right chevron"></div>
                   </div>
