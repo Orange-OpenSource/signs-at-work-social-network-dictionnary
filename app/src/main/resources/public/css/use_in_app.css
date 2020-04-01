@@ -1208,6 +1208,15 @@ input[type=file] {
   width: 20px;
 }
 
+.smiley_happy_blue-sign {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2015px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 46px;
+  width: 20px;
+}
+
 .modal-body .smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2416px center;

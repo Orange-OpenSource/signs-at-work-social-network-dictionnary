@@ -82,16 +82,16 @@
       </li>
       <li>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isMostRating}" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
-          <div class="pull-left smiley_happy_blue"></div>
+          <div class="pull-left smiley_happy_blue-sign "></div>
           <span th:text="#{most_rating}"></span>
           <div class="pull-right v-done-down_black"></div>
         </a>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isMostRating and !isLowRating}" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
-          <div class="pull-left smiley_happy_blue"></div>
+          <div class="pull-left smiley_happy_blue-sign "></div>
           <span th:text="#{most_rating}"></span>
         </a>
         <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isLowRating}" th:href="@{/sec/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
-          <div class="pull-left smiley_happy_blue"></div>
+          <div class="pull-left smiley_happy_blue-sign "></div>
           <span th:text="#{most_rating}"></span>
           <div class="pull-right v-done-up_black"></div>
         </a>
