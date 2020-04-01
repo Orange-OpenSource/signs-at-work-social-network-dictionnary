@@ -1241,12 +1241,12 @@
     border: none;
   }*/
 
-  .aside_bckg_li h2,.aside_bckg_li h4 {
+/*  .aside_bckg_li h2,.aside_bckg_li h4 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 27rem;
-  }
+  }*/
 
   #sidebar.active {
     width: 362px;

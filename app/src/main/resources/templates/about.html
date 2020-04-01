@@ -30,7 +30,7 @@
 <body class="container-fluid">
 
 <div class="row">
-  <div class="title_middle col-md-12 col-xs-12 middle-col ">
+  <div class="col-xs-12">
     <h2 class="about_title" th:text="#{about.application_version(${appVersion})}"></h2>
     <div>
       <aside class="sidebar">
@@ -38,7 +38,7 @@
           <li class="aside_bckg_li">
             <a th:href="@{/sec/about-cgu}">
               <div class="pull-left cgu_conditions_blue_about"></div>
-              <h2 class="text_hypernation container_H2" th:text="#{about.see_condition_of_use}"/>
+              <h2 class="text_hyphenation container_H2" th:text="#{about.see_condition_of_use}"/>
               <div>
                 <div class="pull-right chevron_about_see_cgu"></div>
               </div>
@@ -47,7 +47,7 @@
           <li class="aside_bckg_li">
             <a th:href="'mailto:' + ${appContactSupport} + '?subject=' + #{question.to.support(${appName})}">
               <div class="pull-left contact"></div>
-              <h2 class="text_hypernation container_H2" th:text="#{about.contact_us}"/>
+              <h2 class="text_hyphenation container_H2" th:text="#{about.contact_us}"/>
               <div>
                 <div class="pull-right edit_black"></div>
               </div>

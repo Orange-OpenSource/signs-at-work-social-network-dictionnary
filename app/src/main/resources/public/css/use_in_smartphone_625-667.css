@@ -380,11 +380,11 @@
 
   .smiley_happy_blue {
     background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2518px center;
+    background-position: -4029px center;
     background-repeat: no-repeat;
-    background-size: auto 25px;
-    height: 44px;
-    width: 25px;
+    background-size: auto 40px;
+    height: 50px;
+    width: 40px;
   }
 
   .pinlist_shared {
@@ -992,5 +992,184 @@
     background-size: auto 40px;
     height: 48px;
     width: 40px;
+  }
+
+  .smiley_happy_menu_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4113px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .modal-body .smiley_happy_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4027px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 40px;
+  }
+
+  .definition_text_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -778px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .description_movie_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -709px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 32px;
+    margin-right: 20px;
+  }
+
+  .description_text_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -822px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .smiley_unhappy_blue_after_rate{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-color: Transparent;
+    border: none;
+    background-position: -4194px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 40px;
+    margin-left:69px;
+  }
+
+  .smiley_happy_blue_after_rate {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4028px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 40px;
+    margin-left: 100px;
+  }
+
+  input[type=file] {
+    font-size: 18px;
+    display: inline-block;
+  }
+
+  .smiley_happy_white_in_frame {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3117px center;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: auto 30px;
+    height: 37px;
+    width: 30px;
+    right: 80px;
+  }
+
+  .pin_blue_in_frame {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1984px center;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: auto 30px;
+    height: 36px;
+    width: 30px;
+    left:-70px;
+  }
+
+  .cgu_conditions_blue_about {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -276px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+  }
+
+  .about_title {
+    text-align: center;
+    color: #4866F7;
+    font-size:24px;
+  }
+
+  .chevron_about_see_cgu{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3487px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+  }
+
+  .contact {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -546px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 39px;
+    width: 40px;
+    margin-top: 4px;
+  }
+
+  .cgu_conditions_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -276px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+  }
+  .cgu_conditions_lsf_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -313px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+  }
+
+  #read_condition_of_use .modal-dialog,
+  #read_condition_of_use .modal-content {
+    height: 95%;
+  }
+
+  .cgu_conditions_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -391px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 31px;
+    margin-right: 20px;
+    margin-top: 3px;
+  }
+
+  .cgu_conditions_lsf_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -353px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 39px;
+    width: 30px;
+    margin-right: 20px;
+    margin-top: 5px;
   }
 }

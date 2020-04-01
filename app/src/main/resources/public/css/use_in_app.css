@@ -638,9 +638,13 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .smiley_happy_white_in_frame {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1558px center;
+  background-position: -2077px center;
   background-repeat: no-repeat;
   position: absolute;
+  background-size: auto 20px;
+  height: 27px;
+  width: 20px;
+  right: 45px;
 }
 
 .pin_blue {
@@ -656,9 +660,13 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .pin_blue_in_frame {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -991px center;
+  background-position: -1320px center;
   background-repeat: no-repeat;
   position: absolute;
+  background-size: auto 20px;
+  height: 27px;
+  width: 20px;
+  left:-42px;
 }
 
 .tooltip_variante {
@@ -976,7 +984,7 @@ button.close{
 
 .description_movie_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -398px center;
+  background-position: -402px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 45px;
@@ -1951,11 +1959,11 @@ pre {
 
 .cgu_conditions_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -288px center;
+  background-position: -293px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 30px;
-  width: 30px;
+  width: 22px;
   margin-right: 20px;
   margin-top: 10px;
 }
@@ -2085,11 +2093,11 @@ pre {
 
 .cgu_conditions_blue_about {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -272px center;
+  background-position: -242px center;
   background-repeat: no-repeat;
-  background-size: auto 40px;
+  background-size: auto 35px;
   height: 40px;
-  width: 40px;
+  width: 35px;
   margin-top: 20px;
 }
 
@@ -2111,36 +2119,35 @@ pre {
   height: 30px;
   width: 30px;
   margin-top: 10px;
-  margin-left:5px;
 }
 
 .cgu_conditions_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -219px center;
+  background-position: -242px center;
   background-repeat: no-repeat;
-  background-size: auto 32px;
+  background-size: auto 35px;
   height: 40px;
-  width: 30px;
+  width: 35px;
   margin-top: 4px;
 }
 
 .cgu_conditions_lsf_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -248px center;
+  background-position: -274px center;
   background-repeat: no-repeat;
-  background-size: auto 32px;
+  background-size: auto 35px;
   height: 40px;
-  width: 30px;
+  width: 35px;
   margin-top: 4px;
 }
 
 .cgu_conditions_lsf_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -260px center;
+  background-position: -265px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 30px;
-  width: 30px;
+  width: 22px;
   margin-right: 20px;
   margin-top: 10px;
 }
@@ -2152,4 +2159,8 @@ pre {
   background-size: auto 24px;
   height: 24px;
   width: 24px;
+}
+
+H2.text_hyphenation{
+  width: 22rem;
 }

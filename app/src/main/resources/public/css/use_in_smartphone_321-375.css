@@ -141,13 +141,13 @@
     right: 38px;
   }*/
 
-  .smiley_happy_white_in_frame {
+/*  .smiley_happy_white_in_frame {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     right: 30px;
     top: 1px;
-  }
+  }*/
 
 /*  .pin_blue {
     background-size: auto 15px;
@@ -156,12 +156,12 @@
     left: 33px;
   }*/
 
-  .pin_blue_in_frame {
+/*  .pin_blue_in_frame {
     background-size: auto 15px;
     height: 15px;
     width: 15px;
     left:-23px;
-  }
+  }*/
 
 /*  #myform input::placeholder{
     color:white;
@@ -204,9 +204,9 @@
   /* End Voir les signes /sec/signs */
 
   /* Begin Demandes de signes /sec/request */
-  H2.text_hyphenation{
+/*  H2.text_hyphenation{
     width: 23rem;
-  }
+  }*/
 
   #requestTextDescription{
     width: 100%;
