@@ -1257,10 +1257,10 @@
     width: 100%;
   }
 
-  .search_circle {
+/*  .search_circle {
     margin-top: 18px!important;
     margin-right: 8px;
-  }
+  }*/
 
 }
 
@@ -1835,10 +1835,10 @@
 @media only screen and (min-width:668px) and (max-width:767px) {
 
 
-  .search_circle {
+/*  .search_circle {
     margin-top: 18px!important;
     margin-right: 8px;
-  }
+  }*/
 
   #sidebar.active {
     width: 427px;

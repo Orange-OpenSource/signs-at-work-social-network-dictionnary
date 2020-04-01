@@ -118,6 +118,13 @@ input[type="text"],[type="email"],[type="password"] {
 
 /* Begin index page /index */
 
+.navbar-toggle {
+  margin-top: 0px;
+}
+/*#presentation_header {
+  margin-right: 6px;
+  margin-left: 20px;
+}*/
 
 #display_url{
   top: 30px
@@ -126,6 +133,7 @@ input[type="text"],[type="email"],[type="password"] {
 ul[role="tablist"]{
   padding-left: 0px;
   padding-right: 0px;
+  margin: 0;
 }
 
 .navbar-toggle-complement {
@@ -275,7 +283,7 @@ h1, .h1, h2, .h2, h3, .h3 {
   background-size: auto 50px;
   height: 50px;
   width: 50px;
-  margin-top: 3px;
+  margin-top: 10px;
 }
 
 .menu {
@@ -1270,6 +1278,9 @@ input[type=file] {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -3196px center;
   background-repeat: no-repeat;
+  background-size: auto 50px;
+  height: 68px;
+  width: 50px;
 }
 
 .label_sign_H2.container_H2{

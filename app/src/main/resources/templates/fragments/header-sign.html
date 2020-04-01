@@ -36,11 +36,11 @@
               <a href="/" th:attr="aria-label=#{home}">
                 <div class="logo-SW_blue pull-left"></div>
               </a>
-              <ul th:if="${isAuthenticated}" role="tablist" class="hidden-sm hidden-lg hidden-md navbar-toggle-complement nav navbar-nav">
+              <ul th:if="${isAuthenticated}" role="tablist" class="nav navbar-nav">
                 <li role="tab">
                   <a data-target="#add_sign_to_favorite" data-toggle="modal" href="#" title="add favorite">
-                    <div class="hidden-lg hidden-md hidden-sm pin_add_white-header text-center"></div>
-                    <span th:text="#{favorite.add}" class="text-hide"></span></a>
+                    <div class="pin_add_white-header pull-right"></div>
+                  </a>
                 </li>
               </ul>
             </div>

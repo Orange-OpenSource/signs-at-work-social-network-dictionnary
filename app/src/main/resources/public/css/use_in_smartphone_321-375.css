@@ -12,14 +12,14 @@
   /* End login page /login */
 
   /* Begin index page /index */
-  .navbar-toggle {
+/*  .navbar-toggle {
     margin-top: 0px;
-  }
+  }*/
 
-  #presentation_header {
+/*  #presentation_header {
     margin-right: 6px;
     margin-left: 20px;
-  }
+  }*/
 
 
   .label_favorite_Liste_H2.container_H2{
@@ -348,17 +348,17 @@
     margin-left: 20px;
   }
 
-  li[role="tab"] {
+/*  li[role="tab"] {
     margin-right: 42px;
     margin-left: 20px;
-  }
+  }*/
 
 
-  .pin_add_white-header {
+/*  .pin_add_white-header {
     background-size: auto 50px;
     height: 50px;
     width: 50px;
-  }
+  }*/
 
 /*  .label_sign_H2.container_H2{
     width: 26rem;
