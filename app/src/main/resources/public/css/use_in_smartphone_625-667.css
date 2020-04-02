@@ -683,24 +683,30 @@
   }
 
   .copy_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -587px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
   }
 
   .pinlist_delete{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2888px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
   }
 
   .group_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -895px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
   }
 
   /* End manage-favorite /sec/favorite/"id"/manage-favorite */
@@ -712,9 +718,12 @@
 
   /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
   .copy_white{
-    background-size: auto 30px;
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -626px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
     height: 44px;
-    width: 30px;
+    width: 40px;
     margin-right: 12px;
   }
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
@@ -724,14 +733,18 @@
     width:17rem;
     margin-left:3rem;
     white-space: nowrap;
+    font-size: 16px;
   }
   /* End manage-favorite /sec/favorite/"id"/associate-sign */
 
   /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
   .pinlist_delete_white{
-    background-size: auto 30px;
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2936px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
     height: 44px;
-    width: 30px;
+    width: 40px;
     margin-right: 12px;
   }
   /* End Fenêtre modale Renommer Liste id=delete_favorite */
@@ -776,17 +789,21 @@
   /* Begin favorite /sec/favorite/"id" */
 
   .share_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3537px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
   }
 
   .add-remove{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -74px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
   }
 
 
@@ -1391,6 +1408,35 @@
   .edit_white {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -1026px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .pin_black {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1951px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 45px;
+    width: 30px;
+  }
+
+  .group_project_blue {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -1090px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-right: 16px;
+  }
+
+  .add-remove_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -115px center;
     background-repeat: no-repeat;
     background-size: auto 40px;
     height: 45px;

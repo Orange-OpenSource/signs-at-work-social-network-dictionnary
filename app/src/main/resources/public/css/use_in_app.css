@@ -1468,9 +1468,8 @@ textarea#text {
   background-position: -351px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 11px;
 }
 
 .pinlist_delete{
@@ -1478,9 +1477,8 @@ textarea#text {
   background-position: -1733px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 11px;
 }
 
 /* End manage-favorite /sec/favorite/"id" */
@@ -1636,9 +1634,8 @@ textarea#text {
   background-position: -2121px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 25px;
-  margin-top: 11px;
 }
 
 .add-remove{
@@ -1646,9 +1643,8 @@ textarea#text {
   background-position: -44px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 25px;
-  margin-top: 11px;
 }
 
 /* End favorite /sec/favorite/"id" */
