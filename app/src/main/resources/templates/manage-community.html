@@ -35,14 +35,14 @@
                 <li th:if="${!isCommunityBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#rename_community">
                         <div class="pull-left edit_blue"></div>
-                        <h2 class="container_H2" th:text="#{community.rename_managed_by(${userName})}"></h2>
+                        <h2 class="text_hyphenation container_H2" th:text="#{community.rename_managed_by(${userName})}"></h2>
                         <div class="pull-right edit_black"></div>
                     </a>
                 </li>
                 <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#rename_community">
                     <div class="pull-left edit_blue"></div>
-                    <h2 class="container_H2" th:text="#{community.rename}"></h2>
+                    <h2 class="text_hyphenation container_H2" th:text="#{community.rename}"></h2>
                     <div class="pull-right edit_black"></div>
                   </a>
                 </li>
@@ -50,28 +50,28 @@
                 <li th:if="${!isCommunityBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#remove_me_from_community">
                     <div class="pull-left member_choose_blue"></div>
-                    <h2 class="container_H2" th:text="#{community.remove_me}"></h2>
+                    <h2 class="text_hyphenation container_H2" th:text="#{community.remove_me}"></h2>
                     <div class="pull-right edit_black"></div>
                   </a>
                 </li>
                 <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
                   <a th:href="@{/sec/community/} + ${community.id} + '/modify'">
                     <div class="pull-left member_choose_blue"></div>
-                    <h2 class="container_H2" th:text="#{community.choose_members}"></h2>
+                    <h2 class="text_hyphenation container_H2" th:text="#{community.choose_members}"></h2>
                     <div class="pull-right edit_black"></div>
                   </a>
                 </li>
                 <li th:if="${!isCommunityBelowToMe}" class="disabled aside_bckg_li">
                     <a href="#" data-toggle="modal" data-target="#delete_community">
                         <div class="pull-left group_delete_blue"></div>
-                        <h2 class="container_H2" th:text="#{community.delete_managed_by(${userName})}"></h2>
+                        <h2 class="text_hyphenation container_H2" th:text="#{community.delete_managed_by(${userName})}"></h2>
                         <div class="pull-right chevron"></div>
                     </a>
                 </li>
                 <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
                   <a href="#" data-toggle="modal" data-target="#delete_community">
                     <div class="pull-left group_delete_blue"></div>
-                    <h2 class="container_H2" th:text="#{community.delete}"></h2>
+                    <h2 class="text_hyphenation container_H2" th:text="#{community.delete}"></h2>
                     <div class="pull-right chevron"></div>
                   </a>
                 </li>

@@ -278,10 +278,7 @@
   }
 
   .navbar_title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 25px;
-    text-align:right;
+    font-size: 24px;
   }
 
   #myform input[type=search] {
@@ -677,10 +674,12 @@
 
   /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
   .edit_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -991px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
   }
 
   .copy_blue{
@@ -775,12 +774,6 @@
   /* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 
   /* Begin favorite /sec/favorite/"id" */
-  .settings2_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
-  }
 
   .share_blue{
     background-size: auto 24px;
@@ -819,16 +812,21 @@
   }
 
   .group_project_add{
-    background-size: auto 24px;
-    height: 24px;
-    width: 25px;
-    margin-top: 11px;
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1365px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
   }
 
   .group_project_add_white{
-    background-size: auto 30px;
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1409px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
     height: 45px;
-    width: 31px;
+    width: 41px;
     margin-right: 20px;
   }
 
@@ -1246,5 +1244,128 @@
     height: 45px;
     width: 40px;
     margin-right: 20px;
+  }
+
+  .see_group_member_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1324px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 49px;
+    width: 40px;
+  }
+
+  .see_group_project_me_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1498px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 49px;
+    width: 40px;
+  }
+
+  .member_me {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2056px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .settings2_blue{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3447px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .member_project_admin {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2180px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .member_choose_blue{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1964px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 42px;
+  }
+
+  .group_delete_blue{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1233px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .member_choose_white{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2009px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 44px;
+    width: 42px;
+    margin-right: 20px;
+  }
+
+  .member_project_empty-white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2257px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .member_add_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1839px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 42px;
+  }
+
+  .see_group_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1192px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .see_group_project_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1454px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .member_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1441px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 28px;
+    width: 30px;
+    margin-right: 16px;
+  }
+
+  .subtitle {
+    font-size: 20px;
   }
 }

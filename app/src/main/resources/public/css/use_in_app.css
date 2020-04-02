@@ -1459,9 +1459,8 @@ textarea#text {
   background-position: -592px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 11px;
 }
 
 .copy_blue {
@@ -1628,9 +1627,8 @@ textarea#text {
   background-position: -2068px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 25px;
-  margin-top: 11px;
 }
 
 .share_blue{
@@ -1661,9 +1659,8 @@ textarea#text {
   background-position: -818px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 44px;
   width: 25px;
-  margin-top: 11px;
 }
 
 .group_blue {
@@ -1681,10 +1678,8 @@ textarea#text {
   background-position: -715px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  /*margin-right: 16px;*/
-  margin-top:10px;
 }
 
 .group_member_blue {
@@ -1702,10 +1697,8 @@ textarea#text {
   background-position: -794px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 49px;
   width: 25px;
-  /*margin-right: 16px;*/
-  margin-top:10px;
 }
 
 .group_project_blue {
@@ -1723,10 +1716,8 @@ textarea#text {
   background-position: -872px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  /*margin-right:16px;*/
-  margin-top:10px;
 }
 
 .group_project_me_blue {
@@ -1744,10 +1735,8 @@ textarea#text {
   background-position: -898px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 49px;
   width: 25px;
-  /*margin-right:16px;*/
-  margin-top:10px;
 }
 
 .group_project_add_white{
@@ -1789,9 +1778,8 @@ textarea#text {
   background-position: -1104px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 10px;
 }
 
 .subtitle {
@@ -2042,9 +2030,8 @@ pre {
   background-position: -1179px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 11px;
 }
 
 .member_choose_white{
@@ -2062,9 +2049,8 @@ pre {
   background-position: -740px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 11px;
 }
 
 .group_delete_white{
@@ -2083,9 +2069,8 @@ pre {
   background-position: -1354px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 10px;
 }
 
 
@@ -2115,9 +2100,8 @@ pre {
   background-position: -1307px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 10px;
 }
 
 .member_project_admin_me {
@@ -2135,9 +2119,8 @@ pre {
   background-position: -1233px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 10px;
 }
 
 .about_title {
