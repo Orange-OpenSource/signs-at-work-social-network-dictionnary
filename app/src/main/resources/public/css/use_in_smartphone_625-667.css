@@ -863,8 +863,7 @@
 
   .description_movie_blue {
     background-image: url("/img/sprite_picto_400X400.png");
-    /*background-position: -660px center;*/
-    background-position: -670px center;
+    background-position: -665px center;
     background-repeat: no-repeat;
     background-size: auto 40px;
     height: 45px;
@@ -1204,6 +1203,44 @@
   .pinlist_add_white{
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -2769px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .prio_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3109px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .x-close_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4576px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .prio_blue_whitebackground {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3152px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .x-close_blue_whitecircle {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4574px center;
     background-repeat: no-repeat;
     background-size: auto 40px;
     height: 45px;

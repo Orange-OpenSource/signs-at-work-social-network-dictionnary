@@ -891,6 +891,8 @@ img{
 /* Begin Demandes de signes /sec/other-request-detail */
 #requestTextDescription{
   margin:0 auto;
+  width: 100%;
+  text-align: left;
 }
 /* End Demandes de signes /sec/other-request-detail */
 
