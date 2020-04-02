@@ -594,6 +594,17 @@ input[type=search].form-control,input[type=search].form-control:focus{
   left: 20px;
 }
 
+.new_blue-signs-profile {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -926px center;
+  background-repeat: no-repeat;
+  position: absolute;
+  background-size: auto 15px;
+  height: 15px;
+  width: 15px;
+  left: 10px;
+}
+
 .new_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1235px center;
@@ -660,6 +671,17 @@ input[type=search].form-control,input[type=search].form-control:focus{
   height: 15px;
   width: 15px;
   left: 33px;
+}
+
+.pin_blue-profile {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -991px center;
+  background-repeat: no-repeat;
+  position: absolute;
+  background-size: auto 15px;
+  height: 15px;
+  width: 15px;
+  left: 24px;
 }
 
 .pin_blue_in_frame {
