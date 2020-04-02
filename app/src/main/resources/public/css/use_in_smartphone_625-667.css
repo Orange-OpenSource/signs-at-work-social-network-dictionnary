@@ -521,11 +521,10 @@
     background-position: -2885px center;
     background-repeat: no-repeat;
     background-size: auto 25px;
-    height: 26px;
-    width: 25px;
+    height: 24px;
+    width: 24px;
     position: absolute;
-    margin-top: 10px;
-    right: 13%;
+    right: 6%;
     background-color: #000000;
     border: none;
     color: #FFFFFF;
@@ -827,11 +826,11 @@
 
   #reset_search_user{
     background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2310px center;
+    background-position: -2885px center;
     background-repeat: no-repeat;
-    background-size: auto 20px;
+    background-size: auto 25x;
     height: 26px;
-    width: 14px;
+    width: 25px;
     position: absolute;
     margin-top: 9px;
     right: 13%;
