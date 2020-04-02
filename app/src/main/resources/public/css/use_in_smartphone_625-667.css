@@ -1368,4 +1368,33 @@
   .subtitle {
     font-size: 20px;
   }
+
+  .member_project_admin_me {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2217px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .group_delete_white{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1279px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 44px;
+    width: 40px;
+    margin-right: 12px;
+  }
+
+  .edit_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1026px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
 }
