@@ -45,7 +45,7 @@
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
           <a data-target="#new-suggest" data-toggle="modal" href="#">
-            <h2 class="container_H2" th:text="${signName}"/>
+            <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
             <div>
               <div class="pull-right edit_black"/>
             </div>
@@ -97,7 +97,7 @@
             <li class="dotted-top">
               <a th:href="@{/sign/} + ${sign.id}">
                 <div>
-                  <h2 class="container_H2" th:text="${sign.name}"></h2>
+                  <h2 class="text_hyphenation container_H2" th:text="${sign.name}"></h2>
                   <div>
                     <div class="pull-right chevron"></div>
                   </div>
