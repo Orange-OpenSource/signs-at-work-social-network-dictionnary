@@ -44,11 +44,11 @@ a {
 
 .illustration_welcome {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -4070px center;
+  background-position: -4075px center;
   background-repeat: no-repeat;
   background-size: auto 100px;
   height: 100px;
-  width: 100px;
+  width: 92px;
 }
 
 #label_invite {
@@ -359,11 +359,15 @@ h4, .h4 {
 
 /* Begin Voir les signes /sec/signs */
 
-.col-xs-12.middle-col{
+.col-xs-12{
+  padding-right: 8px;
+  padding-left: 8px;
+}
+/*.col-xs-12.middle-col{
   margin-bottom: 20px;
   padding-right: 0px;
   padding-left: 0px;
-}
+}*/
 
 .navbar_title {
   font-size: 18px;
@@ -1316,8 +1320,9 @@ h1, .h1 {
 /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 
 .sign_menu {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 10px;
 }
 
 #definition{
