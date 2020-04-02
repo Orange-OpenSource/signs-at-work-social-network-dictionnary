@@ -2221,6 +2221,10 @@ H2.text_hyphenation{
   width: 22rem;
 }
 
+H2.suggest.text_hyphenation{
+  width: 27rem;
+}
+
 label .text_hyphenation {
   width:13rem;
   padding-left: 0rem;
@@ -2258,4 +2262,13 @@ label .text_hyphenation {
 #create_description_lsf_request {
   padding-left: 8px;
   padding-right: 8px;
+}
+
+#requests_container .aside_bckg_li h4{
+  white-space: normal;
+  width: 27rem;
+}
+
+.label_favorite_Liste_H2.container_H2{
+  width:24rem;
 }
