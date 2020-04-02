@@ -160,7 +160,7 @@
   <div th:if="${favoriteId} == null">
     <div th:if="${not #lists.isEmpty(signsView)}" id="signs-container" class="row" >
       <h2 id="sign_available" th:text="#{sign_available}" style="display: none"></h2>
-      <div th:id="${signView.name}" th:each="signView:${signsView}" class="sign-view-hidden text-center col-xl-2 col-lg-3 col-md-4 col-xs-6 col-sm-4">
+      <div th:id="${signView.name}" th:each="signView:${signsView}" class="sign-view-hidden text-center col-xs-12 col-xl-2 col-lg-3 col-md-4 col-xs-6 col-sm-4">
         <div class="row">
           <div class="col-lg-12 col-xl-12" >
             <div th:if="${signView.signCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
@@ -200,7 +200,7 @@
   <div th:if="${favoriteId} != null">
     <div th:if="${not #lists.isEmpty(videosView)}" id="videos-container" class="row">
       <h2 id="video_available" th:text="#{sign_available}" style="display: none"></h2>
-      <div th:id="${videoView.signName}" th:each="videoView:${videosView}" class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
+      <div th:id="${videoView.signName}" th:each="videoView:${videosView}" class="video-view-hidden text-center col-xs-12 col-lg-3 col-md-4 col-xs-6 col-sm-4">
           <div class="row">
             <div class="col-lg-12">
               <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
