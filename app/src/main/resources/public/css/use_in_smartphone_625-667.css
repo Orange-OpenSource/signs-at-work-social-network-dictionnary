@@ -499,6 +499,47 @@
 
   /* End Voir les signes /sec/signs */
 
+  /* Begin Demandes de signes /sec/requests */
+  .text_hyphenation.navbar_title.pull-right{
+    width: 51rem;
+    font-size: 24px;
+  }
+
+  h1, .h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color:#4866F7;
+  }
+
+  .member_ask_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1882px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 40px;
+    width: 40px;
+  }
+
+  .group_ask_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4745px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .sign_ask-for_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3784px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 48px;
+    width: 40px;
+  }
+
+  /* End Demandes de signes /sec/requests */
+
   /* Begin Mes Demandes /sec/my-requests */
   #reset_search_request{
     background-image: url(/img/sprite_picto_400X400.png);
@@ -518,10 +559,7 @@
     width: 46rem;
   }
 
-  .text_hyphenation.navbar_title.pull-right{
-    width: 51rem;
-    font-size: 24px;
-  }
+
   /* End Mes Demandes /sec/my-requests */
 
   /* Begin Fiche signe /sign */
@@ -535,12 +573,6 @@
   .label_sign_H2.container_H2{
     width: 52rem;
     margin-left: 0px;
-  }
-
-  h1, .h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color:#4866F7;
   }
 
   textarea#text {
@@ -621,32 +653,6 @@
 
   /* Begin Demandes de signes /sec/request */
 
-  .member_ask_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1882px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 40px;
-    width: 40px;
-  }
-
-  .group_ask_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4745px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-  }
-
-  .sign_ask-for_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -3784px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 48px;
-    width: 40px;
-  }
 
   /* End Demandes de signes /sec/request */
 

@@ -966,6 +966,17 @@ a:hover, a:focus {
   cursor: default;
 }
 
+.add_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -32px center;
+  background-repeat: no-repeat;
+  background-size: auto 31px;
+  height: 31px;
+  width: 24px;
+  margin-top: 9px;
+  margin-right: 5px;
+}
+
 /* End Demandes de signes /sec/requests */
 
 /* Begin Mes Demandes /sec/my-requests */
@@ -987,6 +998,11 @@ a:hover, a:focus {
 
 #requests_container{
   padding-top:15px;
+}
+
+#requests_container .aside_bckg_li h4{
+  white-space: normal;
+  width: 27rem;
 }
 
 /* End Mes Demandes /sec/my-requests */
@@ -1126,16 +1142,6 @@ button.close{
   margin-right: 20px;
 }
 
-.add_black {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -32px center;
-  background-repeat: no-repeat;
-  background-size: auto 31px;
-  height: 31px;
-  width: 24px;
-  margin-top: 9px;
-  margin-right: 5px;
-}
 
 .same_name{
   color: #4866F7;
@@ -2327,10 +2333,6 @@ label .text_hyphenation {
   padding-right: 8px;
 }
 
-#requests_container .aside_bckg_li h4{
-  white-space: normal;
-  width: 27rem;
-}
 
 .label_favorite_Liste_H2.container_H2{
   width:24rem;
