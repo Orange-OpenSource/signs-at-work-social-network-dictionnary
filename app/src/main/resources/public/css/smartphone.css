@@ -646,17 +646,17 @@
     margin: 0 auto;
   }
 
-  #container-input{
+/*  #container-input{
     margin: 0 auto;
     width:  85%
-  }
+  }*/
 
 
-  .form-control::-webkit-input-placeholder {
+/*  .form-control::-webkit-input-placeholder {
     color: #8C8C8C;
     height: 40px;
     line-height: 25px;
-  }
+  }*/
 
 
 
@@ -712,9 +712,9 @@
   }
 
 
-  .text_hyphenation.navbar_title{
+/*  .text_hyphenation.navbar_title{
 
-  }
+  }*/
 
 
   button[data-target="#orange-navbar-collapse"]{
@@ -722,9 +722,9 @@
     border-style:none;
   }
 
-  .navbar-nav {
+/*  .navbar-nav {
 
-  }
+  }*/
 
 
 
@@ -738,9 +738,9 @@
 
 
 
-  #label_dictionary{
+/*  #label_dictionary{
     display: inline-block;
-  }
+  }*/
 
   .col-xs-9{
     padding-left: 0px;
@@ -789,9 +789,9 @@
   }
 
 
-  .labelSigne {
+/*  .labelSigne {
     width: 10rem;
-  }
+  }*/
 
   li[role="presentation"].aside_bckg_li > a > div {
     height: 0em;
@@ -816,23 +816,23 @@
   }
 
 
-  h2, .h2 {
+/*  h2, .h2 {
     font-size: 17px;
-  }
+  }*/
 
 
-  .col-xs-12.middle-col{
+/*  .col-xs-12.middle-col{
     margin-bottom: 20px;
-  }
+  }*/
 
   label .text_hyphenation {
     width:13rem;
     margin-left:3rem;
   }
 
-  label {
+/*  label {
     font-size: 11px;
-  }
+  }*/
 
   [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
@@ -850,35 +850,35 @@
     width: 15px;
   }
 
-  .text_hyphenation.navbar_title{
+/*  .text_hyphenation.navbar_title{
     width: 23rem;
-  }
+  }*/
 
-  H2.text_hyphenation{
+/*  H2.text_hyphenation{
     width: 23rem;
-  }
+  }*/
 
   .col-xs-1 .dropdown-toggle {
     width: 7em;
   }
 
 
-  .btn .new_blue.pull-left {
+/*  .btn .new_blue.pull-left {
     background-position: -1425px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
 
-  .btn .pinlist_blue.pull-left {
+/*  .btn .pinlist_blue.pull-left {
     background-position: -2940px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
 
   .btn .most_viewed.pull-left {
@@ -916,22 +916,22 @@
 
 
 
-  .smiley_happy_white {
+/*  .smiley_happy_white {
     background-position: right 2px top 0px;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
     right: 32px;
-  }
+  }*/
 
 
-  img{
+/*  img{
     height:170px;
     width: 170px;
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
-  }
+  }*/
 
 
   button[data-target="#orange-navbar-collapse"]{
@@ -939,9 +939,9 @@
     margin-top: 0px;
   }
 
-  .navbar-nav {
+/*  .navbar-nav {
     margin-top: 0rem;
-  }
+  }*/
 
   ul.hidden-sm > li[role="presentation"] {
     margin-right: 15px;
@@ -954,17 +954,17 @@
   }
 
 
-  #container-input{
+/*  #container-input{
     margin: 0 auto;
     width:  85%
-  }
+  }*/
 
-  #myform input[type=search]{
+/*  #myform input[type=search]{
     border: 2px solid ;
     border-radius: 11px;
     box-sizing: border-box;
     margin-bottom:10px;
-  }
+  }*/
 
 
   #sidebar.active {
@@ -1262,9 +1262,9 @@
 
 
 
-  #label_dictionary{
+/*  #label_dictionary{
     display: inline-block;
-  }
+  }*/
 
 
   .col-xs-9{
@@ -1336,9 +1336,9 @@
     font-size:10px;
   }
 
-  h2, .h2 {
+/*  h2, .h2 {
     font-size: 17px;
-  }
+  }*/
 
 
   .col-xs-12.middle-col{
@@ -1346,9 +1346,9 @@
   }
 
 
-  label {
+/*  label {
     font-size: 12px;
-  }
+  }*/
 
   [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
@@ -1448,9 +1448,9 @@
     margin-top: 0px;
   }
 
-  .navbar-nav {
+/*  .navbar-nav {
     margin-top: 0rem;
-  }
+  }*/
 
 
   ul.hidden-sm > li[role="presentation"] {
@@ -1480,14 +1480,14 @@
   }
 
 
-  button[data-toggle="dropdown"].btn{
+/*  button[data-toggle="dropdown"].btn{
     line-height: 3rem;
     vertical-align: middle;
-  }
+  }*/
 
-  #label_dictionary{
+/*  #label_dictionary{
     display: inline-block;
-  }
+  }*/
 
 
   .col-xs-9{
@@ -1540,9 +1540,9 @@
   }
 
 
-  .labelSigne {
+/*  .labelSigne {
     width: 10rem;
-  }
+  }*/
 
   li[role="presentation"].aside_bckg_li > a > div {
     height: 0em;
@@ -1570,27 +1570,27 @@
     width:214px;
   }
 
-  .labelSigne a{
+/*  .labelSigne a{
     font-size:10px;
-  }
+  }*/
 
-  h2, .h2 {
+/*  h2, .h2 {
     font-size: 17px;
-  }
+  }*/
 
 
-  .col-xs-12.middle-col{
+/*  .col-xs-12.middle-col{
     margin-bottom: 20px;
-  }
+  }*/
 
   label .text_hyphenation {
     width:17rem;
     margin-left:3rem;
   }
 
-  label {
+/*  label {
     font-size: 12px;
-  }
+  }*/
 
   [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
@@ -1615,25 +1615,25 @@
     white-space: nowrap;
     line-height: 46px;
   }
-  #container-input{
+/*  #container-input{
     margin: 0 auto;
     width:  85%
-  }
+  }*/
 
-  #myform input[type=search]{
+/*  #myform input[type=search]{
     border: 2px solid ;
     border-radius: 11px;
     box-sizing: border-box;
     margin-bottom:10px;
-  }
+  }*/
 
-  #reset{
+/*  #reset{
     position: absolute;
     margin-top: 7px;
     right: 18%;
     background-color: #E2E2E2;
     border:none;
-  }
+  }*/
 
 
   .col-xs-1 .dropdown-toggle {
@@ -1647,48 +1647,48 @@
     right: 40px;
   }
 
-  .new_blue-signs {
+/*  .new_blue-signs {
     background-position: right 2px top 0;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
     right: 80px;
-  }
+  }*/
 
-  .commentary_white {
+/*  .commentary_white {
     background-position: right 0px top 0px;
     background-size: auto 16px;
     height: 14px;
     width: 16px;
     right: 63px;
-  }
+  }*/
 
-  .sign_see_white {
+ /* .sign_see_white {
     background-position: right 2px top 0px;
     background-size: auto 15px;
     height: 14px;
     width: 16px;
     right: 46px;
-  }
+  }*/
 
 
-  .smiley_happy_white {
+/*  .smiley_happy_white {
     background-position: right 2px top 0px;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
     right: 32px;
-  }
+  }*/
 
-  .pin_blue {
+/*  .pin_blue {
     background-position: right 2px top 0px;
     background-size: auto 15px;
     height: 25px;
     width: 45px;
     right: 15px;
-  }
+  }*/
 
-  .tooltip_variante {
+/*  .tooltip_variante {
     bottom: 25px;
     background-color: aliceblue;
     height: 10px;
@@ -1697,15 +1697,15 @@
     width: 10px;
     border-radius: 10px;
     font-size: 8px;
-  }
+  }*/
 
-  img{
+/*  img{
     height:300px;
     width: 300px;
     object-fit: contain;
     overflow: hidden;
     border: 1px solid;
-  }
+  }*/
 
   .menu {
     background-position: -460px center;
@@ -1738,9 +1738,9 @@
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-  .form-control {
+/*  .form-control {
     width: 100%;
-  }
+  }*/
 
   label .text_hyphenation {
     width: 26rem;

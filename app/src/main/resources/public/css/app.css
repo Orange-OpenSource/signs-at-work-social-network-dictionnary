@@ -1,6 +1,6 @@
-#prefetch {
+/*#prefetch {
   background: url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png")  no-repeat;
-}
+}*/
 
 
 .sentiment{
@@ -9,9 +9,9 @@
 }
 
 
-.col-xs-12 h5 {
+/*.col-xs-12 h5 {
   color: #8c8c8c;
-}
+}*/
 
 .col-xs-12 h5:hover{
   color: #4866F7;
@@ -88,9 +88,9 @@ table tbody td{
 }
 
 
-.clear{
+/*.clear{
 clear: both;
-}
+}*/
 
 
 .label_sign > a H2{
@@ -124,12 +124,12 @@ clear: both;
 }
 
 
-a:hover,
+/*a:hover,
 a:focus,
 a:active{
   color: #4866F7;
   outline: 0;
-}
+}*/
 
 a.form-control:hover{
   color: #4866F7;
@@ -167,12 +167,12 @@ a.form-control{
 }
 
 
-.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
+/*.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
   background-color: #4866F7;
 	color: #fff;
   border:none !important;
   outline:none !important;
-}
+}*/
 
 .form-control[name=jobTextDescription]{
 	width:100%;
@@ -194,9 +194,11 @@ span.container_H2 {
 }
 
 
+/*
 a:hover, a:focus {
 text-decoration-line: none;
 }
+*/
 
 
 #evaluation_modal .modal-body {
@@ -228,14 +230,14 @@ text-decoration-line: none;
 }
 
 
-.v-done_black {
+/*.v-done_black {
 	background-image: url("/img/sprite_picto_400X400.png");
 	background-position: -2205px center;
 	background-repeat: no-repeat;
 	background-size: auto 20px;
   height: 40px;
   width: 20px;
-}
+}*/
 
 
 .dotted-top{
@@ -431,7 +433,7 @@ input[type="radio"] {
   height: 20px;
 }
 
-#myform{
+/*#myform{
   margin: 0 auto;
   margin: 0 auto;
 }
@@ -439,7 +441,7 @@ input[type="radio"] {
 
 #myform{
   border :none;
-}
+}*/
 
 
 

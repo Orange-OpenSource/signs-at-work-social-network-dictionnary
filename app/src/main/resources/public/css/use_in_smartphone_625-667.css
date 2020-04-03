@@ -1,6 +1,7 @@
 @media only screen and (min-width:625px) and (max-width:667px) {
 
   /* Begin login */
+
   .illustration_welcome {
     background-position: -4480px center;
     background-size: auto 110px;
@@ -28,6 +29,20 @@
     font-size: 18px;
   }
 
+  .logo-text_white {
+    background-position: -2179px center;
+    background-size: auto 50px;
+    width: 117px;
+  }
+
+  .chevron{
+    background-position: -3489px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+  }
+
     /* End login */
 
   /* Begin index page /index */
@@ -50,24 +65,6 @@
     margin-left: 15px;
   }
 
-  .label_favorite_Liste_H2.container_H2{
-    width: 46rem;
-  }
-
-  img{
-    height:100%;
-    width: 100%;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-    margin-bottom: 20px;
-  }
-
-  .logo-text_white {
-    background-position: -2179px center;
-    background-size: auto 50px;
-    width: 117px;
-  }
 
   .sign_see {
     background-position: -4350px center;
@@ -77,13 +74,6 @@
     margin-top: 2px;
   }
 
-  .chevron{
-    background-position: -3489px center;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-    margin-top: 10px;
-  }
 
   .sign_ask-for_black {
     background-position: -4208px center;
@@ -118,24 +108,8 @@
     font-size: 18px;
   }
 
-  .modal-footer>.btn {
-    font-size: 18px;
-  }
-
-  .sign_add_white {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -3699px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 47px;
-    width: 40px;
-    margin-right: 20px;
-  }
-  /* End index page /index */
-
-  /* Begin Menu */
-  #sidebar.active {
-    left: 157px;
+ .navbar-nav {
+    margin-top: 0rem;
   }
 
   #sidebar{
@@ -185,7 +159,19 @@
     width: 30px;
   }
 
-  /* End Menu */
+  H2.text_hyphenation {
+    width: 48rem;
+  }
+
+  h4.container_H2{
+    width: 46rem;
+  }
+
+  h4.container_header_H2{
+    width: 38rem;
+  }
+
+  /* End index page /index */
 
   /* Begin Voir les signes /sec/signs */
 
@@ -634,9 +620,6 @@
   /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
 
   /* Begin Demandes de signes /sec/request */
-  H2.text_hyphenation {
-    width: 48rem;
-  }
 
   .member_ask_blue {
     background-image: url("/img/sprite_picto_400X400.png");
@@ -767,15 +750,9 @@
     margin-left: 0px;
   }
 
-  h4.container_H2{
-    width: 46rem;
-  }
 
     /* Begin Fiche détail de ma demande /sec/my-request-detail */
 
-  h4.container_header_H2{
-    width: 38rem;
-  }
 
   .container_tooltip_in_image {
     height: 30px;
@@ -1454,5 +1431,36 @@
     height: 45px;
     width: 40px;
     margin-right: 20px;
+  }
+
+  .label_favorite_Liste_H2.container_H2{
+    width: 46rem;
+  }
+
+  img{
+    height:100%;
+    width: 100%;
+    object-fit: contain;
+    overflow: hidden;
+    border: 1px solid;
+    margin-bottom: 20px;
+  }
+
+  .modal-footer>.btn {
+    font-size: 18px;
+  }
+
+  .sign_add_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3699px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 47px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  #sidebar.active {
+    left: 157px;
   }
 }

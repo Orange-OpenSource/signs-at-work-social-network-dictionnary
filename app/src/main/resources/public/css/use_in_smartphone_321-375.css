@@ -1,13 +1,13 @@
 @media only screen and (min-width:321px) and (max-width:375px) {
 
   /* Begin login page /login */
-  #label_dictionary {
+/*  #label_dictionary {
     display: inline-block;
-  }
+  }*/
 
-  label {
+/*  label {
     font-size: 11px;
-  }
+  }*/
 
   /* End login page /login */
 
@@ -17,9 +17,9 @@
   /* End index page /index */
 
   /* Begin Menu */
-  li[role="menuitem"] {
+/*  li[role="menuitem"] {
     margin-left: 14px;
-  }
+  }*/
 
 
   /* End Menu */
@@ -50,9 +50,9 @@
     width: 20rem;
   }
 
-  .text_hyphenation.navbar_title.pull-right{
+/*  .text_hyphenation.navbar_title.pull-right{
     width: 23rem;
-  }
+  }*/
 
   /* End Mes Demandes /sec/my-requests */
 
@@ -183,9 +183,9 @@
 
   /* Begin Fiche détail de ma demande /sec/my-request-detail */
 
-  h4.container_header_H2{
+/*  h4.container_header_H2{
     width: 20rem;
-  }
+  }*/
 
   h4.rate.container_H2{
     width: 16rem;

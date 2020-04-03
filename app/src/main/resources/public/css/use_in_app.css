@@ -1,4 +1,19 @@
 /* Begin login page /login */
+
+#label_dictionary {
+  display: inline-block;
+}
+
+.col-xs-12 h5 {
+  color: #8c8c8c;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #8C8C8C;
+  height: 40px;
+  line-height: 25px;
+}
+
 body{
   font-family: "Accessible-DfA";
   font-size: 16px;
@@ -114,14 +129,71 @@ input[type="text"],[type="email"],[type="password"] {
   margin: 0 auto;
 }
 
+.nav > li {
+  position: relative;
+}
+
+.nav > li > a {
+  cursor: pointer;
+}
+
+.nav > li > a {
+  display: inline;
+  padding: 0px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Accessible-DfA";
+  font-weight: bold;
+  line-height: 29px;
+}
+
+.aside_bckg_li {
+  border-bottom: 1px solid #8C8C8C;
+  text-align: left;
+  overflow: hidden;
+}
+
+.aside_bckg_li > a > div {
+  padding: 0em;
+  border-style:none;
+}
+
+.container_H2{
+  float: left;
+  margin-left: 15px;
+}
+
+.chevron{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -3257px center;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 10px;
+}
+
+.col-xs-12{
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.form-signin-heading {
+  color: #4866F7;
+}
+
 /* End login page /login */
 
 /* Begin index page /index */
 
+#prefetch {
+  background: url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png")  no-repeat;
+}
+
 .navbar-toggle {
   margin-top: 0px;
 }
-
 
 #display_url{
   top: 30px
@@ -138,9 +210,6 @@ ul[role="tablist"]{
   position: relative;
 }
 
-.nav > li {
-  position: relative;
-}
 
 .navbar-toggle-complement li {
   float: left;
@@ -150,18 +219,8 @@ ul[role="tablist"]{
   padding-left: 0;
 }
 
-.nav > li > a {
-  cursor: pointer;
-}
-
 .navbar-nav > li > a {
   font-size: 20px;
-}
-
-.nav > li > a {
-  display: inline;
-  padding: 0px;
-
 }
 
 .lexical {
@@ -179,33 +238,12 @@ h2, .h2 {
   font-weight: bold;
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Accessible-DfA";
-  font-weight: bold;
-  line-height: 29px;
-}
 
 h1, .h1, h2, .h2, h3, .h3 {
   margin-bottom: 10px;
   margin-top: 10px;
 }
 
-.aside_bckg_li {
-  border-bottom: 1px solid #8C8C8C;
-  text-align: left;
-  overflow: hidden;
-}
-
-.aside_bckg_li.action {
-  border-bottom: 3px solid #8C8C8C;
-  text-align: left;
-  overflow: hidden;
-}
-
-.aside_bckg_li > a > div {
-  padding: 0em;
-  border-style:none;
-}
 
 .sign_see {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -217,40 +255,14 @@ h1, .h1, h2, .h2, h3, .h3 {
   margin-top: 4px;
 }
 
-.container_H2{
-  float: left;
-  margin-left: 15px;
-}
 
-.container_CGU{
-  float: left;
-  margin-left: 15px;
-}
 
-.container_H2_blue{
-  float: left;
-  margin-left: 15px;
-  color: #4866F7;
-}
-
-.blue {
-  color: #4866F7;
-}
 
 .text_hyphenation{
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.chevron{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-repeat: no-repeat;
-  background-position: -3257px center;
-  background-size: auto 28px;
-  height: 28px;
-  width: 28px;
-  margin-top: 10px;
-}
 
 .sign_ask-for_black {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -291,11 +303,6 @@ h1, .h1, h2, .h2, h3, .h3 {
   width: 50px;
   margin-right: -20px;
 }
-
-/* End index page /index */
-
-/* Begin Menu */
-
 
 .member_me_black{
   background-image: url("/img/sprite_picto_400X400.png");
@@ -350,13 +357,24 @@ h4, .h4 {
   width: 25px;
 }
 
-/* End Menu */
+li[role="menuitem"] {
+  margin-left: 14px;
+}
+
+h4.container_header_H2{
+  width: 20rem;
+}
+
+H2.text_hyphenation{
+  width: 22rem;
+}
+
+/* End index page /index */
 
 /* Begin Voir les signes /sec/signs */
 
-.col-xs-12{
-  padding-right: 8px;
-  padding-left: 8px;
+.text_hyphenation.navbar_title.pull-right{
+  width: 23rem;
 }
 
 .navbar_title {
@@ -513,9 +531,11 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .btn .pinlist_blue.pull-left {
   background-position: -1785px center;
+  background-repeat: no-repeat;
   background-size: auto 25px;
   height: 30px;
   width: 20px;
+  margin-left: 5px;
 }
 
 .pinlist_shared {
@@ -836,6 +856,78 @@ img{
   height: 28px;
   width: 20px;
   margin-left: 5px;
+}
+
+.smiley_happy_blue-sign {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2015px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 46px;
+  width: 20px;
+}
+
+h1, .h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color:#4866F7;
+}
+
+.container_tooltip_in_image {
+  height: 30px;
+  width: 52%;
+  border-radius: 15px;
+  background-color: #4866F7;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 27px;
+  margin-left: 17%;
+}
+
+#container-input{
+  margin: 0 auto;
+  width:  85%
+}
+
+a:hover,
+a:focus,
+a:active{
+  color: #4866F7;
+  outline: 0;
+}
+
+.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
+  background-color: #4866F7;
+  color: #fff;
+  border:none !important;
+  outline:none !important;
+}
+
+a:hover, a:focus {
+  text-decoration-line: none;
+}
+
+.v-done_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2205px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 40px;
+  width: 20px;
+}
+
+#myform{
+  margin: 0 auto;
+  margin: 0 auto;
+}
+
+
+#myform{
+  border :none;
+}
+
+.col-xs-12.middle-col{
+  margin-bottom: 20px;
 }
 
 /* End Voir les signes /sec/signs */
@@ -1221,14 +1313,14 @@ input[type=file] {
   width: 20px;
 }
 
-.smiley_happy_blue-sign {
+/*.smiley_happy_blue-sign {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2015px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 46px;
   width: 20px;
-}
+}*/
 
 .modal-body .smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -1318,11 +1410,6 @@ input[type=file] {
   margin-left: 0px;
 }
 
-h1, .h1 {
-  font-size: 20px;
-  font-weight: bold;
-  color:#4866F7;
-}
 
 /* End Fiche signe /sign */
 
@@ -1607,16 +1694,7 @@ textarea#text {
   width: 20px;
 }
 
-.container_tooltip_in_image {
-  height: 30px;
-  width: 52%;
-  border-radius: 15px;
-  background-color: #4866F7;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
-  position: absolute;
-  bottom: 27px;
-  margin-left: 17%;
-}
+
 
 #communities-container>label>h4 {
   border-bottom: 1px solid #8C8C8C;
@@ -1890,9 +1968,9 @@ textarea#text {
   color: red;
 }
 
-.form-signin-heading {
+/*.form-signin-heading {
   color: #4866F7;
-}
+}*/
 
 #read_condition_of_use .modal-dialog,
 #read_condition_of_use .modal-content {
@@ -2202,9 +2280,9 @@ pre {
   width: 24px;
 }
 
-H2.text_hyphenation{
+/*H2.text_hyphenation{
   width: 22rem;
-}
+}*/
 
 H2.suggest.text_hyphenation{
   width: 27rem;
@@ -2256,4 +2334,25 @@ label .text_hyphenation {
 
 .label_favorite_Liste_H2.container_H2{
   width:24rem;
+}
+
+.aside_bckg_li.action {
+  border-bottom: 3px solid #8C8C8C;
+  text-align: left;
+  overflow: hidden;
+}
+
+.container_CGU{
+  float: left;
+  margin-left: 15px;
+}
+
+.container_H2_blue{
+  float: left;
+  margin-left: 15px;
+  color: #4866F7;
+}
+
+.blue {
+  color: #4866F7;
 }
