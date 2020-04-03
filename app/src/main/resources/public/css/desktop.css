@@ -1,37 +1,10 @@
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
-/*  .btn .caret{
-    margin-top: 1.5rem;
-    margin-right: 7px;
-  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
     vertical-align: middle;
   }
-
-/*  .divider-space input[name="lastName"],
-  .divider-space input[name="firstName"],
-  .divider-space input[name="entity"],
-  .divider-space input[name="email"],
-  .divider-space input[name="login"],
-  .divider-space input[name="password"],
-  .divider-space input[name="username"] {
-    width: 60%;
-  }*/
-
-/*  .divider-space {
-    margin-bottom: 7%;
-  }*/
-
-/*  .divider-space H2{
-    color:#F16E00;
-  }*/
-
-/*  .divider-space input{
-    height: 40px;
-    border-radius: 15px;
-  }*/
 
 
   .col-xs-offset-2{
@@ -47,37 +20,11 @@
     width:100% ;
   }
 
-/*  .container_picto_request_other,
-  .container_picto_my_request{
-    left: 37%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other,
-  .container_title_my_request{
-    left: 42%;
-  }*/
-
-
-/*  .container_picto_request_other_in_suggest{
-    left: 30%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other_in_suggest{
-    left: 36%;
-  }*/
-
 
   #label_dictionary{
     display: inline-block;
   }
 
-/*  #label_signatwork{
-    display: inline-block;
-    margin-left: 2px;
-    font-size: small;
-  }*/
 
   .col-xs-9{
     padding-left: 0px;
@@ -95,7 +42,6 @@
   }
 
   .container_iframe{
-    /*border: 1px solid;*/
     margin-bottom: 20px;
     padding-bottom: 50px;
     padding-left: 0px;
@@ -170,11 +116,6 @@
     right: 0px;
   }
 
-/*  .col-lg-3 span.caret {
-    position: absolute;
-    left: 12px;
-    top: 24px;
-  }*/
 
   .col-lg-3 span.hidden-xs {
     width: 100%;
@@ -243,38 +184,11 @@
 @media only screen and (min-width:1200px) and (max-width:1365px) {
 
 
-/*  .btn .caret{
-    margin-top: 1.5rem;
-    margin-right: 7px;
-  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
     vertical-align: middle;
   }
-
-/*  .divider-space input[name="lastName"],
-  .divider-space input[name="firstName"],
-  .divider-space input[name="entity"],
-  .divider-space input[name="email"],
-  .divider-space input[name="login"],
-  .divider-space input[name="password"],
-  .divider-space input[name="username"] {
-    width: 60%;
-  }*/
-
-/*  .divider-space {
-    margin-bottom: 7%;
-  }*/
-
-/*  .divider-space H2{
-    color:#F16E00;
-  }*/
-
-/*  .divider-space input{
-    height: 40px;
-    border-radius: 15px;
-  }*/
 
 
   .col-xs-offset-2{
@@ -290,37 +204,11 @@
     width:100% ;
   }
 
-/*  .container_picto_request_other,
-  .container_picto_my_request{
-    left: 37%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other,
-  .container_title_my_request{
-    left: 42%;
-  }*/
-
-
-/*  .container_picto_request_other_in_suggest{
-    left: 30%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other_in_suggest{
-    left: 36%;
-  }*/
-
 
   #label_dictionary{
     display: inline-block;
   }
 
-/*  #label_signatwork{
-    display: inline-block;
-    margin-left: 2px;
-    font-size: small;
-  }*/
 
   .col-xs-9{
     padding-left: 0px;
@@ -337,7 +225,6 @@
   }
 
   .container_iframe{
-    /*border: 1px solid;*/
     margin-bottom: 20px;
     padding-bottom: 50px;
     padding-left: 0px;
@@ -421,11 +308,6 @@
     right: 0px;
   }
 
-/*  .col-lg-3 span.caret {
-    position: absolute;
-    left: 17px;
-    top: 24px;
-  }*/
 
   .col-lg-3 span.hidden-xs {
     width: 100%;
@@ -492,38 +374,11 @@
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
 
-/*  .btn .caret{
-    margin-top: 1.5rem;
-    margin-right: 7px;
-  }*/
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
     vertical-align: middle;
   }
-
-/*  .divider-space input[name="lastName"],
-  .divider-space input[name="firstName"],
-  .divider-space input[name="entity"],
-  .divider-space input[name="email"],
-  .divider-space input[name="login"],
-  .divider-space input[name="password"],
-  .divider-space input[name="username"] {
-    width: 60%;
-  }*/
-
-/*  .divider-space {
-    margin-bottom: 7%;
-  }*/
-
- /* .divider-space H2{
-    color:#F16E00;
-  }*/
-
-/*  .divider-space input{
-    height: 40px;
-    border-radius: 15px;
-  }*/
 
 
   .col-xs-offset-2{
@@ -545,26 +400,6 @@
   }
 
 
-/*  .container_picto_request_other,
-  .container_picto_my_request{
-    left: 37%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other,
-  .container_title_my_request{
-    left: 42%;
-  }*/
-
-/*  .container_picto_request_other_in_suggest{
-    left: 30%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other_in_suggest{
-    left: 36%;
-  }*/
-
   iframe {
     height: 37rem;
     width: 100%;
@@ -575,11 +410,6 @@
     display: inline-block;
   }
 
-/*  #label_signatwork{
-    display: inline-block;
-    margin-left: 2px;
-    font-size: small;
-  }*/
 
   .col-xs-9{
     padding-left: 0px;
@@ -591,12 +421,6 @@
     width: 90%;
   }
 
-
-/*  .col-lg-3 span.caret {
-    position: absolute;
-    left: 17px;
-    top: 24px;
-  }*/
 
   .col-lg-3 .dropdown-toggle {
     width: 20em;
@@ -757,11 +581,6 @@
 
 @media only screen  and (min-width:1541px)  {
 
-/*  .btn .caret{
-    margin-top: 1.5rem;
-    margin-right: 7px;
-  }*/
-
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
     vertical-align: middle;
@@ -771,11 +590,6 @@
     display: inline-block;
   }
 
-/*  #label_signatwork{
-    display: inline-block;
-    margin-left: 2px;
-    font-size: small;
-  }*/
 
   .col-xs-9{
     padding-left: 0px;
@@ -791,36 +605,12 @@
     width: 70%;
   }
 
-/*  .container_picto_request_other,
-  .container_picto_my_request{
-    left: 37%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other,
-  .container_title_my_request{
-    left: 42%;
-  }*/
-
-/*  .container_picto_request_other_in_suggest{
-    left: 30%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other_in_suggest{
-    left: 36%;
-  }*/
 
   iframe {
     height: 37rem;
     width: 100%;
   }
 
-/*  .col-lg-3 span.caret {
-    position: absolute;
-    left: 17px;
-    top: 24px;
-  }*/
 
   .col-lg-3 .dropdown-toggle {
     width: 20em;

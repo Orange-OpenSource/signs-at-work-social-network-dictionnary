@@ -12,19 +12,6 @@
   /* End login page /login */
 
   /* Begin index page /index */
-/*  .navbar-toggle {
-    margin-top: 0px;
-  }*/
-
-/*  #presentation_header {
-    margin-right: 6px;
-    margin-left: 20px;
-  }*/
-
-
-/*  .label_favorite_Liste_H2.container_H2{
-    width:23rem;
-  }*/
 
 
   /* End index page /index */
@@ -38,73 +25,7 @@
   /* End Menu */
 
   /* Begin Voir les signes /sec/signs */
-/*  .navbar_title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 25px;
-    width: 23rem;
-    text-align:right;
-  }*/
 
-/*  #myform input[type=search] {
-    box-sizing: border-box;
-    padding-left: 25px;
-    margin-bottom: 10px;
-    line-height: 40px;
-    height: 40px;
-    !*width: 29rem;*!
-  }*/
-
-/*  button[data-toggle="dropdown"].btn {
-    line-height: 3rem;
-    vertical-align: middle;
-    font-weight: bold;
-    width: 32rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-  }*/
-
-/*  .btn .caret {
-    margin-top: 1rem;
-  }*/
-
-/*  .btn .new_blue.pull-left {
-    background-position: -1235px center;
-    background-size: auto 20px;
-    height: 20px;
-    width: 20px;
-    margin-left: 5px;
-    margin-top: 3px;
-  }*/
-
-/*  .btn .down_black {
-    background-position: -2224px center;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-    height: 28px;
-    width: 20px;
-  }*/
-
-/*  .dropdown-menu > li > a {
-    display: block;
-    padding-left: 1px;
-    padding-top: 3px;
-    white-space: nowrap;
-    line-height: 46px;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-right: 12px;
-  }*/
-
-/*  .labelSigne {
-    font-size: 14px;
-    white-space: nowrap;
-    max-width: 116px;
-    text-align: center;
-    padding-left: 33px;
-  }*/
 
   .labelVideo {
     font-size: 14px;
@@ -113,130 +34,17 @@
     padding-left: 33px;
   }
 
-/*  .new_blue-signs {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
-    left: 20px;
-  }*/
-/*
-  .commentary_white {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
-    right: 11px;
-  }*/
-
-/*  .sign_see_white {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
-    right: 64px;
-  }*/
-
-/*  .smiley_happy_white {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
-    right: 38px;
-  }*/
-
-/*  .smiley_happy_white_in_frame {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
-    right: 30px;
-    top: 1px;
-  }*/
-
-/*  .pin_blue {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
-    left: 33px;
-  }*/
-
-/*  .pin_blue_in_frame {
-    background-size: auto 15px;
-    height: 15px;
-    width: 15px;
-    left:-23px;
-  }*/
-
-/*  #myform input::placeholder{
-    color:white;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-  }*/
-
-/*  img{
-    height: 140px;
-    width: 140px;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-    margin-bottom: 20px;
-  }*/
-
-/*  #reset{
-    background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2310px center;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-    height: 26px;
-    width: 14px;
-    position: absolute;
-    margin-top: 6px;
-    right: 15%;
-    background-color: #000000;
-    border: none;
-    color: #FFFFFF;
-  }*/
-
-
-
-/*  .labelSigne a{
-    font-size:14px;
-    white-space: nowrap;
-  }*/
-
   /* End Voir les signes /sec/signs */
 
   /* Begin Demandes de signes /sec/request */
-/*  H2.text_hyphenation{
-    width: 23rem;
-  }*/
 
-/*  #requestTextDescription{
-    width: 100%;
-    text-align: left;
-  }*/
   /* End Demandes de signes /sec/request */
 
   /* Begin Demandes de signes /sec/requests */
   /* End Demandes de signes /sec/requests */
 
   /* Begin Mes Demandes /sec/my-requests */
-/*  #reset_search_request{
-    background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2310px center;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-    height: 26px;
-    width: 14px;
-    position: absolute;
-    margin-top: -43px;
-    right: 10%;
-    background-color: #000000;
-    border: none;
-    color: #FFFFFF;
-  }*/
 
-/*  #requests_container .aside_bckg_li h4{
-    white-space: normal;
-    width: 23rem;
-  }*/
 
   .text_hyphenation.navbar_title.pull-left{
     width: 20rem;
@@ -250,7 +58,7 @@
 
   /* Begin Mes Demandes /sec/other-request-detail */
   #my-other-requests{
-   /* width: 26rem;*/
+
     text-align: right;
   }
   /* Begin Mes Demandes /sec/other-request-detail */
@@ -265,23 +73,7 @@
   /* End Fenêtre modale Ajouter un signe id=suggest modal-suggest */
 
   /* Begin Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
-/*  H4#label_record,
-  H4#label_after_record,
-  H4#label_record_job_description,
-  H4#label_after_record_job_description {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: #4866F7;
-  }*/
 
-/*  #container-button > button,
-  #cancel-recording {
-    border: none;
-    background-color: transparent;
-    color: #000000;
-    padding: 0px;
-    !*padding-right: 28px;*!
-  }*/
 
   #container_video {
     display: none;
@@ -294,39 +86,13 @@
     top: 32%;
   }
 
-/*  .rewind_black {
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    border: none;
-    background-color: transparent;
-    margin-left: 160px;
-    margin-right: 82px;
-  }*/
-
-/*  #container-button > button,
-  #continue {
-    border: none;
-    background-color: transparent;
-    color: #4866F7;
-  }*/
-
- /* #continue, #cancel-recording {
-    font-size: 14px;
-  }*/
-
   /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
 
   /* Begin Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
   /* End Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
 
   /* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
-/*  .sign_ask-for_white {
-    background-size: auto 26px;
-    height: 45px;
-    width: 26px;
-    margin-right: 20px;
-  }*/
+
 
   /* End Fenêtre modale Demander un signe id=new_request modal-new-request */
 
@@ -348,38 +114,6 @@
     margin-left: 20px;
   }
 
-/*  li[role="tab"] {
-    margin-right: 42px;
-    margin-left: 20px;
-  }*/
-
-
-/*  .pin_add_white-header {
-    background-size: auto 50px;
-    height: 50px;
-    width: 50px;
-  }*/
-
-/*  .label_sign_H2.container_H2{
-    width: 26rem;
-    margin-left: 0px;
-  }*/
-
-/*  h1, .h1 {
-    font-size: 20px;
-    font-weight: bold;
-    color:#4866F7;
-  }*/
-
-/*  textarea#text {
-    width: 100%;
-    margin-bottom: 10px;
-    background-color: #EBEBEB;
-    border-style: none;
-    border-radius: 0px;
-    font-size: 14px;
-    color: #4866F7;
-  }*/
 
   textarea::-webkit-input-placeholder {
     color: #8C8C8C;
@@ -421,27 +155,7 @@
   /* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
 
   /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
-/*  .edit_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
-  }*/
 
-/*  .copy_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
-  }*/
-
- /* .pinlist_delete{
-    background-size: auto 24px;
-    height: 24px;
-    width: 24px;
-    margin-top: 11px;
-  }
-*/
 
   /* End manage-favorite /sec/favorite/"id"/manage-favorite */
 
@@ -450,31 +164,15 @@
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
   /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
-/*  .copy_white{
-    background-size: auto 30px;
-    height: 44px;
-    width: 30px;
-    margin-right: 12px;
-  }*/
+
   /* End Fenêtre modale Renommer Liste id=rename_favorite */
 
   /* Begin manage-favorite /sec/favorite/"id"/associate-sign */
-/*  label .text_hyphenation {
-    width:13rem;
-    padding-left: 0rem;
-    font-size: 14px;
-    font-weight: bold;
-    white-space: nowrap;
-  }*/
+
   /* End manage-favorite /sec/favorite/"id"/associate-sign */
 
   /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
-/*  .pinlist_delete_white{
-    background-size: auto 30px;
-    height: 44px;
-    width: 30px;
-    margin-right: 12px;
-  }*/
+
   /* End Fenêtre modale Renommer Liste id=delete_favorite */
 
   /* Begin Fiche détail de ma demande /sec/my-request-detail */
@@ -495,76 +193,16 @@
 
   .community_name{
     width:33rem;
-   /* overflow: hidden;
-    text-overflow: ellipsis;*/
   }
 
-
-/*  #reset_search_user{
-    background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2310px center;
-    background-repeat: no-repeat;
-    background-size: auto 20px;
-    height: 26px;
-    width: 14px;
-    position: absolute;
-    margin-top: 6px;
-    right: 14%;
-    background-color: #000000;
-    border: none;
-    color: #FFFFFF;
-  }*/
-
-  /* Begin favorite /sec/favorite/"id" */
-/*  .settings2_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 25px;
-    margin-top: 11px;
-  }*/
-
-/*  .share_blue{
-    background-size: auto 24px;
-    height: 24px;
-    width: 25px;
-    margin-top: 11px;
-  }*/
-
-/*  .add-remove{
-    background-size: auto 24px;
-    height: 24px;
-    width: 25px;
-    margin-top: 11px;
-  }*/
 
 
   /* End favorite /sec/favorite/"id" */
 
   /* Begin /sec/favorite/share/"id" */
-/*  .group_project_add{
-    background-size: auto 24px;
-    height: 24px;
-    width: 25px;
-    margin-top: 11px;
-  }*/
 
-/*  .group_project_add_white{
-    background-size: auto 30px;
-    height: 45px;
-    width: 31px;
-    margin-right: 20px;
-  }*/
   /* End /sec/favorite/share/"id" */
 
-/*  .container_H2{
-    float: left;
-    margin-left: 15px;
-    width: 21rem;
-  }*/
 
-/*  .btn .pinlist_shared.pull-left {
-    margin-left: 5px;
-    margin-top: 0px;
-  }*/
 }
 

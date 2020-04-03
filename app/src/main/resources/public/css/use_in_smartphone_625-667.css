@@ -287,7 +287,6 @@
     margin-bottom: 10px;
     line-height: 45px;
     height: 45px;
-/*    width: 52rem;*/
     font-size: 18px;
   }
 
@@ -509,7 +508,6 @@
   }
 
   .open>.dropdown-menu {
-    /*display: inline-table;*/
     width: 52rem;
   }
 
@@ -671,7 +669,6 @@
 
   /* Begin Mes Demandes /sec/other-request-detail */
   #my-other-requests {
-    /*width: 23rem;*/
     text-align: right;
   }
   /* End Mes Demandes /sec/other-request-detail */

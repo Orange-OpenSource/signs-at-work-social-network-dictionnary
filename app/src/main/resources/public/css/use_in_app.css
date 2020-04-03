@@ -121,10 +121,7 @@ input[type="text"],[type="email"],[type="password"] {
 .navbar-toggle {
   margin-top: 0px;
 }
-/*#presentation_header {
-  margin-right: 6px;
-  margin-left: 20px;
-}*/
+
 
 #display_url{
   top: 30px
@@ -243,7 +240,6 @@ h1, .h1, h2, .h2, h3, .h3 {
 .text_hyphenation{
   overflow: hidden;
   text-overflow: ellipsis;
-  /*white-space: nowrap;*/
 }
 
 .chevron{
@@ -314,7 +310,6 @@ h4, .h4 {
   font-size: 14px;
   -ms-overflow-style: none;
   overflow-scrolling: none;
- /* overflow: hidden;*/
   position: relative;
   font-weight: bold;
 }
@@ -363,11 +358,6 @@ h4, .h4 {
   padding-right: 8px;
   padding-left: 8px;
 }
-/*.col-xs-12.middle-col{
-  margin-bottom: 20px;
-  padding-right: 0px;
-  padding-left: 0px;
-}*/
 
 .navbar_title {
   font-size: 18px;
@@ -729,7 +719,6 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .open>.dropdown-menu {
-  /*display: inline-table;*/
   width: 33rem;
 }
 
@@ -933,9 +922,6 @@ img{
 /* Begin Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest*/
 
 button.close{
- /* color:#FFFFFF;
-  opacity:1;
-  padding-top: 15px;*/
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -3464px center;
   background-repeat: no-repeat;
@@ -1202,7 +1188,6 @@ H4#label_after_record_job_description {
   background-color: transparent;
   color: #000000;
   padding: 0px;
-  /*padding-right: 28px;*/
 }
 
 #container-button > button,

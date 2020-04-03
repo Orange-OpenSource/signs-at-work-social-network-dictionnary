@@ -1,32 +1,5 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
-/*  .btn .caret{
-    margin-top: 1.5rem;
-    margin-right: 7px;
-  }*/
-
-/*  .divider-space input[name="lastName"],
-  .divider-space input[name="firstName"],
-  .divider-space input[name="entity"],
-  .divider-space input[name="email"],
-  .divider-space input[name="login"],
-  .divider-space input[name="password"],
-  .divider-space input[name="username"] {
-    width: 60%;
-  }*/
-
-/*  .divider-space {
-    margin-bottom: 10%;
-  }*/
-
-/*  .divider-space H2{
-    color:#F16E00;
-  }*/
-
-/*  .divider-space input{
-    height: 40px;
-    border-radius: 15px;
-  }*/
 
 
   .col-xs-offset-2{
@@ -42,11 +15,6 @@
     display: inline-block;
   }
 
-/*  #label_signatwork{
-    display: inline-block;
-    margin-left: 2px;
-    font-size: small;
-  }*/
 
   .col-xs-9{
     padding-left: 0px;
@@ -67,32 +35,13 @@
     width:100% ;
   }
 
-/*  .container_picto_request_other,
-  .container_picto_my_request{
-    left: 33%;
-    top: 5px;
-  }*/
 
-/*  .container_title_request_other,
-  .container_title_my_request{
-    left: 40%;
-  }*/
-
-/*  .container_picto_request_other_in_suggest{
-    left: 22%;
-    top: 5px;
-  }*/
-
-/*  .container_title_request_other_in_suggest{
-    left: 32%;
-  }*/
 
   .embed-responsive-4by3{
     padding-bottom: 130%;
   }
 
   .container_iframe{
-    /*border: 1px solid;*/
     margin-bottom: 20px;
     padding-bottom: 50px;
     padding-left: 0px;
@@ -249,11 +198,6 @@
     right: 10px;
   }
 
-/*  .col-lg-3 span.caret {
-    position: absolute;
-    left: 17px;
-    top: 24px;
-  }*/
 
   .dropdown-menu > li > a {
     display: block;

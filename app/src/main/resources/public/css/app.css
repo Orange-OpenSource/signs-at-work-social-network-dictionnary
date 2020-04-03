@@ -23,18 +23,6 @@
 }
 
 
-/*.noAccount.aside_bckg_li{
-  border-bottom: 1px solid;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.lostPassword.aside_bckg_li{
-  border-top: 1px solid;
-  width: 90%;
-  margin: 0 auto;
-}*/
-
 #container-button > button >span{
   margin-left: 5px;
 }
@@ -43,11 +31,6 @@
 #cancel-recording{
   background-color: transparent;
   outline: 0;
- /* margin-top: 5px;*/
-  /*float: right;*/
-  /*right: 0px;*/
-  /*width: 90px;*/
-  /*margin-left: 10px;*/
 }
 
 
@@ -60,26 +43,6 @@
 #uploadRecordedVideoFile .modal-body.text-center{
   padding: 2px;
 }
-
-/*.container_picto_title {
-  position: relative;
-  height: 50px;
-}*/
-
-/*.container_picto_request_other,
-.container_picto_my_request{
-  left: 2rem;
-  top: 2px;
-}*/
-
-/*.container_picto_request_other,
-.container_title_request_other,
-.container_picto_my_request,
-.container_title_my_request,
-.container_picto_request_other_in_suggest,
-.container_title_request_other_in_suggest{
-  position: absolute;
-}*/
 
 
 .noHover_nopointer > a >h2{
@@ -146,13 +109,6 @@ clear: both;
 	width: 55px;
 }
 
-/*.navbar_title {
-	color: white;
-	cursor: default;
-	font-size: 17px;
-	margin-top: 10px;
-}*/
-
 
 .right-inner-addon {
 	position: relative;
@@ -171,14 +127,12 @@ clear: both;
 a:hover,
 a:focus,
 a:active{
-	/*color: #f16e00;*/
   color: #4866F7;
   outline: 0;
 }
 
 a.form-control:hover{
   color: #4866F7;
-	/*color:#f16e00;*/
 	text-decoration-line:none;
 }
 
@@ -198,68 +152,22 @@ a.form-control{
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
 	background-color: #080808;
-	/*color: #f69b51;*/
   color: #4866F7;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #4866F7;
-	/*color: #f16e00;*/
 	background-color: transparent;
 }
-
-
-
-/*#label_signe{
-	border-top: medium solid;
-	text-align: center;
-
-}*/
-
-/*#label_signe  H4 .containerRight_signes{
-	width: auto;
-}*/
-
-/*#comment_signe{
-	border-bottom: none;
-}*/
 
 
 .aside_bckg_li .aside_bckg_li >li {
 	border-bottom: none;
 }
 
-/*.re-rate{
-  border-top: medium solid;
-}*/
-
-/*.divider {
-	height: 3px;
-	width:100%;
-	display:block; !* for use on default inline elements like span *!
-	margin: 9px 0;
-	overflow: hidden;
-	background-color: #333333;
-}*/
-
-
-/*#discussion{
-	border-bottom: none;
-}*/
-
-/*#backtoHomepage:hover{
-  color: #4866F7;
-}*/
-
-
 
 .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
-/*	background-color: #f16e00;
-	border-bottom-color: #f16e00;
-	border-left-color: #f16e00;
-	border-right-color: #f16e00;
-	border-top-color: #f16e00;*/
   background-color: #4866F7;
 	color: #fff;
   border:none !important;
@@ -290,54 +198,16 @@ a:hover, a:focus {
 text-decoration-line: none;
 }
 
-/*.material-icons{
-	margin-left: 3rem;
-}*/
 
 #evaluation_modal .modal-body {
-/*	border-top-color: -moz-use-text-color;
-	border-top-style: solid;
-	border-top-width: 1px;*/
+
 }
 
-/*#img_listbox_sentiment_satisfied{
-	width: 20px;
-	margin-right: 5px;
-}*/
 
 .modal-content .modal-header * .modal-title {
 	margin-left: 30px;
 	white-space: nowrap;
 }
-
-/*#container_badge_new_signe {
-	line-height: 40px;
-}*/
-
-/*.nbRecentSign_0-9{
-  font-size: 20px;
-}*/
-
-/*.nbRecentSign_9-99{
-  font-size: 15px;
-  margin-left: -5px;
-}*/
-
-/*.nbRecentSign_99-999{
-  font-size: 15px;
-  margin-left: -10px;
-}*/
-
-/*.nbRecentSign_999{
-  font-size: 15px;
-  margin-left: -20px;
-}*/
-
-/*#Sign_List{
-	background-color: #515151;
-	color: white;
-}*/
-
 
 
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
@@ -346,48 +216,16 @@ text-decoration-line: none;
 }
 
 
-
-/*.sentiment_In_Modal{
-	margin: 0 auto;
-	width: 40px;
-}*/
-/*.containerRight_signes .search_signe{
-	display: inline-block;
-	width: 20px;
-
-}*/
-
-/*.containerLeft_signes {
-	float: left;
-	margin-right: 10px;
-	margin-top: 10px;
-}*/
-
-/*.navbar-nav .containerLeft_signes {
-	margin-top: 0;
-}*/
-/*
-.dropdown-menu .containerLeft_signes {
-	margin-top: 12px;
-}*/
-
-
-
 .dropdown-menu > li > a.v-done_black{
 	background-color: #989898;
   color: #4866F7;
-	/*color:#F16E00;*/
 }
 
 
 .dropdown-menu > li > a.v-done-up_black{
 	background-color: #989898;
   color: #4866F7;
-  /*color:#F16E00;*/
 }
-
-
-
 
 
 .v-done_black {
@@ -400,50 +238,10 @@ text-decoration-line: none;
 }
 
 
-/*#evaluate{
-	width: auto;
-}*/
-
-/*.request_whitout_answer{
-	font-size: 20px;
-	line-height:50px;
-}*/
-
-/*.request_whitout_answer.aside_bckg_li{
-	background-color:#CCCCCC ;
-	border-bottom: medium solid;
-	border-top: medium solid;
-}*/
-
-/*.other_name_nearby.aside_bckg_li{
-	background-color:#CCCCCC ;
-	border-bottom: medium solid;
-  font-size: 20px;
-  line-height:50px
-}*/
-
-/*.dotted-bottom{
-	border-bottom: 1px dotted;
-}*/
 .dotted-top{
 	border-top: 1px dotted;
 }
 
-/*.request_whitout_answer a,
-.request_whitout_answer a:hover,
-.request_whitout_answer a:focus,
-.request_whitout_answer a.form-control:hover{
-	background-color: #989898;
-	border: none;
-	color:#3b3b3b;
-	cursor: default;
-	text-align: center;
-}*/
-
-
-/*.backgroundColor {
-	background-color: #989898;
-}*/
 
 h4.container_signes .pull-right {
 	margin-left: 15px;
@@ -464,44 +262,6 @@ ul#orange-navbar-collapse >li {
 .container_thumbnail{
   position: absolute;
 }
-
-
-/*#table-date{
-  min-width: 101px;
-}*/
-
-
-/*#button-top{
-  position: relative;
-  margin-bottom: 15px;
-}*/
-
-/*#button-bottom{
-  position: relative;
-  visibility: hidden;
-
-}*/
-/*#reset{
-  visibility: hidden;
-}*/
-
-/*#reset_search_request{
-  visibility: hidden;
-}*/
-
-/*#reset_search_user{
-  visibility: hidden;
-}*/
-
-/*#signs-container{
-  margin-top: 15px;
-}*/
-
-/*#videos-container{
-  margin-top: 15px;
-}*/
-
-
 
 
 /****************************button radio************************/
@@ -677,55 +437,10 @@ input[type="radio"] {
 }
 
 
-
-
 #myform{
   border :none;
 }
-/*error create user*/
 
-/*.blink_me {
-  color: red;
-  -webkit-animation-name: blinker;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-timing-function: linear;
-  -webkit-animation-iteration-count: infinite;
-
-  -moz-animation-name: blinker;
-  -moz-animation-duration: 1s;
-  -moz-animation-timing-function: linear;
-  -moz-animation-iteration-count: infinite;
-
-  animation-name: blinker;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}*/
-
-
-/*@-moz-keyframes blinker {
-  0% { opacity: 1.0; }
-  50% { opacity: 0.0; }
-  100% { opacity: 1.0; }
-}
-
-@-webkit-keyframes blinker {
-  0% { opacity: 1.0; }
-  50% { opacity: 0.0; }
-  100% { opacity: 1.0; }
-}
-
-@keyframes blinker {
-  0% {
-    opacity: 1.0;
-  }
-  50% {
-    opacity: 0.0;
-  }
-  100% {
-    opacity: 1.0;
-  }
-}*/
 
 
 
