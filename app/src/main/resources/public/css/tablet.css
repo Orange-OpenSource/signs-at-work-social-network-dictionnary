@@ -1,5 +1,7 @@
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+  /* Begin login page /login */
+
   .navbar-header{
     float: initial;
   }
@@ -7,14 +9,6 @@
   .container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
     margin-right: 0px;
     margin-left: -15px;
-  }
-
-  .navbar-nav{
-    float:right;
-  }
-
-  .col-xs-offset-2{
-    margin-left: 28%;
   }
 
   #label_welcome{
@@ -26,88 +20,41 @@
     display: inline-block;
   }
 
-
-  .col-xs-9{
-    padding-left: 0px;
-  }
-
   input[name="username"],
   input[type="password"],
   input[name="email"]{
     width: 90%;
   }
 
-  textarea#text {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  textarea.form-control{
-    width:100% ;
-  }
-
-
-
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
-
-  .container_iframe{
-    margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-
-  label .text_hyphenation {
-    width:16rem;
-  }
-
   label {
     font-size: 12px;
   }
-
-  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
-    float: left;
-    height: 15px;
-    margin-left: 5px;
-    margin-top: 6px;
-    width: 15px;
-  }
-
-
-  .container_label_checkbox{
-    width: 62%;
-    margin: 0 auto;
-  }
-
-
-  .container_header_H2{
-  width:8rem;
-  }
-
 
   .btn{
     line-height: 2rem;
     vertical-align: middle;
   }
 
-  .btn-default.active.focus,
-  .btn-default.active:focus,
-  .btn-default.active:hover,
-  .btn-default:active.focus,
-  .btn-default:active:focus,
-  .btn-default:active:hover,
-  .open>.dropdown-toggle.btn-default.focus,
-  .open>.dropdown-toggle.btn-default:focus,
-  .open>.dropdown-toggle.btn-default:hover {
-   color: #333;
-   background-color: #d4d4d4;
-   border-color: #8c8c8c;
-   line-height: 4rem;
-   vertical-align: middle;
+  /* End login page /login */
+
+  /* Begin index page /index */
+
+  .navbar-nav{
+    float:right;
   }
+
+  .container_header_H2{
+    width:8rem;
+  }
+
+  iframe {
+    height: 37rem;
+    width: 100%;
+  }
+
+  /* End index page /index */
+
+  /* Begin Voir les signes page /sec/signs */
 
   #container-input{
     margin: 0 auto;
@@ -130,11 +77,6 @@
     border:none;
   }
 
-  .col-sm-5 span.hidden-xs{
-  margin-left: 5px;
-  }
-
-
   .new_blue-signs {
     background-position: right 2px top 0;
     background-size: auto 15px;
@@ -142,19 +84,6 @@
     width: 45px;
     right: 80px;
   }
-
-
-  li[role="presentation"] {
-    width: 12rem;
-  }
-
-  .container_tooltip {
-    background-color: red !important;
-    position: absolute !important;
-    right: 55px;
-  }
-
-
 
   img {
     height: 220px;
@@ -209,6 +138,107 @@
     right: 10px;
   }
 
+  /* End Voir les signes page /sec/signs */
+
+  .col-xs-offset-2{
+    margin-left: 28%;
+  }
+
+
+
+
+  .col-xs-9{
+    padding-left: 0px;
+  }
+
+
+
+  textarea#text {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  textarea.form-control{
+    width:100% ;
+  }
+
+
+
+  .embed-responsive-4by3{
+    padding-bottom: 130%;
+  }
+
+  .container_iframe{
+    margin-bottom: 20px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+
+  label .text_hyphenation {
+    width:16rem;
+  }
+
+
+
+  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+    margin-top: 6px;
+    width: 15px;
+  }
+
+
+  .container_label_checkbox{
+    width: 62%;
+    margin: 0 auto;
+  }
+
+
+
+
+
+
+
+  .btn-default.active.focus,
+  .btn-default.active:focus,
+  .btn-default.active:hover,
+  .btn-default:active.focus,
+  .btn-default:active:focus,
+  .btn-default:active:hover,
+  .open>.dropdown-toggle.btn-default.focus,
+  .open>.dropdown-toggle.btn-default:focus,
+  .open>.dropdown-toggle.btn-default:hover {
+   color: #333;
+   background-color: #d4d4d4;
+   border-color: #8c8c8c;
+   line-height: 4rem;
+   vertical-align: middle;
+  }
+
+
+
+  .col-sm-5 span.hidden-xs{
+  margin-left: 5px;
+  }
+
+
+
+
+
+  li[role="presentation"] {
+    width: 12rem;
+  }
+
+  .container_tooltip {
+    background-color: red !important;
+    position: absolute !important;
+    right: 55px;
+  }
+
+
 
   .dropdown-menu > li > a {
     display: block;
@@ -222,10 +252,7 @@
     margin-left: 1rem;
   }
 
-  iframe {
-    height: 37rem;
-    width: 100%;
-  }
+
 
 
   .tooltip_variante {

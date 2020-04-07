@@ -13,9 +13,9 @@
   color: #8c8c8c;
 }*/
 
-.col-xs-12 h5:hover{
+/*.col-xs-12 h5:hover{
   color: #4866F7;
-}
+}*/
 
 
 .alert{
@@ -28,10 +28,10 @@
 }
 
 
-#cancel-recording{
+/*#cancel-recording{
   background-color: transparent;
   outline: 0;
-}
+}*/
 
 
 .rewind_black >span,
@@ -40,9 +40,9 @@
 }
 
 
-#uploadRecordedVideoFile .modal-body.text-center{
+/*#uploadRecordedVideoFile .modal-body.text-center{
   padding: 2px;
-}
+}*/
 
 
 .noHover_nopointer > a >h2{
@@ -69,11 +69,11 @@ table tbody td{
 
 
 
-#container_video{
+/*#container_video{
   display: none;
   margin-top: 10px;
   margin-bottom: 10px;
-}
+}*/
 
 
 
@@ -240,9 +240,9 @@ text-decoration-line: none;
 }*/
 
 
-.dotted-top{
+/*.dotted-top{
 	border-top: 1px dotted;
-}
+}*/
 
 
 h4.container_signes .pull-right {

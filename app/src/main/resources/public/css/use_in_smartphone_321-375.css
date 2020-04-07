@@ -57,10 +57,10 @@
   /* End Mes Demandes /sec/my-requests */
 
   /* Begin Mes Demandes /sec/other-request-detail */
-  #my-other-requests{
+/*  #my-other-requests{
 
     text-align: right;
-  }
+  }*/
   /* Begin Mes Demandes /sec/other-request-detail */
 
   /* Begin Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest*/
@@ -75,16 +75,16 @@
   /* Begin Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
 
 
-  #container_video {
+/*  #container_video {
     display: none;
     margin-top: 5px;
     margin-bottom: 5px;
-  }
+  }*/
 
-  #counter {
+/*  #counter {
     right: 40%;
     top: 32%;
-  }
+  }*/
 
   /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
 
@@ -115,13 +115,13 @@
   }
 
 
-  textarea::-webkit-input-placeholder {
+/*  textarea::-webkit-input-placeholder {
     color: #8C8C8C;
   }
 
   textarea.form-control{
     width:100% ;
-  }
+  }*/
 
   textarea:focus{
     outline: none !important;
@@ -176,10 +176,10 @@
   /* End Fenêtre modale Renommer Liste id=delete_favorite */
 
   /* Begin Fiche détail de ma demande /sec/my-request-detail */
-  .label_request_H2.container_H2{
+/*  .label_request_H2.container_H2{
     width: 28rem;
     margin-left: 0px;
-  }
+  }*/
 
   /* Begin Fiche détail de ma demande /sec/my-request-detail */
 
