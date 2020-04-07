@@ -417,12 +417,13 @@ H2.text_hyphenation{
 
 .back_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -106px center;
+  background-position: -113px center;
   background-repeat: no-repeat;
   background-size: auto 29px;
   height: 70px;
-  width: 43px;
+  width: 40px;
   cursor:pointer;
+  margin-left: 10px;
 }
 
 #myform input[type=search]{
@@ -634,7 +635,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-size: auto 15px;
   height: 15px;
   width: 15px;
-  right: 11px;
+  right: 12%;
 }
 
 .sign_see_white {
@@ -646,7 +647,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-size: auto 15px;
   height: 15px;
   width: 15px;
-  right: 64px;
+  right: 70%;
 }
 
 .smiley_happy_white {
@@ -658,7 +659,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-size: auto 15px;
   height: 15px;
   width: 15px;
-  right: 38px;
+  right: 41%;
 }
 
 .smiley_happy_white_in_frame {
