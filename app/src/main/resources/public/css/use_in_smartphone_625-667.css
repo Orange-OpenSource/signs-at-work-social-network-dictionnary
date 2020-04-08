@@ -245,6 +245,15 @@
 
   /* Begin Voir les signes /sec/signs */
 
+  img{
+    height:100%;
+    width: 100%;
+    object-fit: contain;
+    overflow: hidden;
+    border: 1px solid;
+    margin-bottom: 20px;
+  }
+
   .logo-SW_blue {
     background-position: -2336px center;
     background-size: auto 55px;
@@ -565,13 +574,25 @@
     width: 52rem;
   }
 
-  /* End Voir les signes /sec/signs */
+  .container_tooltip_in_image {
+    height: 30px;
+    width: 52%;
+    border-radius: 15px;
+    background-color: #4866F7;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
+    position: absolute;
+    bottom: 36px;
+    margin-left: 70px;
+  }
 
-  /* Begin Demandes de signes /sec/requests */
   .text_hyphenation.navbar_title.pull-right{
     width: 51rem;
     font-size: 24px;
   }
+
+  /* End Voir les signes /sec/signs */
+
+  /* Begin Demandes de signes /sec/requests */
 
   .member_ask_blue {
     background-image: url("/img/sprite_picto_400X400.png");
@@ -598,6 +619,16 @@
     background-size: auto 40px;
     height: 48px;
     width: 40px;
+  }
+
+  .sign_ask-for_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3825px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
   }
 
   /* End Demandes de signes /sec/requests */
@@ -890,32 +921,195 @@
     color: #4866F7;
   }
 
-
   textarea:focus{
     outline: none !important;
     border-color: #719ECE;
     box-shadow: 0 0 10px #719ECE;
   }
 
-  /* End Fiche signe /sign */
-
-
-  /* Begin Demandes de signes /sec/request */
-
-
-  /* End Demandes de signes /sec/request */
-
-
-  /* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
-  .sign_ask-for_white {
+  .variant_blue {
     background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -3825px center;
+    background-position: -4330px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+  .commentary_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -467px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .smiley_happy_white_in_frame {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -3117px center;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: auto 30px;
+    height: 37px;
+    width: 30px;
+    right: 80px;
+  }
+
+  .pin_blue_in_frame {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1984px center;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: auto 30px;
+    height: 36px;
+    width: 30px;
+    left:-70px;
+  }
+
+  .smiley_happy_menu_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4070px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 49px;
+    width: 40px;
+  }
+
+  .commentary_white-modal_header {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -509px center;
     background-repeat: no-repeat;
     background-size: auto 40px;
     height: 45px;
     width: 40px;
     margin-right: 20px;
   }
+
+  .smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-color: Transparent;
+    border: none;
+    background-position: -4192px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 49px;
+    width: 40px;
+  }
+
+  .modal-body .smiley_happy_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4027px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 40px;
+  }
+
+  h4.rate.container_H2{
+    width: 40rem;
+  }
+
+  .smiley_happy_menu_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4113px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .smiley_happy_blue_after_rate {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4028px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 40px;
+    margin-left: 100px;
+  }
+
+  .smiley_unhappy_blue_after_rate{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-color: Transparent;
+    border: none;
+    background-position: -4194px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 40px;
+    margin-left:69px;
+  }
+
+  .variant_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4783px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  /* End Fiche signe /sign */
+
+  /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
+
+  .rewind_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4863px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .rewind_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4905px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+  .history_label.noHover_nopointer > a >h2{
+    font-size: 20px;
+  }
+
+  .description_sign {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -740px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 48px;
+    width: 40px;
+  }
+
+  .history_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -4946px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 48px;
+    width: 40px;
+  }
+
+  /* End Fiche détail signe /sign/"sign_id"/"video_id"/detail */
+
+  /* Begin Description du signe /sec/sign/"sign_id"/definition */
+  .description_movie_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -709px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 46px;
+    width: 32px;
+    margin-right: 20px;
+  }
+
+  /* End Description du signe /sec/sign/"sign_id"/definition */
 
   /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
   .edit_blue{
@@ -995,26 +1189,6 @@
   /* End Fenêtre modale Renommer Liste id=delete_favorite */
 
 
-  .container_tooltip_in_image {
-    height: 30px;
-    width: 52%;
-    border-radius: 15px;
-    background-color: #4866F7;
-    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
-    position: absolute;
-    bottom: 36px;
-    margin-left: 70px;
-  }
-
-  h4.rate.container_H2{
-    width: 40rem;
-  }
-
-  /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
-  .history_label.noHover_nopointer > a >h2{
-    font-size: 20px;
-  }
-  /* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
 
   /* Begin favorite /sec/favorite/"id" */
 
@@ -1077,158 +1251,6 @@
     margin-right: 20px;
   }
 
-
-
-  .variant_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4330px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-  }
-  .commentary_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -467px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-  }
-
-  .smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-color: Transparent;
-    border: none;
-    background-position: -4192px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 49px;
-    width: 40px;
-  }
-
-  .variant_white {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4783px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-    margin-right: 20px;
-  }
-
-  .commentary_white-modal_header {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -509px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-    margin-right: 20px;
-  }
-
-  .smiley_happy_menu_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4070px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 49px;
-    width: 40px;
-  }
-
-  .description_sign {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -740px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 48px;
-    width: 40px;
-  }
-
-  .history_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4946px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 48px;
-    width: 40px;
-  }
-
-  .smiley_happy_menu_white {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4113px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-    margin-right: 20px;
-  }
-
-  .modal-body .smiley_happy_blue {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4027px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 46px;
-    width: 40px;
-  }
-
-
-  .description_movie_white {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -709px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 46px;
-    width: 32px;
-    margin-right: 20px;
-  }
-
-
-  .smiley_unhappy_blue_after_rate{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-color: Transparent;
-    border: none;
-    background-position: -4194px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 46px;
-    width: 40px;
-    margin-left:69px;
-  }
-
-  .smiley_happy_blue_after_rate {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -4028px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 46px;
-    width: 40px;
-    margin-left: 100px;
-  }
-
-
-  .smiley_happy_white_in_frame {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -3117px center;
-    background-repeat: no-repeat;
-    position: absolute;
-    background-size: auto 30px;
-    height: 37px;
-    width: 30px;
-    right: 80px;
-  }
-
-  .pin_blue_in_frame {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1984px center;
-    background-repeat: no-repeat;
-    position: absolute;
-    background-size: auto 30px;
-    height: 36px;
-    width: 30px;
-    left:-70px;
-  }
 
   .cgu_conditions_blue_about {
     background-image: url("/img/sprite_picto_400X400.png");
@@ -1483,16 +1505,6 @@
   .label_favorite_Liste_H2.container_H2{
     width: 46rem;
   }
-
-  img{
-    height:100%;
-    width: 100%;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-    margin-bottom: 20px;
-  }
-
 
 
   #sidebar.active {

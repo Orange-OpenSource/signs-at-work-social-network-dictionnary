@@ -1530,7 +1530,7 @@ textarea.form-control{
 /* End Demander un signe /sec/signs-request */
 
 
-/* Begin Fiche signe /sign */
+/* Begin Fiche signe /sign/"sign_id" */
 .smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2015px center;
@@ -1540,14 +1540,6 @@ textarea.form-control{
   width: 20px;
 }
 
-/*.smiley_happy_blue-sign {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2015px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 46px;
-  width: 20px;
-}*/
 
 .modal-body .smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -1637,15 +1629,118 @@ textarea.form-control{
   margin-left: 0px;
 }
 
-
-/* End Fiche signe /sign */
-
-/* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
-
 .sign_menu {
   padding-left: 7px;
   padding-right: 7px;
   padding-top: 10px;
+}
+
+.variant_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3109px center;
+  background-repeat: no-repeat;
+  background-size: auto 26px;
+  height: 45px;
+  width: 26px;
+  margin-right: 20px;
+}
+
+.commentary_white-modal_header {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -382px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+textarea#text {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #EBEBEB;
+  border-style: none;
+  border-radius: 0px;
+  font-size: 14px;
+  color: #4866F7;
+}
+
+.smiley_happy_menu_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3084px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.smiley_happy_blue_after_rate {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3625px center;
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  height: 46px;
+  width: 36px;
+  margin-left: 100px;
+}
+
+#positif>.container_H2, #negatif>.container_H2{
+  font-size: 21px;
+}
+
+.smiley_unhappy_blue_after_rate{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-color: Transparent;
+  border: none;
+  background-position: -3774px center;
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  height: 46px;
+  width: 36px;
+  margin-left:69px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #4866F7;
+  background-color: transparent;
+}
+
+.pin_add_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1918px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+/* End Fiche signe /sign/"sign_id" */
+
+/* Begin Fiche détail signe /sign/"sign_id"/"video_id"/detail */
+
+.table-responsive{
+  font-size: 1.2rem;
+}
+
+table tbody td{
+  word-break: break-word;
+}
+
+.table-responsive>.table>tbody>tr>td,
+.table-responsive>.table>tbody>tr>th,
+.table-responsive>.table>tfoot>tr>td,
+.table-responsive>.table>tfoot>tr>th,
+.table-responsive>.table>thead>tr>td,
+.table-responsive>.table>thead>tr>th{
+  white-space: normal;
+}
+
+.noHover_nopointer > a >h2{
+  cursor: none;
+  color: black;
 }
 
 #definition{
@@ -1690,81 +1785,22 @@ textarea.form-control{
 }
 
 
-/* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
+/* End Fiche détail signe /sign/"sign_id"/"video_id"/detail */
 
-/* Begin Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
-.variant_white {
+
+/* Begin Description du signe /sec/sign/"sign_id"/definition */
+.description_movie_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3109px center;
-  background-repeat: no-repeat;
-  background-size: auto 26px;
-  height: 45px;
-  width: 26px;
-  margin-right: 20px;
-}
-
-/* End Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
-
-/* Begin Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
-.commentary_white-modal_header {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -382px center;
+  background-position: -531px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 45px;
-  width: 30px;
+  height: 46px;
+  width: 23px;
   margin-right: 20px;
 }
 
-textarea#text {
-  width: 100%;
-  margin-bottom: 10px;
-  background-color: #EBEBEB;
-  border-style: none;
-  border-radius: 0px;
-  font-size: 14px;
-  color: #4866F7;
-}
+/* End Description du signe /sec/sign/"sign_id""/definition */
 
-/* End Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
-
-/* Begin Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
-.smiley_happy_menu_white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3084px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 45px;
-  width: 30px;
-  margin-right: 20px;
-}
-
-/* End Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
-
-/* Begin Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
-.smiley_happy_blue_after_rate {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3625px center;
-  background-repeat: no-repeat;
-  background-size: auto 36px;
-  height: 46px;
-  width: 36px;
-  margin-left: 100px;
-}
-
-.smiley_unhappy_blue_after_rate{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-color: Transparent;
-  border: none;
-  background-position: -3774px center;
-  background-repeat: no-repeat;
-  background-size: auto 36px;
-  height: 46px;
-  width: 36px;
-  margin-left:69px;
-}
-
-/* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
 
 /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
 .edit_blue{
@@ -2240,16 +2276,6 @@ pre {
 }
 
 
-.pin_add_white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1918px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 45px;
-  width: 30px;
-  margin-right: 20px;
-}
-
 .member_project_admin {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1307px center;
@@ -2397,12 +2423,3 @@ label .text_hyphenation {
 }
 
 
-.description_movie_white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -531px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 46px;
-  width: 23px;
-  margin-right: 20px;
-}
