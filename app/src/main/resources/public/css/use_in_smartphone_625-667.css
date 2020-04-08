@@ -796,6 +796,11 @@
     width: 40px;
   }
 
+  input[type=file] {
+    font-size: 18px;
+    display: inline-block;
+  }
+
   /* End Fiche détail de ma demande /sec/my-request-detail */
 
   /* Begin Mes Demandes /sec/other-request-detail */
@@ -1202,10 +1207,6 @@
     margin-left: 100px;
   }
 
-  input[type=file] {
-    font-size: 18px;
-    display: inline-block;
-  }
 
   .smiley_happy_white_in_frame {
     background-image: url("/img/sprite_picto_400X400.png");

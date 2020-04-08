@@ -1436,6 +1436,11 @@ H4#label_after_record_job_description {
   color: #4866F7;
 }
 
+input[type=file] {
+  font-size: 14px;
+  display: inline-block;
+}
+
 /* End Fiche détail de ma demande /sec/my-request-detail */
 
 
@@ -1522,20 +1527,8 @@ textarea.form-control{
   padding-left: 8px;
   padding-right: 8px;
 }
-
 /* End Demander un signe /sec/signs-request */
 
-/* Begin Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
-
-input[type=file] {
-  font-size: 14px;
-  display: inline-block;
-}
-
-/* End Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
-
-/* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
-/* End Fenêtre modale Demander un signe id=new_request modal-new-request */
 
 /* Begin Fiche signe /sign */
 .smiley_happy_blue {
