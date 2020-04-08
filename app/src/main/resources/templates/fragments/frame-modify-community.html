@@ -44,7 +44,7 @@
                        th:for="${#ids.next('communityUsersIds')}">
                     <div class="pull-left member_blue"></div>
                     <input type="checkbox" th:field="*{communityUsersIds}" th:value="${user.id}"/>
-                    <h4 class="community_name" th:text="${user.name()}"></h4>
+                    <h4 class="user_name" th:text="${user.name()}"></h4>
                 </label>
           </div>
         </div>

@@ -33,7 +33,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="job_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{your_job_description}"></h2>
+                    <h2 class="pull-right text_hyphenation" th:text="#{your_job_description}"></h2>
                 </div>
             </div>
             <form id="profileDescription" th:action="@{/sec/profil/description}" th:object="${userCreationView}" method="post">

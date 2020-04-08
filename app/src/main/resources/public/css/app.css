@@ -271,7 +271,7 @@ ul#orange-navbar-collapse >li {
 /*  see here the subtlety for Thymeleaf https://github.com/Dogfalo/materialize/issues/1582 */
 
 /* HTML5 Boilerplate accessible hidden styles */
-input[type="checkbox"] {
+/*input[type="checkbox"] {
 	border: 0;
 	clip: rect(0 0 0 0);
 	height: 1px; margin: -1px;
@@ -292,7 +292,7 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
 }
-/* the basic, unchecked style */
+!* the basic, unchecked style *!
 [type="checkbox"] + span:before,
 [type="checkbox"] + [type="hidden"] + span:before  {
 	content: '';
@@ -307,7 +307,7 @@ input[type="checkbox"] {
   height: 20px;
 }
 
-/* the checked style using the :checked pseudo class */
+!* the checked style using the :checked pseudo class *!
 [type="checkbox"]:checked + span:before ,
 [type="checkbox"]:checked + [type="hidden"] + span:before {
   background-image: url("/img/done_blue.png");
@@ -326,7 +326,7 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
 }
-/* the basic, unchecked style */
+!* the basic, unchecked style *!
 [type="checkbox"] + h4:after,
 [type="checkbox"] + [type="hidden"] + h4:after  {
   content: '';
@@ -342,7 +342,7 @@ input[type="checkbox"] {
   margin-top:1px;
 }
 
-/* the checked style using the :checked pseudo class */
+!* the checked style using the :checked pseudo class *!
 [type="checkbox"]:checked + h4:after ,
 [type="checkbox"]:checked + [type="hidden"] + h4:after {
   background-image: url("/img/done_blue.png");
@@ -350,7 +350,7 @@ input[type="checkbox"] {
   background-size: auto 15px;
   width: 20px;
   height: 20px;
-}
+}*/
 
 input[type="radio"] {
   border: 0;

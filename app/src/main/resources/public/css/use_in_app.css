@@ -1802,125 +1802,82 @@ table tbody td{
 /* End Description du signe /sec/sign/"sign_id""/definition */
 
 
-/* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
-.edit_blue{
+/* Begin Profil /sec/my-profil */
+
+.record-profil {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -592px center;
+  background-position: -1916px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 45px;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background-color: transparent;
+}
+
+.edit_white_circle {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1068px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 17px;
+}
+
+.edit_black-profil {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -571px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
   width: 24px;
 }
 
-.copy_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -351px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
+.blue {
+  color: #4866F7;
 }
 
-.pinlist_delete{
+.job_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1733px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
-/* End manage-favorite /sec/favorite/"id" */
-
-/* Begin Fenêtre modale Renommer Liste id=rename_favorite */
-
-/* End Fenêtre modale Renommer Liste id=rename_favorite */
-
-/* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
-.copy_white{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -470px center;
+  background-position: -3524px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 44px;
+  height: 45px;
   width: 30px;
-  margin-right: 12px;
+  margin-right: 20px;
 }
-/* End Fenêtre modale Renommer Liste id=duplicate_favorite */
 
-
-/* Begin Fenêtre modale Renommer Liste id=delete_favorite */
-.pinlist_delete_white{
+.message_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2202px center;
+  background-position: -1820px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 44px;
+  height: 45px;
   width: 30px;
-  margin-right: 12px;
-}
-/* End Fenêtre modale Renommer Liste id=delete_favorite */
-
-
-
-/* Begin Fiche détail autre demande /sec/other-request-detail */
-
-.grey-color {
-  color: grey;
+  margin-right: 20px;
 }
 
-/* End Fiche détail autre demande /sec/other-request-detail */
-
-.v-done_blue {
-  background-image: url(/img/sprite_picto_400X400.png);
-  background-position: -2186px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 20px;
-  width: 20px;
-}
-
-
-
-#communities-container>label>h4 {
-  border-bottom: 1px solid #8C8C8C;
-}
-
-#users-container>label>h4 {
-  border-bottom: 1px solid #8C8C8C;
-}
-
-/* Begin favorite /sec/favorite/"id" */
-.settings2_blue{
+.edit_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2068px center;
+  background-position: -771px center;
   background-repeat: no-repeat;
-  background-size: auto 24px;
+  background-size: auto 30px;
   height: 45px;
-  width: 25px;
+  width: 30px;
+  margin-right: 20px;
 }
 
-.share_blue{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2121px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 25px;
+/* End Profil /sec/my-profil */
+
+/* Begin Votre Métier ? /sec/my-job */
+
+.community_name{
+  width:33rem;
 }
+/* End Votre Métier ? /sec/my-job */
 
-.add-remove{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -44px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 25px;
-}
-
-/* End favorite /sec/favorite/"id" */
-
-/* Begin favorite /sec/favorite/share/"id" */
+/* Begin Communautés /sec/communities */
 .group_project_add{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -818px center;
@@ -1930,35 +1887,6 @@ table tbody td{
   width: 25px;
 }
 
-.group_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -715px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-  margin-right: 16px;
-}
-
-.see_group_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -715px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
-.group_member_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -794px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 25px;
-  margin-right: 16px;
-}
-
 .see_group_member_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -794px center;
@@ -1966,35 +1894,6 @@ table tbody td{
   background-size: auto 24px;
   height: 49px;
   width: 25px;
-}
-
-.group_project_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -872px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-  margin-right:16px;
-}
-
-.see_group_project_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -872px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
-.group_project_me_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -898px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 25px;
-  margin-right:16px;
 }
 
 .see_group_project_me_blue {
@@ -2015,30 +1914,34 @@ table tbody td{
   width: 31px;
   margin-right: 20px;
 }
-/* End favorite /sec/favorite/share/"id" */
 
-/* Begin communities-suggest /sec/communities-suggest */
-.member_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1153px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-  margin-right: 16px;
+.aside_bckg_li.action {
+  border-bottom: 3px solid #8C8C8C;
+  text-align: left;
+  overflow: hidden;
 }
 
-.member_blue-communities-suggest {
+/* End Communautés /sec/communities */
+
+/* Begin Créer une communauté /sec/communities-suggest */
+
+.see_group_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1153px center;
+  background-position: -715px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
-  height: 24px;
+  height: 45px;
   width: 24px;
-  margin-top: 10px;
 }
-/* Begin communities-suggest /sec/communities-suggest */
 
+.see_group_project_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -872px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
 
 .member_add_blue {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -2047,6 +1950,118 @@ table tbody td{
   background-size: auto 24px;
   height: 45px;
   width: 24px;
+}
+
+/* End Créer une communauté /sec/communities-suggest */
+
+/* Begin Communauté /sec/community/create */
+
+.user_name{
+  width:auto;
+}
+
+[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+  float: left;
+  height: 15px;
+  margin-left: 5px;
+  margin-top: 6px;
+  width: 15px;
+}
+
+
+input[type="checkbox"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px; margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+
+
+[type="checkbox"] + span,
+[type="checkbox"] + [type="hidden"] + span{
+  display: block;
+}
+
+[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before{
+  width: 20px;
+  height: 20px;
+}
+/* the basic, unchecked style */
+[type="checkbox"] + span:before,
+[type="checkbox"] + [type="hidden"] + span:before  {
+  content: '';
+  display: inline-block;
+  vertical-align: -0.25em;
+  border-radius: 1px;
+  border: 0.125em solid #fff;
+  box-shadow: 0 0 0 1px #000;
+  margin-right: 0.75em;
+  transition: 0.5s ease all;
+  width: 20px;
+  height: 20px;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="checkbox"]:checked + span:before ,
+[type="checkbox"]:checked + [type="hidden"] + span:before {
+  background-image: url("/img/done_blue.png");
+  background-repeat: no-repeat;
+  background-size: auto 15px;
+  width: 20px;
+  height: 20px;
+}
+
+[type="checkbox"] + h4,
+[type="checkbox"] + [type="hidden"] + h4{
+  display: block;
+}
+
+/*[type="checkbox"] + h4::after, [type="checkbox"] + [type="hidden"] + h4::after{
+  width: 20px;
+  height: 20px;
+}*/
+/* the basic, unchecked style */
+[type="checkbox"] + h4:after,
+[type="checkbox"] + [type="hidden"] + h4:after  {
+  content: '';
+  display: inline-block;
+  border-radius: 1px;
+  border: 0.125em solid #fff;
+  box-shadow: 0 0 0 1px #000;
+  margin-right: 0.75em;
+  transition: 0.5s ease all;
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin-top:1px;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="checkbox"]:checked + h4:after ,
+[type="checkbox"]:checked + [type="hidden"] + h4:after {
+  background-image: url("/img/done_blue.png");
+  background-repeat: no-repeat;
+  background-size: auto 15px;
+  width: 20px;
+  height: 20px;
+}
+
+#users-container>label>h4 {
+  border-bottom: 1px solid #8C8C8C;
+}
+
+.member_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1153px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
 }
 
 .subtitle {
@@ -2058,16 +2073,280 @@ table tbody td{
   margin-right: 10px;
 }
 
+.margin-for-footer {
+  margin-bottom: 30px;
+}
 
+#reset_search_user{
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2310px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 26px;
+  width: 14px;
+  position: absolute;
+  margin-top: 6px;
+  right: 14%;
+  background-color: #000000;
+  border: none;
+  color: #FFFFFF;
+  visibility: hidden;
+}
 
-.edit_white {
+#users-container {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+[type="checkbox"] + h4::after, [type="checkbox"] + [type="hidden"] + h4::after {
+  float: right;
+  height: 15px;
+  margin-top: 6px;
+  width: 15px;
+}
+/* End Communauté /sec/community/create */
+
+/* Begin Communauté /sec/community/"community_id" */
+
+.settings2_blue{
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -771px center;
+  background-position: -2068px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 25px;
+}
+
+.member_project_empty-white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1354px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.member_project_admin {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1307px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+
+.member_project_admin_me {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1331px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.member_me {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1233px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+/* End Communauté /sec/community/"community_id" */
+
+/* Begin Description de la communauté /sec/community/"community_id"/description */
+/* End Description de la communauté /sec/community/"community_id"/description */
+
+/* Begin Gérer /sec/community/"community_id"/manage-community */
+
+.edit_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -592px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.member_choose_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1179px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.group_delete_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -740px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.group_delete_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -960px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
-  height: 45px;
+  height: 44px;
   width: 30px;
+  margin-right: 12px;
+}
+/* End Gérer /sec/community/"community_id"/manage-community */
+
+/* Begin Communauté /sec/community/"community_id"/modify */
+
+.member_choose_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1507px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 31px;
   margin-right: 20px;
+}
+
+/* End Communauté /sec/community/"community_id"/modify */
+
+
+/* Begin Signes préférés /sec/favorites */
+
+.label_favorite_Liste_H2.container_H2{
+  width:24rem;
+}
+/* End Signes préférés /sec/favorites */
+
+.copy_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -351px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.pinlist_delete{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1733px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+
+.copy_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -470px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 30px;
+  margin-right: 12px;
+}
+
+.pinlist_delete_white{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2202px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 44px;
+  width: 30px;
+  margin-right: 12px;
+}
+
+.grey-color {
+  color: grey;
+}
+
+
+.v-done_blue {
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2186px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+}
+
+
+
+#communities-container>label>h4 {
+  border-bottom: 1px solid #8C8C8C;
+}
+
+.share_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2121px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 25px;
+}
+
+.add-remove{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -44px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 25px;
+}
+
+.group_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -715px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+}
+
+.group_member_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -794px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 25px;
+  margin-right: 16px;
+}
+
+
+.group_project_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -872px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right:16px;
+}
+
+.group_project_me_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -898px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 25px;
+  margin-right:16px;
+}
+
+
+.member_blue-communities-suggest {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1153px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top: 10px;
 }
 
 
@@ -2142,38 +2421,6 @@ pre {
 }
 
 
-.record-profil {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1916px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-  border: none;
-  background-color: transparent;
-}
-
-
-
-.edit_white_circle {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1068px center;
-  background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
-  margin-top: 17px;
-}
-
-.message_white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1820px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 45px;
-  width: 30px;
-  margin-right: 20px;
-}
 
 .subtitle_job {
   color: #4866F7;
@@ -2183,20 +2430,6 @@ pre {
   margin-right: 10px;
 }
 
-.job_white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3524px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 45px;
-  width: 30px;
-  margin-right: 20px;
-}
-
-
-.margin-for-footer {
-  margin-bottom: 30px;
-}
 
 #profil li:last-child {
   border-bottom: 3px solid #4866F7;
@@ -2216,54 +2449,6 @@ pre {
 }
 
 
-.member_choose_blue{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1179px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
-.member_choose_white{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1507px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 44px;
-  width: 31px;
-  margin-right: 20px;
-}
-
-.group_delete_blue{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -740px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
-.group_delete_white{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -960px center;
-  background-repeat: no-repeat;
-  background-size: auto 30px;
-  height: 44px;
-  width: 30px;
-  margin-right: 12px;
-}
-
-
-.member_project_empty-white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1354px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
 
 .add-remove_white {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -2275,33 +2460,6 @@ pre {
   margin-right: 20px;
 }
 
-
-.member_project_admin {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1307px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
-.member_project_admin_me {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1331px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
-
-.member_me {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1233px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
 
 .about_title {
   text-align: center;
@@ -2341,16 +2499,6 @@ pre {
 }
 
 
-
-.edit_black-profil {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -571px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-}
-
 /*H2.text_hyphenation{
   width: 22rem;
 }*/
@@ -2364,51 +2512,16 @@ label .text_hyphenation {
   white-space: nowrap;
 }
 
-#reset_search_user{
-  background-image: url(/img/sprite_picto_400X400.png);
-  background-position: -2310px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 26px;
-  width: 14px;
-  position: absolute;
-  margin-top: 6px;
-  right: 14%;
-  background-color: #000000;
-  border: none;
-  color: #FFFFFF;
-  visibility: hidden;
-}
-
-#users-container {
-  padding-left: 8px;
-  padding-right: 8px;
-}
 
 #communities-container {
   padding-left: 8px;
   padding-right: 8px;
 }
 
-.label_favorite_Liste_H2.container_H2{
-  width:24rem;
-}
-
-.aside_bckg_li.action {
-  border-bottom: 3px solid #8C8C8C;
-  text-align: left;
-  overflow: hidden;
-}
-
-
 
 .container_H2_blue{
   float: left;
   margin-left: 15px;
-  color: #4866F7;
-}
-
-.blue {
   color: #4866F7;
 }
 

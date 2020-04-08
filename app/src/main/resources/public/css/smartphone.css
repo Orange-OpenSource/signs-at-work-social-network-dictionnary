@@ -605,20 +605,20 @@
 
 
 
-  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;
     margin-top: 6px;
     width: 15px;
-  }
+  }*/
 
-  [type="checkbox"] + h4::after, [type="checkbox"] + [type="hidden"] + h4::after {
+/*  [type="checkbox"] + h4::after, [type="checkbox"] + [type="hidden"] + h4::after {
     float: right;
     height: 15px;
     margin-top: 6px;
     width: 15px;
-  }
+  }*/
 
 
   [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
@@ -797,9 +797,9 @@
     height: 0em;
   }
 
-  .label_favorite_Liste_H2.container_H2{
+/*  .label_favorite_Liste_H2.container_H2{
     width:19rem;
-  }
+  }*/
 
 
 /*  .table-responsive>.table>tbody>tr>td,
