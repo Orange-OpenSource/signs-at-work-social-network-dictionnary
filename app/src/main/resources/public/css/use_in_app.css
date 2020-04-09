@@ -1428,13 +1428,28 @@ img{
 }
 
 
+.rewind_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1942px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background-color: transparent;
+}
+
 #retry-recording{
   background-color: transparent;
   border: none;
   font-size: 14px;
   color: #000000;
+  margin-left: 0;
 }
 
+#modal-footer_add_video_file_recording {
+  text-align: center;
+}
 
 #container-button >button,
 #continue {
@@ -1445,18 +1460,6 @@ video{
   width: 100%;
 }
 
-.rewind_black {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1942px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-  border: none;
-  background-color: transparent;
-  margin-left: 148px;
-  margin-right: 148px;
-}
 
 H4#label_record,
 H4#label_after_record,
@@ -1469,6 +1472,8 @@ H4#label_after_record_job_description {
 
 #continue, #cancel-recording {
   font-size: 14px;
+  vertical-align: bottom;
+  margin-left: 0;
 }
 
 #container-button > button,
@@ -1476,7 +1481,7 @@ H4#label_after_record_job_description {
   border: none;
   background-color: transparent;
   color: #000000;
-  padding: 0px;
+  /*padding: 0px;*/
 }
 
 #container-button > button,
