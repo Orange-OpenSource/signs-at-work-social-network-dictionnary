@@ -261,9 +261,9 @@ ul#orange-navbar-collapse >li {
   margin: 0 auto;
 }
 
-.container_thumbnail{
+/*.container_thumbnail{
   position: absolute;
-}
+}*/
 
 
 /****************************button radio************************/
@@ -352,7 +352,7 @@ ul#orange-navbar-collapse >li {
   height: 20px;
 }*/
 
-input[type="radio"] {
+/*input[type="radio"] {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px; margin: -1px;
@@ -373,7 +373,7 @@ input[type="radio"] {
   width: 20px;
   height: 20px;
 }
-/* the basic, unchecked style */
+!* the basic, unchecked style *!
 [type="radio"] + span:before,
 [type="radio"] + [type="hidden"] + span:before  {
   content: '';
@@ -388,7 +388,7 @@ input[type="radio"] {
   height: 20px;
 }
 
-/* the checked style using the :checked pseudo class */
+!* the checked style using the :checked pseudo class *!
 [type="radio"]:checked + span:before ,
 [type="radio"]:checked + [type="hidden"] + span:before {
   background-image: url("/img/done_blue.png");
@@ -407,7 +407,7 @@ input[type="radio"] {
   width: 20px;
   height: 20px;
 }
-/* the basic, unchecked style */
+!* the basic, unchecked style *!
 [type="radio"] + h4:after,
 [type="radio"] + [type="hidden"] + h4:after  {
   content: '';
@@ -423,7 +423,7 @@ input[type="radio"] {
   margin-top:1px;
 }
 
-/* the checked style using the :checked pseudo class */
+!* the checked style using the :checked pseudo class *!
 [type="radio"]:checked + h4:after ,
 [type="radio"]:checked + [type="hidden"] + h4:after {
   background-image: url("/img/done_blue.png");
@@ -431,7 +431,7 @@ input[type="radio"] {
   background-size: auto 15px;
   width: 20px;
   height: 20px;
-}
+}*/
 
 /*#myform{
   margin: 0 auto;

@@ -176,19 +176,19 @@
   }
 
 
-  label .text_hyphenation {
+/*  label .text_hyphenation {
     width:16rem;
-  }
+  }*/
 
 
 
-  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;
     margin-top: 6px;
     width: 15px;
-  }
+  }*/
 
 
   .container_label_checkbox{

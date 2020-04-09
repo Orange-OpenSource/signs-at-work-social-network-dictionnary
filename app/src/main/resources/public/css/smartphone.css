@@ -621,7 +621,7 @@
   }*/
 
 
-  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
+/*  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;
@@ -634,7 +634,7 @@
     height: 15px;
     margin-top: 6px;
     width: 15px;
-  }
+  }*/
 
   .container_label_checkbox{
     width: 90%;
@@ -825,22 +825,22 @@
     margin-bottom: 20px;
   }*/
 
-  label .text_hyphenation {
+/*  label .text_hyphenation {
     width:13rem;
     margin-left:3rem;
-  }
+  }*/
 
 /*  label {
     font-size: 11px;
   }*/
 
-  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;
     margin-top: 6px;
     width: 15px;
-  }
+  }*/
 
   [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;
@@ -1350,13 +1350,13 @@
     font-size: 12px;
   }*/
 
-  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;
     margin-top: 6px;
     width: 15px;
-  }
+  }*/
 
   [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;
@@ -1583,22 +1583,22 @@
     margin-bottom: 20px;
   }*/
 
-  label .text_hyphenation {
+/*  label .text_hyphenation {
     width:17rem;
     margin-left:3rem;
-  }
+  }*/
 
 /*  label {
     font-size: 12px;
   }*/
 
-  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;
     margin-top: 6px;
     width: 15px;
-  }
+  }*/
 
   [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;

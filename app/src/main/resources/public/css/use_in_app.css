@@ -1873,8 +1873,152 @@ table tbody td{
 /* Begin Votre Métier ? /sec/my-job */
 
 .community_name{
-  width:33rem;
+  width:auto;
 }
+
+input[type="radio"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px; margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+
+
+[type="radio"] + span,
+[type="radio"] + [type="hidden"] + span{
+  display: block;
+}
+
+[type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before{
+  width: 20px;
+  height: 20px;
+}
+/* the basic, unchecked style */
+[type="radio"] + span:before,
+[type="radio"] + [type="hidden"] + span:before  {
+  content: '';
+  display: inline-block;
+  vertical-align: -0.25em;
+  border-radius: 1px;
+  border: 0.125em solid #fff;
+  box-shadow: 0 0 0 1px #000;
+  margin-right: 0.75em;
+  transition: 0.5s ease all;
+  width: 20px;
+  height: 20px;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked + span:before ,
+[type="radio"]:checked + [type="hidden"] + span:before {
+  background-image: url("/img/done_blue.png");
+  background-repeat: no-repeat;
+  background-size: auto 15px;
+  width: 20px;
+  height: 20px;
+}
+
+[type="radio"] + h4,
+[type="radio"] + [type="hidden"] + h4{
+  display: block;
+}
+
+[type="radio"] + h4::after, [type="radio"] + [type="hidden"] + h4::after{
+  width: 20px;
+  height: 20px;
+}
+/* the basic, unchecked style */
+[type="radio"] + h4:after,
+[type="radio"] + [type="hidden"] + h4:after  {
+  content: '';
+  display: inline-block;
+  border-radius: 1px;
+  border: 0.125em solid #fff;
+  box-shadow: 0 0 0 1px #000;
+  margin-right: 0.75em;
+  transition: 0.5s ease all;
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin-top:1px;
+}
+
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked + h4:after ,
+[type="radio"]:checked + [type="hidden"] + h4:after {
+  background-image: url("/img/done_blue.png");
+  background-repeat: no-repeat;
+  background-size: auto 15px;
+  width: 20px;
+  height: 20px;
+}
+
+[type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
+  float: left;
+  height: 15px;
+  margin-left: 5px;
+  margin-top: 6px;
+  width: 15px;
+}
+
+[type="radio"] + h4::after, [type="radio"] + [type="hidden"] + h4::after {
+  float: right;
+  height: 15px;
+  margin-top: 6px;
+  width: 15px;
+}
+
+#communities-container {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.subtitle_job {
+  color: #4866F7;
+  font-size:18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.group_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -715px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+}
+
+.group_member_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -794px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 25px;
+  margin-right: 16px;
+}
+
+#communities-container>label>h4 {
+  border-bottom: 1px solid #8C8C8C;
+}
+
+.margin-for-footer {
+  margin-bottom: 30px;
+}
+
+.aside_bckg_li.action {
+  border-bottom: 3px solid #8C8C8C;
+  text-align: left;
+  overflow: hidden;
+}
+
 /* End Votre Métier ? /sec/my-job */
 
 /* Begin Communautés /sec/communities */
@@ -1915,12 +2059,6 @@ table tbody td{
   margin-right: 20px;
 }
 
-.aside_bckg_li.action {
-  border-bottom: 3px solid #8C8C8C;
-  text-align: left;
-  overflow: hidden;
-}
-
 /* End Communautés /sec/communities */
 
 /* Begin Créer une communauté /sec/communities-suggest */
@@ -1958,14 +2096,6 @@ table tbody td{
 
 .user_name{
   width:auto;
-}
-
-[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
-  float: left;
-  height: 15px;
-  margin-left: 5px;
-  margin-top: 6px;
-  width: 15px;
 }
 
 
@@ -2050,6 +2180,14 @@ input[type="checkbox"] {
   height: 20px;
 }
 
+[type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+  float: left;
+  height: 15px;
+  margin-left: 5px;
+  margin-top: 6px;
+  width: 15px;
+}
+
 #users-container>label>h4 {
   border-bottom: 1px solid #8C8C8C;
 }
@@ -2071,10 +2209,6 @@ input[type="checkbox"] {
   margin-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
-}
-
-.margin-for-footer {
-  margin-bottom: 30px;
 }
 
 #reset_search_user{
@@ -2220,6 +2354,40 @@ input[type="checkbox"] {
 }
 /* End Signes préférés /sec/favorites */
 
+
+/* Begin Liste /sec/favorite/"favorite_id" */
+
+.share_blue{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2121px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 25px;
+}
+
+.add-remove{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -44px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 25px;
+}
+
+.pin_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1560px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+/* End Liste /sec/favorite/"favorite_id" */
+
+
+/* Begin Gérer la liste /sec/favorite/"favorite_id"/manage-favorite */
+
 .copy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -351px center;
@@ -2259,65 +2427,9 @@ input[type="checkbox"] {
   margin-right: 12px;
 }
 
-.grey-color {
-  color: grey;
-}
+/* End Gérer la liste /sec/favorite/"favorite_id"/manage-favorite */
 
-
-.v-done_blue {
-  background-image: url(/img/sprite_picto_400X400.png);
-  background-position: -2186px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 20px;
-  width: 20px;
-}
-
-
-
-#communities-container>label>h4 {
-  border-bottom: 1px solid #8C8C8C;
-}
-
-.share_blue{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2121px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 25px;
-}
-
-.add-remove{
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -44px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 25px;
-}
-
-.group_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -715px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-  margin-right: 16px;
-}
-
-.group_member_blue {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -794px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 25px;
-  margin-right: 16px;
-}
-
-
+/* Begin Partager avec... /sec/favorite/share */
 .group_project_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -872px center;
@@ -2336,6 +2448,34 @@ input[type="checkbox"] {
   height: 24px;
   width: 25px;
   margin-right:16px;
+}
+
+/* End Partager avec... /sec/favorite/share */
+
+/* Begin Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
+
+label .text_hyphenation {
+  width:13rem;
+  padding-left: 0rem;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* End Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
+
+.grey-color {
+  color: grey;
+}
+
+
+.v-done_blue {
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2186px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
 }
 
 
@@ -2422,20 +2562,9 @@ pre {
 
 
 
-.subtitle_job {
-  color: #4866F7;
-  font-size:18px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-
 #profil li:last-child {
   border-bottom: 3px solid #4866F7;
 }
-
-
 
 
 .share_white {
@@ -2504,21 +2633,6 @@ pre {
 }*/
 
 
-label .text_hyphenation {
-  width:13rem;
-  padding-left: 0rem;
-  font-size: 14px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-
-#communities-container {
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-
 .container_H2_blue{
   float: left;
   margin-left: 15px;
@@ -2526,13 +2640,5 @@ label .text_hyphenation {
 }
 
 
-.pin_black {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1560px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
-}
 
 

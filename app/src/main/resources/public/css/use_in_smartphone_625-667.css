@@ -1154,6 +1154,29 @@
 
   /* End Profil /sec/my-profil */
 
+  /* Begin Votre Métier ? /sec/my-job */
+
+  .group_blue{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -895px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  .group_member_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -993px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-right: 16px;
+  }
+
+  /* End Votre Métier ? /sec/my-job */
+
   /* Begin Communautés /sec/communities */
 
   .group_project_add{
@@ -1371,59 +1394,7 @@
 
   /* End Signes préférés /sec/favorites */
 
-  .copy_blue{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -587px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-  }
-
-  .pinlist_delete{
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -2888px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-  }
-
-  .group_blue{
-    background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -895px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-  }
-
-  .copy_white{
-    background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -626px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 44px;
-    width: 40px;
-    margin-right: 12px;
-  }
-
-  label .text_hyphenation {
-    width:17rem;
-    margin-left:3rem;
-    white-space: nowrap;
-    font-size: 16px;
-  }
-
-  .pinlist_delete_white{
-    background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -2936px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 44px;
-    width: 40px;
-    margin-right: 12px;
-  }
+  /* Begin Liste /sec/favorite/"favorite_id" */
 
   .share_blue{
     background-image: url("/img/sprite_picto_400X400.png");
@@ -1443,8 +1414,92 @@
     width: 40px;
   }
 
+  .pin_black {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1951px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 45px;
+    width: 30px;
+  }
+
+  /* End Liste /sec/favorite/"favorite_id" */
+
+  /* Begin Gérer la liste /sec/favorite/"favorite_id"/manage-favorite */
+
+  .copy_blue{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -587px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
+
+  .pinlist_delete{
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -2888px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+  }
 
 
+  .copy_white{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -626px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 44px;
+    width: 40px;
+    margin-right: 12px;
+  }
+
+  .pinlist_delete_white{
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -2936px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 44px;
+    width: 40px;
+    margin-right: 12px;
+  }
+  /* End Gérer la liste /sec/favorite/"favorite_id"/manage-favorite */
+
+  /* Begin Partager avec... /sec/favorite/share */
+  .group_project_me_blue {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1123px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-right:16px;
+  }
+
+  .group_project_blue {
+    background-image: url(/img/sprite_picto_400X400.png);
+    background-position: -1090px center;
+    background-repeat: no-repeat;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-right: 16px;
+  }
+
+  /* End Partager avec... /sec/favorite/share */
+
+  /* Begin Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
+
+  label .text_hyphenation {
+    width:17rem;
+    margin-left:3rem;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  /* End Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
 
   .btn .pinlist_shared.pull-left {
     margin-top: 3px;
@@ -1486,26 +1541,6 @@
     margin-top: 4px;
   }
 
-
-
-  .pin_black {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -1951px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 45px;
-    width: 30px;
-  }
-
-  .group_project_blue {
-    background-image: url(/img/sprite_picto_400X400.png);
-    background-position: -1090px center;
-    background-repeat: no-repeat;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-    margin-right: 16px;
-  }
 
   .add-remove_white {
     background-image: url("/img/sprite_picto_400X400.png");
