@@ -593,71 +593,15 @@
 
 
 
-
-/*  .table-responsive>.table>tbody>tr>td,
-  .table-responsive>.table>tbody>tr>th,
-  .table-responsive>.table>tfoot>tr>td,
-  .table-responsive>.table>tfoot>tr>th,
-  .table-responsive>.table>thead>tr>td,
-  .table-responsive>.table>thead>tr>th{
-    white-space: normal;
-  }*/
-
-
-
-/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
-    float: left;
-    height: 15px;
-    margin-left: 5px;
-    margin-top: 6px;
-    width: 15px;
-  }*/
-
-/*  [type="checkbox"] + h4::after, [type="checkbox"] + [type="hidden"] + h4::after {
-    float: right;
-    height: 15px;
-    margin-top: 6px;
-    width: 15px;
-  }*/
-
-
-/*  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
-    float: left;
-    height: 15px;
-    margin-left: 5px;
-    margin-top: 6px;
-    width: 15px;
-  }
-
-  [type="radio"] + h4::after, [type="radio"] + [type="hidden"] + h4::after {
-    float: right;
-    height: 15px;
-    margin-top: 6px;
-    width: 15px;
-  }*/
-
-  .container_label_checkbox{
+/*  .container_label_checkbox{
     width: 90%;
     margin: 0 auto;
-  }
+  }*/
 
-  .container_label_radio{
+ /* .container_label_radio{
     width: 90%;
     margin: 0 auto;
-  }
-
-/*  #container-input{
-    margin: 0 auto;
-    width:  85%
   }*/
-
-
-/*  .form-control::-webkit-input-placeholder {
-    color: #8C8C8C;
-    height: 40px;
-    line-height: 25px;
-  }*/
-
 
 
   .col-xs-1 .dropdown-toggle {
@@ -667,33 +611,33 @@
 
 
 
-  .btn .pinlist_blue.pull-left {
+/*  .btn .pinlist_blue.pull-left {
     background-position: -1712px center;
     background-size: auto 24px;
     height: 30px;
     width: 21px;
     margin-left: 5px;
-  }
+  }*/
 
 
-  .btn .most_viewed.pull-left {
+/*  .btn .most_viewed.pull-left {
     background-position: -1560px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
-  .btn .most_active.pull-left {
+/*  .btn .most_active.pull-left {
     background-position: -1530px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
 
-  .btn .signe.pull-left {
+/*  .btn .signe.pull-left {
     background-position: -975px center;
     background-size: auto 30px;
     height: 30px;
@@ -709,22 +653,14 @@
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
-
-
-/*  .text_hyphenation.navbar_title{
-
   }*/
+
 
 
   button[data-target="#orange-navbar-collapse"]{
 
     border-style:none;
   }
-
-/*  .navbar-nav {
-
-  }*/
 
 
 
@@ -738,103 +674,22 @@
 
 
 
-/*  #label_dictionary{
-    display: inline-block;
-  }*/
-
   .col-xs-9{
     padding-left: 0px;
   }
-
-
-/*  textarea#text {
-    width: 100%;
-    margin-bottom: 10px;
-  }*/
-
-
-/*  textarea.form-control{
-    width:100% ;
-  }*/
-
-/*  #counter{
-    right: 40%;
-    top: 26%;
-  }*/
-
-/*  H4#label_record,
-  H4#label_after_record{
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }*/
-
-/*  #container_video{
-    display: none;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }*/
 
 
   #container-button >.btn{
     font-size:10px;
   }
 
-/*  #continue, #cancel-recording  {
-    font-size: 10px;
-  }*/
-
-/*  #container-button >button,
-  #continue, #cancel-recording {
-    line-height:10px;
-  }*/
-
-
-/*  .labelSigne {
-    width: 10rem;
-  }*/
 
   li[role="presentation"].aside_bckg_li > a > div {
     height: 0em;
   }
 
-/*  .label_favorite_Liste_H2.container_H2{
-    width:19rem;
-  }*/
 
-
-/*  .table-responsive>.table>tbody>tr>td,
-  .table-responsive>.table>tbody>tr>th,
-  .table-responsive>.table>tfoot>tr>td,
-  .table-responsive>.table>tfoot>tr>th,
-  .table-responsive>.table>thead>tr>td,
-  .table-responsive>.table>thead>tr>th{
-    white-space: normal;
-  }*/
-
-/*  .label_sign_H2.container_H2{
-    width:214px;
-  }*/
-
-
-/*  h2, .h2 {
-    font-size: 17px;
-  }*/
-
-
-/*  .col-xs-12.middle-col{
-    margin-bottom: 20px;
-  }*/
-
-/*  label .text_hyphenation {
-    width:13rem;
-    margin-left:3rem;
-  }*/
-
-/*  label {
-    font-size: 11px;
-  }*/
-
-/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
+/*  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;
     height: 15px;
     margin-left: 5px;
@@ -842,96 +697,46 @@
     width: 15px;
   }*/
 
-  [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
-    float: left;
-    height: 15px;
-    margin-left: 5px;
-    margin-top: 6px;
-    width: 15px;
-  }
-
-/*  .text_hyphenation.navbar_title{
-    width: 23rem;
-  }*/
-
-/*  H2.text_hyphenation{
-    width: 23rem;
-  }*/
 
   .col-xs-1 .dropdown-toggle {
     width: 7em;
   }
 
 
-/*  .btn .new_blue.pull-left {
-    background-position: -1425px center;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-    margin-left: 5px;
-  }*/
-
-
-/*  .btn .pinlist_blue.pull-left {
-    background-position: -2940px center;
-    background-size: auto 30px;
-    height: 30px;
-    width: 30px;
-    margin-left: 5px;
-  }*/
-
-
-  .btn .most_viewed.pull-left {
+/*  .btn .most_viewed.pull-left {
     background-position: -1560px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
-  .btn .most_active.pull-left {
+/*  .btn .most_active.pull-left {
     background-position: -1530px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
 
-  .btn .signe.pull-left {
+/*  .btn .signe.pull-left {
     background-position: -975px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
     margin-left: 5px;
-  }
+  }*/
 
 
 
-  .container_tooltip {
+/*  .container_tooltip {
     background-color: red !important;
     position: absolute !important;
     right: 25px;
-  }
-
-
-
-/*  .smiley_happy_white {
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 32px;
   }*/
 
 
-/*  img{
-    height:170px;
-    width: 170px;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-  }*/
 
 
   button[data-target="#orange-navbar-collapse"]{
@@ -939,9 +744,6 @@
     margin-top: 0px;
   }
 
-/*  .navbar-nav {
-    margin-top: 0rem;
-  }*/
 
   ul.hidden-sm > li[role="presentation"] {
     margin-right: 15px;
@@ -952,20 +754,6 @@
   li[role="presentation"] {
     margin-right: 15px;
   }
-
-
-/*  #container-input{
-    margin: 0 auto;
-    width:  85%
-  }*/
-
-/*  #myform input[type=search]{
-    border: 2px solid ;
-    border-radius: 11px;
-    box-sizing: border-box;
-    margin-bottom:10px;
-  }*/
-
 
   #sidebar.active {
     width: 362px;
@@ -1262,101 +1050,20 @@
 
 
 
-/*  #label_dictionary{
-    display: inline-block;
-  }*/
-
-
   .col-xs-9{
     padding-left: 0px;
   }
-
-
-/*  textarea#text {
-    width: 100%;
-    margin-bottom: 10px;
-  }*/
-
-/*  textarea.form-control{
-    width:100% ;
-  }*/
-
-/*  #counter{
-    right: 40%;
-    top: 26%;
-  }*/
-
-/*  H4#label_record,
-  H4#label_after_record{
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }*/
-
-/*  #container_video{
-    display: none;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }*/
 
 
   #container-button >.btn{
     font-size:10px;
   }
 
-/*  #continue,#cancel-recording  {
-    font-size: 10px;
-  }*/
-
-/*  #container-button >button,
-  #continue, #cancel-recording {
-    line-height:10px;
-  }*/
-
-
 
   li[role="presentation"].aside_bckg_li > a > div {
     height: 0em;
   }
 
-
-/*  .table-responsive>.table>tbody>tr>td,
-  .table-responsive>.table>tbody>tr>th,
-  .table-responsive>.table>tfoot>tr>td,
-  .table-responsive>.table>tfoot>tr>th,
-  .table-responsive>.table>thead>tr>td,
-  .table-responsive>.table>thead>tr>th{
-    white-space: normal;
-  }*/
-
-/*  .label_sign_H2.container_H2{
-    width:214px;
-  }*/
-
-/*  .labelSigne a{
-    font-size:10px;
-  }*/
-
-/*  h2, .h2 {
-    font-size: 17px;
-  }*/
-
-
-/*  .col-xs-12.middle-col{
-    margin-bottom: 20px;
-  }*/
-
-
-/*  label {
-    font-size: 12px;
-  }*/
-
-/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
-    float: left;
-    height: 15px;
-    margin-left: 5px;
-    margin-top: 6px;
-    width: 15px;
-  }*/
 
   [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;
@@ -1365,27 +1072,6 @@
     margin-top: 6px;
     width: 15px;
   }
-
-
-/*  #container-input{
-    margin: 0 auto;
-    width:  85%
-  }*/
-
-/*  #myform input[type=search]{
-    border: 2px solid ;
-    border-radius: 11px;
-    box-sizing: border-box;
-    margin-bottom:10px;
-  }*/
-
-/*  #reset{
-    position: absolute;
-    margin-top: 7px;
-    right: 30%;
-    background-color: #E2E2E2;
-    border:none;
-  }*/
 
   .col-xs-1 .dropdown-toggle {
     width: 8em;
@@ -1407,50 +1093,11 @@
   }
 
 
-/*  .commentary_white {
-    background-position: right 0px top 0px;
-    background-size: auto 16px;
-    height: 14px;
-    width: 16px;
-    right: 63px;
-  }*/
-
-/*  .sign_see_white {
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
-    height: 14px;
-    width: 16px;
-    right: 46px;
-  }*/
-
-
-/*  .smiley_happy_white {
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 32px;
-  }*/
-
-/*  .pin_blue {
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 15px;
-  }*/
-
-
-
-
   button[data-target="#orange-navbar-collapse"]{
     padding: 0px 10px;
     margin-top: 0px;
   }
 
-/*  .navbar-nav {
-    margin-top: 0rem;
-  }*/
 
 
   ul.hidden-sm > li[role="presentation"] {
@@ -1480,15 +1127,6 @@
   }
 
 
-/*  button[data-toggle="dropdown"].btn{
-    line-height: 3rem;
-    vertical-align: middle;
-  }*/
-
-/*  #label_dictionary{
-    display: inline-block;
-  }*/
-
 
   .col-xs-9{
     padding-left: 0px;
@@ -1500,49 +1138,17 @@
     margin-bottom: 10px;
   }
 
-/*  textarea.form-control{
-    width:100% ;
-  }*/
 
   textarea#text:focus {
    border-style: none;
   }
 
-/*  #counter{
-    right: 40%;
-    top: 26%;
-  }*/
-
-/*  H4#label_record,
-  H4#label_after_record{
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }*/
-
- /* #container_video{
-    display: none;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }*/
 
 
   #container-button >.btn{
     font-size:10px;
   }
 
-/*  #continue, #cancel-recording  {
-    font-size: 10px;
-  }*/
-
-/*  #container-button >button,
-  #continue, #cancel-recording {
-    line-height:10px;
-  }*/
-
-
-/*  .labelSigne {
-    width: 10rem;
-  }*/
 
   li[role="presentation"].aside_bckg_li > a > div {
     height: 0em;
@@ -1557,48 +1163,8 @@
     width: 28rem;
   }
 
-/*  .table-responsive>.table>tbody>tr>td,
-  .table-responsive>.table>tbody>tr>th,
-  .table-responsive>.table>tfoot>tr>td,
-  .table-responsive>.table>tfoot>tr>th,
-  .table-responsive>.table>thead>tr>td,
-  .table-responsive>.table>thead>tr>th{
-    white-space: normal;
-  }*/
-
-/*  .label_sign_H2.container_H2{
-    width:214px;
-  }*/
-
-/*  .labelSigne a{
-    font-size:10px;
-  }*/
-
-/*  h2, .h2 {
-    font-size: 17px;
-  }*/
 
 
-/*  .col-xs-12.middle-col{
-    margin-bottom: 20px;
-  }*/
-
-/*  label .text_hyphenation {
-    width:17rem;
-    margin-left:3rem;
-  }*/
-
-/*  label {
-    font-size: 12px;
-  }*/
-
-/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
-    float: left;
-    height: 15px;
-    margin-left: 5px;
-    margin-top: 6px;
-    width: 15px;
-  }*/
 
   [type="radio"] + span::before, [type="radio"] + [type="hidden"] + span::before {
     float: left;
@@ -1615,25 +1181,6 @@
     white-space: nowrap;
     line-height: 46px;
   }
-/*  #container-input{
-    margin: 0 auto;
-    width:  85%
-  }*/
-
-/*  #myform input[type=search]{
-    border: 2px solid ;
-    border-radius: 11px;
-    box-sizing: border-box;
-    margin-bottom:10px;
-  }*/
-
-/*  #reset{
-    position: absolute;
-    margin-top: 7px;
-    right: 18%;
-    background-color: #E2E2E2;
-    border:none;
-  }*/
 
 
   .col-xs-1 .dropdown-toggle {
@@ -1647,65 +1194,7 @@
     right: 40px;
   }
 
-/*  .new_blue-signs {
-    background-position: right 2px top 0;
-    background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 80px;
-  }*/
 
-/*  .commentary_white {
-    background-position: right 0px top 0px;
-    background-size: auto 16px;
-    height: 14px;
-    width: 16px;
-    right: 63px;
-  }*/
-
- /* .sign_see_white {
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
-    height: 14px;
-    width: 16px;
-    right: 46px;
-  }*/
-
-
-/*  .smiley_happy_white {
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 32px;
-  }*/
-
-/*  .pin_blue {
-    background-position: right 2px top 0px;
-    background-size: auto 15px;
-    height: 25px;
-    width: 45px;
-    right: 15px;
-  }*/
-
-/*  .tooltip_variante {
-    bottom: 25px;
-    background-color: aliceblue;
-    height: 10px;
-    margin-left: 6px;
-    position: absolute;
-    width: 10px;
-    border-radius: 10px;
-    font-size: 8px;
-  }*/
-
-/*  img{
-    height:300px;
-    width: 300px;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-  }*/
 
   .menu {
     background-position: -460px center;
@@ -1716,9 +1205,6 @@
     margin-top: 0px;
   }
 
-/*  .navbar-nav {
-    margin-top: 0rem;
-  }*/
 
 
   ul.hidden-sm > li[role="presentation"] {
@@ -1731,16 +1217,12 @@
     margin-right: 15px;
   }
 
-/*  H2.text_hyphenation {
-    width: 48rem;
-  }*/
+
 
   .navbar-collapse .navbar-nav > li {
     width: 100%;
   }
-/*  .form-control {
-    width: 100%;
-  }*/
+
 
   label .text_hyphenation {
     width: 26rem;

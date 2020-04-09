@@ -1,102 +1,19 @@
 @media only screen and (min-width:321px) and (max-width:375px) {
 
-  /* Begin login page /login */
-/*  #label_dictionary {
-    display: inline-block;
-  }*/
 
-/*  label {
-    font-size: 11px;
-  }*/
-
-  /* End login page /login */
-
-  /* Begin index page /index */
-
-
-  /* End index page /index */
-
-  /* Begin Menu */
-/*  li[role="menuitem"] {
-    margin-left: 14px;
-  }*/
-
-
-  /* End Menu */
-
-  /* Begin Voir les signes /sec/signs */
-
-
-  .labelVideo {
+/*  .labelVideo {
     font-size: 14px;
     white-space: nowrap;
     text-align: center;
     padding-left: 33px;
-  }
-
-  /* End Voir les signes /sec/signs */
-
-  /* Begin Demandes de signes /sec/request */
-
-  /* End Demandes de signes /sec/request */
-
-  /* Begin Demandes de signes /sec/requests */
-  /* End Demandes de signes /sec/requests */
-
-  /* Begin Mes Demandes /sec/my-requests */
+  }*/
 
 
-  .text_hyphenation.navbar_title.pull-left{
+/*  .text_hyphenation.navbar_title.pull-left{
     width: 20rem;
-  }
-
-/*  .text_hyphenation.navbar_title.pull-right{
-    width: 23rem;
   }*/
 
-  /* End Mes Demandes /sec/my-requests */
 
-  /* Begin Mes Demandes /sec/other-request-detail */
-/*  #my-other-requests{
-
-    text-align: right;
-  }*/
-  /* Begin Mes Demandes /sec/other-request-detail */
-
-  /* Begin Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest*/
-  /* End Fenêtre modale Nouveau signe id=new-suggest modal-new-suggest*/
-
-  /* Begin Nouveau signe /sec/signs-suggest */
-  /* End Nouveau signe /sec/signs-suggest */
-
-  /* Begin Fenêtre modale Ajouter un signe id=suggest modal-suggest */
-  /* End Fenêtre modale Ajouter un signe id=suggest modal-suggest */
-
-  /* Begin Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
-
-
-/*  #container_video {
-    display: none;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }*/
-
-/*  #counter {
-    right: 40%;
-    top: 32%;
-  }*/
-
-  /* End Fenêtre modale enregistrez le signe id=add_video_file_recording modal-suggest */
-
-  /* Begin Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
-  /* End Fenêtre modale sélectionner un fichier id=uploadRecordedVideoFile modal-suggest */
-
-  /* Begin Fenêtre modale Demander un signe id=new_request modal-new-request */
-
-
-  /* End Fenêtre modale Demander un signe id=new_request modal-new-request */
-
-  /* Begin Fiche signe /sign */
   ul.hidden-sm > li[role="presentation"] {
     /* margin-right: 15px;*/
     width: 2rem;
@@ -115,94 +32,11 @@
   }
 
 
-/*  textarea::-webkit-input-placeholder {
-    color: #8C8C8C;
-  }
-
-  textarea.form-control{
-    width:100% ;
-  }*/
-
   textarea:focus{
     outline: none !important;
     border-color: #719ECE;
     box-shadow: 0 0 10px #719ECE;
   }
-
-  /* End Fiche signe /sign */
-
-  /* Begin Fiche détail signe /sign/"sign_id""/"video_id"/detail */
-/*  .table-responsive{
-    font-size: 1.2rem;
-  }*/
-
-/*  .history_label.noHover_nopointer > a >h2{
-    font-size: 16px;
-  }*/
-  /* End Fiche détail signe /sign/"sign_id""/"video_id"/detail */
-
-  /* Begin Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
-  /* End Fenêtre modale Ajouter une Variante id=new-video modal-new-video */
-
-
-  /* Begin Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
-  /* End Fenêtre modale Ajouter un commentaire id=comment_modal modal-new-comment-sign */
-
-  /* Begin Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
-  /* End Fenêtre modale Evaluer id=evaluation_modal modal-rate-sign */
-
-  /* Begin Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
-  /* End Fenêtre modale Confirmation Evaluation id=after-rate-sign modal-rate-sign */
-
-  /* Begin manage-favorite /sec/favorite/"id"/manage-favorite */
-
-
-  /* End manage-favorite /sec/favorite/"id"/manage-favorite */
-
-  /* Begin Fenêtre modale Renommer Liste id=rename_favorite */
-
-  /* End Fenêtre modale Renommer Liste id=rename_favorite */
-
-  /* Begin Fenêtre modale Renommer Liste id=duplicate_favorite */
-
-  /* End Fenêtre modale Renommer Liste id=rename_favorite */
-
-  /* Begin manage-favorite /sec/favorite/"id"/associate-sign */
-
-  /* End manage-favorite /sec/favorite/"id"/associate-sign */
-
-  /* Begin Fenêtre modale Renommer Liste id=delete_favorite */
-
-  /* End Fenêtre modale Renommer Liste id=delete_favorite */
-
-  /* Begin Fiche détail de ma demande /sec/my-request-detail */
-/*  .label_request_H2.container_H2{
-    width: 28rem;
-    margin-left: 0px;
-  }*/
-
-  /* Begin Fiche détail de ma demande /sec/my-request-detail */
-
-/*  h4.container_header_H2{
-    width: 20rem;
-  }*/
-
-/*  h4.rate.container_H2{
-    width: 16rem;
-  }*/
-
-/*  .community_name{
-    width:33rem;
-  }*/
-
-
-
-  /* End favorite /sec/favorite/"id" */
-
-  /* Begin /sec/favorite/share/"id" */
-
-  /* End /sec/favorite/share/"id" */
-
 
 }
 

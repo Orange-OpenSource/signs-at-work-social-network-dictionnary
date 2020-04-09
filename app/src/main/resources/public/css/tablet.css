@@ -176,30 +176,11 @@
   }
 
 
-/*  label .text_hyphenation {
-    width:16rem;
-  }*/
-
-
-
-/*  [type="checkbox"] + span::before, [type="checkbox"] + [type="hidden"] + span::before {
-    float: left;
-    height: 15px;
-    margin-left: 5px;
-    margin-top: 6px;
-    width: 15px;
-  }*/
-
 
   .container_label_checkbox{
     width: 62%;
     margin: 0 auto;
   }
-
-
-
-
-
 
 
   .btn-default.active.focus,
@@ -253,17 +234,6 @@
   }
 
 
-
-
-/*  .tooltip_variante {
-    background-color: aliceblue;
-    bottom: 30px;
-    height: 20px;
-    position: absolute;
-    width: 20px;
-    border-radius: 10px;
-    left: 38px;
-  }*/
 
 
 

@@ -1,5 +1,11 @@
 /* Begin login page /login */
 
+@font-face {
+  font-family: "Accessible-DfA";
+  src: url('../font/AccessibleDfA.woff');
+
+}
+
 #label_dictionary {
   display: inline-block;
 }
@@ -413,7 +419,51 @@ h1, .h1 {
   margin-right: 20px;
 }
 
+#cgu_disagree_body {
+  font-size: 16px;
+  padding-left: 40px;
+  color: #4866F7;
+}
+
 /* End Conditions d'utilisation /cgu */
+
+/* Begin Réinitilisation du lot de passe /user/changePassword */
+
+.alert{
+  padding: 0px;
+}
+
+.see_password {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3317px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.not_see_password {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3361px center;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+#password, #confirm-password {
+  width: 85%;
+  display: inline-block;
+}
+
+
+pre {
+  margin-top: 10px;
+}
+
+/* End Réinitilisation du lot de passe /user/changePassword */
 
 /* Begin index page /index */
 
@@ -1441,6 +1491,16 @@ input[type=file] {
   display: inline-block;
 }
 
+.signlanguage_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2866px center;
+  background-repeat: no-repeat;
+  background-size: auto 29px;
+  height: 28px;
+  width: 29px;
+  margin-top:10px;
+}
+
 /* End Fiche détail de ma demande /sec/my-request-detail */
 
 
@@ -1449,6 +1509,10 @@ input[type=file] {
   margin:0 auto;
   width: 100%;
   text-align: left;
+}
+
+.grey-color {
+  color: grey;
 }
 /* End Demandes de signes /sec/other-request-detail */
 
@@ -1527,10 +1591,31 @@ textarea.form-control{
   padding-left: 8px;
   padding-right: 8px;
 }
+
+.v-done_blue {
+  background-image: url(/img/sprite_picto_400X400.png);
+  background-position: -2186px center;
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 20px;
+  width: 20px;
+}
+
 /* End Demander un signe /sec/signs-request */
 
 
-/* Begin Fiche signe /sign/"sign_id" */
+/* Begin Variantes /sign/"sign_id" */
+
+.labelVideo {
+  font-size: 14px;
+  white-space: nowrap;
+  text-align: center;
+  padding-left: 33px;
+}
+
+/* End Variantes /sign/"sign_id" */
+
+/* Begin Fiche signe /sign/"sign_id"/"video_id" */
 .smiley_happy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2015px center;
@@ -1550,7 +1635,7 @@ textarea.form-control{
   width: 24px;
 }
 
-.smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{
+.smiley_unhappy_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-color: Transparent;
   border: none;
@@ -1717,7 +1802,7 @@ textarea#text {
   margin-right: 20px;
 }
 
-/* End Fiche signe /sign/"sign_id" */
+/* End Fiche signe /sign/"sign_id"/"video_id" */
 
 /* Begin Fiche détail signe /sign/"sign_id"/"video_id"/detail */
 
@@ -2090,6 +2175,16 @@ input[type="radio"] {
   width: 24px;
 }
 
+.member_blue-communities-suggest {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1153px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-top: 10px;
+}
+
 /* End Créer une communauté /sec/communities-suggest */
 
 /* Begin Communauté /sec/community/create */
@@ -2346,6 +2441,13 @@ input[type="checkbox"] {
 
 /* End Communauté /sec/community/"community_id"/modify */
 
+/* Begin "Prénom" "Nom" /sec/profile-from-community/"community_id"/"user_id" */
+
+#profil li:last-child {
+  border-bottom: 3px solid #4866F7;
+}
+
+/* End "Prénom" "Nom" /sec/profile-from-community/"community_id"/"user_id" */
 
 /* Begin Signes préférés /sec/favorites */
 
@@ -2450,6 +2552,16 @@ input[type="checkbox"] {
   margin-right:16px;
 }
 
+.share_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2531px center;
+  background-repeat: no-repeat;
+  background-size: auto 28px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
 /* End Partager avec... /sec/favorite/share */
 
 /* Begin Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
@@ -2462,123 +2574,6 @@ label .text_hyphenation {
   white-space: nowrap;
 }
 
-/* End Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
-
-.grey-color {
-  color: grey;
-}
-
-
-.v-done_blue {
-  background-image: url(/img/sprite_picto_400X400.png);
-  background-position: -2186px center;
-  background-repeat: no-repeat;
-  background-size: auto 20px;
-  height: 20px;
-  width: 20px;
-}
-
-
-.member_blue-communities-suggest {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -1153px center;
-  background-repeat: no-repeat;
-  background-size: auto 24px;
-  height: 24px;
-  width: 24px;
-  margin-top: 10px;
-}
-
-
-.signlanguage_black {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2866px center;
-  background-repeat: no-repeat;
-  background-size: auto 29px;
-  height: 28px;
-  width: 29px;
-  margin-top:10px;
-}
-
-.cgu_button {
-  margin-top: 35px;
-}
-
-.cgu_button>.btn{
-  color: #4866F7;
-  font-size: 14px;
-  border-style:none;
-  font-weight: bold;
-}
-
-.cgu_button>.btn-secondary{
-  background-color: #fff;
-  color: black;
-}
-
-
-
-
-.see_password {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3317px center;
-  background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
-  cursor: pointer;
-}
-
-.not_see_password {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3361px center;
-  background-repeat: no-repeat;
-  background-size: auto 40px;
-  height: 40px;
-  width: 40px;
-  cursor: pointer;
-}
-
-#password, #confirm-password {
-  width: 85%;
-  display: inline-block;
-}
-
-
-/*.form-signin-heading {
-  color: #4866F7;
-}*/
-
-
-#cgu_disagree_body {
-  font-size: 16px;
-  padding-left: 40px;
-  color: #4866F7;
-}
-
-pre {
-  margin-top: 10px;
-}
-
-
-
-#profil li:last-child {
-  border-bottom: 3px solid #4866F7;
-}
-
-
-.share_white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2531px center;
-  background-repeat: no-repeat;
-  background-size: auto 28px;
-  height: 45px;
-  width: 28px;
-  margin-right: 20px;
-}
-
-
-
 .add-remove_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -81px center;
@@ -2589,6 +2584,10 @@ pre {
   margin-right: 20px;
 }
 
+/* End Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
+
+
+/* Begin A propos de Signs@Work /sec/about */
 
 .about_title {
   text-align: center;
@@ -2627,10 +2626,10 @@ pre {
   margin-top: 10px;
 }
 
+/* End A propos de Signs@Work /sec/about */
 
-/*H2.text_hyphenation{
-  width: 22rem;
-}*/
+/* Begin Conditions d'utilisation Signs@Work /sec/about-cgu */
+/* End Conditions d'utilisation Signs@Work /sec/about-cgu */
 
 
 .container_H2_blue{

@@ -28,7 +28,7 @@ function onRatePositif(signId, videoId){
     success: function(response) {
        // $("#after-rate-sign-positive").modal('show');
       $("#after-rate-sign").modal('show');
-      $("#sentiment-after-rate").addClass("containerRight_signes smiley_happy_blue")
+      /*$("#sentiment-after-rate").addClass("containerRight_signes smiley_happy_blue")*/
       $('#positif').css('display', 'block');
     },
     error: function(response) {
@@ -44,7 +44,7 @@ function onRateNegatif(signId, videoId){
     type: 'post',
     success: function(response) {
       $("#after-rate-sign").modal('show');
-      $("#sentiment-after-rate").addClass("containerRight_signes smiley_unhappy_blue")
+     /* $("#sentiment-after-rate").addClass("containerRight_signes smiley_unhappy_blue")*/
       $('#negatif').css('display', 'block');
     },
     error: function(response) {

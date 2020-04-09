@@ -507,6 +507,10 @@
     margin-top: 3px;
   }
 
+  .btn .pinlist_shared.pull-left {
+    margin-top: 3px;
+  }
+
   .pin_blue_in_frame {
     background-size: auto 15px;
     height: 15px;
@@ -588,6 +592,10 @@
   .text_hyphenation.navbar_title.pull-right{
     width: 51rem;
     font-size: 24px;
+  }
+
+  #sidebar.active {
+    left: 157px;
   }
 
   /* End Voir les signes /sec/signs */
@@ -985,7 +993,7 @@
     margin-right: 20px;
   }
 
-  .smiley_unhappy_blue, .modal-body .containerRight_signes .smiley_unhappy_blue{
+  .smiley_unhappy_blue {
     background-image: url("/img/sprite_picto_400X400.png");
     background-color: Transparent;
     border: none;
@@ -1499,11 +1507,20 @@
     font-size: 16px;
   }
 
+  .add-remove_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -115px center;
+    background-repeat: no-repeat;
+    background-size: auto 40px;
+    height: 45px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
   /* End Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
 
-  .btn .pinlist_shared.pull-left {
-    margin-top: 3px;
-  }
+
+  /* Begin A propos de Signs@Work /sec/about */
 
   .cgu_conditions_blue_about {
     background-image: url("/img/sprite_picto_400X400.png");
@@ -1542,25 +1559,8 @@
   }
 
 
-  .add-remove_white {
-    background-image: url("/img/sprite_picto_400X400.png");
-    background-position: -115px center;
-    background-repeat: no-repeat;
-    background-size: auto 40px;
-    height: 45px;
-    width: 40px;
-    margin-right: 20px;
-  }
+  /* End A propos de Signs@Work /sec/about */
 
-
-
-
-  #sidebar.active {
-    left: 157px;
-  }
-
-  .text_hyphenation.navbar_title.pull-left{
-    width: 46rem;
-  }
-
+  /* Begin Conditions d'utilisation Signs@Work /sec/about-cgu */
+  /* End Conditions d'utilisation Signs@Work /sec/about-cgu */
 }
