@@ -145,12 +145,9 @@
   }
 
 
-
-
   .col-xs-9{
     padding-left: 0px;
   }
-
 
 
   textarea#text {
@@ -161,7 +158,6 @@
   textarea.form-control{
     width:100% ;
   }
-
 
 
   .embed-responsive-4by3{
@@ -176,12 +172,10 @@
   }
 
 
-
   .container_label_checkbox{
     width: 62%;
     margin: 0 auto;
   }
-
 
   .btn-default.active.focus,
   .btn-default.active:focus,
@@ -199,14 +193,9 @@
    vertical-align: middle;
   }
 
-
-
   .col-sm-5 span.hidden-xs{
   margin-left: 5px;
   }
-
-
-
 
 
   li[role="presentation"] {
@@ -219,8 +208,6 @@
     right: 55px;
   }
 
-
-
   .dropdown-menu > li > a {
     display: block;
     padding-left: 1px;
@@ -232,9 +219,5 @@
   .dropdown-menu > li > a > span{
     margin-left: 1rem;
   }
-
-
-
-
 
 }
