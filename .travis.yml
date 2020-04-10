@@ -12,7 +12,6 @@ before_script:
 - node --version
 - npm --version
 - ls -la node_modules
-- node_modules/.bin/newman --version
 - openssl aes-256-cbc -K $encrypted_36ed63dec190_key -iv $encrypted_36ed63dec190_iv -in application.yml.enc -out application.yml -d
 script:
 - "./.ci.sh"
