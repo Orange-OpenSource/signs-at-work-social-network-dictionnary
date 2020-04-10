@@ -4,7 +4,7 @@ sudo: false
 jdk:
 - openjdk8
 node_js:
-- 10.19.0
+- 13.3.0
 install:
 - npm install newman
 - npm install json-server
