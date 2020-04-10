@@ -2,7 +2,7 @@ language: java
 dist: xenial
 sudo: false
 jdk:
-- oraclejdk8
+- openjdk8
 node_js:
 - 10.20.0
 install:
