@@ -43,6 +43,11 @@
     float:right;
   }
 
+  .navbar-toggle {
+    display: block;
+  }
+
+
   .container_header_H2{
     width:8rem;
   }
