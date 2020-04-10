@@ -4,7 +4,7 @@ sudo: false
 jdk:
 - oraclejdk8
 node_js:
-- 8.2.1
+- 10.20.0
 install:
 - npm install newman
 - npm install json-server
