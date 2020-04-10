@@ -2,9 +2,11 @@ language: java
 dist: xenial
 sudo: false
 jdk:
-- openjdk8
+- oraclejdk8
 node_js:
-- 13.3.0
+- 8.2.1
+newman:
+- 4.6.0
 install:
 - npm install newman
 - npm install json-server
