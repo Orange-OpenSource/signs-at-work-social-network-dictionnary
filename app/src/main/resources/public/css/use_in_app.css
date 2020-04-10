@@ -1360,18 +1360,18 @@ img{
   margin-bottom: 5px;
 }
 
-#counter {
+/*#counter {
   right: 40%;
   top: 32%;
-}
+}*/
 
 #counter {
   color: white;
-  font-size: 33px;
+  font-size: 34px;
   opacity: 0.5;
   position: absolute;
-  right: 41%;
-  top: 32%;
+  right: 42%;
+  top: 34%;
   z-index: 3;
   background-color: black;
   height: 47px;

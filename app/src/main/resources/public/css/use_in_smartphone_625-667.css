@@ -750,6 +750,15 @@
     color: #4866F7;
   }
 
+  #counter {
+    font-size: 40px;
+    right: 45%;
+    top: 43%;
+    height: 55px;
+    width: 55px;
+    border-radius: 55px;
+  }
+
   .rewind_black {
     background-position: -3235px center;
     background-size: auto 40px;
@@ -757,8 +766,6 @@
     width: 40px;
     border: none;
     background-color: transparent;
-    margin-left: 264px;
-    margin-right: 264px;
   }
 
   #container-button > button,
@@ -766,8 +773,8 @@
     border: none;
     background-color: transparent;
     color: #000000;
-    padding: 0px;
-    padding-right: 28px;
+    /*padding: 0px;
+    padding-right: 28px;*/
   }
 
 
@@ -780,12 +787,12 @@
 
   #continue, #cancel-recording {
     font-size: 18px;
-    padding-right: 87px;
+    /*padding-right: 87px;*/
   }
 
   #retry-recording {
-    margin-left: -30px;
-    margin-right: 54px;
+    /*margin-left: -30px;
+    margin-right: 54px;*/
   }
 
   .record {
