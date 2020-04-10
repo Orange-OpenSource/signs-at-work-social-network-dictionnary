@@ -38,9 +38,11 @@
 
   <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
 
-  <div class="pull-right col-md-8 col-xs-12 col-sm-4">
-    <div th:if="${community.descriptionVideo} != null">
-      <iframe th:attr="title=${title}" th:src="${community.descriptionVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+  <div class="pull-right col-md-8 col-xs-12">
+    <div class="embed-responsive embed-responsive-16by9">
+      <div th:if="${community.descriptionVideo} != null">
+        <iframe th:attr="title=${title}" th:src="${community.descriptionVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+      </div>
     </div>
   </div>
 

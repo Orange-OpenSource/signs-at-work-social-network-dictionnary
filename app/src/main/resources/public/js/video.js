@@ -26,7 +26,7 @@ var errorDeletedSpan = document.getElementById('errorDeletedSpan');
 var $formDeleteVideo = $('#deleteVideo');
 $formDeleteVideo.on('submit', function(event) {
   document.getElementById('submitButtonDelete').disabled = true;
-  $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+  $(".spinner").removeClass("spinner_hidden").addClass("spinner-delete_show");
   $(".spinner").css("z-index","1500").visibility="visible";
   $("#submitButtonDelete").css("color","black");
   var $form = $(this);
