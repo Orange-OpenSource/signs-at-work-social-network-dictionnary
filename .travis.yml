@@ -5,10 +5,8 @@ jdk:
 - oraclejdk8
 node_js:
 - 8.2.1
-newman:
-- 4.6.0
 install:
-- npm install newman
+- npm install newman@4.6.0
 - npm install json-server
 before_script:
 - node --version
