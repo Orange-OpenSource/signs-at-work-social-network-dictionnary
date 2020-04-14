@@ -184,10 +184,6 @@
     margin-top: 0rem;
   }
 
-  #sidebar{
-    width: 483px;
-    left: -500px;
-  }
 
   .member_me_black{
     background-position: -1574px center;
@@ -594,9 +590,6 @@
     font-size: 24px;
   }
 
-  #sidebar.active {
-    left: 157px;
-  }
 
   /* End Voir les signes /sec/signs */
 
