@@ -379,9 +379,9 @@
   .labelSigne {
     font-size: 14px;
     white-space: nowrap;
-    max-width: 223px;
+    /*max-width: 223px;*/
     text-align: center;
-    padding-left: 73px;
+    /*padding-left: 73px;*/
   }
 
   .labelVideo {
@@ -516,14 +516,15 @@
 
   .tooltip_variante {
     background-color: blue;
-    margin-left: 152px;
-    position: absolute;
+    /*margin-left: 152px;
+    position: absolute;*/
     height: 20px;
     width: 20px;
     border-radius: 20px;
     font-size: 15px;
-    top: 0px;
+    /*top: 0px;*/
     color: white;
+    margin-top: 0px;
   }
 
   .new_blue-signs {
@@ -547,7 +548,7 @@
     line-height: 3rem;
     vertical-align: middle;
     font-weight: bold;
-    width: 52rem;
+    width: 100%;
     font-size: 18px;
   }
 
@@ -571,7 +572,7 @@
   }
 
   .open>.dropdown-menu {
-    width: 52rem;
+    width: 100%;
   }
 
   .container_tooltip_in_image {

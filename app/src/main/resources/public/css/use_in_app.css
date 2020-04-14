@@ -644,9 +644,9 @@ h4.container_header_H2{
 .labelSigne {
   font-size: 14px;
   white-space: nowrap;
-  max-width: 116px;
+  /*max-width: 116px;*/
   text-align: center;
-  padding-left: 33px;
+/*  padding-left: 33px;*/
 }
 
 .logo-SW_blue {
@@ -951,14 +951,16 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .tooltip_variante {
   background-color: blue;
-  margin-left: 93px;
-  position: absolute;
+/*  margin-left: 93px;
+  position: absolute;*/
   width: 12px;
   height: 12px;
   border-radius: 12px;
   font-size: 9px;
-  top: 4px;
+/*  top: 4px;*/
   color:white;
+  display: inline-block;
+  margin-top: 3px;
 }
 
 .sign-view-hidden {
@@ -983,7 +985,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .open>.dropdown-menu {
-  width: 33rem;
+  width: 100%;
 }
 
 .menu_down_black {
@@ -1032,7 +1034,7 @@ button[data-toggle="dropdown"].btn {
   line-height: 3rem;
   vertical-align: middle;
   font-weight: bold;
-  width: 33rem;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;

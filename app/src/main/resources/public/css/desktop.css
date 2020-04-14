@@ -1,5 +1,21 @@
+
+
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
+  /* Begin Voir les signes /sec/signs */
+  .navbar-header{
+    float: initial;
+  }
+
+  /* End Voir les signes /sec/signs */
+
+  /* Begin index page /index */
+
+  .navbar-nav{
+    float:right;
+  }
+
+  /* Begin index page /index */
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -139,7 +155,7 @@
 
 
 
-  .tooltip_variante {
+/*  .tooltip_variante {
     background-color: aliceblue;
     bottom: 30px;
     height: 20px;
@@ -147,7 +163,7 @@
     width: 20px;
     border-radius: 10px;
     left:40px;
-  }
+  }*/
 
   label .text_hyphenation {
     width: 22rem;
@@ -183,7 +199,20 @@
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
 
+  /* Begin Voir les signes /sec/signs */
+  .navbar-header{
+    float: initial;
+  }
 
+  /* End Voir les signes /sec/signs */
+
+  /* Begin index page /index */
+
+  .navbar-nav{
+    float:right;
+  }
+
+  /* Begin index page /index */
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -329,7 +358,7 @@
     width: 100%;
   }
 
-  .tooltip_variante {
+/*  .tooltip_variante {
     background-color: aliceblue;
     bottom: 30px;
     height: 20px;
@@ -337,7 +366,7 @@
     width: 20px;
     border-radius: 10px;
     left:30px;
-  }
+  }*/
 
   label .text_hyphenation {
     width: 22rem;
@@ -374,6 +403,12 @@
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
 
+  /* Begin Voir les signes /sec/signs */
+  .navbar-header{
+    float: initial;
+  }
+
+  /* End Voir les signes /sec/signs */
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -533,7 +568,7 @@
     right: 0px;
   }
 
-  .tooltip_variante {
+/*  .tooltip_variante {
     background-color: aliceblue;
     bottom: 30px;
     height: 20px;
@@ -541,7 +576,7 @@
     position: absolute;
     width: 20px;
     border-radius: 10px;
-  }
+  }*/
 
   .container_tooltip {
     position: absolute !important;
@@ -580,6 +615,21 @@
 
 
 @media only screen  and (min-width:1541px)  {
+
+  /* Begin Voir les signes /sec/signs */
+  .navbar-header{
+    float: initial;
+  }
+
+  /* End Voir les signes /sec/signs */
+
+  /* Begin index page /index */
+
+  .navbar-nav{
+    float:right;
+  }
+
+  /* Begin index page /index */
 
   button[data-toggle="dropdown"].btn{
     line-height: 4rem;
@@ -726,7 +776,7 @@
     right: 0px;
   }
 
-  .tooltip_variante {
+/*  .tooltip_variante {
     background-color: aliceblue;
     bottom: 30px;
     height: 20px;
@@ -734,7 +784,7 @@
     position: absolute;
     width: 20px;
     border-radius: 10px;
-  }
+  }*/
 
   .container_tooltip {
     position: absolute !important;
@@ -751,9 +801,9 @@
     width:22rem;
   }
 
-  .text_hyphenation{
+/*  .text_hyphenation{
     width: 40rem;
-  }
+  }*/
 
   li[role="presentation"] {
     width:20rem;
