@@ -1,19 +1,6 @@
 @media only screen and (min-width:321px) and (max-width:375px) {
 
 
-/*  .labelVideo {
-    font-size: 14px;
-    white-space: nowrap;
-    text-align: center;
-    padding-left: 33px;
-  }*/
-
-
-/*  .text_hyphenation.navbar_title.pull-left{
-    width: 20rem;
-  }*/
-
-
   ul.hidden-sm > li[role="presentation"] {
     /* margin-right: 15px;*/
     width: 2rem;
@@ -31,12 +18,6 @@
     margin-left: 20px;
   }
 
-
-  textarea:focus{
-    outline: none !important;
-    border-color: #719ECE;
-    box-shadow: 0 0 10px #719ECE;
-  }
 
 }
 

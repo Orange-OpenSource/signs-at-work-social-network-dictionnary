@@ -1522,6 +1522,12 @@ input[type=file] {
   margin-top:10px;
 }
 
+textarea:focus{
+  outline: none !important;
+  border-color: #719ECE;
+  box-shadow: 0 0 10px #719ECE;
+}
+
 /* End Fiche détail de ma demande /sec/my-request-detail */
 
 

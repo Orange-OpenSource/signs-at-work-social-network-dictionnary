@@ -15,123 +15,16 @@
     float:right;
   }
 
-  /* Begin index page /index */
+  /* End index page /index */
 
-  button[data-toggle="dropdown"].btn{
-    line-height: 4rem;
-    vertical-align: middle;
-  }
-
-
-  .col-xs-offset-2{
-    margin-left: 28%;
-  }
-
-  textarea#text {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  textarea.form-control{
-    width:100% ;
-  }
-
-
-  #label_dictionary{
-    display: inline-block;
-  }
-
-
-  .col-xs-9{
-    padding-left: 0px;
-  }
-
-  input[name="username"],
-  input[type="password"],
-  input[name="email"]{
-    width: 90%;
-  }
-
-
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
-
-  .container_iframe{
-    margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
 
   .dropdown-menu > li > a > span {
     margin-left: 1rem;
   }
 
-  .container_tooltip {
-    background-color: red !important;
-    position: absolute !important;
-    right: 55px;
-  }
-
-
   li[role="presentation"] {
     width: 17rem;
   }
-
-  img {
-    height: 300px;
-    width: 300px;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-  }
-
-  .labelSigne > a {
-    padding-left: 15px;
-    padding-right: 18px;
-  }
-
-  .new_blue-signs {
-    background-position: 5px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 170px;
-  }
-
-  .commentary_white {
-    background-position: right 0px top 4px;
-    background-size: auto 50px;
-    height: 72px;
-    width: 83px;
-    right: 150px;
-  }
-
-  .sign_see_white {
-    background-position: right 22px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 80px;
-  }
-
-  .smiley_happy_white {
-    background-position: right 2px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 50px;
-  }
-
-  .pin_blue {
-    background-position: right 2px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 0px;
-  }
-
 
   .col-lg-3 span.hidden-xs {
     width: 100%;
@@ -140,59 +33,8 @@
     margin-left: 15px;
   }
 
-  .dropdown-menu > li > a {
-    display: block;
-    padding-left: 1px;
-    padding-top: 3px;
-    white-space: nowrap;
-    line-height: 46px;
-  }
-
-  iframe {
-    height: 37rem;
-    width: 100%;
-  }
-
-
-
-/*  .tooltip_variante {
-    background-color: aliceblue;
-    bottom: 30px;
-    height: 20px;
-    position: absolute;
-    width: 20px;
-    border-radius: 10px;
-    left:40px;
-  }*/
-
   label .text_hyphenation {
     width: 22rem;
-  }
-
-  #reset {
-    position: absolute;
-    margin-top: 7px;
-    right: 32%;
-    background-color: #E2E2E2;
-    border: none;
-  }
-
-  #myform {
-    width: 50%;
-  }
-
-  #myform input[type=search] {
-    padding-right: 10%;
-    margin-bottom: 10px;
-  }
-
-  #container-input {
-    margin: 0 auto;
-    width: 98%
-  }
-
-  input[type=search] {
-    width: 85%;
   }
 
 }
@@ -212,129 +54,22 @@
     float:right;
   }
 
-  /* Begin index page /index */
-
-  button[data-toggle="dropdown"].btn{
-    line-height: 4rem;
-    vertical-align: middle;
-  }
+  /* End index page /index */
 
 
-  .col-xs-offset-2{
-    margin-left: 28%;
-  }
-
-  textarea#text {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  textarea.form-control{
-    width:100% ;
-  }
-
-
-  #label_dictionary{
-    display: inline-block;
-  }
-
-
-  .col-xs-9{
-    padding-left: 0px;
-  }
-
-  input[name="username"],
-  input[type="password"],
-  input[name="email"]{
-    width: 90%;
-  }
-
-  .embed-responsive-4by3{
-    padding-bottom: 130%;
-  }
-
-  .container_iframe{
-    margin-bottom: 20px;
-    padding-bottom: 50px;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
 
   .dropdown-menu > li > a > span {
     margin-left: 1rem;
   }
 
-  #tooltipInframe {
-    position: absolute;
-    right: 27px;
-  }
 
   .col-lg-3 .dropdown-toggle {
     width: 20em;
   }
 
-  .container_tooltip {
-    background-color: red !important;
-    position: absolute !important;
-    right: 50px;
-  }
-
 
   li[role="presentation"] {
     width: 17rem;
-  }
-
-  img {
-    height: 260px;
-    width: 260px;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-  }
-
-  .labelSigne > a {
-    padding-left: 15px;
-    padding-right: 18px;
-  }
-
-  .new_blue-signs {
-    background-position: 5px;
-    background-size: auto 40px;
-    height: 50px;
-    width: 83px;
-    right: 140px;
-  }
-
-  .commentary_white {
-    background-position: right 0px top 4px;
-    background-size: auto 40px;
-    height: 72px;
-    width: 83px;
-    right: 130px;
-  }
-
-  .sign_see_white {
-    background-position: right 22px top 0px;
-    background-size: auto 40px;
-    height: 50px;
-    width: 83px;
-    right: 64px;
-  }
-
-  .smiley_happy_white {
-    background-position: right 2px top 0px;
-    background-size: auto 40px;
-    height: 50px;
-    width: 83px;
-    right: 40px;
-  }
-
-  .pin_blue {
-    background-position: right 2px top 0px;
-    background-size: auto 40px;
-    height: 50px;
-    width: 83px;
-    right: 0px;
   }
 
 
@@ -345,58 +80,11 @@
     margin-left: 15px;
   }
 
-  .dropdown-menu > li > a {
-    display: block;
-    padding-left: 1px;
-    padding-top: 3px;
-    white-space: nowrap;
-    line-height: 46px;
-  }
-
-  iframe {
-    height: 37rem;
-    width: 100%;
-  }
-
-/*  .tooltip_variante {
-    background-color: aliceblue;
-    bottom: 30px;
-    height: 20px;
-    position: absolute;
-    width: 20px;
-    border-radius: 10px;
-    left:30px;
-  }*/
 
   label .text_hyphenation {
     width: 22rem;
   }
 
-  #reset {
-    position: absolute;
-    margin-top: 7px;
-    right: 32%;
-    background-color: #E2E2E2;
-    border: none;
-  }
-
-  #myform {
-    width: 50%;
-  }
-
-  #myform input[type=search] {
-    padding-right: 10%;
-    margin-bottom: 10px;
-  }
-
-  #container-input {
-    margin: 0 auto;
-    width: 98%
-  }
-
-  input[type=search] {
-    width: 85%;
-  }
 
 }
 
@@ -410,52 +98,10 @@
 
   /* End Voir les signes /sec/signs */
 
-  button[data-toggle="dropdown"].btn{
-    line-height: 4rem;
-    vertical-align: middle;
-  }
-
-
-  .col-xs-offset-2{
-    margin-left: 28%;
-  }
-
-
-  textarea#text {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  textarea.form-control{
-    width:100% ;
-  }
 
   #add_email >.container_H2.text_hyphenation{
     width: 85%;
   }
-
-
-  iframe {
-    height: 37rem;
-    width: 100%;
-  }
-
-
-  #label_dictionary{
-    display: inline-block;
-  }
-
-
-  .col-xs-9{
-    padding-left: 0px;
-  }
-
-  input[name="username"],
-  input[type="password"],
-  input[name="email"]{
-    width: 90%;
-  }
-
 
   .col-lg-3 .dropdown-toggle {
     width: 20em;
@@ -463,14 +109,6 @@
 
   .dropdown-menu > li > a > span {
     margin-left: 1rem;
-  }
-
-  .dropdown-menu > li > a {
-    display: block;
-    padding-left: 1px;
-    padding-top: 3px;
-    white-space: nowrap;
-    line-height: 46px;
   }
 
   .btn-default.active.focus,
@@ -487,105 +125,6 @@
     border-color: #8c8c8c;
     line-height: 4rem;
     vertical-align: middle;
-  }
-
-  #container-input{
-    margin: 0 auto;
-    width:53%
-  }
-
-  #myform input[type=search]{
-    border: 2px solid ;
-    border-radius: 11px;
-    box-sizing: border-box;
-    padding-right: 10%;
-    margin-bottom: 10px;
-  }
-
-  #reset{
-    position: absolute;
-    margin-top: 7px;
-    right: 42%;
-    background-color: #E2E2E2;
-    border:none;
-  }
-
-  .embed-responsive .embed-responsive-item,
-  .embed-responsive embed,
-  .embed-responsive iframe,
-  .embed-responsive object,
-  .embed-responsive video {
-    height: 37rem;
-    width: 100%;
-  }
-
-
-  img {
-    height: 320px;
-    width: 320px;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-  }
-
-  .new_blue-signs {
-    background-position: 5px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 170px;
-  }
-
-  .commentary_white {
-    background-position: right 0px top 4px;
-    background-size: auto 50px;
-    height: 72px;
-    width: 83px;
-    right: 150px;
-  }
-
-  .sign_see_white {
-    background-position: right 22px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 80px;
-  }
-
-  .smiley_happy_white {
-    background-position: right 2px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 50px;
-  }
-
-  .pin_blue {
-    background-position: right 2px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 0px;
-  }
-
-/*  .tooltip_variante {
-    background-color: aliceblue;
-    bottom: 30px;
-    height: 20px;
-    margin-left: 0px;
-    position: absolute;
-    width: 20px;
-    border-radius: 10px;
-  }*/
-
-  .container_tooltip {
-    position: absolute !important;
-    right: 55px;
-  }
-
-
-  .labelSigne > a{
-    padding-left: 60px;
   }
 
 
@@ -631,34 +170,10 @@
 
   /* Begin index page /index */
 
-  button[data-toggle="dropdown"].btn{
-    line-height: 4rem;
-    vertical-align: middle;
-  }
 
-  #label_dictionary{
-    display: inline-block;
-  }
-
-
-  .col-xs-9{
-    padding-left: 0px;
-  }
-
-  input[name="username"],
-  input[type="password"],
-  input[name="email"]{
-    width: 90%;
-  }
 
   .container_H2.container_header_H2.text_hyphenation{
     width: 70%;
-  }
-
-
-  iframe {
-    height: 37rem;
-    width: 100%;
   }
 
 
@@ -670,13 +185,6 @@
     margin-left: 1rem;
   }
 
-  .dropdown-menu > li > a {
-    display: block;
-    padding-left: 1px;
-    padding-top: 3px;
-    white-space: nowrap;
-    line-height: 46px;
-  }
 
   .btn-default.active.focus,
   .btn-default.active:focus,
@@ -694,106 +202,9 @@
     vertical-align: middle;
   }
 
-  #container-input{
-    margin: 0 auto;
-    width:53%
-  }
-
-  #myform input[type=search]{
-    border: 2px solid ;
-    border-radius: 11px;
-    box-sizing: border-box;
-    padding-right: 10%;
-    margin-bottom: 10px;
-  }
-
-  #reset{
-    position: absolute;
-    margin-top: 7px;
-    right: 42%;
-    background-color: #E2E2E2;
-    border:none;
-  }
-
-  .embed-responsive .embed-responsive-item,
-  .embed-responsive embed,
-  .embed-responsive iframe,
-  .embed-responsive object,
-  .embed-responsive video {
-    height: 37rem;
-    width: 100%;
-  }
 
   #associateForm .form-group #signs-container label .text_hyphenation{
     width: 100%;
-  }
-
-  img {
-    height: 320px;
-    width: 320px;
-    object-fit: contain;
-    overflow: hidden;
-    border: 1px solid;
-  }
-
-  .new_blue-signs {
-    background-position: 5px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 170px;
-  }
-
-  .commentary_white {
-    background-position: right 0px top 4px;
-    background-size: auto 50px;
-    height: 72px;
-    width: 83px;
-    right: 150px;
-  }
-
-  .sign_see_white {
-    background-position: right 22px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 80px;
-  }
-
-  .smiley_happy_white {
-    background-position: right 2px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 50px;
-  }
-
-  .pin_blue {
-    background-position: right 2px top 0px;
-    background-size: auto 50px;
-    height: 50px;
-    width: 83px;
-    right: 0px;
-  }
-
-/*  .tooltip_variante {
-    background-color: aliceblue;
-    bottom: 30px;
-    height: 20px;
-    margin-left: 20px;
-    position: absolute;
-    width: 20px;
-    border-radius: 10px;
-  }*/
-
-  .container_tooltip {
-    position: absolute !important;
-    right: 90px;
-  }
-
-
-  .labelSigne > a{
-    padding-left: 60px;
   }
 
 
@@ -801,9 +212,6 @@
     width:22rem;
   }
 
-/*  .text_hyphenation{
-    width: 40rem;
-  }*/
 
   li[role="presentation"] {
     width:20rem;
@@ -820,9 +228,7 @@
   li.forIE.aside_bckg_li {
     display:none;
   }
-  .labelSigne > a{
-    padding-left: 100px;
-  }
+
 
   ::-ms-clear {
     display: none;
