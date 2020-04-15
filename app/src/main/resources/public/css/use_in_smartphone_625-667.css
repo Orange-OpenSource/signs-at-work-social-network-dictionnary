@@ -379,7 +379,7 @@
   .labelSigne {
     font-size: 14px;
     white-space: nowrap;
-    /*max-width: 223px;*/
+    max-width: 223px;
     text-align: center;
     /*padding-left: 73px;*/
   }
@@ -524,7 +524,7 @@
     font-size: 15px;
     /*top: 0px;*/
     color: white;
-    margin-top: 0px;
+    margin-top: -23px;
   }
 
   .new_blue-signs {
