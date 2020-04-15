@@ -48,11 +48,6 @@
   }
 
 
-  li[role="presentation"] {
-    width: 12rem;
-  }
-
-
   .dropdown-menu > li > a > span{
     margin-left: 1rem;
   }

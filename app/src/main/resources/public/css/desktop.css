@@ -22,9 +22,9 @@
     margin-left: 1rem;
   }
 
-  li[role="presentation"] {
+/*  li[role="presentation"] {
     width: 17rem;
-  }
+  }*/
 
   .col-lg-3 span.hidden-xs {
     width: 100%;
@@ -65,11 +65,6 @@
 
   .col-lg-3 .dropdown-toggle {
     width: 20em;
-  }
-
-
-  li[role="presentation"] {
-    width: 17rem;
   }
 
 
@@ -146,9 +141,6 @@
     width: 90%;
   }
 
-  li[role="presentation"] {
-    width:20rem;
-  }
 
 }
 
@@ -212,10 +204,6 @@
     width:22rem;
   }
 
-
-  li[role="presentation"] {
-    width:20rem;
-  }
 
 }
 
