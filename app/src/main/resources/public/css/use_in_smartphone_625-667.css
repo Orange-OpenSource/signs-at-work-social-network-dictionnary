@@ -1502,7 +1502,7 @@
   /* Begin Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
 
   label .text_hyphenation {
-    width:17rem;
+    width:auto;
     margin-left:3rem;
     white-space: nowrap;
     font-size: 16px;

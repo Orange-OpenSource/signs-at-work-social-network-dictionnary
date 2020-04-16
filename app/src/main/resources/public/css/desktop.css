@@ -36,7 +36,7 @@
   }
 
   label .text_hyphenation {
-    width: 22rem;
+    width: auto;
   }
 
 }
@@ -85,7 +85,7 @@
 
 
   label .text_hyphenation {
-    width: 22rem;
+    width: auto;
   }
 
 
@@ -147,7 +147,7 @@
 
 
   label .text_hyphenation {
-    width:22rem;
+    width:auto;
   }
 
 
@@ -216,7 +216,7 @@
 
 
   label .text_hyphenation {
-    width:22rem;
+    width: auto;
   }
 
 

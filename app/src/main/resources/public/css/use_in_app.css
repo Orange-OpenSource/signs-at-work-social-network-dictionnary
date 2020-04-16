@@ -2612,7 +2612,7 @@ input[type="checkbox"] {
 /* Begin Choisir les signes /sec/favorite/"favorite_id"/associate-sign */
 
 label .text_hyphenation {
-  width:13rem;
+  width: auto;
   padding-left: 0rem;
   font-size: 14px;
   font-weight: bold;
