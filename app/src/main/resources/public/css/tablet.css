@@ -18,6 +18,11 @@
     display: block;
   }
 
+  .container_H2.container_header_H2.text_hyphenation{
+    width: auto;
+    padding-right: 20px;
+    margin-left: 7px;
+  }
 
   /* End index page /index */
 

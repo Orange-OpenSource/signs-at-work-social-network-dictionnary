@@ -622,15 +622,29 @@ h4.container_header_H2{
   width: 20rem;
 }
 
+.navbar-right{
+  padding-top: 12px;
+}
 
+.x-close_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3170px center;
+  background-repeat: no-repeat;
+  background-size: auto 25px;
+  height: 45px;
+  width: 25px;
+}
+
+a.nav-link:hover,
+a.nav-link:focus,
+a.nav-link:active{
+  color: #989898;
+  outline: 0;
+}
 
 /* End index page /index */
 
 /* Begin Voir les signes /sec/signs */
-
-/*.text_hyphenation.navbar_title.pull-right{
-  width: 23rem;
-}*/
 
 
 #myform input::placeholder{

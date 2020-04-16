@@ -1,5 +1,4 @@
 
-
 @media only screen and (min-width:1025px) and (max-width:1199px) {
 
   /* Begin Voir les signes /sec/signs */
@@ -15,6 +14,12 @@
     float:right;
   }
 
+  .container_H2.container_header_H2.text_hyphenation{
+    width: auto;
+    padding-right: 20px;
+    margin-left: 7px;
+  }
+
   /* End index page /index */
 
 
@@ -22,9 +27,6 @@
     margin-left: 1rem;
   }
 
-/*  li[role="presentation"] {
-    width: 17rem;
-  }*/
 
   .col-lg-3 span.hidden-xs {
     width: 100%;
@@ -52,6 +54,12 @@
 
   .navbar-nav{
     float:right;
+  }
+
+  .container_H2.container_header_H2.text_hyphenation{
+    width: auto;
+    padding-right: 20px;
+    margin-left: 7px;
   }
 
   /* End index page /index */
@@ -83,7 +91,6 @@
 
 }
 
-
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
 
   /* Begin Voir les signes /sec/signs */
@@ -93,6 +100,16 @@
 
   /* End Voir les signes /sec/signs */
 
+
+  /* Begin index page /index */
+
+  .container_H2.container_header_H2.text_hyphenation{
+    width: auto;
+    padding-right: 20px;
+    margin-left: 7px;
+  }
+
+  /* End index page /index */
 
   #add_email >.container_H2.text_hyphenation{
     width: 85%;
@@ -133,9 +150,7 @@
     width:22rem;
   }
 
-  .container_H2.container_header_H2.text_hyphenation{
-    width: 70%;
-  }
+
 
   .container_H2.text_hyphenation{
     width: 90%;
@@ -143,7 +158,6 @@
 
 
 }
-
 
 @media only screen  and (min-width:1541px)  {
 
@@ -160,13 +174,14 @@
     float:right;
   }
 
+  .container_H2.container_header_H2.text_hyphenation{
+    width: auto;
+    padding-right: 20px;
+    margin-left: 7px;
+  }
+
   /* Begin index page /index */
 
-
-
-  .container_H2.container_header_H2.text_hyphenation{
-    width: 70%;
-  }
 
 
   .col-lg-3 .dropdown-toggle {
@@ -206,8 +221,6 @@
 
 
 }
-
-
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   /*
