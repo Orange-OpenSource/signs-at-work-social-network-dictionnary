@@ -33,10 +33,8 @@
             <!-- Brand and toggle get grouped for better mobile display -->
           <div class="overlay"></div>
           <div class="navbar-header">
-              <button id="sidebarCollapse" th:if="${isAuthenticated}" class="navbar-toggle hidden-lg hidden-md"
+              <button id="sidebarCollapse" th:if="${isAuthenticated}" class="navbar-toggle hidden-lg hidden-md menu"
                       type="button">
-                  <span class="sr-only">Toggle navigation (FIXME: pas traduit !)</span>
-                  <div class="menu"></div>
               </button>
               <div th:if="${isAuthenticated}" class="hidden-lg hidden-md navbar-toggle-complement">
                 <ul role="tablist" class="nav navbar-nav">

@@ -132,14 +132,14 @@
   }
 
   .navbar-toggle {
-   margin-top: 0px;
+   margin-top: 10px;
   }
 
   .menu {
     background-size: auto 50px;
     height: 50px;
     width: 50px;
-    margin-left: 15px;
+/*    margin-left: 15px;*/
   }
 
 

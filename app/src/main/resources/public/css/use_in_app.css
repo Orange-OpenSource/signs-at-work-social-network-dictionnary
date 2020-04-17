@@ -476,7 +476,7 @@ pre {
 }
 
 .navbar-toggle {
-  margin-top: 0px;
+  margin-top: 10px;
 }
 
 #display_url{
@@ -561,12 +561,13 @@ ul[role="tablist"]{
 
 .menu {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2924px center;
+  background-position: -2926px center;
   background-repeat: no-repeat;
   background-size: auto 50px;
   height: 50px;
   width: 50px;
-  margin-right: -20px;
+  margin-right: -2px;
+  margin-left: 10px;
 }
 
 .member_me_black{
