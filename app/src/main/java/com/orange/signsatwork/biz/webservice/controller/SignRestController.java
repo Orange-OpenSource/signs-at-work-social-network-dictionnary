@@ -657,9 +657,11 @@ public class SignRestController {
       }
 
       Sign sign;
+      Video video;
       if (signId.isPresent() && (videoId.isPresent())) {
-        sign = services.sign().withId(signId.getAsLong());
-        dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+        /*sign = services.sign().withId(signId.getAsLong());*/
+        video = services.video().withId(videoId.getAsLong());
+        dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         }
