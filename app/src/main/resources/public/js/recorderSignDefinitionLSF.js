@@ -85,7 +85,7 @@ retryRecording.onclick = function () {
   document.getElementById('btnChecked').style.display = "none";
   document.getElementById('start-recording').style.display = "block";
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
-    errorSpan.style.visibility="hidden";
+    errorSpan.style.display="none";
   }
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
   startRecord();
@@ -94,7 +94,7 @@ retryRecording.onclick = function () {
 
 stopRecording.onclick = function() {
   labelAfterRecord.style.display="block";
-  labelAfterRecord.style.visibility="visible";
+  labelAfterRecord.style.display="block";
   document.getElementById('container-button').style.display = "block";
   document.getElementById('btnChecked').style.display = "block";
   document.getElementById('stop-recording').style.display = "none";
@@ -162,7 +162,7 @@ function prepareFileToPost(video) {
 
 
   videoFile = {
-    name: fileName + '.' + video.blob.type.split('/')[1],
+    name: fileName + '.' + video.blob.type.split('/')[1].split(';')[0],
     type: video.blob.type,
     signNameRecording: null,
     signTextDefinitionRecording: null,
@@ -202,7 +202,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       data: JSON.stringify(videoFile),
       contentType: "application/json",
       success: function(response) {
-        errorSpan.style.visibility="hidden";
+        errorSpan.style.display="none";
         $(".spinner").visibility="hidden";
         $("video").css("z-index","1500").css("opacity","1");
         console.log("Success " + response);
@@ -210,7 +210,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       },
       error: function(response) {
         errorSpan.textContent = response;
-        errorSpan.style.visibility="visible";
+        errorSpan.style.display="block";
         $(".spinner").css("z-index","-1").css("opacity","0.1");
         $(".spinner").visibility="hidden";
         $("video").css("z-index","1500").css("opacity","1");
@@ -220,7 +220,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
 });
 
 $formUploadRecordedVideoFile.on('input', function(event) {
-  document.getElementById('errorSpan').style.visibility="hidden";
+  document.getElementById('errorSpan').style.display="none";
 });
 
 var $add_video_file_recording = $('#add_video_file_recording');
@@ -229,7 +229,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   clearTimeout(t);
   audioVideoRecorder.clearRecordedData();
   videoContainer.style.display="none";
-  labelRecord.style.visibility="visible";
+  labelRecord.style.display="block";
   labelAfterRecord.style.display="none";
   document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('container-button').style.display = "none";
@@ -241,9 +241,13 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById('video').removeAttribute("controls");
   document.getElementById('video').pause();
   document.getElementById('video').style.visibility="hidden";
-  document.getElementById('continue').disabled = true;
+  $("video").css("z-index","").css("opacity","");
+  $(".spinner").css("z-index","").css("opacity","");
+  $(".spinner").removeClass("spinner_show").addClass("spinner_hidden");
+  document.getElementById('continue').disabled = false;
+  $("#continue").css("color","blue");
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
-    errorSpan.style.visibility="hidden";
+    errorSpan.style.display="none";
   }
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
 });

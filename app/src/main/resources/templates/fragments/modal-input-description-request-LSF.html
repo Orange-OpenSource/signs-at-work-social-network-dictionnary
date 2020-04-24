@@ -100,8 +100,8 @@
 
         <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForRequestDescription/} + ${requestView.id}" method="post">
           <div class="modal-body text-center">
-            <span id="errorSpan"  style="visibility: hidden"></span>
-            <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="visibility: hidden"></a>
+            <span id="errorSpan"  style="display: none"></span>
+            <a id="seeSignButton" href="" class="btn btn-default" th:text="#{see_sign}" style="display: none"></a>
           </div>
           <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
             <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary" title="Cliquer pour annuler" th:text="#{cancel}"></button>

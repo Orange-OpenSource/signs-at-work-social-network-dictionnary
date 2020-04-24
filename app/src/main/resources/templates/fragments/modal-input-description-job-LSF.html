@@ -99,7 +99,7 @@
         </div>
         <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForJobDescription}" method="post">
           <div class="modal-body text-center">
-            <span id="errorSpan"  style="visibility: hidden"></span>
+            <span id="errorSpan"  style="display: none"></span>
           </div>
           <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
             <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary" title="Cliquer pour annuler" th:text="#{cancel}"></button>
