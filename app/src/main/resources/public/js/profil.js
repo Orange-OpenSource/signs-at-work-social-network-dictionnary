@@ -142,7 +142,10 @@ cancelRecording.onclick = function() {
 function captureUserMedia00(callback) {
   captureUserMedia({
     audio: false,
-    video: true
+    video: {
+      width: 640,
+      height: 360
+    }
   }, function(stream) {
     console.log("function");
     /* videoElement.src = URL.createObjectURL(stream);*/
@@ -167,7 +170,7 @@ function prepareFileToPost(video) {
 
 
   videoFile = {
-    name: fileName + '.' + video.blob.type.split('/')[1],
+    name: fileName + '.' + video.blob.type.split('/')[1].split(';')[0],
     type: video.blob.type,
     contents: video.dataURL
   };
