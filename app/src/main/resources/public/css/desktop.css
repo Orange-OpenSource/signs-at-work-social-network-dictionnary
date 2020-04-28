@@ -103,6 +103,10 @@
 
   /* Begin index page /index */
 
+  .navbar-nav{
+    float:right;
+  }
+
   .container_H2.container_header_H2.text_hyphenation{
     width: auto;
     padding-right: 20px;
