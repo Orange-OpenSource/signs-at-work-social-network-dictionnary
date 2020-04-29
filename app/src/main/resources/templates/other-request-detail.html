@@ -54,7 +54,34 @@
       </div>
     </div>
 
-    <div class="col-md-4 col-xs-12 col-lg-4">
+    <div th:if="${requestView.requestVideoDescription} != null" class="col-md-4 col-xs-12 col-lg-4">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li">
+            <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
+          </li>
+          <li class="aside_bckg_li">
+            <div th:if="${requestView.requestTextDescription} != null">
+              <h4 th:text="${requestView.requestTextDescription}" id="requestTextDescription" name="requestTextDescription"/>
+            </div>
+            <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+              <h4 class="grey-color" th:text="#{request.no_definition_text}"/>
+            </div>
+            <div th:if="${requestView.requestVideoDescription == null or #strings.isEmpty(requestView.requestVideoDescription)}">
+              <h4 class="grey-color" th:text="#{request.no_definition_lsf}"/>
+            </div>
+          </li>
+          <li sec:authorize="hasRole('USER_A')" class="aside_bckg_li">
+            <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
+              <div class="pull-left sign_add"></div>
+              <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
+              <div ><div class="pull-right chevron"></div></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+    <div th:unless="${requestView.requestVideoDescription} != null" class="col-xs-12">
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li class="aside_bckg_li">

@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <div class="col-md-4 col-xs-12 col-lg-4">
+    <div th:if="${requestView.requestVideoDescription} != null" class="col-md-4 col-xs-12 col-lg-4">
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
@@ -103,6 +103,56 @@
       </ul>
     </aside>
   </div>
+    <div th:unless="${requestView.requestVideoDescription} != null" class="col-xs-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li">
+            <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
+          </li>
+          <li class="aside_bckg_li">
+            <a data-target="#add_description_request" data-toggle="modal" href="#">
+              <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+                <div class="pull-left definition_text_blue"></div>
+                <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
+                <div class="pull-right add_black"/>
+              </div>
+              <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+                <h4 class="container_H2" th:text="${requestView.requestTextDescription}"/>
+                <div class="pull-right edit_black"/>
+              </div>
+            </a>
+          </li>
+          <li  class="aside_bckg_li">
+            <a data-target="#add_request_description_LSF" data-toggle="modal" href="#">
+              <div th:if="${requestView.requestVideoDescription== null}">
+                <div class="pull-left description_movie_blue"></div>
+                <h4 class="container_H2" th:text="#{request_description_LSF}"/>
+                <div class="pull-right add_black"/>
+              </div>
+              <div th:if="${requestView.requestVideoDescription != null}">
+                <div class="pull-left description_movie_blue"></div>
+                <h4 class="container_H2" th:text="#{request_description_LSF}"/>
+                <div class="pull-right signlanguage_black"/>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <a  th:onclick="'javascript:onPrioriseRequest('+ ${requestView.id}  +')' " href="#">
+              <div class="pull-left prio_blue"></div>
+              <h4 class="container_H2" th:text="#{request.priorise}"/>
+              <div><div class="pull-right chevron"></div></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <a data-target="#delete_request" data-toggle="modal" href="#">
+              <div class="pull-left x-close_blue"></div>
+              <h4 class="container_H2" th:text="#{request.delete}"/>
+              <div ><div class="pull-right chevron"></div></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
 </div>
   </div>
 

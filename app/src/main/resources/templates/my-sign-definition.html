@@ -44,8 +44,7 @@
     </div>
   </div>
 
-  <!--<div class="col-md-4 col-xs-12 col-lg-12">-->
-    <div class="col-md-4 col-xs-12 col-lg-4">
+    <div th:if="${signView.videoDefinition} != null" class="col-md-4 col-xs-12 col-lg-4">
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li">
@@ -79,8 +78,42 @@
       </ul>
     </aside>
   </div>
+    <div th:unless="${signView.videoDefinition} != null" class="col-xs-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li">
+            <a data-target="#add_sign_definition_text" data-toggle="modal" href="#">
+              <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
+                <div class="pull-left definition_text_blue"></div>
+                <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
+                <div class="pull-right add_black"/>
+              </div>
+              <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
+                <div class="pull-left definition_text_blue"></div>
+                <h4 class="container_H2" th:text="${signView.textDefinition}"/>
+                <div class="pull-right edit_black"/>
+              </div>
+            </a>
+          </li>
+          <li  class="aside_bckg_li">
+            <a data-target="#add_sign_definition_LSF" data-toggle="modal" href="#">
+              <div th:if="${signView.videoDefinition == null}">
+                <div class="pull-left description_movie_blue"></div>
+                <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                <div class="pull-right add_black"/>
+              </div>
+              <div th:if="${signView.videoDefinition != null}">
+                <div class="pull-left description_movie_blue"></div>
+                <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                <div class="pull-right edit_black"/>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
 </div>
-  </div>
+</div>
 
 
 
