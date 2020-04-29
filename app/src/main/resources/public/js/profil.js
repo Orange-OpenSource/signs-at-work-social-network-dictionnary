@@ -142,10 +142,7 @@ cancelRecording.onclick = function() {
 function captureUserMedia00(callback) {
   captureUserMedia({
     audio: false,
-    video: {
-      width: 640,
-      height: 360
-    }
+    video: true
   }, function(stream) {
     console.log("function");
     /* videoElement.src = URL.createObjectURL(stream);*/
