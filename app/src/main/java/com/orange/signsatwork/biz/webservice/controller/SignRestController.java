@@ -647,7 +647,11 @@ public class SignRestController {
 
       String pictureUri = null;
       if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-        pictureUri = videoDailyMotion.thumbnail_360_url;
+        if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
+          pictureUri = "/img/no-such-asset.jpg";
+        } else {
+          pictureUri = videoDailyMotion.thumbnail_360_url;
+        }
         log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
       }
 

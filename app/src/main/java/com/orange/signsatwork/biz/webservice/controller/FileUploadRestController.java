@@ -224,11 +224,17 @@ public class FileUploadRestController {
       while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
 
 
+
       String pictureUri = null;
       if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-        pictureUri = videoDailyMotion.thumbnail_360_url;
+        if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
+          pictureUri = "/img/no-such-asset.jpg";
+        } else {
+          pictureUri = videoDailyMotion.thumbnail_360_url;
+        }
         log.warn("handleFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
       }
+
 
       if (!videoDailyMotion.embed_url.isEmpty()) {
         videoUrl = videoDailyMotion.embed_url;
@@ -386,7 +392,11 @@ public class FileUploadRestController {
 
       String pictureUri = null;
       if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-        pictureUri = videoDailyMotion.thumbnail_360_url;
+        if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
+          pictureUri = "/img/no-such-asset.jpg";
+        } else {
+          pictureUri = videoDailyMotion.thumbnail_360_url;
+        }
         log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
       }
 
@@ -517,7 +527,11 @@ public class FileUploadRestController {
 
         String pictureUri = null;
         if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-          pictureUri = videoDailyMotion.thumbnail_360_url;
+          if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
+            pictureUri = "/img/no-such-asset.jpg";
+          } else {
+            pictureUri = videoDailyMotion.thumbnail_360_url;
+          }
           log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
         }
 
@@ -691,7 +705,11 @@ public class FileUploadRestController {
 
       String pictureUri = null;
       if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-        pictureUri = videoDailyMotion.thumbnail_360_url;
+        if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
+          pictureUri = "/img/no-such-asset.jpg";
+        } else {
+          pictureUri = videoDailyMotion.thumbnail_360_url;
+        }
         log.warn("handleRecordedVideoFileForProfil : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
       }
 
