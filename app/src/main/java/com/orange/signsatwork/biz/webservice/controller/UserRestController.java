@@ -243,8 +243,17 @@ public class UserRestController {
   public ResponseEntity<?> userMe(Principal principal) {
 
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+    String role = null;
 
-    UserMeViewApi userMeViewApi = new UserMeViewApi(user);
+    if (AuthentModel.hasRole("ROLE_ADMIN")) {
+      role = "ROLE_ADMIN";
+    } else if (AuthentModel.hasRole("ROLE_USER_A")) {
+      role = "ROLE_USER_A";
+    } else if (AuthentModel.hasRole("ROLE_USER")) {
+      role = "ROLE_USER";
+    }
+
+    UserMeViewApi userMeViewApi = new UserMeViewApi(user, role);
 
     return new ResponseEntity<>(userMeViewApi, HttpStatus.OK);
 

@@ -40,6 +40,7 @@ public class UserMeViewApi {
   private String jobDescriptionText;
   private String jobDescriptionVideo;
   private String jobDescriptionPicture;
+  private String role;
 
   public UserMeViewApi(User user) {
     this.username = user.username;
@@ -52,5 +53,19 @@ public class UserMeViewApi {
     this.jobDescriptionText = user.jobDescriptionText;
     this.jobDescriptionVideo = user.jobDescriptionVideo;
     this.jobDescriptionPicture = user.jobDescriptionPicture;
+  }
+
+  public UserMeViewApi(User user, String role) {
+    this.username = user.username;
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
+    this.nameVideo = user.nameVideo;
+    this.namePicture = user.namePicture;
+    this.entity = user.entity;
+    this.job = user.job;
+    this.jobDescriptionText = user.jobDescriptionText;
+    this.jobDescriptionVideo = user.jobDescriptionVideo;
+    this.jobDescriptionPicture = user.jobDescriptionPicture;
+    this.role = role;
   }
 }
