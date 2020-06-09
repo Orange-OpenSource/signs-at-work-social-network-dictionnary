@@ -244,11 +244,11 @@ public class RequestRestController {
         messageError = messageByLocaleService.getMessage("filter_not_exits", new Object[]{sort.get()});
         return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
       }
-      myRequestsViewApi.addAll(queryRequests.stream().map(request -> new RequestViewApi(request)).collect(Collectors.toList()));
+      myRequestsViewApi.addAll(queryRequests.stream().map(request -> new RequestViewApi(request, true)).collect(Collectors.toList()));
     } else {
       queryRequests = services.request().requestsforUser(user.id);
-      List<RequestViewApi> myrequestsViewApiWithSignAssociate = queryRequests.stream().filter(request -> request.sign != null).map(request -> new RequestViewApi(request)).collect(Collectors.toList());
-      List<RequestViewApi> myrequestsViewApiWithoutSignAssociate = queryRequests.stream().filter(request -> request.sign == null).map(request -> new RequestViewApi(request)).collect(Collectors.toList());
+      List<RequestViewApi> myrequestsViewApiWithSignAssociate = queryRequests.stream().filter(request -> request.sign != null).map(request -> new RequestViewApi(request, true)).collect(Collectors.toList());
+      List<RequestViewApi> myrequestsViewApiWithoutSignAssociate = queryRequests.stream().filter(request -> request.sign == null).map(request -> new RequestViewApi(request, true)).collect(Collectors.toList());
       myRequestsViewApi.addAll(myrequestsViewApiWithSignAssociate);
       myRequestsViewApi.addAll(myrequestsViewApiWithoutSignAssociate);
     }
@@ -279,7 +279,7 @@ public class RequestRestController {
         messageError = messageByLocaleService.getMessage("filter_not_exits", new Object[]{sort.get()});
         return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
       }
-      otherRequestsViewApi.addAll(queryRequests.stream().map(request -> new RequestViewApi(request)).collect(Collectors.toList()));
+      otherRequestsViewApi.addAll(queryRequests.stream().map(request -> new RequestViewApi(request, false)).collect(Collectors.toList()));
     } else {
       messageError = messageByLocaleService.getMessage("only_filter_date_or_name");
       return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
@@ -315,7 +315,7 @@ public class RequestRestController {
       .collect(Collectors.toList());
     requestsWithSameName.addAll(requestViewDatasWithAssociateSign);
 
-    List<RequestViewApi> allRequestsWithSameName = requestsWithSameName.stream().map(requestViewApi -> new RequestViewApi(services.request().withId(requestViewApi.getId()))).collect(Collectors.toList());
+    List<RequestViewApi> allRequestsWithSameName = requestsWithSameName.stream().map(requestViewApi -> new RequestViewApi(services.request().withId(requestViewApi.getId()), requestViewApi.getIsCreatedByMe())).collect(Collectors.toList());
 
 
     return  new ResponseEntity<>(allRequestsWithSameName, HttpStatus.OK);

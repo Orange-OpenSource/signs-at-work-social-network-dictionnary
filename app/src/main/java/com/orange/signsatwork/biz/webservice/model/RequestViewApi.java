@@ -41,6 +41,9 @@ public class RequestViewApi {
   private Long signId;
   private String signName;
   private String userName;
+  private long lastVideoId;
+  private long nbVideo;
+  private Boolean isCreatedByMe;
 
 
   public RequestViewApi(Request request) {
@@ -53,6 +56,8 @@ public class RequestViewApi {
       this.signId = request.sign.id;
       this.signName = request.sign.name;
       this.userName = request.user.name();
+      this.lastVideoId = request.sign.lastVideoId;
+      this.nbVideo = request.sign.nbVideo;
     } else {
       this.id = request.id;
       this.name = request.name;
@@ -63,9 +68,39 @@ public class RequestViewApi {
     }
   }
 
+  public RequestViewApi(Request request, Boolean isCreatedByMe) {
+    if (request.sign != null) {
+      this.id = request.id;
+      this.name = request.name;
+      this.textDescription = request.requestTextDescription;
+      this.videoDescription = request.requestVideoDescription;
+      this.date = request.requestDate;
+      this.signId = request.sign.id;
+      this.signName = request.sign.name;
+      this.userName = request.user.name();
+      this.lastVideoId = request.sign.lastVideoId;
+      this.nbVideo = request.sign.nbVideo;
+      this.isCreatedByMe = isCreatedByMe;
+    } else {
+      this.id = request.id;
+      this.name = request.name;
+      this.textDescription = request.requestTextDescription;
+      this.videoDescription = request.requestVideoDescription;
+      this.date = request.requestDate;
+      this.userName = request.user.name();
+      this.isCreatedByMe = isCreatedByMe;
+    }
+  }
+
   public RequestViewApi(Object[] queryResultItem) {
     String t = toString(queryResultItem[1]);
     String idString = t.substring(t.lastIndexOf("/")+1);
+
+    if (t.contains("my-request-detail")) {
+      this.isCreatedByMe = true;
+    } else {
+      this.isCreatedByMe = false;
+    }
 
     id = Long.parseLong(idString);
     name = toString(queryResultItem[0]);
