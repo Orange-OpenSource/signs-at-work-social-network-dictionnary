@@ -75,6 +75,7 @@ public class CommunityRestController {
 
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
+  String VIDEO_STATUS = ",status";
 
 
   @Secured("ROLE_USER")
@@ -564,7 +565,7 @@ public class CommunityRestController {
         VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
-        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD;
+        String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
         int i=0;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
@@ -573,8 +574,9 @@ public class CommunityRestController {
             break;
           }
           i++;
+          log.info("status "+videoDailyMotion.status);
         }
-        while ((videoDailyMotion.thumbnail_360_url == null) || (videoDailyMotion.embed_url == null) || (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")));
+        while (!videoDailyMotion.status.equals("published"));
 
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (community.descriptionVideo != null) {
