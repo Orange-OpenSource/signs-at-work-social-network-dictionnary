@@ -22,6 +22,9 @@ package com.orange.signsatwork.biz.webservice.controller;
  * #L%
  */
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
@@ -39,6 +42,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -53,9 +59,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.OptionalLong;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -130,7 +134,8 @@ public class FileUploadRestController {
 
     try {
       //This will decode the String which is encoded by using Base64 class
-      byte[] videoByte = DatatypeConverter.parseBase64Binary(videoFile.contents.substring(videoFile.contents.indexOf(",") + 1));
+      String  lexical = videoFile.contents.substring(videoFile.contents.indexOf(",") + 1);
+      byte[] videoByte = DatatypeConverter.parseBase64Binary(lexical);
 
       new FileOutputStream(file).write(videoByte);
     }
@@ -174,9 +179,13 @@ public class FileUploadRestController {
       parts.add("file", resource);
 
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
+      MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+      mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+      restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -341,9 +350,13 @@ public class FileUploadRestController {
       parts.add("file", resource);
 
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
+      MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+      mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+      restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -477,9 +490,13 @@ public class FileUploadRestController {
         parts.add("file", resource);
 
         RestTemplate restTemplate = springRestClient.buildRestTemplate();
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+        restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -656,9 +673,13 @@ public class FileUploadRestController {
       parts.add("file", resource);
 
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
+      MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+      mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+      restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -814,9 +835,13 @@ public class FileUploadRestController {
         parts.add("file", resource);
 
         RestTemplate restTemplate = springRestClient.buildRestTemplate();
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+        restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -1002,9 +1027,13 @@ public class FileUploadRestController {
       parts.add("file", resource);
 
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
+      MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+      mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+      restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -1184,9 +1213,13 @@ public class FileUploadRestController {
       parts.add("file", resource);
 
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
+      MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+      mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+      restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -1282,14 +1315,19 @@ public class FileUploadRestController {
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
 
+
         Resource resource = new FileSystemResource(inputFile.getAbsolutePath());
         MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
         parts.add("file", resource);
 
         RestTemplate restTemplate = springRestClient.buildRestTemplate();
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+        restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -1431,9 +1469,13 @@ public class FileUploadRestController {
       parts.add("file", resource);
 
       RestTemplate restTemplate = springRestClient.buildRestTemplate();
+      MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+      mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+      restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);
@@ -1548,9 +1590,13 @@ public class FileUploadRestController {
         parts.add("file", resource);
 
         RestTemplate restTemplate = springRestClient.buildRestTemplate();
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN));
+        restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(parts, headers);

@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class VideoResponseApi {
   public Long signId;
+  public Long videoId;
   public String errorMessage;
 
 }
