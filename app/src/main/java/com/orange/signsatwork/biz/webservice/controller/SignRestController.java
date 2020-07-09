@@ -494,6 +494,7 @@ public class SignRestController {
         return videoResponseApi;
       }
       response.setStatus(HttpServletResponse.SC_OK);
+      videoResponseApi.videoId = videoId;
       return videoResponseApi;
     }
   }
