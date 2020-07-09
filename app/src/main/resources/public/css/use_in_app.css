@@ -1262,7 +1262,7 @@ img{
 
 #requests_container .aside_bckg_li h4{
   white-space: normal;
-  width: 27rem;
+  /*width: 27rem;*/
 }
 
 /* End Mes Demandes /sec/my-requests */
