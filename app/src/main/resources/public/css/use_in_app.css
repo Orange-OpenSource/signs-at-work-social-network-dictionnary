@@ -429,6 +429,14 @@ h1, .h1 {
   color: #4866F7;
 }
 
+p {
+  font-weight: normal
+}
+
+p > a {
+  color: blue;
+}
+
 /* End Conditions d'utilisation /cgu */
 
 /* Begin Réinitilisation du lot de passe /user/changePassword */
