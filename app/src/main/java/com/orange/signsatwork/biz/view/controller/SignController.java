@@ -984,7 +984,7 @@ public class SignController {
   public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, Principal principal) {
     String decodeName = URLDecoder.decode(name);
 
-    model.addAttribute("title", messageByLocaleService.getMessage("sign.new"));
+    model.addAttribute("title", messageByLocaleService.getMessage("sign.suggest"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
     List<Object[]> querySigns = services.sign().searchBis(decodeName.toUpperCase());
