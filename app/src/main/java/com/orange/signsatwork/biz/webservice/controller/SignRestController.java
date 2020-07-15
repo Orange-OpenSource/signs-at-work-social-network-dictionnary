@@ -367,10 +367,14 @@ public class SignRestController {
       }
     } else {
       if (name.isPresent()) {
-        Signs signs = services.sign().search(name.get());
+        List<Object[]> querySignsByName = services.sign().searchBis(name.get().toUpperCase());
+        List<SignViewData> signViewsDataByName = querySignsByName.stream()
+          .map(objectArray -> new SignViewData(objectArray))
+          .collect(Collectors.toList());
+
         List<Long> finalSignInFavorite3 = signInFavorite;
-        signViews = signs.stream()
-          .map(sign -> buildSignView(sign, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite3, user))
+        signViews = signViewsDataByName.stream()
+          .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite3, user))
           .collect(Collectors.toList());
 
       } else {
