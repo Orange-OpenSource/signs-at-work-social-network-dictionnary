@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.RequestViewData;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
@@ -41,6 +42,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -148,6 +150,13 @@ public class RequestController {
     return "redirect:/sec/signs-request?name="+ URLEncoder.encode(name);
   }
 
+/*  public static String stripAccents(String s)
+  {
+    s = Normalizer.normalize(s, Normalizer.Form.NFD);
+    s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+    return s;
+  }*/
+
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/signs-request")
   public String showSignsRequest(Model model,@RequestParam("name") String name,  Principal principal) {
@@ -156,14 +165,17 @@ public class RequestController {
     model.addAttribute("title", messageByLocaleService.getMessage("sign.modal.request"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
-    Signs signs = services.sign().search(decodeName);
+    List<Object[]> querySigns = services.sign().searchBis(decodeName.toUpperCase());
+    List<SignViewData> signViewData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
 
 
     model.addAttribute("signName", decodeName);
     model.addAttribute("isSignAlreadyExist", false);
-    List<Sign> signsWithSameName = new ArrayList<>();
-    for (Sign sign: signs.list()) {
-      if (sign.name.equals(decodeName) ) {
+    List<SignViewData> signsWithSameName = new ArrayList<>();
+    for (SignViewData sign: signViewData) {
+      if (sign.name.equalsIgnoreCase(decodeName)) {
         model.addAttribute("isSignAlreadyExist", true);
         model.addAttribute("signMatche", sign);
       } else {
@@ -180,7 +192,7 @@ public class RequestController {
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
-      if (requestViewData.requestName.equals(decodeName)) {
+      if (requestViewData.requestName.equalsIgnoreCase(decodeName)) {
         model.addAttribute("isRequestAlreadyExist", true);
         model.addAttribute("requestMatche", requestViewData);
       } else {
@@ -197,7 +209,7 @@ public class RequestController {
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithAssociateSign) {
-      if (requestViewData.requestName.equals(decodeName)) {
+      if (requestViewData.requestName.equalsIgnoreCase(decodeName)) {
         model.addAttribute("isRequestWithAssociateSignAlreadyExist", true);
         model.addAttribute("requestWithAssociateSignMatche", requestViewData);
       } else {

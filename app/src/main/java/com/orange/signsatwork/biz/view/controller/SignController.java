@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -971,6 +972,13 @@ public class SignController {
     return "redirect:/sec/signs-suggest?name="+ URLEncoder.encode(name)+"&id="+requestId;
   }
 
+  public static String stripAccents(String s)
+  {
+    s = Normalizer.normalize(s, Normalizer.Form.NFD);
+    s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+    return s;
+  }
+
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/signs-suggest")
   public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, Principal principal) {
@@ -979,14 +987,16 @@ public class SignController {
     model.addAttribute("title", messageByLocaleService.getMessage("sign.new"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
-    Signs signs = services.sign().search(decodeName);
-
+    List<Object[]> querySigns = services.sign().searchBis(decodeName.toUpperCase());
+    List<SignViewData> signViewData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
 
     model.addAttribute("signName", decodeName);
     model.addAttribute("isSignAlreadyExist", false);
-    List<Sign> signsWithSameName = new ArrayList<>();
-    for (Sign sign: signs.list()) {
-      if (sign.name.equals(decodeName) ) {
+    List<SignViewData> signsWithSameName = new ArrayList<>();
+    for (SignViewData sign: signViewData) {
+      if (sign.name.equalsIgnoreCase(decodeName) ) {
         model.addAttribute("isSignAlreadyExist", true);
         model.addAttribute("signMatche", sign);
       } else {
@@ -995,6 +1005,41 @@ public class SignController {
     }
 
     model.addAttribute("signsWithSameName", signsWithSameName);
+
+    model.addAttribute("isRequestAlreadyExist", false);
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(decodeName, user.id);
+    List<RequestViewData> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
+      .map(objectArray -> new RequestViewData(objectArray))
+      .collect(Collectors.toList());
+    List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
+    for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
+      if (requestViewData.requestName.equalsIgnoreCase(decodeName)) {
+        model.addAttribute("isRequestAlreadyExist", true);
+        model.addAttribute("requestMatche", requestViewData);
+      } else {
+        requestsWithNoAssociateSignWithSameName.add(requestViewData);
+      }
+    }
+
+    model.addAttribute("requestsWithSameName", requestsWithNoAssociateSignWithSameName);
+
+    model.addAttribute("isRequestWithAssociateSignAlreadyExist", false);
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(decodeName, user.id);
+    List<RequestViewData> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
+      .map(objectArray -> new RequestViewData(objectArray))
+      .collect(Collectors.toList());
+    List<RequestViewData> requestsWithAssociateSignWithSameName = new ArrayList<>();
+    for( RequestViewData requestViewData: requestViewDatasWithAssociateSign) {
+      if (requestViewData.requestName.equalsIgnoreCase(decodeName)) {
+        model.addAttribute("isRequestWithAssociateSignAlreadyExist", true);
+        model.addAttribute("requestWithAssociateSignMatche", requestViewData);
+      } else {
+        requestsWithAssociateSignWithSameName.add(requestViewData);
+      }
+    }
+
+    model.addAttribute("requestsWithAssociateSignWithSameName", requestsWithAssociateSignWithSameName);
+
 
     SignCreationView signCreationView = new SignCreationView();
     signCreationView.setSignName(decodeName);

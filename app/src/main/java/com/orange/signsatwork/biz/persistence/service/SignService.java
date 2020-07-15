@@ -82,6 +82,8 @@ public interface SignService {
 
   Signs search(String signName);
 
+  List<Object[]> searchBis(String signName);
+
   Sign addNewVideo(long userId, long signId, String signUrl, String pictureUri);
 
   Sign replace(long signId, long videoId, String signUrl, String pictureUri);

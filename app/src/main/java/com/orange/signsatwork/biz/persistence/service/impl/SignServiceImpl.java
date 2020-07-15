@@ -247,8 +247,8 @@ public class SignServiceImpl implements SignService {
     SignDB signDB;
     UserDB userDB = userRepository.findOne(userId);
 
-    List<SignDB> signsMatches = signRepository.findByName(signName);
-    if (signsMatches.isEmpty()) {
+   /* List<SignDB> signsMatches = signRepository.findByName(signName);
+    if (signsMatches.isEmpty()) {*/
       Date now = new Date();
       VideoDB videoDB = new VideoDB();
       videoDB.setUrl(signUrl);
@@ -276,7 +276,7 @@ public class SignServiceImpl implements SignService {
       userDB.getVideos().add(videoDB);
       userRepository.save(userDB);
 
-    } else {
+    /*} else {
       Date now = new Date();
 
       VideoDB videoDB = new VideoDB();
@@ -307,17 +307,23 @@ public class SignServiceImpl implements SignService {
 
       userRepository.findAll().forEach(userDB1 -> System.out.println("user id: " + userDB1.getId()));
       signDB.getVideos().stream().forEach(videoDB1 -> System.out.println("video user: " + videoDB1.getUser()));
-    }
+    }*/
     return signFrom(signDB, services);
   }
 
   @Override
+  public List<Object[]> searchBis(String signName) {
+    List<Object[]> signsMatches = signRepository.findStartByNameIgnoreCase(signName);
+
+    return signsMatches;
+  }
+
+  @Override
   public Signs search(String signName) {
-    List<SignDB> signsMatches = signRepository.findByNameStartingWith(signName);
+    List<SignDB> signsMatches = signRepository.findByNameIgnoreCaseStartingWith(signName);
 
     return signsFromSignsView(signsMatches);
   }
-
 
   @Override
   public Sign addNewVideo(long userId, long signId, String signUrl, String pictureUri) {
