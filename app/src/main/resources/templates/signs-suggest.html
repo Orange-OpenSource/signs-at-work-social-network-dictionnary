@@ -41,7 +41,7 @@
 <div class="row ">
   <div class="col-md-4 col-xs-12 col-lg-12">
     <h2  class="already_exits" th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></h2>
-    <h2 class="already_exits" th:if="${isRequestAlreadyExist}" th:text="#{request.already_exists}"></h2>
+    <h2 class="already_exits" th:if="${isRequestAlreadyExist and requestId == 0}" th:text="#{request.already_exists}"></h2>
     <h2 class="already_exits" th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></h2>
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
@@ -64,7 +64,7 @@
             </div>
           </a>
         </li>
-        <li th:if="${isRequestAlreadyExist}" class="aside_bckg_li">
+        <li th:if="${isRequestAlreadyExist and requestId == 0}" class="aside_bckg_li">
           <a th:href="@{${requestMatche.urlForAccessToRequestDetail}}">
             <div>
               <h4 class="container_H2" th:text="#{see.request}"></h4>
@@ -84,7 +84,7 @@
             </div>
           </a>
         </li>
-        <li th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist and requestId != 0}" class="aside_bckg_li">
+        <li th:if="${!isSignAlreadyExist and requestId != 0}" class="aside_bckg_li">
           <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} + ' \')'" data-toggle="modal" href="#">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
