@@ -32,10 +32,7 @@ import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import com.orange.signsatwork.biz.view.model.SignCreationView;
-import com.orange.signsatwork.biz.webservice.model.RequestCreationViewApi;
-import com.orange.signsatwork.biz.webservice.model.RequestResponse;
-import com.orange.signsatwork.biz.webservice.model.RequestResponseApi;
-import com.orange.signsatwork.biz.webservice.model.RequestViewApi;
+import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -619,7 +616,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_SIGNS, method = RequestMethod.POST,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
-  public RequestResponseApi createSignAssociateToRequest(@RequestPart("file") MultipartFile file, @PathVariable long requestId, @RequestPart("data") SignCreationView signCreationView, HttpServletResponse response, Principal principal) throws InterruptedException {
+  public RequestResponseApi createSignAssociateToRequest(@RequestPart("file") MultipartFile file, @PathVariable long requestId, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws InterruptedException {
 
     RequestResponseApi requestResponseApi = new RequestResponseApi();
     if (!AuthentModel.hasRole("ROLE_USER_A")) {
@@ -637,18 +634,18 @@ public class RequestRestController {
       return requestResponseApi;
     }
 
-    if (!services.sign().withName(signCreationView.getSignName()).list().isEmpty()) {
+    if (!services.sign().withName(signCreationViewApi.getName()).list().isEmpty()) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
       requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
-      requestResponseApi.signId = services.sign().withName(signCreationView.getSignName()).list().get(0).id;
+      requestResponseApi.signId = services.sign().withName(signCreationViewApi.getName()).list().get(0).id;
       return requestResponseApi;
     }
 
 
-    return handleSelectedVideoFileUpload(file,  OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
+    return handleSelectedVideoFileUpload(file,  OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
   }
 
-  private RequestResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private RequestResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
 
     String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
     RequestResponseApi requestResponseApi = new RequestResponseApi();
@@ -694,7 +691,7 @@ public class RequestRestController {
       if (signId.isPresent()) {
         body.add("title", services.sign().withId(signId.getAsLong()).name);
       } else {
-        body.add("title", signCreationView.getSignName());
+        body.add("title", signCreationViewApi.getName());
       }
       body.add("channel", "tech");
       body.add("published", true);
@@ -737,10 +734,10 @@ public class RequestRestController {
         log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
       }
 
-      if (!videoDailyMotion.embed_url.isEmpty()) {
+  /*    if (!videoDailyMotion.embed_url.isEmpty()) {
         signCreationView.setVideoUrl(videoDailyMotion.embed_url);
         log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
-      }
+      }*/
 
       Sign sign;
       Video video;
@@ -756,14 +753,14 @@ public class RequestRestController {
           requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
           return requestResponseApi;
         }
-        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
+        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoDailyMotion.embed_url, pictureUri);
       } else if (signId.isPresent() && !(videoId.isPresent())) {
-        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
+        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoDailyMotion.embed_url, pictureUri);
       } else {
-        sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
+        sign = services.sign().create(user.id, signCreationViewApi.getName(), videoDailyMotion.embed_url, pictureUri);
       }
 
-      log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
+      log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationViewApi.getName(), videoDailyMotion.embed_url);
 
       if (requestId.isPresent()) {
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
@@ -771,6 +768,7 @@ public class RequestRestController {
 
       response.setStatus(HttpServletResponse.SC_OK);
       requestResponseApi.signId = sign.id;
+      requestResponseApi.videoId = sign.lastVideoId;
       return requestResponseApi;
 
     } catch (Exception errorDailymotionUploadFile) {
