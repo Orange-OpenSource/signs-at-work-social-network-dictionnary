@@ -2924,7 +2924,7 @@
                   "formdata": [
                     {
                       "key": "data",
-                      "description": "Fichier json { \"signName\": \"Nom du signe\"(obligatoire)}",
+                      "description": "Fichier json { \"name\": \"Nom du signe\"(obligatoire)}",
                       "type": "file",
                       "src": "app/testsAPI/SignCreatedByUSER_AInResponseOfRequestFromUSERWithNameTextVideoDescription.json"
                     },
