@@ -28,6 +28,7 @@
 <header role="banner" th:replace="fragments/header-about :: header">&nbsp;</header>
 
 <body class="container-fluid">
+<div th:replace="fragments/modal-personnal_data :: div"/>
 
 <div class="row">
   <div class="col-xs-12">
@@ -41,6 +42,15 @@
               <h2 class="text_hyphenation container_H2" th:text="#{about.see_condition_of_use}"/>
               <div>
                 <div class="pull-right chevron_about_see_cgu"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <a data-target="#read_personnal_data" data-toggle="modal" href="#">
+              <div class="pull-left cgu_conditions_blue"></div>
+              <h2 class="container_CGU" th:text="#{read.personnal_data}"/>
+              <div>
+                <div class="pull-right chevron"></div>
               </div>
             </a>
           </li>

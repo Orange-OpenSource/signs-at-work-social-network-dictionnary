@@ -357,11 +357,14 @@ h1, .h1 {
 
 
 #read_condition_of_use .modal-dialog,
-#read_condition_of_use .modal-content {
+#read_condition_of_use .modal-content,
+#read_personnal_data .modal-dialog,
+#read_personnal_data .modal-content {
   height: 80%;
 }
 
-#read_condition_of_use .modal-dialog .modal-content .modal-body {
+#read_condition_of_use .modal-dialog .modal-content .modal-body,
+#read_personnal_data .modal-dialog .modal-content .modal-body {
   max-height: calc(100% - 160px);
   overflow-y:scroll;
 }
@@ -435,6 +438,14 @@ p {
 
 p > a {
   color: blue;
+}
+
+.red {
+  color: red;
+}
+
+.align-right {
+  text-align: right;
 }
 
 /* End Conditions d'utilisation /cgu */

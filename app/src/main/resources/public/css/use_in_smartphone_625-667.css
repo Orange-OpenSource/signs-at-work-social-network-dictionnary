@@ -94,7 +94,9 @@
   }
 
   #read_condition_of_use .modal-dialog,
-  #read_condition_of_use .modal-content {
+  #read_condition_of_use .modal-content,
+  #read_personnal_data .modal-dialog,
+  #read_personnal_data .modal-content {
     height: 95%;
   }
 
