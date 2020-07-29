@@ -448,6 +448,23 @@ p > a {
   text-align: right;
 }
 
+h4.blue, h4.red {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 25px;
+}
+
+a.red {
+  font-size: 14px;
+  line-height: 25px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+#cgu-ul {
+  margin-top:15px;
+  margin-bottom: 15px;
+}
 /* End Conditions d'utilisation /cgu */
 
 /* Begin Réinitilisation du lot de passe /user/changePassword */

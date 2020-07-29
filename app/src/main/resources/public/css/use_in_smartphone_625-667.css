@@ -122,6 +122,13 @@
     margin-top: 5px;
   }
 
+  a.red {
+    font-size: 18px;
+    line-height: 25px;
+    border-style: solid;
+    border-radius: 10px;
+  }
+
   /* End Conditions d'utilisation /cgu */
 
   /* Begin index page /index */
