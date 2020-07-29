@@ -145,4 +145,12 @@ public class HomeController {
     return "about-cgu";
   }
 
+  @RequestMapping("/sec/personal-data")
+  public String personalData(Model model) {
+
+    model.addAttribute("title", messageByLocaleService.getMessage("read.personnal_data_modal_title"));
+
+    return "personal-data";
+  }
+
 }

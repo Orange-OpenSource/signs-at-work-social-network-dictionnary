@@ -2714,6 +2714,12 @@ label .text_hyphenation {
 
 /* End A propos de Signs@Work /sec/about */
 
+/* Begin Lire les données personnelles de Signs@Work /sec/personal-data */
+h2.container_CGU {
+  width: 70%;
+}
+/* End Lire les données personnelles de Signs@Work /sec/personal-data */
+
 /* Begin Conditions d'utilisation Signs@Work /sec/about-cgu */
 /* End Conditions d'utilisation Signs@Work /sec/about-cgu */
 
