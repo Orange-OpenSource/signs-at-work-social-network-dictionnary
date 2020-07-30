@@ -55,7 +55,6 @@ function timedCount() {
 }
 
 function startRecord() {
-  videoContainer.style.display = "block";
   labelRecord.style.display = "none";
   labelAfterRecord.style.display = "none";
   startRecording.disabled = true;
@@ -63,15 +62,19 @@ function startRecord() {
   document.getElementById('start-recording').disabled = true;
   document.getElementById('stop-recording').disabled = false;
 
+  document.getElementById("counter").style.visibility = "visible";
+  timedCount();
+}
+
+function visualizeBeforeRecord() {
+  videoContainer.style.display = "block";
   captureUserMedia00(function (stream) {
     window.audioVideoRecorder = window.RecordRTC(stream, {
       type: 'video',
       disableLogs: false
     });
     document.getElementById('video').style.visibility = "visible";
-    document.getElementById("counter").style.visibility = "visible";
-    timedCount();
-    //window.audioVideoRecorder.startRecording();
+    document.getElementById("counter").style.visibility = "hidden";
   });
 }
 
@@ -88,7 +91,8 @@ retryRecording.onclick = function () {
     errorSpan.style.display="none";
   }
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
-  startRecord();
+  document.getElementById('start-recording').disabled = false;
+  visualizeBeforeRecord();
 };
 
 
@@ -248,4 +252,8 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
     errorSpan.style.display="none";
   }
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
+});
+
+$add_video_file_recording.on('show.bs.modal', function() {
+  visualizeBeforeRecord();
 });
