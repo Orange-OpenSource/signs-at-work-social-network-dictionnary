@@ -35,11 +35,13 @@ public class CommunityViewApi {
   private Long id;
   private String type;
   private String name;
+  private Long ownerId;
 
   public CommunityViewApi(Community community) {
     this.id = community.id;
     this.type = community.type.toString();
     this.name = community.name;
+    this.ownerId = community.user.id;
   }
 
   public static CommunityViewApi fromMe(Community community) {
@@ -49,6 +51,6 @@ public class CommunityViewApi {
     } else if (community.type == CommunityType.Project) {
       type = "ProjectIBelow";
     }
-    return new CommunityViewApi(community.id, type, community.name);
+    return new CommunityViewApi(community.id, type, community.name, community.user.id);
   }
 }

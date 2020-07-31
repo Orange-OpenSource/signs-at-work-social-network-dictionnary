@@ -30,6 +30,7 @@ import lombok.Getter;
 @AllArgsConstructor
 
 public class UserMeViewApi {
+  private Long id;
   private String username;
   private String firstName;
   private String lastName;
@@ -43,6 +44,7 @@ public class UserMeViewApi {
   private String role;
 
   public UserMeViewApi(User user) {
+    this.id = user.id;
     this.username = user.username;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
@@ -56,6 +58,7 @@ public class UserMeViewApi {
   }
 
   public UserMeViewApi(User user, String role) {
+    this.id = user.id;
     this.username = user.username;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
