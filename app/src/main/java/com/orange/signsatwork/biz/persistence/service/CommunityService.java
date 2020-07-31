@@ -52,6 +52,8 @@ public interface CommunityService {
 
   Communities search(String communityName);
 
+  List<Object[]> searchBis(String communityName);
+
   Community updateName(long communityId, String communityName);
 
   Community removeMeFromCommunity(long communityId, long userId);

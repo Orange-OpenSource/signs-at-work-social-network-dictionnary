@@ -111,14 +111,17 @@ public class CommunityController {
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.create_community"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
-    Communities communities = services.community().search(decodeName);
+    List<Object[]> queryCommunities = services.community().searchBis(decodeName.toUpperCase());
 
+    List<CommunityViewData> communityViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .collect(Collectors.toList());
 
     model.addAttribute("communityName", decodeName);
     model.addAttribute("isCommunityAlreadyExist", false);
-    List<Community> communitiesWithSameName = new ArrayList<>();
-    for (Community community:communities.list()) {
-      if (community.name.equals(decodeName) ) {
+    List<CommunityViewData> communitiesWithSameName = new ArrayList<>();
+    for (CommunityViewData community:communityViewData) {
+      if (community.name.equalsIgnoreCase(decodeName) ) {
         model.addAttribute("isCommunityAlreadyExist", true);
         model.addAttribute("communityMatche", community);
       } else {
@@ -126,8 +129,8 @@ public class CommunityController {
       }
     }
 
-    List<Object[]> queryCommunities = services.community().allForFavorite(user.id);
-    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+    List<Object[]> queryCommunitiesForFavorite = services.community().allForFavorite(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunitiesForFavorite.stream()
       .map(objectArray -> new CommunityViewData(objectArray))
       .filter(c -> communitiesWithSameName.stream().map(co -> co.id).collect(Collectors.toList()).contains(c.id))
       .sorted((c1, c2) -> c1.name.compareTo(c2.name))

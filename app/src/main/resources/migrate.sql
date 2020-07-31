@@ -23,3 +23,12 @@ insert into communities (name, type) values ('UX Designer', 'Job');
 insert into communities (name, type) values ('Valideur', 'Job');
 insert into communities (name, type) values ('Vendeur', 'Job');
 insert into communities (name, type) values ('Stagiaire', 'Job');
+
+
+
+---
+alter table signs modify name varchar(255) character set utf8 collate utf8_bin;
+alter table requests modify name varchar(255) character set utf8 collate utf8_bin;
+
+---
+alter table communities modify name varchar(255) character set utf8 collate utf8_bin;

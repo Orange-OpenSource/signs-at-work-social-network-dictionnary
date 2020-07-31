@@ -99,8 +99,8 @@ public class CommunityRestController {
   public ResponseEntity<?> communities(@RequestParam("type") Optional<String> type, @RequestParam("name") Optional<String> name, Principal principal) {
     User user = services.user().withUserName(principal.getName());
     List<Object[]> queryCommunities = new ArrayList<>();
-    Communities communities = null;
     List<CommunityViewData> communitiesViewData;
+    List<CommunityViewData> communitiesSearchViewData = new ArrayList<>();
     if (type.isPresent()) {
       if (type.get().equals("Job")) {
         queryCommunities = services.community().allForJob(user.id);
@@ -109,17 +109,20 @@ public class CommunityRestController {
       }
     } else {
       if (name.isPresent()) {
-        communities = services.community().search(name.get());
+        List<Object[]> querySearchCommunity = services.community().searchBis(name.get().toUpperCase());
+        communitiesSearchViewData = querySearchCommunity.stream()
+          .map(objectArray -> new CommunityViewData(objectArray))
+          .collect(Collectors.toList());
         queryCommunities = services.community().allForFavorite(user.id);
       } else {
         queryCommunities = services.community().allForFavorite(user.id);
       }
     }
-    if (communities != null) {
-      Communities finalCommunities = communities;
+    if (communitiesSearchViewData != null) {
+      List<CommunityViewData> finalCommunitiesSearchViewData = communitiesSearchViewData;
       communitiesViewData = queryCommunities.stream()
         .map(objectArray -> new CommunityViewData(objectArray))
-        .filter(c-> finalCommunities.stream().map(co -> co.id).collect(Collectors.toList()).contains(c.id))
+        .filter(c-> finalCommunitiesSearchViewData.stream().map(co -> co.id).collect(Collectors.toList()).contains(c.id))
         .collect(Collectors.toList());
     } else {
       communitiesViewData = queryCommunities.stream()

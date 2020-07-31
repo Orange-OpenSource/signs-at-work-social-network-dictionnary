@@ -186,6 +186,13 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   @Override
+  public List<Object[]> searchBis(String communityName) {
+    List<Object[]>  communitiesMatches = communityRepository.findStartByNameIgnoreCase(communityName);
+
+    return communitiesMatches;
+  }
+
+  @Override
   public Community updateName(long communityId, String communityName) {
     CommunityDB communityDB = communityRepository.findOne(communityId);
 
