@@ -45,7 +45,7 @@
     <h2 class="already_exits" th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></h2>
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
-        <li class="aside_bckg_li">
+        <li th:if="${requestId == 0}" class="aside_bckg_li">
           <a data-target="#new-suggest" data-toggle="modal" href="#">
             <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
             <div>
@@ -53,6 +53,9 @@
             </div>
             <!--<span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>-->
           </a>
+        </li>
+        <li th:if="${requestId != 0}" class="aside_bckg_li">
+            <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
         </li>
         <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
           <a th:href="@{/sign/} + ${signMatche.id}">
