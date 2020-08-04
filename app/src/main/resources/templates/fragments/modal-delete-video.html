@@ -47,7 +47,10 @@
         </div>
         <span id="errorDeletedSpan"  style="visibility: hidden"></span>
         <div class="modal-footer">
-          <button id="submitButtonDelete" type="submit" class="btn btn-default" data-dismiss="" th:text="#{video.validate}"/>
+          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button id="submitButtonDelete" type="submit" class="btn btn-default" data-dismiss="" th:text="#{confirm}"/>
         </div>
       </form>
      </div>
