@@ -1641,6 +1641,16 @@ H2.suggest.text_hyphenation{
   width: 27rem;
 }
 
+.camera_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -175px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 47px;
+  width: 30px;
+  margin-right: 20px;
+}
+
 /* End Nouveau signe /sec/signs-suggest */
 
 
