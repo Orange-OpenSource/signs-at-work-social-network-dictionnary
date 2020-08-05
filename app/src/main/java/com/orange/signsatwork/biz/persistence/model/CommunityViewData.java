@@ -33,17 +33,21 @@ public class CommunityViewData {
   public final Long id;
   public final String type;
   public final String name;
+  public final Long ownerId;
+
 
   public CommunityViewData(Object[] queryResultItem) {
     id = toLong(queryResultItem[0]);
     type = toString(queryResultItem[1]);
     name = toString(queryResultItem[2]);
+    ownerId = toLong(queryResultItem[3]);
   }
 
   public CommunityViewData(Community community) {
     this.id = community.id;
     this.type = community.type.toString();
     this.name = community.name;
+    this.ownerId = community.user.id;
   }
 
   private String toString(Object o) {

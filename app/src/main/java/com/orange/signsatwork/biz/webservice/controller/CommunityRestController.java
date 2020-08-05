@@ -93,6 +93,17 @@ public class CommunityRestController {
 
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi. WS_SEC_COMMUNITY)
+  public ResponseEntity<?> community(@PathVariable long communityId, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+    Community community = services.community().withId(communityId);
+
+    CommunityViewApi communitiesViewApi = CommunityViewApi.fromMe(community);
+
+    return new ResponseEntity<>(communitiesViewApi, HttpStatus.OK);
+
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi. WS_SEC_COMMUNITIES)
@@ -143,11 +154,11 @@ public class CommunityRestController {
     User user = services.user().withUserName(principal.getName());
     Communities communities = services.community().forUser(user.id);
 
-    boolean isMyCommunities = communities.stream().anyMatch(community -> community.id == communityId);
+   /* boolean isMyCommunities = communities.stream().anyMatch(community -> community.id == communityId);
     if (!isMyCommunities) {
       messageError = messageByLocaleService.getMessage("do_not_below_to_this-community");
       return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
-    }
+    }*/
 
     Community community = services.community().withId(communityId);
 
@@ -388,7 +399,7 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
-  public CommunityResponseApi updateCommunity(@RequestPart("fileCommunityDescriptionVideo") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
+  public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
