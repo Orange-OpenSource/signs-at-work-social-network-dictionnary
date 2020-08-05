@@ -452,10 +452,18 @@ p > a {
   text-align: right;
 }
 
-h4.blue, h4.red {
+h4.blue-cgu {
   margin-top: 0px;
   margin-bottom: 0px;
   line-height: 25px;
+  color: blue
+}
+
+h4.red-cgu {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 25px;
+  color: red
 }
 
 a.red {
