@@ -72,7 +72,7 @@ function onCreateCommunity(name) {
       communityUsersIds: communityUsersIds
     };
     $.ajax({
-      url: "/ws/sec/communities",
+      url: "/ws/sec/communitiesFromWebApp",
       type: 'post',
       data: JSON.stringify(community),
       contentType: "application/json",
