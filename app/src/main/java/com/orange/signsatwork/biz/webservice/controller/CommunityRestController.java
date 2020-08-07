@@ -106,7 +106,7 @@ public class CommunityRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi. WS_SEC_COMMUNITIES)
+  @RequestMapping(value = RestApi. WS_SEC_COMMUNITIES, method = RequestMethod.GET)
   public ResponseEntity<?> communities(@RequestParam("type") Optional<String> type, @RequestParam("name") Optional<String> name, Principal principal) {
     User user = services.user().withUserName(principal.getName());
     List<Object[]> queryCommunities = new ArrayList<>();
@@ -205,8 +205,8 @@ public class CommunityRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_COMMUNITIES, method = RequestMethod.POST)
-  public CommunityResponseApi createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response, HttpServletRequest request) {
+  @RequestMapping(value = RestApi.WS_SEC_COMMUNITIES, method = RequestMethod.POST, headers = {"content-type=application/json", "content-type=multipart/form-data"})
+  public CommunityResponseApi createCommunity(@RequestPart("data") CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response, HttpServletRequest request) {
     List<String> emails;
     User user = services.user().withUserName(principal.getName());
     List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
