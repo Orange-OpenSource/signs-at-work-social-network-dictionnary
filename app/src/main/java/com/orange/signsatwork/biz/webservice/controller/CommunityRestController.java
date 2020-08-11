@@ -204,49 +204,10 @@ public class CommunityRestController {
     return communityResponseApi;
   }
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_COMMUNITIES, method = RequestMethod.POST, headers = {"content-type=application/json", "content-type=multipart/form-data"})
-  public CommunityResponseApi createCommunity(@RequestPart("data") CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response, HttpServletRequest request) {
-    List<String> emails;
-    User user = services.user().withUserName(principal.getName());
-    List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
-    usersIds.add(user.id);
-
-    Community community = services.community().create(user.id, communityCreationApi.toCommunity());
-    if (community != null) {
-      community = services.community().changeCommunityUsers(community.id, usersIds);
-    }
-
-    CommunityResponseApi communityResponseApi = new CommunityResponseApi();
-
-    response.setStatus(HttpServletResponse.SC_OK);
-    List<String> name = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
-
-    emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
-    if (emails.size() != 0) {
-      Community finalCommunity = community;
-      Runnable task = () -> {
-        String title, bodyMail;
-        final String url = getAppUrl(request) + "/sec/community/" + finalCommunity.id;
-        title = messageByLocaleService.getMessage("community_created_by_user_title");
-        bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-        services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, url);
-      };
-
-      new Thread(task).start();
-    }
-
-
-    communityResponseApi.communityId = community.id;
-    communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{name.toString()});
-    return communityResponseApi;
-  }
-
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi.WS_SEC_COMMUNITIES_FROM_WEBAPP, method = RequestMethod.POST)
-  public CommunityResponseApi createCommunityFromWebApp(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response, HttpServletRequest request) {
+  @RequestMapping(value = RestApi.WS_SEC_COMMUNITIES, method = RequestMethod.POST)
+  public CommunityResponseApi createCommunity(@RequestBody CommunityCreationApi communityCreationApi, Principal principal, HttpServletResponse response, HttpServletRequest request) {
     List<String> emails;
     User user = services.user().withUserName(principal.getName());
     List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
