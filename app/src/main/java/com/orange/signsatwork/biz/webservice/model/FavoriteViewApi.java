@@ -44,11 +44,12 @@ public class FavoriteViewApi {
   private long idForName;
   private FavoriteType type;
   private String ownerName;
+  private long ownerId;
   private long nbShareCommunity;
 
 
   public static FavoriteViewApi from(Favorite favorite) {
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, favorite.type, favorite.user.name(), 0L);
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, favorite.type, favorite.user.name(), favorite.user.id, 0L);
   }
 
   public static List<FavoriteViewApi> from(Favorites favorites) {
@@ -58,7 +59,7 @@ public class FavoriteViewApi {
   }
 
   public static FavoriteViewApi fromNewShare(Favorite favorite) {
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), 0L);
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), favorite.user.id, 0L);
   }
 
   public static List<FavoriteViewApi> fromNewShare(Favorites favorites) {
@@ -73,7 +74,7 @@ public class FavoriteViewApi {
       nbShareCommunity = favorite.communities.list().size();
     }
 
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), nbShareCommunity);
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), favorite.user.id, nbShareCommunity);
   }
 
   public static List<FavoriteViewApi> fromShare(Favorites favorites) {
