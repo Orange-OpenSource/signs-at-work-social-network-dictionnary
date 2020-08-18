@@ -51,7 +51,7 @@ public class Favorite {
   public Favorite loadCommunities() {
     return communities != null ?
       this :
-      new Favorite(id, name, idForName, type, null, services.community().forFavorite(id), null,  null, services);
+      new Favorite(id, name, idForName, type, null, services.community().forFavorite(id), user,  null, services);
   }
 
   public Favorite loadUsers() {

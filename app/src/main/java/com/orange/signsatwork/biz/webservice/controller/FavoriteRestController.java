@@ -141,6 +141,7 @@ public class FavoriteRestController {
     String messageError;
     User user = services.user().withUserName(principal.getName());
     Favorite favorite = services.favorite().withId(favoriteId);
+
     if (favorite.type == FavoriteType.Individual) {
       List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
       boolean isFavoriteBelowToMe = myFavorites.stream().anyMatch(favoriteModalView -> favoriteModalView.getId() == favoriteId);
@@ -149,8 +150,9 @@ public class FavoriteRestController {
         return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
       }
     }
+    favorite = favorite.loadCommunities();
 
-    FavoriteViewApi myFavorite = FavoriteViewApi.from(favorite);
+    FavoriteViewApi myFavorite = FavoriteViewApi.fromShare(favorite);
 
     return  new ResponseEntity<>(myFavorite, HttpStatus.OK);
   }
