@@ -129,7 +129,7 @@ public class CommunityRestController {
         queryCommunities = services.community().allForFavorite(user.id);
       }
     }
-    if (communitiesSearchViewData != null) {
+    if (communitiesSearchViewData.size() != 0) {
       List<CommunityViewData> finalCommunitiesSearchViewData = communitiesSearchViewData;
       communitiesViewData = queryCommunities.stream()
         .map(objectArray -> new CommunityViewData(objectArray))
