@@ -45,10 +45,10 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by c.requestDate asc")
     List<RequestDB> findMyRequestLowRecent(@Param("userDB") UserDB userDB);
 
-    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by lower(c.name) desc")
+    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by lower(name) desc")
     List<RequestDB> findMyRequestAlphabeticalOrderDesc(@Param("userDB") UserDB userDB);
 
-    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by lower(c.name) asc")
+    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by lower(name) asc")
     List<RequestDB> findMyRequestAlphabeticalOrderAsc(@Param("userDB") UserDB userDB);
 
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB and c.sign is null order by c.requestDate desc ")
