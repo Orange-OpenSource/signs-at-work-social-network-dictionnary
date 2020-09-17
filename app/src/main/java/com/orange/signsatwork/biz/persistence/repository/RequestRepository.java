@@ -45,11 +45,11 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by c.requestDate asc")
     List<RequestDB> findMyRequestLowRecent(@Param("userDB") UserDB userDB);
 
-    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by lower(name) desc")
-    List<RequestDB> findMyRequestAlphabeticalOrderDesc(@Param("userDB") UserDB userDB);
+    @Query(value = "select distinct * FROM requests where user_id = :userId order by lower(name) desc", nativeQuery = true)
+    List<RequestDB> findMyRequestAlphabeticalOrderDesc(@Param("userId") long userId);
 
-    @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by lower(name) asc")
-    List<RequestDB> findMyRequestAlphabeticalOrderAsc(@Param("userDB") UserDB userDB);
+    @Query(value = "select distinct * FROM requests where user_id = :userId order by lower(name) asc", nativeQuery = true)
+    List<RequestDB> findMyRequestAlphabeticalOrderAsc(@Param("userId") long userId);
 
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB and c.sign is null order by c.requestDate desc ")
     List<RequestDB> findByUserWithoutSignAssociate(@Param("userDB") UserDB userDB);
@@ -72,9 +72,9 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by c.requestDate asc")
     List<RequestDB> findOtherRequestWithNoSignLowRecent(@Param("userDB") UserDB userDB);
 
-    @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by lower(c.name) desc")
-    List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderDesc(@Param("userDB") UserDB userDB);
+    @Query(value = "select distinct * FROM requests where user_id != :userId and sign_id is null order by lower(name) desc", nativeQuery = true)
+    List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderDesc(@Param("userId") long userId);
 
-    @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by lower(c.name) asc")
-    List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderAsc(@Param("userDB") UserDB userDB);
+    @Query(value = "select distinct * FROM requests where user_id != :userId and sign_id is null order by lower(name) asc", nativeQuery = true)
+    List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderAsc(@Param("userId") long userId);
   }

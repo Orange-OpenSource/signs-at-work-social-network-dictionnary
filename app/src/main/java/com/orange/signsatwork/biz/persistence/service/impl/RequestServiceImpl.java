@@ -248,12 +248,12 @@ public class RequestServiceImpl implements RequestService {
 
   @Override
   public Requests myRequestAlphabeticalOrderDesc(long userId) {
-    return requestsFrom(requestRepository.findMyRequestAlphabeticalOrderDesc(userRepository.findOne(userId)));
+    return requestsFrom(requestRepository.findMyRequestAlphabeticalOrderDesc(userId));
   }
 
   @Override
   public Requests myRequestAlphabeticalOrderAsc(long userId) {
-    return requestsFrom(requestRepository.findMyRequestAlphabeticalOrderAsc(userRepository.findOne(userId)));
+    return requestsFrom(requestRepository.findMyRequestAlphabeticalOrderAsc(userId));
   }
 
   @Override
@@ -268,12 +268,12 @@ public class RequestServiceImpl implements RequestService {
 
   @Override
   public Requests otherRequestWithNoSignAlphabeticalOrderDesc(long userId) {
-    return requestsFrom(requestRepository.findOtherRequestWithNoSignAlphabeticalOrderDesc(userRepository.findOne(userId)));
+    return requestsFrom(requestRepository.findOtherRequestWithNoSignAlphabeticalOrderDesc(userId));
   }
 
   @Override
   public Requests otherRequestWithNoSignAlphabeticalOrderAsc(long userId) {
-    return requestsFrom(requestRepository.findOtherRequestWithNoSignAlphabeticalOrderAsc(userRepository.findOne(userId)));
+    return requestsFrom(requestRepository.findOtherRequestWithNoSignAlphabeticalOrderAsc(userId));
   }
 
   @Override
