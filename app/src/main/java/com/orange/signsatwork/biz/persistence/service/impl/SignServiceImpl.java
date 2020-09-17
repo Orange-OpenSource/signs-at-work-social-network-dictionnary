@@ -313,7 +313,7 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public List<Object[]> searchBis(String signName) {
-    List<Object[]> signsMatches = signRepository.findStartByNameIgnoreCase(signName);
+    List<Object[]> signsMatches = signRepository.findContainsNameIgnoreCase(signName);
 
     return signsMatches;
   }
