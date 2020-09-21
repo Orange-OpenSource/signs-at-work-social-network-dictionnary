@@ -32,3 +32,6 @@ alter table requests modify name varchar(255) character set utf8 collate utf8_bi
 
 ---
 alter table communities modify name varchar(255) character set utf8 collate utf8_bin;
+
+---
+alter table favorites modify name varchar(255) character set utf8 collate utf8_bin;
