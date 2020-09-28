@@ -273,11 +273,11 @@ public class SignController {
     model.addAttribute("isAlphabeticDesc", false);
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.favoriteName());
-    if(favorite.type.equals(FavoriteType.NewShare)) {
+    if (favorite.type.equals(FavoriteType.NewShare)) {
       model.addAttribute("classDropdownTitle", "pinlist_shared_new pull-left");
-    } else if (favorite.type.equals(FavoriteType.Share)){
+    } else if (favorite.type.equals(FavoriteType.Share)) {
       model.addAttribute("classDropdownTitle", "pinlist_shared pull-left");
-    } else if (favorite.type.equals(FavoriteType.Individual)){
+    } else if (favorite.type.equals(FavoriteType.Individual)) {
       model.addAttribute("classDropdownTitle", "pinlist_blue pull-left");
     }
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
@@ -334,11 +334,11 @@ public class SignController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("dropdownTitle", favorite.favoriteName());
     favorite = favorite.loadUsers();
-    if(favorite.type.equals(FavoriteType.Share) && !favorite.users.ids().contains(user.id) && favorite.user.id != user.id) {
+    if (favorite.type.equals(FavoriteType.Share) && !favorite.users.ids().contains(user.id) && favorite.user.id != user.id) {
       model.addAttribute("classDropdownTitle", "pinlist_shared_new pull-left");
-    } else if (favorite.type.equals(FavoriteType.Share)){
+    } else if (favorite.type.equals(FavoriteType.Share)) {
       model.addAttribute("classDropdownTitle", "pinlist_shared pull-left");
-    } else if (favorite.type.equals(FavoriteType.Individual)){
+    } else if (favorite.type.equals(FavoriteType.Individual)) {
       model.addAttribute("classDropdownTitle", "pinlist_blue pull-left");
     }
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
@@ -348,7 +348,7 @@ public class SignController {
     return "fragments/frame-signs";
   }
 
-//fix me !!!!! kanban 473311 suite retour tests utilisateurs
+  //fix me !!!!! kanban 473311 suite retour tests utilisateurs
 //    item supprime ihm
   @RequestMapping(value = "/sec/signs/mostcommented")
   public String signsMostCommented(@RequestParam("isMostCommented") boolean isMostCommented, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
@@ -549,7 +549,7 @@ public class SignController {
     return "fragments/frame-signs";
   }
 
-//fix me !!!!! kanban 473311 suite retour tests utilisateurs
+  //fix me !!!!! kanban 473311 suite retour tests utilisateurs
 //    item supprime ihm
   @RequestMapping(value = "/sec/signs/mostviewed")
   public String signsMostViewed(@RequestParam("isMostViewed") boolean isMostViewed, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
@@ -809,7 +809,7 @@ public class SignController {
 
     Video video = services.video().withId(videoId);
     if (video == null) {
-      return "redirect:/sign/" +signId;
+      return "redirect:/sign/" + signId;
     }
 
     if (principal != null) {
@@ -846,7 +846,7 @@ public class SignController {
       }
     }
 
-    if ((video.idForName == 0) || (sign.nbVideo == 1 )){
+    if ((video.idForName == 0) || (sign.nbVideo == 1)) {
       model.addAttribute("videoName", sign.name);
     } else {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
@@ -854,9 +854,9 @@ public class SignController {
 
     List<Object[]> queryVideos = services.video().AssociateVideos(videoId, videoId);
     if (queryVideos.size() > 0) {
-      model.addAttribute("classVideoAssociate", "aside_bckg_li" );
-    }else{
-      model.addAttribute("classVideoAssociate", "disabled aside_bckg_li" );
+      model.addAttribute("classVideoAssociate", "aside_bckg_li");
+    } else {
+      model.addAttribute("classVideoAssociate", "disabled aside_bckg_li");
     }
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", video);
@@ -869,10 +869,9 @@ public class SignController {
   }
 
 
-
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/detail")
-  public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model)  {
+  public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
     Boolean isVideoCreatedByMe = false;
 
 
@@ -920,8 +919,8 @@ public class SignController {
       .map(objectArray -> new VideoHistoryData(objectArray))
       .collect(Collectors.toList());
     model.addAttribute("videoHistoryDatas", videoHistoryDatas);
-    model.addAttribute("title",  messageByLocaleService.getMessage("détail"));
-    if ((video.idForName == 0) || (sign.nbVideo == 1 )){
+    model.addAttribute("title", messageByLocaleService.getMessage("détail"));
+    if ((video.idForName == 0) || (sign.nbVideo == 1)) {
       model.addAttribute("videoName", sign.name);
     } else {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
@@ -936,10 +935,9 @@ public class SignController {
   }
 
 
-
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/associate", method = RequestMethod.POST)
-  public String changeVideoAssociates(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal)  {
+  public String changeVideoAssociates(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal) {
     List<Long> associateVideosIds =
       transformAssociateVideosIdsToLong(req.getParameterMap().get("associateVideosIds"));
 
@@ -969,21 +967,45 @@ public class SignController {
       requestId = 0L;
     }
     String name = signCreationView.getSignName();
-    return "redirect:/sec/signs-suggest?name="+ URLEncoder.encode(name)+"&id="+requestId;
+    return "redirect:/sec/signs-suggest?name=" + URLEncoder.encode(name) + "&id=" + requestId;
   }
 
-  public static String stripAccents(String s)
-  {
+  public static String stripAccents(String s) {
     s = Normalizer.normalize(s, Normalizer.Form.NFD);
     s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
     return s;
   }
 
+  private boolean isIOSDevice(String userAgent) {
+    boolean isIOSDevice = false;
+    String osType = "Unknown";
+    String osVersion = "Unknown";
+    String deviceType = "Unknown";
+
+    if (userAgent.indexOf("Mac OS") >= 0) {
+      osType = "Mac";
+      osVersion = userAgent.substring(userAgent.indexOf("Mac OS ") + 7, userAgent.indexOf(")"));
+
+      if (userAgent.indexOf("iPhone") >= 0) {
+        deviceType = "iPhone";
+        isIOSDevice = true;
+      } else if (userAgent.indexOf("iPad") >= 0) {
+        deviceType = "iPad";
+        isIOSDevice = true;
+      }
+    }
+    return isIOSDevice;
+  }
+
+
+
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/signs-suggest")
-  public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, Principal principal) {
+  public String showSignsSuggest(Model model,@RequestParam("name") String name, @RequestParam("id") Long requestId, HttpServletRequest  request, Principal principal) {
     String decodeName = URLDecoder.decode(name);
+    String userAgent = request.getHeader("User-Agent");
 
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
     model.addAttribute("title", messageByLocaleService.getMessage("sign.suggest"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
