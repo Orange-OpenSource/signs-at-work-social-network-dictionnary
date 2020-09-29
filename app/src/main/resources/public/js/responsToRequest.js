@@ -36,3 +36,25 @@ function onRequestClick(id, name){
   console.log("request id =" + id );
 }
 
+
+function onClick() {
+  event.preventDefault();
+  document.getElementById('InputFile').click()
+}
+
+$(document).ready(function(){
+  var fileName = document.getElementById("fileName");
+  var InputFileLabel = document.getElementById('InputFileLabel');
+
+  $('input[type="file"]').change(function(e){
+    document.getElementById('submitButtonFileDailymotion').disabled=false;
+    if (InputFileLabel != null) {
+      document.getElementById('InputFileLabel').style.display = "none";
+    }
+    if (fileName != null) {
+      fileName.textContent = e.target.files[0].name;
+      document.getElementById('fileName').style.display = "";
+    }
+  });
+
+});

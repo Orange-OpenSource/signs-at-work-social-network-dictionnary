@@ -130,24 +130,41 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"></button>
-        <div class="pull-left">
+        <div  th:if="!${isIOSDevice}" class="pull-left">
           <div class="sign_add_white pull-left"></div>
           <h2 class="pull-right" th:text="#{sign.suggest}"/>
+        </div>
+        <div  th:if="${isIOSDevice}" class="pull-left">
+          <div class="sign_add_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{sign.create}"/>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFile}" enctype="multipart/form-data"
             th:object="${signCreationView}" method="post">
-        <div class="modal-body text-center">
+        <div th:if="!${isIOSDevice}" class="modal-body text-center">
           <input th:field="*{signName}" id="signNameSelected" type="text" class="text-center border form-control"
                  th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
           <h4 class="pull-left" th:text="#{sign.join_video}"></h4><br/>
-          <input name="file" accept="video/*" capture="camera" type="file" id="InputFile"/>
+          <input name="file" type="file" id="InputFile"/>
           <h4 id="errorSelectedSpan" style="visibility: hidden"></h4>
         </div>
+        <div th:if="${isIOSDevice}" class="modal-body">
+          <input th:field="*{signName}" id="signNameSelected" type="text" class="text-center border form-control"
+                 th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
+          <h4 class="pull-left" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
+          <label id="InputFileLabel" for="InputFile" class="btn btn-default" th:text="#{sign.new_from_file_recording}" onclick="javascript:onClick()"></label>
+          <input name="file" accept="video/*" capture="camera" type="file" id="InputFile" style="display: none"/>
+          <h4 id="fileName"></h4>
+          <h4 id="errorSelectedSpan" style="visibility: hidden"></h4>
+        </div>
+
         <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <span th:text="#{cancel}"></span>
+          </button>
           <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"
-                  data-dismiss=""></button>
+                  data-dismiss="" disabled="true"></button>
         </div>
       </form>
     </div>

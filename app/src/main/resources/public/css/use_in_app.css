@@ -1659,6 +1659,14 @@ H2.suggest.text_hyphenation{
   margin-right: 20px;
 }
 
+#InputFileLabel {
+  margin-top: 20px;
+  color: #4866F7;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+}
+
 /* End Nouveau signe /sec/signs-suggest */
 
 
