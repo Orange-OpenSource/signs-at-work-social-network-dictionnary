@@ -45,10 +45,10 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB order by c.requestDate asc")
     List<RequestDB> findMyRequestLowRecent(@Param("userDB") UserDB userDB);
 
-    @Query(value = "select * FROM requests where user_id = :userId order by lower(name) desc", nativeQuery = true)
+    @Query(value = "select * FROM requests where user_id = :userId order by lower(name) collate utf8_unicode_ci desc", nativeQuery = true)
     List<RequestDB> findMyRequestAlphabeticalOrderDesc(@Param("userId") long userId);
 
-    @Query(value = "select * FROM requests where user_id = :userId order by lower(name) asc", nativeQuery = true)
+    @Query(value = "select * FROM requests where user_id = :userId order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<RequestDB> findMyRequestAlphabeticalOrderAsc(@Param("userId") long userId);
 
     @Query("select distinct c FROM RequestDB c inner join c.user user where user = :userDB and c.sign is null order by c.requestDate desc ")
@@ -72,9 +72,9 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     @Query("select distinct c FROM RequestDB c inner join c.user user where user <> :userDB and c.sign is null order by c.requestDate asc")
     List<RequestDB> findOtherRequestWithNoSignLowRecent(@Param("userDB") UserDB userDB);
 
-    @Query(value = "select * FROM requests where user_id != :userId and sign_id is null order by lower(name) desc", nativeQuery = true)
+    @Query(value = "select * FROM requests where user_id != :userId and sign_id is null order by lower(name) collate utf8_unicode_ci desc", nativeQuery = true)
     List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderDesc(@Param("userId") long userId);
 
-    @Query(value = "select * FROM requests where user_id != :userId and sign_id is null order by lower(name) asc", nativeQuery = true)
+    @Query(value = "select * FROM requests where user_id != :userId and sign_id is null order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderAsc(@Param("userId") long userId);
   }

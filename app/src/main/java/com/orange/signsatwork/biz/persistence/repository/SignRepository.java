@@ -43,16 +43,16 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsView();
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by lower(name) asc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<Object[]> findSignsAndRequestsAlphabeticalOrderAscForSignsView(@Param("userId") long userId);
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by lower(name) desc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by lower(name) collate utf8_unicode_ci desc", nativeQuery = true)
     List<Object[]> findSignsAndRequestsAlphabeticalOrderDescForSignsView(@Param("userId") long userId);
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by lower(name) asc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<Object[]> findSignsAlphabeticalOrderAscForSignsView();
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by lower(name) desc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by lower(name) collate utf8_unicode_ci desc", nativeQuery = true)
     List<Object[]> findSignsAlphabeticalOrderDescForSignsView();
 
 
