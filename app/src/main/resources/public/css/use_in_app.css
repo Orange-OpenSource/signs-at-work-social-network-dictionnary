@@ -1522,6 +1522,29 @@ img{
   background-color: transparent;
 }
 
+
+.x-close2_black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3043px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background-color: transparent;
+}
+
+.v-done2_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2623px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background-color: transparent;
+}
+
 #retry-recording{
   background-color: transparent;
   border: none;
