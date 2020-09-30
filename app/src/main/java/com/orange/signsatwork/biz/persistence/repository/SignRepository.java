@@ -22,7 +22,6 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
