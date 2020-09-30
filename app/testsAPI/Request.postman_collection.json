@@ -3654,7 +3654,7 @@
               "raw": ""
             },
             "url": {
-              "raw": "http://{{domain}}/ws/sec/users/other/requests?sort=name",
+              "raw": "http://{{domain}}/ws/sec/users/other/requests?sort=date",
               "protocol": "http",
               "host": [
                 "{{domain}}"
