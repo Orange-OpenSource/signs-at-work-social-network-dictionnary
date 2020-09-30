@@ -3563,7 +3563,7 @@
       "name": "DeleteAllOtherRequests",
       "item": [
         {
-          "name": "http://{{domain}}/ws/sec/users/other/requests?sort=name",
+          "name": "http://{{domain}}/ws/sec/users/other/requests?sort=date",
           "event": [
             {
               "listen": "test",
