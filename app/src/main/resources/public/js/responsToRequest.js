@@ -43,17 +43,22 @@ function onClick() {
 }
 
 $(document).ready(function(){
-  var fileName = document.getElementById("fileName");
   var InputFileLabel = document.getElementById('InputFileLabel');
+  var url;
+  var videoFileToUpload = document.getElementById("videoFileToUpload")
 
   $('input[type="file"]').change(function(e){
+
     document.getElementById('submitButtonFileDailymotion').disabled=false;
     if (InputFileLabel != null) {
       document.getElementById('InputFileLabel').style.display = "none";
     }
-    if (fileName != null) {
-      fileName.textContent = e.target.files[0].name;
-      document.getElementById('fileName').style.display = "";
+    if (this.files[0] != null) {
+      url = window.URL.createObjectURL(this.files[0])
+      document.getElementById("subtitle_for_modal_video").style.display="none";
+      document.getElementById("videoUrl").src = url +'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+      document.getElementById("videoFileToUpload").style.display="";
+      document.getElementById("InputFile").style.display="none";
     }
   });
 

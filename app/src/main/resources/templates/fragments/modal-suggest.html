@@ -145,26 +145,35 @@
         <div th:if="!${isIOSDevice}" class="modal-body text-center">
           <input th:field="*{signName}" id="signNameSelected" type="text" class="text-center border form-control"
                  th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
-          <h4 class="pull-left" th:text="#{sign.join_video}"></h4><br/>
+          <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sign.join_video}"></h4><br/>
           <input name="file" type="file" id="InputFile"/>
+          <div id="videoFileToUpload" class="embed-responsive embed-responsive-16by9" style="display: none">
+            <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""/>
+          </div>
           <h4 id="errorSelectedSpan" style="visibility: hidden"></h4>
         </div>
         <div th:if="${isIOSDevice}" class="modal-body">
           <input th:field="*{signName}" id="signNameSelected" type="text" class="text-center border form-control"
                  th:placeholder="#{sign.enter_name}" style="display: none"/><br/>
-          <h4 class="pull-left" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
+          <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
           <label id="InputFileLabel" for="InputFile" class="btn btn-default" th:text="#{sign.new_from_file_recording}" onclick="javascript:onClick()"></label>
           <input name="file" accept="video/*" capture="camera" type="file" id="InputFile" style="display: none"/>
-          <h4 id="fileName"></h4>
+          <div id="videoFileToUpload" class="embed-responsive embed-responsive-16by9" style="display: none">
+            <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""/>
+          </div>
           <h4 id="errorSelectedSpan" style="visibility: hidden"></h4>
         </div>
 
-        <div class="modal-footer">
+        <div id="modal-footer_add_video_file_recording" class="modal-footer">
           <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
-          <button id="submitButtonFileDailymotion" type="submit" class="btn btn-default"
+          <button id="retry-recording" type="button" class="btn btn-secondary" title="Cliquer pour enregistrer" onclick="javascript:onClick()">
+            <div class="rewind_black center-block"></div>
+            <span th:text="#{retry}"></span>
+          </button>
+          <button id="submitButtonFileDailymotion" type="submit" class="btn btn-default pull-right"
                   data-dismiss="" disabled="true">
             <div class="v-done2_blue center-block"></div>
             <span th:text="#{publish}"></span>
