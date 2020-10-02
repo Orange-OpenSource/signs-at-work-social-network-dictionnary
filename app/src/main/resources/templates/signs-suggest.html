@@ -88,7 +88,7 @@
           </a>
         </li>
         <li th:if="${!isSignAlreadyExist and requestId != 0 and !isIOSDevice}" class="aside_bckg_li">
-          <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} + ' \')'" data-toggle="modal" href="#">
+          <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} +'\', '+ ${isIOSDevice} + ')'" data-toggle="modal" href="#">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>
@@ -106,7 +106,7 @@
           </a>
         </li>
         <li th:if="${!isSignAlreadyExist and requestId != 0 and isIOSDevice}" class="aside_bckg_li">
-          <a th:attr="data-target='#add_video_file_dailymotion' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} + ' \')'" data-toggle="modal" href="#">
+          <a th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} +'\', '+ ${isIOSDevice} + ')'" href="#">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>
@@ -115,7 +115,7 @@
           </a>
         </li>
         <li th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist and requestId == 0 and isIOSDevice}" class="aside_bckg_li">
-          <a th:if="${requestId == 0}" data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
+          <a th:if="${requestId == 0}" th:onclick="'javascript:onClick()'" href="#">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>

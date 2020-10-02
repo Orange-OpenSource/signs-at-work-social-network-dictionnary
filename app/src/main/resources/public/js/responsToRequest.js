@@ -22,7 +22,7 @@
 
 
 
-function onRequestClick(id, name){
+function onRequestClick(id, name, isIOSDevice){
   var uploadRecordedVideoFile = document.getElementById("uploadRecordedVideoFile");
   uploadRecordedVideoFile.action = "/ws/sec/uploadRecordedVideoFile/" + id;
   var signNameRecording = document.getElementById("signNameRecording");
@@ -34,6 +34,9 @@ function onRequestClick(id, name){
   signNameSelected.value =$.trim(name);
 
   console.log("request id =" + id );
+  if (isIOSDevice) {
+    onClick();
+  }
 }
 
 
@@ -48,7 +51,7 @@ $(document).ready(function(){
   var videoFileToUpload = document.getElementById("videoFileToUpload")
 
   $('input[type="file"]').change(function(e){
-
+    $("#add_video_file_dailymotion").modal('show');
     document.getElementById('submitButtonFileDailymotion').disabled=false;
     if (InputFileLabel != null) {
       document.getElementById('InputFileLabel').style.display = "none";
