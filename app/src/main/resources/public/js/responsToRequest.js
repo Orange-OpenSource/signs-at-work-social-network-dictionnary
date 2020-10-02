@@ -53,13 +53,13 @@ $(document).ready(function(){
 
   $('input[type="file"]').change(function(e){
     $("#add_video_file_dailymotion").modal('show');
-/*    document.getElementById('submitButtonFileDailymotion').disabled=false;
-    if (InputFileLabel != null) {
+    document.getElementById('submitButtonFileDailymotion').disabled=false;
+/*    if (InputFileLabel != null) {
       document.getElementById('InputFileLabel').style.display = "none";
     }*/
     if (fileName != null) {
       fileName.textContent = e.target.files[0].name;
-      document.getElementById('submitButtonFileDailymotion').disabled=false;
+     /* document.getElementById('submitButtonFileDailymotion').disabled=false;*/
       if (InputFileLabel != null) {
         document.getElementById('InputFileLabel').style.display = "none";
       }
