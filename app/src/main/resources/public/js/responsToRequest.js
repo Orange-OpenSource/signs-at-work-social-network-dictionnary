@@ -47,21 +47,30 @@ function onClick() {
 
 $(document).ready(function(){
   var InputFileLabel = document.getElementById('InputFileLabel');
-  var url;
-  var videoFileToUpload = document.getElementById("videoFileToUpload")
+ /* var url;
+  var videoFileToUpload = document.getElementById("videoFileToUpload")*/
+  var fileName = document.getElementById("fileName")
 
   $('input[type="file"]').change(function(e){
     $("#add_video_file_dailymotion").modal('show');
-    document.getElementById('submitButtonFileDailymotion').disabled=false;
+/*    document.getElementById('submitButtonFileDailymotion').disabled=false;
     if (InputFileLabel != null) {
       document.getElementById('InputFileLabel').style.display = "none";
-    }
-    if (this.files[0] != null) {
-      url = window.URL.createObjectURL(this.files[0])
-      document.getElementById("subtitle_for_modal_video").style.display="none";
-      document.getElementById("videoUrl").src = url +'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
-      document.getElementById("videoFileToUpload").style.display="";
-      document.getElementById("InputFile").style.display="none";
+    }*/
+    if (fileName != null) {
+      fileName.textContent = e.target.files[0].name;
+      document.getElementById('submitButtonFileDailymotion').disabled=false;
+      if (InputFileLabel != null) {
+        document.getElementById('InputFileLabel').style.display = "none";
+      }
+      if (fileName != null) {
+        document.getElementById('fileName').style.display = "";
+      }
+      /*url = window.URL.createObjectURL(this.files[0])*/
+      /*document.getElementById("subtitle_for_modal_video").style.display="none";*/
+      /*document.getElementById("videoUrl").src = url +'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+      document.getElementById("videoFileToUpload").style.display="";*/
+      /*document.getElementById("InputFile").style.display="none";*/
     }
   });
 

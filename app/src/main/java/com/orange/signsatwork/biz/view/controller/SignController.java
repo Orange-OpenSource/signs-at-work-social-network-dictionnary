@@ -977,7 +977,7 @@ public class SignController {
   }
 
   private boolean isIOSDevice(String userAgent) {
-    boolean isIOSDevice = false;
+    boolean isIOSDevice = true;
     String osType = "Unknown";
     String osVersion = "Unknown";
     String deviceType = "Unknown";
