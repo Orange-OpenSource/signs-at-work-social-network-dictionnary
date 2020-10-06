@@ -27,9 +27,14 @@ function onRatePositif(signId, videoId){
     type: 'post',
     success: function(response) {
        // $("#after-rate-sign-positive").modal('show');
+      $("#evaluation_modal").modal('hide');
       $("#after-rate-sign").modal('show');
       /*$("#sentiment-after-rate").addClass("containerRight_signes smiley_happy_blue")*/
       $('#positif').css('display', 'block');
+      setTimeout(function(){
+        $('#after-rate-sign').modal('hide');
+        window.location = "/sign/" + signId +"/" + videoId;
+      }, 3000);
     },
     error: function(response) {
       }
@@ -43,9 +48,14 @@ function onRateNegatif(signId, videoId){
     url: "/ws/sec/sign/"+ signId +"/"+ videoId + "/rate-negative",
     type: 'post',
     success: function(response) {
+      $("#evaluation_modal").modal('hide');
       $("#after-rate-sign").modal('show');
      /* $("#sentiment-after-rate").addClass("containerRight_signes smiley_unhappy_blue")*/
       $('#negatif').css('display', 'block');
+      setTimeout(function(){
+        $('#after-rate-sign').modal('hide');
+        window.location = "/sign/" + signId +"/" + videoId;
+      }, 3000);
     },
     error: function(response) {
     }
@@ -54,8 +64,8 @@ function onRateNegatif(signId, videoId){
 };
 
 
-function onContinueAfterRate(signId, videoId) {
+/*function onContinueAfterRate(signId, videoId) {
   var url = "/sign/" + signId +"/" + videoId;
   window.location = url;
-};
+};*/
 

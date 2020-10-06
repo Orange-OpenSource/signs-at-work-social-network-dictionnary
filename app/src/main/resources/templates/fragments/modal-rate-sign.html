@@ -63,7 +63,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal"></button>
+        <!--<button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal"></button>-->
         <div class="pull-left">
           <div class="smiley_happy_menu_white pull-left"></div>
           <h2 th:if="${isAuthenticated and !ratingData.rateNoRate}" class="pull-right" th:text="#{sign.modal.reevaluate}"/>
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="modal-body">
-        <div class="text-left">
+        <div class="text-center blue">
           <h4 th:text="#{sign.after.rate}"/>
         </div>
         <div class="text_center" id="positif" style="display: none">
@@ -85,7 +85,7 @@
       </div>
 
       <div class="modal-footer">
-        <button th:text="#{finish}" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " class="btn btn-default" data-dismiss=""></button>
+       <!-- <button th:text="#{finish}" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " class="btn btn-default" data-dismiss=""></button>-->
       </div>
     </div>
   </div>
