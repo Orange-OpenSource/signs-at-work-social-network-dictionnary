@@ -74,8 +74,7 @@ $formUploadSelectedVideoFile.on('input', function(event) {
 var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
 $add_video_file_dailymotion.on('hidden.bs.modal', function() {
  console.log("hidden add_video_file_dailymotion modal");
-  var InputFileLabel = document.getElementById('InputFileLabel');
-  var videoFileToUpload = document.getElementById("videoFileToUpload");
+  var fileName = document.getElementById("fileName");
 
   if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
     errorSelectedSpan.style.display="none";
@@ -83,15 +82,12 @@ $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   }
   document.getElementById('submitButtonFileDailymotion').disabled=true;
 
-  if (InputFileLabel != null) {
-    document.getElementById('InputFileLabel').style.display = "";
-  } else {
-    document.getElementById("InputFile").style.display="";
-    document.getElementById("InputFile").value="";
-  }
+  document.getElementById("InputFile").value="";
+
   document.getElementById("subtitle_for_modal_video").style.display="";
-  if (videoFileToUpload != null) {
-    document.getElementById("videoFileToUpload").style.display="none";
+  if (fileName != null) {
+    fileName.value="";
+    document.getElementById('fileName').style.display = "";
   }
 });
 
