@@ -184,9 +184,11 @@ public class RequestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/signs-request")
-  public String showSignsRequest(Model model,@RequestParam("name") String name,  Principal principal) {
+  public String showSignsRequest(Model model,@RequestParam("name") String name,  HttpServletRequest request, Principal principal) {
     String decodeName = URLDecoder.decode(name);
+    String userAgent = request.getHeader("User-Agent");
 
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
     model.addAttribute("title", messageByLocaleService.getMessage("sign.modal.request"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
