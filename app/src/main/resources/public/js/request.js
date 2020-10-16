@@ -156,10 +156,20 @@ $formRequestDescription.on('input', function(event) {
 var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
 $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   console.log("hidden add_video_file_dailymotion modal");
+  var fileName = document.getElementById("fileName");
   //document.getElementById('submitButtonFileDailymotion').disabled = false;
   document.getElementById('requestInfoSubmit').disabled=false;
   if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
     errorSelectedSpan.style.visibility="hidden";
+  }
+  document.getElementById('submitButtonFileDailymotion').disabled=true;
+
+  document.getElementById("InputFile").value="";
+
+  document.getElementById("subtitle_for_modal_video").style.display="";
+  if (fileName != null) {
+    fileName.value="";
+    document.getElementById('fileName').style.display = "";
   }
 });
 

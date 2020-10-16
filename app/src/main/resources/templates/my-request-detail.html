@@ -72,7 +72,7 @@
             </div>
           </a>
         </li>
-        <li  class="aside_bckg_li">
+        <li th:if="!${isIOSDevice}" class="aside_bckg_li">
           <a data-target="#add_request_description_LSF" data-toggle="modal" href="#">
             <div th:if="${requestView.requestVideoDescription== null}">
               <div class="pull-left description_movie_blue"></div>
@@ -85,6 +85,20 @@
               <div class="pull-right signlanguage_black"/>
             </div>
           </a>
+        </li>
+        <li th:if="${isIOSDevice}" class="aside_bckg_li">
+        <a th:onclick="'javascript:onClick()'" href="#">
+          <div th:if="${requestView.requestVideoDescription== null}">
+            <div class="pull-left description_movie_blue"></div>
+            <h4 class="container_H2" th:text="#{request_description_LSF}"/>
+            <div class="pull-right add_black"/>
+          </div>
+          <div th:if="${requestView.requestVideoDescription != null}">
+            <div class="pull-left description_movie_blue"></div>
+            <h4 class="container_H2" th:text="#{request_description_LSF}"/>
+            <div class="pull-right signlanguage_black"/>
+          </div>
+        </a>
         </li>
         <li class="aside_bckg_li">
           <a  th:onclick="'javascript:onPrioriseRequest('+ ${requestView.id}  +')' " href="#">
@@ -122,8 +136,22 @@
               </div>
             </a>
           </li>
-          <li  class="aside_bckg_li">
+          <li  th:if="!${isIOSDevice}" class="aside_bckg_li">
             <a data-target="#add_request_description_LSF" data-toggle="modal" href="#">
+              <div th:if="${requestView.requestVideoDescription== null}">
+                <div class="pull-left description_movie_blue"></div>
+                <h4 class="container_H2" th:text="#{request_description_LSF}"/>
+                <div class="pull-right add_black"/>
+              </div>
+              <div th:if="${requestView.requestVideoDescription != null}">
+                <div class="pull-left description_movie_blue"></div>
+                <h4 class="container_H2" th:text="#{request_description_LSF}"/>
+                <div class="pull-right signlanguage_black"/>
+              </div>
+            </a>
+          </li>
+          <li  th:if="${isIOSDevice}" class="aside_bckg_li">
+            <a th:onclick="'javascript:onClick()'" href="#">
               <div th:if="${requestView.requestVideoDescription== null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{request_description_LSF}"/>

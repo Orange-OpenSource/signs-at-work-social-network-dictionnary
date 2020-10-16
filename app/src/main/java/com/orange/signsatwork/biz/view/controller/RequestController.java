@@ -71,13 +71,38 @@ public class RequestController {
     return "requests";
   }
 
+  private boolean isIOSDevice(String userAgent) {
+    boolean isIOSDevice = true;
+    String osType = "Unknown";
+    String osVersion = "Unknown";
+    String deviceType = "Unknown";
+
+    if (userAgent.indexOf("Mac OS") >= 0) {
+      osType = "Mac";
+      osVersion = userAgent.substring(userAgent.indexOf("Mac OS ") + 7, userAgent.indexOf(")"));
+
+      if (userAgent.indexOf("iPhone") >= 0) {
+        deviceType = "iPhone";
+        isIOSDevice = true;
+      } else if (userAgent.indexOf("iPad") >= 0) {
+        deviceType = "iPad";
+        isIOSDevice = true;
+      }
+    }
+    return isIOSDevice;
+  }
+
 
   @RequestMapping(value = "/sec/my-request-detail/{requestId}")
-  public String requestDetails(@PathVariable long requestId, Principal principal, Model model) {
+  public String requestDetails(@PathVariable long requestId, HttpServletRequest  requestHttp, Principal principal, Model model) {
     Request request = services.request().withId(requestId);
     if (request == null) {
       return "redirect:/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
     }
+
+    String userAgent = requestHttp.getHeader("User-Agent");
+
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
     model.addAttribute("title", request.name);
 
