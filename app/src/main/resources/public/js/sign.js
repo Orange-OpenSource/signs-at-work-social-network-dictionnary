@@ -21,7 +21,7 @@
 console.log("Cool, sign.js is loaded :)");
 
 var errorSelectedSpan = document.getElementById('errorSelectedSpan');
-var cancelSelectVideo = document.getElementById('cancel-select-video');
+/*var cancelSelectVideo = document.getElementById('cancel-select-video');*/
 
 
 var $formUploadSelectedVideoFile = $('#uploadSelectedVideoFile');
@@ -91,9 +91,9 @@ $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   }
 });
 
-if (cancelSelectVideo) {
+/*if (cancelSelectVideo) {
   cancelSelectVideo.onclick = function () {
     $('#add_sign_definition_LSF').modal('hide');
     location.reload();
   };
-}
+}*/

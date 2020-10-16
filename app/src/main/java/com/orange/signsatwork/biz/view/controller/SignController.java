@@ -977,7 +977,7 @@ public class SignController {
   }
 
   private boolean isIOSDevice(String userAgent) {
-    boolean isIOSDevice = false;
+    boolean isIOSDevice = true;
     String osType = "Unknown";
     String osVersion = "Unknown";
     String deviceType = "Unknown";
@@ -1074,9 +1074,11 @@ public class SignController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/definition")
-  public String definition(@PathVariable long signId, Principal principal, Model model)  {
+  public String definition(@PathVariable long signId, HttpServletRequest  request, Principal principal, Model model)  {
     Sign sign = services.sign().withId(signId);
+    String userAgent = request.getHeader("User-Agent");
 
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
     model.addAttribute("title", sign.name);
 
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
