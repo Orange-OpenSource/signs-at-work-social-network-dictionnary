@@ -193,14 +193,37 @@ public class CommunityController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/community/{communityId}/description")
-  public String descriptionCommunity(@PathVariable long communityId, Principal principal, Model model)  {
+  public String descriptionCommunity(@PathVariable long communityId, HttpServletRequest request, Principal principal, Model model)  {
     Community community = services.community().withId(communityId);
+    String userAgent = request.getHeader("User-Agent");
 
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
     model.addAttribute("title", messageByLocaleService.getMessage("community.description_title", new Object[]{community.name}));
 
    model.addAttribute("community", community);
 
     return "community-description";
+  }
+
+  private boolean isIOSDevice(String userAgent) {
+    boolean isIOSDevice = false;
+    String osType = "Unknown";
+    String osVersion = "Unknown";
+    String deviceType = "Unknown";
+
+    if (userAgent.indexOf("Mac OS") >= 0) {
+      osType = "Mac";
+      osVersion = userAgent.substring(userAgent.indexOf("Mac OS ") + 7, userAgent.indexOf(")"));
+
+      if (userAgent.indexOf("iPhone") >= 0) {
+        deviceType = "iPhone";
+        isIOSDevice = true;
+      } else if (userAgent.indexOf("iPad") >= 0) {
+        deviceType = "iPad";
+        isIOSDevice = true;
+      }
+    }
+    return isIOSDevice;
   }
 
   @Secured("ROLE_USER")

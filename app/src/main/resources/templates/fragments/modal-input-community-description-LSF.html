@@ -133,14 +133,29 @@
       </div>
       <div class="spinner spinner_hidden"></div>
       <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForCommunityDescription/} + ${community.id}"  enctype="multipart/form-data"  method="post">
-        <div class="modal-body text-center">
-          <h4 class="pull-left" th:text="#{sign.join_video}"></h4><br/>
+        <div th:if="!${isIOSDevice}" class="modal-body text-center">
+          <br/>
+          <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sign.join_video}"></h4><br/>
           <input name="file" type="file" id="InputFile"/>
           <h4 id="errorSelectedSpan"  style="visibility: hidden"></h4>
         </div>
-        <div class="modal-footer">
-          <button id="submitButtonFileDailymotion" th:text="#{continue}" type="submit" class="btn btn-default"
-                  data-dismiss=""></button>
+        <div th:if="${isIOSDevice}" class="modal-body">
+          <br/>
+          <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
+          <input name="file" ccept="video/*" capture="camera"  type="file" id="InputFile" style="display: none"/>
+          <h4 id="fileName"></h4>
+          <h4 id="errorSelectedSpan"  style="visibility: hidden"></h4>
+        </div>
+        <div id="modal-footer_add_video_file_recording" class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button id="submitButtonFileDailymotion" type="submit" class="btn btn-default pull-right"
+                  data-dismiss="" disabled="true">
+              <div class="v-done2_blue center-block"></div>
+              <span th:text="#{publish}"></span>
+          </button>
         </div>
       </form>
     </div>
