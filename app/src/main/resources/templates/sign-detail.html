@@ -72,7 +72,7 @@
                         </div>
                       </a>
                     </li>
-                    <li th:if="${isVideoCreatedByMe}" class="aside_bckg_li">
+                    <li th:if="${isVideoCreatedByMe and !isIOSDevice}" class="aside_bckg_li">
                         <a data-target="#replace"    data-toggle="modal" href="#">
                             <div class="pull-left rewind_blue"></div>
                             <h2 class="container_H2" th:text="#{sign.redo}"/>
@@ -81,6 +81,15 @@
                             </div>
                         </a>
                     </li>
+                  <li th:if="${isVideoCreatedByMe and isIOSDevice}" class="aside_bckg_li">
+                    <a th:onclick="'javascript:onClick()'" href="#">
+                      <div class="pull-left rewind_blue"></div>
+                      <h2 class="container_H2" th:text="#{sign.redo}"/>
+                      <div>
+                        <div class="pull-right chevron"/>
+                      </div>
+                    </a>
+                  </li>
                     <li th:if="${!ratingData.rateNoRate and !isVideoCreatedByMe}" class="aside_bckg_li">
                         <a href="#" data-toggle="modal" data-target="#evaluation_modal">
                             <div class="pull-left smiley_happy_menu_blue"></div>

@@ -871,9 +871,11 @@ public class SignController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/detail")
-  public String videoDetail(@PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+  public String videoDetail(@PathVariable long signId, @PathVariable long videoId, HttpServletRequest request, Principal principal, Model model) {
     Boolean isVideoCreatedByMe = false;
+    String userAgent = request.getHeader("User-Agent");
 
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
