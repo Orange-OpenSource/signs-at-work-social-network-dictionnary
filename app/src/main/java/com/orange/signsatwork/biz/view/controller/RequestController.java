@@ -72,7 +72,7 @@ public class RequestController {
   }
 
   private boolean isIOSDevice(String userAgent) {
-    boolean isIOSDevice = true;
+    boolean isIOSDevice = false;
     String osType = "Unknown";
     String osVersion = "Unknown";
     String deviceType = "Unknown";
