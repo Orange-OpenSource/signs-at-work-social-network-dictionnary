@@ -120,7 +120,7 @@ public class FileUploadRestController {
     log.info("VideoFile name"+videoFile.name);
     String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
     String videoUrl = null;
-    String file = environment.getProperty("app.data") + videoFile.name;
+    String file = environment.getProperty("app.file") + videoFile.name;
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
@@ -614,7 +614,7 @@ public class FileUploadRestController {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
     String videoUrl = null;
-    String file = environment.getProperty("app.data") + videoFile.name;
+    String file = environment.getProperty("app.file") + videoFile.name;
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
@@ -964,7 +964,7 @@ public class FileUploadRestController {
     log.info("VideoFile name"+videoFile.name);
     RequestResponse requestResponse = new RequestResponse();
     String videoUrl = null;
-    String file = environment.getProperty("app.data") + videoFile.name;
+    String file = environment.getProperty("app.file") + videoFile.name;
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
@@ -1152,7 +1152,7 @@ public class FileUploadRestController {
     log.info("VideoFile name"+videoFile.name);
 
     String videoUrl = null;
-    String file = environment.getProperty("app.data") + videoFile.name;
+    String file = environment.getProperty("app.file") + videoFile.name;
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
@@ -1408,7 +1408,7 @@ public class FileUploadRestController {
     log.info("VideoFile name"+videoFile.name);
 
     String videoUrl = null;
-    String file = environment.getProperty("app.data") + videoFile.name;
+    String file = environment.getProperty("app.file") + videoFile.name;
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());

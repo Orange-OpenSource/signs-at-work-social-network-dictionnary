@@ -20,7 +20,7 @@ management.context-path: /admin/
 spring.jpa.properties.hibernate.generate_statistics: false
 spring.jpa.show-sql: false
 
-app.file: "/data"
+app.file: "/data/"
 app.dailymotion_url: "https://api.dailymotion.com"
 
 app.admin.username: "admin"
