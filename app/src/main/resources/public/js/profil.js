@@ -348,11 +348,15 @@ if (nameVideoRecord) {
   nameVideoRecord.onclick = function () {
     console.log("click on record name lsf");
     $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
+    $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
     labelRecord = document.getElementById('label_record');
     document.getElementById('label_record').style.visibility = "visible";
     document.getElementById('label_record').style.display = "block";
     document.getElementById('label_record_job_description').style.display = "none";
     labelAfterRecord = document.getElementById('label_after_record');
+    document.getElementById('add_video_file_dailymotion_title_name_lsf').style.visibility = "visible";
+    document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "block";
+    document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "none";
   };
 }
 
@@ -360,11 +364,15 @@ if (jobVideoRecord) {
   jobVideoRecord.onclick = function () {
     console.log("click on record job description lsf");
     $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForJobDescription');
+    $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForJobDescription');
     document.getElementById('label_record_job_description').style.visibility = "visible";
     document.getElementById('label_record_job_description').style.display = "block";
     document.getElementById('label_record').style.display = "none";
     labelRecord = document.getElementById('label_record_job_description');
     labelAfterRecord = document.getElementById('label_after_record_job_description');
+    document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.visibility = "visible";
+    document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "block";
+    document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "none";
   };
 }
 
@@ -526,3 +534,87 @@ function checkFirstName() {
     }
   }
 }
+
+var $formUploadSelectedVideoFile = $('#uploadSelectedVideoFile');
+$formUploadSelectedVideoFile.on('submit', function(event) {
+  if (document.getElementById("InputFile").value) {
+    $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+    $(".spinner").css("z-index", "1500").visibility = "visible";
+    $("#submitButtonFileDailymotion").css("color", "black");
+    var $form = $(this);
+    var formdata = new FormData($form[0]);
+    var data = (formdata !== null) ? formdata : $form.serialize();
+
+    event.preventDefault();
+    $.ajax({
+      url: $formUploadSelectedVideoFile.attr('action'),
+      type: 'post',
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        var url = response;
+        errorSelectedSpan.style.visibility = "hidden";
+        $(".spinner").visibility = "hidden";
+        console.log("Success " + response);
+        location.reload();
+      },
+      error: function (response) {
+        errorSelectedSpan.textContent = response.responseText;
+        errorSelectedSpan.style.visibility = "visible";
+        $(".spinner").css("z-index", "-1").css("opacity", "0.1");
+        $(".spinner").visibility = "hidden";
+        console.log("Erreur " + response.responseText);
+      }
+    })
+  } else {
+    event.preventDefault();
+    errorSelectedSpan.textContent = "Vous devez séléctionner un fichier";
+    errorSelectedSpan.style.visibility = "visible";
+  }
+
+});
+
+$formUploadSelectedVideoFile.on('input', function(event) {
+  document.getElementById('errorSelectedSpan').style.visibility="hidden";
+});
+
+var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
+$add_video_file_dailymotion.on('hidden.bs.modal', function() {
+  console.log("hidden add_video_file_dailymotion modal");
+  var fileName = document.getElementById("fileName");
+
+  if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
+    errorSelectedSpan.style.display="none";
+    /*$('#signNameSelected').val("");*/
+  }
+  document.getElementById('submitButtonFileDailymotion').disabled=true;
+
+  document.getElementById("InputFile").value="";
+
+  document.getElementById("subtitle_for_modal_video").style.display="";
+  if (fileName != null) {
+    fileName.value="";
+    document.getElementById('fileName').style.display = "";
+  }
+});
+
+function onClick() {
+  event.preventDefault();
+  document.getElementById('InputFile').click()
+}
+
+$(document).ready(function(){
+  var fileName = document.getElementById("fileName");
+
+  $('input[type="file"]').change(function(e){
+    $("#add_video_file_dailymotion").modal('show');
+    document.getElementById('submitButtonFileDailymotion').disabled=false;
+
+    if (fileName != null) {
+      fileName.textContent = e.target.files[0].name;
+      document.getElementById('fileName').style.display = "";
+    }
+  });
+
+});
