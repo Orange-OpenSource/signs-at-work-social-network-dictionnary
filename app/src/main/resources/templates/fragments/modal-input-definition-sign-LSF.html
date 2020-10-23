@@ -137,14 +137,13 @@
           <br/>
           <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sign.join_video}"></h4><br/>
           <input name="file" type="file" id="InputFile"/>
-          <h4 id="errorSelectedSpan"  style="visibility: hidden"></h4>
+          <h4 id="errorSelectedSpan"  style="display: none"></h4>
         </div>
         <div th:if="${isIOSDevice}" class="modal-body">
           <br/>
           <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
           <input name="file" accept="video/*" capture="camera"  type="file" id="InputFile"  style="display: none"/>
-          <h4 id="fileName"></h4>
-          <h4 id="errorSelectedSpan"  style="visibility: hidden"></h4>
+          <h4 id="errorSelectedSpan"  style="display: none"></h4>
         </div>
         <div id="modal-footer_add_video_file_recording" class="modal-footer">
           <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">

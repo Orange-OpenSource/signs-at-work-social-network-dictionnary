@@ -1555,6 +1555,7 @@ img{
 
 #modal-footer_add_video_file_recording {
   text-align: center;
+  display: inline;
 }
 
 #container-button >button,

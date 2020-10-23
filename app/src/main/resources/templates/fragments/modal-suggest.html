@@ -150,7 +150,7 @@
           <!--<div id="videoFileToUpload" class="embed-responsive embed-responsive-16by9" style="display: none">
             <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""/>
           </div>-->
-          <h4 id="errorSelectedSpan" style="visibility: hidden"></h4>
+          <h4 id="errorSelectedSpan" style="display: none"></h4>
         </div>
         <div th:if="${isIOSDevice}" class="modal-body">
           <input th:field="*{signName}" id="signNameSelected" type="text" class="text-center border form-control"
@@ -161,8 +161,7 @@
           <!--<div id="videoFileToUpload" class="embed-responsive embed-responsive-16by9" style="display: none">
             <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""/>
           </div>-->
-          <h4 id="fileName"></h4>
-          <h4 id="errorSelectedSpan" style="visibility: hidden"></h4>
+          <h4 id="errorSelectedSpan" style="display: none"></h4>
         </div>
 
         <div id="modal-footer_add_video_file_recording" class="modal-footer">

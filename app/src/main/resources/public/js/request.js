@@ -98,16 +98,17 @@ $formRequestDescription.on('submit', function(event) {
   console.log("requestTextDescription " + $('#requestTextDescription').val());
   document.getElementById('requestInfoSubmit').disabled=true;
   //document.getElementById('submitButtonFileDailymotion').disabled = true;
-  if (document.getElementById("InputFile").value) {
+  /*if (document.getElementById("InputFile").value) {*/
         $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
         $(".spinner").css("z-index","1500").visibility="visible";
-        $("#submitButtonFileDailymotion").css("color","black");
+        $(".spinner").css("opacity", "1");
+        /*$("#submitButtonFileDailymotion").css("color","black");*/
         var $form = $(this);
         var formdata = new FormData($form[0]);
         formdata.append('requestName', $('#requestName').val());
         formdata.append('requestTextDescription', $('#requestTextDescription').val());
         var data = (formdata !== null) ? formdata : $form.serialize();
-
+        document.getElementById('submitButtonFileDailymotion').disabled=true;
         event.preventDefault();
         $.ajax({
           url: $formRequestDescription.attr('action'),
@@ -124,7 +125,7 @@ $formRequestDescription.on('submit', function(event) {
               window.history.replaceState({}, 'foo', url);
               console.log(window.location.href);
               window.location = url;
-              errorSelectedSpan.style.visibility="hidden";
+              errorSelectedSpan.style.display="none";
               $(".spinner").visibility="hidden";
             }, 3000);
           },
@@ -135,42 +136,37 @@ $formRequestDescription.on('submit', function(event) {
               seeSignButton.style.visibility="visible";
               seeSignButton.href="/sign/"+returnedData.signId;
             }
-            errorSelectedSpan.style.visibility="visible";
+            errorSelectedSpan.style.display="inline-block";
             $(".spinner").css("z-index","-1").css("opacity","0.1");
             $(".spinner").visibility="hidden";
           }
         })
-  } else {
+/*  } else {
     event.preventDefault();
     errorSelectedSpan.textContent = "Vous devez séléctionner un fichier";
     errorSelectedSpan.style.visibility = "visible";
-  }
+  }*/
 
   });
 
 $formRequestDescription.on('input', function(event) {
-  document.getElementById('errorSelectedSpan').style.visibility="hidden";
+  document.getElementById('errorSelectedSpan').style.display="none";
   document.getElementById('requestInfoSubmit').disabled=true;
 });
 
 var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
 $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   console.log("hidden add_video_file_dailymotion modal");
-  var fileName = document.getElementById("fileName");
   //document.getElementById('submitButtonFileDailymotion').disabled = false;
   document.getElementById('requestInfoSubmit').disabled=false;
   if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
-    errorSelectedSpan.style.visibility="hidden";
+    errorSelectedSpan.style.display="none";
   }
   document.getElementById('submitButtonFileDailymotion').disabled=true;
 
   document.getElementById("InputFile").value="";
 
   document.getElementById("subtitle_for_modal_video").style.display="";
-  if (fileName != null) {
-    fileName.value="";
-    document.getElementById('fileName').style.display = "";
-  }
 });
 
 var $add_request_description_LSF = $('#add_request_description_LSF');
@@ -182,4 +178,18 @@ $add_request_description_LSF.on('show.bs.modal', function() {
 $add_request_description_LSF.on('hidden.bs.modal', function() {
   console.log("hidden $add_request_description_LSF modal");
   document.getElementById('requestInfoSubmit').disabled=false;
+});
+
+function onClick() {
+  event.preventDefault();
+  document.getElementById('InputFile').click()
+}
+
+$(document).ready(function(){
+
+  $('input[type="file"]').change(function(e){
+    $("#add_video_file_dailymotion").modal('show');
+    document.getElementById('submitButtonFileDailymotion').disabled=false;
+  });
+
 });

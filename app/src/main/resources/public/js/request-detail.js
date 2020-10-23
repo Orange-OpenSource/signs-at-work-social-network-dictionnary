@@ -72,16 +72,11 @@ function onClick() {
 }
 
 $(document).ready(function(){
-  var fileName = document.getElementById("fileName");
 
   $('input[type="file"]').change(function(e){
     $("#add_video_file_dailymotion").modal('show');
     document.getElementById('submitButtonFileDailymotion').disabled=false;
 
-    if (fileName != null) {
-      fileName.textContent = e.target.files[0].name;
-      document.getElementById('fileName').style.display = "";
-    }
   });
 
 });

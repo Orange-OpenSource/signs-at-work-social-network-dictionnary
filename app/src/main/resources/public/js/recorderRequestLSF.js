@@ -197,6 +197,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
   $("video").css("z-index","-1").css("opacity","0.40");
   $("video").removeAttr("controls");
   $(".spinner").css("z-index","1500").visibility="visible";
+  $(".spinner").css("opacity", "1");
   videoFile.requestNameRecording = $('#requestName').val();
   videoFile.requestTextDescriptionRecording = $('#requestTextDescription').val();
   $("#continue").css("color","black");
