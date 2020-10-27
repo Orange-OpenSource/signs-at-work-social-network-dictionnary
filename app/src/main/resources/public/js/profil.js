@@ -195,7 +195,8 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
   $("video").css("z-index","-1").css("opacity","0.40");
   $("video").removeAttr("controls");
   $(".spinner").css("z-index","1500").visibility="visible";
-  $("#continue").css("color","black");
+  $(".spinner").css("opacity","1");
+  /*$("#continue").css("color","black");*/
   event.preventDefault();
   $.ajax({
     url: $formUploadRecordedVideoFile.attr('action'),
@@ -205,7 +206,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
     success: function(response) {
      /* var url = response;
       window.location = url;*/
-      errorSpan.style.visibility="hidden";
+      errorSpan.style.display="none";
       $(".spinner").visibility="hidden";
       $("video").css("z-index","1500").css("opacity","1");
       console.log("Success " + response);
@@ -213,7 +214,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
     },
     error: function(response) {
       errorSpan.textContent = response.responseText;
-      errorSpan.style.visibility="visible";
+      errorSpan.style.display="inline-block";
       $(".spinner").css("z-index","-1").css("opacity","0.1");
       $(".spinner").visibility="hidden";
       $("video").css("z-index","1500").css("opacity","1");
@@ -316,14 +317,14 @@ $profileDescription.on('submit', function(event) {
 });
 
 $formUploadRecordedVideoFile.on('input', function(event) {
-  document.getElementById('errorSpan').style.visibility="hidden";
+  document.getElementById('errorSpan').style.display="none";
 });
 
 var $add_video_file_recording = $('#add_video_file_recording');
 $add_video_file_recording.on('hidden.bs.modal', function() {
   console.log("hidden add_video_file_recording modal");
   clearTimeout(t);
-  /*audioVideoRecorder.clearRecordedData();*/
+  audioVideoRecorder.clearRecordedData();
   videoContainer.style.display="none";
   labelRecord.style.visibility="visible";
   labelAfterRecord.style.display="none";
@@ -339,7 +340,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById('video').style.visibility="hidden";
   document.getElementById('continue').disabled = true;
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
-    errorSpan.style.visibility="hidden";
+    errorSpan.style.display="none";
   }
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
 });
@@ -555,7 +556,7 @@ $formUploadSelectedVideoFile.on('submit', function(event) {
       processData: false,
       success: function (response) {
         var url = response;
-        rrorSelectedSpan.style.display = "none";
+        errorSelectedSpan.style.display = "none";
         $(".spinner").visibility = "hidden";
         console.log("Success " + response);
         location.reload();
