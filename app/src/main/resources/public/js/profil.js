@@ -87,7 +87,7 @@ startRecording.onclick = function() {
 
 retryRecording.onclick = function () {
   document.getElementById('container-button').style.display = "none";
-  document.getElementById('btnChecked').style.display = "none";
+  /*document.getElementById('btnChecked').style.display = "none";*/
   document.getElementById('start-recording').style.display = "block";
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
     errorSpan.style.visibility="hidden";
@@ -101,7 +101,7 @@ stopRecording.onclick = function() {
   labelAfterRecord.style.display="block";
   labelAfterRecord.style.visibility="visible";
   document.getElementById('container-button').style.display = "block";
-  document.getElementById('btnChecked').style.display = "block";
+ /* document.getElementById('btnChecked').style.display = "block";*/
   document.getElementById('stop-recording').style.display = "none";
   stopRecording.disabled = true;
   startRecording.disabled = false;
@@ -219,6 +219,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       $(".spinner").visibility="hidden";
       $("video").css("z-index","1500").css("opacity","1");
       console.log("Erreur " + response.responseText);
+      document.getElementById('cancel-recording').disabled = false;
     }
   })
 
@@ -330,7 +331,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   labelAfterRecord.style.display="none";
   document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('container-button').style.display = "none";
-  document.getElementById('btnChecked').style.display = "none";
+  /*document.getElementById('btnChecked').style.display = "none";*/
   document.getElementById('stop-recording').style.display = "none";
   document.getElementById('stop-recording').disabled = true;
   document.getElementById('start-recording').disabled = false;
@@ -339,6 +340,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById('video').pause();
   document.getElementById('video').style.visibility="hidden";
   document.getElementById('continue').disabled = true;
+  document.getElementById('cancel-recording').disabled = false;
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
     errorSpan.style.display="none";
   }
