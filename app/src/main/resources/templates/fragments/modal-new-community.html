@@ -39,12 +39,18 @@
             <form th:action="@{/sec/community/search(id=${favoriteId})}" th:object="${communityCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
                     <input th:field="*{name}" id="name" name="name" type="text" class="form-control"
-                           th:placeholder="#{community.enter_name}" required=""/><br/>
+                           th:placeholder="#{community.enter_name}" required=""/>
                 </div>
-
-                <div class="modal-footer">
-                    <button th:text="#{continue}" type="submit" class="btn btn-default" data-dismiss=""></button>
-                </div>
+              <div class="modal-footer">
+                <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                  <div class="x-close2_black center-block"></div>
+                  <span th:text="#{cancel}"></span>
+                </button>
+                <button type="submit" class="btn btn-default pull-right" data-dismiss="">
+                  <div class="v-done2_blue center-block"></div>
+                  <span th:text="#{continue}"></span>
+                </button>
+              </div>
             </form>
         </div>
     </div>
