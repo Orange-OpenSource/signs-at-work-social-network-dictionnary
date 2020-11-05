@@ -251,9 +251,13 @@
       </div>
       <div class="modal-footer">
         <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
-        <button type="submit" th:text="#{confirm}" th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' "  data-dismiss=""  class="btn btn-default"></button>
+        <button type="submit" th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' "  data-dismiss=""  class="btn btn-default pull-right">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{confirm}"></span>
+        </button>
       </div>
     </div>
   </div>
