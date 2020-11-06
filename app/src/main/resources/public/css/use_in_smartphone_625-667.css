@@ -383,12 +383,13 @@
   .labelSigne a{
     font-size:16px;
     white-space: nowrap;
+    padding-left: 6px;
   }
 
   .labelSigne {
     font-size: 14px;
     white-space: nowrap;
-    max-width: 223px;
+    /*max-width: 223px;*/
     text-align: center;
     /*padding-left: 73px;*/
   }
@@ -525,15 +526,13 @@
 
   .tooltip_variante {
     background-color: blue;
-    /*margin-left: 152px;
-    position: absolute;*/
-    height: 20px;
     width: 20px;
+    height: 20px;
     border-radius: 20px;
     font-size: 15px;
-    /*top: 0px;*/
-    color: white;
-    margin-top: -23px;
+    color:white;
+    right: 19px;
+    position:absolute;
   }
 
   .new_blue-signs {
@@ -587,9 +586,9 @@
   .container_tooltip_in_image {
     height: 30px;
     width: 52%;
-    border-radius: 15px;
+    /*border-radius: 15px;
     background-color: #4866F7;
-    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);*/
     position: absolute;
     bottom: 36px;
     margin-left: 70px;

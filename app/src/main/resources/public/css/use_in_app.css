@@ -188,6 +188,17 @@ h4.rate.container_H2{
   margin-top: 10px;
 }
 
+.chevron_blue{
+  margin-top: -20px;
+  position: relative;
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -2327px center;
+  background-size: auto 20px;
+  height: 17px;
+  width: 17px;
+}
+
 .col-xs-12{
   padding-right: 8px;
   padding-left: 8px;
@@ -706,6 +717,7 @@ a.nav-link:active{
 .labelSigne a{
     font-size:14px;
     white-space: nowrap;
+    padding-left: 5px;
 }
 
 .labelSigne {
@@ -715,8 +727,12 @@ a.nav-link:active{
   text-align: center;
 /*  padding-left: 33px;*/
   margin: auto;
-  padding-right: 14px;
-  padding-left: 30px;
+ /* padding-right: 14px;
+  padding-left: 30px;*/
+  border-radius: 30px;
+  background-color: white;
+  box-shadow: 0 4px 6px 0 black;
+  box-sizing: border-box;
 }
 
 .logo-SW_blue {
@@ -916,6 +932,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   height: 15px;
   width: 15px;
   left: 15px;
+  top: 25px;
 }
 
 .new_blue-signs-profile {
@@ -995,7 +1012,9 @@ input[type=search].form-control,input[type=search].form-control:focus{
   height: 15px;
   width: 15px;
   left: 30px;
+  top:25px;
 }
+
 
 .pin_blue-profile {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -1021,16 +1040,14 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .tooltip_variante {
   background-color: blue;
-/*  margin-left: 93px;
-  position: absolute;*/
   width: 12px;
   height: 12px;
   border-radius: 12px;
   font-size: 9px;
-/*  top: 4px;*/
   color:white;
-  margin-top: -16px;
-  position: relative;
+  right: 19px;
+  position:absolute;
+  top:25px;
 }
 
 .sign-view-hidden {
@@ -1187,9 +1204,9 @@ img{
 .container_tooltip_in_image {
   height: 30px;
   width: 52%;
-  border-radius: 15px;
+  /*border-radius: 15px;
   background-color: #4866F7;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.2);*/
   position: absolute;
   bottom: 27px;
   margin-left: 17%;
