@@ -48,6 +48,7 @@ public class VideoView2 implements ComparableVideo {
   private boolean videoHasView;
   private boolean videoHasPositiveRate;
   private boolean signBelowToFavorite;
+  private long idForName;
 
   public VideoView2(VideoViewData videoViewData, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView, boolean videoHasPositiveRate, boolean signBelowToFavorite) {
     signId = videoViewData.signId;
@@ -67,6 +68,8 @@ public class VideoView2 implements ComparableVideo {
     this.videoHasView = videoHasView;
     this.videoHasPositiveRate = videoHasPositiveRate;
     this.signBelowToFavorite = signBelowToFavorite;
+    this.idForName = videoViewData.idForName;
+    this.nbVideo = videoViewData.nbVideo;
 
   }
 

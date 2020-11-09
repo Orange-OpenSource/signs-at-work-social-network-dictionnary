@@ -19,6 +19,21 @@
  * #L%
  */
 
+function displayVideo(url, name, idForName, nbVideo) {
+
+  console.log(url);
+  console.log(name);
+  console.log(idForName);
+  console.log(nbVideo);
+  if (nbVideo == 1) {
+    document.getElementById("videoName").innerText = name;
+  } else {
+    document.getElementById("videoName").innerText = name + '_' + idForName;
+  }
+
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+}
+
 (function videoViewsLazyLoading($) {
   var HIDDEN_CLASS = 'video-view-hidden';
   var NB_VIDEO_VIEWS_INC = 8;
@@ -195,6 +210,9 @@
 
   }
 
+
   main();
 
 })($);
+
+

@@ -1763,7 +1763,17 @@ textarea.form-control{
   font-size: 14px;
   white-space: nowrap;
   text-align: center;
-  padding-left: 33px;
+  margin: auto;
+  border-radius: 30px;
+  background-color: white;
+  box-shadow: 0 4px 6px 0 black;
+  box-sizing: border-box;
+}
+
+.labelVideo a{
+  font-size:14px;
+  white-space: nowrap;
+  padding-left: 5px;
 }
 
 /* End Variantes /sign/"sign_id" */

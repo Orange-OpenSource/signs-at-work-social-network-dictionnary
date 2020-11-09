@@ -29,6 +29,7 @@
 
 
 <body class="container-fluid">
+      <div th:replace="fragments/modal-play-video :: div"/>
       <div class="row ">
 
            <div class="col-xs-12">
@@ -93,7 +94,8 @@
                       <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/>
                     </div>
                     <div class="chevron_blue pull-right"></div>
-                     <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >
+                    <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
+                    <!--<a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
                         <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
                         <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
                         <div th:if="${videoView.signBelowToFavorite}" class="pin_blue"></div>
@@ -122,4 +124,6 @@
           </div>
       </div>
 </body>
+<script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
+
 </html>

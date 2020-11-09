@@ -22,21 +22,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+    <meta charset="utf-8"/>
 </head>
-
-<header role="banner" th:replace="fragments/header-videos :: header">&nbsp;</header>
-
-<body class="container-fluid">
+<body>
 
 
-<div th:fragment="div" class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
-    <h1 th:text="${signName}"></h1>
-
-    <div th:replace="fragments/frame-videos :: div"/>
+<div th:fragment="div" id="play_video" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"></button>
+        <h2 class="pull-left text_hyphenation" id="videoName"/>
+      </div>
+      <div class="modal-body text-center">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""/>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div th:replace="fragments/modal-play-video :: div"/>
 
 </body>
-<script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
+
 </html>
