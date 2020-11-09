@@ -167,11 +167,20 @@
             <div th:if="${!signView.signCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
             <div th:if="${signView.signBelowToFavorite}" class="pin_blue"></div>
             <div th:if="${!signView.signBelowToFavorite}" style="visibility: hidden" class="pin_blue"></div>-->
-            <div class="labelSigne text_hyphenation">
+
+            <a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" type="text/html">
+              <div class="labelSigne text_hyphenation" th:text="${signView.name}"></div>
+              <div class="chevron_blue pull-right"></div>
+            </a>
+            <a th:if="${signView.id == 0}" th:href="@{${signView.url} + ${signView.lastVideoId}}" type="text/html">
+              <div class="labelSigne text_hyphenation" th:text="${signView.name}"></div>
+              <div class="chevron_blue pull-right"></div>
+            </a>
+           <!-- <div class="labelSigne text_hyphenation">
                 <a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" th:text="${signView.name}" type="text/html"></a>
                 <a th:if="${signView.id == 0}" th:href="@{${signView.url} + ${signView.lastVideoId}}" th:text="${signView.name}" type="text/html"></a>
             </div>
-            <div class="chevron_blue pull-right"></div>
+            <div class="chevron_blue pull-right"></div>-->
             <!--<div th:if="${signView.nbVideo >1}" class="tooltip_variante pull-right" th:text="${signView.nbVideo}"></div>-->
             <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${signView.name}" th:with='cleaned=${#strings.replace(signView.name, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${signView.url} +'\',\''+  ${cleaned} +'\',\''+ ${signView.nbVideo}+'\',\''+ ${signView.nbVideo}+ '\')'">
             <!--<a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" >-->
@@ -212,10 +221,10 @@
               <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
               <div th:if="${videoView.signBelowToFavorite}" class="pin_blue"></div>
               <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="pin_blue"></div>-->
-              <div class="labelSigne text_hyphenation">
-                <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" th:text="${videoView.videoName}" type="text/html"/>
-              </div>
+              <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" type="text/html">
+              <div class="labelSigne text_hyphenation" th:text="${videoView.videoName}"></div>
               <div class="chevron_blue pull-right"></div>
+            </a>
               <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
              <!-- <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
                   <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>

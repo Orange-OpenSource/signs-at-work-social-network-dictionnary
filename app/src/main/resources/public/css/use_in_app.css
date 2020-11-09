@@ -714,9 +714,7 @@ a.nav-link:active{
   text-align: center;
 }
 
-.labelSigne a{
-    font-size:14px;
-    white-space: nowrap;
+a .labelSigne {
     padding-left: 5px;
 }
 
@@ -1770,7 +1768,7 @@ textarea.form-control{
   box-sizing: border-box;
 }
 
-.labelVideo a{
+a .labelVideo {
   font-size:14px;
   white-space: nowrap;
   padding-left: 5px;

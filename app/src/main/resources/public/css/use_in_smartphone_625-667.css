@@ -380,15 +380,13 @@
     color:#FFFFFF;
   }
 
-  .labelSigne a{
+  a .labelSigne{
     font-size:16px;
     white-space: nowrap;
     padding-left: 6px;
   }
 
   .labelSigne {
-    font-size: 14px;
-    white-space: nowrap;
     /*max-width: 223px;*/
     text-align: center;
     /*padding-left: 73px;*/
