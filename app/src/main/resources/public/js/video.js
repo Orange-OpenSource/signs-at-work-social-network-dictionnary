@@ -28,7 +28,7 @@ $formDeleteVideo.on('submit', function(event) {
   document.getElementById('submitButtonDelete').disabled = true;
   $(".spinner").removeClass("spinner_hidden").addClass("spinner-delete_show");
   $(".spinner").css("z-index","1500").visibility="visible";
-  $("#submitButtonDelete").css("color","black");
+/*  $("#submitButtonDelete").css("color","black");*/
   var $form = $(this);
   var formdata = new FormData($form[0]);
   var data = (formdata !== null) ? formdata : $form.serialize();
