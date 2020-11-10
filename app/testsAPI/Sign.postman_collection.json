@@ -5194,7 +5194,7 @@
                   "   pm.expect(jsonData[1].videoId).not.eq(null);\r",
                   "   pm.expect(jsonData[1].url).not.eq(null);\r",
                   "   pm.expect(jsonData[1].pictureUri).not.eq(null);\r",
-                  "   pm.expect(jsonData[1].nbVideo).to.eq(0);\r",
+                  "   pm.expect(jsonData[1].nbVideo).to.eq(2);\r",
                   "   pm.expect(jsonData[1].videoHasView).to.eq(false);\r",
                   "   pm.expect(jsonData[1].videoHasPositiveRate).to.eq(false); \r",
                   "   pm.expect(jsonData[1].signBelowToFavorite).to.eq(false);\r",
