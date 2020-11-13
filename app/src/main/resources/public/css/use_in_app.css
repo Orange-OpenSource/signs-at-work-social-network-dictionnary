@@ -199,6 +199,24 @@ h4.rate.container_H2{
   width: 17px;
 }
 
+.chevron_variante{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -3257px center;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+}
+
+.chevron_left_variante{
+  background-image: url("/img/chevron_left.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: auto 24px;
+  height: 30px;
+  width: 24px;
+}
+
 .col-xs-12{
   padding-right: 8px;
   padding-left: 8px;
@@ -1091,7 +1109,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 26px;
-  width: 14px;
+  width: 17px;
   position: absolute;
   margin-top: 6px;
   right: 15%;
@@ -1243,6 +1261,16 @@ img{
 
 #myform{
   border :none;
+}
+
+#variantes {
+  text-align: center;
+}
+
+#nbVariante {
+  line-height: 40px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 

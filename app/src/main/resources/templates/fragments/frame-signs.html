@@ -182,7 +182,7 @@
             </div>
             <div class="chevron_blue pull-right"></div>-->
             <!--<div th:if="${signView.nbVideo >1}" class="tooltip_variante pull-right" th:text="${signView.nbVideo}"></div>-->
-            <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${signView.name}" th:with='cleaned=${#strings.replace(signView.name, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${signView.url} +'\',\''+  ${cleaned} +'\',\''+ ${signView.nbVideo}+'\',\''+ ${signView.nbVideo}+ '\')'">
+            <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${signView.name}" th:with='cleaned=${#strings.replace(signView.name, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${signView.id} +'\',\''+ ${signView.url} +'\',\''+  ${cleaned} +'\',\''+ ${signView.nbVideo}+'\',\''+ ${signView.nbVideo}+ '\')'">
             <!--<a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" >-->
               <div th:if="${signView.signCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
               <div th:if="${!signView.signCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
@@ -225,7 +225,7 @@
               <div class="labelSigne text_hyphenation" th:text="${videoView.videoName}"></div>
               <div class="chevron_blue pull-right"></div>
             </a>
-              <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
+              <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.signId} + '\',\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
              <!-- <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
                   <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
                   <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>

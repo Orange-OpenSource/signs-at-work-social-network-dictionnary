@@ -39,6 +39,17 @@
           <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""/>
         </div>
       </div>
+      <div id="variantes" class="modal-footer" style="display: none;">
+        <button id="previous_variante" type="button" data-dismiss="" class="btn btn-secondary pull-left" title="Cliquer pour précédent" onclick="this.blur();">
+          <div class="chevron_left_variante center-block"></div>
+          <!--<span th:text="#{previous}"></span>-->
+        </button>
+        <span id="nbVariante"></span>
+        <button id="next_variante" type="submit" class="btn btn-secondary pull-right" data-dismiss="" title="Cliquer pour suivant" onclick="this.blur();">
+          <div class="chevron_variante center-block"></div>
+          <!--<span th:text="#{next}" ></span>-->
+        </button>
+      </div>
     </div>
   </div>
 </div>

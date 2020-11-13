@@ -570,20 +570,80 @@ function onFiltreVideo(event, href) {
   })
 }
 
-function displayVideo(url, name, idForName, nbVideo) {
-
+function displayVideo(id, url, name, idForName, nbVideo) {
+  var data;
+  var indice = 0;
+  console.log(id);
   console.log(url);
   console.log(name);
   console.log(idForName);
   console.log(nbVideo);
   if (nbVideo == 1) {
     document.getElementById("videoName").innerText = name;
+    document.getElementById("variantes").style.display="none";
   } else {
     document.getElementById("videoName").innerText = name + '_' + idForName;
+    document.getElementById("variantes").style.display="block";
+    document.getElementById("nbVariante").style.visibility="visible";
+    document.getElementById("previous_variante").style.visibility = "hidden";
+    document.getElementById("next_variante").style.visibility = "visible";
+    document.getElementById("nbVariante").innerText = indice + 1  + "/" + nbVideo;
+    $.ajax({
+      url: "/ws/sec/signs/"+ id + "/videos",
+      type: 'get',
+      contentType: "application/json",
+      success: function(response) {
+        console.log(response);
+        data = response;
+      },
+      error: function(response) {
+        console.log(response);
+      }
+    })
   }
 
   document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+
+  document.getElementById("next_variante").onclick = function () {
+    console.log("next variante "+indice);
+    indice = indice + 1;
+
+    console.log(data[indice]);
+    console.log(data[indice].videoName);
+    console.log(data[indice].url);
+    document.getElementById("previous_variante").style.visibility = "visible";
+    document.getElementById("nbVariante").innerText = indice + 1 + "/" + nbVideo;
+    document.getElementById("videoName").innerText = data[indice].videoName;
+    document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+    if (indice == nbVideo -1) {
+      document.getElementById("next_variante").style.visibility = "hidden";
+    }
+  };
+
+
+  document.getElementById("previous_variante").onclick = function () {
+    console.log("previous variante "+indice);
+    indice = indice - 1;
+    if (indice >= 0) {
+      document.getElementById("nbVariante").innerText = indice +1 + "/" + nbVideo;
+      console.log(data[indice]);
+      console.log(data[indice].videoName);
+      console.log(data[indice].url);
+      document.getElementById("next_variante").style.visibility = "visible";
+      document.getElementById("videoName").innerText = data[indice].videoName;
+      document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+      if (indice == 0) {
+        document.getElementById("next_variante").style.visibility = "visible";
+        document.getElementById("previous_variante").style.visibility = "hidden";
+      }
+    }
+
+  };
+
+
 }
+
+
 
 (function signOrvideoViewsLazyLoading($) {
 
