@@ -193,7 +193,7 @@ h4.rate.container_H2{
   position: relative;
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: -2327px center;
+  background-position: -2330px center;
   background-size: auto 20px;
   height: 17px;
   width: 17px;
@@ -202,19 +202,19 @@ h4.rate.container_H2{
 .chevron_variante{
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: -3257px center;
+  background-position: -3260px center;
   background-size: auto 28px;
   height: 28px;
   width: 28px;
 }
 
 .chevron_left_variante{
-  background-image: url("/img/chevron_left.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
-  background-size: auto 24px;
-  height: 30px;
-  width: 24px;
+  background-position: -3741px center;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
 }
 
 .col-xs-12{
