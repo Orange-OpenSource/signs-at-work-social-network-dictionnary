@@ -43,6 +43,7 @@ var counter = 3;
 var t;
 
 var nameVideoRecord = document.getElementById('nameVideo-record');
+var nameVideoDelete = document.getElementById('nameVideo-delete');
 var jobVideoRecord = document.getElementById('jobVideo-record')
 
 function timedCount() {
@@ -225,6 +226,37 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
 
 });
 
+var $formDeleteVideoFileForName = $('#deleteVideoFileForName');
+$formDeleteVideoFileForName.on('submit', function(event) {
+  document.getElementById('submitButtonDelete').disabled = true;
+  $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+  $(".spinner").css("z-index","1500").visibility="visible";
+  $(".spinner").css("opacity","1");
+  event.preventDefault();
+  $.ajax({
+    url: $formDeleteVideoFileForName.attr('action'),
+    type: 'put',
+    success: function(response) {
+     /* errorSpan.style.display="none";
+      $(".spinner").visibility="hidden";*/
+      $("#delete_video").modal('hide');
+      $("#validate_delete_video").modal('show');
+      setTimeout(function(){
+        $('#validate_delete_video').modal('hide');
+        location.reload();
+      }, 3000);
+    },
+    error: function(response) {
+      errorSpan.textContent = response.responseText;
+      errorSpan.style.display="inline-block";
+      $(".spinner").css("z-index","-1").css("opacity","0.1");
+      $(".spinner").visibility="hidden";
+      console.log("Erreur " + response.responseText);
+    }
+  })
+
+});
+
 var $profileEntity = $('#profileEntity');
 $profileEntity.on('submit', function(event) {
   var entity_name = document.getElementById('entity_name').value;
@@ -384,6 +416,11 @@ function editProfil() {
     $('#nameVideo-record').show();
   } else {
     $('#nameVideo-record').hide();
+  }
+  if ($('#nameVideo-delete').is(":hidden")) {
+    $('#nameVideo-delete').show();
+  } else {
+    $('#nameVideo-delete').hide();
   }
   if ($('#name-pen').is(":hidden")) {
     $('#changeName').css('pointer-events', '');

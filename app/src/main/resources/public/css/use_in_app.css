@@ -2095,6 +2095,17 @@ table tbody td{
   background-color: transparent;
 }
 
+.delete-black {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3229px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background-color: transparent;
+}
+
 .edit_white_circle {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -1068px center;
