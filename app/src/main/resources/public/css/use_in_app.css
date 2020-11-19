@@ -756,7 +756,7 @@ a .labelSigne {
 
 .logo-SW_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2124px center;
+  background-position: -6445px center;
   background-repeat: no-repeat;
   background-size: auto 50px;
   height: 70px;
@@ -766,6 +766,17 @@ a .labelSigne {
 .back_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -113px center;
+  background-repeat: no-repeat;
+  background-size: auto 29px;
+  height: 70px;
+  width: 40px;
+  cursor:pointer;
+  margin-left: 10px;
+}
+
+.back_bar_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3771px center;
   background-repeat: no-repeat;
   background-size: auto 29px;
   height: 70px;

@@ -260,13 +260,20 @@
   }
 
   .logo-SW_blue {
-    background-position: -2336px center;
+    background-position: -7088px center;
     background-size: auto 55px;
     width: 55px;
   }
 
   .back_white {
     background-position: -122px center;
+    background-size: auto 33px;
+    width: 46px;
+    margin-left: 0px;
+  }
+
+  .back_bar_white {
+    background-position: -4281px center;
     background-size: auto 33px;
     width: 46px;
     margin-left: 0px;
