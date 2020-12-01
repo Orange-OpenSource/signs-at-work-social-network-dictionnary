@@ -216,8 +216,8 @@ public class SignRestController {
     }
 
 
-    VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);
+    /*VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);*/
 
     return new ResponseEntity<>(videoViews, HttpStatus.OK);
 

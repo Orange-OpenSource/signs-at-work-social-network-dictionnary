@@ -778,8 +778,8 @@ public class SignController {
       }
 
 
-      VideosViewSort videosViewSort = new VideosViewSort();
-      videoViews = videosViewSort.sort(videoViews);
+   /*   VideosViewSort videosViewSort = new VideosViewSort();
+      videoViews = videosViewSort.sort(videoViews);*/
 
       model.addAttribute("videosView", videoViews);
       return "videos";
