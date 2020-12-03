@@ -33,14 +33,16 @@ public class CommunityViewData {
   public final Long id;
   public final String type;
   public final String name;
-  public final Long ownerId;
+  public Long ownerId = 0L;
 
 
   public CommunityViewData(Object[] queryResultItem) {
     id = toLong(queryResultItem[0]);
     type = toString(queryResultItem[1]);
     name = toString(queryResultItem[2]);
-    ownerId = toLong(queryResultItem[3]);
+    if (queryResultItem[3] != null) {
+      ownerId = toLong(queryResultItem[3]);
+    }
   }
 
   public CommunityViewData(Community community) {

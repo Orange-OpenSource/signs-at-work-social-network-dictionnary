@@ -44,8 +44,8 @@
         </div>
     </form>
 
-    <div th:if="${#lists.isEmpty(communities)}">
-        <h2 th:text="#{sign.not_available}"></h2>
+    <div th:if="${#lists.isEmpty(communities)}" class="text-center">
+        <h2 th:text="#{community.not_available}"></h2>
     </div>
 </div>
 
