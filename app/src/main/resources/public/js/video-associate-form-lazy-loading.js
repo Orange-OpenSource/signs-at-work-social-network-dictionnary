@@ -160,7 +160,7 @@ $.fn.extend({
 });
 
 
-(function signViewsLazyLoading($) {
+(function videoViewsLazyLoading($) {
   var VIDEO_HIDDEN_CLASS = 'video-view-hidden';
   var NB_VIDEO_VIEWS_INC = 8;
   var REVEAL_DURATION_MS = 1000;
@@ -168,9 +168,13 @@ $.fn.extend({
 
   var videosContainer = document.getElementById("videos-container");
   /** Live node list (updated while we iterate over it...) */
-  if (videosContainer != null) {
+  var videoViewsHidden, videosCount;
+  if (videosContainer) {
     var videoViewsHidden = videosContainer.getElementsByClassName(VIDEO_HIDDEN_CLASS);
-    var videosCount =  $("#videos-container").children("div").length;
+    videosCount = videosContainer.children.length;
+  } else {
+    videoViewsHidden = '';
+    videosCount = 0;
   }
 
   var displayedVideosCount = 0;
@@ -218,7 +222,7 @@ $.fn.extend({
 
   function showNextVideoViews() {
     var viewsToReveal = [];
-    if (videoViewsHidden != null) {
+/*    if (videoViewsHidden != null) {*/
       for (var i = 0; i < NB_VIDEO_VIEWS_INC && i < videoViewsHidden.length; i++) {
         viewsToReveal.push(videoViewsHidden[i]);
       }
@@ -227,7 +231,7 @@ $.fn.extend({
         displayedVideosCount++;
       }
       console.log("total: " + videosCount + ", hidden: " + videoViewsHidden.length + ", displayedVideosCount: " + displayedVideosCount);
-    }
+  /*  }*/
   }
 
   function onScroll(event) {
@@ -303,7 +307,7 @@ function initWithFirstVideos() {
         $(this).addClass(VIDEO_HIDDEN_CLASS);
         $(this).hide();
       }});
-    /*displayedVideosCount = 0;*/
+    displayedVideosCount = 0;
     $(signNotAvailable).hide();
     initWithFirstVideos();
 
