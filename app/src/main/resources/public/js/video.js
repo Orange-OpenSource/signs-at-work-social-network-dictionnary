@@ -43,13 +43,19 @@ $formDeleteVideo.on('submit', function(event) {
       //dataType: 'json',
       success: function(response) {
         var url = response;
+        errorDeletedSpan.style.visibility="hidden";
+        $(".spinner").visibility="hidden";
+        $("#video_delete_modal").modal('hide');
+        console.log("Success " + response);
         console.log(window.location.href);
         window.history.replaceState({}, 'foo', url);
         console.log(window.location.href);
-        errorDeletedSpan.style.visibility="hidden";
-        $(".spinner").visibility="hidden";
-        console.log("Success " + response);
-        window.location = url;
+        $("#confirm_delete_video").modal('show');
+        setTimeout(function(){
+          $('#confirm_delete_video').modal('hide');
+          window.location = url;
+        }, 3000);
+
       },
       error: function(response) {
         errorDeletedSpan.textContent = response.responseText;
