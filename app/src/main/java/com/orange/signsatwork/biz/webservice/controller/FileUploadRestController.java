@@ -487,6 +487,26 @@ public class FileUploadRestController {
       return "/sec/my_profil";
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_JOB, method = RequestMethod.PUT)
+  public String deleteVideoFileForJob(Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    String dailymotionId;
+    User user = services.user().withUserName(principal.getName());
+    if (user.jobDescriptionVideo != null) {
+      dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+      try {
+        DeleteVideoOnDailyMotion(dailymotionId);
+      }
+      catch (Exception errorDailymotionDeleteVideo) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      }
+      services.user().changeDescriptionVideoUrl(user, null, null);
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "/sec/my_profil";
+  }
+
   private String handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
       try {

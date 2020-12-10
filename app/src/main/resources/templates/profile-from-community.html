@@ -53,7 +53,7 @@
                     <a th:if="${isIOSDevice}" th:onclick="'javascript:onClick()'" href="#" th:attr="aria-label=#{name_video_record}">
                       <div id="nameVideo-record" class="pull-right record-profil" style="margin-top: 59px; display: none;"></div>
                     </a>
-                    <a data-target="#delete_video" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}">
+                    <a data-target="#delete_video" data-toggle="modal" href="#" th:attr="aria-label=#{video_name_lsf.delete}">
                       <div id="nameVideo-delete" class="pull-right delete-black" style="margin-top: 30px; display: none;"></div>
                     </a>
                   </div>
@@ -121,12 +121,17 @@
                   <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${user.job} + '\')'" style="margin-left: 35px;">
                     <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px; width:40%"/>
                   </a>
-                  <a th:if="!${isIOSDevice}" data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
-                    <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
-                  </a>
-                  <a th:if="${isIOSDevice}" th:onclick="'javascript:onClick()'" href="#" th:attr="aria-label=#{job_video_record}">
-                    <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
-                  </a>
+                  <div style="display: inline-grid; float: right">
+                    <a th:if="!${isIOSDevice}" data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
+                      <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
+                    </a>
+                    <a th:if="${isIOSDevice}" th:onclick="'javascript:onClick()'" href="#" th:attr="aria-label=#{job_video_record}">
+                      <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
+                    </a>
+                    <a data-target="#delete_video_job" data-toggle="modal" href="#" th:attr="aria-label=#{video_job_lsf.delete}">
+                      <div id="jobVideo-delete" class="pull-right delete-black" style="margin-top: 30px; display: none;"></div>
+                    </a>
+                  </div>
                 </div>
                 <div th:if="${user.jobDescriptionPicture == null}" style="display: inline;">
                   <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
@@ -379,7 +384,7 @@
               <button type="button" class="close" data-dismiss="modal"></button>
               <div class="pull-left">
                 <div class="signlanguage_white pull-left"></div>
-                <h2 class="pull-right" th:text="#{video_name_lsf.delete}"></h2>
+                <h2 class="pull-right text_hyphenation" th:text="#{video_name_lsf.delete}"></h2>
               </div>
             </div>
             <div class="spinner spinner_hidden"></div>
@@ -414,6 +419,53 @@
             </div>
             <div class="modal-body text-center">
               <h4 th:text="#{validate_delete_name_lsf_video}"></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div th:fragment="div" id="delete_video_job" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"></button>
+              <div class="pull-left">
+                <div class="signlanguage_white pull-left"></div>
+                <h2 class="pull-right text_hyphenation" th:text="#{video_job_lsf.delete}"></h2>
+              </div>
+            </div>
+            <div class="spinner spinner_hidden"></div>
+            <form id="deleteVideoFileForJob" th:action="@{/ws/sec/deleteVideoFileForJob}" method="put">
+              <div class="modal-body text-center">
+                <h4 th:text="#{video_job_lsf.confirm_delete}"></h4>
+              </div>
+              <span id="errorDeletedJobSpan"  style="visibility: hidden"></span>
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                  <div class="x-close2_black center-block"></div>
+                  <span th:text="#{cancel}"></span>
+                </button>
+                <button id="submitButtonDeleteJob" type="submit" class="btn btn-default pull-right" data-dismiss="" >
+                  <div class="v-done2_blue center-block"></div>
+                  <span th:text="#{confirm}"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div  id="validate_delete_video_job" class="modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="pull-left">
+                <div class="signlanguage_white pull-left"></div>
+                <h2 class="pull-right" th:text="#{job_lsf_video_delete}"/>
+              </div>
+            </div>
+            <div class="modal-body text-center">
+              <h4 th:text="#{validate_delete_job_lsf_video}"></h4>
             </div>
           </div>
         </div>

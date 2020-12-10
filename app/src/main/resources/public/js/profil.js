@@ -39,12 +39,15 @@ document.getElementById('container-button').style.display = "none";
 
 var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
+var errorDeletedSpanJob = document.getElementById('errorDeletedSpan');
+var errorDeletedSpanJob = document.getElementById('errorDeletedSpanJob');
 var counter = 3;
 var t;
 
 var nameVideoRecord = document.getElementById('nameVideo-record');
 var nameVideoDelete = document.getElementById('nameVideo-delete');
 var jobVideoRecord = document.getElementById('jobVideo-record')
+var jobVideoDelete = document.getElementById('jobVideo-delete');
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -247,8 +250,39 @@ $formDeleteVideoFileForName.on('submit', function(event) {
       }, 3000);
     },
     error: function(response) {
-      errorSpan.textContent = response.responseText;
-      errorSpan.style.display="inline-block";
+      errorDeletedSpan.textContent = response.responseText;
+      errorDeletedSpan.style.display="inline-block";
+      $(".spinner").css("z-index","-1").css("opacity","0.1");
+      $(".spinner").visibility="hidden";
+      console.log("Erreur " + response.responseText);
+    }
+  })
+
+});
+
+var $formDeleteVideoFileForJob = $('#deleteVideoFileForJob');
+$formDeleteVideoFileForJob.on('submit', function(event) {
+  document.getElementById('submitButtonDeleteJob').disabled = true;
+  $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
+  $(".spinner").css("z-index","1500").visibility="visible";
+  $(".spinner").css("opacity","1");
+  event.preventDefault();
+  $.ajax({
+    url: $formDeleteVideoFileForJob.attr('action'),
+    type: 'put',
+    success: function(response) {
+      /* errorSpan.style.display="none";
+       $(".spinner").visibility="hidden";*/
+      $("#delete_video_job").modal('hide');
+      $("#validate_delete_video_job").modal('show');
+      setTimeout(function(){
+        $('#validate_delete_video_job').modal('hide');
+        location.reload();
+      }, 3000);
+    },
+    error: function(response) {
+      errorDeletedSpanJob.textContent = response.responseText;
+      errorDeletedSpanJob.style.display="inline-block";
       $(".spinner").css("z-index","-1").css("opacity","0.1");
       $(".spinner").visibility="hidden";
       console.log("Erreur " + response.responseText);
@@ -461,6 +495,12 @@ function editProfil() {
     }
   } else {
     $('#jobVideo-record').hide();
+  }
+
+  if ($('#jobVideo-delete').is(":hidden")) {
+    $('#jobVideo-delete').show();
+  } else {
+    $('#jobVideo-delete').hide();
   }
   if ($('#jobText-pen').is(":hidden")) {
     $('#changeJobDescriptionText').css('pointer-events', '');
