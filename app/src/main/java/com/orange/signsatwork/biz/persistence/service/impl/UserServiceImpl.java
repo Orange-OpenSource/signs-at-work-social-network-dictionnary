@@ -299,15 +299,19 @@ public class UserServiceImpl implements UserService {
 
   static Users usersFromCommunityView(Iterable<UserDB> usersDB) {
     List<User> users = new ArrayList<>();
-    usersDB.forEach(userDB -> users.add(userFromCommunityView(userDB)));
+    if (usersDB != null) {
+      usersDB.forEach(userDB -> users.add(userFromCommunityView(userDB)));
+    }
     return new Users(users);
   }
 
   static User userFromCommunityView(UserDB userDB) {
-    return User.create(
-            userDB.getId(),
-            userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate());
+    if (userDB != null) {
+      return User.create(
+        userDB.getId(),
+        userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
+        userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate());
+    } else return null;
   }
 
   /**
