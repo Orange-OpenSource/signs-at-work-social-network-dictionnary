@@ -36,7 +36,7 @@
               <a href="/" th:attr="aria-label=#{home}">
                 <div class="logo-SW_blue pull-left"></div>
               </a>
-                <h1 class="text_hyphenation navbar_title" th:text="#{sign.description(${title})}"/>
+                <h1 class="text_hyphenation navbar_title" th:utext="#{sign.description(${title})}"/>
             </div>
         </div>
     </nav>
