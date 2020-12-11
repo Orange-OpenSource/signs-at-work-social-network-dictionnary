@@ -181,7 +181,17 @@ h4.rate.container_H2{
 .chevron{
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: -3257px center;
+  background-position: -3261px center;
+  background-size: auto 28px;
+  height: 28px;
+  width: 28px;
+  margin-top: 10px;
+}
+
+.chevron_right_grey{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -3797px center;
   background-size: auto 28px;
   height: 28px;
   width: 28px;

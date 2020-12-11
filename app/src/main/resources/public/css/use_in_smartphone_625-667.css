@@ -36,7 +36,15 @@
   }
 
   .chevron{
-    background-position: -3489px center;
+    background-position: -3495px center;
+    background-size: auto 30px;
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+  }
+
+  .chevron_right_grey{
+    background-position: -4067px center;
     background-size: auto 30px;
     height: 30px;
     width: 30px;
