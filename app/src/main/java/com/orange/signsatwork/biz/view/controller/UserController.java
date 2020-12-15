@@ -118,6 +118,7 @@ public class UserController {
     model.addAttribute("videosView", videoViews);
 
     model.addAttribute("isConnectedUser", true);
+    model.addAttribute("appName", appName);
     return "profile-from-community";
   }
 
@@ -307,6 +308,7 @@ public class UserController {
       isConnectedUser = true;
     }
     model.addAttribute("isConnectedUser", isConnectedUser);
+    model.addAttribute("appName", appName);
     return "profile-from-community";
   }
 

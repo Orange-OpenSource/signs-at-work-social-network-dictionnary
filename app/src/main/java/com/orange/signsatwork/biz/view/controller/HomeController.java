@@ -107,6 +107,7 @@ public class HomeController {
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("display_url", display_url);
     model.addAttribute("manifest", manifest);
+    model.addAttribute("appName", appName);
 
 
     return "index";
@@ -122,6 +123,7 @@ public class HomeController {
     model.addAttribute("backUrl", HOME_URL);
     model.addAttribute("cgu_url", cgu_url);
     model.addAttribute("user", new UserCreationView());
+    model.addAttribute("appName", appName);
     return "cgu";
   }
 
@@ -132,6 +134,7 @@ public class HomeController {
     model.addAttribute("appVersion", appVersion);
     model.addAttribute("appName", appName);
     model.addAttribute("appContactSupport", appContactSupport);
+    model.addAttribute("appName", appName);
 
     return "about";
   }
@@ -141,6 +144,7 @@ public class HomeController {
 
     model.addAttribute("title", messageByLocaleService.getMessage("about.cgu"));
     model.addAttribute("cgu_url", cgu_url);
+    model.addAttribute("appName", appName);
 
     return "about-cgu";
   }
@@ -149,6 +153,7 @@ public class HomeController {
   public String personalData(Model model) {
 
     model.addAttribute("title", messageByLocaleService.getMessage("read.personnal_data_modal_title"));
+    model.addAttribute("appName", appName);
 
     return "personal-data";
   }

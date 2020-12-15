@@ -33,6 +33,7 @@ import com.orange.signsatwork.biz.view.model.RequestView;
 import com.orange.signsatwork.biz.view.model.SignCreationView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +60,8 @@ public class RequestController {
 
   @Autowired
   MessageByLocaleService messageByLocaleService;
-
+  @Value("${app.name}")
+  String appName;
 
   @RequestMapping(value = "/sec/requests")
   public String requests(Principal principal, Model model) {
@@ -67,7 +69,7 @@ public class RequestController {
     fillModelWithContext(model, "sign.requests", principal);
     fillModelWithRequests(model, principal);
     model.addAttribute("requestCreationView", new RequestCreationView());
-
+    model.addAttribute("appName", appName);
     return "requests";
   }
 
@@ -113,7 +115,7 @@ public class RequestController {
     RequestCreationView requestCreationView = new RequestCreationView();
     requestCreationView.setRequestName(request.name);
     model.addAttribute("requestCreationView", requestCreationView);
-
+    model.addAttribute("appName", appName);
 
     return "my-request-detail";
   }
@@ -130,7 +132,7 @@ public class RequestController {
     model.addAttribute("requestView", requestView);
 
     model.addAttribute("signCreationView", new SignCreationView());
-
+    model.addAttribute("appName", appName);
 
     return "other-request-detail";
   }
@@ -251,7 +253,7 @@ public class RequestController {
     requestCreationView.setRequestName(decodeName);
     model.addAttribute("requestCreationView", requestCreationView);
     model.addAttribute("requestView", new RequestView());
-
+    model.addAttribute("appName", appName);
     return "signs-request";
   }
 
@@ -294,7 +296,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "my-requests";
   }
 
@@ -328,7 +330,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-my-requests";
   }
 
@@ -362,7 +364,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "my-requests";
   }
 
@@ -396,7 +398,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-my-requests";
   }
 
@@ -426,7 +428,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", " all-signs_blue pull-left");
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-my-requests";
   }
 
@@ -461,7 +463,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "other-requests";
   }
 
@@ -495,7 +497,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-other-requests";
   }
 
@@ -529,7 +531,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "other-requests";
   }
 
@@ -563,7 +565,7 @@ public class RequestController {
     model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-other-requests";
   }
 

@@ -31,6 +31,7 @@ import com.orange.signsatwork.biz.persistence.service.VideoService;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +64,8 @@ public class SignController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
+  @Value("${app.name}")
+  String appName;
   @RequestMapping(value = SIGNS_URL)
   public String signs(@RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
@@ -83,7 +86,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " all-signs_blue pull-left");
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "signs";
   }
 
@@ -107,7 +110,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " all-signs_blue pull-left");
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-signs";
   }
 
@@ -166,7 +169,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "signs";
   }
 
@@ -224,7 +227,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " sort_alpha_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-signs";
   }
 
@@ -282,7 +285,7 @@ public class SignController {
     }
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
 
     return "signs";
   }
@@ -343,7 +346,7 @@ public class SignController {
     }
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
 
     return "fragments/frame-signs";
   }
@@ -411,7 +414,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " most_active pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "signs";
   }
 
@@ -478,7 +481,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " smiley_happy_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "signs";
   }
 
@@ -545,7 +548,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " smiley_happy_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-signs";
   }
 
@@ -612,7 +615,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", " most_viewed pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "signs";
   }
 
@@ -676,7 +679,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "signs";
   }
 
@@ -736,7 +739,7 @@ public class SignController {
     model.addAttribute("classDropdownTitle", "  new_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
-
+    model.addAttribute("appName", appName);
     return "fragments/frame-signs";
   }
 
@@ -782,6 +785,7 @@ public class SignController {
       videoViews = videosViewSort.sort(videoViews);*/
 
       model.addAttribute("videosView", videoViews);
+      model.addAttribute("appName", appName);
       return "videos";
     }
 
@@ -864,7 +868,7 @@ public class SignController {
 
     Long nbRating = services.sign().NbRatingForSign(signId);
     model.addAttribute("nbRating", nbRating);
-
+    model.addAttribute("appName", appName);
     return "sign";
   }
 
@@ -932,7 +936,7 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("videoView", video);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
-
+    model.addAttribute("appName", appName);
     return "sign-detail";
   }
 
@@ -1069,7 +1073,7 @@ public class SignController {
     signCreationView.setSignName(decodeName);
     model.addAttribute("signCreationView", signCreationView);
     model.addAttribute("requestId", requestId);
-
+    model.addAttribute("appName", appName);
     return "signs-suggest";
   }
 
@@ -1088,7 +1092,7 @@ public class SignController {
 
     model.addAttribute("signView", sign);
     model.addAttribute("signDefinitionCreationView", new SignDefinitionCreationView());
-
+    model.addAttribute("appName", appName);
     return "my-sign-definition";
   }
 

@@ -28,6 +28,7 @@ import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +49,8 @@ public class CommunityController {
   private Services services;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+  @Value("${app.name}")
+  String appName;
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/communities")
@@ -60,6 +63,7 @@ public class CommunityController {
       .collect(Collectors.toList());
     model.addAttribute("title", messageByLocaleService.getMessage("communities"));
     model.addAttribute("communities", communitiesViewData);
+    model.addAttribute("appName", appName);
 
     return "communities";
   }
@@ -81,6 +85,8 @@ public class CommunityController {
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
     model.addAttribute("iBelowToCommunity", iBelowToCommunity);
     model.addAttribute("userId", user.id);
+    model.addAttribute("appName", appName);
+
     return "community";
   }
 
@@ -143,6 +149,7 @@ public class CommunityController {
     model.addAttribute("communityCreationView", communityCreationView);
 
     model.addAttribute("favoriteId", favoriteId);
+    model.addAttribute("appName", appName);
 
     return "communities-suggest";
   }
@@ -170,6 +177,7 @@ public class CommunityController {
     model.addAttribute("isCommunityBelowToMe", isCommunityBelowToMe);
     model.addAttribute("community", community);
     model.addAttribute("user", user);
+    model.addAttribute("appName", appName);
 
     return "manage-community";
   }
@@ -187,7 +195,7 @@ public class CommunityController {
     model.addAttribute("communityProfileView", communityProfileView);
     List<User> usersWithoutMeAndWithoutAdmin = communityProfileView.getAllUsers().stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
     model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
-
+    model.addAttribute("appName", appName);
     return "modify-community";
   }
 
@@ -201,6 +209,7 @@ public class CommunityController {
     model.addAttribute("title", messageByLocaleService.getMessage("community.description_title", new Object[]{community.name}));
 
    model.addAttribute("community", community);
+    model.addAttribute("appName", appName);
 
     return "community-description";
   }

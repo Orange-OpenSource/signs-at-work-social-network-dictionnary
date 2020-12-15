@@ -34,6 +34,7 @@ import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +61,8 @@ public class FavoriteController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
+  @Value("${app.name}")
+  String appName;
 /*  @RequestMapping(value = REQUEST_URL)
   public String favorite(Principal principal, Model model) {
 
@@ -123,6 +126,7 @@ public class FavoriteController {
         services.favorite().addUserOpenFavoritePage(favoriteId, user.id);
       }
     }
+    model.addAttribute("appName", appName);
 
     return "favorite";
   }
@@ -181,6 +185,7 @@ public class FavoriteController {
     }
     model.addAttribute("userName", name);
     model.addAttribute("isFavoriteBelowToMe", isFavoriteBelowToMe);
+    model.addAttribute("appName", appName);
 
     return "manage-favorite";
   }
@@ -230,6 +235,7 @@ public class FavoriteController {
 
 
     model.addAttribute("videosView", sortedVideos);
+    model.addAttribute("appName", appName);
 
     return "favorite-associate-sign";
   }
@@ -321,7 +327,7 @@ public class FavoriteController {
     model.addAttribute("communities", communitiesViewData);
     model.addAttribute("communityCreationView", new CommunityCreationView());
     model.addAttribute("communityId", communityId);
-
+    model.addAttribute("appName", appName);
 
     return "favorite-share";
   }
@@ -377,7 +383,7 @@ public class FavoriteController {
     fillModelWithFavorites(model, user);
     model.addAttribute("title", messageByLocaleService.getMessage("favorites"));
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());
-
+    model.addAttribute("appName", appName);
     return "favorites";
   }
 
@@ -418,7 +424,7 @@ public class FavoriteController {
 
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.see_share_communities"));
     model.addAttribute("communities", communitiesViewData);
-
+    model.addAttribute("appName", appName);
     return "favorite-communities";
   }
 }
