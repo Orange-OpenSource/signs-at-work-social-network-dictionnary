@@ -71,13 +71,16 @@ public class AdminController {
   @Value("${app.admin.username}")
   String adminUsername;
 
+  @Value("${app.name}")
+  String appName;
+
   @Secured("ROLE_ADMIN")
   @RequestMapping("/sec/admin")
   public String admin(Model model) {
 
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("admin_page"));
-
+    model.addAttribute("appName", appName);
     return "admin/index";
   }
 
@@ -89,7 +92,7 @@ public class AdminController {
     model.addAttribute("title", messageByLocaleService.getMessage("users"));
     model.addAttribute("users", UserView.from(userService.all()));
     model.addAttribute("adminUserName", adminUsername);
-
+    model.addAttribute("appName", appName);
     return "admin/users";
   }
 
@@ -100,6 +103,7 @@ public class AdminController {
     model.addAttribute("title", messageByLocaleService.getMessage("communities"));
     List<Community> communities = communityService.all().stream().filter(c -> c.type == CommunityType.Job).collect(Collectors.toList());
     model.addAttribute("communities", CommunityView.from(communities));
+    model.addAttribute("appName", appName);
     return "admin/communities";
   }
 
@@ -110,6 +114,7 @@ public class AdminController {
     model.addAttribute("title", messageByLocaleService.getMessage("manage_communities_users"));
     model.addAttribute("user", new UserCreationView());
     model.addAttribute("community", new CommunityView());
+    model.addAttribute("appName", appName);
     return "admin/manage_communities_users";
   }
 
@@ -122,7 +127,7 @@ public class AdminController {
     model.addAttribute("community", community);
     CommunityProfileView communityProfileView = new CommunityProfileView(community, userService);
     model.addAttribute("communityProfileView", communityProfileView);
-
+    model.addAttribute("appName", appName);
     return "admin/community";
   }
 

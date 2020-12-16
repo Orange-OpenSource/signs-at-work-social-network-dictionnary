@@ -28,6 +28,7 @@ import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +45,8 @@ public class UserAdminController {
   @Autowired
   MessageByLocaleService messageByLocaleService;
 
-
+  @Value("${app.name}")
+  String appName;
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/{id}")
@@ -61,7 +63,7 @@ public class UserAdminController {
     model.addAttribute("favoriteView", new FavoriteModalView());
     model.addAttribute("signView", new SignView());
     model.addAttribute("userCreationView", new UserCreationView());
-
+    model.addAttribute("appName", appName);
     return "admin/user";
   }
 

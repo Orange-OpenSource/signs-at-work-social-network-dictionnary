@@ -25,6 +25,7 @@
 
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+
     <title th:text="${title}"/>
 
     <script src="http://cdn.jsdelivr.net/webjars/jquery/2.2.4/jquery.min.js"
@@ -33,11 +34,17 @@
     <script src="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/bootstrap.min.js"
             th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}" type="text/javascript"></script>
 
+
+    <script type="text/javascript" src="../public/js/close.js" th:src="@{/js/close.js}"></script>
+
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
 
-    <link href="../public/css/admin.css" th:href="@{/css/admin.css}" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" th:href="@{'/img/icons/'+${appName}+'/favicon.ico'}" type="image/x-icon"/>
+    <link href="../public/css/desktop.css" th:href="@{/css/desktop.css}" rel="stylesheet" type="text/css"/>
+    <link href="../public/css/tablet.css" th:href="@{/css/tablet.css}" rel="stylesheet" type="text/css"/>
+    <link href="../public/css/style3.css" th:href="@{/css/style3.css}" rel="stylesheet" type="text/css"/>
+    <link href="../public/css/use_in_app.css" th:href="@{/css/use_in_app.css}" rel="stylesheet" type="text/css"/>
+    <link href="../public/css/use_in_smartphone_625-667.css" th:href="@{/css/use_in_smartphone_625-667.css}" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
