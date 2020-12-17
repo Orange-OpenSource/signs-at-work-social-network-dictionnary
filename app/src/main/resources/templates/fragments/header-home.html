@@ -52,53 +52,39 @@
             <div class="navbar-right hidden-xs hidden-sm">
               <ul class=" col-lg-12 col-md-12 nav navbar-nav mr-auto" role="tablist">
                 <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
-                  <a class="nav-link" th:href="@{/sec/my-profil}">
-                    <div>
-                      <div class="pull-left member_me_black "></div>
+                  <a id="member_me_menu" class="nav-link" th:href="@{/sec/my-profil}">
+                      <div id="member_me" class="pull-left member_me_white"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{profile}"></h4>
-                    </div>
                   </a>
                 </li>
                 <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
-                  <a class="nav-link" th:href="@{/sec/communities}">
-                    <div>
-                      <div class="pull-left group_black "></div>
+                  <a id="group_menu" class="nav-link" th:href="@{/sec/communities}">
+                      <div id="group" class="pull-left group_white"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{communities}"></h4>
-                    </div>
-
                   </a>
                 </li>
                 <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
-                  <a class="nav-link" th:href="@{/sec/favorites}">
-                    <div>
-                      <div class="pull-left pinlist_black "></div>
+                  <a id="pinlist_menu" class="nav-link" th:href="@{/sec/favorites}">
+                      <div id="pinlist" class="pull-left pinlist_white"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{favorites}"></h4>
-                    </div>
-
                   </a>
                 </li>
                 <li class="nav-item" th:if="${isAuthenticated}" role="presentation">
-                  <a class="nav-link" href="#">
-                    <div>
-                      <div class="pull-left settings_black "></div>
+                  <a id="settings_menu" class="nav-link" href="#">
+                      <div id="settings" class="pull-left settings_white"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{settings}"></h4>
-                    </div>
                   </a>
                 </li>
                 <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
-                  <a class="nav-link" th:href="@{/sec/about}">
-                    <div>
-                      <div class="pull-left about"></div>
+                  <a id="about_menu" class="nav-link" th:href="@{/sec/about}">
+                      <div id="about" class="pull-left about_white"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{about}"></h4>
-                    </div>
                   </a>
                 </li>
                 <li class="nav_item active hidden-xs hidden-sm pull-left" th:if="${isAuthenticated and isDevProfile}">
-                  <a class="nav-link" th:href="@{/logout}">
-                    <div>
-                      <div class="pull-left x-close_black"></div>
+                  <a id="close_menu" class="nav-link" th:href="@{/logout}">
+                      <div id="close" class="pull-left x-close_white"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{logout}"></h4>
-                    </div>
                   </a>
                 </li>
               </ul>
