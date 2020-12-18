@@ -704,45 +704,45 @@ ul[role="tablist"]{
 }
 
 .member_me_white{
-  background-image: url("/img/member_me_white.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -1336px center;
   background-size: auto 25px;
   height: 45px;
   width: 25px;
 }
 
 .group_white{
-  background-image: url("/img/group_white.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -3414px center;
   background-size: auto 25px;
   height: 42px;
   width: 25px;
 }
 
 .pinlist_white{
-  background-image: url("/img/pinlist_white.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -1918px center;
   background-size: auto 25px;
   height: 40px;
   width: 25px;
 }
 
 .settings_white{
-  background-image: url("/img/settings_white.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -3469px center;
   background-size: auto 25px;
   height: 44px;
   width: 25px;
 }
 
 .about_white{
-  background-image: url("/img/about_white.png");
+  background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -3440px center;
   background-size: auto 25px;
   height: 44px;
   width: 25px;
