@@ -595,6 +595,7 @@ function displayVideo(id, url, name, idForName, nbVideo) {
       success: function(response) {
         console.log(response);
         data = response;
+        document.getElementById("videoName").innerText = data[0].videoName;
       },
       error: function(response) {
         console.log(response);
