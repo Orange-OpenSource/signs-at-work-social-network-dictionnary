@@ -117,10 +117,14 @@
       </div>
       <div class="modal-footer">
         <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
-        <button id="submit-forget-Password" th:text="#{continue}" type="submit" th:onclick="'javascript:onForgetPassword()'" class="btn btn-default"
-                data-dismiss=""></button>
+        <button id="submit-forget-Password" type="submit" th:onclick="'javascript:onForgetPassword()'" class="btn btn-default pull-right"
+                data-dismiss="">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
       </div>
 
     </div>
