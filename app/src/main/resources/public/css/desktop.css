@@ -6,6 +6,10 @@
     float: initial;
   }
 
+  .navbar-toggle {
+    display: block!important;
+  }
+
   /* End Voir les signes /sec/signs */
 
   /* Begin index page /index */

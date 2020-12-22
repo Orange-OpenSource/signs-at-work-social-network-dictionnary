@@ -15,7 +15,7 @@
   }
 
   .navbar-toggle {
-    display: block;
+    display: block!important;
   }
 
   .container_H2.container_header_H2.text_hyphenation{
