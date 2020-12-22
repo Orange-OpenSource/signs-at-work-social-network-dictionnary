@@ -36,7 +36,9 @@
                 <div class="back_bar_white pull-left"></div>
               </a>
               <a href="/">
-                <div class="logo-SW_blue pull-left"></div>
+                <div th:if="${#strings.equals(appName,'LocalHost')}" class="logo_signsatwork_white pull-left"></div>
+                <div th:if="${#strings.equals(appName,'SignsAtWork')}" class="logo_signsatwork_white pull-left"></div>
+                <div th:if="${#strings.equals(appName,'SignsAtForm')}" class="logo_signsatform_white pull-left"></div>
               </a>
               <h1 class="text_hyphenation navbar_title" th:text="${title}"></h1>
             </div>

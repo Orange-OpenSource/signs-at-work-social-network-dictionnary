@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <th:block th:include="fragments/header-login :: head"></th:block>
+    <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-logo-only :: header">&nbsp;</header>
@@ -33,10 +33,14 @@
 
   <div class="row">
     <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
-      <div class="pull-left illustration_welcome"/>
+      <div th:if="${#strings.equals(appName,'LocalHost')}" class="pull-left illustration_welcome_signsatwork"/>
+      <div th:if="${#strings.equals(appName,'SignsAtWork')}" class="pull-left illustration_welcome_signsatwork"/>
+      <div th:if="${#strings.equals(appName,'SignsAtForm')}" class="pull-left illustration_welcome_signsatform"/>
       <div id="label_invite">
         <div id="label_welcome" th:text="#{welcome}"/>
-        <div id="label_dictionary" th:text="#{dictionary}"/>
+        <div th:if="${#strings.equals(appName,'LocalHost')}" id="label_dictionary" th:text="#{dictionary_signsatwork}"/>
+        <div th:if="${#strings.equals(appName,'SignsAtWork')}" id="label_dictionary" th:text="#{dictionary_signsatwork}"/>
+        <div th:if="${#strings.equals(appName,'SignsAtForm')}" id="label_dictionary" th:text="#{dictionary_signsatform}"/>
       </div>
 
 <!--      <div id="label_signatwork" th:text="#{app}"/>-->

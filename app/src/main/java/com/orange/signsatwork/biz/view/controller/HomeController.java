@@ -87,6 +87,7 @@ public class HomeController {
     long t0 = System.currentTimeMillis();
     String pageName;
     model.addAttribute("title", appName);
+    model.addAttribute("appName", appName);
     if (AuthentModel.isAuthenticated(principal)) {
       pageName = doIndex(req, principal, model);
     } else {

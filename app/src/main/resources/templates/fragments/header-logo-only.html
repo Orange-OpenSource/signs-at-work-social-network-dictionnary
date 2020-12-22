@@ -33,7 +33,9 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a href="/" class="text-center" th:attr="aria-label=#{home}">
-                  <div class="logo-text_white pull-left" alt="logo de sign@works, une main verticale stylisée"></div>
+                  <div th:if="${#strings.equals(appName,'LocalHost')}" class="logo_signsatwork-text_white pull-left" alt="logo de sign@work"></div>
+                  <div th:if="${#strings.equals(appName,'SignsAtWork')}" class="logo_signsatwork-text_white pull-left" alt="logo de sign@work"></div>
+                  <div th:if="${#strings.equals(appName,'SignsAtForm')}" class="logo_signsatform-text_white pull-left" alt="logo de sign@form"></div>
                 </a>
             </div>
         </div>

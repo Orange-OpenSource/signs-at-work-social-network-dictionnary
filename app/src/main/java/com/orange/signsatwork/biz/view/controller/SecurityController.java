@@ -32,11 +32,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SecurityController {
 
+  @Value("${app.name}")
+  String appName;
 
   @RequestMapping("/login")
   public String login(Model model) {
 
     model.addAttribute("userName", "");
+    model.addAttribute("appName", appName);
     return "login";
   }
 }

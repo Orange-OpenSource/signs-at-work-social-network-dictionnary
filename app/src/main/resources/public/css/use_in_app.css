@@ -53,7 +53,7 @@ a {
   color: #333333;
 }
 
-.logo-text_white {
+.logo_signsatwork-text_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
   background-position: -1739px center;
@@ -63,9 +63,28 @@ a {
   margin-left: 10px;
 }
 
-.illustration_welcome {
+.logo_signsatform-text_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -5627px center;
+  background-size: auto 40px;
+  width: 100px;
+  height: 70px;
+  margin-left: 10px;
+}
+
+.illustration_welcome_signsatwork {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -4075px center;
+  background-repeat: no-repeat;
+  background-size: auto 100px;
+  height: 100px;
+  width: 92px;
+}
+
+.illustration_welcome_signsatform {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -14310px center;
   background-repeat: no-repeat;
   background-size: auto 100px;
   height: 100px;
@@ -820,9 +839,18 @@ a .labelSigne {
   padding-top: 7px;
 }
 
-.logo-SW_blue {
+.logo_signsatwork_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -6445px center;
+  background-repeat: no-repeat;
+  background-size: auto 50px;
+  height: 70px;
+  width: 50px;
+}
+
+.logo_signsatform_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -7208px center;
   background-repeat: no-repeat;
   background-size: auto 50px;
   height: 70px;
