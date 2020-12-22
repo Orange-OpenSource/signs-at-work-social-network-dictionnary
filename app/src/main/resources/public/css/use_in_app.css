@@ -666,6 +666,15 @@ ul[role="tablist"]{
   margin-top: 10px;
 }
 
+.search_circle_desktop {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -4094px center;
+  background-repeat: no-repeat;
+  background-size: auto 50px;
+  height: 50px;
+  width: 50px;
+}
+
 .menu {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2926px center;
