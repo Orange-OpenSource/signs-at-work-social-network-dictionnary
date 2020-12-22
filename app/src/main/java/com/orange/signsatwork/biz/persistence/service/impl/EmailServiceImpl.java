@@ -49,6 +49,9 @@ public class EmailServiceImpl implements EmailService {
   @Value("${app.admin.username}")
   String adminUsername;
 
+  @Value("${app.name}")
+  String appName;
+
   @Autowired
   public JavaMailSender emailSender;
   @Autowired
@@ -67,6 +70,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("request_name", requestName);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email", ctx);
       helper.setText(htmlContent, true);
 
@@ -108,6 +112,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("favorite_name", favoriteName);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-favorite", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -147,6 +152,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -186,6 +192,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("new_name", newName);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-rename-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -224,6 +231,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-delete-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -261,6 +269,7 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context();
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-remove-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -298,6 +307,7 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context();
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-reset-password", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -337,6 +347,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("username", username);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-create-password", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -374,6 +385,7 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context();
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-create-password-after-change-email", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
@@ -413,6 +425,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-add-description-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");

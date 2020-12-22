@@ -1,10 +1,10 @@
 {"dir" : "ltr",
   "lang" : "French",
-  "name" : "SignsAtWork",
+  "name" : "Signs@Work",
   "scope" : "/",
   "display" : "standalone",
   "start_url" : "https://signsatwork.orange-labs.fr/",
-  "short_name" : "SignsAtWork",
+  "short_name" : "Signs@Work",
   "theme_color" : "transparent",
   "description" : "",
   "orientation" : "any",
@@ -12,27 +12,27 @@
   "generated" : "true",
   "icons" : [
     {
-      "src": "https://signsatwork.orange-labs.fr/img/icons/SignsAtWork/icon-48x48.png",
+      "src": "https://signsatwork.orange-labs.fr/img/icons/Signs@Work/icon-48x48.png",
       "sizes": "48x48"
     },
     {
-      "src": "https://signsatwork.orange-labs.fr/img/icons/SignsAtWork/icon-72x72.png",
+      "src": "https://signsatwork.orange-labs.fr/img/icons/Signs@Work/icon-72x72.png",
       "sizes": "72x72"
     },
     {
-      "src": "https://signsatwork.orange-labs.fr/img/icons/SignsAtWork/icon-96x96.png",
+      "src": "https://signsatwork.orange-labs.fr/img/icons/Signs@Work/icon-96x96.png",
       "sizes": "96x96"
     },
     {
-      "src": "https://signsatwork.orange-labs.fr/img/icons/SignsAtWork/icon-144x144.png",
+      "src": "https://signsatwork.orange-labs.fr/img/icons/Signs@Work/icon-144x144.png",
       "sizes": "144x144"
     },
     {
-      "src": "https://signsatwork.orange-labs.fr/img/icons/SignsAtWork/icon-192x192.png",
+      "src": "https://signsatwork.orange-labs.fr/img/icons/Signs@Work/icon-192x192.png",
       "sizes": "192x192"
     },
     {
-      "src": "https://signsatwork.orange-labs.fr/img/icons/SignsAtWork/icon-512x512.png",
+      "src": "https://signsatwork.orange-labs.fr/img/icons/Signs@Work/icon-512x512.png",
       "sizes": "512x512"
     }
   ]}

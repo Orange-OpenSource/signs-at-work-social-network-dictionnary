@@ -272,6 +272,7 @@ public class UserController {
     User user = userService.withUserName(principal.getName());
     userService.changeEmail(user, userCreationView.getEmail());
     model.addAttribute("user", user);
+    model.addAttribute("appName", appName);
 
     return "redirect:/sec/who-are-you";
   }
