@@ -386,6 +386,7 @@ public class UserController {
       .collect(Collectors.toList());
     communitiesViewData = communitiesViewData.stream().sorted((c1, c2) -> c1.name.compareTo(c2.name)).collect(Collectors.toList());
     model.addAttribute("communities", communitiesViewData);
+    model.addAttribute("appName", appName);
 
     return "job-community";
   }
