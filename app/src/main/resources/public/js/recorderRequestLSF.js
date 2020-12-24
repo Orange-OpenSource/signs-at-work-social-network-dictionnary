@@ -236,7 +236,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
         $(".spinner").css("z-index","-1").css("opacity","0.1");
         $(".spinner").visibility="hidden";
         $("video").css("z-index","1500").css("opacity","1");
-        ocument.getElementById('cancel-recording').disabled = false;
+        document.getElementById('cancel-recording').disabled = false;
       }
     })
 

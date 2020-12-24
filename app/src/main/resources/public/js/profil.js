@@ -39,7 +39,7 @@ document.getElementById('container-button').style.display = "none";
 
 var videoFile = {};
 var errorSpan = document.getElementById('errorSpan');
-var errorDeletedSpanJob = document.getElementById('errorDeletedSpan');
+var errorDeletedSpan = document.getElementById('errorDeletedSpan');
 var errorDeletedSpanJob = document.getElementById('errorDeletedSpanJob');
 var counter = 3;
 var t;
@@ -64,7 +64,6 @@ function timedCount() {
 }
 
 function startRecord() {
-  videoContainer.style.display = "block";
   labelRecord.style.display = "none";
   labelAfterRecord.style.display = "none";
   startRecording.disabled = true;
@@ -72,15 +71,19 @@ function startRecord() {
   document.getElementById('start-recording').disabled = true;
   document.getElementById('stop-recording').disabled = false;
 
+  document.getElementById("counter").style.visibility = "visible";
+  timedCount();
+}
+
+function visualizeBeforeRecord() {
+  videoContainer.style.display = "block";
   captureUserMedia00(function (stream) {
     window.audioVideoRecorder = window.RecordRTC(stream, {
       type: 'video',
       disableLogs: false
     });
     document.getElementById('video').style.visibility = "visible";
-    document.getElementById("counter").style.visibility = "visible";
-    timedCount();
-    //window.audioVideoRecorder.startRecording();
+    document.getElementById("counter").style.visibility = "hidden";
   });
 }
 
@@ -94,18 +97,19 @@ retryRecording.onclick = function () {
   /*document.getElementById('btnChecked').style.display = "none";*/
   document.getElementById('start-recording').style.display = "block";
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
-    errorSpan.style.visibility="hidden";
+    errorSpan.style.display="none";
   }
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
-  startRecord();
+  document.getElementById('start-recording').disabled = false;
+  visualizeBeforeRecord();
 };
 
 
 stopRecording.onclick = function() {
   labelAfterRecord.style.display="block";
-  labelAfterRecord.style.visibility="visible";
+  labelAfterRecord.style.display="block";
   document.getElementById('container-button').style.display = "block";
- /* document.getElementById('btnChecked').style.display = "block";*/
+  /*document.getElementById('btnChecked').style.display = "block";*/
   document.getElementById('stop-recording').style.display = "none";
   stopRecording.disabled = true;
   startRecording.disabled = false;
@@ -218,7 +222,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
     },
     error: function(response) {
       errorSpan.textContent = response.responseText;
-      errorSpan.style.display="inline-block";
+      errorSpan.style.display="block";
       $(".spinner").css("z-index","-1").css("opacity","0.1");
       $(".spinner").visibility="hidden";
       $("video").css("z-index","1500").css("opacity","1");
@@ -227,6 +231,10 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
     }
   })
 
+});
+
+$formUploadRecordedVideoFile.on('input', function(event) {
+  document.getElementById('errorSpan').style.display="none";
 });
 
 var $formDeleteVideoFileForName = $('#deleteVideoFileForName');
@@ -393,7 +401,7 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   clearTimeout(t);
   audioVideoRecorder.clearRecordedData();
   videoContainer.style.display="none";
-  labelRecord.style.visibility="visible";
+  labelRecord.style.display="block";
   labelAfterRecord.style.display="none";
   document.getElementById('start-recording').style.display = "inline-block";
   document.getElementById('container-button').style.display = "none";
@@ -405,12 +413,19 @@ $add_video_file_recording.on('hidden.bs.modal', function() {
   document.getElementById('video').removeAttribute("controls");
   document.getElementById('video').pause();
   document.getElementById('video').style.visibility="hidden";
+  $("video").css("z-index","").css("opacity","");
+  $(".spinner").css("z-index","").css("opacity","");
+  $(".spinner").removeClass("spinner_show").addClass("spinner_hidden");
   document.getElementById('continue').disabled = true;
   document.getElementById('cancel-recording').disabled = false;
   if ($('#uploadRecordedVideoFile').find('#errorSpan').length) {
     errorSpan.style.display="none";
   }
   document.getElementById("modal-footer_add_video_file_recording").style.display = "none";
+});
+
+$add_video_file_recording.on('show.bs.modal', function() {
+  visualizeBeforeRecord();
 });
 
 if (nameVideoRecord) {
