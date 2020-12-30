@@ -56,7 +56,9 @@
 <div th:replace="fragments/modal-new-suggest :: div"/>
 <div class="row">
     <div class="col-xs-12">
-      <h2 class="lexical" th:text="#{sign.lexical}"></h2>
+      <h2 th:if="${#strings.equals(appName,'LocalHost')}" class="lexical" th:text="#{signatwork.lexical}"></h2>
+      <h2 th:if="${#strings.equals(appName,'Signs@Work')}" class="lexical" th:text="#{signatwork.lexical}"></h2>
+      <h2 th:if="${#strings.equals(appName,'Signs@Form')}" class="lexical" th:text="#{signatform.lexical}"></h2>
     </div>
       <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
         <div class="sign_menu col-md-4 col-xs-12 col-lg-4">
