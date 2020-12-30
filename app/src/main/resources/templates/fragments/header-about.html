@@ -38,7 +38,7 @@
                 <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_signsatwork_white pull-left"></div>
                 <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform_white pull-left"></div>
               </a>
-              <h2 class="navbar_title pull-right text_hyphenation" th:text="#{about_signs_at_work}"/>
+              <h2 class="navbar_title pull-right text_hyphenation" th:text="#{about_title(${appName})}"/>
             </div>
         </div>
     </nav>
