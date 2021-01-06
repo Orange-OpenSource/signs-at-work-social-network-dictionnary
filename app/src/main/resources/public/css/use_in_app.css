@@ -656,7 +656,7 @@ ul[role="tablist"]{
   margin-top: 4px;
 }
 
-.search_circle {
+.search_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -4094px center;
   background-repeat: no-repeat;
@@ -666,13 +666,22 @@ ul[role="tablist"]{
   margin-top: 10px;
 }
 
-.search_circle_desktop {
+.search_white_desktop {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -4094px center;
+  background-position: -2048px center;
   background-repeat: no-repeat;
-  background-size: auto 50px;
-  height: 50px;
-  width: 50px;
+  background-size: auto 25px;
+  height: 45px;
+  width: 25px;
+}
+
+.search_black_desktop {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3710px center;
+  background-repeat: no-repeat;
+  background-size: auto 25px;
+  height: 45px;
+  width: 25px;
 }
 
 .menu {

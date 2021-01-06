@@ -59,7 +59,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -69,18 +75,18 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("user_name", userName);
       ctx.setVariable("request_name", requestName);
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email", ctx);
       helper.setText(htmlContent, true);
 
      /* File file = ResourceUtils.getFile("classpath:public/img/logo_and_texte.png");
       System.out.println("File Found : " + file.exists());*/
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -101,7 +107,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -111,15 +123,16 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("user_name", userName);
       ctx.setVariable("favorite_name", favoriteName);
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-favorite", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -141,7 +154,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -151,15 +170,16 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-community", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -181,7 +201,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -191,15 +217,16 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("old_name", oldName);
       ctx.setVariable("new_name", newName);
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-rename-community", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -221,7 +248,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendCommunityDeleteMessage(String[] to, String subject, String userName, String communityName) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -230,15 +263,16 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context();
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-delete-community", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -260,7 +294,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendCommunityRemoveMessage(String[] to, String subject, String communityName) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -268,15 +308,15 @@ public class EmailServiceImpl implements EmailService {
       helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("community_name", communityName);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-remove-community", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -298,7 +338,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendResetPasswordMessage(String to, String subject, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -306,15 +352,15 @@ public class EmailServiceImpl implements EmailService {
       helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-reset-password", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -337,7 +383,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendCreatePasswordMessage(String to, String subject, String username, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -346,15 +398,15 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context();
       ctx.setVariable("username", username);
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-create-password", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -376,7 +428,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -384,15 +442,15 @@ public class EmailServiceImpl implements EmailService {
       helper.setFrom(adminUsername);
       Context ctx = new Context();
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-create-password-after-change-email", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -414,7 +472,13 @@ public class EmailServiceImpl implements EmailService {
 
   public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url) {
     InputStream imageIs = null;
+    String imageName;
     try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
@@ -424,15 +488,15 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("url", url);
-      ctx.setVariable("imageResourceName", "logo_and_texte.png");
+      ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-add-description-community", ctx);
       helper.setText(htmlContent, true);
-      imageIs = this.getClass().getClassLoader().getResourceAsStream("logo_and_texte.png");
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
-      helper.addInline("logo_and_texte.png", imageSource, "image/png");
+      helper.addInline(imageName, imageSource, "image/png");
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();

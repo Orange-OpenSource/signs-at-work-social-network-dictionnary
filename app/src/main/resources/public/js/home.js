@@ -22,6 +22,16 @@
 $(document).ready(function()
 {
 
+  $('#search_menu').on('mouseover', function () {
+    $('#search').removeClass('search_white_desktop');
+    $('#search').addClass('search_black_desktop');
+  });
+
+  $('#search_menu').on('mouseout', function () {
+    $('#search').removeClass('search_black_desktop');
+    $('#search').addClass('search_white_desktop');
+  });
+
   $('#member_me_menu').on('mouseover', function () {
     $('#member_me').removeClass('member_me_white');
     $('#member_me').addClass('member_me_black');
