@@ -44,6 +44,7 @@ public class Services {
   private UserService user;
   private VideoService video;
   private EmailService emailService;
+  private ArticleService article;
 
   @Autowired
   private AppSecurityAdmin appSecurityAdmin;

@@ -47,6 +47,8 @@ class ServicesLinker {
   private VideoService videoService;
   @Autowired
   private EmailService emailService;
+  @Autowired
+  private ArticleService article;
 
   @Autowired
   private Services services;
@@ -62,5 +64,6 @@ class ServicesLinker {
     services.user(userService);
     services.video(videoService);
     services.emailService(emailService);
+    services.article(article);
   }
 }

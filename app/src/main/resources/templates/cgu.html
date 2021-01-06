@@ -30,7 +30,7 @@
 
 <body class="container-fluid">
 <div th:replace="fragments/modal-cgu :: div"/>
-<div th:replace="fragments/modal-cgu-lsf :: div"/>
+<!--<div th:replace="fragments/modal-cgu-lsf :: div"/>-->
 <div th:replace="fragments/modal-personnal_data :: div"/>
 
 <div class="row" id="cguAccepted">
@@ -52,7 +52,8 @@
             </a>
           </li>
           <li class="aside_bckg_li">
-            <a data-target="#see_condition_of_use" data-toggle="modal" href="#">
+            <!--<a data-target="#see_condition_of_use" data-toggle="modal" href="#">-->
+            <a th:href="@{/about-cgu-lsf}">
               <div class="pull-left cgu_conditions_lsf_blue"></div>
               <h2 class="container_CGU" th:text="#{see.condition_of_use}"/>
               <div>

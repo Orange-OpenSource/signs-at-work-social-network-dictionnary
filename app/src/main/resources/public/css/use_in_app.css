@@ -1914,12 +1914,13 @@ textarea.form-control{
   height: 30px;
   position: relative;
   padding-top: 7px;
+  padding-left: 5px;
+  padding-right: 11px;
 }
 
 a .labelVideo {
   font-size:14px;
   white-space: nowrap;
-  padding-left: 5px;
 }
 
 /* End Variantes /sign/"sign_id" */

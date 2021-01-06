@@ -36,12 +36,15 @@
         </div>
       </div>
       <div class="modal-body">
-        <span th:utext="#{personnal_data_intro}"></span>
+        <div th:each="article :${personalDataArticles}">
+          <span th:utext="${article.descriptionText}"></span>
+        </div>
+<!--        <span th:utext="#{personnal_data_intro}"></span>
         <span th:utext="#{personnal_data_article_1}"></span>
         <span th:utext="#{personnal_data_article_2}"></span>
         <span th:utext="#{personnal_data_article_3}"></span>
         <span th:utext="#{personnal_data_article_4}"></span>
-        <span th:utext="#{personnal_data_article_5}"></span>
+        <span th:utext="#{personnal_data_article_5}"></span>-->
       </div>
       <div class="modal-footer">
         <button th:text="#{back}" class="btn btn-default"

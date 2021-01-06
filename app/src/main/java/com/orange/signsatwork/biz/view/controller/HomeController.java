@@ -23,6 +23,9 @@ package com.orange.signsatwork.biz.view.controller;
  */
 
 import com.orange.signsatwork.AppProfile;
+import com.orange.signsatwork.biz.domain.Article;
+import com.orange.signsatwork.biz.domain.ArticleType;
+import com.orange.signsatwork.biz.domain.Articles;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -44,6 +47,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Controller
@@ -62,8 +66,8 @@ public class HomeController {
 
   private static final String HOME_URL = "/";
 
-  @Value("${cgu-url}")
-  private String cgu_url;
+/*  @Value("${cgu-url}")
+  private String cgu_url;*/
 
   @Value("${display-url}")
   private String display_url;
@@ -118,13 +122,21 @@ public class HomeController {
 
 
   @RequestMapping("/cgu")
-  public String cgu(Model model) {
+  public String cgu(Model model, HttpServletRequest request) {
 
     model.addAttribute("title", messageByLocaleService.getMessage("condition_of_use"));
     model.addAttribute("backUrl", HOME_URL);
-    model.addAttribute("cgu_url", cgu_url);
+    /*model.addAttribute("cgu_url", cgu_url);*/
     model.addAttribute("user", new UserCreationView());
     model.addAttribute("appName", appName);
+    Locale locale = request.getLocale();
+    String language = locale.getLanguage();
+
+    Articles articlesCgu = services.article().findByLanguageAndType(language, ArticleType.Cgu);
+    model.addAttribute("cguArticles", articlesCgu.list());
+    Articles articlesPersonalData = services.article().findByLanguageAndType(language, ArticleType.PersonalData);
+    model.addAttribute("personalDataArticles", articlesPersonalData.list());
+
     return "cgu";
   }
 
@@ -141,20 +153,43 @@ public class HomeController {
   }
 
   @RequestMapping("/sec/about-cgu")
-  public String aboutCgu(Model model) {
+  public String aboutCgu(Model model, HttpServletRequest request) {
 
     model.addAttribute("title", messageByLocaleService.getMessage("about.cgu"));
-    model.addAttribute("cgu_url", cgu_url);
+    /*model.addAttribute("cgu_url", cgu_url);*/
     model.addAttribute("appName", appName);
+    Locale locale = request.getLocale();
+    String language = locale.getLanguage();
 
+    Articles articles = services.article().findByLanguageAndType(language, ArticleType.Cgu);
+    model.addAttribute("cguArticles", articles.list());
     return "about-cgu";
   }
 
+  @RequestMapping("/about-cgu-lsf")
+  public String aboutCguLsf(Model model, HttpServletRequest request) {
+
+    model.addAttribute("title", messageByLocaleService.getMessage("see.condition_of_use"));
+    model.addAttribute("appName", appName);
+    Locale locale = request.getLocale();
+    String language = locale.getLanguage();
+
+    Articles articles = services.article().findByLanguageAndType(language, ArticleType.Cgu);
+    List<Article> articlesWithLsf = articles.stream().filter(a -> a.descriptionPicture != null).collect(Collectors.toList());
+    model.addAttribute("cguArticles", articlesWithLsf);
+    return "about-cgu-lsf";
+  }
+
   @RequestMapping("/sec/personal-data")
-  public String personalData(Model model) {
+  public String personalData(Model model, HttpServletRequest request) {
 
     model.addAttribute("title", messageByLocaleService.getMessage("read.personnal_data_modal_title"));
     model.addAttribute("appName", appName);
+    Locale locale = request.getLocale();
+    String language = locale.getLanguage();
+
+    Articles articles = services.article().findByLanguageAndType(language, ArticleType.PersonalData);
+    model.addAttribute("personalDataArticles", articles.list());
 
     return "personal-data";
   }
