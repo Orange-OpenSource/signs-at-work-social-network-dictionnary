@@ -72,6 +72,7 @@ public class RestApi {
   public static final String SEND_MAIL_FOR_CHANGE_EMAIL = WS_SEC + "/sendMailForChangeEmail";
   public static final String WS_SEC_COMMUNITY_DATAS = WS_SEC + "communities/{communityId}/datas";
   public static final String WS_SEC_COMMUNITY = WS_SEC + "communities/{communityId}";
+  public static final String ARTICLES = "/articles";
   /** Fin API REST For Android and IOS **/
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";

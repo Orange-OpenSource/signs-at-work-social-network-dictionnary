@@ -25,13 +25,12 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageService;
-import com.orange.signsatwork.biz.view.model.AuthentModel;
-import com.orange.signsatwork.biz.view.model.UserCreationView;
-import com.orange.signsatwork.biz.view.model.UserJobView;
-import com.orange.signsatwork.biz.view.model.UserView;
+import com.orange.signsatwork.biz.view.controller.CommentOrderComparator;
+import com.orange.signsatwork.biz.view.model.*;
 import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +51,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -642,5 +638,16 @@ public class UserRestController {
       userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
     }
     return  userResponseApi;
+  }
+
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.ARTICLES)
+  public ResponseEntity<?> articles(@RequestParam("language") String language, @RequestParam("type") ArticleType type,  Principal principal) {
+
+    Articles articlesCgu = services.article().findByLanguageAndType(language, type);
+    List<ArticleView> articleViews = articlesCgu.list().stream().map(article -> new ArticleView(article.name, article.descriptionText, article.descriptionPicture, article.descriptionVideo)).collect(Collectors.toList());
+
+    return  new ResponseEntity<>(articleViews, HttpStatus.OK);
   }
 }
