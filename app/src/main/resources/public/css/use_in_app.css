@@ -206,6 +206,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-left: 15px;
 }
 
+h5.container_H2{
+  float: left;
+  margin-left: 15px;
+}
+
 h4.container_H2{
   width: 73%;
 }
