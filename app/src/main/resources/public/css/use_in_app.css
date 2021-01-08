@@ -11,7 +11,7 @@
 }
 
 .col-xs-12 h5 {
-  color: #8c8c8c;
+  color: black;
 }
 
 .form-control::-webkit-input-placeholder {
@@ -136,22 +136,39 @@ input[type="text"],[type="email"],[type="password"] {
   background-color: #000000;
   box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
   color:#FFFFFF;
-  width: 50%;
+  width: 100%;
   margin-top:20px;
   padding: 12px 12px;
   margin-bottom:20px;
+}
+
+
+.btn_create_account{
+  border-radius: 30px;
+  background-color: white;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
+  color: black;
+  width: 45%;
+  padding: 12px 12px!important;
+  display: inline-block !important;
+  float: right;
 }
 
 .noAccount.aside_bckg_li{
   border-bottom: 1px solid;
   width: 90%;
   margin: 0 auto;
+  border-top: 1px solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .lostPassword.aside_bckg_li{
-  border-top: 1px solid;
-  width: 90%;
+  /*border-top: 1px solid;*/
+ /* width: 90%;*/
   margin: 0 auto;
+  float: right;
+  border-bottom: 0px;
 }
 
 .nav > li {

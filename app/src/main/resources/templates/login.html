@@ -64,6 +64,21 @@
            required=""/>
     <div class="form-group">
     </div>
+  <div class="row ">
+    <div class="col-xs-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="lostPassword aside_bckg_li ">
+            <a data-target="#login_for_lost_password" data-toggle="modal" href="#" >
+              <div>
+                <h5 class="container_H2" th:utext="#{lost_password}"/>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
     <div class=" text-center">
         <button type="submit" class="btn_signin btn btn-default" th:text="#{signin}"></button>
     </div>
@@ -74,24 +89,9 @@
   <div class="col-xs-12">
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
-        <li class="lostPassword aside_bckg_li ">
-          <a data-target="#login_for_lost_password" data-toggle="modal" href="#" >
-            <div>
-              <h5 class="container_H2" th:text="#{lost_password}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
-            </div>
-          </a>
-        </li>
         <li class="noAccount aside_bckg_li ">
-          <a href="/cgu">
-            <div>
-              <h5 class="container_H2" th:text="#{no_login}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
-            </div>
+          <h5 class="container_H2" th:text="#{no_login}"/>
+          <a th:href="@{/cgu}" class="btn_create_account btn btn-default" th:text="#{create_an_account}">
           </a>
         </li>
       </ul>
