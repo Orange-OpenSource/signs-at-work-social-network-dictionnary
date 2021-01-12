@@ -395,17 +395,21 @@
     color:#FFFFFF;
   }
 
-  a .labelSigne{
+/*  a .labelSigne{
     font-size:16px;
     white-space: nowrap;
     padding-left: 6px;
     padding-right: 11px;
-  }
+  }*/
 
   .labelSigne {
     /*max-width: 223px;*/
     text-align: center;
     /*padding-left: 73px;*/
+    font-size:16px;
+    white-space: nowrap;
+    padding-left: 6px;
+    padding-right: 11px;
   }
 
   .labelVideo {

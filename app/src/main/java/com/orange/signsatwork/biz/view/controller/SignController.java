@@ -87,6 +87,9 @@ public class SignController {
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
     model.addAttribute("appName", appName);
+
+    model.addAttribute("isAuthenticated", AuthentModel.isAuthenticated(principal));
+
     return "signs";
   }
 
@@ -173,7 +176,7 @@ public class SignController {
     return "signs";
   }
 
-  @RequestMapping(value = "/sec/signs/alphabetic/frame")
+  @RequestMapping(value = "/signs/alphabetic/frame")
   public String signsAndRequestInAlphabeticalOrderFrame(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
@@ -202,12 +205,18 @@ public class SignController {
     List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+    List<SignView2> signViews;
+    if (user != null) {
+      List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
-
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
-      .collect(Collectors.toList());
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+        .collect(Collectors.toList());
+    } else {
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+        .collect(Collectors.toList());
+    }
 
 
     fillModelWithFavoritesForSignFilter(model, user);
@@ -485,9 +494,9 @@ public class SignController {
     return "signs";
   }
 
-  @RequestMapping(value = "/sec/signs/mostrating/frame")
+  @RequestMapping(value = "/signs/mostrating/frame")
   public String signsMostRatingFrame(@RequestParam("isMostRating") boolean isMostRating, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
@@ -521,12 +530,18 @@ public class SignController {
     List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+    List<SignView2> signViews;
+    if (user != null) {
+      List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
-
-    List<SignView2> signViews = rating.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
-      .collect(Collectors.toList());
+      signViews = rating.stream()
+        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+        .collect(Collectors.toList());
+    } else {
+      signViews = rating.stream()
+        .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+        .collect(Collectors.toList());
+    }
 
 
     model.addAttribute("signsView", signViews);
@@ -683,9 +698,9 @@ public class SignController {
     return "signs";
   }
 
-  @RequestMapping(value = "/sec/signs/mostrecent/frame")
+  @RequestMapping(value = "/signs/mostrecent/frame")
   public String signsMostRecentFrame(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
@@ -712,12 +727,18 @@ public class SignController {
     List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+    List<SignView2> signViews;
+    if (user != null) {
+      List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
-
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
-      .collect(Collectors.toList());
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+        .collect(Collectors.toList());
+    } else {
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+        .collect(Collectors.toList());
+    }
 
 
     model.addAttribute("signsView", signViews);
@@ -1178,6 +1199,14 @@ public class SignController {
       signWithView.contains(signViewData.id),
       signWithPositiveRate.contains(signViewData.id),
       signInFavorite.contains(signViewData.id));
+  }
+
+  private SignView2 buildSignViewWithOutFavorite(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate) {
+    return new SignView2(
+      signViewData,
+      signWithCommentList.contains(signViewData.id),
+      signWithView.contains(signViewData.id),
+      signWithPositiveRate.contains(signViewData.id));
   }
 
   private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoBelowToFavorite, User user) {

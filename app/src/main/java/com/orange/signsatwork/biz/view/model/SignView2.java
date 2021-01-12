@@ -82,6 +82,20 @@ public class SignView2 implements ComparableSign {
     this.signBelowToFavorite = signBelowToFavorite;
   }
 
+  public SignView2(SignViewData signViewData, boolean videoHasComment, boolean videoHasView, boolean videoHasPositiveRate) {
+    id = signViewData.id;
+    name = signViewData.name;
+    createDate = signViewData.createDate;
+    lastVideoId = signViewData.lastVideoId;
+    url = signViewData.url;
+    pictureUri = signViewData.pictureUri;
+    nbVideo = signViewData.nbVideo;
+
+    this.videoHasComment = videoHasComment;
+    this.videoHasView = videoHasView;
+    this.videoHasPositiveRate = videoHasPositiveRate;
+  }
+
   @Override
   public long id() {
     return id;

@@ -142,6 +142,16 @@ input[type="text"],[type="email"],[type="password"] {
   margin-bottom:20px;
 }
 
+.btn_signin_header{
+  border-radius: 30px;
+  background-color: #000000;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
+  color:#FFFFFF;
+  width: 40%;
+  margin-top:20px;
+  padding: 12px 12px;
+  margin-bottom:20px;
+}
 
 .btn_create_account{
   border-radius: 30px;
@@ -856,10 +866,10 @@ a.nav-link:active{
   text-align: center;
 }
 
-a .labelSigne {
+/*a .labelSigne {
     padding-left: 5px;
     padding-right: 11px;
-}
+}*/
 
 .labelSigne {
   font-size: 14px;
@@ -877,6 +887,8 @@ a .labelSigne {
   height: 30px;
   position: relative;
   padding-top: 7px;
+  padding-left: 5px;
+  padding-right: 11px;
 }
 
 .logo_signsatwork_white {

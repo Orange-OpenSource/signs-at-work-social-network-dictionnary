@@ -95,7 +95,11 @@ public class HomeController {
     if (AuthentModel.isAuthenticated(principal)) {
       pageName = doIndex(req, principal, model);
     } else {
-      pageName = "login";
+      if (appName.equals("Signs@Work")) {
+        pageName="redirect:/signs?isSearch=false";
+      } else {
+        pageName = "login";
+      }
     }
 
     long dt = System.currentTimeMillis() - t0;

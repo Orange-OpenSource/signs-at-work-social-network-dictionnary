@@ -29,7 +29,7 @@
 <header role="banner" th:fragment="header">
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
-      <div class="navbar-header">
+      <div th:if="${isAuthenticated}" class="navbar-header">
         <a th:onclick="'javascript:goBack()'">
           <div class="back_bar_white pull-left"></div>
         </a>
@@ -39,6 +39,18 @@
           <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform_white pull-left"></div>
         </a>
         <h1 class="text_hyphenation navbar_title" th:text="${title}"/>
+      </div>
+      <div th:unless="${isAuthenticated}" class="navbar-header">
+        <a href="/" th:attr="aria-label=#{home}">
+          <div th:if="${#strings.equals(appName,'LocalHost')}" class="logo_signsatwork-text_white pull-left"></div>
+          <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_signsatwork-text_white pull-left"></div>
+          <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform-text_white pull-left"></div>
+        </a>
+<!--        <div class="pull-right">
+          <button type="submit" class="btn_signin btn btn-default" th:text="#{signin}"></button>
+        </div>-->
+        <a th:href="@{/login}" class="pull-right btn_signin_header btn btn-default" th:text="#{signin}">
+        </a>
       </div>
     </div>
   </nav>
