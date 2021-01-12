@@ -634,9 +634,9 @@ public class SignController {
     return "signs";
   }
 
-  @RequestMapping(value = "/sec/signs/mostrecent")
+  @RequestMapping(value = "/signs/mostrecent")
   public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
     if (isSearch) {
       fillModelWithContext(model, "sign.search", principal, SHOW_ADD_FAVORITE);
@@ -667,12 +667,18 @@ public class SignController {
     List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+    List<SignView2> signViews;
+    if (user != null) {
+      List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
-
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
-      .collect(Collectors.toList());
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+        .collect(Collectors.toList());
+    } else {
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+        .collect(Collectors.toList());
+    }
 
 
     model.addAttribute("signsView", signViews);
@@ -829,7 +835,7 @@ public class SignController {
 
     Sign sign = services.sign().withIdSignsView(signId);
     if (sign == null) {
-      return "redirect:/sec/signs/mostrecent?isMostRecent=false&isSearch=false";
+      return "redirect:/signs/mostrecent?isMostRecent=false&isSearch=false";
     }
 
     Video video = services.video().withId(videoId);

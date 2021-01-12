@@ -96,7 +96,7 @@ public class HomeController {
       pageName = doIndex(req, principal, model);
     } else {
       if (appName.equals("Signs@Work")) {
-        pageName="redirect:/signs?isSearch=false";
+        pageName="redirect:/signs/mostrecent?isMostRecent=false&isSearch=false";
       } else {
         pageName = "login";
       }

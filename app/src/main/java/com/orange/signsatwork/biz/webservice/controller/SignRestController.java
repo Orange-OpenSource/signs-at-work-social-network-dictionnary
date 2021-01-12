@@ -131,7 +131,7 @@ public class SignRestController {
         return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
       }
       response.setStatus(HttpServletResponse.SC_OK);
-      return "/sec/signs/mostrecent?isMostRecent=false&isSearch=false";
+      return "/signs/mostrecent?isMostRecent=false&isSearch=false";
 
     } else {
       Video video = services.video().withId(videoId);
