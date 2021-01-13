@@ -2960,7 +2960,7 @@ label .text_hyphenation {
 }
 
 
-.cgu_conditions_blue_about {
+/*.cgu_conditions_blue_about {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -242px center;
   background-repeat: no-repeat;
@@ -2968,9 +2968,9 @@ label .text_hyphenation {
   height: 40px;
   width: 35px;
   margin-top: 20px;
-}
+}*/
 
-.chevron_about_see_cgu{
+/*.chevron_about_see_cgu{
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -3257px center;
   background-repeat: no-repeat;
@@ -2978,7 +2978,7 @@ label .text_hyphenation {
   height: 28px;
   width: 28px;
   margin-top: 25px;
-}
+}*/
 
 .contact {
   background-image: url("/img/sprite_picto_400X400.png");

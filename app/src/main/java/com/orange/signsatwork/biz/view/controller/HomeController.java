@@ -198,4 +198,17 @@ public class HomeController {
     return "personal-data";
   }
 
+  @RequestMapping("/personal-data-lsf")
+  public String personalDataLsf(Model model, HttpServletRequest request) {
+
+    model.addAttribute("title", messageByLocaleService.getMessage("see.personal_data_orange"));
+    model.addAttribute("appName", appName);
+    Locale locale = request.getLocale();
+    String language = locale.getLanguage();
+
+    Articles articles = services.article().findByLanguageAndType(language, ArticleType.PersonalData);
+    List<Article> articlesWithLsf = articles.stream().filter(a -> a.descriptionPicture != null).collect(Collectors.toList());
+    model.addAttribute("personalDataArticles", articlesWithLsf);
+    return "personal-data-lsf";
+  }
 }

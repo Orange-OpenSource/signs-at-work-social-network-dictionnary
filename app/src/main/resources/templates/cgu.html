@@ -64,7 +64,17 @@
           <li class="aside_bckg_li">
             <a data-target="#read_personnal_data" data-toggle="modal" href="#">
               <div class="pull-left cgu_conditions_blue"></div>
-              <h2 class="container_CGU" th:text="#{read.personnal_data}"/>
+              <h2 class="container_CGU" th:text="#{cgu.read_personal_data}"/>
+              <div>
+                <div class="pull-right chevron"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <!--<a data-target="#see_condition_of_use" data-toggle="modal" href="#">-->
+            <a th:href="@{/personal-data-lsf}">
+              <div class="pull-left cgu_conditions_lsf_blue"></div>
+              <h2 class="container_CGU" th:text="#{cgu.see_personal_data_lsf}"/>
               <div>
                 <div class="pull-right chevron"></div>
               </div>

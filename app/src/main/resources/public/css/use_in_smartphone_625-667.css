@@ -1574,7 +1574,7 @@
 
   /* Begin A propos de Signs@Work /sec/about */
 
-  .cgu_conditions_blue_about {
+/*  .cgu_conditions_blue_about {
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -276px center;
     background-repeat: no-repeat;
@@ -1582,7 +1582,7 @@
     height: 40px;
     width: 40px;
     margin-top: 4px;
-  }
+  }*/
 
   .about_title {
     text-align: center;
@@ -1590,7 +1590,7 @@
     font-size:24px;
   }
 
-  .chevron_about_see_cgu{
+/*  .chevron_about_see_cgu{
     background-image: url("/img/sprite_picto_400X400.png");
     background-position: -3487px center;
     background-repeat: no-repeat;
@@ -1598,7 +1598,7 @@
     height: 30px;
     width: 30px;
     margin-top: 10px;
-  }
+  }*/
 
   .contact {
     background-image: url("/img/sprite_picto_400X400.png");
