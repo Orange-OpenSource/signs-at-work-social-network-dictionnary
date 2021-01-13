@@ -37,7 +37,9 @@
         </div>
       </div>
       <div class="modal-body">
-        <span th:utext="#{cgu_text}"></span>
+        <span th:if="${#strings.equals(appName,'LocalHost')}" th:utext="#{signsatwork_cgu_text}"></span>
+        <span th:if="${#strings.equals(appName,'Signs@Work')}" th:utext="#{signsatwork_cgu_text}"></span>
+        <span th:if="${#strings.equals(appName,'Signs@Form')}" th:utext="#{signsatform_cgu_text}"></span>
         <div th:each="article :${cguArticles}">
           <span th:utext="${article.descriptionText}"></span>
         </div>
