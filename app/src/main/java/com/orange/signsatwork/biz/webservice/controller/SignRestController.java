@@ -223,6 +223,36 @@ public class SignRestController {
 
   }
 
+  @RequestMapping(value = RestApi.SIGNS_VIDEOS)
+  public ResponseEntity<?> videosForSignWithoutUser(@PathVariable long signId, Principal principal) {
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+    List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
+    List<VideoViewData> videoViewsData = querySigns.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+    List<VideoView2> videoViews;
+    List<Long> videoInFavorite = new ArrayList<>();
+    if (user != null) {
+      videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
+      List<Long> finalVideoInFavorite = videoInFavorite;
+      videoViews = videoViewsData.stream()
+        .map(videoViewData -> buildVideoView(videoViewData, finalVideoInFavorite, user))
+        .collect(Collectors.toList());
+    } else {
+      List<Long> finalVideoInFavorite1 = videoInFavorite;
+      videoViews = videoViewsData.stream()
+        .map(videoViewData -> buildVideoView(videoViewData, finalVideoInFavorite1, user))
+        .collect(Collectors.toList());
+    }
+
+
+    /*VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);*/
+
+    return new ResponseEntity<>(videoViews, HttpStatus.OK);
+
+  }
+
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEOS)

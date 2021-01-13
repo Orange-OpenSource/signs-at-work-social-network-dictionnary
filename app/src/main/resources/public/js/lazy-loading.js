@@ -570,14 +570,22 @@ function onFiltreVideo(event, href) {
   })
 }
 
-function displayVideo(id, url, name, idForName, nbVideo) {
+function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
   var data;
   var indice = 0;
+  var get_url;
   console.log(id);
   console.log(url);
   console.log(name);
   console.log(idForName);
   console.log(nbVideo);
+  if (isAuthenticated == "true") {
+    get_url = "/ws/sec/signs/"+ id + "/videos";
+  } else {
+    get_url = "/signs/"+ id + "/videos";
+  }
+  console.log(get_url);
+
   if (nbVideo == 1) {
     document.getElementById("videoName").innerText = name;
     document.getElementById("variantes").style.display="none";
@@ -589,7 +597,7 @@ function displayVideo(id, url, name, idForName, nbVideo) {
     document.getElementById("next_variante").style.visibility = "visible";
     document.getElementById("nbVariante").innerText = indice + 1  + "/" + nbVideo;
     $.ajax({
-      url: "/ws/sec/signs/"+ id + "/videos",
+      url: get_url,
       type: 'get',
       contentType: "application/json",
       success: function(response) {
