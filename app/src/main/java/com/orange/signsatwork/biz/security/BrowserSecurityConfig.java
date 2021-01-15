@@ -79,7 +79,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private void disableSecurityOnAssets(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/img/**", "/font/**","/files/**", "/.well-known/**", "/manifest/**", "/pwabuilder-sw.js").permitAll();
+    http.authorizeRequests().antMatchers("/css/**", "/js/**","/img/**", "/font/**","/files/**", "/.well-known/**", "/manifest/**", "/pwabuilder-sw.js").permitAll();
   }
 
   private void disableSecForDBConsole(HttpSecurity http) throws Exception {
