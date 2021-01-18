@@ -49,7 +49,7 @@
     </div>
     <div class="pull-right col-md-8 col-xs-12">
       <div class="embed-responsive embed-responsive-16by9" th:if="${requestView.requestVideoDescription} != null">
-        <iframe class="embed-responsive-item" th:attr="title=${title}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+        <iframe class="embed-responsive-item" th:attr="title=${title}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
       </div>
     </div>
 
@@ -64,11 +64,11 @@
             <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
               <h4 class="container_H2" th:text="${requestView.requestTextDescription}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -77,12 +77,12 @@
             <div th:if="${requestView.requestVideoDescription== null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:if="${requestView.requestVideoDescription != null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -91,12 +91,12 @@
           <div th:if="${requestView.requestVideoDescription== null}">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-            <div class="pull-right add_black"/>
+            <div class="pull-right add_black"></div>
           </div>
           <div th:if="${requestView.requestVideoDescription != null}">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-            <div class="pull-right edit_black"/>
+            <div class="pull-right edit_black"></div>
           </div>
         </a>
         </li>
@@ -128,11 +128,11 @@
               <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
                 <div class="pull-left definition_text_blue"></div>
                 <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
                 <h4 class="container_H2" th:text="${requestView.requestTextDescription}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>
@@ -141,12 +141,12 @@
               <div th:if="${requestView.requestVideoDescription== null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${requestView.requestVideoDescription != null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>
@@ -155,12 +155,12 @@
               <div th:if="${requestView.requestVideoDescription== null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${requestView.requestVideoDescription != null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{request_description_LSF}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>

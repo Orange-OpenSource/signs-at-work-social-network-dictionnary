@@ -45,7 +45,7 @@
       </div>
 
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+          <iframe class="embed-responsive-item" th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
         </div>
     </div>
 
@@ -61,13 +61,13 @@
                         <div th:if="${signView.textDefinition == null} and ${signView.videoDefinition == null}">
                           <h2 id="definition" class="container_H2" th:text="#{sign.description-empty}"/>
                           <div>
-                            <div class="pull-right add_black"/>
+                            <div class="pull-right add_black"></div>
                           </div>
                         </div>
                         <div th:if="${signView.textDefinition != null} or ${signView.videoDefinition != null}">
                           <h2 id="definition" class="container_H2" th:text="#{sign.description-not-empty}"/>
                           <div>
-                            <div class="pull-right edit_black"/>
+                            <div class="pull-right edit_black"></div>
                           </div>
                         </div>
                       </a>
@@ -77,7 +77,7 @@
                             <div class="pull-left rewind_blue"></div>
                             <h2 class="container_H2" th:text="#{sign.redo}"/>
                             <div>
-                                <div class="pull-right chevron"/>
+                              <div class="pull-right chevron"></div>
                             </div>
                         </a>
                     </li>
@@ -86,7 +86,7 @@
                       <div class="pull-left rewind_blue"></div>
                       <h2 class="container_H2" th:text="#{sign.redo}"/>
                       <div>
-                        <div class="pull-right chevron"/>
+                        <div class="pull-right chevron"></div>
                       </div>
                     </a>
                   </li>
@@ -95,9 +95,9 @@
                             <div class="pull-left smiley_happy_menu_blue"></div>
                             <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
                             <div>
-                                <div class="pull-right chevron"/>
-                                <div th:if="${ratingData.ratePositive}" class="pull-right smiley_happy_blue"/>
-                                <div th:if="${ratingData.rateNegative}" class="pull-right smiley_unhappy_blue"/>
+                              <div class="pull-right chevron"></div>
+                              <div th:if="${ratingData.ratePositive}" class="pull-right smiley_happy_blue"></div>
+                              <div th:if="${ratingData.rateNegative}" class="pull-right smiley_unhappy_blue"></div>
                             </div>
                         </a>
                     </li>
@@ -106,7 +106,7 @@
                         <div class="pull-left x-close_blue"></div>
                         <h2 class="container_H2" th:text="#{video.delete}"/>
                         <div>
-                          <div class="pull-right chevron"/>
+                          <div class="pull-right chevron"></div>
                         </div>
                       </a>
                     </li>

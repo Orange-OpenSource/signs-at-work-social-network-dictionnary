@@ -42,7 +42,7 @@
     <div class="pull-right col-md-8 col-xs-12 col-sm-4">
       <div th:if="${user.nameVideo} != null">
         <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" th:src="${user.nameVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+          <iframe class="embed-responsive-item" th:src="${user.nameVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
         </div>
       </div>
     </div>
@@ -54,11 +54,11 @@
             <a data-target="#add_lastName" data-toggle="modal" href="#">
                 <div th:if="${user.lastName == null}">
                   <h2 class="container_H2" th:text="#{your_last_name}"/>
-                  <div class="pull-right add_black"/>
+                  <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${user.lastName != null}">
                   <h2 class="container_H2" th:text="${user.lastName}"/>
-                  <div class="pull-right edit_black"/>
+                  <div class="pull-right edit_black"></div>
                 </div>
             </a>
           </li>
@@ -66,11 +66,11 @@
             <a data-target="#add_firstName" data-toggle="modal" href="#">
               <div th:if="${user.firstName == null}">
                 <h2 class="container_H2" th:text="#{your_first_name}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${user.firstName != null}">
                 <h2 class="container_H2" th:text="${user.firstName}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>
@@ -78,11 +78,11 @@
             <a data-target="#add_file_LSF" data-toggle="modal" href="#">
               <div th:if="${user.nameVideo == null}">
                 <h2 class="container_H2" th:text="#{your_name_LSF}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${user.nameVideo != null}">
                 <h2 class="container_H2" th:text="#{your_name_LSF}"/>
-                <div class="pull-right signlanguage_black"/>
+                <div class="pull-right signlanguage_black"></div>
               </div>
             </a>
           </li>
@@ -90,11 +90,11 @@
             <a data-target="#add_email" data-toggle="modal" href="#">
               <div th:if="${user.email == null}">
                 <h2 class="container_H2" th:text="#{your_email}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${user.email != null}">
                 <h2 class="container_H2 text_hyphenation" th:text="${user.email}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>

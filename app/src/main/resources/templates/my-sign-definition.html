@@ -40,7 +40,7 @@
 
   <div class="pull-right col-md-8 col-xs-12">
     <div th:if="${signView.videoDefinition} != null" class="embed-responsive embed-responsive-16by9">
-      <iframe class="embed-responsive-item" th:attr="title=#{sign.description(${title})}"  th:src="${signView.videoDefinition} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+      <iframe class="embed-responsive-item" th:attr="title=#{sign.description(${title})}"  th:src="${signView.videoDefinition} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
     </div>
   </div>
 
@@ -52,12 +52,12 @@
             <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2" th:text="${signView.textDefinition}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -66,12 +66,12 @@
             <div th:if="${signView.videoDefinition == null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:if="${signView.videoDefinition != null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -80,12 +80,12 @@
             <div th:if="${signView.videoDefinition == null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:if="${signView.videoDefinition != null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -100,12 +100,12 @@
               <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
                 <div class="pull-left definition_text_blue"></div>
                 <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
                 <div class="pull-left definition_text_blue"></div>
                 <h4 class="container_H2" th:text="${signView.textDefinition}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>
@@ -114,12 +114,12 @@
               <div th:if="${signView.videoDefinition == null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${signView.videoDefinition != null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>
@@ -128,12 +128,12 @@
               <div th:if="${signView.videoDefinition == null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${signView.videoDefinition != null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>

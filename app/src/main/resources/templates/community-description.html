@@ -40,7 +40,7 @@
 
   <div class="pull-right col-md-8 col-xs-12">
     <div th:if="${community.descriptionVideo} != null" class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" th:attr="title=${title}" th:src="${community.descriptionVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+      <iframe class="embed-responsive-item" th:attr="title=${title}" th:src="${community.descriptionVideo} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
     </div>
   </div>
 
@@ -52,12 +52,12 @@
             <div th:if="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{community.descriptionText}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:unless="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
               <div class="pull-left definition_text_blue"></div>
               <h4 class="container_H2 blue" th:text="${community.descriptionText}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -66,12 +66,12 @@
             <div th:if="${community.descriptionVideo == null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:if="${community.descriptionVideo != null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -80,12 +80,12 @@
             <div th:if="${community.descriptionVideo == null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right add_black"/>
+              <div class="pull-right add_black"></div>
             </div>
             <div th:if="${community.descriptionVideo != null}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-              <div class="pull-right edit_black"/>
+              <div class="pull-right edit_black"></div>
             </div>
           </a>
         </li>
@@ -100,12 +100,12 @@
               <div th:if="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
                 <div class="pull-left definition_text_blue"></div>
                 <h4 class="container_H2 text_hyphenation" th:text="#{community.descriptionText}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:unless="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
                 <div class="pull-left definition_text_blue"></div>
                 <h4 class="container_H2 blue" th:text="${community.descriptionText}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>
@@ -114,12 +114,12 @@
               <div th:if="${community.descriptionVideo == null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${community.descriptionVideo != null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>
@@ -128,12 +128,12 @@
               <div th:if="${community.descriptionVideo == null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right add_black"/>
+                <div class="pull-right add_black"></div>
               </div>
               <div th:if="${community.descriptionVideo != null}">
                 <div class="pull-left description_movie_blue"></div>
                 <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
-                <div class="pull-right edit_black"/>
+                <div class="pull-right edit_black"></div>
               </div>
             </a>
           </li>

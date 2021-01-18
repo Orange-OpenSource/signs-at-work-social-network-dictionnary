@@ -35,3 +35,6 @@ alter table communities modify name varchar(255) character set utf8 collate utf8
 
 ---
 alter table favorites modify name varchar(255) character set utf8 collate utf8_bin;
+
+--
+update communities set user_id=1 where type='Job';

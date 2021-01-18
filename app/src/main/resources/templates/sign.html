@@ -42,7 +42,7 @@
               <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="pin_blue_in_frame"></div>
             </div>
               <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item"  th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""/>
+                    <iframe class="embed-responsive-item"  th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
               </div>
         </div>
 
@@ -54,9 +54,9 @@
                             <div>
                             <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
                             <div>
-                                <div class="pull-right chevron"/>
-                                <div th:if="${ratingData.ratePositive}" class="pull-right smiley_happy_blue"/>
-                                <div th:if="${ratingData.rateNegative}" class="pull-right smiley_unhappy_blue"/>
+                                <div class="pull-right chevron"></div>
+                                <div th:if="${ratingData.ratePositive}" class="pull-right smiley_happy_blue"></div>
+                                <div th:if="${ratingData.rateNegative}" class="pull-right smiley_unhappy_blue"></div>
                             </div>
                             </div>
                         </a>
@@ -67,7 +67,7 @@
                               <div class="pull-left smiley_happy_menu_blue"></div>
                               <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
                               <div>
-                                  <div class="pull-right chevron"/>
+                                <div class="pull-right chevron"></div>
                               </div>
                             </div>
                         </a>
@@ -78,7 +78,7 @@
                           <div class="pull-left variant_blue"></div>
                           <h2 class="container_H2" th:text="#{video.add}"></h2>
                           <div>
-                            <div class="pull-right add_black"/>
+                            <div class="pull-right add_black"></div>
                           </div>
                         </div>
                       </a>
@@ -89,7 +89,7 @@
                               <div class="pull-left commentary_blue"></div>
                               <h2 class="container_H2" th:text="#{sign.modal.comments}"></h2>
                               <div>
-                                  <div class="pull-right add_black"/>
+                                <div class="pull-right add_black"></div>
                               </div>
                             </div>
                         </a>
