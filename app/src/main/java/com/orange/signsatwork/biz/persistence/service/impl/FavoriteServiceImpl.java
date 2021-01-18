@@ -117,7 +117,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     FavoriteDB favoriteDB = withDBId(favoriteId);
     List<VideoDB> favoriteVideos = favoriteDB.getVideos();
     favoriteVideos.clear();
-    videoRepository.findAll(videosIds).forEach(favoriteVideos::add);
+    videoRepository.findAllById(videosIds).forEach(favoriteVideos::add);
     favoriteDB = favoriteRepository.save(favoriteDB);
     return favoriteFrom(favoriteDB, services);
   }
@@ -209,7 +209,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     favoriteCommunities.clear();
 
-    communityRepository.findAll(communitiesIds).forEach(favoriteCommunities::add);
+    communityRepository.findAllById(communitiesIds).forEach(favoriteCommunities::add);
     if (favoriteDB.getType() != FavoriteType.Share) {
       Long maxIdForName = maxIdForName(favoriteDB.getName(), favoriteId);
       if (maxIdForName != null) {

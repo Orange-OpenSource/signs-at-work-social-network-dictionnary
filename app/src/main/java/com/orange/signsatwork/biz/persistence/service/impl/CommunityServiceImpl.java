@@ -158,7 +158,7 @@ public class CommunityServiceImpl implements CommunityService {
     CommunityDB communityDB = withDBId(communityId);
     List<UserDB> communityUsers = communityDB.getUsers();
     communityUsers.clear();
-    userRepository.findAll(usersIds).forEach(communityUsers::add);
+    userRepository.findAllById(usersIds).forEach(communityUsers::add);
     communityDB = communityRepository.save(communityDB);
     return communityFrom(communityDB);
   }

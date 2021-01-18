@@ -22,10 +22,7 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
-import com.orange.signsatwork.biz.persistence.model.SignDB;
-import com.orange.signsatwork.biz.persistence.model.VideoDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
+import com.orange.signsatwork.biz.persistence.model.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -70,4 +67,7 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select a.rating, a.rating_date, b.username, b.first_name, b.last_name from ratings a inner join userdb b on a.user_id = b.id and a.video_id = :videoId", nativeQuery = true)
     List<Object[]> allRatingsForVideo(@Param("videoId") long videoId);
 
+    public default VideoDB findOne(long id) {
+    return findById(id).orElse(null);
+  }
 }

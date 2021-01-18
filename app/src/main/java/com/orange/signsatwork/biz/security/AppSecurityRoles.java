@@ -55,7 +55,7 @@ public class AppSecurityRoles {
   Iterable<UserRoleDB> createAndPersistRoles() {
     if (userRoleRepository.count() == 0) {
       log.info("Add user allRoles");
-      return userRoleRepository.save(allRoles());
+      return userRoleRepository.saveAll(allRoles());
     }
     return null;
   }

@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserService {
     List<PasswordResetTokenDB> passwordResetTokenDBList = passwordResetTokenRepository.findByUser(userDB);
     if (!passwordResetTokenDBList.isEmpty()) {
       for(PasswordResetTokenDB p: passwordResetTokenDBList) {
-        passwordResetTokenRepository.delete(p.getId());
+        passwordResetTokenRepository.deleteById(p.getId());
       }
     }
 

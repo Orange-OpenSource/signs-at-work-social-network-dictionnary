@@ -28,7 +28,7 @@ public class TokensPurgeTask {
        List<PasswordResetTokenDB> passwordResetTokenDBList = passwordTokenRepository.selectAllExpiredSince(now);
 
        for(PasswordResetTokenDB passwordResetTokenDB:passwordResetTokenDBList) {
-         passwordTokenRepository.delete(passwordResetTokenDB.getId());
+         passwordTokenRepository.deleteById(passwordResetTokenDB.getId());
        }
 
     }

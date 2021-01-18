@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.persistence.repository;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
+import com.orange.signsatwork.biz.persistence.model.VideoDB;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -53,4 +54,8 @@ public interface CommunityRepository extends CrudRepository<CommunityDB, Long> {
 
     @Query(value="select A.id, 'JobIBelow', A.name, A.user_id from communities A where A.type='Job' and A.id in (select B.communities_id from communities_users B where B.users_id= :userId) union select A.id, 'Job', A.name, A.user_id from communities A where A.type='Job' and A.id not in (select B.communities_id from communities_users B where B.users_id= :userId)",  nativeQuery = true)
     List<Object[]> findAllForJob(@Param("userId") long userId);
+
+    public default CommunityDB findOne(long id) {
+      return findById(id).orElse(null);
+    }
 }

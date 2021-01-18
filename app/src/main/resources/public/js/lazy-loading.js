@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
+console.log("Cool, lazy-loading.js is loaded :)");
 
 var SIGN_HIDDEN_CLASS = 'sign-view-hidden';
 var VIDEO_HIDDEN_CLASS = 'video-view-hidden';

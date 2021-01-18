@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -101,5 +102,9 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
 
     @Query(value="select count(*) from ratings r, videos v where r.video_id = v.id and v.sign_id =  :signId", nativeQuery = true)
     Long findNbRatingForSign(@Param("signId") long signId);
+
+    public default SignDB findOne(long id) {
+      return findById(id).orElse(null);
+    }
 
 }

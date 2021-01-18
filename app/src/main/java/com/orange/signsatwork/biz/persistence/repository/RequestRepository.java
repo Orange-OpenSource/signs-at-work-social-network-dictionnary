@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
@@ -77,4 +78,8 @@ public interface RequestRepository extends CrudRepository<RequestDB, Long> {
 
     @Query(value = "select * FROM requests where user_id != :userId and sign_id is null order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<RequestDB> findOtherRequestWithNoSignAlphabeticalOrderAsc(@Param("userId") long userId);
+
+    public default RequestDB findOne(long id) {
+      return findById(id).orElse(null);
+    }
   }

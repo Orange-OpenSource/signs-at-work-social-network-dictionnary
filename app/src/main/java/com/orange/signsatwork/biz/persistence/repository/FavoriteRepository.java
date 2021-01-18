@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
+import com.orange.signsatwork.biz.persistence.model.CommunityDB;
 import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import org.springframework.data.jpa.repository.Query;
@@ -60,4 +61,8 @@ public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
 
     @Query(value="select max(id_for_name) from favorites A, favorites_communities B where upper(A.name) = :favoriteName and A.id != :favoriteId and A.id = B.favorites_id", nativeQuery = true)
       Long findMaxIdForName(@Param("favoriteName") String favoriteName, @Param("favoriteId") Long favoriteId);
+
+    public default FavoriteDB findOne(long id) {
+      return findById(id).orElse(null);
+    }
 }
