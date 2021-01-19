@@ -33,7 +33,7 @@
         <div class="col-lg-12">
          <div class="labelVideo text_hyphenation" th:text="${article.name}" ></div>
          <div class="chevron_blue pull-right"></div>
-          <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${article.name}" th:with='cleaned=${#strings.replace(article.name, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${article.descriptionVideo} +'\',\''+  ${cleaned} + '\')'">
+          <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${article.name}" th:with='cleaned=${#strings.replace(article.name, "&apos;", "\&apos;")}' th:data-descriptionVideo="${article.descriptionVideo}" th:data-articleName="${cleaned}" th:onclick="'javascript:displayVideo(this.getAttribute('data-descriptionVideo'),this.getAttribute('data-articleName'))">
             <img th:attr="src=${article.descriptionPicture}, alt=${article.name}"/>
           </a>
           </div>

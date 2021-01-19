@@ -30,7 +30,7 @@
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a th:onclick="'javascript:onModifyCommunity(\'' + ${community.id}  +'\')'">
+        <a th:data-communityId="${community.id}" th:onclick="javascript:onModifyCommunity(this.getAttribute('data-communityId'))">
           <div class="back_bar_white pull-left"></div>
         </a>
         <a href="/" th:attr="aria-label=#{home}">

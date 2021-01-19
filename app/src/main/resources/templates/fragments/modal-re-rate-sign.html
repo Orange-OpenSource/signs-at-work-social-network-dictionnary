@@ -41,13 +41,13 @@
           <div class="modal-body">
             <ul class="nav nav-list primary left-menu">
               <li class="aside_bckg_li">
-                <a th:onclick="'javascript:onRatePositif('+ ${signView.id} + ',' + ${videoView.id}  +')' " href="#">
+                <a th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onRatePositif(this.getAttribute('data-signId'),this.getAttribute('data-videoId'))" href="#">
                   <div class="pull-left smiley_happy_blue"></div>
                   <h4 class="container_H2" th:text="#{sign.positif}"></h4>
                 </a>
               </li>
               <li class="aside_bckg_li">
-                <a  th:onclick="'javascript:onRateNegatif('+ ${signView.id} + ',' + ${videoView.id}  +')' " href="#">
+                <a  th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onRateNegatif(this.getAttribute('data-signId'),this.getAttribute('data-videoId'))" href="#">
                   <div class="pull-left smiley_unhappy_blue"></div>
                   <h4 class="container_H2" th:text="#{sign.negatif}"></h4>
                 </a>
@@ -62,7 +62,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " data-dismiss="modal"></button>
+        <button type="button" class="close" th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onContinueAfterRate(this.getAttribute('data-signId'),this.getAttibute('data-videoId'))" data-dismiss="modal"></button>
         <div class="pull-left">
           <div class="smiley_happy_menu_white pull-left"></div>
           <h2 th:if="${isAuthenticated and !ratingData.rateNoRate}" class="pull-right" th:text="#{sign.modal.reevaluate}"/>
@@ -84,7 +84,7 @@
       </div>
 
       <div class="modal-footer">
-        <button th:text="#{finish}" th:onclick="'javascript:onContinueAfterRate('+ ${signView.id} + ',' + ${videoView.id}  +')' " class="btn btn-default" data-dismiss=""></button>
+        <button th:text="#{finish}" th:data-signId="${signView.id}" th:data-videoId="${videoView.id}"th:onclick="javascript:onContinueAfterRate(this.getAttribute('data-signId'),this.getAttibute('data-videoId'))" class="btn btn-default" data-dismiss=""></button>
       </div>
     </div>
   </div>
