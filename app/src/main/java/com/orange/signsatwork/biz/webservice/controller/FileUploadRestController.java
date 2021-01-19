@@ -124,9 +124,9 @@ public class FileUploadRestController {
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
-    log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
 
-    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorFileSize");
     }
@@ -658,9 +658,9 @@ public class FileUploadRestController {
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
-    log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
 
-    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorFileSize");
     }
@@ -1008,9 +1008,9 @@ public class FileUploadRestController {
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
-    log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
 
-    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       requestResponse.errorMessage = messageByLocaleService.getMessage("errorFileSize");
       return requestResponse;
@@ -1196,9 +1196,9 @@ public class FileUploadRestController {
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
-    log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
 
-    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorFileSize");
     }
@@ -1452,9 +1452,9 @@ public class FileUploadRestController {
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
-    log.info("taille max "+parseSize(environment.getProperty("spring.http.multipart.max-file-size")));
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
 
-    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.http.multipart.max-file-size"))) {
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorFileSize");
     }

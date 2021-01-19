@@ -11,8 +11,8 @@ spring.h2.console.enabled: false
 #spring.jpa.hibernate.ddl-auto: create-drop
 spring.jpa.hibernate.ddl-auto: update
 
-spring.servlet.multipart.max-file-size: 500Mb
-spring.servlet.multipart.max-request-size: 500Mb
+spring.servlet.multipart.max-file-size: 500MB
+spring.servlet.multipart.max-request-size: 500MB
 
 management.security.enabled: true
 management.context-path: /admin/
