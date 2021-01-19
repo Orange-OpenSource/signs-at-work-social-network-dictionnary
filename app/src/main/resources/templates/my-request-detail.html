@@ -101,7 +101,7 @@
         </a>
         </li>
         <li class="aside_bckg_li">
-          <a  th:onclick="'javascript:onPrioriseRequest('+ ${requestView.id}  +')' " href="#">
+          <a  th:data-requestId="${requestView.id}" th:onclick="javascript:onPrioriseRequest(this.getAttribute('data-requestId'))" href="#">
             <div class="pull-left prio_blue"></div>
             <h4 class="container_H2" th:text="#{request.priorise}"/>
             <div><div class="pull-right chevron"></div></div>
@@ -165,7 +165,7 @@
             </a>
           </li>
           <li class="aside_bckg_li">
-            <a  th:onclick="'javascript:onPrioriseRequest('+ ${requestView.id}  +')' " href="#">
+            <a  th:data-requestId="${requestView.id}" th:onclick="javascript:onPrioriseRequest(this.getAttribute('data-requestId'))" href="#">
               <div class="pull-left prio_blue"></div>
               <h4 class="container_H2" th:text="#{request.priorise}"/>
               <div><div class="pull-right chevron"></div></div>
@@ -254,7 +254,7 @@
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
-        <button type="submit" th:onclick="'javascript:onDeleteRequest('+ ${requestView.id}  +')' "  data-dismiss=""  class="btn btn-default pull-right">
+        <button type="submit" th:data-requestId="${requestView.id}" th:onclick="javascript:onDeleteRequest(this.getAttribute('data-requestId'))"  data-dismiss=""  class="btn btn-default pull-right">
           <div class="v-done2_blue center-block"></div>
           <span th:text="#{confirm}"></span>
         </button>

@@ -43,7 +43,7 @@
               <li class="aside_bckg_li">
                 <div th:if="${user.namePicture != null}" style="display: inline;">
                   <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.nameVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
+                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:data-nameVideo="${user.nameVideo}" th:data-nameUser="${cleaned}" th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-nameUser'))" style="margin-left: 35px;">
                     <img th:src="${user.namePicture}" th:attr="alt=#{name_LSF}" style="margin-bottom: 10px;width: 40%"/>
                   </a>
                   <div style="display: inline-grid; float: right">
@@ -118,7 +118,7 @@
               <li class="aside_bckg_li">
                 <div th:if="${user.jobDescriptionPicture != null}" style="display: inline;">
                   <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${user.job} + '\')'" style="margin-left: 35px;">
+                  <a data-target="#play_video" data-toggle="modal" href="#" th:data-jobDescriptionVideo="${user.jobDescriptionVideo}" th:data-job="${user.job}" th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo',this.getAttribute('data-job'))" style="margin-left: 35px;">
                     <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px; width:40%"/>
                   </a>
                   <div style="display: inline-grid; float: right">
@@ -169,7 +169,7 @@
               <li th:if="${user.namePicture != null}" class="aside_bckg_li">
                 <div style="display: inline;">
                   <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${user.nameVideo} +'\',\''+  ${cleaned} + '\')'" style="margin-left: 35px;">
+                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:data-nameVideo="${user.nameVideo}" th:data-nameUser="${cleaned}" th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-userName'))" style="margin-left: 35px;">
                     <img th:src="${user.namePicture}" th:attr="alt=#{name_LSF}" style="margin-bottom: 10px; width: 40%"/>
                   </a>
                 </div>
@@ -201,7 +201,7 @@
               <li th:if="${user.jobDescriptionPicture != null}"  class="aside_bckg_li">
                 <div style="display: inline;">
                   <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:onclick="'javascript:displayVideo(\'' + ${user.jobDescriptionVideo} +'\',\''+  ${user.job} + '\')'" style="margin-left: 35px;">
+                  <a data-target="#play_video" data-toggle="modal" href="#" th:data-jobDescriptionVideo="${user.jobDescriptionVideo}" th:data-job="${user.job}" th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo'),this.getAttribute('data-job'))" style="margin-left: 35px;">
                     <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px; width: 40%"/>
                   </a>
                 </div>
@@ -232,7 +232,7 @@
                       <div class="labelSigne text_hyphenation" th:text="${videoView.videoName}"></div>
                       <div class="chevron_blue pull-right"></div>
                     </a>
-                    <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
+                    <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:data-url="${videoView.url}" th:data-name="${cleaned}" th:data-idForName="${videoView.idForName}" th:data-nbVideo="${videoView.nbVideo}" th:onclick="javascript:displayVideo(this.getAttribute('data-url'),this.getAttribute('data-name'),this.getAttribute('data-idForName'),this.getAttribute('data-nbVideo'))">
                     <!--<a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
                       <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
                       <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>

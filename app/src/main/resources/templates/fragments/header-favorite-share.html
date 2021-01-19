@@ -30,7 +30,7 @@
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a th:onclick="'javascript:onAssociateFavoriteCommunities(\''+ ${favoriteProfileView.favorite.id} + '\',\'' +${communityId} + '\')'">
+        <a th:data-favoriteId="${favoriteProfileView.favorite.id}" th:data-communityId="${communityId}" th:onclick="javascript:onAssociateFavoriteCommunities(this.getAttribute('data-favoriteId'),this.getAttribute('data-communityId'))">
           <div class="back_bar_white pull-left"></div>
         </a>
         <a href="/" th:attr="aria-label=#{home}">

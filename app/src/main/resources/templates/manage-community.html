@@ -99,7 +99,7 @@
                 <div class="x-close2_black center-block"></div>
                 <span th:text="#{cancel}"></span>
               </button>
-              <button type="submit" th:onclick="'javascript:onDeleteCommunity(\''+ ${community.id} + '\')'"  class="btn btn-default pull-right" data-dismiss="">
+              <button type="submit" th:data-communityId="${community.id}" th:onclick="javascript:onDeleteCommunity(this.getAttribute('data-communityId'))"  class="btn btn-default pull-right" data-dismiss="">
                 <div class="v-done2_blue center-block"></div>
                 <span th:text="#{confirm}"></span>
               </button>
@@ -128,7 +128,7 @@
                 <div class="x-close2_black center-block"></div>
                 <span th:text="#{cancel}"></span>
               </button>
-                <button id="submit-rename-modal" type="submit" th:onclick="'javascript:onRenameCommunity(\'' + ${community.id} + '\')'" class="btn btn-default pull-right" data-dismiss="">
+                <button id="submit-rename-modal" type="submit" th:data-communityId="${community.id}" th:onclick="javascript:onRenameCommunity(this.getAttribute('data-communityId'))" class="btn btn-default pull-right" data-dismiss="">
                   <div class="v-done2_blue center-block"></div>
                   <span th:text="#{continue}"></span>
                 </button>
@@ -155,7 +155,7 @@
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
-        <button type="submit" th:onclick="'javascript:onRemoveMeFromCommunity(\'' + ${community.id} + '\',\'' + ${user.id}  +'\')'"  class="btn btn-default pull-right" data-dismiss="">
+        <button type="submit" th:data-communityId="${community.id}" th:data-userId="${user.id}" th:onclick="javascript:onRemoveMeFromCommunity(this.getAttribute('data-communityId'),this.getAttribute('data-userId'))"  class="btn btn-default pull-right" data-dismiss="">
           <div class="v-done2_blue center-block"></div>
           <span th:text="#{confirm}"></span>
         </button>

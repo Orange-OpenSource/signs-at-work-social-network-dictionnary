@@ -46,7 +46,7 @@
             <div class="labelVideo text_hyphenation" th:text="${videoView.videoName}" ></div>
             <div class="chevron_blue pull-right"></div>
           </a>
-          <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:onclick="'javascript:displayVideo(\'' + ${videoView.url} +'\',\''+  ${cleaned} +'\',\''+ ${videoView.idForName}+'\',\''+ ${videoView.nbVideo}+ '\')'">
+          <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:data-url="${videoView.url}" th:data-name="${cleaned}" th:data-idForName="${videoView.idForName}" th:data-nbVideo="${videoView.nbVideo}" th:onclick="javascript:displayVideo(this.getAttribute('data-url'),this.getAttribute('data-name'),this.getAttribute('data-idForName'),this.getAttribute('data-nbVideo'))">
           <!--<a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
              <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
              <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>

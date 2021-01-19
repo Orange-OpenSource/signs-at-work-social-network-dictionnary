@@ -88,7 +88,7 @@
           </a>
         </li>
         <li th:if="${!isSignAlreadyExist and requestId != 0 and !isIOSDevice}" class="aside_bckg_li">
-          <a th:attr="data-target='#suggest' " th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} +'\', '+ ${isIOSDevice} + ')'" data-toggle="modal" href="#">
+          <a th:attr="data-target='#suggest' " th:data-id="${requestId}" th:data-name="${signName}" th:data-isIOSDevice="${isIOSDevice}" th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))" data-toggle="modal" href="#">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>
@@ -106,7 +106,7 @@
           </a>
         </li>
         <li th:if="${!isSignAlreadyExist and requestId != 0 and isIOSDevice}" class="aside_bckg_li">
-          <a th:onclick="'javascript:onRequestClick('+ ${requestId} +', \' '+ ${signName} +'\', '+ ${isIOSDevice} + ')'" href="#">
+          <a th:data-id="${requestId}" th:data-name="${signName}" th:data-isIOSDevice="${isIOSDevice}" th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))" href="#">
             <div class="pull-left description_movie_blue"></div>
             <h4 class="container_H2" th:text="#{sign.create}"/>
             <div>

@@ -44,7 +44,7 @@
                     <div class="x-close2_black center-block"></div>
                     <span th:text="#{cancel}"></span>
                   </button>
-                  <button id="submit-add-community-description-text" type="submit" th:onclick="'javascript:addCommunityDescriptionText(\'' + ${community.id} + '\')'" class="btn btn-default pull-right"
+                  <button id="submit-add-community-description-text" type="submit" th:data-communityId="${community.id}" th:onclick="javascript:addCommunityDescriptionText(this.getAttribute('data-communityId'))" class="btn btn-default pull-right"
                           data-dismiss="">
                     <div class="v-done2_blue center-block"></div>
                     <span th:text="#{continue}"></span>

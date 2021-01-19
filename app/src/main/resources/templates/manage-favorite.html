@@ -101,7 +101,7 @@
                 <div class="x-close2_black center-block"></div>
                 <span th:text="#{cancel}"></span>
               </button>
-              <button type="submit" th:onclick="'javascript:onDeleteFavorite(\''+ ${favoriteManageView.id} + '\')'"  class="btn btn-default pull-right" data-dismiss="">
+              <button type="submit" th:data-favoriteId="${favoriteManageView.id}" th:onclick="javascript:onDeleteFavorite(this.getAttribute('data-favoriteId'))"  class="btn btn-default pull-right" data-dismiss="">
                 <div class="v-done2_blue center-block"></div>
                 <span th:text="#{confirm}"></span>
               </button>
@@ -133,7 +133,7 @@
                 <div class="x-close2_black center-block"></div>
                 <span th:text="#{cancel}"></span>
               </button>
-                <button id="submit-rename-modal" type="submit" th:onclick="'javascript:onRenameFavorite(\'' + ${favoriteId} + '\')'" class="btn btn-default pull-right"
+                <button id="submit-rename-modal" type="submit" th:data-favoriteId="${favoriteId}" th:onclick="javascript:onRenameFavorite(this.getAttribute('data-favoriteId'))" class="btn btn-default pull-right"
                         data-dismiss="">
                   <div class="v-done2_blue center-block"></div>
                   <span th:text="#{continue}"></span>
@@ -169,7 +169,7 @@
                 <div class="x-close2_black center-block"></div>
                 <span th:text="#{cancel}"></span>
               </button>
-              <button type="submit" th:onclick="'javascript:onDuplicateFavorite(\'' + ${favoriteId} + '\')'" class="btn btn-default pull-right"
+              <button type="submit" th:data-favoriteId="${favoriteId}" th:onclick="javascript:onDuplicateFavorite(this.getAttribute('data-favoriteId'))" class="btn btn-default pull-right"
                       data-dismiss="">
                 <div class="v-done2_blue center-block"></div>
                 <span th:text="#{continue}"></span>

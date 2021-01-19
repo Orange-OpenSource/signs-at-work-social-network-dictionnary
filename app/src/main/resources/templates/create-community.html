@@ -34,8 +34,8 @@
 <div th:fragment="div">
     <div th:replace="fragments/frame-favorite-create-community :: div"/>
   <div class="footer">
-    <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueCommunity(\'' + ${backUrl} + '\')'"></button>
-    <button class="btn btn-default" th:onclick="'javascript:onCreateCommunity(\'' + ${communityName} + '\')'" th:text="#{validate}"></button>
+    <button class="btn btn-secondary" th:data-backUrl="${backUrl}" th:text="#{undo}" th:onclick="javascript:onContinueCommunity(this.getAttribute('data-backUrl')"></button>
+    <button class="btn btn-default" th:data-name="${communityName}" th:onclick="javascript:onCreateCommunity(this.getAttribute('data-name'))" th:text="#{validate}"></button>
   </div>
 </div>
 

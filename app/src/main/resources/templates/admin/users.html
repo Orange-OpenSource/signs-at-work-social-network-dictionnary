@@ -83,7 +83,7 @@
                         <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
                           <span th:text="#{cancel}"></span>
                         </button>
-                        <button type="submit" th:text="#{confirm}" th:onclick="'javascript:onDeleteUser('+ ${user.id}  +')' "  data-dismiss=""  class="btn btn-default"></button>
+                        <button type="submit" th:text="#{confirm}" th:data-id="${user.id}" th:onclick="javascript:onDeleteUser(this.getAttribute('data-id')"  data-dismiss=""  class="btn btn-default"></button>
                       </div>
                     </div>
                   </div>

@@ -30,7 +30,7 @@
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a th:onclick="'javascript:onCreateCommunity(\'' + ${communityName} +'\')'">
+        <a th:data-name="${communityName}" th:onclick="javascript:onCreateCommunity(this.getAttribute('data-name'))">
           <div class="back_bar_white pull-left"></div>
         </a>
         <a href="/">
