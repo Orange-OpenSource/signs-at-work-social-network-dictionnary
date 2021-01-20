@@ -86,6 +86,6 @@ public class CaptchaService implements ICaptchaService {
 
   @Bean
   RestOperations rest(RestTemplateBuilder restTemplateBuilder) {
-    return restTemplateBuilder.basicAuthorization("user", "password").build();
+    return restTemplateBuilder.basicAuthentication("user", "password").build();
   }
 }
