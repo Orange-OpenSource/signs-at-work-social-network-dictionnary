@@ -34,7 +34,10 @@ function onRequestClick(id, name, isIOSDevice){
   signNameSelected.value =$.trim(name);
 
   console.log("request id =" + id );
-  if (isIOSDevice) {
+  console.log("name =" + name);
+  console.log("isIOSDevice = " + isIOSDevice);
+  if (isIOSDevice == "true") {
+    console.log("onClick");
     onClick();
   }
 }
