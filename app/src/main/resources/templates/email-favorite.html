@@ -5,15 +5,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="#{hello}">Bonjour</p>
+<p th:text="#{hello}">Bonjour,</p>
 <p th:text="#{favorite_share_by_user_body_1(${user_name}, ${favorite_name})}">Manuel Sanchez a partagé la liste obelix avec vous.</p>
 <p th:text="#{favorite_share_by_user_body_2(${url})}">Vous pouvez la consulter via le lien suivant https://signsatwork.orange-labs.f/sec/favorite/37</p>
 <p th:text="#{thank}">Merci</p>
-<P><b>${appName}</b></P>
+<p style="font-weight: bold" th:text="${appName}"></p>
 <p>
   <img width="100" height="40" th:src="|cid:${imageResourceName}|"/>
 </p>
-<p style="color:red;" th:text="#{mail_footer_1}">NB : cet email est un envoi automatique de l'application</p>
-<p style="color:red;" th:text="#{mail_footer_2}">Merci de ne pas y répondre</p>
+<p th:utext="#{mail_footer}">NB : cet email est un envoi automatique de l'application. Merci de ne pas y repondre</p>
 </body>
 </html>
