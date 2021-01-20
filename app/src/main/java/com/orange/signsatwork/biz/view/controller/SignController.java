@@ -45,6 +45,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -995,12 +996,9 @@ public class SignController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/sign/search")
-  public String searchSign(@ModelAttribute SignCreationView signCreationView, @RequestParam("id") Long requestId) {
-    if (requestId == null) {
-      requestId = 0L;
-    }
+  public String searchSign(@ModelAttribute SignCreationView signCreationView, @RequestParam("id") Optional<Long> requestId) {
     String name = signCreationView.getSignName();
-    return "redirect:/sec/signs-suggest?name=" + URLEncoder.encode(name) + "&id=" + requestId;
+    return "redirect:/sec/signs-suggest?name=" + URLEncoder.encode(name) + "&id=" + requestId.orElse(0L);
   }
 
   public static String stripAccents(String s) {
