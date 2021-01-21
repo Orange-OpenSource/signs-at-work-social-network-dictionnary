@@ -37,7 +37,6 @@ import com.orange.signsatwork.biz.webservice.model.*;
 import com.orange.signsatwork.biz.webservice.model.SignView;
 import com.orange.signsatwork.biz.webservice.model.VideoView;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.CORBA.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
