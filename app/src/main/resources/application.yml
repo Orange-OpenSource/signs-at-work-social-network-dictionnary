@@ -41,3 +41,5 @@ spring:
 
 #    5am every day
 purge.cron.expression: 0 0 5 * * ?
+
+spring.jackson.serialization.write-dates-as-timestamps: true
