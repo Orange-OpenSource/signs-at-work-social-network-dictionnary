@@ -478,7 +478,7 @@ public class RequestRestController {
         User user = services.user().withUserName(principal.getName());
         storageService.store(file);
         File inputFile = storageService.load(file.getOriginalFilename()).toFile();
-        log.info("Aprés storage et load file");
+        log.info("Aprés storage et load file " +inputFile.getAbsolutePath());
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
