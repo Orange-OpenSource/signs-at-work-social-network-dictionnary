@@ -1,8 +1,8 @@
 language: java
-dist: focal
+dist: trusty
 sudo: false
 jdk:
-- openjdk8
+- oraclejdk8
 node_js:
 - 8.2.1
 install:
