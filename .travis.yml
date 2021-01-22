@@ -1,5 +1,5 @@
 language: java
-dist: debian
+dist: buster
 sudo: false
 jdk:
 - oraclejdk11
