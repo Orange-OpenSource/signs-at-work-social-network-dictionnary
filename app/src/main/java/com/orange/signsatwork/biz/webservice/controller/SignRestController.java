@@ -222,7 +222,7 @@ public class SignRestController {
 
   }
 
-  @RequestMapping(value = RestApi.SIGNS_VIDEOS)
+  @RequestMapping(value = RestApi.WS_ROOT_SIGNS_VIDEOS)
   public ResponseEntity<?> videosForSignWithoutUser(@PathVariable long signId, Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
@@ -330,6 +330,127 @@ public class SignRestController {
       videoBelowToFavorite.contains(videoViewData.videoId));
   }
 
+  @RequestMapping(value = RestApi.WS_ROOT_SIGNS)
+  public ResponseEntity<?> signsWithoutUser(@RequestParam("sort") Optional<String> sort, @RequestParam("name") Optional<String> name,  Principal principal) {
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+    List<Object[]> querySigns;
+    List<Long> signWithRatingList = new ArrayList<>();
+    String messageError;
+
+    if (sort.isPresent()) {
+      if (sort.get().equals("date")) {
+        querySigns = services.sign().mostRecentWithoutDate();
+      } else if (sort.get().equals("-date")) {
+        querySigns = services.sign().lowRecentWithoutDate();
+      } else if (sort.get().equals("name")) {
+        querySigns = services.sign().SignsAlphabeticalOrderAscSignsView();
+      } else if (sort.get().equals("-name")) {
+        querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
+      } else if (sort.get().equals("averageRating")) {
+        querySigns = services.sign().SignsForSignsView();
+        signWithRatingList = Arrays.asList(services.sign().mostRating());
+      } else if (sort.get().equals("-averageRating")) {
+        querySigns = services.sign().SignsForSignsView();
+        signWithRatingList = Arrays.asList(services.sign().lowRating());
+      } else {
+        messageError = messageByLocaleService.getMessage("filter_not_exits", new Object[]{sort.get()});
+        return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
+      }
+    } else {
+      querySigns = services.sign().SignsForSignsView();
+    }
+
+    List<SignViewData> signViewsData = querySigns.stream()
+      .map(objectArray -> new SignViewData(objectArray))
+      .collect(Collectors.toList());
+
+
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+
+    List<SignView2> signViews = new ArrayList<>();
+    List<Long> signInFavorite = new ArrayList<>();
+
+    if (user != null) {
+      signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+    }
+
+
+    if (sort.isPresent()) {
+      if (sort.get().equals("averageRating") || sort.get().equals("-averageRating")) {
+        List<Long> finalSignWithRatingList = signWithRatingList;
+        List<SignViewData> rating = signViewsData.stream()
+          .filter(signViewData -> finalSignWithRatingList.contains(signViewData.id))
+          .sorted(new CommentOrderComparator(signWithRatingList))
+          .collect(Collectors.toList());
+        if (user != null) {
+          List<Long> finalSignInFavorite1 = signInFavorite;
+          signViews = rating.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite1, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = rating.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
+
+      } else if (sort.get().equals("date") || sort.get().equals("-date") || sort.get().equals("name") || sort.get().equals("-name")) {
+        if (user != null) {
+          List<Long> finalSignInFavorite = signInFavorite;
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
+      }
+    } else {
+      if (name.isPresent()) {
+        List<Object[]> querySignsByName = services.sign().searchBis(name.get().toUpperCase());
+        List<SignViewData> signViewsDataByName = querySignsByName.stream()
+          .map(objectArray -> new SignViewData(objectArray))
+          .collect(Collectors.toList());
+        if (user != null) {
+          List<Long> finalSignInFavorite3 = signInFavorite;
+          signViews = signViewsDataByName.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite3, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = signViewsDataByName.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
+
+      } else {
+        if (user != null) {
+          List<Long> finalSignInFavorite2 = signInFavorite;
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite2, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
+
+      }
+    }
+
+
+
+    if (!sort.isPresent()) {
+      SignsViewSort2 signsViewSort2 = new SignsViewSort2();
+      signViews = signsViewSort2.sort(signViews, false);
+    }
+
+    return  new ResponseEntity<>(signViews, HttpStatus.OK);
+  }
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SIGNS)
   public ResponseEntity<?> signs(@RequestParam("sort") Optional<String> sort, @RequestParam("name") Optional<String> name,  Principal principal) {
@@ -375,7 +496,10 @@ public class SignRestController {
     List<SignView2> signViews = new ArrayList<>();
     List<Long> signInFavorite = new ArrayList<>();
 
-    signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+    if (user != null) {
+      signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+    }
+
 
     if (sort.isPresent()) {
       if (sort.get().equals("averageRating") || sort.get().equals("-averageRating")) {
@@ -384,15 +508,28 @@ public class SignRestController {
           .filter(signViewData -> finalSignWithRatingList.contains(signViewData.id))
           .sorted(new CommentOrderComparator(signWithRatingList))
           .collect(Collectors.toList());
-        List<Long> finalSignInFavorite1 = signInFavorite;
-        signViews = rating.stream()
-          .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite1, user))
-          .collect(Collectors.toList());
+        if (user != null) {
+          List<Long> finalSignInFavorite1 = signInFavorite;
+          signViews = rating.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite1, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = rating.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
+
       } else if (sort.get().equals("date") || sort.get().equals("-date") || sort.get().equals("name") || sort.get().equals("-name")) {
-        List<Long> finalSignInFavorite = signInFavorite;
-        signViews = signViewsData.stream()
-          .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite, user))
-          .collect(Collectors.toList());
+        if (user != null) {
+          List<Long> finalSignInFavorite = signInFavorite;
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
       }
     } else {
       if (name.isPresent()) {
@@ -400,17 +537,29 @@ public class SignRestController {
         List<SignViewData> signViewsDataByName = querySignsByName.stream()
           .map(objectArray -> new SignViewData(objectArray))
           .collect(Collectors.toList());
-
-        List<Long> finalSignInFavorite3 = signInFavorite;
-        signViews = signViewsDataByName.stream()
-          .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite3, user))
-          .collect(Collectors.toList());
+        if (user != null) {
+          List<Long> finalSignInFavorite3 = signInFavorite;
+          signViews = signViewsDataByName.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite3, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = signViewsDataByName.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
 
       } else {
-        List<Long> finalSignInFavorite2 = signInFavorite;
-        signViews = signViewsData.stream()
-          .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite2, user))
-          .collect(Collectors.toList());
+        if (user != null) {
+          List<Long> finalSignInFavorite2 = signInFavorite;
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite2, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = signViewsData.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
+
       }
     }
 
@@ -432,6 +581,14 @@ public class SignRestController {
       signWithView.contains(signViewData.id),
       signWithPositiveRate.contains(signViewData.id),
       signInFavorite.contains(signViewData.id));
+  }
+
+  private SignView2 buildSignViewWithOutFavorite(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate) {
+    return new SignView2(
+      signViewData,
+      signWithCommentList.contains(signViewData.id),
+      signWithView.contains(signViewData.id),
+      signWithPositiveRate.contains(signViewData.id));
   }
 
   private SignView2 buildSignView(Sign sign, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<Long> signInFavorite, User user) {

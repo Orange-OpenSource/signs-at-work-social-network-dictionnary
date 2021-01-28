@@ -598,7 +598,7 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
   if (isAuthenticated == "true") {
     get_url = "/ws/sec/signs/"+ id + "/videos";
   } else {
-    get_url = "/signs/"+ id + "/videos";
+    get_url = "/ws/signs/"+ id + "/videos";
   }
   console.log(get_url);
 
