@@ -955,7 +955,7 @@ public class FileUploadRestController {
                 Request finalRequest = request;
                 Runnable task = () -> {
                   log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id );
+                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale() );
                 };
 
                 new Thread(task).start();
@@ -1148,7 +1148,7 @@ public class FileUploadRestController {
               Request finalRequest = request;
               Runnable task = () -> {
                 log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id );
+                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
               };
 
               new Thread(task).start();
@@ -1581,7 +1581,7 @@ public class FileUploadRestController {
             title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
             log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity);
+            services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
           };
 
           new Thread(task).start();
@@ -1701,7 +1701,7 @@ public class FileUploadRestController {
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity);
+              services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
             };
 
             new Thread(task).start();

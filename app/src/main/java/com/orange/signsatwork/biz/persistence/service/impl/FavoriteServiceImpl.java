@@ -38,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -200,7 +201,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
 
   @Override
-  public Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName, String url) {
+  public Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName, String url, Locale locale) {
     List<String> emails;
     String title, bodyMail;
     FavoriteDB favoriteDB = withDBId(favoriteId);
@@ -251,7 +252,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendFavoriteShareMessage(emails.toArray(new String[emails.size()]), title, userName, favorite.favoriteName(), url + "/sec/favorite/" + favorite.id);
+          services.emailService().sendFavoriteShareMessage(emails.toArray(new String[emails.size()]), title, userName, favorite.favoriteName(), url + "/sec/favorite/" + favorite.id, locale);
         };
 
         new Thread(task).start();

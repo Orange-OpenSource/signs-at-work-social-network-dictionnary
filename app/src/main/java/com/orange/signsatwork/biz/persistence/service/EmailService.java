@@ -22,27 +22,29 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
+import java.util.Locale;
+
 public interface EmailService {
 
   public void sendSimpleMessage(String to, String subject, String text);
 
-  public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url);
+  public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url, Locale locale);
 
-  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url);
+  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url, Locale locale);
 
-  public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url);
+  public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
 
-  public void sendCommunityDeleteMessage(String[] to, String subject, String userName, String communityName);
+  public void sendCommunityDeleteMessage(String[] to, String subject, String userName, String communityName, Locale locale);
 
-  public void sendCommunityRemoveMessage(String[] to, String subject, String communityName);
+  public void sendCommunityRemoveMessage(String[] to, String subject, String communityName, Locale locale);
 
-  public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url);
+  public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url, Locale locale);
 
-  public void sendResetPasswordMessage(String to, String subject, String url);
+  public void sendResetPasswordMessage(String to, String subject, String url, Locale locale);
 
-  public void sendCreatePasswordMessage(String to, String subject, String username, String url);
+  public void sendCreatePasswordMessage(String to, String subject, String username, String url, Locale locale);
 
-  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url);
+  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
 
-  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url);
+  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url, Locale locale);
 }

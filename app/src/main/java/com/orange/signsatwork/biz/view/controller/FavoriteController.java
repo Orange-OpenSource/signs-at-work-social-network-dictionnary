@@ -341,7 +341,7 @@ public class FavoriteController {
     List<Long> communitiesIds =
       transformCommunitiesIdsToLong(req.getParameterMap().get("favoriteCommunitiesIds"));
 
-    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds, user.name(), getAppUrl(req));
+    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds, user.name(), getAppUrl(req), req.getLocale());
 
     return showFavorite(favoriteId);
   }

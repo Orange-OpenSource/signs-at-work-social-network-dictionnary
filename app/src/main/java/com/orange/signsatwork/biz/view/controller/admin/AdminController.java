@@ -156,7 +156,7 @@ public class AdminController {
 
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, userCreationView.getUsername(), url);
+        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, userCreationView.getUsername(), url, request.getLocale());
       };
 
       new Thread(task).start();
@@ -238,7 +238,7 @@ public class AdminController {
 
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-        services.emailService().sendCreatePasswordMessageAfterChangeEmail(userCreationView.getUsername(), title,  url);
+        services.emailService().sendCreatePasswordMessageAfterChangeEmail(userCreationView.getUsername(), title,  url, request.getLocale());
       };
 
       new Thread(task).start();

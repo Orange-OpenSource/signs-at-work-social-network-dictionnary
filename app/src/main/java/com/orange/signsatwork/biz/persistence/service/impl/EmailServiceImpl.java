@@ -42,6 +42,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 
 @Component
 public class EmailServiceImpl implements EmailService {
@@ -57,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
   @Autowired
   TemplateEngine templateEngine;
 
-  public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url) {
+  public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -71,7 +72,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("user_name", userName);
       ctx.setVariable("request_name", requestName);
       ctx.setVariable("url", url);
@@ -105,7 +106,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url) {
+  public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -119,7 +120,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("user_name", userName);
       ctx.setVariable("favorite_name", favoriteName);
       ctx.setVariable("url", url);
@@ -152,7 +153,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url) {
+  public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -166,7 +167,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("url", url);
@@ -199,7 +200,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url) {
+  public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -213,7 +214,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("old_name", oldName);
       ctx.setVariable("new_name", newName);
       ctx.setVariable("url", url);
@@ -246,7 +247,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityDeleteMessage(String[] to, String subject, String userName, String communityName) {
+  public void sendCommunityDeleteMessage(String[] to, String subject, String userName, String communityName, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -260,7 +261,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("imageResourceName", imageName);
@@ -292,7 +293,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityRemoveMessage(String[] to, String subject, String communityName) {
+  public void sendCommunityRemoveMessage(String[] to, String subject, String communityName, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -306,7 +307,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
@@ -336,7 +337,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendResetPasswordMessage(String to, String subject, String url) {
+  public void sendResetPasswordMessage(String to, String subject, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -350,7 +351,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
@@ -381,7 +382,7 @@ public class EmailServiceImpl implements EmailService {
   }
 
 
-  public void sendCreatePasswordMessage(String to, String subject, String username, String url) {
+  public void sendCreatePasswordMessage(String to, String subject, String username, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -395,7 +396,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("username", username);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", imageName);
@@ -426,7 +427,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url) {
+  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -440,7 +441,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
@@ -470,7 +471,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url) {
+  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -484,7 +485,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setTo(to);
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
-      Context ctx = new Context();
+      Context ctx = new Context(locale);
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("url", url);

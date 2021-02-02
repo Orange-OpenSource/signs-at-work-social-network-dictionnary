@@ -82,7 +82,7 @@ public class FavoriteRestController {
   public String favoriteAssociateCommunity(@RequestBody List<Long> favoriteCommunitiesIds, @PathVariable long favoriteId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
 
     User user = services.user().withUserName(principal.getName());
-    Favorite favorite = services.favorite().changeFavoriteCommunities(favoriteId, favoriteCommunitiesIds, user.name(), getAppUrl(request));
+    Favorite favorite = services.favorite().changeFavoriteCommunities(favoriteId, favoriteCommunitiesIds, user.name(), getAppUrl(request), request.getLocale());
     favorite = favorite.loadCommunities();
     response.setStatus(HttpServletResponse.SC_OK);
     List<String> communitiesName = favorite.communities.stream().map(c -> c.name).collect(Collectors.toList());
@@ -318,7 +318,7 @@ public class FavoriteRestController {
         }
       } else {
         if (favoriteCreationViewApi.getCommunitiesIds() != null) {
-          services.favorite().changeFavoriteCommunities(favorite.id, favoriteCreationViewApi.getCommunitiesIds(), user.name(), getAppUrl(request));
+          services.favorite().changeFavoriteCommunities(favorite.id, favoriteCreationViewApi.getCommunitiesIds(), user.name(), getAppUrl(request), request.getLocale());
         }
       }
     }

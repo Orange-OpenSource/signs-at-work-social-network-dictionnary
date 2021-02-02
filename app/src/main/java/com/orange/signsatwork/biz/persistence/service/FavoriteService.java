@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.Favorites;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface FavoriteService {
   Favorites all();
@@ -54,7 +55,7 @@ public interface FavoriteService {
 
   Favorite changeFavoriteVideos(long favoriteId, List<Long> videosIds);
 
-  Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName, String url);
+  Favorite changeFavoriteCommunities(long favoriteId, List<Long> communitiesIds, String userName, String url, Locale locale);
 
   void delete(Favorite favorite);
 

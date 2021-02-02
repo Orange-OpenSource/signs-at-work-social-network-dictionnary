@@ -98,7 +98,7 @@ public class RequestRestController {
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id );
+          services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id, req.getLocale());
         };
 
         new Thread(task).start();
@@ -444,7 +444,7 @@ public class RequestRestController {
 
           Runnable task = () -> {
             log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id);
+            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id, req.getLocale());
           };
 
           new Thread(task).start();
@@ -579,7 +579,7 @@ public class RequestRestController {
                 Request finalRequest = request;
                 Runnable task = () -> {
                   log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id );
+                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
                 };
 
                 new Thread(task).start();
