@@ -43,3 +43,5 @@ spring:
 purge.cron.expression: 0 0 5 * * ?
 
 spring.jackson.serialization.write-dates-as-timestamps: true
+
+spring.jpa.properties.hibernate.id.new_generator_mappings: false
