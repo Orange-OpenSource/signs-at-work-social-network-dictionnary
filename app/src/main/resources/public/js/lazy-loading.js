@@ -583,7 +583,7 @@ function displayVideoForFavoriteFilter(url, name, idForName, nbVideo) {
     document.getElementById("videoName").innerText = name + '_' + idForName;
   }
 
-  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
 }
 
 function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
@@ -627,7 +627,7 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
     })
   }
 
-  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
 
   document.getElementById("next_variante").onclick = function () {
     console.log("next variante "+indice);
@@ -639,7 +639,7 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
     document.getElementById("previous_variante").style.visibility = "visible";
     document.getElementById("nbVariante").innerText = indice + 1 + "/" + nbVideo;
     document.getElementById("videoName").innerText = data[indice].videoName;
-    document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+    document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
     if (indice == nbVideo -1) {
       document.getElementById("next_variante").style.visibility = "hidden";
     }
@@ -656,7 +656,7 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
       console.log(data[indice].url);
       document.getElementById("next_variante").style.visibility = "visible";
       document.getElementById("videoName").innerText = data[indice].videoName;
-      document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+      document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
       if (indice == 0) {
         document.getElementById("next_variante").style.visibility = "visible";
         document.getElementById("previous_variante").style.visibility = "hidden";

@@ -531,7 +531,7 @@ function displayVideo(url, name) {
   console.log(name);
   document.getElementById("videoName").innerText = name;
 
-  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
 };
 
 var inputEmail = document.getElementById('email');

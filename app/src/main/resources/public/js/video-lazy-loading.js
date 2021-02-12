@@ -31,7 +31,7 @@ function displayVideo(url, name, idForName, nbVideo) {
     document.getElementById("videoName").innerText = name + '_' + idForName;
   }
 
-  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent';
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
 }
 
 (function videoViewsLazyLoading($) {

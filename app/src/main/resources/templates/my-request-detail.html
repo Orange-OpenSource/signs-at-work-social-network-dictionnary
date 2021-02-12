@@ -49,7 +49,7 @@
     </div>
     <div class="pull-right col-md-8 col-xs-12">
       <div class="embed-responsive embed-responsive-16by9" th:if="${requestView.requestVideoDescription} != null">
-        <iframe class="embed-responsive-item" th:attr="title=${title}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
+        <iframe class="embed-responsive-item" th:attr="title=${title}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false'" frameborder="0" allowfullscreen=""></iframe>
       </div>
     </div>
 
