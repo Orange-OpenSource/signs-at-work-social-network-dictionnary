@@ -35,7 +35,7 @@
     <div th:replace="fragments/frame-modify-community :: div"/>
   <div class="footer">
     <button class="btn btn-secondary" th:text="#{undo}" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueCommunity(this.getAttribute('data-backUrl'))"></button>
-    <button class="btn btn-default" th:data-communtyId="${community.id}" th:onclick="javascript:onModifyCommunity(this.getAttribute('data-communityId'))" th:text="#{validate}"></button>
+    <button class="btn btn-default" th:data-communityId="${community.id}" th:onclick="javascript:onModifyCommunity(this.getAttribute('data-communityId'))" th:text="#{validate}"></button>
   </div>
 </div>
 
