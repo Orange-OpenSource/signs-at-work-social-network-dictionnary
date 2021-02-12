@@ -943,7 +943,7 @@ function RecordRTCConfiguration(mediaStream, config) {
 
   if (typeof MediaStreamRecorder !== 'undefined' && typeof MediaRecorder !== 'undefined' && 'requestData' in MediaRecorder.prototype) {
     if (!config.mimeType) {
-      config.mimeType = 'video/webm';
+      config.mimeType = 'video/webm;codecs=vp9';
     }
 
     if (!config.type) {
