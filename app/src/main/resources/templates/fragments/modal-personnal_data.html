@@ -30,21 +30,16 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <div>
+        <div class="pull-left">
           <div class="cgu_conditions_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation align-right" th:text="#{read.personnal_data_modal_title}"></h2>
+          <h2 class="pull-right" th:text="#{read.personnal_data_modal_title}"></h2>
         </div>
       </div>
       <div class="modal-body">
+        <span th:utext="#{personal_data_text}"></span>
         <div th:each="article :${personalDataArticles}">
           <span th:utext="${article.descriptionText}"></span>
         </div>
-<!--        <span th:utext="#{personnal_data_intro}"></span>
-        <span th:utext="#{personnal_data_article_1}"></span>
-        <span th:utext="#{personnal_data_article_2}"></span>
-        <span th:utext="#{personnal_data_article_3}"></span>
-        <span th:utext="#{personnal_data_article_4}"></span>
-        <span th:utext="#{personnal_data_article_5}"></span>-->
       </div>
       <div class="modal-footer">
         <button th:text="#{back}" class="btn btn-default"
