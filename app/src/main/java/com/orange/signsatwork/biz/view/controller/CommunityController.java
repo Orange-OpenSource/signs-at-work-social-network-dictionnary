@@ -246,6 +246,7 @@ public class CommunityController {
     Users users = services.user().allForCreateCommunity();
     List<User> usersWithoutMeAndWithoutAdmin = users.stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
     model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
+    model.addAttribute("appName", appName);
 
     return "create-community";
   }
