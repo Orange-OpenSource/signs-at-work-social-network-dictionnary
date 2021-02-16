@@ -99,7 +99,7 @@
 <div id="accountRequest" class="hidden">
 
   <div class="col-xs-12 create-user">
-    <span class="form-signin-heading text-center" th:text="#{ask_to_create_user_title}"></span>
+    <span class="form-signin-heading text-center" th:text="#{ask_to_create_user_title(${appName})}"></span>
 
     <div class="form-group">
       <div class="errorRegexFirstName hidden" th:text="#{errorName}"></div>
