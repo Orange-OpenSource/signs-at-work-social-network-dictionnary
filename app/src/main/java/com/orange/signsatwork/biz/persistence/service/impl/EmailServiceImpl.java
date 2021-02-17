@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  */
 
 import com.orange.signsatwork.biz.persistence.service.EmailService;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +58,8 @@ public class EmailServiceImpl implements EmailService {
   public JavaMailSender emailSender;
   @Autowired
   TemplateEngine templateEngine;
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url, Locale locale) {
     InputStream imageIs = null;
@@ -337,18 +340,21 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendResetPasswordMessage(String to, String subject, String url, Locale locale) {
+  public void sendResetPasswordMessage(String to, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
+    String subject;
     try {
       if (appName.equals("Signs@Form")) {
         imageName = "logo-textForm_blue-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
+
       MimeMessage message = emailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       helper.setTo(to);
+      subject = messageByLocaleService.getMessage("password_reset_title", new Object[]{appName});
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
       Context ctx = new Context(locale);

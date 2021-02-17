@@ -212,7 +212,7 @@ public class UserRestController {
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), title, url, request.getLocale());
+          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), url, request.getLocale());
         };
 
         new Thread(task).start();
