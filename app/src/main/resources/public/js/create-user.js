@@ -59,9 +59,9 @@ function checkLastName() {
   }else {
     lastName = true;
     $('.errorRegexLastName').addClass("hidden");
-    if ((firstName != false) && (mail != false)) {
+   /* if ((firstName != false) && (mail != false)) {
       submitCreateUser.disabled = false;
-    }
+    }*/
   }
 }
 
@@ -75,9 +75,9 @@ function checkFirstName() {
   } else {
     firstName = true;
     $('.errorRegexFirstName').addClass("hidden");
-    if ((lastName != false) && (mail != false)) {
+   /* if ((lastName != false) && (mail != false)) {
       submitCreateUser.disabled = false;
-    }
+    }*/
   }
 }
 
@@ -92,9 +92,9 @@ function checkEmail() {
   }else {
     mail = true;
     $('.errorRegexEmail').addClass("hidden");
-    if ((lastName != false) && (firstName != false)) {
+   /* if ((lastName != false) && (firstName != false)) {
       submitCreateUser.disabled = false;
-    }
+    }*/
   }
 }
 
@@ -139,9 +139,13 @@ function returnToHome() {
 
 var onReCaptchaSuccess = function(response) {
   $("#captchaError").html("").hide();
+  if ((lastName != false) && (firstName != false) && (mail != false)) {
+    submitCreateUser.disabled = false;
+  }
 };
 
 var onReCaptchaExpired = function(response) {
   $("#captchaError").html("reCaptcha has expired.  Please solve a new reCaptcha").show();
   grecaptcha.reset();
+  submitCreateUser.disabled = true;
 };
