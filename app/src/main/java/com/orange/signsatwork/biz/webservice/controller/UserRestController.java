@@ -80,6 +80,8 @@ public class UserRestController {
   @Value("${app.admin.username}")
   String adminUsername;
 
+  @Value("${app.name}")
+  String appName;
 
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
@@ -207,12 +209,12 @@ public class UserRestController {
         final String token = UUID.randomUUID().toString();
         services.user().createPasswordResetTokenForUser(user, token);
         final String url = getAppUrl(request) + "/user/changePassword?id=" + user.id + "&token=" + token;
-        title = messageByLocaleService.getMessage("password_reset_title");
+        title = messageByLocaleService.getMessage("password_reset_title", new Object[]{appName});
         bodyMail = messageByLocaleService.getMessage("password_reset_body", new Object[]{url});
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), url, request.getLocale());
+          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), title, url, request.getLocale());
         };
 
         new Thread(task).start();
@@ -305,7 +307,7 @@ public class UserRestController {
         User userSearch = services.user().withUserName(userCreationViewApi.get().getEmail());
         if (userSearch == null) {
           body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationViewApi.get().getEmail()});
-          title = messageByLocaleService.getMessage("ask_to_change_email_title");
+          title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
           Runnable task = () -> {
             log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
             services.emailService().sendSimpleMessage(admin.email, title , body);
@@ -597,7 +599,7 @@ public class UserRestController {
     User user = services.user().withUserName(userCreationView.getEmail());
     if (user == null) {
       body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName(), userCreationView.getEmail()});
-      title = messageByLocaleService.getMessage("ask_to_create_user_title");
+      title = messageByLocaleService.getMessage("ask_to_create_user_title", new Object[]{appName});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
         services.emailService().sendSimpleMessage(admin.email, title, body);
@@ -624,7 +626,7 @@ public class UserRestController {
     User userSearch = services.user().withUserName(userCreationView.getEmail());
     if (userSearch == null) {
       body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationView.getEmail()});
-      title = messageByLocaleService.getMessage("ask_to_change_email_title");
+      title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
         services.emailService().sendSimpleMessage(admin.email, title , body);

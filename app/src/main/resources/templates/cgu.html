@@ -131,11 +131,11 @@
       <div class="modal-header">
         <div class="pull-left">
           <div class="lock_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{validate_send_mail_title}"/>
+          <h2 class="pull-right" th:text="#{validate_send_mail_title(${appName})}"/>
         </div>
       </div>
       <div class="modal-body text-center">
-        <h4 th:text="#{validate_send_mail_body}"></h4>
+        <h4 th:text="#{validate_send_mail_body(${appName})}"></h4>
       </div>
     </div>
   </div>

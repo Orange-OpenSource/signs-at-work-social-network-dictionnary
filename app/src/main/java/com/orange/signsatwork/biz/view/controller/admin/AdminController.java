@@ -151,8 +151,8 @@ public class AdminController {
       final String token = UUID.randomUUID().toString();
       services.user().createPasswordResetTokenForUser(user, token);
       final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
-      title = messageByLocaleService.getMessage("password_create_title");
-      bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{userCreationView.getUsername(), url});
+      title = messageByLocaleService.getMessage("password_create_title",new Object[]{appName});
+      bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{appName, userCreationView.getUsername(), url});
 
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
@@ -233,7 +233,7 @@ public class AdminController {
       final String token = UUID.randomUUID().toString();
       services.user().createPasswordResetTokenForUser(user, token);
       final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
-      title = messageByLocaleService.getMessage("ask_to_change_email_title");
+      title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
       bodyMail = messageByLocaleService.getMessage("email_change_body", new Object[]{url});
 
       Runnable task = () -> {

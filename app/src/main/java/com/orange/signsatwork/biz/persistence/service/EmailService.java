@@ -40,7 +40,7 @@ public interface EmailService {
 
   public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url, Locale locale);
 
-  public void sendResetPasswordMessage(String to, String url, Locale locale);
+  public void sendResetPasswordMessage(String to, String subject, String url, Locale locale);
 
   public void sendCreatePasswordMessage(String to, String subject, String username, String url, Locale locale);
 
