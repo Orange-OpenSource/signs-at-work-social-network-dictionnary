@@ -430,6 +430,46 @@ public class UserRestController {
     return userResponseApi;
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_USER_ME_DELETE_VIDEO_NAME, method = RequestMethod.PUT)
+  public UserResponseApi deleteNameVideo(@PathVariable long userId, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    UserResponseApi userResponseApi = new UserResponseApi();
+
+    User user = services.user().withId(userId);
+    User userConnected = services.user().withUserName(principal.getName());
+
+    if (user.equals(userConnected)) {
+      services.user().changeNameVideoUrl(user, null, null);
+    } else {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return userResponseApi;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_USER_ME_DELETE_VIDEO_JOB, method = RequestMethod.PUT)
+  public UserResponseApi deleteJobVideo(@PathVariable long userId, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    UserResponseApi userResponseApi = new UserResponseApi();
+
+    User user = services.user().withId(userId);
+    User userConnected = services.user().withUserName(principal.getName());
+
+    if (user.equals(userConnected)) {
+      services.user().changeDescriptionVideoUrl(user, null, null);
+    } else {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return userResponseApi;
+  }
+
 
   private UserResponseApi handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {

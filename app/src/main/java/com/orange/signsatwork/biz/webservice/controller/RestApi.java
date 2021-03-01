@@ -40,6 +40,8 @@ public class RestApi {
   /** API REST For Android and IOS **/
   public static final String WS_SEC_USER = WS_SEC + "users/{userId}";
   public static final String WS_SEC_USER_ME = WS_SEC + "users/me";
+  public static final String WS_SEC_USER_ME_DELETE_VIDEO_NAME = WS_SEC + "users/{userId}/deleteVideoName";
+  public static final String WS_SEC_USER_ME_DELETE_VIDEO_JOB = WS_SEC + "users/{userId}/deleteVideoJob";
   public static final String WS_SEC_USER_ME_DATAS = WS_SEC + "users/me/datas";
   public static final String WS_SEC_MY_VIDEOS = WS_SEC + "users/me/videos";
   public static final String WS_SEC_USER_VIDEOS = WS_SEC + "users/{userId}/videos";
