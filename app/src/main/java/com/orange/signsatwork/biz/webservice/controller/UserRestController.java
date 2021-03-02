@@ -439,7 +439,7 @@ public class UserRestController {
     User user = services.user().withId(userId);
     User userConnected = services.user().withUserName(principal.getName());
 
-    if (user.equals(userConnected)) {
+    if (user.id == userConnected.id) {
       services.user().changeNameVideoUrl(user, null, null);
     } else {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -459,7 +459,7 @@ public class UserRestController {
     User user = services.user().withId(userId);
     User userConnected = services.user().withUserName(principal.getName());
 
-    if (user.equals(userConnected)) {
+    if (user.id == userConnected.id) {
       services.user().changeDescriptionVideoUrl(user, null, null);
     } else {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
