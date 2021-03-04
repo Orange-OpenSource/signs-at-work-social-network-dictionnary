@@ -115,8 +115,14 @@ public class CommunityRestController {
     if (type.isPresent()) {
       if (type.get().equals("Job")) {
         queryCommunities = services.community().allForJob(user.id);
+        communitiesViewData = queryCommunities.stream()
+          .map(objectArray -> new CommunityViewData(objectArray))
+          .collect(Collectors.toList());
       } else {
         queryCommunities = services.community().allForFavorite(user.id);
+        communitiesViewData = queryCommunities.stream()
+          .map(objectArray -> new CommunityViewData(objectArray))
+          .collect(Collectors.toList());
       }
     } else {
       if (name.isPresent()) {
@@ -125,21 +131,17 @@ public class CommunityRestController {
           .map(objectArray -> new CommunityViewData(objectArray))
           .collect(Collectors.toList());
         queryCommunities = services.community().allForFavorite(user.id);
+        List<CommunityViewData> finalCommunitiesSearchViewData1 = communitiesSearchViewData;
+        communitiesViewData = queryCommunities.stream()
+          .map(objectArray -> new CommunityViewData(objectArray))
+          .filter(c-> finalCommunitiesSearchViewData1.stream().map(co -> co.id).collect(Collectors.toList()).contains(c.id))
+          .collect(Collectors.toList());
       } else {
         queryCommunities = services.community().allForFavorite(user.id);
+        communitiesViewData = queryCommunities.stream()
+          .map(objectArray -> new CommunityViewData(objectArray))
+          .collect(Collectors.toList());
       }
-    }
-    if (communitiesSearchViewData.size() != 0) {
-      List<CommunityViewData> finalCommunitiesSearchViewData = communitiesSearchViewData;
-      communitiesViewData = queryCommunities.stream()
-        .map(objectArray -> new CommunityViewData(objectArray))
-        .filter(c-> finalCommunitiesSearchViewData.stream().map(co -> co.id).collect(Collectors.toList()).contains(c.id))
-        .collect(Collectors.toList());
-    } else {
-      communitiesViewData = queryCommunities.stream()
-        .map(objectArray -> new CommunityViewData(objectArray))
-        .collect(Collectors.toList());
-
     }
 
     return new ResponseEntity<>(communitiesViewData, HttpStatus.OK);
