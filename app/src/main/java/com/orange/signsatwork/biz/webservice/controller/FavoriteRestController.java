@@ -154,6 +154,13 @@ public class FavoriteRestController {
 
     FavoriteViewApi myFavorite = FavoriteViewApi.fromShare(favorite);
 
+    if (favorite.user.id != user.id) {
+      favorite = favorite.loadUsers();
+      if (!favorite.users.list().contains(user.id)) {
+        services.favorite().addUserOpenFavoritePage(favoriteId, user.id);
+      }
+    }
+
     return  new ResponseEntity<>(myFavorite, HttpStatus.OK);
   }
 
