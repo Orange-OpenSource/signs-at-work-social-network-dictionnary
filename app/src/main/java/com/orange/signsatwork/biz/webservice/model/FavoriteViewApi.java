@@ -46,10 +46,15 @@ public class FavoriteViewApi {
   private String ownerName;
   private long ownerId;
   private long nbShareCommunity;
+  private long nbVideos;
 
 
   public static FavoriteViewApi from(Favorite favorite) {
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, favorite.type, favorite.user.name(), favorite.user.id, 0L);
+    long nbVideos = 0L;
+    if (favorite.videos == null) {
+      nbVideos = favorite.loadVideos().videos.list().size();
+    }
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, favorite.type, favorite.user.name(), favorite.user.id, 0L, nbVideos);
   }
 
   public static List<FavoriteViewApi> from(Favorites favorites) {
@@ -59,7 +64,11 @@ public class FavoriteViewApi {
   }
 
   public static FavoriteViewApi fromNewShare(Favorite favorite) {
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), favorite.user.id, 0L);
+    long nbVideos = 0L;
+    if (favorite.videos == null) {
+      nbVideos = favorite.loadVideos().videos.list().size();
+    }
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), favorite.user.id, 0L, nbVideos);
   }
 
   public static List<FavoriteViewApi> fromNewShare(Favorites favorites) {
@@ -73,8 +82,11 @@ public class FavoriteViewApi {
     if (favorite.communities != null) {
       nbShareCommunity = favorite.communities.list().size();
     }
-
-    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), favorite.user.id, nbShareCommunity);
+    long nbVideos = 0L;
+    if (favorite.videos == null) {
+      nbVideos = favorite.loadVideos().videos.list().size();
+    }
+    return new FavoriteViewApi(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.user.name(), favorite.user.id, nbShareCommunity, nbVideos);
   }
 
   public static List<FavoriteViewApi> fromShare(Favorites favorites) {
