@@ -346,7 +346,7 @@ public class CommunityRestController {
         if (emails.size() != 0) {
           Runnable task = () -> {
             String title, bodyMail;
-            final String url = getAppUrl(request) + "/sec/community/" + community.id + "/description";
+            final String url = getAppUrl(request) + "/sec/descriptionCommunity/" + community.id;
             title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
             log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
@@ -463,7 +463,7 @@ public class CommunityRestController {
           if (emails.size() != 0) {
             Runnable task = () -> {
               String title, bodyMail;
-              final String url = getAppUrl(request) + "/sec/community/" + community.id + "/description";
+              final String url = getAppUrl(request) + "/sec/descriptionCommunity/" + community.id;
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
@@ -625,7 +625,7 @@ public class CommunityRestController {
             Community finalCommunity = community;
             Runnable task = () -> {
               String title, bodyMail;
-              final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+              final String urlDescriptionCommunity = getAppUrl(request) + "/sec/descriptionCommunity/" + finalCommunity.id;
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);

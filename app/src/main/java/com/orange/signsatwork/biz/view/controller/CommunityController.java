@@ -200,7 +200,7 @@ public class CommunityController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/community/{communityId}/description")
+  @RequestMapping(value = "/sec/descriptionCommunity/{communityId}")
   public String descriptionCommunity(@PathVariable long communityId, HttpServletRequest request, Principal principal, Model model)  {
     Community community = services.community().withId(communityId);
     String userAgent = request.getHeader("User-Agent");
