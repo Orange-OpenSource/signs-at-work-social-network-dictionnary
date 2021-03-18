@@ -71,14 +71,15 @@ $(function() {
 
 });
 
-function savePassword(userId) {
+function savePassword(userId, token) {
   console.log("save Password " + userId);
   if($("#password").val() != $("#confirm-password").val()) {
     $('#globalError').show();
   } else {
     $('#globalError').hide();
     user = {
-      password: $("#password").val()
+      password: $("#password").val(),
+      token: token
     };
     $.ajax({
       url: "/user/" + userId + "/savePassword",

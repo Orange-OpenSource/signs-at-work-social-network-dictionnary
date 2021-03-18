@@ -624,7 +624,23 @@ public class UserRestController {
   public UserResponseApi saveUserPassword(@RequestBody UserCreationView userCreationView, @PathVariable long userId, HttpServletResponse response) {
     UserResponseApi userResponseApi = new UserResponseApi();
 
-    services.user().changeUserPassword(services.user().withId(userId), userCreationView.getPassword());
+    User user = services.user().withId(userId);
+
+    PasswordResetToken passToken = services.user().getPasswordResetToken(userCreationView.getToken());
+    if ((passToken == null) || (user.id != passToken.user.id)) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("token_not_ok");
+      return userResponseApi;
+    }
+
+    Calendar cal = Calendar.getInstance();
+    if ((passToken.expiryDate.getTime() - cal.getTime().getTime()) <= 0) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("token_not_ok");
+      return userResponseApi;
+    }
+
+    services.user().changeUserPassword(user, userCreationView.getPassword());
 
     response.setStatus(HttpServletResponse.SC_OK);
     return  userResponseApi;

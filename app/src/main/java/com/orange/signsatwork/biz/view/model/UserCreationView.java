@@ -48,6 +48,7 @@ public class UserCreationView {
   private String jobDescriptionText;
   private String jobDescriptionVideo;
   private String jobDescriptionPicture;
+  private String token;
 
 
   public User toUser() {

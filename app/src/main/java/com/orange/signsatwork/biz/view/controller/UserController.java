@@ -345,6 +345,8 @@ public class UserController {
     model.addAttribute("userId", userId);
     model.addAttribute("userCreationView", new UserCreationView());
     model.addAttribute("appName", appName);
+    model.addAttribute("token", token);
+
     return "update-password";
   }
 
@@ -366,6 +368,8 @@ public class UserController {
     model.addAttribute("userId", userId);
     model.addAttribute("userCreationView", new UserCreationView());
     model.addAttribute("appName", appName);
+    model.addAttribute("token", token);
+
     return "create-password";
   }
 
