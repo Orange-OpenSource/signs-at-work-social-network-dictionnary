@@ -30,7 +30,6 @@
         <lombok.version>1.16.8</lombok.version>
         <junit.version>4.13.1</junit.version>
         <fest-assert.version>1.4</fest-assert.version>
-        <guava.version>29.0-jre</guava.version>
     </properties>
 
     <dependencies>
@@ -168,11 +167,6 @@
         <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         <version>3.0.4.RELEASE</version>
         <scope>compile</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>${guava.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
