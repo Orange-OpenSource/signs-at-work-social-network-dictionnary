@@ -39,6 +39,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -131,6 +132,35 @@ public class FavoriteRestController {
     favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
     favorites.addAll(favoritesAlpha);
 
+    return favorites;
+  }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_FAVORITES_FOR_FILTER)
+  public ResponseEntity<?> favoritesForFilter(Principal principal) {
+
+    User user = services.user().withUserName(principal.getName());
+
+    List<FavoriteViewApi> myFavorites = fillModelWithFavoritesForSignFilter(user);
+
+    return  new ResponseEntity<>(myFavorites, HttpStatus.OK);
+  }
+
+  private List<FavoriteViewApi> fillModelWithFavoritesForSignFilter(User user) {
+    List<FavoriteViewApi> favorites = new ArrayList<>();
+
+    if (user != null) {
+      List<FavoriteViewApi> newFavoritesShareToMe = FavoriteViewApi.fromNewShare(services.favorite().newFavoritesShareToUserForSignFilter(user.id));
+      favorites.addAll(newFavoritesShareToMe);
+
+      List<FavoriteViewApi> favoritesAlpha = new ArrayList<>();
+      List<FavoriteViewApi> oldFavoritesShareToMe = FavoriteViewApi.from(services.favorite().oldFavoritesShareToUserForSignFilter(user.id));
+      favoritesAlpha.addAll(oldFavoritesShareToMe);
+      List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUserForSignFilter(user.id));
+      favoritesAlpha.addAll(myFavorites);
+      favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
+      favorites.addAll(favoritesAlpha);
+    }
     return favorites;
   }
 
