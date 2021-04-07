@@ -35,7 +35,9 @@
 <div th:replace="fragments/modal-new-request :: div"/>
 <div th:replace="fragments/modal-play-video :: div"/>
 
-
+<div th:if="${!isAuthenticated and #strings.equals(appName,'Signs@Work')}" class="text-center title_middle">
+  <h2 class="blue" th:text="#{signatwork.lexical}"/>
+</div>
 
 <div id="myform" >
   <input type='button' class="pull-rigth" id='reset'>
