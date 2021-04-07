@@ -77,9 +77,9 @@
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{favorites}"></h4>
                   </a>
                 </li>
-                <li class="nav-item" th:if="${isAuthenticated}" role="presentation">
+                <li class="nav-item disabled" th:if="${isAuthenticated}" role="presentation">
                   <a id="settings_menu" class="nav-link" href="#">
-                      <div id="settings" class="pull-left settings_white"></div>
+                      <div id="settings" class="pull-left settings_grey"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{settings}"></h4>
                   </a>
                 </li>
@@ -145,13 +145,13 @@
 
                   </a>
                 </li>
-                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menuitem">
+                <li class="aside_bckg_li disabled" th:if="${isAuthenticated}" role="menuitem">
                   <a href="#">
                     <div>
-                      <div class="pull-left settings_black"></div>
+                      <div class="pull-left settings_grey"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{settings}"></h4>
                       <div>
-                        <div class="hidden-lg hidden-md pull-right chevron"></div>
+                        <div class="hidden-lg hidden-md pull-right chevron_right_grey"></div>
                       </div>
                     </div>
                   </a>

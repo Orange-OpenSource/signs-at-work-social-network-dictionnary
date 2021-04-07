@@ -62,7 +62,7 @@ $(document).ready(function()
     $('#pinlist').addClass('pinlist_white');
   });
 
-  $('#settings_menu').on('mouseover', function () {
+/*  $('#settings_menu').on('mouseover', function () {
     $('#settings').removeClass('settings_white');
     $('#settings').addClass('settings_black');
   });
@@ -70,7 +70,7 @@ $(document).ready(function()
   $('#settings_menu').on('mouseout', function () {
     $('#settings').removeClass('settings_black');
     $('#settings').addClass('settings_white');
-  });
+  });*/
 
   $('#about_menu').on('mouseover', function () {
     $('#about').removeClass('about_white');

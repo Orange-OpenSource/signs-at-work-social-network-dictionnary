@@ -808,6 +808,15 @@ ul[role="tablist"]{
   width: 25px;
 }
 
+.settings_grey{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -3657px center;
+  background-size: auto 25px;
+  height: 44px;
+  width: 25px;
+}
+
 .about_white{
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
@@ -852,6 +861,11 @@ a.nav-link:focus,
 a.nav-link:active{
   color: black;
   outline: 0;
+}
+
+.nav > li.disabled > a,
+li.disabled > a {
+  color : rgba(0,0,0,0.5);
 }
 
 /* End index page /index */
