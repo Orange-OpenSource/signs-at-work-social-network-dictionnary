@@ -144,13 +144,14 @@ input[type="text"],[type="email"],[type="password"] {
 
 .btn_signin_header{
   border-radius: 30px;
-  background-color: #000000;
+  background-color: #0B1881;
   box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
   color:#FFFFFF;
   width: 40%;
   margin-top:20px;
   padding: 12px 12px;
   margin-bottom:20px;
+  font-size: 12px;
 }
 
 .btn_create_account{
