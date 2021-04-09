@@ -1105,7 +1105,8 @@ input[type=search].form-control,input[type=search].form-control:focus{
   margin-top: 15px;
 }
 
-#sign_available {
+#sign_available,
+#video_available {
   color: #4866F7;
 }
 
