@@ -154,6 +154,10 @@ input[type="text"],[type="email"],[type="password"] {
   font-size: 12px;
 }
 
+.blue_sign_in_button{
+  color: #0B1881;
+}
+
 .btn_create_account{
   border-radius: 30px;
   background-color: white;

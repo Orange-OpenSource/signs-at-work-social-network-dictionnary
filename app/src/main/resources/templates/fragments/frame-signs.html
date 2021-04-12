@@ -124,6 +124,9 @@
   <div class="row" id="add-new-suggest-request" style="display: none">
     <div class="col-xs-12">
       <h2 id="sign_not_available" th:text="#{sign.not_available}"></h2>
+      <div th:unless="${isAuthenticated}">
+        <h2 th:utext="#{sign.not_available_text}" class="blue_sign_in_button" ></h2>
+      </div>
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li th:if="${isAuthenticated}" class="aside_bckg_li">
