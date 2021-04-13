@@ -35,6 +35,7 @@ body{
   font-weight: bold;
 }
 
+.container,
 .container-fluid{
   padding-right: 8px;
   padding-left: 8px;
@@ -171,7 +172,7 @@ input[type="text"],[type="email"],[type="password"] {
 
 .noAccount.aside_bckg_li{
   border-bottom: 1px solid;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   border-top: 1px solid;
   padding-top: 10px;
@@ -420,9 +421,9 @@ h1, .h1 {
 
 .footer {
   position: fixed;
-  left: 0;
+  /*left: 0;*/
   bottom: 0;
-  width: 100%;
+ /* width: 100%;*/
   color: white;
 }
 
@@ -3042,6 +3043,11 @@ h2.container_CGU {
   color: #4866F7;
 }
 
-
+@media only screen and (max-width:768px) {
+.footer {
+  left: 0;
+  width: 100%;
+}
+}
 
 

@@ -196,6 +196,7 @@ public class CommunityController {
     List<User> usersWithoutMeAndWithoutAdmin = communityProfileView.getAllUsers().stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
     model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
     model.addAttribute("appName", appName);
+    model.addAttribute("backUrl", "/sec/community/"+communityId);
     return "modify-community";
   }
 

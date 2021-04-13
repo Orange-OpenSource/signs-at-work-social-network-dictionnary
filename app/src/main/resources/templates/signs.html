@@ -20,47 +20,51 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
-  <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-  <script type="text/javascript" src="../public/js/adapter.js" th:src="@{/js/adapter.js}"></script>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+  <script src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}" type="text/javascript"></script>
+  <script src="../public/js/adapter.js" th:src="@{/js/adapter.js}" type="text/javascript"></script>
 </head>
 
 <header role="banner" th:replace="fragments/header-signs :: header">&nbsp;</header>
-
-<body class="container-fluid">
-
 <div th:replace="fragments/modal-new-suggest :: div"/>
 <div th:replace="fragments/modal-new-request :: div"/>
 <div th:replace="fragments/modal-play-video :: div"/>
 
-<div th:if="${!isAuthenticated and #strings.equals(appName,'Signs@Work')}" class="text-center title_middle">
-  <h2 class="blue" th:text="#{signatwork.lexical}"/>
-</div>
-
-<div id="myform" >
-  <input type='button' class="pull-rigth" id='reset'>
-  <div id="container-input">
-    <div th:if="${favoriteId} == null">
-      <input th:if="${#lists.isEmpty(signsView)}" type="search" id="search-criteria" th:placeholder="#{search}" th:autocomplete="off" th:attr="aria-label=#{sign.search}" class="border form-control search-hidden"/>
-      <input th:if="${not #lists.isEmpty(signsView)}" type="search" id="search-criteria" th:placeholder="#{search}" th:autocomplete="off" th:attr="aria-label=#{sign.search}" class="border form-control"/>
-    </div>
-    <div th:if="${favoriteId} != null">
-      <input th:if="${not #lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" th:autocomplete="off" th:attr="aria-label=#{sign.search}" class="border form-control"/>
-      <input th:if="${#lists.isEmpty(videosView)}" type="search" id="search-criteria" th:placeholder="#{search}" th:autocomplete="off" th:attr="aria-label=#{sign.search}" class="border form-control search-hidden"/>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
+      <div class="text-center title_middle" th:if="${!isAuthenticated and #strings.equals(appName,'Signs@Work')}">
+        <h2 class="blue" th:text="#{signatwork.lexical}"/>
+      </div>
+      <div id="myform">
+        <input class="pull-rigth" id='reset' type='button'>
+        <div id="container-input">
+          <div th:if="${favoriteId} == null">
+            <input class="border form-control search-hidden" id="search-criteria" th:attr="aria-label=#{sign.search}" th:autocomplete="off"
+                   th:if="${#lists.isEmpty(signsView)}" th:placeholder="#{search}" type="search"/>
+            <input class="border form-control" id="search-criteria" th:attr="aria-label=#{sign.search}"
+                   th:autocomplete="off" th:if="${not #lists.isEmpty(signsView)}" th:placeholder="#{search}"
+                   type="search"/>
+          </div>
+          <div th:if="${favoriteId} != null">
+            <input class="border form-control" id="search-criteria" th:attr="aria-label=#{sign.search}"
+                   th:autocomplete="off" th:if="${not #lists.isEmpty(videosView)}" th:placeholder="#{search}"
+                   type="search"/>
+            <input class="border form-control search-hidden" id="search-criteria" th:attr="aria-label=#{sign.search}" th:autocomplete="off"
+                   th:if="${#lists.isEmpty(videosView)}" th:placeholder="#{search}" type="search"/>
+          </div>
+        </div>
+        </input>
+      </div>
+      <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div">
+        <div th:replace="fragments/frame-signs :: div"/>
+      </div>
     </div>
   </div>
-  </input>
 </div>
-
-<div th:fragment="div" class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col">
-
-    <div th:replace="fragments/frame-signs :: div"/>
-</div>
-
-
 </body>
-<script type="text/javascript" src="../public/js/lazy-loading.js" th:src="@{/js/lazy-loading.js}"></script>
-
+<script src="../public/js/lazy-loading.js" th:src="@{/js/lazy-loading.js}" type="text/javascript"></script>
 </html>

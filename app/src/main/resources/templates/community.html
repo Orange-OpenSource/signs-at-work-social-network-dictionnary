@@ -20,55 +20,56 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-community :: header">&nbsp;</header>
 
-
-<body class="container-fluid">
-<div class="row ">
+<body>
+<div class="container">
+  <div class="row ">
     <div class="col-xs-12 col-lg-12">
-        <aside class="sidebar">
-            <ul class="nav nav-list primary left-menu">
-                <li th:if="${iBelowToCommunity and  community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}" class="aside_bckg_li">
-                  <a th:href="@{/sec/descriptionCommunity/} + ${community.id}">
-                    <div class="pull-left description_sign"></div>
-                    <h2 class="container_H2" th:text="#{community.description}"></h2>
-                    <div class="pull-right chevron"></div>
-                  </a>
-                </li>
-                <li th:if="${iBelowToCommunity and community.type != T(com.orange.signsatwork.biz.domain.CommunityType).Job}" class="aside_bckg_li action">
-                  <a th:href="@{/sec/community/} + ${community.id} +  '/manage-community'">
-                    <div class="pull-left settings2_blue"></div>
-                    <h2 class="container_H2" th:text="#{community.manage}"></h2>
-                    <div class="pull-right chevron"></div>
-                  </a>
-                </li>
-               <!-- <div th:if="${not #lists.isEmpty(community.users.list())}">
-                    <div th:each="user:${community.users.list()}">-->
-                        <li th:each="user:${community.users.list()}" class="aside_bckg_li">
-                            <a th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
-                              <div th:if="${user.id == community.user.id and user.id == userId}" class="pull-left member_project_admin_me"></div>
-                              <div th:if="${user.id == community.user.id and user.id != userId}" class="pull-left member_project_admin"></div>
-                              <div th:if="${user.id != community.user.id and user.id != userId}" class="pull-left member_project_empty-white"></div>
-                              <div th:if="${user.id != community.user.id and user.id == userId}" class="pull-left member_me"></div>
-                                <h2 class="container_H2" th:text="${user.name()}"></h2>
-                                <div class="pull-right chevron"></div>
-                            </a>
-                        </li>
-                <!--    </div>
-                </div>-->
-            </ul>
-        </aside>
-      <div th:if="${#lists.isEmpty(community.users.list())}" class="text-center">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li
+            class="aside_bckg_li"
+            th:if="${iBelowToCommunity and  community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}">
+            <a th:href="@{/sec/descriptionCommunity/} + ${community.id}">
+              <div class="pull-left description_sign"></div>
+              <h2 class="container_H2" th:text="#{community.description}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li action"
+              th:if="${iBelowToCommunity and community.type != T(com.orange.signsatwork.biz.domain.CommunityType).Job}">
+            <a th:href="@{/sec/community/} + ${community.id} +  '/manage-community'">
+              <div class="pull-left settings2_blue"></div>
+              <h2 class="container_H2" th:text="#{community.manage}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:each="user:${community.users.list()}">
+            <a th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
+              <div class="pull-left member_project_admin_me"
+                   th:if="${user.id == community.user.id and user.id == userId}"></div>
+              <div class="pull-left member_project_admin"
+                   th:if="${user.id == community.user.id and user.id != userId}"></div>
+              <div class="pull-left member_project_empty-white"
+                   th:if="${user.id != community.user.id and user.id != userId}"></div>
+              <div class="pull-left member_me" th:if="${user.id != community.user.id and user.id == userId}"></div>
+              <h2 class="container_H2" th:text="${user.name()}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <div class="text-center" th:if="${#lists.isEmpty(community.users.list())}">
         <h2 th:text="#{no_users_in_community}"></h2>
       </div>
-
     </div>
+  </div>
 </div>
 </body>
-
 </html>

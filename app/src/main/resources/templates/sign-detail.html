@@ -20,135 +20,130 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
-    <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-    <script type="text/javascript" src="../public/js/adapter.js" th:src="@{/js/adapter.js}"></script>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+  <script src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}" type="text/javascript"></script>
+  <script src="../public/js/adapter.js" th:src="@{/js/adapter.js}" type="text/javascript"></script>
 </head>
 
 <header role="banner" th:replace="fragments/header-sign :: header">&nbsp;</header>
-
-
-<body class="container-fluid">
-
-
-<div class="row">
-
-  <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
-    <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
-      <div id="tooltipInframe" class="pull-right" >
-        <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="smiley_happy_white_in_frame"></div>
-        <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="smiley_happy_white_in_frame"></div>
-        <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="pin_blue_in_frame"></div>
-        <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="pin_blue_in_frame"></div>
-      </div>
-
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false&amp;queue-enable=false'" frameborder="0" allowfullscreen=""></iframe>
-        </div>
-    </div>
-
-        <div class="sign_menu col-md-4 col-xs-12">
-            <aside class="sidebar">
-                <ul class="nav nav-list primary left-menu">
-                    <li class="label_sign aside_bckg_li">
-                            <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
-                    </li>
-                    <li class="clear aside_bckg_li">
-                      <a th:href="@{/sec/sign/} + ${signView.id} + '/definition'">
-                        <div class="pull-left description_sign"></div>
-                        <div th:if="${signView.textDefinition == null} and ${signView.videoDefinition == null}">
-                          <h2 id="definition" class="container_H2" th:text="#{sign.description-empty}"/>
-                          <div>
-                            <div class="pull-right add_black"></div>
-                          </div>
-                        </div>
-                        <div th:if="${signView.textDefinition != null} or ${signView.videoDefinition != null}">
-                          <h2 id="definition" class="container_H2" th:text="#{sign.description-not-empty}"/>
-                          <div>
-                            <div class="pull-right edit_black"></div>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li th:if="${isVideoCreatedByMe and !isIOSDevice}" class="aside_bckg_li">
-                        <a data-target="#replace"    data-toggle="modal" href="#">
-                            <div class="pull-left rewind_blue"></div>
-                            <h2 class="container_H2" th:text="#{sign.redo}"/>
-                            <div>
-                              <div class="pull-right chevron"></div>
-                            </div>
-                        </a>
-                    </li>
-                  <li th:if="${isVideoCreatedByMe and isIOSDevice}" class="aside_bckg_li">
-                    <a th:onclick="'javascript:onClick()'" href="#">
-                      <div class="pull-left rewind_blue"></div>
-                      <h2 class="container_H2" th:text="#{sign.redo}"/>
-                      <div>
-                        <div class="pull-right chevron"></div>
-                      </div>
-                    </a>
-                  </li>
-                    <li th:if="${!ratingData.rateNoRate and !isVideoCreatedByMe}" class="aside_bckg_li">
-                        <a href="#" data-toggle="modal" data-target="#evaluation_modal">
-                            <div class="pull-left smiley_happy_menu_blue"></div>
-                            <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
-                            <div>
-                              <div class="pull-right chevron"></div>
-                              <div th:if="${ratingData.ratePositive}" class="pull-right smiley_happy_blue"></div>
-                              <div th:if="${ratingData.rateNegative}" class="pull-right smiley_unhappy_blue"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li th:if="${isVideoCreatedByMe}" class="aside_bckg_li">
-                      <a href="#" data-toggle="modal" data-target="#video_delete_modal">
-                        <div class="pull-left x-close_blue"></div>
-                        <h2 class="container_H2" th:text="#{video.delete}"/>
-                        <div>
-                          <div class="pull-right chevron"></div>
-                        </div>
-                      </a>
-                    </li>
-
-                    <li class="history_label noHover_nopointer aside_bckg_li">
-                        <a href="#">
-                            <div class="pull-left history_blue"></div>
-                            <h2 class=" container_H2" th:text="#{history}"/>
-                        </a>
-                    </li>
-                </ul>
-                <div th:if="${not #lists.isEmpty(videoHistoryDatas)}">
-                  <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
-                      <tbody>
-                      <div th:each="video, stats :${videoHistoryDatas}">
-                        <tr>
-                          <td th:if="${stats.last}" th:text="#{created_by(${video.name()},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
-                          <td th:if="${!stats.last}" th:text="#{updated_by(${video.name()},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
-                        </tr>
-                      </div>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-            </aside>
-        </div>
-    </div>
-</div>
-
 <div th:replace="fragments/modal-rate-sign :: div"/>
 <div th:replace="fragments/modal-add-favorite :: div"/>
 <div th:replace="fragments/modal-delete-video :: div"/>
 <div th:replace="fragments/modal-replace :: div"/>
 
+<body>
+<div class="container">
+  <div class="row">
+    <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
+      <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
+        <div class="pull-right" id="tooltipInframe">
+          <div class="smiley_happy_white_in_frame" style="z-index: 100" th:if="${videoHasPositiveRate}"></div>
+          <div class="smiley_happy_white_in_frame" style="visibility: hidden" th:if="${!videoHasPositiveRate}"></div>
+          <div class="pin_blue_in_frame" style="z-index: 100" th:if="${videoBelowToFavorite}"></div>
+          <div class="pin_blue_in_frame" style="visibility: hidden" th:if="${!videoBelowToFavorite}"></div>
+        </div>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe allowfullscreen="" class="embed-responsive-item"
+                  frameborder="0"
+                  th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false&amp;queue-enable=false'"></iframe>
+        </div>
+      </div>
+      <div class="sign_menu col-md-4 col-xs-12">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="label_sign aside_bckg_li">
+              <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
+            </li>
+            <li class="clear aside_bckg_li">
+              <a th:href="@{/sec/sign/} + ${signView.id} + '/definition'">
+                <div class="pull-left description_sign"></div>
+                <div th:if="${signView.textDefinition == null} and ${signView.videoDefinition == null}">
+                  <h2 class="container_H2" id="definition" th:text="#{sign.description-empty}"/>
+                  <div>
+                    <div class="pull-right add_black"></div>
+                  </div>
+                </div>
+                <div th:if="${signView.textDefinition != null} or ${signView.videoDefinition != null}">
+                  <h2 class="container_H2" id="definition" th:text="#{sign.description-not-empty}"/>
+                  <div>
+                    <div class="pull-right edit_black"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${isVideoCreatedByMe and !isIOSDevice}">
+              <a data-target="#replace" data-toggle="modal" href="#">
+                <div class="pull-left rewind_blue"></div>
+                <h2 class="container_H2" th:text="#{sign.redo}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${isVideoCreatedByMe and isIOSDevice}">
+              <a href="#" th:onclick="'javascript:onClick()'">
+                <div class="pull-left rewind_blue"></div>
+                <h2 class="container_H2" th:text="#{sign.redo}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${!ratingData.rateNoRate and !isVideoCreatedByMe}">
+              <a data-target="#evaluation_modal" data-toggle="modal" href="#">
+                <div class="pull-left smiley_happy_menu_blue"></div>
+                <h2 class="container_H2" th:text="#{sign.reevaluate}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                  <div class="pull-right smiley_happy_blue" th:if="${ratingData.ratePositive}"></div>
+                  <div class="pull-right smiley_unhappy_blue" th:if="${ratingData.rateNegative}"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${isVideoCreatedByMe}">
+              <a data-target="#video_delete_modal" data-toggle="modal" href="#">
+                <div class="pull-left x-close_blue"></div>
+                <h2 class="container_H2" th:text="#{video.delete}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
 
+            <li class="history_label noHover_nopointer aside_bckg_li">
+              <a href="#">
+                <div class="pull-left history_blue"></div>
+                <h2 class=" container_H2" th:text="#{history}"/>
+              </a>
+            </li>
+          </ul>
+          <div th:if="${not #lists.isEmpty(videoHistoryDatas)}">
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered table-hover" style="margin-top: 1%">
+                <tbody>
+                <div th:each="video, stats :${videoHistoryDatas}">
+                  <tr>
+                    <td th:if="${stats.last}"
+                        th:text="#{created_by(${video.name()},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
+                    <td th:if="${!stats.last}"
+                        th:text="#{updated_by(${video.name()},${#dates.format(video.createDate, 'dd-MM-yyyy HH:mm')})}"></td>
+                  </tr>
+                </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
-
-<script type="text/javascript" src="../public/js/rate.js" th:src="@{/js/rate.js}"></script>
-<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
-<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
-<script type="text/javascript" src="../public/js/video.js" th:src="@{/js/video.js}"></script>
-<script type="text/javascript" src="../public/js/new-video.js" th:src="@{/js/new-video.js}"></script>
-
+<script src="../public/js/rate.js" th:src="@{/js/rate.js}" type="text/javascript"></script>
+<script src="../public/js/recorder.js" th:src="@{/js/recorder.js}" type="text/javascript"></script>
+<script src="../public/js/sign.js" th:src="@{/js/sign.js}" type="text/javascript"></script>
+<script src="../public/js/video.js" th:src="@{/js/video.js}" type="text/javascript"></script>
+<script src="../public/js/new-video.js" th:src="@{/js/new-video.js}" type="text/javascript"></script>
 </html>

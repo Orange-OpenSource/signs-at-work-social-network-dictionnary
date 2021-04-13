@@ -20,57 +20,54 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-about :: header">&nbsp;</header>
-
-<body class="container-fluid">
 <div th:replace="fragments/modal-personnal_data :: div"/>
 
-<div class="row">
-  <div class="col-xs-12">
-    <h2 class="about_title" th:text="#{about.application_version(${appVersion})}"></h2>
-    <div>
-      <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu">
-          <li class="aside_bckg_li">
-            <a th:href="@{/sec/about-cgu}">
-              <div class="pull-left cgu_conditions_blue"></div>
-              <h2 class="container_CGU" th:text="#{about.see_condition_of_use}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
-            </a>
-          </li>
-          <li class="aside_bckg_li">
-            <a th:href="@{/sec/personal-data}">
-              <div class="pull-left cgu_conditions_blue"></div>
-              <h2 class="container_CGU" th:text="#{read.personnal_data}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
-            </a>
-          </li>
-          <li class="aside_bckg_li">
-            <a th:href="'mailto:' + ${appContactSupport} + '?subject=' + #{question.to.support(${appName})}">
-              <div class="pull-left contact"></div>
-              <h2 class="text_hyphenation container_H2" th:text="#{about.contact_us}"/>
-              <div>
-                <div class="pull-right edit_black"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </aside>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="about_title" th:text="#{about.application_version(${appVersion})}"></h2>
+      <div>
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="aside_bckg_li">
+              <a th:href="@{/sec/about-cgu}">
+                <div class="pull-left cgu_conditions_blue"></div>
+                <h2 class="container_CGU" th:text="#{about.see_condition_of_use}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <a th:href="@{/sec/personal-data}">
+                <div class="pull-left cgu_conditions_blue"></div>
+                <h2 class="container_CGU" th:text="#{read.personnal_data}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <a th:href="'mailto:' + ${appContactSupport} + '?subject=' + #{question.to.support(${appName})}">
+                <div class="pull-left contact"></div>
+                <h2 class="text_hyphenation container_H2" th:text="#{about.contact_us}"/>
+                <div>
+                  <div class="pull-right edit_black"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
     </div>
   </div>
 </div>
-
-
 </body>
-
-
 </html>

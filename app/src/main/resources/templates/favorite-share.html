@@ -20,71 +20,82 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-favorite-share :: header">&nbsp;</header>
 
-<body class="container-fluid margin-for-footer">
-
-<h2 class="subtitle" th:text="#{favorite.select_communities_for_share(${favoriteProfileView.favorite.favoriteName()})}"></h2>
-<div class="row ">
-  <div class="col-xs-12">
-    <aside class="sidebar">
-      <ul class="nav nav-list primary left-menu">
-        <li class="aside_bckg_li action">
-          <a href="#" data-toggle="modal" data-target="#create_community">
-            <div class="pull-left group_project_add"></div>
-            <h2 class="container_H2" th:text="#{favorite.create_community}"></h2>
-            <div class="pull-right edit_black"></div>
-          </a>
-        </li>
-      </ul>
-    </aside>
+<body class="margin-for-footer">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="subtitle"
+          th:text="#{favorite.select_communities_for_share(${favoriteProfileView.favorite.favoriteName()})}"></h2>
+      <div class="row ">
+        <div class="col-xs-12">
+          <aside class="sidebar">
+            <ul class="nav nav-list primary left-menu">
+              <li class="aside_bckg_li action">
+                <a data-target="#create_community" data-toggle="modal" href="#">
+                  <div class="pull-left group_project_add"></div>
+                  <h2 class="container_H2" th:text="#{favorite.create_community}"></h2>
+                  <div class="pull-right edit_black"></div>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+      <div class="title_middle" th:fragment="div">
+        <div th:replace="fragments/frame-favorite-share :: div"/>
+      </div>
+      <div class="footer container">
+        <button class="btn btn-secondary" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))"
+                th:text="#{undo}"></button>
+        <button class="btn btn-default" th:data-communityId="${communityId}"
+                th:data-favoriteId="${favoriteProfileView.favorite.id}"
+                th:onclick="javascript:onAssociateFavoriteCommunities(this.getAttribute('data-favoriteId'),this.getAttribute('data-communityId'))"
+                th:text="#{validate}"></button>
+      </div>
+    </div>
   </div>
 </div>
-<div th:fragment="div" class="title_middle">
-    <div th:replace="fragments/frame-favorite-share :: div"/>
-  <div class="footer">
-    <button class="btn btn-secondary" th:text="#{undo}" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))"></button>
-    <button class="btn btn-default" th:data-favoriteId="${favoriteProfileView.favorite.id}" th:data-communityId="${communityId}" th:onclick="javascript:onAssociateFavoriteCommunities(this.getAttribute('data-favoriteId'),this.getAttribute('data-communityId'))" th:text="#{validate}"></button>
-  </div>
-</div>
 
-
-<div id="create_community" class="modal fade" role="dialog">
+<div class="modal fade" id="create_community" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"></button>
+        <button class="close" data-dismiss="modal" type="button"></button>
         <div class="pull-left">
           <div class="group_project_add_white pull-left"></div>
           <h2 class="pull-right" th:text="#{favorite.create_community}"></h2>
         </div>
       </div>
 
-      <form th:action="@{/sec/community/search(id=${favoriteProfileView.favorite.id})}" th:object="${communityCreationView}" method="post" autocomplete="off">
+      <form autocomplete="off"
+            method="post" th:action="@{/sec/community/search(id=${favoriteProfileView.favorite.id})}" th:object="${communityCreationView}">
         <div class="modal-body text-center">
-          <input th:value="${favoriteProfileView.favorite.favoriteName()}" type="text" class="border form-control" th:placeholder="#{community.enter_name}"
-                 name="name" th:autofocus="true" />
+          <input class="border form-control" name="name" th:autofocus="true"
+                 th:placeholder="#{community.enter_name}"
+                 th:value="${favoriteProfileView.favorite.favoriteName()}" type="text"/>
         </div>
         <div class="modal-footer">
-          <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" id="cancel-modal" title="Cliquer pour annuler"
+                  type="button">
             <span th:text="#{cancel}"></span>
           </button>
-          <button th:text="#{continue}" type="submit" class="btn btn-default"
-                  data-dismiss=""></button>
+          <button class="btn btn-default" data-dismiss="" th:text="#{continue}"
+                  type="submit"></button>
         </div>
       </form>
     </div>
   </div>
 </div>
-
 </body>
-<script type="text/javascript" src="../public/js/favorite.js" th:src="@{/js/favorite.js}"></script>
+<script src="../public/js/favorite.js" th:src="@{/js/favorite.js}" type="text/javascript"></script>
 </html>
 

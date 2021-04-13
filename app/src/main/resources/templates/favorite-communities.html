@@ -20,37 +20,44 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-favorite-communities :: header">&nbsp;</header>
 
 
-<body class="container-fluid">
-<h2 class="subtitle" th:text="#{favorite.share_communities(${favoriteProfileView.favorite.favoriteName()})}"></h2>
-<div class="row ">
-    <div class="col-md-4 col-xs-12 col-lg-12">
-        <aside class="sidebar">
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-lg-12">
+      <h2 class="subtitle" th:text="#{favorite.share_communities(${favoriteProfileView.favorite.favoriteName()})}"></h2>
+      <div class="row ">
+        <div class="col-md-4 col-xs-12 col-lg-12">
+          <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
-                <li th:each="community:${communities}" class="aside_bckg_li">
-                    <a th:href="@{/sec/community/} + ${community.id}">
-                        <div th:if="${community.type == 'Job'}" class="pull-left see_group_blue"></div>
-                        <div th:if="${community.type == 'JobIBelow'}" class="pull-left see_group_member_blue"></div>
-                        <div th:if="${community.type == 'Project'}" class="pull-left see_group_project_blue"></div>
-                        <div th:if="${community.type == 'ProjectIBelow'}" class="pull-left see_group_project_me_blue"></div>
-                        <h2 class="container_H2" th:text="${community.name}"></h2>
-                        <div><div class="pull-right chevron"></div> </div>
-
-                    </a>
-                </li>
+              <li class="aside_bckg_li" th:each="community:${communities}">
+                <a th:href="@{/sec/community/} + ${community.id}">
+                  <div class="pull-left see_group_blue" th:if="${community.type == 'Job'}"></div>
+                  <div class="pull-left see_group_member_blue" th:if="${community.type == 'JobIBelow'}"></div>
+                  <div class="pull-left see_group_project_blue" th:if="${community.type == 'Project'}"></div>
+                  <div class="pull-left see_group_project_me_blue" th:if="${community.type == 'ProjectIBelow'}"></div>
+                  <h2 class="container_H2" th:text="${community.name}"></h2>
+                  <div>
+                    <div class="pull-right chevron"></div>
+                  </div>
+                </a>
+              </li>
             </ul>
-        </aside>
-      <div th:if="${#lists.isEmpty(communities)}" class="text-center">
-        <h2 th:text="#{community.no_community}"></h2>
+          </aside>
+          <div class="text-center" th:if="${#lists.isEmpty(communities)}">
+            <h2 th:text="#{community.no_community}"></h2>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 </div>
 </body>
 

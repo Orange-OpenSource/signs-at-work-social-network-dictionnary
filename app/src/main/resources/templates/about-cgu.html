@@ -20,62 +20,60 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-about-cgu :: header">&nbsp;</header>
-
-<body class="container-fluid">
 <div th:replace="fragments/modal-cgu :: div"/>
-<!--<div th:replace="fragments/modal-cgu-lsf :: div"/>-->
 
-<div class="row">
-  <div class="col-xs-12">
-    <div>
-      <h2 class="blue" th:text="#{cgu_orange}"/>
-      <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu">
-          <li class="aside_bckg_li">
-            <a data-target="#read_condition_of_use" data-toggle="modal" href="#">
-              <div class="pull-left cgu_conditions_blue"></div>
-              <h2 class="container_CGU" th:text="#{read.condition_of_use}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
-            </a>
-          </li>
-          <li class="aside_bckg_li">
-           <!-- <a data-target="#see_condition_of_use" data-toggle="modal" href="#">-->
-           <a th:href="@{/about-cgu-lsf}">
-              <div class="pull-left cgu_conditions_lsf_blue"></div>
-              <h2 class="container_CGU" th:text="#{see.condition_of_use}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </aside>
-      <h2 id="cgu-dailymotion" class="blue" th:text="#{cgu_dailymotion}"/>
-      <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu">
-          <li class="aside_bckg_li">
-            <a href="https://www.dailymotion.com/legal" th:target="_blank">
-              <div class="pull-left cgu_conditions_blue"></div>
-              <h2 class="container_CGU" th:text="#{read.condition_of_use}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </aside>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div>
+        <h2 class="blue" th:text="#{cgu_orange}"/>
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="aside_bckg_li">
+              <a data-target="#read_condition_of_use" data-toggle="modal" href="#">
+                <div class="pull-left cgu_conditions_blue"></div>
+                <h2 class="container_CGU" th:text="#{read.condition_of_use}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <!-- <a data-target="#see_condition_of_use" data-toggle="modal" href="#">-->
+              <a th:href="@{/about-cgu-lsf}">
+                <div class="pull-left cgu_conditions_lsf_blue"></div>
+                <h2 class="container_CGU" th:text="#{see.condition_of_use}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <h2 class="blue" id="cgu-dailymotion" th:text="#{cgu_dailymotion}"/>
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="aside_bckg_li">
+              <a href="https://www.dailymotion.com/legal" th:target="_blank">
+                <div class="pull-left cgu_conditions_blue"></div>
+                <h2 class="container_CGU" th:text="#{read.condition_of_use}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
     </div>
   </div>
 </div>
-
 </body>
-
 </html>

@@ -20,102 +20,106 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-    <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <script src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}" type="text/javascript"></script>
+  <script src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}" type="text/javascript"></script>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-other-request :: header">&nbsp;</header>
-
-
-<body class="container-fluid">
 <div th:replace="fragments/modal-suggest :: div"/>
 
-
-<div class="row ">
-
-  <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
-
-    <div class=" col-xs-12">
-      <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu">
-          <li id="date-request" class="aside_bckg_li">
-            <h4 th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
-            <h4 th:text="#{request.created_by(${requestView.user.name()})}"/>
-          </li>
-        </ul>
-      </aside>
-    </div>
-    <div class="pull-right col-md-8 col-xs-12">
-      <div class="embed-responsive embed-responsive-16by9" th:if="${requestView.requestVideoDescription} != null">
-        <iframe class="embed-responsive-item" th:attr="title=#{other-request(${title})}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false'" frameborder="0" allowfullscreen=""></iframe>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="text-center title_middle col-md-12 col-xs-12 middle-col ">
+      <div class=" col-xs-12">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="aside_bckg_li" id="date-request">
+              <h4 th:text="#{request.created_on(${#dates.format(requestView.requestDate, 'dd-MM-yyyy HH:mm')})}"/>
+              <h4 th:text="#{request.created_by(${requestView.user.name()})}"/>
+            </li>
+          </ul>
+        </aside>
       </div>
-    </div>
-
-    <div th:if="${requestView.requestVideoDescription} != null" class="col-md-4 col-xs-12 col-lg-4">
-      <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu">
-          <li class="aside_bckg_li">
-            <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
-          </li>
-          <li class="aside_bckg_li">
-            <div th:if="${requestView.requestTextDescription} != null">
-              <h4 th:text="${requestView.requestTextDescription}" id="requestTextDescription" name="requestTextDescription"/>
-            </div>
-            <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
-              <h4 class="grey-color" th:text="#{request.no_definition_text}"/>
-            </div>
-            <div th:if="${requestView.requestVideoDescription == null or #strings.isEmpty(requestView.requestVideoDescription)}">
-              <h4 class="grey-color" th:text="#{request.no_definition_lsf}"/>
-            </div>
-          </li>
-          <li sec:authorize="hasRole('USER_A')" class="aside_bckg_li">
-            <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
-              <div class="pull-left sign_add"></div>
-              <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
-              <div ><div class="pull-right add_black"></div></div>
-            </a>
-          </li>
-        </ul>
-      </aside>
-    </div>
-    <div th:unless="${requestView.requestVideoDescription} != null" class="col-xs-12">
-      <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu">
-          <li class="aside_bckg_li">
-            <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
-          </li>
-          <li class="aside_bckg_li">
-            <div th:if="${requestView.requestTextDescription} != null">
-              <h4 th:text="${requestView.requestTextDescription}" id="requestTextDescription" name="requestTextDescription"/>
-            </div>
-            <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
-              <h4 class="grey-color" th:text="#{request.no_definition_text}"/>
-            </div>
-            <div th:if="${requestView.requestVideoDescription == null or #strings.isEmpty(requestView.requestVideoDescription)}">
-              <h4 class="grey-color" th:text="#{request.no_definition_lsf}"/>
-            </div>
-          </li>
-          <li sec:authorize="hasRole('USER_A')" class="aside_bckg_li">
-            <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
-              <div class="pull-left sign_add"></div>
-              <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
-              <div ><div class="pull-right add_black"></div></div>
-            </a>
-          </li>
-        </ul>
-      </aside>
+      <div class="pull-right col-md-8 col-xs-12">
+        <div class="embed-responsive embed-responsive-16by9" th:if="${requestView.requestVideoDescription} != null">
+          <iframe allowfullscreen="" class="embed-responsive-item"
+                  frameborder="0"
+                  th:attr="title=#{other-request(${title})}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false'"></iframe>
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12 col-lg-4" th:if="${requestView.requestVideoDescription} != null">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="aside_bckg_li">
+              <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
+            </li>
+            <li class="aside_bckg_li">
+              <div th:if="${requestView.requestTextDescription} != null">
+                <h4 id="requestTextDescription" name="requestTextDescription"
+                    th:text="${requestView.requestTextDescription}"/>
+              </div>
+              <div
+                th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+                <h4 class="grey-color" th:text="#{request.no_definition_text}"/>
+              </div>
+              <div
+                th:if="${requestView.requestVideoDescription == null or #strings.isEmpty(requestView.requestVideoDescription)}">
+                <h4 class="grey-color" th:text="#{request.no_definition_lsf}"/>
+              </div>
+            </li>
+            <li class="aside_bckg_li" sec:authorize="hasRole('USER_A')">
+              <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
+                <div class="pull-left sign_add"></div>
+                <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
+                <div>
+                  <div class="pull-right add_black"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
+      <div class="col-xs-12" th:unless="${requestView.requestVideoDescription} != null">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="aside_bckg_li">
+              <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
+            </li>
+            <li class="aside_bckg_li">
+              <div th:if="${requestView.requestTextDescription} != null">
+                <h4 id="requestTextDescription" name="requestTextDescription"
+                    th:text="${requestView.requestTextDescription}"/>
+              </div>
+              <div
+                th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+                <h4 class="grey-color" th:text="#{request.no_definition_text}"/>
+              </div>
+              <div
+                th:if="${requestView.requestVideoDescription == null or #strings.isEmpty(requestView.requestVideoDescription)}">
+                <h4 class="grey-color" th:text="#{request.no_definition_lsf}"/>
+              </div>
+            </li>
+            <li class="aside_bckg_li" sec:authorize="hasRole('USER_A')">
+              <a th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
+                <div class="pull-left sign_add"></div>
+                <h4 class="container_H2" th:text="#{request.propose_your_sign}"/>
+                <div>
+                  <div class="pull-right add_black"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
     </div>
   </div>
 </div>
-
-<script type="text/javascript" src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}"></script>
-<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
-<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
-
-
 </body>
-
+<script src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}" type="text/javascript"></script>
+<script src="../public/js/recorder.js" th:src="@{/js/recorder.js}" type="text/javascript"></script>
+<script src="../public/js/sign.js" th:src="@{/js/sign.js}" type="text/javascript"></script>
 </html>

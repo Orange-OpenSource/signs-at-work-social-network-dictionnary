@@ -20,110 +20,108 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 <header role="banner" th:replace="fragments/header-favorite :: header">&nbsp;</header>
+<div th:replace="fragments/modal-play-video :: div"/>
 
-
-
-<body class="container-fluid">
-      <div th:replace="fragments/modal-play-video :: div"/>
-      <div class="row ">
-
-           <div class="col-xs-12">
-              <aside class="sidebar">
-                <ul class="nav nav-list primary left-menu">
-                    <li class="aside_bckg_li">
-                        <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/manage-favorite'">
-                          <div class="pull-left settings2_blue"></div>
-                          <h2 class="container_H2" th:text="#{favorite.manage}"></h2>
-                          <div class="pull-right chevron"></div>
-                         </a>
-                    </li>
-                    <li th:if="${#lists.isEmpty(videosView) and shareNumber == 0}" class="disabled aside_bckg_li">
-                      <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
-                        <div class="pull-left share_blue"></div>
-                        <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
-                        <div class="pull-right chevron"></div>
-                      </a>
-                    </li>
-                    <li th:if="${!#lists.isEmpty(videosView) and shareNumber == 0}" class="aside_bckg_li">
-                      <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
-                        <div class="pull-left share_blue"></div>
-                        <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
-                        <div class="pull-right chevron"></div>
-                      </a>
-                    </li>
-                    <li th:if="${shareNumber != 0}" class="aside_bckg_li">
-                      <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
-                        <div class="pull-left share_blue"></div>
-                        <h2 class="container_H2" th:text="#{favorite.share(${shareNumber})}"></h2>
-                        <div class="pull-right chevron"></div>
-                      </a>
-                    </li>
-                    <li th:if="${#lists.isEmpty(videosView)}" class="aside_bckg_li">
-                      <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
-                        <div class="pull-left add-remove"></div>
-                        <h2 class="container_H2" th:text="#{favorite.add_sign}"></h2>
-                        <div class="pull-right  pin_black"></div>
-                      </a>
-                    </li>
-                    <li th:if="${!#lists.isEmpty(videosView)}" class="aside_bckg_li">
-                      <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
-                        <div class="pull-left add-remove"></div>
-                        <h2 class="container_H2" th:text="#{favorite.choose_sign}"></h2>
-                        <div class="pull-right  pin_black"></div>
-                      </a>
-                    </li>
-                </ul>
-              </aside>
-           </div>
-
-          <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col"><br/>
+<body>
+<div class="container">
+  <div class="row ">
+    <div class="col-xs-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li">
+            <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/manage-favorite'">
+              <div class="pull-left settings2_blue"></div>
+              <h2 class="container_H2" th:text="#{favorite.manage}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="disabled aside_bckg_li" th:if="${#lists.isEmpty(videosView) and shareNumber == 0}">
+            <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
+              <div class="pull-left share_blue"></div>
+              <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${!#lists.isEmpty(videosView) and shareNumber == 0}">
+            <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
+              <div class="pull-left share_blue"></div>
+              <h2 class="container_H2" th:text="#{favorite.noShare}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${shareNumber != 0}">
+            <a th:href="@{/sec/favorite/share(id=${favoriteManageView.id}, communityId=0)}">
+              <div class="pull-left share_blue"></div>
+              <h2 class="container_H2" th:text="#{favorite.share(${shareNumber})}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${#lists.isEmpty(videosView)}">
+            <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
+              <div class="pull-left add-remove"></div>
+              <h2 class="container_H2" th:text="#{favorite.add_sign}"></h2>
+              <div class="pull-right  pin_black"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${!#lists.isEmpty(videosView)}">
+            <a th:href="@{/sec/favorite/} + ${favoriteManageView.id} +  '/associate-sign'">
+              <div class="pull-left add-remove"></div>
+              <h2 class="container_H2" th:text="#{favorite.choose_sign}"></h2>
+              <div class="pull-right  pin_black"></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+    <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col"><br/>
+      <div class="row">
+        <div class="row" id="videos-container" th:if="${not #lists.isEmpty(videosView)}">
+          <div class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4"
+               th:each="videoView:${videosView}">
             <div class="row">
-              <div th:if="${not #lists.isEmpty(videosView)}" id="videos-container" class="row">
-              <div th:each="videoView:${videosView}" class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <!--<div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
-                    <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
-                    <div th:if="${videoView.signBelowToFavorite}" class="pin_blue"></div>
-                    <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="pin_blue"></div>-->
-                    <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" type="text/html">
-                      <div class="labelSigne text_hyphenation" th:text="${videoView.videoName}"></div>
-                      <div class="chevron_blue pull-right"></div>
-                    </a>
-                    <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:data-url="${videoView.url}" th:data-name="${cleaned}" th:data-idForName="${videoView.idForName}" th:data-nbVideo="${videoView.nbVideo}" th:onclick="javascript:displayVideo(this.getAttribute('data-url'),this.getAttribute('data-name'),this.getAttribute('data-idForName'),this.getAttribute('data-nbVideo'))">
-                    <!--<a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
-                        <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
-                        <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
-                        <div th:if="${videoView.signBelowToFavorite}" class="pin_blue"></div>
-                        <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="pin_blue"></div>
-                        <div class="container_tooltip_in_image">
-                        <div th:if="${videoView.videoHasComment}" class="commentary_white"></div>
-                        <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="commentary_white"></div>
-                        <div th:if="${videoView.videoHasPositiveRate}" class="smiley_happy_white"></div>
-                        <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="smiley_happy_white"></div>
-                        <div th:if="${videoView.videoHasView}" class="sign_see_white"></div>
-                        <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="sign_see_white"></div>
-                      </div>
-                      <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
-                    </a>
-                    </div>
-                </div>
-
+              <div class="col-lg-12">
+                <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" type="text/html">
+                  <div class="labelSigne text_hyphenation" th:text="${videoView.videoName}"></div>
+                  <div class="chevron_blue pull-right"></div>
+                </a>
+                <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}"
+                   th:data-idForName="${videoView.idForName}"
+                   th:data-name="${cleaned}" th:data-nbVideo="${videoView.nbVideo}" th:data-url="${videoView.url}"
+                   th:onclick="javascript:displayVideo(this.getAttribute('data-url'),this.getAttribute('data-name'),this.getAttribute('data-idForName'),this.getAttribute('data-nbVideo'))"
+                   th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}'>
+                  <div class="new_blue-signs" th:if="${videoView.videoCreateAfterLastDateDeconnection}"></div>
+                  <div class="new_blue-signs" style="visibility: hidden"
+                       th:if="${!videoView.videoCreateAfterLastDateDeconnection}"></div>
+                  <div class="pin_blue" th:if="${videoView.signBelowToFavorite}"></div>
+                  <div class="pin_blue" style="visibility: hidden" th:if="${!videoView.signBelowToFavorite}"></div>
+                  <div class="container_tooltip_in_image">
+                    <div class="commentary_white" th:if="${videoView.videoHasComment}"></div>
+                    <div class="commentary_white" style="visibility: hidden"
+                         th:if="${!videoView.videoHasComment}"></div>
+                    <div class="smiley_happy_white" th:if="${videoView.videoHasPositiveRate}"></div>
+                    <div class="smiley_happy_white" style="visibility: hidden"
+                         th:if="${!videoView.videoHasPositiveRate}"></div>
+                    <div class="sign_see_white" th:if="${videoView.videoHasView}"></div>
+                    <div class="sign_see_white" style="visibility: hidden" th:if="${!videoView.videoHasView}"></div>
+                  </div>
+                  <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
+                </a>
               </div>
             </div>
-            </div>
           </div>
-
-          <div th:if="${#lists.isEmpty(videosView)}">
-            <h2 class="text-center" th:text="#{favorite.empty}"></h2>
-          </div>
+        </div>
       </div>
+    </div>
+    <div th:if="${#lists.isEmpty(videosView)}">
+      <h2 class="text-center" th:text="#{favorite.empty}"></h2>
+    </div>
+  </div>
+</div>
 </body>
-<script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
-
+<script src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}" type="text/javascript"></script>
 </html>

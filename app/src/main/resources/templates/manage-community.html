@@ -20,128 +20,134 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 <header role="banner" th:replace="fragments/header-manage-community :: header">&nbsp;</header>
 
 
-<body class="container-fluid">
-<div class="row ">
+<body>
+<div class="container">
+  <div class="row">
     <div class="col-xs-12">
-        <aside class="sidebar">
-            <ul class="nav nav-list primary left-menu">
-                <li th:if="${!isCommunityBelowToMe}" class="disabled aside_bckg_li">
-                    <a href="#" data-toggle="modal" data-target="#rename_community">
-                        <div class="pull-left edit_blue"></div>
-                        <h2 class="text_hyphenation container_H2" th:text="#{community.rename_managed_by(${userName})}"></h2>
-                        <div class="pull-right edit_grey"></div>
-                    </a>
-                </li>
-                <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
-                  <a href="#" data-toggle="modal" data-target="#rename_community">
-                    <div class="pull-left edit_blue"></div>
-                    <h2 class="text_hyphenation container_H2" th:text="#{community.rename}"></h2>
-                    <div class="pull-right edit_black"></div>
-                  </a>
-                </li>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="disabled aside_bckg_li" th:if="${!isCommunityBelowToMe}">
+            <a data-target="#rename_community" data-toggle="modal" href="#">
+              <div class="pull-left edit_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{community.rename_managed_by(${userName})}"></h2>
+              <div class="pull-right edit_grey"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${isCommunityBelowToMe}">
+            <a data-target="#rename_community" data-toggle="modal" href="#">
+              <div class="pull-left edit_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{community.rename}"></h2>
+              <div class="pull-right edit_black"></div>
+            </a>
+          </li>
 
-                <li th:if="${!isCommunityBelowToMe}" class="aside_bckg_li">
-                  <a href="#" data-toggle="modal" data-target="#remove_me_from_community">
-                    <div class="pull-left member_choose_blue"></div>
-                    <h2 class="text_hyphenation container_H2" th:text="#{community.remove_me}"></h2>
-                    <div class="pull-right edit_black"></div>
-                  </a>
-                </li>
-                <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
-                  <a th:href="@{/sec/community/} + ${community.id} + '/modify'">
-                    <div class="pull-left member_choose_blue"></div>
-                    <h2 class="text_hyphenation container_H2" th:text="#{community.choose_members}"></h2>
-                    <div class="pull-right edit_black"></div>
-                  </a>
-                </li>
-                <li th:if="${!isCommunityBelowToMe}" class="disabled aside_bckg_li">
-                    <a href="#" data-toggle="modal" data-target="#delete_community">
-                        <div class="pull-left group_delete_blue"></div>
-                        <h2 class="text_hyphenation container_H2" th:text="#{community.delete_managed_by(${userName})}"></h2>
-                        <div class="pull-right chevron_right_grey"></div>
-                    </a>
-                </li>
-                <li th:if="${isCommunityBelowToMe}" class="aside_bckg_li">
-                  <a href="#" data-toggle="modal" data-target="#delete_community">
-                    <div class="pull-left group_delete_blue"></div>
-                    <h2 class="text_hyphenation container_H2" th:text="#{community.delete}"></h2>
-                    <div class="pull-right chevron"></div>
-                  </a>
-                </li>
-            </ul>
-        </aside>
+          <li class="aside_bckg_li" th:if="${!isCommunityBelowToMe}">
+            <a data-target="#remove_me_from_community" data-toggle="modal" href="#">
+              <div class="pull-left member_choose_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{community.remove_me}"></h2>
+              <div class="pull-right edit_black"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${isCommunityBelowToMe}">
+            <a th:href="@{/sec/community/} + ${community.id} + '/modify'">
+              <div class="pull-left member_choose_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{community.choose_members}"></h2>
+              <div class="pull-right edit_black"></div>
+            </a>
+          </li>
+          <li class="disabled aside_bckg_li" th:if="${!isCommunityBelowToMe}">
+            <a data-target="#delete_community" data-toggle="modal" href="#">
+              <div class="pull-left group_delete_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{community.delete_managed_by(${userName})}"></h2>
+              <div class="pull-right chevron_right_grey"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${isCommunityBelowToMe}">
+            <a data-target="#delete_community" data-toggle="modal" href="#">
+              <div class="pull-left group_delete_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{community.delete}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
     </div>
+  </div>
 </div>
 
 <!-- Modal -->
-<div id="delete_community" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
-                <div class="pull-left">
-                    <div class="group_delete_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{community.delete_list}"></h2>
-                </div>
-            </div>
-            <div class="modal-body text-center">
-              <h4 th:text="#{community.confirm_delete(${community.name})}"></h4>
-            </div>
-            <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                <div class="x-close2_black center-block"></div>
-                <span th:text="#{cancel}"></span>
-              </button>
-              <button type="submit" th:data-communityId="${community.id}" th:onclick="javascript:onDeleteCommunity(this.getAttribute('data-communityId'))"  class="btn btn-default pull-right" data-dismiss="">
-                <div class="v-done2_blue center-block"></div>
-                <span th:text="#{confirm}"></span>
-              </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="rename_community" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
-                <div class="pull-left">
-                    <div class="edit_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{community.rename_list}"></h2>
-                </div>
-            </div>
-            <div class="modal-body text-center">
-                <input id="communityName" th:value="${community.name}" type="text" class="form-control"
-                       name="communityName" th:autofocus="true" />
-                <span id="errorRename" style="visibility: hidden"></span>
-            </div>
-            <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                <div class="x-close2_black center-block"></div>
-                <span th:text="#{cancel}"></span>
-              </button>
-                <button id="submit-rename-modal" type="submit" th:data-communityId="${community.id}" th:onclick="javascript:onRenameCommunity(this.getAttribute('data-communityId'))" class="btn btn-default pull-right" data-dismiss="">
-                  <div class="v-done2_blue center-block"></div>
-                  <span th:text="#{continue}"></span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="remove_me_from_community" class="modal fade" role="dialog">
+<div class="modal fade" id="delete_community" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"></button>
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="group_delete_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{community.delete_list}"></h2>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{community.confirm_delete(${community.name})}"></h4>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+          <div class="x-close2_black center-block"></div>
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss=""
+                th:data-communityId="${community.id}"
+                th:onclick="javascript:onDeleteCommunity(this.getAttribute('data-communityId'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{confirm}"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="rename_community" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="edit_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{community.rename_list}"></h2>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <input class="form-control" id="communityName" name="communityName" th:autofocus="true"
+               th:value="${community.name}" type="text"/>
+        <span id="errorRename" style="visibility: hidden"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+          <div class="x-close2_black center-block"></div>
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-rename-modal"
+                th:data-communityId="${community.id}"
+                th:onclick="javascript:onRenameCommunity(this.getAttribute('data-communityId'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="remove_me_from_community" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
         <div class="pull-left">
           <div class="member_choose_white pull-left"></div>
           <h2 class="pull-right" th:text="#{community.remove_me}"></h2>
@@ -151,11 +157,13 @@
         <h4 th:text="#{community.confirm_remove_me}"></h4>
       </div>
       <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
-        <button type="submit" th:data-communityId="${community.id}" th:data-userId="${user.id}" th:onclick="javascript:onRemoveMeFromCommunity(this.getAttribute('data-communityId'),this.getAttribute('data-userId'))"  class="btn btn-default pull-right" data-dismiss="">
+        <button class="btn btn-default pull-right" data-dismiss="" th:data-communityId="${community.id}"
+                th:data-userId="${user.id}"
+                th:onclick="javascript:onRemoveMeFromCommunity(this.getAttribute('data-communityId'),this.getAttribute('data-userId'))" type="submit">
           <div class="v-done2_blue center-block"></div>
           <span th:text="#{confirm}"></span>
         </button>
@@ -164,7 +172,7 @@
   </div>
 </div>
 
-<div  id="validate_delete_community" class="modal" role="dialog">
+<div class="modal" id="validate_delete_community" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -180,7 +188,7 @@
   </div>
 </div>
 
-<div  id="validate_rename_community" class="modal" role="dialog">
+<div class="modal" id="validate_rename_community" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -197,7 +205,7 @@
 </div>
 
 
-<div  id="validate_remove_me_from_community" class="modal" role="dialog">
+<div class="modal" id="validate_remove_me_from_community" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -214,5 +222,5 @@
 </div>
 
 </body>
-<script type="text/javascript" src="../public/js/manage-community.js" th:src="@{/js/manage-community.js}"></script>
+<script src="../public/js/manage-community.js" th:src="@{/js/manage-community.js}" type="text/javascript"></script>
 </html>

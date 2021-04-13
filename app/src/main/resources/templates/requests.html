@@ -20,76 +20,83 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-requests :: header">&nbsp;</header>
-
-<body class="container-fluid">
 <div th:replace="fragments/modal-new-request :: div"/>
-<div class="row ">
 
-    <div class="col-xs-12">
-        <aside class="sidebar">
-            <ul class="nav nav-list primary left-menu">
-              <li th:if="${isAuthenticated and #lists.isEmpty(myRequestsWithSignAssociate) and #lists.isEmpty(myRequestsWithoutSignAssociate)}" class="disabled aside_bckg_li">
-                <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}" class="disabled">
-                  <div class="pull-left member_ask_blue"></div>
-                  <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
-                  <div class="pull-right chevron_right_grey"></div>
-                </a>
-              </li>
-              <li th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithSignAssociate) and not #lists.isEmpty(myRequestsWithoutSignAssociate)}" class="aside_bckg_li">
-                <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
-                  <div class="pull-left member_ask_blue"></div>
-                  <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
-                  <div class="pull-right chevron"></div>
-                </a>
-              </li>
-              <li th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithSignAssociate) and #lists.isEmpty(myRequestsWithoutSignAssociate) }" class="aside_bckg_li">
-                <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
-                  <div class="pull-left member_ask_blue"></div>
-                  <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
-                  <div class="pull-right chevron"></div>
-                </a>
-              </li>
-              <li th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithoutSignAssociate) and #lists.isEmpty(myRequestsWithSignAssociate)}" class="aside_bckg_li">
-                <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
-                  <div class="pull-left member_ask_blue"></div>
-                  <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
-                  <div class="pull-right chevron"></div>
-                </a>
-              </li>
-              <li th:if="${isAuthenticated and  #lists.isEmpty(otherRequestsWithoutSignAssociate)}" class="disabled aside_bckg_li">
-                <a th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}" class="disabled">
-                  <div class="pull-left group_ask_blue"></div>
-                  <h2 class="text_hyphenation container_H2" th:text="#{request.other}"></h2>
-                  <div class="pull-right chevron_right_grey"></div>
-                </a>
-              </li>
-              <li th:if="${isAuthenticated and not #lists.isEmpty(otherRequestsWithoutSignAssociate)}" class="aside_bckg_li">
-                <a th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
-                  <div class="pull-left group_ask_blue"></div>
-                  <h2 class="text_hyphenation container_H2" th:text="#{request.other}"></h2>
-                  <div class="pull-right chevron"></div>
-                </a>
-              </li>
-              <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                <a data-target="#new_request" data-toggle="modal" href="#">
-                  <div class="pull-left sign_ask-for_blue"></div>
-                  <h2 class="text_hyphenation container_H2" th:text="#{request.new}"></h2>
-                  <div class="pull-right add_black"></div>
-                </a>
-              </li>
-            </ul>
-        </aside>
+<body>
+<div class="container">
+  <div class="row ">
+    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li
+            class="disabled aside_bckg_li"
+            th:if="${isAuthenticated and #lists.isEmpty(myRequestsWithSignAssociate) and #lists.isEmpty(myRequestsWithoutSignAssociate)}">
+            <a class="disabled" th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+              <div class="pull-left member_ask_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
+              <div class="pull-right chevron_right_grey"></div>
+            </a>
+          </li>
+          <li
+            class="aside_bckg_li"
+            th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithSignAssociate) and not #lists.isEmpty(myRequestsWithoutSignAssociate)}">
+            <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+              <div class="pull-left member_ask_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li
+            class="aside_bckg_li"
+            th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithSignAssociate) and #lists.isEmpty(myRequestsWithoutSignAssociate) }">
+            <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+              <div class="pull-left member_ask_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li
+            class="aside_bckg_li"
+            th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithoutSignAssociate) and #lists.isEmpty(myRequestsWithSignAssociate)}">
+            <a th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+              <div class="pull-left member_ask_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{request.mine}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="disabled aside_bckg_li"
+              th:if="${isAuthenticated and  #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
+            <a class="disabled" th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+              <div class="pull-left group_ask_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{request.other}"></h2>
+              <div class="pull-right chevron_right_grey"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li"
+              th:if="${isAuthenticated and not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
+            <a th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+              <div class="pull-left group_ask_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{request.other}"></h2>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${isAuthenticated}">
+            <a data-target="#new_request" data-toggle="modal" href="#">
+              <div class="pull-left sign_ask-for_blue"></div>
+              <h2 class="text_hyphenation container_H2" th:text="#{request.new}"></h2>
+              <div class="pull-right add_black"></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
     </div>
-
+  </div>
 </div>
-
 </body>
-
-
 </html>

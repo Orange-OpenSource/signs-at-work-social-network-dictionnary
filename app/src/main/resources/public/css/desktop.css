@@ -99,7 +99,6 @@
     width: auto;
   }
 
-
 }
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
@@ -170,10 +169,9 @@
 
 
 
-  .container_H2.text_hyphenation{
+/*  .container_H2.text_hyphenation{
     width: 80%;
-  }
-
+  }*/
 
 }
 

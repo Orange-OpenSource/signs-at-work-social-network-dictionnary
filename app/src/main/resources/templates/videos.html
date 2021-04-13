@@ -20,23 +20,26 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-videos :: header">&nbsp;</header>
-
-<body class="container-fluid">
-
-
-<div th:fragment="div" class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col">
-    <h1 th:text="${signName}"></h1>
-
-    <div th:replace="fragments/frame-videos :: div"/>
-</div>
 <div th:replace="fragments/modal-play-video :: div"/>
 
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="text-center title_middle col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div">
+        <h1 th:text="${signName}"></h1>
+        <div th:replace="fragments/frame-videos :: div"/>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
-<script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
+<script src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}" type="text/javascript"></script>
 </html>

@@ -20,28 +20,32 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-modify-community :: header">&nbsp;</header>
 
-<body class="container-fluid margin-for-footer">
-
-<h2 class="subtitle" th:text="#{community.select_member_community(${community.name})}"></h2>
-
-<div th:fragment="div">
-    <div th:replace="fragments/frame-modify-community :: div"/>
-  <div class="footer">
-    <button class="btn btn-secondary" th:text="#{undo}" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueCommunity(this.getAttribute('data-backUrl'))"></button>
-    <button class="btn btn-default" th:data-communityId="${community.id}" th:onclick="javascript:onModifyCommunity(this.getAttribute('data-communityId'))" th:text="#{validate}"></button>
+<body class="margin-for-footer">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="subtitle" th:text="#{community.select_member_community(${community.name})}"></h2>
+      <div th:fragment="div">
+        <div th:replace="fragments/frame-modify-community :: div"/>
+        <div class="footer container">
+          <button class="btn btn-secondary" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueCommunity(this.getAttribute('data-backUrl'))"
+                  th:text="#{undo}"></button>
+          <button class="btn btn-default" th:data-communityId="${community.id}"
+                  th:onclick="javascript:onModifyCommunity(this.getAttribute('data-communityId'))"
+                  th:text="#{validate}"></button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-
-
 </body>
-<script type="text/javascript" src="../public/js/community.js" th:src="@{/js/community.js}"></script>
+<script src="../public/js/community.js" th:src="@{/js/community.js}" type="text/javascript"></script>
 </html>
 

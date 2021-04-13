@@ -20,199 +20,195 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:include="fragments/header-head :: head"></th:block>
-  <!--<script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-  <script type="text/javascript" src="../public/js/gumadapter.js" th:src="@{/js/gumadapter.js}"></script>-->
- <!-- <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
-  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>-->
-  <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-  <script type="text/javascript" src="../public/js/adapter.js" th:src="@{/js/adapter.js}"></script>
+  <script src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}" type="text/javascript"></script>
+  <script src="../public/js/adapter.js" th:src="@{/js/adapter.js}" type="text/javascript"></script>
 </head>
+
 <header role="banner" th:replace="fragments/header-signs-suggest :: header">&nbsp;</header>
-
-<body class="container-fluid">
-
 <div th:replace="fragments/modal-suggest :: div"/>
 <div th:replace="fragments/modal-new-suggest :: div"/>
 
-
-<div class="row ">
-  <div class="col-md-4 col-xs-12 col-lg-12">
-    <h2  class="already_exits" th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></h2>
-    <h2 class="already_exits" th:if="${isRequestAlreadyExist and requestId == 0}" th:text="#{request.already_exists}"></h2>
-    <h2 class="already_exits" th:if="${isRequestWithAssociateSignAlreadyExist}" th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></h2>
-    <aside class="sidebar">
-      <ul class="nav nav-list primary left-menu">
-        <li th:if="${requestId == 0}" class="aside_bckg_li">
-          <a data-target="#new-suggest" data-toggle="modal" href="#">
+<body>
+<div class="container">
+  <div class="row ">
+    <div class="col-md-4 col-xs-12 col-lg-12">
+      <h2 class="already_exits" th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></h2>
+      <h2 class="already_exits" th:if="${isRequestAlreadyExist and requestId == 0}"
+          th:text="#{request.already_exists}"></h2>
+      <h2 class="already_exits" th:if="${isRequestWithAssociateSignAlreadyExist}"
+          th:text="#{request.with_associate_sign_already_exists(${'&laquo;'+requestWithAssociateSignMatche.signName+'&raquo;'})}"></h2>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li" th:if="${requestId == 0}">
+            <a data-target="#new-suggest" data-toggle="modal" href="#">
+              <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
+              <div>
+                <div class="pull-right edit_black"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${requestId != 0}">
             <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
-            <div>
-              <div class="pull-right edit_black"></div>
-            </div>
-            <!--<span  th:if="${isSignAlreadyExist}" th:text="#{sign.already_exists}"></span>-->
-          </a>
-        </li>
-        <li th:if="${requestId != 0}" class="aside_bckg_li">
-            <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
-        </li>
-        <li th:if="${isSignAlreadyExist}" class="aside_bckg_li">
-          <a th:href="@{/sign/} + ${signMatche.id}">
-            <div>
-              <h4 class="container_H2" th:text="#{see_sign}"></h4>
+          </li>
+          <li class="aside_bckg_li" th:if="${isSignAlreadyExist}">
+            <a th:href="@{/sign/} + ${signMatche.id}">
               <div>
-                <div class="pull-right chevron"></div>
+                <h4 class="container_H2" th:text="#{see_sign}"></h4>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
-        <li th:if="${isRequestAlreadyExist and requestId == 0}" class="aside_bckg_li">
-          <a th:href="@{${requestMatche.urlForAccessToRequestDetail}}">
-            <div>
-              <h4 class="container_H2" th:text="#{see.request}"></h4>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${isRequestAlreadyExist and requestId == 0}">
+            <a th:href="@{${requestMatche.urlForAccessToRequestDetail}}">
               <div>
-                <div class="pull-right chevron"></div>
+                <h4 class="container_H2" th:text="#{see.request}"></h4>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
-        <li th:if="${isRequestWithAssociateSignAlreadyExist}" class="aside_bckg_li">
-          <a th:href="@{/sign/} + ${requestWithAssociateSignMatche.signId}">
-            <div>
-              <h4 class="container_H2" th:text="#{see_sign}"></h4>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${isRequestWithAssociateSignAlreadyExist}">
+            <a th:href="@{/sign/} + ${requestWithAssociateSignMatche.signId}">
               <div>
-                <div class="pull-right chevron"></div>
+                <h4 class="container_H2" th:text="#{see_sign}"></h4>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
-        <li th:if="${!isSignAlreadyExist and requestId != 0 and !isIOSDevice}" class="aside_bckg_li">
-          <a th:attr="data-target='#suggest' " th:data-id="${requestId}" th:data-name="${signName}" th:data-isIOSDevice="${isIOSDevice}" th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))" data-toggle="modal" href="#">
-            <div class="pull-left description_movie_blue"></div>
-            <h4 class="container_H2" th:text="#{sign.create}"/>
-            <div>
-              <div class="pull-right add_black"></div>
-            </div>
-          </a>
-        </li>
-        <li th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist and requestId == 0 and !isIOSDevice}" class="aside_bckg_li">
-          <a th:if="${requestId == 0}" data-target="#suggest" data-toggle="modal" href="#">
-            <div class="pull-left description_movie_blue"></div>
-            <h4 class="container_H2" th:text="#{sign.create}"/>
-            <div>
-              <div class="pull-right add_black"></div>
-            </div>
-          </a>
-        </li>
-        <li th:if="${!isSignAlreadyExist and requestId != 0 and isIOSDevice}" class="aside_bckg_li">
-          <a th:data-id="${requestId}" th:data-name="${signName}" th:data-isIOSDevice="${isIOSDevice}" th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))" href="#">
-            <div class="pull-left description_movie_blue"></div>
-            <h4 class="container_H2" th:text="#{sign.create}"/>
-            <div>
-              <div class="pull-right add_black"></div>
-            </div>
-          </a>
-        </li>
-        <li th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist and requestId == 0 and isIOSDevice}" class="aside_bckg_li">
-          <a th:if="${requestId == 0}" th:onclick="'javascript:onClick()'" href="#">
-            <div class="pull-left description_movie_blue"></div>
-            <h4 class="container_H2" th:text="#{sign.create}"/>
-            <div>
-              <div class="pull-right add_black"></div>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </aside>
-
-<!--    <div class="other_name_nearby  aside_bckg_li">
-      <div class="text-center" th:text="#{sign.with-same-name}"></div>
-    </div>-->
-
-
-
-    <div th:if="${not #lists.isEmpty(signsWithSameName)}">
-      <div th:if="${#lists.size(signsWithSameName) > 1}">
-        <h2 class="same_name" th:text="#{signs.with-same-name}"/>
-      </div>
-      <div th:if="${#lists.size(signsWithSameName) == 1}">
-        <h2 class="same_name" th:text="#{sign.with-same-name}"/>
-      </div>
-      <div th:each="sign:${signsWithSameName}">
-        <aside class="sidebar">
-          <ul class="nav nav-list primary left-menu">
-            <li class="dotted-top">
-              <a th:href="@{/sign/} + ${sign.id}">
-                <div>
-                  <h2 class="suggest text_hyphenation container_H2" th:text="${sign.name}"></h2>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${!isSignAlreadyExist and requestId != 0 and !isIOSDevice}">
+            <a data-toggle="modal" href="#" th:attr="data-target='#suggest' " th:data-id="${requestId}"
+               th:data-isIOSDevice="${isIOSDevice}" th:data-name="${signName}"
+               th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))">
+              <div class="pull-left description_movie_blue"></div>
+              <h4 class="container_H2" th:text="#{sign.create}"/>
+              <div>
+                <div class="pull-right add_black"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li"
+              th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist and requestId == 0 and !isIOSDevice}">
+            <a data-target="#suggest" data-toggle="modal" href="#" th:if="${requestId == 0}">
+              <div class="pull-left description_movie_blue"></div>
+              <h4 class="container_H2" th:text="#{sign.create}"/>
+              <div>
+                <div class="pull-right add_black"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${!isSignAlreadyExist and requestId != 0 and isIOSDevice}">
+            <a href="#" th:data-id="${requestId}" th:data-isIOSDevice="${isIOSDevice}" th:data-name="${signName}"
+               th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))">
+              <div class="pull-left description_movie_blue"></div>
+              <h4 class="container_H2" th:text="#{sign.create}"/>
+              <div>
+                <div class="pull-right add_black"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li"
+              th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist and requestId == 0 and isIOSDevice}">
+            <a href="#" th:if="${requestId == 0}" th:onclick="'javascript:onClick()'">
+              <div class="pull-left description_movie_blue"></div>
+              <h4 class="container_H2" th:text="#{sign.create}"/>
+              <div>
+                <div class="pull-right add_black"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <div th:if="${not #lists.isEmpty(signsWithSameName)}">
+        <div th:if="${#lists.size(signsWithSameName) > 1}">
+          <h2 class="same_name" th:text="#{signs.with-same-name}"/>
+        </div>
+        <div th:if="${#lists.size(signsWithSameName) == 1}">
+          <h2 class="same_name" th:text="#{sign.with-same-name}"/>
+        </div>
+        <div th:each="sign:${signsWithSameName}">
+          <aside class="sidebar">
+            <ul class="nav nav-list primary left-menu">
+              <li class="dotted-top">
+                <a th:href="@{/sign/} + ${sign.id}">
                   <div>
-                    <div class="pull-right chevron"></div>
+                    <h2 class="suggest text_hyphenation container_H2" th:text="${sign.name}"></h2>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </aside>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
       </div>
-    </div>
-
-    <div th:if="${not #lists.isEmpty(requestsWithAssociateSignWithSameName) or not #lists.isEmpty(requestsWithSameName)}">
-      <div th:if="${(#lists.size(requestsWithAssociateSignWithSameName) + #lists.size(requestsWithSameName)) == 1}">
-        <h2 class="same_name" th:text="#{request.with-same-name}"/>
+      <div
+        th:if="${not #lists.isEmpty(requestsWithAssociateSignWithSameName) or not #lists.isEmpty(requestsWithSameName)}">
+        <div th:if="${(#lists.size(requestsWithAssociateSignWithSameName) + #lists.size(requestsWithSameName)) == 1}">
+          <h2 class="same_name" th:text="#{request.with-same-name}"/>
+        </div>
+        <div th:if="${(#lists.size(requestsWithAssociateSignWithSameName) + #lists.size(requestsWithSameName)) > 1}">
+          <h2 class="same_name" th:text="#{requests.with-same-name}"/>
+        </div>
       </div>
-      <div th:if="${(#lists.size(requestsWithAssociateSignWithSameName) + #lists.size(requestsWithSameName)) > 1}">
-        <h2 class="same_name" th:text="#{requests.with-same-name}"/>
-      </div>
-    </div>
-
-    <div th:if="${not #lists.isEmpty(requestsWithAssociateSignWithSameName)}">
-      <div th:each="request:${requestsWithAssociateSignWithSameName}">
-        <aside class="sidebar">
-          <ul class="nav nav-list primary left-menu">
-            <li class="dotted-top">
-              <a th:href="@{/sign/} + ${request.signId}">
-                <div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left group_ask_blue"></div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left member_ask_blue"></div>
-                  <h2 class="suggest text_hyphenation container_H2" th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
+      <div th:if="${not #lists.isEmpty(requestsWithAssociateSignWithSameName)}">
+        <div th:each="request:${requestsWithAssociateSignWithSameName}">
+          <aside class="sidebar">
+            <ul class="nav nav-list primary left-menu">
+              <li class="dotted-top">
+                <a th:href="@{/sign/} + ${request.signId}">
                   <div>
-                    <div class="pull-right chevron"></div>
+                    <div class="pull-left group_ask_blue"
+                         th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}"></div>
+                    <div class="pull-left member_ask_blue"
+                         th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}"></div>
+                    <h2 class="suggest text_hyphenation container_H2"
+                        th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </aside>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
       </div>
-    </div>
-    <div th:if="${not #lists.isEmpty(requestsWithSameName)}">
-      <div th:each="request:${requestsWithSameName}">
-        <aside class="sidebar">
-          <ul class="nav nav-list primary left-menu">
-            <li class="dotted-top">
-              <a th:href="@{${request.urlForAccessToRequestDetail}}">
-                <div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}" class="pull-left group_ask_blue"></div>
-                  <div th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}" class="pull-left member_ask_blue"></div>
-                  <h2 class="suggest text_hyphenation container_H2" th:text="${request.requestName}"></h2>
+      <div th:if="${not #lists.isEmpty(requestsWithSameName)}">
+        <div th:each="request:${requestsWithSameName}">
+          <aside class="sidebar">
+            <ul class="nav nav-list primary left-menu">
+              <li class="dotted-top">
+                <a th:href="@{${request.urlForAccessToRequestDetail}}">
                   <div>
-                    <div class="pull-right chevron"></div>
+                    <div class="pull-left group_ask_blue"
+                         th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}"></div>
+                    <div class="pull-left member_ask_blue"
+                         th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}"></div>
+                    <h2 class="suggest text_hyphenation container_H2" th:text="${request.requestName}"></h2>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </aside>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
       </div>
     </div>
-
   </div>
 </div>
 </body>
-
-<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
-<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
-<script type="text/javascript" src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}"></script>
-
+<script src="../public/js/recorder.js" th:src="@{/js/recorder.js}" type="text/javascript"></script>
+<script src="../public/js/sign.js" th:src="@{/js/sign.js}" type="text/javascript"></script>
+<script src="../public/js/responsToRequest.js" th:src="@{/js/responsToRequest.js}" type="text/javascript"></script>
 </html>

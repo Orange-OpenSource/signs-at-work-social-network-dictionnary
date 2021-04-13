@@ -20,18 +20,22 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
 <header role="banner" th:replace="fragments/header-favorites :: header">&nbsp;</header>
 
-<body class="container-fluid">
-<div th:fragment="div">
-    <div th:replace="fragments/frame-favorites :: div"/>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div th:fragment="div">
+        <div th:replace="fragments/frame-favorites :: div"/>
+      </div>
+    </div>
+  </div>
 </div>
-
-
 </body>
 </html>

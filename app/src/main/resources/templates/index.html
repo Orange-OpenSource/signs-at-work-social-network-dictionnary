@@ -20,9 +20,9 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
+  <th:block th:include="fragments/header-head :: head"></th:block>
   <script>
     // This is the "Offline page" service worker
 
@@ -44,77 +44,76 @@
       }
     }
 
+
   </script>
   <link rel='manifest' th:href="${manifest}"/>
-
 </head>
 
 <header role="banner" th:replace="fragments/header-home :: header">&nbsp;</header>
-
-<body class="container-fluid">
-<div class="overlay"></div>
 <div th:replace="fragments/modal-new-suggest :: div"/>
-<div class="row">
-    <div class="col-xs-12">
-      <h2 th:if="${#strings.equals(appName,'LocalHost')}" class="lexical" th:text="#{signatwork.lexical}"></h2>
-      <h2 th:if="${#strings.equals(appName,'Signs@Work')}" class="lexical" th:text="#{signatwork.lexical}"></h2>
-      <h2 th:if="${#strings.equals(appName,'Signs@Form')}" class="lexical" th:text="#{signatform.lexical}"></h2>
-    </div>
-      <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
+      <h2 class="lexical" th:if="${#strings.equals(appName,'LocalHost')}" th:text="#{signatwork.lexical}"></h2>
+      <h2 class="lexical" th:if="${#strings.equals(appName,'Signs@Work')}" th:text="#{signatwork.lexical}"></h2>
+      <h2 class="lexical" th:if="${#strings.equals(appName,'Signs@Form')}" th:text="#{signatform.lexical}"></h2>
+      <div>
         <div class="sign_menu col-md-4 col-xs-12 col-lg-4">
-        <aside class="sidebar">
+          <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
-                <li class="aside_bckg_li">
-                      <a th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=false)}">
-                        <div>
-                        <div class="pull-left sign_see"></div>
-                        <h2 class="text_hyphenation container_H2" th:text="#{sign.advise}"></h2>
-                            <div>
-                                <div class="pull-right chevron">
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                  <a th:href="@{/sec/requests}">
+              <li class="aside_bckg_li">
+                <a th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=false)}">
+                  <div>
+                    <div class="pull-left sign_see"></div>
+                    <h2 class="text_hyphenation container_H2" th:text="#{sign.advise}"></h2>
                     <div>
-                      <div class="pull-left sign_ask-for_black"></div>
-                      <h2 class="text_hyphenation container_H2" th:text="#{sign.request.advise}"></h2>
-                      <div >
-                        <div class="pull-right chevron"></div>
+                      <div class="pull-right chevron">
                       </div>
                     </div>
-                  </a>
-                </li>
-                <li sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated}" class="clear aside_bckg_li">
-                    <a  data-target="#new-suggest" data-toggle="modal" href="#" >
-                        <div>
-                        <div class="pull-left sign_add"></div>
-                        <h2  class="text_hyphenation container_H2" th:text="#{sign.suggest}"></h2>
-                            <div>
-                                <div class="pull-right add_black"></div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
+                  </div>
+                </a>
+              </li>
+              <li class="aside_bckg_li" th:if="${isAuthenticated}">
+                <a th:href="@{/sec/requests}">
+                  <div>
+                    <div class="pull-left sign_ask-for_black"></div>
+                    <h2 class="text_hyphenation container_H2" th:text="#{sign.request.advise}"></h2>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="clear aside_bckg_li" sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated}">
+                <a data-target="#new-suggest" data-toggle="modal" href="#">
+                  <div>
+                    <div class="pull-left sign_add"></div>
+                    <h2 class="text_hyphenation container_H2" th:text="#{sign.suggest}"></h2>
+                    <div>
+                      <div class="pull-right add_black"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
             </ul>
-        </aside>
-    </div>
+          </aside>
+        </div>
         <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
-          <div id="display_url" class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" th:attr="title=#{video_site}" th:src="${display_url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent'" frameborder="0" allowfullscreen=""></iframe>
+          <div class="embed-responsive embed-responsive-16by9" id="display_url">
+            <iframe allowfullscreen="" class="embed-responsive-item"
+                    frameborder="0"
+                    th:attr="title=#{video_site}"
+                    th:src="${display_url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent'"></iframe>
           </div>
         </div>
       </div>
-
+    </div>
+  </div>
+  <div id="prefetch" style="visibility:hidden;">
+  </div>
 </div>
-
-
-<div id="prefetch" style="visibility:hidden;">
-</div>
-
 </body>
-<script type="text/javascript" src="../public/js/home.js" th:src="@{/js/home.js}"></script>
-
+<script src="../public/js/home.js" th:src="@{/js/home.js}" type="text/javascript"></script>
 </html>

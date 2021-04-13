@@ -20,102 +20,99 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
-    <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
-    <script type="text/javascript" src="../public/js/adapter.js" th:src="@{/js/adapter.js}"></script>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+  <script src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}" type="text/javascript"></script>
+  <script src="../public/js/adapter.js" th:src="@{/js/adapter.js}" type="text/javascript"></script>
 </head>
 
 <header role="banner" th:replace="fragments/header-sign :: header">&nbsp;</header>
-
-<body class="container-fluid">
-<div class="row">
-
-
-        <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
-          <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
-            <div id="tooltipInframe" class="pull-right" >
-              <div th:if="${videoHasPositiveRate}" style="z-index: 100"  class="smiley_happy_white_in_frame"></div>
-              <div th:if="${!videoHasPositiveRate}" style="visibility: hidden" class="smiley_happy_white_in_frame"></div>
-              <div th:if="${videoBelowToFavorite}"  style="z-index: 100" class="pin_blue_in_frame"></div>
-              <div th:if="${!videoBelowToFavorite}" style="visibility: hidden" class="pin_blue_in_frame"></div>
-            </div>
-              <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item"  th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false'" frameborder="0" allowfullscreen=""></iframe>
-              </div>
-        </div>
-
-        <div class="sign_menu col-md-4 col-xs-12 col-lg-4">
-            <aside class="sidebar">
-                <ul class="nav nav-list primary left-menu">
-                    <li th:if="${isAuthenticated}" id="label_sign" class="label_sign aside_bckg_li">
-                        <a th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} +'/detail'">
-                            <div>
-                            <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
-                            <div>
-                                <div class="pull-right chevron"></div>
-                                <div th:if="${ratingData.ratePositive}" class="pull-right smiley_happy_blue"></div>
-                                <div th:if="${ratingData.rateNegative}" class="pull-right smiley_unhappy_blue"></div>
-                            </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li th:if="${!isVideoCreatedByMe and isAuthenticated and ratingData.rateNoRate}" class="aside_bckg_li">
-                        <a href="#" data-toggle="modal" data-target="#evaluation_modal">
-                            <div>
-                              <div class="pull-left smiley_happy_menu_blue"></div>
-                              <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
-                              <div>
-                                <div class="pull-right chevron"></div>
-                              </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated and nbRating > 0}" class="aside_bckg_li">
-                      <a href="#" data-toggle="modal" data-target="#new-video">
-                        <div>
-                          <div class="pull-left variant_blue"></div>
-                          <h2 class="container_H2" th:text="#{video.add}"></h2>
-                          <div>
-                            <div class="pull-right add_black"></div>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li th:if="${isAuthenticated}"  class="aside_bckg_li">
-                        <a href="#" data-toggle="modal" data-target="#comment_modal">
-                            <div>
-                              <div class="pull-left commentary_blue"></div>
-                              <h2 class="container_H2" th:text="#{sign.modal.comments}"></h2>
-                              <div>
-                                <div class="pull-right add_black"></div>
-                              </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <div th:if="${not #lists.isEmpty(commentDatas)}">
-                  <div th:each="comment :${commentDatas}">
-                    <h4 class="comment_name" th:text="${comment.name()}"></h4>
-                    <h4 class="comment_date" th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
-                    <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
-                  </div>
-                </div>
-            </aside>
-        </div>
-    </div>
-</div>
-
 <div th:replace="fragments/modal-new-comment-sign :: div"/>
 <div th:replace="fragments/modal-rate-sign :: div"/>
 <div th:replace="fragments/modal-add-favorite :: div"/>
 <div th:replace="fragments/modal-new-video :: div"/>
 
+<body>
+<div class="container">
+  <div class="row">
+    <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
+      <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
+        <div class="pull-right" id="tooltipInframe">
+          <div class="smiley_happy_white_in_frame" style="z-index: 100" th:if="${videoHasPositiveRate}"></div>
+          <div class="smiley_happy_white_in_frame" style="visibility: hidden" th:if="${!videoHasPositiveRate}"></div>
+          <div class="pin_blue_in_frame" style="z-index: 100" th:if="${videoBelowToFavorite}"></div>
+          <div class="pin_blue_in_frame" style="visibility: hidden" th:if="${!videoBelowToFavorite}"></div>
+        </div>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe allowfullscreen="" class="embed-responsive-item"
+                  frameborder="0"
+                  th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false'"></iframe>
+        </div>
+      </div>
+      <div class="sign_menu col-md-4 col-xs-12 col-lg-4">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="label_sign aside_bckg_li" id="label_sign" th:if="${isAuthenticated}">
+              <a th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} +'/detail'">
+                <div>
+                  <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
+                  <div>
+                    <div class="pull-right chevron"></div>
+                    <div class="pull-right smiley_happy_blue" th:if="${ratingData.ratePositive}"></div>
+                    <div class="pull-right smiley_unhappy_blue" th:if="${ratingData.rateNegative}"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${!isVideoCreatedByMe and isAuthenticated and ratingData.rateNoRate}">
+              <a data-target="#evaluation_modal" data-toggle="modal" href="#">
+                <div>
+                  <div class="pull-left smiley_happy_menu_blue"></div>
+                  <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
+                  <div>
+                    <div class="pull-right chevron"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated and nbRating > 0}">
+              <a data-target="#new-video" data-toggle="modal" href="#">
+                <div>
+                  <div class="pull-left variant_blue"></div>
+                  <h2 class="container_H2" th:text="#{video.add}"></h2>
+                  <div>
+                    <div class="pull-right add_black"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${isAuthenticated}">
+              <a data-target="#comment_modal" data-toggle="modal" href="#">
+                <div>
+                  <div class="pull-left commentary_blue"></div>
+                  <h2 class="container_H2" th:text="#{sign.modal.comments}"></h2>
+                  <div>
+                    <div class="pull-right add_black"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+          <div th:if="${not #lists.isEmpty(commentDatas)}">
+            <div th:each="comment :${commentDatas}">
+              <h4 class="comment_name" th:text="${comment.name()}"></h4>
+              <h4 class="comment_date" th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
+              <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
-
-<script type="text/javascript" src="../public/js/rate.js" th:src="@{/js/rate.js}"></script>
-<script type="text/javascript" src="../public/js/sign.js" th:src="@{/js/sign.js}"></script>
-<script type="text/javascript" src="../public/js/recorder.js" th:src="@{/js/recorder.js}"></script>
-
+<script src="../public/js/rate.js" th:src="@{/js/rate.js}" type="text/javascript"></script>
+<script src="../public/js/sign.js" th:src="@{/js/sign.js}" type="text/javascript"></script>
+<script src="../public/js/recorder.js" th:src="@{/js/recorder.js}" type="text/javascript"></script>
 </html>
