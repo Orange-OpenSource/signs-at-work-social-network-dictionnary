@@ -2348,6 +2348,18 @@ table tbody td{
   margin-right: 20px;
 }
 
+.job_description_picture {
+  margin-bottom : 10px;
+  margin-left : 110px;
+  width: 40%;
+}
+
+.name_picture {
+  margin-bottom: 10px;
+  width: 40%;
+}
+style="margin-bottom: 10px;width: 40%"
+
 /* End Profil /sec/my-profil */
 
 /* Begin Votre Métier ? /sec/my-job */

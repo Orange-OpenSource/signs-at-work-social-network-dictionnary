@@ -60,4 +60,13 @@
     margin-left: 1rem;
   }
 
+    .job_description_picture {
+      margin-top : 10px;
+      width: 24%!important;
+    }
+
+    .name_picture {
+      width: 24%!important;
+    }
+
 }

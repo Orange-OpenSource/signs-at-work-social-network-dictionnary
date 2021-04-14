@@ -20,458 +20,513 @@
   #L%
   -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/header-head :: head"></th:block>
-    <script type="text/javascript" src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}"></script>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+  <script src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}" type="text/javascript"></script>
 </head>
 
 <header role="banner" th:replace="fragments/header-profile-from-community :: header">&nbsp;</header>
+<div th:replace="fragments/modal-input-name :: div"/>
+<div th:replace="fragments/modal-input-entity-name :: div"/>
+<div th:replace="fragments/modal-input-job-name :: div"/>
+<div th:replace="fragments/modal-input-description-job :: div"/>
+<div th:replace="fragments/modal-input-email :: div"/>
 
+<body>
+<div class="container">
+  <div class="row">
 
-    <body class="container-fluid">
-     <div th:replace="fragments/modal-input-name :: div"/>
-     <div th:replace="fragments/modal-input-entity-name :: div"/>
-     <div th:replace="fragments/modal-input-job-name :: div"/>
-     <div th:replace="fragments/modal-input-description-job :: div"/>
-      <div th:replace="fragments/modal-input-email :: div"/>
-      <div class="row">
-
-       <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-          <aside class="sidebar">
-            <ul th:if="${isConnectedUser}" class="nav nav-list primary left-menu">
-              <li class="aside_bckg_li">
-                <div th:if="${user.namePicture != null}" style="display: inline;">
-                  <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:data-nameVideo="${user.nameVideo}" th:data-nameUser="${cleaned}" th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-nameUser'))" style="margin-left: 35px;">
-                    <img th:src="${user.namePicture}" th:attr="alt=#{name_LSF}" style="margin-bottom: 10px;width: 40%"/>
-                  </a>
-                  <div style="display: inline-grid; float: right">
-                    <a th:if="!${isIOSDevice}" data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}">
-                      <div id="nameVideo-record" class="pull-right record-profil" style="margin-top: 59px; display: none;"></div>
-                    </a>
-                    <a th:if="${isIOSDevice}" th:onclick="'javascript:onClick()'" href="#" th:attr="aria-label=#{name_video_record}">
-                      <div id="nameVideo-record" class="pull-right record-profil" style="margin-top: 59px; display: none;"></div>
-                    </a>
-                    <a data-target="#delete_video" data-toggle="modal" href="#" th:attr="aria-label=#{video_name_lsf.delete}">
-                      <div id="nameVideo-delete" class="pull-right delete-black" style="margin-top: 30px; display: none;"></div>
-                    </a>
-                  </div>
-                </div>
-                <div th:if="${user.namePicture == null}" style="display: inline;">
-                  <h2 style="display: inline;" th:text="#{name_LSF}"></h2>
-                  <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                  <a th:if="!${isIOSDevice}" data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}">
-                    <div id="nameVideo-record" class="pull-right record-profil" style="margin-top: 2px; display: none;"></div>
-                  </a>
-                  <a th:if="${isIOSDevice}" th:onclick="'javascript:onClick()'" href="#" th:attr="aria-label=#{name_video_record}">
-                    <div id="nameVideo-record" class="pull-right record-profil" style="margin-top: 2px; display: none;"></div>
-                  </a>
-                </div>
-              </li>
-              <li class="aside_bckg_li">
-                <a id="changeName" data-target="#add_name" data-toggle="modal" href="#" style="pointer-events: none;">
-                  <div>
-                    <h2 style="display: inline;" th:text="#{name}"></h2>
-                    <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
-                    <div id="name-pen" class="pull-right edit_black-profil" style="display: none;"></div>
-                  </div>
+    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu" th:if="${isConnectedUser}">
+          <li class="aside_bckg_li">
+            <div style="display: inline;" th:if="${user.namePicture != null}">
+              <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
+              <a data-target="#play_video" data-toggle="modal" href="#"
+                 style="margin-left: 35px;"
+                 th:data-nameUser="${cleaned}" th:data-nameVideo="${user.nameVideo}"
+                 th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-nameUser'))"
+                 th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}'>
+                <img class="name_picture" th:attr="alt=#{name_LSF}" th:src="${user.namePicture}"/>
+              </a>
+              <div style="display: inline-grid; float: right">
+                <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}"
+                   th:if="!${isIOSDevice}">
+                  <div class="pull-right record-profil" id="nameVideo-record"
+                       style="margin-top: 59px; display: none;"></div>
                 </a>
-              </li>
-              <li class="aside_bckg_li">
-                <a id="changeUserName" data-target="#add_email" data-toggle="modal" href="#" style="pointer-events: none">
-                  <div>
-                    <h2 style="display: inline;" th:text="#{email}"></h2>
-                    <h2 style="display: inline;margin-left: 25px; color: #4866F7;" th:text="${user.username}"></h2>
-                    <div id="user_name-pen" class="pull-right edit_black-profil" style="display: none;"></div>
-                  </div>
+                <a href="#" th:attr="aria-label=#{name_video_record}" th:if="${isIOSDevice}"
+                   th:onclick="'javascript:onClick()'">
+                  <div class="pull-right record-profil" id="nameVideo-record"
+                       style="margin-top: 59px; display: none;"></div>
                 </a>
-              </li>
-              <li class="aside_bckg_li" style="border-bottom: 3px solid;">
-                <a id="changeEntity" data-target="#add_entity_name" data-toggle="modal" href="#" style="pointer-events: none">
-                  <div th:if="${user.entity != null}">
-                    <h2 style="display: inline;" th:text="#{entity}"></h2>
-                    <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
-                    <div id="entity-pen" class="pull-right edit_black-profil" style="display: none;"></div>
-                  </div>
-                  <div th:if="${user.entity == null}">
-                    <h2 style="display: inline;" th:text="#{entity}"></h2>
-                    <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                    <div id="entity-pen" class="pull-right edit_black-profil" style="display: none;"></div>
-                  </div>
+                <a data-target="#delete_video" data-toggle="modal" href="#"
+                   th:attr="aria-label=#{video_name_lsf.delete}">
+                  <div class="pull-right delete-black" id="nameVideo-delete"
+                       style="margin-top: 30px; display: none;"></div>
                 </a>
-              </li>
-              <li class="aside_bckg_li">
-                <a id="changeJobName" href="/sec/my-job" style="pointer-events: none">
-                  <div th:if="${user.job != null}">
-                    <h2 style="display: inline;" th:text="#{job}"></h2>
-                    <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
-                    <div id="jobName-pen" class="pull-right edit_black-profil" style="display: none;"></div>
-                  </div>
-                  <div th:if="${user.job == null}">
-                    <h2 style="display: inline;" th:text="#{job}"></h2>
-                    <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                    <div id="jobName-pen" class="pull-right edit_black-profil" style="display: none;"></div>
-                  </div>
+              </div>
+            </div>
+            <div style="display: inline;" th:if="${user.namePicture == null}">
+              <h2 style="display: inline;" th:text="#{name_LSF}"></h2>
+              <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+              <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}"
+                 th:if="!${isIOSDevice}">
+                <div class="pull-right record-profil" id="nameVideo-record"
+                     style="margin-top: 2px; display: none;"></div>
+              </a>
+              <a href="#" th:attr="aria-label=#{name_video_record}" th:if="${isIOSDevice}"
+                 th:onclick="'javascript:onClick()'">
+                <div class="pull-right record-profil" id="nameVideo-record"
+                     style="margin-top: 2px; display: none;"></div>
+              </a>
+            </div>
+          </li>
+          <li class="aside_bckg_li">
+            <a data-target="#add_name" data-toggle="modal" href="#" id="changeName" style="pointer-events: none;">
+              <div>
+                <h2 style="display: inline;" th:text="#{name}"></h2>
+                <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
+                <div class="pull-right edit_black-profil" id="name-pen" style="display: none;"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <a data-target="#add_email" data-toggle="modal" href="#" id="changeUserName" style="pointer-events: none">
+              <div>
+                <h2 style="display: inline;" th:text="#{email}"></h2>
+                <h2 style="display: inline;margin-left: 25px; color: #4866F7;" th:text="${user.username}"></h2>
+                <div class="pull-right edit_black-profil" id="user_name-pen" style="display: none;"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" style="border-bottom: 3px solid;">
+            <a data-target="#add_entity_name" data-toggle="modal" href="#" id="changeEntity"
+               style="pointer-events: none">
+              <div th:if="${user.entity != null}">
+                <h2 style="display: inline;" th:text="#{entity}"></h2>
+                <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
+                <div class="pull-right edit_black-profil" id="entity-pen" style="display: none;"></div>
+              </div>
+              <div th:if="${user.entity == null}">
+                <h2 style="display: inline;" th:text="#{entity}"></h2>
+                <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;"
+                    th:text="#{to_complete}"></h2>
+                <div class="pull-right edit_black-profil" id="entity-pen" style="display: none;"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <a href="/sec/my-job" id="changeJobName" style="pointer-events: none">
+              <div th:if="${user.job != null}">
+                <h2 style="display: inline;" th:text="#{job}"></h2>
+                <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+                <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
+              </div>
+              <div th:if="${user.job == null}">
+                <h2 style="display: inline;" th:text="#{job}"></h2>
+                <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;"
+                    th:text="#{to_complete}"></h2>
+                <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
+              </div>
+            </a>
+          </li>
+          <li class="aside_bckg_li">
+            <div style="display: inline;" th:if="${user.jobDescriptionPicture != null}">
+              <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
+              <a data-target="#play_video" data-toggle="modal" href="#"
+                 style="margin-left: 35px;" th:data-job="${user.job}"
+                 th:data-jobDescriptionVideo="${user.jobDescriptionVideo}"
+                 th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo'),this.getAttribute('data-job'))">
+                <img class="job_description_picture" th:attr="alt=#{description_LSF}"
+                     th:src="${user.jobDescriptionPicture}"/>
+              </a>
+              <div style="display: inline-grid; float: right">
+                <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}"
+                   th:if="!${isIOSDevice}">
+                  <div class="pull-right record-profil" id="jobVideo-record"
+                       style="margin-top: 55px; display: none;"></div>
                 </a>
-              </li>
-              <li class="aside_bckg_li">
-                <div th:if="${user.jobDescriptionPicture != null}" style="display: inline;">
-                  <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:data-jobDescriptionVideo="${user.jobDescriptionVideo}" th:data-job="${user.job}" th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo'),this.getAttribute('data-job'))" style="margin-left: 35px;">
-                    <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px; width:40%"/>
-                  </a>
-                  <div style="display: inline-grid; float: right">
-                    <a th:if="!${isIOSDevice}" data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
-                      <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
-                    </a>
-                    <a th:if="${isIOSDevice}" th:onclick="'javascript:onClick()'" href="#" th:attr="aria-label=#{job_video_record}">
-                      <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 55px; display: none;"></div>
-                    </a>
-                    <a data-target="#delete_video_job" data-toggle="modal" href="#" th:attr="aria-label=#{video_job_lsf.delete}">
-                      <div id="jobVideo-delete" class="pull-right delete-black" style="margin-top: 30px; display: none;"></div>
-                    </a>
-                  </div>
+                <a href="#" th:attr="aria-label=#{job_video_record}" th:if="${isIOSDevice}"
+                   th:onclick="'javascript:onClick()'">
+                  <div class="pull-right record-profil" id="jobVideo-record"
+                       style="margin-top: 55px; display: none;"></div>
+                </a>
+                <a data-target="#delete_video_job" data-toggle="modal" href="#"
+                   th:attr="aria-label=#{video_job_lsf.delete}">
+                  <div class="pull-right delete-black" id="jobVideo-delete"
+                       style="margin-top: 30px; display: none;"></div>
+                </a>
+              </div>
+            </div>
+            <div style="display: inline;" th:if="${user.jobDescriptionPicture == null}">
+              <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
+              <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+              <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}"
+                 th:if="!${isIOSDevice}">
+                <div class="pull-right record-profil" id="jobVideo-record"
+                     style="margin-top: 2px; display: none;"></div>
+              </a>
+              <a href="#" th:attr="aria-label=#{job_video_record}" th:if="${isIOSDevice}"
+                 th:onclick="'javascript:onClick()'">
+                <div class="pull-right record-profil" id="jobVideo-record"
+                     style="margin-top: 2px; display: none;"></div>
+              </a>
+            </div>
+          </li>
+          <li class="aside_bckg_li" style="border-bottom: 3px solid #4866F7;">
+            <div th:if="${user.jobDescriptionText != null and !#strings.isEmpty(user.jobDescriptionText)}">
+              <h2 style="display: inline;" th:text="#{description_text}"></h2>
+              <a data-target="#add_description_job" data-toggle="modal" href="#" id="changeJobDescriptionText"
+                 style="pointer-events: none">
+                <div>
+                  <h2 style="display: inline-block; color: #4866F7;width: 90%;"
+                      th:text="${user.jobDescriptionText}"></h2>
+                  <div class="pull-right edit_black-profil" id="jobText-pen"
+                       style="margin-top: 13px; display: none;"></div>
                 </div>
-                <div th:if="${user.jobDescriptionPicture == null}" style="display: inline;">
-                  <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
-                  <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                  <a th:if="!${isIOSDevice}" data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}">
-                    <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 2px; display: none;"></div>
-                  </a>
-                  <a th:if="${isIOSDevice}" th:onclick="'javascript:onClick()'" href="#" th:attr="aria-label=#{job_video_record}">
-                    <div id="jobVideo-record" class="pull-right record-profil" style="margin-top: 2px; display: none;"></div>
-                  </a>
-                </div>
-              </li>
-              <li class="aside_bckg_li" style="border-bottom: 3px solid #4866F7;">
-                <div th:if="${user.jobDescriptionText != null and !#strings.isEmpty(user.jobDescriptionText)}">
-                  <h2 style="display: inline;" th:text="#{description_text}"></h2>
-                  <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
-                    <div>
-                      <h2 style="display: inline-block; color: #4866F7;width: 90%;" th:text="${user.jobDescriptionText}"></h2>
-                      <div id="jobText-pen" class="pull-right edit_black-profil" style="margin-top: 13px; display: none;"></div>
-                    </div>
-                  </a>
-                </div>
-                <div th:if="${user.jobDescriptionText == null or #strings.isEmpty(user.jobDescriptionText)}">
-                  <a id="changeJobDescriptionText" data-target="#add_description_job" data-toggle="modal" href="#" style="pointer-events: none">
-                    <div>
-                      <h2 style="display: inline;" th:text="#{description_text}"></h2>
-                      <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
-                      <div id="jobText-pen" class="pull-right edit_black-profil" style="display: none;"></div>
-                    </div>
-                  </a>
-                </div>
-              </li>
-            </ul>
-            <ul id="profil" th:unless="${isConnectedUser}" class="nav nav-list primary left-menu">
-              <li th:if="${user.namePicture != null}" class="aside_bckg_li">
-                <div style="display: inline;">
-                  <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}' th:data-nameVideo="${user.nameVideo}" th:data-nameUser="${cleaned}" th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-userName'))" style="margin-left: 35px;">
-                    <img th:src="${user.namePicture}" th:attr="alt=#{name_LSF}" style="margin-bottom: 10px; width: 40%"/>
-                  </a>
-                </div>
-              </li>
-              <li class="aside_bckg_li">
-                  <div>
-                    <h2 style="display: inline;" th:text="#{name}"></h2>
-                    <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
-                  </div>
-              </li>
-              <li class="aside_bckg_li" style="border-bottom: 3px solid;">
-                  <div th:if="${user.entity != null}">
-                    <h2 style="display: inline;" th:text="#{entity}"></h2>
-                    <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
-                  </div>
-                  <div th:if="${user.entity == null}">
-                    <h2 style="display: inline;" th:text="#{entity}"></h2>
-                  </div>
-              </li>
-              <li class="aside_bckg_li">
-                  <div th:if="${user.job != null}">
-                    <h2 style="display: inline;" th:text="#{job}"></h2>
-                    <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
-                  </div>
-                  <div th:if="${user.job == null}">
-                    <h2 style="display: inline;" th:text="#{job}"></h2>
-                  </div>
-              </li>
-              <li th:if="${user.jobDescriptionPicture != null}"  class="aside_bckg_li">
-                <div style="display: inline;">
-                  <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
-                  <a data-target="#play_video" data-toggle="modal" href="#" th:data-jobDescriptionVideo="${user.jobDescriptionVideo}" th:data-job="${user.job}" th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo'),this.getAttribute('data-job'))" style="margin-left: 35px;">
-                    <img th:src="${user.jobDescriptionPicture}"  th:attr="alt=#{description_LSF}" style="margin-bottom: 10px;margin-left: 110px; width: 40%"/>
-                  </a>
-                </div>
-              </li>
-              <li th:if="${user.jobDescriptionText != null}" class="aside_bckg_li">
+              </a>
+            </div>
+            <div th:if="${user.jobDescriptionText == null or #strings.isEmpty(user.jobDescriptionText)}">
+              <a data-target="#add_description_job" data-toggle="modal" href="#" id="changeJobDescriptionText"
+                 style="pointer-events: none">
                 <div>
                   <h2 style="display: inline;" th:text="#{description_text}"></h2>
-                    <div>
-                      <h2 style="display: inline-block; color: #4866F7;width: 90%;" th:text="${user.jobDescriptionText}"></h2>
-                    </div>
+                  <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+                  <div class="pull-right edit_black-profil" id="jobText-pen" style="display: none;"></div>
                 </div>
-              </li>
-            </ul>
-          </aside>
-         <div class="text-center title_middle col-md-8 col-xs-12 middle-col ">
-         <h2 th:if="${isConnectedUser}" th:text="#{video.createBy_me(${#lists.size(videosView)})}" class="blue"></h2>
-          <h2 th:unless="${isConnectedUser}" th:text="#{video.createBy(${user.firstName}, ${#lists.size(videosView)})}" class="blue"></h2>
-          <div class="row ">
-            <div th:if="${not #lists.isEmpty(videosView)}" id="videos-container" class="row">
-              <div th:each="videoView:${videosView}" class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4">
-                <div class="row">
-                  <div class="col-lg-12 col-xs-12">
-                   <!-- <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs-profile"></div>
-                    <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs-profile"></div>
-                    <div th:if="${videoView.signBelowToFavorite}" class="pin_blue-profile"></div>
-                    <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="pin_blue-profile"></div>-->
-                    <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}"  type="text/html">
-                      <div class="labelSigne text_hyphenation" th:text="${videoView.videoName}"></div>
-                      <div class="chevron_blue pull-right"></div>
-                    </a>
-                    <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:data-url="${videoView.url}" th:data-name="${cleaned}" th:data-idForName="${videoView.idForName}" th:data-nbVideo="${videoView.nbVideo}" th:onclick="javascript:displayVideo(this.getAttribute('data-url'),this.getAttribute('data-name'),this.getAttribute('data-idForName'),this.getAttribute('data-nbVideo'))">
+              </a>
+            </div>
+          </li>
+        </ul>
+        <ul class="nav nav-list primary left-menu" id="profil" th:unless="${isConnectedUser}">
+          <li class="aside_bckg_li" th:if="${user.namePicture != null}">
+            <div style="display: inline;">
+              <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
+              <a data-target="#play_video" data-toggle="modal" href="#"
+                 style="margin-left: 35px;"
+                 th:data-nameUser="${cleaned}" th:data-nameVideo="${user.nameVideo}"
+                 th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-userName'))"
+                 th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}'>
+                <img class="name_picture" th:attr="alt=#{name_LSF}" th:src="${user.namePicture}"/>
+              </a>
+            </div>
+          </li>
+          <li class="aside_bckg_li">
+            <div>
+              <h2 style="display: inline;" th:text="#{name}"></h2>
+              <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
+            </div>
+          </li>
+          <li class="aside_bckg_li" style="border-bottom: 3px solid;">
+            <div th:if="${user.entity != null}">
+              <h2 style="display: inline;" th:text="#{entity}"></h2>
+              <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
+            </div>
+            <div th:if="${user.entity == null}">
+              <h2 style="display: inline;" th:text="#{entity}"></h2>
+            </div>
+          </li>
+          <li class="aside_bckg_li">
+            <div th:if="${user.job != null}">
+              <h2 style="display: inline;" th:text="#{job}"></h2>
+              <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+            </div>
+            <div th:if="${user.job == null}">
+              <h2 style="display: inline;" th:text="#{job}"></h2>
+            </div>
+          </li>
+          <li class="aside_bckg_li" th:if="${user.jobDescriptionPicture != null}">
+            <div style="display: inline;">
+              <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
+              <a data-target="#play_video" data-toggle="modal" href="#"
+                 style="margin-left: 35px;" th:data-job="${user.job}"
+                 th:data-jobDescriptionVideo="${user.jobDescriptionVideo}"
+                 th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo'),this.getAttribute('data-job'))">
+                <img class="job_description_picture" th:attr="alt=#{description_LSF}"
+                     th:src="${user.jobDescriptionPicture}"/>
+              </a>
+            </div>
+          </li>
+          <li class="aside_bckg_li" th:if="${user.jobDescriptionText != null}">
+            <div>
+              <h2 style="display: inline;" th:text="#{description_text}"></h2>
+              <div>
+                <h2 style="display: inline-block; color: #4866F7;width: 90%;" th:text="${user.jobDescriptionText}"></h2>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </aside>
+      <div class="text-center title_middle col-xs-12 middle-col ">
+        <h2 class="blue" th:if="${isConnectedUser}" th:text="#{video.createBy_me(${#lists.size(videosView)})}"></h2>
+        <h2 class="blue" th:text="#{video.createBy(${user.firstName}, ${#lists.size(videosView)})}"
+            th:unless="${isConnectedUser}"></h2>
+        <div class="row ">
+          <div class="row" id="videos-container" th:if="${not #lists.isEmpty(videosView)}">
+            <div class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4"
+                 th:each="videoView:${videosView}">
+              <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                  <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" type="text/html">
+                    <div class="labelSigne text_hyphenation" th:text="${videoView.videoName}"></div>
+                    <div class="chevron_blue pull-right"></div>
+                  </a>
+                  <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}"
+                     th:data-idForName="${videoView.idForName}"
+                     th:data-name="${cleaned}" th:data-nbVideo="${videoView.nbVideo}" th:data-url="${videoView.url}"
+                     th:onclick="javascript:displayVideo(this.getAttribute('data-url'),this.getAttribute('data-name'),this.getAttribute('data-idForName'),this.getAttribute('data-nbVideo'))"
+                     th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}'>
                     <!--<a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" >-->
-                      <div th:if="${videoView.videoCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
-                      <div th:if="${!videoView.videoCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
-                      <div th:if="${videoView.signBelowToFavorite}" class="pin_blue"></div>
-                      <div th:if="${!videoView.signBelowToFavorite}" style="visibility: hidden" class="pin_blue"></div>
-                      <div class="container_tooltip_in_image">
-                        <div th:if="${videoView.videoHasComment}" class="commentary_white"></div>
-                        <div th:if="${!videoView.videoHasComment}" style="visibility: hidden" class="commentary_white"></div>
-                        <div th:if="${videoView.videoHasPositiveRate}" class="smiley_happy_white"></div>
-                        <div th:if="${!videoView.videoHasPositiveRate}" style="visibility: hidden" class="smiley_happy_white"></div>
-                        <div th:if="${videoView.videoHasView}" class="sign_see_white"></div>
-                        <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="sign_see_white"></div>
-                      </div>
-                      <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
-                    </a>
-                  </div>
+                    <div class="new_blue-signs" th:if="${videoView.videoCreateAfterLastDateDeconnection}"></div>
+                    <div class="new_blue-signs" style="visibility: hidden"
+                         th:if="${!videoView.videoCreateAfterLastDateDeconnection}"></div>
+                    <div class="pin_blue" th:if="${videoView.signBelowToFavorite}"></div>
+                    <div class="pin_blue" style="visibility: hidden" th:if="${!videoView.signBelowToFavorite}"></div>
+                    <div class="container_tooltip_in_image">
+                      <div class="commentary_white" th:if="${videoView.videoHasComment}"></div>
+                      <div class="commentary_white" style="visibility: hidden"
+                           th:if="${!videoView.videoHasComment}"></div>
+                      <div class="smiley_happy_white" th:if="${videoView.videoHasPositiveRate}"></div>
+                      <div class="smiley_happy_white" style="visibility: hidden"
+                           th:if="${!videoView.videoHasPositiveRate}"></div>
+                      <div class="sign_see_white" th:if="${videoView.videoHasView}"></div>
+                      <div class="sign_see_white" style="visibility: hidden" th:if="${!videoView.videoHasView}"></div>
+                    </div>
+                    <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-       </div>
       </div>
-
-      <div  id="play_video" class="modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"></button>
-              <h2 class="pull-left text_hyphenation" id="videoName"/>
-            </div>
-            <div class="modal-body text-center">
-              <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""></iframe>
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="play_video" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <h2 class="pull-left text_hyphenation" id="videoName"/>
+      </div>
+      <div class="modal-body text-center">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe allowfullscreen="" class="embed-responsive-item" frameborder="0" id="videoUrl"></iframe>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-      <div id="add_video_file_recording" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"></button>
-              <div class="pull-left">
-                <div class="camera_white pull-left"></div>
-                <h2 class="pull-right" th:text="#{recording}"></h2>
-              </div>
-            </div>
-            <div  class="container_record text-center">
-              <h4 id="label_record" th:text="#{record_name_lsf(${user.name()})}" style="display: none"></h4>
-              <h4 id="label_after_record" th:text="#{after_record_name_lsf(${user.name()})}" style="display: none"></h4>
-              <h4 id="label_record_job_description" th:text="#{record_job_lsf(${user.job})}" style="display: none"></h4>
-              <h4 id="label_after_record_job_description" th:text="#{after_record_job_lsf(${user.job})}" style="display: none"></h4>
-              <div id="container_video" class="col-xs-offset-1 col-xs-10" >
-                <div class="spinner spinner_hidden"></div>
-                <span id="counter"></span>
-                <video id="video"></video>
-              </div>
-
-              <div class="btn-group-vertical" role="group">
-                <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
-                <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
-                </div>
-                <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
-              </div>
-
-            </div>
-            <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileForName}" method="post">
-              <div class="modal-body text-center">
-                <span id="errorSpan"  style="display: none"></span>
-              </div>
-              <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
-                <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                  <div class="x-close2_black center-block"></div>
-                  <span th:text="#{cancel}"></span>
-                </button>
-                <button id="retry-recording" type="button" class="btn btn-secondary" title="Cliquer pour enregistrer">
-                  <div class="rewind_black center-block"></div>
-                  <span th:text="#{retry}"></span>
-                </button>
-                <button id="continue" type="submit" class="btn btn-primary pull-right" data-dismiss="" disabled="" >
-                  <div class="v-done2_blue center-block"></div>
-                  <span th:text="#{publish}" ></span>
-                </button>
-              </div>
-            </form>
-          </div>
+<div class="modal fade" id="add_video_file_recording" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="camera_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{recording}"></h2>
         </div>
       </div>
+      <div class="container_record text-center">
+        <h4 id="label_record" style="display: none" th:text="#{record_name_lsf(${user.name()})}"></h4>
+        <h4 id="label_after_record" style="display: none" th:text="#{after_record_name_lsf(${user.name()})}"></h4>
+        <h4 id="label_record_job_description" style="display: none" th:text="#{record_job_lsf(${user.job})}"></h4>
+        <h4 id="label_after_record_job_description" style="display: none"
+            th:text="#{after_record_job_lsf(${user.job})}"></h4>
+        <div class="col-xs-offset-1 col-xs-10" id="container_video">
+          <div class="spinner spinner_hidden"></div>
+          <span id="counter"></span>
+          <video id="video"></video>
+        </div>
 
-      <div  id="validate_send_mail" class="modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="pull-left">
-                <div class="message_white pull-left"></div>
-                <h2 class="pull-right" th:text="#{modify_your_email}"/>
-              </div>
-            </div>
-            <div class="modal-body">
-              <h4 class="blue" th:text="#{validate_send_mail_for_change_email_body}"></h4>
-            </div>
+        <div class="btn-group-vertical" role="group">
+          <button class="record" id="start-recording" title="Cliquer pour enregistrer"></button>
+          <div class="btn-group-vertical" id="container-button" role="group" style="display: none">
           </div>
+          <button class="stop" disabled="" id="stop-recording" style="display: none"
+                  title="Arrêter l'enregistrement"></button>
+        </div>
+
+      </div>
+      <form id="uploadRecordedVideoFile" method="post" th:action="@{/ws/sec/uploadRecordedVideoFileForName}">
+        <div class="modal-body text-center">
+          <span id="errorSpan" style="display: none"></span>
+        </div>
+        <div class="modal-footer" id="modal-footer_add_video_file_recording" style="display: none">
+          <button class="btn btn-secondary pull-left" data-dismiss="" id="cancel-recording" title="Cliquer pour annuler"
+                  type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button class="btn btn-secondary" id="retry-recording" title="Cliquer pour enregistrer" type="button">
+            <div class="rewind_black center-block"></div>
+            <span th:text="#{retry}"></span>
+          </button>
+          <button class="btn btn-primary pull-right" data-dismiss="" disabled="" id="continue" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{publish}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="validate_send_mail" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="message_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{modify_your_email}"/>
         </div>
       </div>
+      <div class="modal-body">
+        <h4 class="blue" th:text="#{validate_send_mail_for_change_email_body}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-      <div id="add_video_file_dailymotion" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"></button>
-              <div class="pull-left">
-                <div class="pull-left description_movie_white"></div>
-                <h2 id="add_video_file_dailymotion_title_name_lsf" class="pull-right text_hyphenation" th:text="#{user.name_LSF}" style="display: none"></h2>
-                <h2 id="add_video_file_dailymotion_title_description_job_lsf" class="pull-right text_hyphenation" th:text="#{your_job_description_LSF}" style="display: none"></h2>
-              </div>
-            </div>
-            <div class="spinner spinner_hidden"></div>
-            <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileForName}" enctype="multipart/form-data"  method="post">
-              <div class="modal-body">
-                <br/>
-                <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
-                <input name="file" accept="video/*" capture="camera"  type="file" id="InputFile"  style="display: none"/>
-                <h4 id="errorSelectedSpan"  style="display: none"></h4>
-              </div>
-              <div id="modal-footer_add_video_file_recording" class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                  <div class="x-close2_black center-block"></div>
-                  <span th:text="#{cancel}"></span>
-                </button>
-                <button id="submitButtonFileDailymotion" type="submit" class="btn btn-default pull-right"
-                        data-dismiss="" disabled="true">
-                  <div class="v-done2_blue center-block"></div>
-                  <span th:text="#{publish}"></span>
-                </button>
-              </div>
-            </form>
-          </div>
+<div class="modal fade" id="add_video_file_dailymotion" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="pull-left description_movie_white"></div>
+          <h2 class="pull-right text_hyphenation" id="add_video_file_dailymotion_title_name_lsf"
+              style="display: none" th:text="#{user.name_LSF}"></h2>
+          <h2 class="pull-right text_hyphenation" id="add_video_file_dailymotion_title_description_job_lsf"
+              style="display: none" th:text="#{your_job_description_LSF}"></h2>
         </div>
       </div>
+      <div class="spinner spinner_hidden"></div>
+      <form enctype="multipart/form-data" id="uploadSelectedVideoFile"
+            method="post" th:action="@{/ws/sec/uploadSelectedVideoFileForName}">
+        <div class="modal-body">
+          <br/>
+          <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4>
+          <br/>
+          <input accept="video/*" capture="camera" id="InputFile" name="file" style="display: none" type="file"/>
+          <h4 id="errorSelectedSpan" style="display: none"></h4>
+        </div>
+        <div class="modal-footer" id="modal-footer_add_video_file_recording">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button class="btn btn-default pull-right" data-dismiss="" disabled="true"
+                  id="submitButtonFileDailymotion" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{publish}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-      <div th:fragment="div" id="delete_video" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"></button>
-              <div class="pull-left">
-                <div class="signlanguage_white pull-left"></div>
-                <h2 class="pull-right text_hyphenation" th:text="#{video_name_lsf.delete}"></h2>
-              </div>
-            </div>
-            <div class="spinner spinner_hidden"></div>
-            <form id="deleteVideoFileForName" th:action="@{/ws/sec/deleteVideoFileForName}" method="put">
-              <div class="modal-body text-center">
-                <h4 th:text="#{video_name_lsf.confirm_delete}"></h4>
-              </div>
-              <span id="errorDeletedSpan"  style="visibility: hidden"></span>
-              <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                  <div class="x-close2_black center-block"></div>
-                  <span th:text="#{cancel}"></span>
-                </button>
-                <button id="submitButtonDelete" type="submit" class="btn btn-default pull-right" data-dismiss="" >
-                  <div class="v-done2_blue center-block"></div>
-                  <span th:text="#{confirm}"></span>
-                </button>
-              </div>
-            </form>
-          </div>
+<div class="modal fade" id="delete_video" role="dialog" th:fragment="div">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="signlanguage_white pull-left"></div>
+          <h2 class="pull-right text_hyphenation" th:text="#{video_name_lsf.delete}"></h2>
         </div>
       </div>
+      <div class="spinner spinner_hidden"></div>
+      <form id="deleteVideoFileForName" method="put" th:action="@{/ws/sec/deleteVideoFileForName}">
+        <div class="modal-body text-center">
+          <h4 th:text="#{video_name_lsf.confirm_delete}"></h4>
+        </div>
+        <span id="errorDeletedSpan" style="visibility: hidden"></span>
+        <div class="modal-footer">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button class="btn btn-default pull-right" data-dismiss="" id="submitButtonDelete" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{confirm}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-      <div  id="validate_delete_video" class="modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="pull-left">
-                <div class="signlanguage_white pull-left"></div>
-                <h2 class="pull-right" th:text="#{name_lsf_video_delete}"/>
-              </div>
-            </div>
-            <div class="modal-body text-center">
-              <h4 th:text="#{validate_delete_name_lsf_video}"></h4>
-            </div>
-          </div>
+<div class="modal" id="validate_delete_video" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="signlanguage_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{name_lsf_video_delete}"/>
         </div>
       </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{validate_delete_name_lsf_video}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <div th:fragment="div" id="delete_video_job" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"></button>
-              <div class="pull-left">
-                <div class="signlanguage_white pull-left"></div>
-                <h2 class="pull-right text_hyphenation" th:text="#{video_job_lsf.delete}"></h2>
-              </div>
-            </div>
-            <div class="spinner spinner_hidden"></div>
-            <form id="deleteVideoFileForJob" th:action="@{/ws/sec/deleteVideoFileForJob}" method="put">
-              <div class="modal-body text-center">
-                <h4 th:text="#{video_job_lsf.confirm_delete}"></h4>
-              </div>
-              <span id="errorDeletedJobSpan"  style="visibility: hidden"></span>
-              <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                  <div class="x-close2_black center-block"></div>
-                  <span th:text="#{cancel}"></span>
-                </button>
-                <button id="submitButtonDeleteJob" type="submit" class="btn btn-default pull-right" data-dismiss="" >
-                  <div class="v-done2_blue center-block"></div>
-                  <span th:text="#{confirm}"></span>
-                </button>
-              </div>
-            </form>
-          </div>
+<div class="modal fade" id="delete_video_job" role="dialog" th:fragment="div">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="signlanguage_white pull-left"></div>
+          <h2 class="pull-right text_hyphenation" th:text="#{video_job_lsf.delete}"></h2>
         </div>
       </div>
+      <div class="spinner spinner_hidden"></div>
+      <form id="deleteVideoFileForJob" method="put" th:action="@{/ws/sec/deleteVideoFileForJob}">
+        <div class="modal-body text-center">
+          <h4 th:text="#{video_job_lsf.confirm_delete}"></h4>
+        </div>
+        <span id="errorDeletedJobSpan" style="visibility: hidden"></span>
+        <div class="modal-footer">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button class="btn btn-default pull-right" data-dismiss="" id="submitButtonDeleteJob" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{confirm}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-      <div  id="validate_delete_video_job" class="modal" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="pull-left">
-                <div class="signlanguage_white pull-left"></div>
-                <h2 class="pull-right" th:text="#{job_lsf_video_delete}"/>
-              </div>
-            </div>
-            <div class="modal-body text-center">
-              <h4 th:text="#{validate_delete_job_lsf_video}"></h4>
-            </div>
-          </div>
+<div class="modal" id="validate_delete_video_job" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="signlanguage_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{job_lsf_video_delete}"/>
         </div>
       </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{validate_delete_job_lsf_video}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
 
-    </body>
-<script type="text/javascript" src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}"></script>
-<script type="text/javascript" src="../public/js/profil.js" th:src="@{/js/profil.js}"></script>
+</body>
+<script src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}" type="text/javascript"></script>
+<script src="../public/js/profil.js" th:src="@{/js/profil.js}" type="text/javascript"></script>
 </html>
