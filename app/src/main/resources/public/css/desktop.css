@@ -55,6 +55,21 @@
   .name_picture {
     width: 24%!important;
   }
+
+    .connexion_white {
+      background-image: url("/img/sprite_picto_400X400.png");
+      background-position: -1379px center;
+      background-repeat: no-repeat;
+      background-size: auto 24px;
+      height: 24px;
+      width: 24px;
+      border: none;
+      background-color: transparent;
+
+    }
+    #connexion_label {
+      padding-top: 5px;
+    }
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
@@ -115,6 +130,21 @@
   .name_picture {
     width: 24%!important;
   }
+
+    .connexion_white {
+      background-image: url("/img/sprite_picto_400X400.png");
+      background-position: -1379px center;
+      background-repeat: no-repeat;
+      background-size: auto 24px;
+      height: 24px;
+      width: 24px;
+      border: none;
+      background-color: transparent;
+
+    }
+    #connexion_label {
+      padding-top: 5px;
+    }
 }
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
@@ -197,6 +227,21 @@
   .name_picture {
     width: 24%!important;
   }
+
+    .connexion_white {
+      background-image: url("/img/sprite_picto_400X400.png");
+      background-position: -1379px center;
+      background-repeat: no-repeat;
+      background-size: auto 24px;
+      height: 24px;
+      width: 24px;
+      border: none;
+      background-color: transparent;
+
+    }
+    #connexion_label {
+      padding-top: 5px;
+    }
 }
 
 @media only screen  and (min-width:1541px)  {
@@ -272,6 +317,20 @@
     width: 24%!important;
   }
 
+  .connexion_white {
+    background-image: url("/img/sprite_picto_400X400.png");
+    background-position: -1379px center;
+    background-repeat: no-repeat;
+    background-size: auto 24px;
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: transparent;
+
+  }
+  #connexion_label {
+    padding-top: 5px;
+  }
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {

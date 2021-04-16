@@ -49,7 +49,9 @@
 <!--        <div class="pull-right">
           <button type="submit" class="btn_signin btn btn-default" th:text="#{signin}"></button>
         </div>-->
-        <a th:href="@{/login}" class="pull-right btn_signin_header btn btn-default" th:text="#{signin}">
+        <a th:href="@{/login}" class="pull-right btn_signin_header btn btn-default" >
+          <div class="pull-left connexion_white"></div>
+          <div id="connexion_label" th:text="#{signin}"></div>
         </a>
       </div>
     </div>
