@@ -361,6 +361,10 @@ button.close{
   border-radius:0px;
 }
 
+#modal-cgu, #modal-personnal-data {
+  border-top: 2px solid #e5e5e5
+}
+
 .modal-footer {
   border-style:none;
 }
@@ -482,7 +486,7 @@ h1, .h1 {
 
 .cgu_conditions_blue {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -242px center;
+  background-position: -241px center;
   background-repeat: no-repeat;
   background-size: auto 35px;
   height: 40px;

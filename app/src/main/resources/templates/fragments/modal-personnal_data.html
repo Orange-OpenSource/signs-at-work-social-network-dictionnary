@@ -36,12 +36,14 @@
         </div>
       </div>
       <div class="modal-body">
-        <span th:utext="#{personal_data_text}"></span>
+        <span th:if="${#strings.equals(appName,'LocalHost')}" th:utext="#{signsatwork_personal_data_text}"></span>
+        <span th:if="${#strings.equals(appName,'Signs@Work')}" th:utext="#{signsatwork_personal_data_text}"></span>
+        <span th:if="${#strings.equals(appName,'Signs@Form')}" th:utext="#{signsatform_personal_data_text}"></span>
         <div th:each="article :${personalDataArticles}">
           <span th:utext="${article.descriptionText}"></span>
         </div>
       </div>
-      <div class="modal-footer">
+      <div id="modal-personnal-data" class="modal-footer">
         <button th:text="#{back}" class="btn btn-default"
                 data-dismiss="modal"></button>
       </div>
