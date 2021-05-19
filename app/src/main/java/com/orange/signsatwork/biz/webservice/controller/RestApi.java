@@ -66,6 +66,7 @@ public class RestApi {
   public static final String WS_SEC_SIGN_VIDEO = WS_SEC + "signs/{signId}/videos/{videoId}";
   public static final String WS_SEC_COMMENTS = WS_SEC + "videos/{videoId}/comments";
   public static final String WS_SEC_RATINGS = WS_SEC + "videos/{videoId}/ratings";
+  public static final String WS_SEC_INCREASE_NB_VIEW = WS_SEC + "videos/{videoId}/increaseNbView";
   public static final String WS_SEC_SIGN = WS_SEC + "signs/{signId}";
   public static final String WS_SEC_MY_COMMUNITIES = WS_SEC + "users/me/communities";
   public static final String WS_SEC_COMMUNITY_USERS = WS_SEC + "communities/{communityId}/users";

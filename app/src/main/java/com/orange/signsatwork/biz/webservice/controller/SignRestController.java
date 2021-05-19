@@ -1070,5 +1070,21 @@ public class SignRestController {
 
   }
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_INCREASE_NB_VIEW, method = RequestMethod.POST)
+  public void increaseNbView(@PathVariable long videoId, HttpServletResponse response, Principal principal) {
+    User user = services.user().withUserName(principal.getName());
+    Videos videos = services.video().forUser(user.id);
+
+    boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
+    if (isVideoBellowToMe) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      return;
+    } else {
+      services.video().increaseNbView(videoId);
+      response.setStatus(HttpServletResponse.SC_OK);
+      return;
+    }
+  }
 
   }
