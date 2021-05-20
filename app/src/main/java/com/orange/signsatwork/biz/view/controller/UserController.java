@@ -296,7 +296,7 @@ public class UserController {
     List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
 
     List<VideoView2> videoViews = videoViewsData.stream()
-      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
+      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, connectedUser))
       .collect(Collectors.toList());
 
     VideosViewSort videosViewSort = new VideosViewSort();
