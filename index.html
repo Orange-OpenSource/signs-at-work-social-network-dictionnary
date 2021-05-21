@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+
+    <title>Signs@Form</title>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+    <link href="app/src/main/resources/public/css/desktop.css" rel="stylesheet" type="text/css"/>
+    <link href="app/src/main/resources/public/css/tablet.css" rel="stylesheet" type="text/css"/>
+    <link href="app/src/main/resources/public/css/style3.css" rel="stylesheet" type="text/css"/>
+    <link href="app/src/main/resources/public/css/use_in_app.css" rel="stylesheet" type="text/css"/>
+    <link href="app/src/main/resources/public/css/use_in_smartphone_625-667.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="app/src/main/resources/public/img/icons/Signs@Form/favicon.ico" type="image/x-icon"/>
+
+
+</head>
+
+<header role="banner">
+    <!-- Primary navigation bar -->
+    <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a href="/" class="text-center" aria-label="Accueil">
+                  
+                  
+                  <div class="logo_signsatform-text_white pull-left" alt="logo de sign@form"></div>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
+      
+      
+      <div class="pull-left illustration_welcome_signsatform"></div>
+      <div id="label_invite">
+        <div id="label_welcome">Bienvenue</div>
+        
+        
+        <div id="label_dictionary">Dictionnaire SIGNS@FORM</div>
+      </div>
+      <form autocomplete="off" class="login-form" method="post" role="form" action="/login">
+        <span class="form-signin-heading text-center">Merci de vous authentifier</span>
+        
+        
+        <div class="form-group">
+          <label class="sr-only" for="username">Username</label>
+          <input autofocus="" class="form-control" id="username" name="username" required=""
+                 placeholder="Votre identifiant ..."
+                 type="text"/>
+        </div>
+        <label class="sr-only" for="myPassword">Password</label>
+        <input class="form-control" id="myPassword" name="password" required="" placeholder="Votre mot de passe ..."
+               type="password"/>
+        <div class="form-group">
+        </div>
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="lostPassword aside_bckg_li ">
+              <a data-target="#login_for_lost_password" data-toggle="modal" href="#">
+                <div>
+                  <h5 class="container_H2">J'ai oublié mon <u>mot de passe</u></h5>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <div class=" text-center">
+          <button class="btn_signin btn btn-default" type="submit">Connexion</button>
+        </div>
+      </form>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="noAccount aside_bckg_li ">
+            <h5 class="container_H2">Je n&#39;ai pas de compte</h5>
+            <a class="btn_create_account btn btn-default" href="/cgu">Créer un compte</a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
