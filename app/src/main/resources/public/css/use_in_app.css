@@ -66,7 +66,7 @@ a {
 }
 
 .logo_signsatform-text_white {
-  background-image: url("/img/sprite_picto_400X400.png");
+  background-image: url("../img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
   background-position: -5627px center;
   background-size: auto 40px;
@@ -86,7 +86,7 @@ a {
 }
 
 .illustration_welcome_signsatform {
-  background-image: url("/img/sprite_picto_400X400.png");
+  background-image: url("../img/sprite_picto_400X400.png");
   background-position: -14310px center;
   background-repeat: no-repeat;
   background-size: auto 100px;
