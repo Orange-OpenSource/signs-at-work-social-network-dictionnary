@@ -207,7 +207,7 @@
               <a data-target="#play_video" data-toggle="modal" href="#"
                  style="margin-left: 35px;"
                  th:data-nameUser="${cleaned}" th:data-nameVideo="${user.nameVideo}"
-                 th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-userName'))"
+                 th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-nameUser'))"
                  th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}'>
                 <img class="name_picture" th:attr="alt=#{name_LSF}" th:src="${user.namePicture}"/>
               </a>
