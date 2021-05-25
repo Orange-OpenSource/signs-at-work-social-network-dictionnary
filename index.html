@@ -25,69 +25,71 @@
 </head>
 
 <header role="banner">
-    <!-- Primary navigation bar -->
-    <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a href="/" class="text-center" aria-label="Accueil">
-                  
-                  
-                  <div class="logo_signsatform-text_white pull-left" alt="logo de sign@form"></div>
-                </a>
-            </div>
-        </div>
-    </nav>
+  <!-- Primary navigation bar -->
+  <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a href="/" class="text-center" aria-label="Accueil">
+          <div class="logo_signsatform-text_white pull-left" alt="logo de sign@form"></div>
+        </a>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <body>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
-      
-      
       <div class="pull-left illustration_welcome_signsatform"></div>
       <div id="label_invite">
         <div id="label_welcome">Bienvenue</div>
-        
-        
         <div id="label_dictionary">Dictionnaire SIGNS@FORM</div>
       </div>
-      <form autocomplete="off" class="login-form" method="post" role="form" action="/login">
-        <span class="form-signin-heading text-center">Merci de vous authentifier</span>
-        
-        
-        <div class="form-group">
-          <label class="sr-only" for="username">Username</label>
-          <input autofocus="" class="form-control" id="username" name="username" required=""
-                 placeholder="Votre identifiant ..."
-                 type="text"/>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li style="width:  100%;text-align: left;overflow: hidden; color:blue;">
+            <span>Dictionnaire pour les pro LSF</span>
+          </li>
+        </ul>
+      </aside>
+      <div class="sign_menu col-md-4 col-xs-12 col-lg-4">
+        <!--<h2>Dictionnaire pour les pro LSF</h2>-->
+        <span>Signes techniques et métiers pour les sourds et interprètes. Contient du vocabulaire professionel.</span>
+      </div>
+      <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
+        <div class="embed-responsive embed-responsive-16by9" style="top : 15px;">
+          <iframe allowfullscreen="" class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/k2ADmPrk2ekIL2vU8hf?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false" title="Video explicative du site" frameborder="0"></iframe>
         </div>
-        <label class="sr-only" for="myPassword">Password</label>
-        <input class="form-control" id="myPassword" name="password" required="" placeholder="Votre mot de passe ..."
-               type="password"/>
-        <div class="form-group">
-        </div>
-        <aside class="sidebar">
-          <ul class="nav nav-list primary left-menu">
-            <li class="lostPassword aside_bckg_li ">
-              <a data-target="#login_for_lost_password" data-toggle="modal" href="#">
-                <div>
-                  <h5 class="container_H2">J'ai oublié mon <u>mot de passe</u></h5>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </aside>
-        <div class=" text-center">
-          <button class="btn_signin btn btn-default" type="submit">Connexion</button>
-        </div>
-      </form>
+      </div>
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li class="noAccount aside_bckg_li ">
-            <h5 class="container_H2">Je n&#39;ai pas de compte</h5>
-            <a class="btn_create_account btn btn-default" href="/cgu">Créer un compte</a>
+            <a style="width: 60%;" class="btn_create_account btn btn-default" href="https://signsatwork.orange-labs.fr/">Aller sur Signs@Work</a>
+          </li>
+        </ul>
+      </aside>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li style="width:  100%;text-align: left;overflow: hidden;color: blue;">
+            <span>Dictionnaire pour les apprenants</span>
+          </li>
+        </ul>
+      </aside>
+      <div class="sign_menu col-md-4 col-xs-12 col-lg-4">
+        <!--<h2>Dictionnaire pour les apprenants</h2>-->
+        <span>Signes du quotidien pour les entendants. Contient du vocabulaire de la vie de tous les jours</span>
+      </div>
+      <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
+        <div class="embed-responsive embed-responsive-16by9" style="top : 15px;">
+          <iframe allowfullscreen="" class="embed-responsive-item" src="https://www.dailymotion.com/embed/video/k2ADmPrk2ekIL2vU8hf?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false" title="Video explicative du site" frameborder="0"></iframe>
+        </div>
+      </div>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="noAccount aside_bckg_li ">
+            <a style="width: 60%;" class="btn_create_account btn btn-default" href="https://signsatform.orange-labs.fr/">Aller sur Signs@Form</a>
           </li>
         </ul>
       </aside>
