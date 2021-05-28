@@ -77,7 +77,7 @@ a {
 }
 
 .illustration_welcome_signsatwork {
-  background-image: url("/img/sprite_picto_400X400.png");
+  background-image: url("../img/sprite_picto_400X400.png");
   background-position: -4075px center;
   background-repeat: no-repeat;
   background-size: auto 100px;
