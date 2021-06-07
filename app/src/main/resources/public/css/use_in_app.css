@@ -94,6 +94,15 @@ a {
   width: 92px;
 }
 
+.illustration_welcome_blanc {
+  background-image: url("../img/illustration_welcome_blanc.png");
+ /* background-position: -14310px center;*/
+  background-repeat: no-repeat;
+  background-size: auto 100px;
+  height: 100px;
+  width: 92px;
+}
+
 #label_invite {
   margin-top: 25px;
 }
