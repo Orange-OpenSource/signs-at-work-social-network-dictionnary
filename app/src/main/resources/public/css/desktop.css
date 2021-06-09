@@ -71,6 +71,10 @@
     #connexion_label {
       padding-top: 5px;
     }
+
+    .btn_signin_header{
+      width: 20%!important;
+    }
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
@@ -146,6 +150,10 @@
     }
     #connexion_label {
       padding-top: 5px;
+    }
+
+    .btn_signin_header{
+      width: 20%!important;
     }
 }
 
@@ -245,6 +253,10 @@
     #connexion_label {
       padding-top: 5px;
     }
+
+    .btn_signin_header{
+      width: 20%!important;
+    }
 }
 
 @media only screen  and (min-width:1541px)  {
@@ -334,6 +346,10 @@
   }
   #connexion_label {
     padding-top: 5px;
+  }
+
+  .btn_signin_header{
+    width: 20%!important;
   }
 }
 
