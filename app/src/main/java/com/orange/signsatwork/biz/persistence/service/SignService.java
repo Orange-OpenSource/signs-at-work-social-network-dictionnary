@@ -80,6 +80,8 @@ public interface SignService {
 
   Sign create(long userId, String signName, String signUrl, String pictureUri);
 
+  void updatePictureUri(long videoId, String pictureUri);
+
   Signs search(String signName);
 
   List<Object[]> searchBis(String signName);

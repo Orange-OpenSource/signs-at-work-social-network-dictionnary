@@ -393,6 +393,13 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public void updatePictureUri(long videoId, String pictureUri) {
+    VideoDB videoDB = videoRepository.findOne(videoId);
+    videoDB.setPictureUri(pictureUri);
+    videoRepository.save(videoDB);
+  }
+
+  @Override
   public void delete(Sign sign) {
     SignDB signDB = signRepository.findOne(sign.id);
     List<VideoDB> videoDBs = new ArrayList<>();

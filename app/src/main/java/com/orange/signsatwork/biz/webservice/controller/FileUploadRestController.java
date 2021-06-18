@@ -221,18 +221,18 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-      int i=0;
-      do {
+      String id = videoDailyMotion.id;
+     /* int i=0;
+      do {*/
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
-        Thread.sleep(2 * 1000);
-        if (i > 30) {
+      /* Thread.sleep(2 * 1000);
+     /*   if (i > 30) {
           break;
         }
         i++;
         log.info("status "+videoDailyMotion.status);
       }
-      while (!videoDailyMotion.status.equals("published"));
-
+      while (!videoDailyMotion.status.equals("published"));*/
 
 
       String pictureUri = null;
@@ -270,7 +270,29 @@ public class FileUploadRestController {
          sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
         log.info("handleFileUpload : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
           }
+      if (sign.lastVideoId != 0) {
+        Runnable task = () -> {
+          int i = 0;
+          VideoDailyMotion dailyMotion;
+          do {
+            dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+            try {
+              Thread.sleep(2 * 1000);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            if (i > 60) {
+              break;
+            }
+            i++;
+            log.info("status " + dailyMotion.status);
+          }
+          while (!dailyMotion.status.equals("published"));
+          services.sign().updatePictureUri(sign.lastVideoId, dailyMotion.thumbnail_360_url);
+        };
 
+        new Thread(task).start();
+      }
 
       if (requestId.isPresent()) {
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
