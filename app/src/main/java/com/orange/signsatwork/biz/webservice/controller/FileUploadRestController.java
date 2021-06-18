@@ -116,6 +116,7 @@ public class FileUploadRestController {
     String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
     String videoUrl = null;
     String file = environment.getProperty("app.file") + videoFile.name;
+    String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + videoFile.name.replace(".webm", ".png");
     String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
@@ -153,6 +154,18 @@ public class FileUploadRestController {
     {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorEncondingFile");
+    }
+
+    try {
+      String cmdGenerateThumbnail;
+
+    /*  cmdGenerateThumbnail = String.format("ffmpeg -ss 00:00:05 -t 1 -i %s  -filter_complex 'split=1[a];[a]scale=360:360[o360p]' -map '[o360p]' -frames:v 1 %s", fileOutput, thumbnailFile);*/
+      cmdGenerateThumbnail = String.format("ffmpeg -ss 2 -i  %s -vframes 1 -filter 'scale=-1:360,crop=360:360' %s", fileOutput, thumbnailFile);
+      String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
+      NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
+    } catch (Exception errorEncondingFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorThumbnailFile");
     }
 
     try {
@@ -230,7 +243,7 @@ public class FileUploadRestController {
       while (!videoDailyMotion.status.equals("published"));*/
 
 
-      String pictureUri = "/img/no-such-asset.jpg";
+      String pictureUri = thumbnailFile;
       videoUrl= videoFile.name;
 /*      if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
         if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
