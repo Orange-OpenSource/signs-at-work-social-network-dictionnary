@@ -10,12 +10,12 @@ package com.orange.signsatwork;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -60,8 +60,8 @@ public class SignsAtWorkApplication extends WebMvcConfigurerAdapter {
     return localeResolver;
   }
 
-  @Override
-  /** Enable static resources cache control: images, css, fonts, js (app & libraries) */
+  /*@Override
+  *//** Enable static resources cache control: images, css, fonts, js (app & libraries) *//*
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry
       .addResourceHandler(
@@ -70,6 +70,28 @@ public class SignsAtWorkApplication extends WebMvcConfigurerAdapter {
       .addResourceLocations(
         "classpath:/public/",
         "classpath:/META-INF/resources/webjars/")
+      .setCacheControl(
+        CacheControl.
+          maxAge(1, TimeUnit.DAYS)
+          .cachePublic()
+          .mustRevalidate()
+      );
+  }*/
+
+  @Override
+  //* Enable static resources cache control: images, css, fonts, js (app & libraries)
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    String file = "file:/data";
+    String fileThumbnails = "file:/data/thumbnail";
+    registry
+      .addResourceHandler(
+        "/**",
+        "/webjars/**")
+      .addResourceLocations(
+        "classpath:/public/",
+        "classpath:/META-INF/resources/webjars/",
+        file,
+        fileThumbnails)
       .setCacheControl(
         CacheControl.
           maxAge(1, TimeUnit.DAYS)
