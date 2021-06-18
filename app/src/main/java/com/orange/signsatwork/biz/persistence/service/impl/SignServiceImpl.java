@@ -393,10 +393,15 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
-  public void updatePictureUri(long videoId, String pictureUri) {
+  public void updateWithDailymotionInfo(long signId, long videoId, String pictureUri, String videoUrl) {
+    SignDB signDB = signRepository.findOne(signId);
+    signDB.setUrl(videoUrl);
+
     VideoDB videoDB = videoRepository.findOne(videoId);
     videoDB.setPictureUri(pictureUri);
+    videoDB.setUrl(videoUrl);
     videoRepository.save(videoDB);
+    signRepository.save(signDB);
   }
 
   @Override

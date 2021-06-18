@@ -80,7 +80,7 @@ public interface SignService {
 
   Sign create(long userId, String signName, String signUrl, String pictureUri);
 
-  void updatePictureUri(long videoId, String pictureUri);
+  void updateWithDailymotionInfo(long signId, long videoId, String pictureUri, String videoUrl);
 
   Signs search(String signName);
 

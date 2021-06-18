@@ -44,10 +44,20 @@
           <div class="pin_blue_in_frame" style="z-index: 100" th:if="${videoBelowToFavorite}"></div>
           <div class="pin_blue_in_frame" style="visibility: hidden" th:if="${!videoBelowToFavorite}"></div>
         </div>
+        <div th:if="${!#strings.contains(videoView.url, 'http')}">
+          <div class="embed-responsive embed-responsive-16by9">
+          <video id="video1" data-able-player="" autoplay="true" data-debug="true" preload="auto" playsinline="">
+            <source th:src="@{/ws/sec/videosOnServer/} + ${videoView.url}" type="video/webm"/>
+            <source th:src="@{/ws/sec/videosOnServer/} + ${videoView.url}" type="video/mp4"/>
+          </video>
+          </div>
+        </div>
+        <div th:if="${#strings.contains(videoView.url, 'http')}">
         <div class="embed-responsive embed-responsive-16by9">
           <iframe allowfullscreen="" class="embed-responsive-item"
                   frameborder="0"
                   th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;queue-enable=false&amp;queue-enable=false'"></iframe>
+        </div>
         </div>
       </div>
       <div class="sign_menu col-md-4 col-xs-12">

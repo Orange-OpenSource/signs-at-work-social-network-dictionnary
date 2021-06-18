@@ -22,9 +22,6 @@ package com.orange.signsatwork.biz.webservice.controller;
  * #L%
  */
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
@@ -42,8 +39,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.LinkedMultiValueMap;
@@ -224,7 +219,7 @@ public class FileUploadRestController {
       String id = videoDailyMotion.id;
      /* int i=0;
       do {*/
-        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+        /*videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);*/
       /* Thread.sleep(2 * 1000);
      /*   if (i > 30) {
           break;
@@ -235,8 +230,9 @@ public class FileUploadRestController {
       while (!videoDailyMotion.status.equals("published"));*/
 
 
-      String pictureUri = null;
-      if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+      String pictureUri = "/img/no-such-asset.jpg";
+      videoUrl= videoFile.name;
+/*      if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
         if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
           pictureUri = "/img/no-such-asset.jpg";
         } else {
@@ -249,7 +245,7 @@ public class FileUploadRestController {
       if (!videoDailyMotion.embed_url.isEmpty()) {
         videoUrl = videoDailyMotion.embed_url;
         log.warn("handleFileUpload : embed_url = {}", videoDailyMotion.embed_url);
-      }
+      }*/
       Sign sign;
       Video video;
       if (signId.isPresent() && (videoId.isPresent())) {
@@ -288,7 +284,7 @@ public class FileUploadRestController {
             log.info("status " + dailyMotion.status);
           }
           while (!dailyMotion.status.equals("published"));
-          services.sign().updatePictureUri(sign.lastVideoId, dailyMotion.thumbnail_360_url);
+          services.sign().updateWithDailymotionInfo(sign.id, sign.lastVideoId, dailyMotion.thumbnail_360_url, dailyMotion.embed_url);
         };
 
         new Thread(task).start();
