@@ -75,7 +75,7 @@ $formDeleteVideo.on('input', function(event) {
 var $video_delete_modal = $('#video_delete_modal');
 $video_delete_modal.on('hidden.bs.modal', function() {
  console.log("hidden video_delete_modal modal");
-  document.getElementById('submitButtonDelete').disabled = true;
+  document.getElementById('submitButtonDelete').disabled = false;
   if ($('#deleteVideo').find('#errorDeletedSpan').length) {
     errorDeletedSpan.style.visibility="hidden";
   }
