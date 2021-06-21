@@ -160,7 +160,7 @@ public class FileUploadRestController {
       String cmdGenerateThumbnail;
 
     /*  cmdGenerateThumbnail = String.format("ffmpeg -ss 00:00:05 -t 1 -i %s  -filter_complex 'split=1[a];[a]scale=360:360[o360p]' -map '[o360p]' -frames:v 1 %s", fileOutput, thumbnailFile);*/
-      cmdGenerateThumbnail = String.format("ffmpeg -ss 2 -i  %s -vframes 1 -filter 'scale=-1:360,crop=360:360' %s", fileOutput, thumbnailFile);
+      cmdGenerateThumbnail = String.format("input=%s&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -ss \"$(echo \"$dur / 2\" | bc -l)\" -i  \"$input\" -vframes 1 -filter 'scale=-1:360,crop=360:360' %s", fileOutput, thumbnailFile);
       String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
       NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
     } catch (Exception errorEncondingFile) {
