@@ -130,10 +130,7 @@ public class FileUploadRestController {
 
     try {
       //This will decode the String which is encoded by using Base64 class
-      String  lexical = videoFile.contents.substring(videoFile.contents.indexOf(",") + 1);
-      byte[] videoByte = DatatypeConverter.parseBase64Binary(lexical);
-
-      new FileOutputStream(file).write(videoByte);
+      extracted(videoFile, file);
     }
     catch(Exception errorUploadFile)
     {
@@ -142,13 +139,7 @@ public class FileUploadRestController {
     }
 
     try {
-      String cmd;
-
-      cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
-      /*cmd = String.format("mencoder %s -ovc x264 -o %s", file, fileOutput);*/
-
-      String cmdFilterLog = "/tmp/mencoder.log";
-      NativeInterface.launch(cmd, null, cmdFilterLog);
+      EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
@@ -157,12 +148,7 @@ public class FileUploadRestController {
     }
 
     try {
-      String cmdGenerateThumbnail;
-
-    /*  cmdGenerateThumbnail = String.format("ffmpeg -ss 00:00:05 -t 1 -i %s  -filter_complex 'split=1[a];[a]scale=360:360[o360p]' -map '[o360p]' -frames:v 1 %s", fileOutput, thumbnailFile);*/
-      cmdGenerateThumbnail = String.format("input=%s&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -ss \"$(echo \"$dur / 2\" | bc -l)\" -i  \"$input\" -vframes 1 -filter 'scale=-1:360,crop=360:360' %s", fileOutput, thumbnailFile);
-      String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
-      NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
+      GenerateThumbnail(thumbnailFile, fileOutput);
     } catch (Exception errorEncondingFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorThumbnailFile");
@@ -262,7 +248,6 @@ public class FileUploadRestController {
       Sign sign;
       Video video;
       if (signId.isPresent() && (videoId.isPresent())) {
-          /*sign = services.sign().withId(signId.getAsLong());*/
           video = services.video().withId(videoId.getAsLong());
           dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
           try {
@@ -278,7 +263,13 @@ public class FileUploadRestController {
       } else {
          sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
         log.info("handleFileUpload : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
-          }
+      }
+
+
+      if (requestId.isPresent()) {
+        services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+      }
+
       if (sign.lastVideoId != 0) {
         Runnable task = () -> {
           int i = 0;
@@ -303,12 +294,8 @@ public class FileUploadRestController {
         new Thread(task).start();
       }
 
-      if (requestId.isPresent()) {
-        services.request().changeSignRequest(requestId.getAsLong(), sign.id);
-      }
-
       response.setStatus(HttpServletResponse.SC_OK);
-      //return Long.toString(sign.id);
+
       return "/sec/sign/" + Long.toString(sign.id) + "/" + Long.toString(sign.lastVideoId) + "/detail";
     }
     catch(Exception errorDailymotionUploadFile)
@@ -318,6 +305,29 @@ public class FileUploadRestController {
     }
   }
 
+  private void extracted(VideoFile videoFile, String file) throws IOException {
+    String  lexical = videoFile.contents.substring(videoFile.contents.indexOf(",") + 1);
+    byte[] videoByte = DatatypeConverter.parseBase64Binary(lexical);
+
+    new FileOutputStream(file).write(videoByte);
+  }
+
+  private void GenerateThumbnail(String thumbnailFile, String fileOutput) {
+    String cmdGenerateThumbnail;
+
+    cmdGenerateThumbnail = String.format("input=\"%s\"&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -y -ss \"$(echo \"$dur / 2\" | bc -l)\" -i  \"$input\" -vframes 1 -filter 'scale=-1:360,crop=360:360' \"%s\"", fileOutput, thumbnailFile);
+    String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
+    NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
+  }
+
+  private void EncodeFileInMp4(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
+
+    String cmdFilterLog = "/tmp/mencoder.log";
+    NativeInterface.launch(cmd, null, cmdFilterLog);
+  }
 
 
   public static long parseSize(String text) {
@@ -358,6 +368,25 @@ public class FileUploadRestController {
   }
 
   private String handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
+    String videoUrl = null;
+    String fileName = file.getOriginalFilename();
+    String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
+    File inputFile;
+
+    try {
+      storageService.store(file);
+      inputFile = storageService.load(file.getOriginalFilename()).toFile();
+    } catch (Exception errorLoadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorThumbnailFile");
+    }
+
+    try {
+      GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
+    } catch (Exception errorEncondingFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorThumbnailFile");
+    }
 
     try {
       String dailymotionId;
@@ -370,8 +399,7 @@ public class FileUploadRestController {
       }
 
       User user = services.user().withUserName(principal.getName());
-      storageService.store(file);
-      File inputFile = storageService.load(file.getOriginalFilename()).toFile();
+
 
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -423,7 +451,8 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-      int i=0;
+      String id = videoDailyMotion.id;
+     /* int i=0;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
@@ -433,10 +462,11 @@ public class FileUploadRestController {
         i++;
         log.info("status "+videoDailyMotion.status);
       }
-      while (!videoDailyMotion.status.equals("published"));
+      while (!videoDailyMotion.status.equals("published"));*/
 
-      String pictureUri = null;
-      if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+      String pictureUri = thumbnailFile;
+      videoUrl= fileName;
+   /*   if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
         if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
           pictureUri = "/img/no-such-asset.jpg";
         } else {
@@ -448,12 +478,11 @@ public class FileUploadRestController {
       if (!videoDailyMotion.embed_url.isEmpty()) {
         signCreationView.setVideoUrl(videoDailyMotion.embed_url);
         log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
-      }
+      }*/
 
       Sign sign;
       Video video;
       if (signId.isPresent() && (videoId.isPresent())) {
-        /*sign = services.sign().withId(signId.getAsLong());*/
         video = services.video().withId(videoId.getAsLong());
         dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
         try {
@@ -463,17 +492,41 @@ public class FileUploadRestController {
           response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
           return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
         }
-        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
+        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
       } else if (signId.isPresent() && !(videoId.isPresent())) {
-        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), signCreationView.getVideoUrl(), pictureUri);
+        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
       } else {
-        sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), pictureUri);
+        sign = services.sign().create(user.id, signCreationView.getSignName(), videoUrl, pictureUri);
       }
 
-      log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
+      log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), videoUrl);
 
       if (requestId.isPresent()) {
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+      }
+
+      if (sign.lastVideoId != 0) {
+        Runnable task = () -> {
+          int i = 0;
+          VideoDailyMotion dailyMotion;
+          do {
+            dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+            try {
+              Thread.sleep(2 * 1000);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            if (i > 60) {
+              break;
+            }
+            i++;
+            log.info("status " + dailyMotion.status);
+          }
+          while (!dailyMotion.status.equals("published"));
+          services.sign().updateWithDailymotionInfo(sign.id, sign.lastVideoId, dailyMotion.thumbnail_360_url, dailyMotion.embed_url);
+        };
+
+        new Thread(task).start();
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
@@ -710,12 +763,7 @@ public class FileUploadRestController {
     }
 
     try {
-      String cmd;
-
-      cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
-
-      String cmdFilterLog = "/tmp/mencoder.log";
-      NativeInterface.launch(cmd, null, cmdFilterLog);
+      EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
@@ -1062,12 +1110,7 @@ public class FileUploadRestController {
     }
 
     try {
-      String cmd;
-
-      cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
-
-      String cmdFilterLog = "/tmp/mencoder.log";
-      NativeInterface.launch(cmd, null, cmdFilterLog);
+      EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
@@ -1248,12 +1291,7 @@ public class FileUploadRestController {
     }
 
     try {
-      String cmd;
-
-      cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
-
-      String cmdFilterLog = "/tmp/mencoder.log";
-      NativeInterface.launch(cmd, null, cmdFilterLog);
+      EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
@@ -1504,12 +1542,7 @@ public class FileUploadRestController {
     }
 
     try {
-      String cmd;
-
-      cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
-
-      String cmdFilterLog = "/tmp/mencoder.log";
-      NativeInterface.launch(cmd, null, cmdFilterLog);
+      EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
