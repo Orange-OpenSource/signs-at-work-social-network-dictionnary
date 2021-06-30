@@ -531,7 +531,19 @@ function displayVideo(url, name) {
   console.log(name);
   document.getElementById("videoName").innerText = name;
 
+ if  (url.includes('http')) {
+  console.log("http");
+  document.getElementById("videoOnDailyMotion").style.display="block"
+  document.getElementById("videoOnServer").style.display="none"
   document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
+  } else {
+    document.getElementById("videoOnDailyMotion").style.display="none"
+    document.getElementById("videoOnServer").style.display="block"
+    document.getElementById("videoUrlOnServer").src='/ws/sec/videosOnServer/' + url;
+    document.getElementById("videoplayer").load();
+  }
+
+
 };
 
 var inputEmail = document.getElementById('email');
