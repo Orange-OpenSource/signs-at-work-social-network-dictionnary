@@ -35,7 +35,12 @@
         <h2 class="pull-left text_hyphenation" id="videoName"/>
       </div>
       <div class="modal-body text-center">
-        <div class="embed-responsive embed-responsive-16by9">
+        <div id="videoOnServer" class="embed-responsive embed-responsive-16by9" style="display: none">
+          <video id="videoplayer" controls autoplay playsinline>
+            <source id="videoUrlOnServer" type="video/mp4"/>
+          </video>
+        </div>
+        <div id="videoOnDailyMotion" class="embed-responsive embed-responsive-16by9">
           <iframe class="embed-responsive-item"  id="videoUrl"  frameborder="0" allowfullscreen=""></iframe>
         </div>
       </div>
