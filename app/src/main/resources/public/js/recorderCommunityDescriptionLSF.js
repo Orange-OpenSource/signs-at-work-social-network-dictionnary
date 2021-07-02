@@ -209,7 +209,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       data: JSON.stringify(videoFile),
       contentType: "application/json",
       success: function(response) {
-        var url = "/sec/community/"+response+"/description";
+        var url = "/sec/descriptionCommunity/"+response;
         window.location = url;
         errorSpan.style.display="none";
         $(".spinner").visibility="hidden";

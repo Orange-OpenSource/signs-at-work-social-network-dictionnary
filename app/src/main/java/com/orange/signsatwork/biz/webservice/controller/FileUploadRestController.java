@@ -1729,9 +1729,7 @@ public class FileUploadRestController {
 
     try {
       //This will decode the String which is encoded by using Base64 class
-      byte[] videoByte = DatatypeConverter.parseBase64Binary(videoFile.contents.substring(videoFile.contents.indexOf(",") + 1));
-
-      new FileOutputStream(file).write(videoByte);
+      extracted(videoFile, file);
     }
     catch(Exception errorUploadFile)
     {
@@ -1809,7 +1807,8 @@ public class FileUploadRestController {
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-      int i=0;
+      String id = videoDailyMotion.id;
+/*      int i=0;
       do {
         videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
         Thread.sleep(2 * 1000);
@@ -1819,9 +1818,10 @@ public class FileUploadRestController {
         i++;
         log.info("status "+videoDailyMotion.status);
       }
-      while (!videoDailyMotion.status.equals("published"));
+      while (!videoDailyMotion.status.equals("published"));*/
 
-      if (!videoDailyMotion.embed_url.isEmpty()) {
+      videoUrl= videoFile.name;
+      /*if (!videoDailyMotion.embed_url.isEmpty()) {*/
 
         if (community.descriptionVideo != null) {
           dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
@@ -1833,7 +1833,7 @@ public class FileUploadRestController {
             return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
           }
         }
-        services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
+        services.community().changeDescriptionVideo(communityId, videoUrl);
         List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
         if (emails.size() != 0) {
           Community finalCommunity = community;
@@ -1849,8 +1849,30 @@ public class FileUploadRestController {
           new Thread(task).start();
         }
 
-      }
+      /*}*/
+      Runnable task = () -> {
+        int i = 0;
+        VideoDailyMotion dailyMotion;
+        do {
+          dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+          try {
+            Thread.sleep(2 * 1000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          if (i > 60) {
+            break;
+          }
+          i++;
+          log.info("status " + dailyMotion.status);
+        }
+        while (!dailyMotion.status.equals("published"));
+        if (!dailyMotion.embed_url.isEmpty()) {
+          services.community().changeDescriptionVideo(communityId, dailyMotion.embed_url);
+        }
+      };
 
+      new Thread(task).start();
       response.setStatus(HttpServletResponse.SC_OK);
       return Long.toString(community.id);
 
@@ -1868,8 +1890,19 @@ public class FileUploadRestController {
 
   private String handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
+      String videoUrl = null;
+      String fileName = file.getOriginalFilename();
+      File inputFile;
       Community community = null;
       community = services.community().withId(communityId);
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorUploadFile");
+      }
 
       try {
         String dailymotionId;
@@ -1881,8 +1914,6 @@ public class FileUploadRestController {
         }
 
         User user = services.user().withUserName(principal.getName());
-        storageService.store(file);
-        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -1930,7 +1961,8 @@ public class FileUploadRestController {
 
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-        int i=0;
+        String id = videoDailyMotion.id;
+      /*  int i=0;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
           Thread.sleep(2 * 1000);
@@ -1940,9 +1972,10 @@ public class FileUploadRestController {
           i++;
           log.info("status "+videoDailyMotion.status);
         }
-        while (!videoDailyMotion.status.equals("published"));;
+        while (!videoDailyMotion.status.equals("published"));;*/
 
-        if (!videoDailyMotion.embed_url.isEmpty()) {
+        videoUrl= fileName;
+        /*if (!videoDailyMotion.embed_url.isEmpty()) {*/
           if (community.descriptionVideo != null) {
             dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
             try {
@@ -1953,7 +1986,7 @@ public class FileUploadRestController {
               return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
             }
           }
-          services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
+          services.community().changeDescriptionVideo(communityId, videoUrl);
           List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
           if (emails.size() != 0) {
             Community finalCommunity = community;
@@ -1968,8 +2001,30 @@ public class FileUploadRestController {
 
             new Thread(task).start();
           }
-        }
+        /*}*/
+        Runnable task = () -> {
+          int i = 0;
+          VideoDailyMotion dailyMotion;
+          do {
+            dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+            try {
+              Thread.sleep(2 * 1000);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            if (i > 60) {
+              break;
+            }
+            i++;
+            log.info("status " + dailyMotion.status);
+          }
+          while (!dailyMotion.status.equals("published"));
+          if (!dailyMotion.embed_url.isEmpty()) {
+            services.community().changeDescriptionVideo(communityId, dailyMotion.embed_url);
+          }
+        };
 
+        new Thread(task).start();
         response.setStatus(HttpServletResponse.SC_OK);
         return Long.toString(community.id);
 
