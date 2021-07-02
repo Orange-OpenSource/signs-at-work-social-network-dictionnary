@@ -1153,6 +1153,7 @@ public class FileUploadRestController {
           }*/
         }
 
+        Request finalRequest1 = request;
         Runnable task = () -> {
           int i = 0;
           VideoDailyMotion dailyMotion;
@@ -1171,7 +1172,7 @@ public class FileUploadRestController {
           }
           while (!dailyMotion.status.equals("published"));
           if (!dailyMotion.embed_url.isEmpty()) {
-            services.request().changeRequestVideoDescription(requestId, dailyMotion.embed_url);
+            services.request().changeRequestVideoDescription(finalRequest1.id, dailyMotion.embed_url);
           }
         };
 
@@ -1334,7 +1335,7 @@ public class FileUploadRestController {
         } else {
           if (services.sign().withName(videoFile.requestNameRecording).list().isEmpty()) {
             if (services.request().withName(videoFile.requestNameRecording).list().isEmpty()) {
-              request = services.request().create(user.id, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording, videoDailyMotion.embed_url);
+              request = services.request().create(user.id, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording, videoUrl);
               log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
               emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
               title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
@@ -1363,6 +1364,7 @@ public class FileUploadRestController {
          /* log.warn("handleRecordedVideoFileForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
         }*/
       }
+      Request finalRequest1 = request;
       Runnable task = () -> {
         int i = 0;
         VideoDailyMotion dailyMotion;
@@ -1381,7 +1383,7 @@ public class FileUploadRestController {
         }
         while (!dailyMotion.status.equals("published"));
         if (!dailyMotion.embed_url.isEmpty()) {
-          services.request().changeRequestVideoDescription(requestId, dailyMotion.embed_url);
+          services.request().changeRequestVideoDescription(finalRequest1.id, dailyMotion.embed_url);
         }
       };
 
