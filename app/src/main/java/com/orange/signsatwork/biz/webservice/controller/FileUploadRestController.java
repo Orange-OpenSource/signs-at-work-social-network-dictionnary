@@ -117,7 +117,7 @@ public class FileUploadRestController {
     String videoUrl = null;
     String file = environment.getProperty("app.file") + videoFile.name;
     String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + videoFile.name.replace(".webm", ".png");
-    String fileOutput = file.replace(".webm", ".mp4");
+    /*String fileOutput = file.replace(".webm", ".mp4");*/
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
@@ -138,17 +138,17 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorUploadFile");
     }
 
-    try {
+   /* try {
       EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorEncondingFile");
-    }
+    }*/
 
     try {
-      GenerateThumbnail(thumbnailFile, fileOutput);
+      GenerateThumbnail(thumbnailFile, file);
     } catch (Exception errorEncondingFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorThumbnailFile");
@@ -167,7 +167,7 @@ public class FileUploadRestController {
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
 
-      File fileMp4 = new File(fileOutput);
+      File fileMp4 = new File(file);
       Resource resource = new FileSystemResource(fileMp4.getAbsolutePath());
       MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
       parts.add("file", resource);
@@ -315,7 +315,7 @@ public class FileUploadRestController {
   private void GenerateThumbnail(String thumbnailFile, String fileOutput) {
     String cmdGenerateThumbnail;
 
-    cmdGenerateThumbnail = String.format("input=\"%s\"&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -y -ss \"$(echo \"$dur / 2\" | bc -l)\" -i  \"$input\" -vframes 1 -filter 'scale=-1:360,crop=360:360' \"%s\"", fileOutput, thumbnailFile);
+    cmdGenerateThumbnail = String.format("input=\"%s\"&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -y -ss \"$(echo \"$dur / 2\" | bc -l)\" -i  \"$input\" -vframes 1 -s 360x360 -vf crop=360:360,scale=-1:360 \"%s\"", fileOutput, thumbnailFile);
     String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
     NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
   }
@@ -809,17 +809,17 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorUploadFile");
     }
 
-    try {
+/*    try {
       EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorEncondingFile");
-    }
+    }*/
 
     try {
-      GenerateThumbnail(thumbnailFile, fileOutput);
+      GenerateThumbnail(thumbnailFile, file);
     } catch (Exception errorEncondingFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorThumbnailFile");
@@ -840,7 +840,7 @@ public class FileUploadRestController {
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
 
-      File fileMp4 = new File(fileOutput);
+      File fileMp4 = new File(file);
       Resource resource = new FileSystemResource(fileMp4.getAbsolutePath());
       MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
       parts.add("file", resource);
@@ -1206,7 +1206,7 @@ public class FileUploadRestController {
     RequestResponse requestResponse = new RequestResponse();
     String videoUrl = null;
     String file = environment.getProperty("app.file") + videoFile.name;
-    String fileOutput = file.replace(".webm", ".mp4");
+    /*String fileOutput = file.replace(".webm", ".mp4");*/
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
@@ -1229,7 +1229,7 @@ public class FileUploadRestController {
       return requestResponse;
     }
 
-    try {
+    /*try {
       EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
@@ -1237,7 +1237,7 @@ public class FileUploadRestController {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       requestResponse.errorMessage = messageByLocaleService.getMessage("errorEncondingFile");
       return requestResponse;
-    }
+    }*/
 
     try {
       String dailymotionId;
@@ -1255,7 +1255,7 @@ public class FileUploadRestController {
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
 
-      File fileMp4 = new File(fileOutput);
+      File fileMp4 = new File(file);
       Resource resource = new FileSystemResource(fileMp4.getAbsolutePath());
       MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
       parts.add("file", resource);
@@ -1412,7 +1412,7 @@ public class FileUploadRestController {
 
     String videoUrl = null;
     String file = environment.getProperty("app.file") + videoFile.name;
-    String fileOutput = file.replace(".webm", ".mp4");
+    /*String fileOutput = file.replace(".webm", ".mp4");*/
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
@@ -1433,14 +1433,14 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorUploadFile");
     }
 
-    try {
+/*    try {
       EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorEncondingFile");
-    }
+    }*/
 
     try {
       String dailymotionId;
@@ -1459,7 +1459,7 @@ public class FileUploadRestController {
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
 
-      File fileMp4 = new File(fileOutput);
+      File fileMp4 = new File(file);
       Resource resource = new FileSystemResource(fileMp4.getAbsolutePath());
       MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
       parts.add("file", resource);
@@ -1718,7 +1718,7 @@ public class FileUploadRestController {
 
     String videoUrl = null;
     String file = environment.getProperty("app.file") + videoFile.name;
-    String fileOutput = file.replace(".webm", ".mp4");
+    /*String fileOutput = file.replace(".webm", ".mp4");*/
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
@@ -1739,14 +1739,14 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorUploadFile");
     }
 
-    try {
+/*    try {
       EncodeFileInMp4(file, fileOutput);
     }
     catch(Exception errorEncondingFile)
     {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorEncondingFile");
-    }
+    }*/
 
     try {
       String dailymotionId;
@@ -1765,7 +1765,7 @@ public class FileUploadRestController {
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
 
-      File fileMp4 = new File(fileOutput);
+      File fileMp4 = new File(file);
       Resource resource = new FileSystemResource(fileMp4.getAbsolutePath());
       MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
       parts.add("file", resource);

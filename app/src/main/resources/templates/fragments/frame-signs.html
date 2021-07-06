@@ -190,7 +190,7 @@
             </div>
             <div class="chevron_blue pull-right"></div>-->
             <!--<div th:if="${signView.nbVideo >1}" class="tooltip_variante pull-right" th:text="${signView.nbVideo}"></div>-->
-            <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${signView.name}" th:with='cleaned=${#strings.replace(signView.name, "&apos;", "\&apos;")}' th:data-isAuthenticated="${isAuthenticated}" th:data-id=" ${signView.id}" th:data-url="${signView.url}" th:data-name="${cleaned}" th:data-nbVideo="${signView.nbVideo}" th:onclick="javascript:displayVideo(this.getAttribute('data-isAuthenticated'), this.getAttribute('data-id'),this.getAttribute('data-url'),  this.getAttribute('data-name'), this.getAttribute('data-nbVideo'), this.getAttribute('data-nbVideo'))">
+            <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${signView.name}" th:with='cleaned=${#strings.replace(signView.name, "&apos;", "\&apos;")}' th:data-isAuthenticated="${isAuthenticated}" th:data-id=" ${signView.id}" th:data-url="${signView.url}" th:data-name="${signView.name}" th:data-nbVideo="${signView.nbVideo}" th:onclick="javascript:displayVideo(this.getAttribute('data-isAuthenticated'), this.getAttribute('data-id'),this.getAttribute('data-url'),  this.getAttribute('data-name'), this.getAttribute('data-nbVideo'), this.getAttribute('data-nbVideo'))">
             <!--<a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" >-->
               <div th:if="${signView.signCreateAfterLastDateDeconnection}" class="new_blue-signs"></div>
               <div th:if="${!signView.signCreateAfterLastDateDeconnection}" style="visibility: hidden" class="new_blue-signs"></div>
