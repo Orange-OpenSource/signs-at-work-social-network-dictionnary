@@ -677,6 +677,14 @@ ul[role="tablist"]{
   margin-top: 25px;
 }
 
+.lexical_signsatform {
+  font-size:20px;
+  text-align: center;
+  color: #4866F7;
+  margin-bottom: 30px;
+  margin-top: 25px;
+}
+
 
 .sign_see {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -888,6 +896,29 @@ a.nav-link:active{
 li.disabled > a {
   color : rgba(0,0,0,0.5);
 }
+
+.btn_go_to_signsatwork{
+  border-radius: 30px;
+  background-color: white;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
+  color: black;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.logo_signsatwork_blue {
+ background-image: url("/img/sprite_picto_400X400.png");
+ background-position: -1277px center;
+ background-repeat: no-repeat;
+ background-size: auto 30px;
+ height: 30px;
+ width: 30px;
+}
+
+.go_to_signsatwork_label {
+  padding-top: 6px;
+}
+
 
 /* End index page /index */
 
