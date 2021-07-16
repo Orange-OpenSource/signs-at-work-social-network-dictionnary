@@ -31,7 +31,7 @@
     <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
+            <div class="navbar-header" style="text-align: center">
               <a th:onclick="'javascript:goBack()'">
                 <div class="back_bar_white pull-left"></div>
               </a>
@@ -40,8 +40,8 @@
                 <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_signsatwork_white pull-left"></div>
                 <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform_white pull-left"></div>
               </a>
-              <h1 class="text_hyphenation navbar_title" style="display: inline-block; text-align: center; width: 20rem;" th:text="${title}"></h1>
-              <a th:if="${isConnectedUser}" th:onclick="'javascript:editProfil()'">
+              <h1 class="text_hyphenation navbar_title" style="display: inline-block" th:text="${title}"></h1>
+              <a th:if="${isConnectedUser}" th:onclick="'javascript:editProfil()'" style="display: inline-block; float:right">
                 <div class="edit_white_circle pull-right"></div>
               </a>
             </div>
