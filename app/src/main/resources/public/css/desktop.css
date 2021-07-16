@@ -75,6 +75,10 @@
     .btn_signin_header{
       width: 20%!important;
     }
+
+    .navbar_title {
+      text-align:center!important;
+    }
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
@@ -155,6 +159,11 @@
     .btn_signin_header{
       width: 20%!important;
     }
+
+    .navbar_title {
+      text-align:center!important;
+    }
+
 }
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
@@ -257,6 +266,10 @@
     .btn_signin_header{
       width: 20%!important;
     }
+
+    .navbar_title {
+      text-align:center!important;
+    }
 }
 
 @media only screen  and (min-width:1541px)  {
@@ -350,6 +363,10 @@
 
   .btn_signin_header{
     width: 20%!important;
+  }
+
+  .navbar_title {
+    text-align:center!important;
   }
 }
 

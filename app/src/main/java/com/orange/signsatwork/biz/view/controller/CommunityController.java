@@ -79,7 +79,7 @@ public class CommunityController {
     if (community == null) {
       return "redirect:/sec/communities";
     }
-    model.addAttribute("title", messageByLocaleService.getMessage("community.title", new Object[]{community.name}));
+    model.addAttribute("title", community.name);
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
@@ -207,7 +207,7 @@ public class CommunityController {
     String userAgent = request.getHeader("User-Agent");
 
     model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
-    model.addAttribute("title", messageByLocaleService.getMessage("community.description_title", new Object[]{community.name}));
+    model.addAttribute("title", community.name);
 
    model.addAttribute("community", community);
     model.addAttribute("appName", appName);
