@@ -739,6 +739,76 @@ public class SignRestController {
   }
 
   @Secured("ROLE_USER_A")
+  @RequestMapping(value = RestApi.WS_SEC_SIGN_VIDEO_RENAME, method = RequestMethod.PUT)
+  public SignResponseApi renameSign(@RequestBody SignCreationViewApi signCreationViewApi, @PathVariable Long signId, @PathVariable Long videoId, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    SignResponseApi signResponseApi = new SignResponseApi();
+
+    if (!AuthentModel.hasRole("ROLE_USER_A")) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      signResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+      return signResponseApi;
+    }
+
+    User user = services.user().withUserName(principal.getName());
+    Videos videos = services.video().forUser(user.id);
+
+    boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
+    if (!isVideoBellowToMe) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      signResponseApi.errorMessage = messageByLocaleService.getMessage("video_not_below_to_you");
+      return signResponseApi;
+    }
+
+    Sign sign = services.sign().withId(signId);
+    if (!sign.name.equals(signCreationViewApi.getName())) {
+      if (services.sign().withName(signCreationViewApi.getName()).list().isEmpty()) {
+        List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().toUpperCase());
+        List<SignViewData> signViewData = querySigns.stream()
+          .map(objectArray -> new SignViewData(objectArray))
+          .collect(Collectors.toList());
+        List<SignViewData> signsWithSameName = new ArrayList<>();
+        for (SignViewData s: signViewData) {
+          if (!sign.name.equalsIgnoreCase(signCreationViewApi.getName()) ) {
+            signsWithSameName.add(s);
+          }
+        }
+        List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(signCreationViewApi.getName().toUpperCase(), user.id);
+        List<RequestViewData> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
+          .map(objectArray -> new RequestViewData(objectArray))
+          .collect(Collectors.toList());
+        List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
+        for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
+          if (!requestViewData.requestName.equalsIgnoreCase(signCreationViewApi.getName())) {
+            requestsWithNoAssociateSignWithSameName.add(requestViewData);
+          }
+        }
+        String sign_requestWithSameName = null;
+        if (!signsWithSameName.isEmpty()) {
+          sign_requestWithSameName = signsWithSameName.stream().map(s -> s.name).collect(Collectors.joining(","));
+        }
+        if (!requestsWithNoAssociateSignWithSameName.isEmpty()) {
+          if (sign_requestWithSameName != null) {
+            sign_requestWithSameName = sign_requestWithSameName + requestsWithNoAssociateSignWithSameName.stream().map(r -> r.requestName).collect(Collectors.joining(","));
+          } else {
+            sign_requestWithSameName = requestsWithNoAssociateSignWithSameName.stream().map(r -> r.requestName).collect(Collectors.joining(","));
+          }
+        }
+        if (sign_requestWithSameName != null) {
+          signResponseApi.warningMessage = messageByLocaleService.getMessage("same_name_exist", new Object[]{sign_requestWithSameName});
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+
+      } else {
+        signResponseApi.errorMessage = messageByLocaleService.getMessage("sign.name_already_exist");
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+      }
+    }
+
+    return signResponseApi;
+  }
+
+  @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGNS_VIDEOS, method = RequestMethod.POST, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
   public VideoResponseApi addVideo(@PathVariable long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {

@@ -32,6 +32,7 @@
 <div th:replace="fragments/modal-add-favorite :: div"/>
 <div th:replace="fragments/modal-delete-video :: div"/>
 <div th:replace="fragments/modal-replace :: div"/>
+<div th:replace="fragments/modal-rename-sign :: div"/>
 
 <body>
 <div class="container">
@@ -64,7 +65,12 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="label_sign aside_bckg_li">
-              <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
+              <a data-target="#rename-sign" data-toggle="modal" href="#">
+                <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
+                <div th:if="${isVideoCreatedByMe}">
+                  <div class="pull-right edit_blue"></div>
+                </div>
+              </a>
             </li>
             <li class="clear aside_bckg_li">
               <a th:href="@{/sec/sign/} + ${signView.id} + '/definition'">
@@ -156,4 +162,5 @@
 <script src="../public/js/sign.js" th:src="@{/js/sign.js}" type="text/javascript"></script>
 <script src="../public/js/video.js" th:src="@{/js/video.js}" type="text/javascript"></script>
 <script src="../public/js/new-video.js" th:src="@{/js/new-video.js}" type="text/javascript"></script>
+<script src="../public/js/rename-sign.js" th:src="@{/js/rename-sign.js}" type="text/javascript"></script>
 </html>

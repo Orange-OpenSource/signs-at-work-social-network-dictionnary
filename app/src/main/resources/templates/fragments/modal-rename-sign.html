@@ -1,0 +1,65 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div" th:if="${isAuthenticated}" id="rename-sign" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="edit_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{sign.rename}"></h2>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <span id="errorRename" style="display: none"></span>
+        <input class="form-control" id="signName" name="signName" th:autofocus="true"
+               th:value="${signView.name}" type="text"/>
+        <span id="warningRename" style="display: none"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+          <div class="x-close2_black center-block"></div>
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-rename-modal"
+                th:data-signId="${signView.id}" th:data-videoId="${videoView.id}"
+                th:onclick="javascript:onRenameSign(this.getAttribute('data-signId'), this.getAttribute('data-videoId'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</body>
+</html>
+
