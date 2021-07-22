@@ -1461,12 +1461,12 @@ img{
 }
 
 
-/*.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
-  *//*background-color: #4866F7;*//*
-  color: #4866F7;
+.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
+  /*background-color: #4866F7;*/
+ /* color: #4866F7;*/
   border:none !important;
   outline:none !important;
-}*/
+}
 
 .v-done_black {
   background-image: url("/img/sprite_picto_400X400.png");

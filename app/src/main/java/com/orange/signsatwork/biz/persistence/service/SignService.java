@@ -103,4 +103,9 @@ public interface SignService {
   Sign changeSignTextDefinition(long signId, String signTextDefinition);
 
   Sign changeSignVideoDefinition(long signId, String signVideoDefinition);
+
+  void renameSign(Long signId, String name);
+
+  void renameSignAndAssociateToRequest(Long signId, long requestId, String name);
+
 }

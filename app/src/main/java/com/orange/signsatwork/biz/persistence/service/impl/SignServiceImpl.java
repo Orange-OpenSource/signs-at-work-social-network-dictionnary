@@ -429,6 +429,7 @@ public class SignServiceImpl implements SignService {
     } else return null;
   }
 
+
   static Request requestFrom(RequestDB requestDB, Services services) {
     return new Request(requestDB.getId(), requestDB.getName(), requestDB.getRequestTextDescription(), requestDB.getRequestVideoDescription(), requestDB.getRequestDate(), SignServiceImpl.signFromRequestsView(requestDB.getSign(),  services), UserServiceImpl.userFromSignView(requestDB.getUser()));
   }
@@ -457,6 +458,31 @@ public class SignServiceImpl implements SignService {
     signRepository.save(signDB);
 
     return signFrom(signDB, services);
+  }
+
+  @Override
+  public void renameSign(Long signId, String name) {
+    SignDB signDB = signRepository.findOne(signId);
+
+    signDB.setName(name);
+    signRepository.save(signDB);
+    RequestDB requestDB = requestRepository.findBySign(signDB);
+    if (requestDB != null) {
+      requestDB.setName(name);
+      requestRepository.save(requestDB);
+    }
+  }
+
+  @Override
+  public void renameSignAndAssociateToRequest(Long signId, long requestId, String name) {
+    SignDB signDB = signRepository.findOne(signId);
+
+    signDB.setName(name);
+    signRepository.save(signDB);
+
+    RequestDB requestDB = requestRepository.findOne(requestId);
+    requestDB.setSign(signDB);
+    requestRepository.save(requestDB);
   }
 
   private SignDB withDBId(long id) {

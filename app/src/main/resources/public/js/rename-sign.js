@@ -22,16 +22,18 @@
 var signName = document.getElementById("signName");
 var oldsignName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
+var submitForceRenameModal = document.getElementById("submit-force-rename-modal");
 
 
-function onRenameSign(signId, videoId) {
+function onRenameSign(signId, videoId, force) {
 
+  console.log("force "+force);
   if (signName.value != oldsignName) {
     sign = {
       name: signName.value
     };
     $.ajax({
-      url: "/ws/sec/signs/" + signId + "/videos/" + videoId + "/rename",
+      url: "/ws/sec/signs/" + signId + "/videos/" + videoId + "/rename/?force=" + force,
       type: 'put',
       data: JSON.stringify(sign),
       contentType: "application/json",
@@ -50,6 +52,8 @@ function onRenameSign(signId, videoId) {
          if (response.responseJSON.warningMessage != null) {
             warningRename.textContent = response.responseJSON.warningMessage;
             warningRename.style.display = "block";
+            submitRenameModal.style.display="none";
+            submitForceRenameModal.style.display = "block";
          }
         }
 
@@ -70,6 +74,8 @@ $('#rename-sign').on('hidden.bs.modal', function (e) {
   errorRename.style.display = "none";
   warningRename.style.display = "none";
   signName.value= oldsignName;
+  submitRenameModal.style.display="block";
+  submitForceRenameModal.style.display = "none";
   submitRenameModal.disabled = true;
 })
 
@@ -79,6 +85,8 @@ function resetRenameError(event) {
   var warningRename = document.getElementById('warningRename');
   errorRename.style.display = "none";
   warningRename.style.display = "none";
+  submitRenameModal.style.display="block";
+  submitForceRenameModal.style.display = "none";
   if (oldsignName == signName.value) {
     submitRenameModal.disabled = true;
   } else {

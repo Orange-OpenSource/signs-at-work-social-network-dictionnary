@@ -740,7 +740,7 @@ public class SignRestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGN_VIDEO_RENAME, method = RequestMethod.PUT)
-  public SignResponseApi renameSign(@RequestBody SignCreationViewApi signCreationViewApi, @PathVariable Long signId, @PathVariable Long videoId, HttpServletResponse response, Principal principal) throws
+  public SignResponseApi renameSign(@RequestBody SignCreationViewApi signCreationViewApi, @PathVariable Long signId, @PathVariable Long videoId, @RequestParam("force") Boolean force, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     SignResponseApi signResponseApi = new SignResponseApi();
 
@@ -763,47 +763,67 @@ public class SignRestController {
     Sign sign = services.sign().withId(signId);
     if (!sign.name.equals(signCreationViewApi.getName())) {
       if (services.sign().withName(signCreationViewApi.getName()).list().isEmpty()) {
-        List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().toUpperCase());
-        List<SignViewData> signViewData = querySigns.stream()
-          .map(objectArray -> new SignViewData(objectArray))
-          .collect(Collectors.toList());
-        List<SignViewData> signsWithSameName = new ArrayList<>();
-        for (SignViewData s: signViewData) {
-          if (!sign.name.equalsIgnoreCase(signCreationViewApi.getName()) ) {
-            signsWithSameName.add(s);
+        Requests requestsMatches = services.request().withName(signCreationViewApi.getName());
+        if (!requestsMatches.list().isEmpty()) {
+          services.sign().renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, signCreationViewApi.getName());
+          response.setStatus(HttpServletResponse.SC_OK);
+          return signResponseApi;
+        } else {
+          List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().toUpperCase());
+          List<SignViewData> signViewData = querySigns.stream()
+            .map(objectArray -> new SignViewData(objectArray))
+            .collect(Collectors.toList());
+          List<SignViewData> signsWithSameName = new ArrayList<>();
+          for (SignViewData s : signViewData) {
+            if (!sign.name.equalsIgnoreCase(signCreationViewApi.getName())) {
+              signsWithSameName.add(s);
+            }
           }
-        }
-        List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(signCreationViewApi.getName().toUpperCase(), user.id);
-        List<RequestViewData> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
-          .map(objectArray -> new RequestViewData(objectArray))
-          .collect(Collectors.toList());
-        List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
-        for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
-          if (!requestViewData.requestName.equalsIgnoreCase(signCreationViewApi.getName())) {
-            requestsWithNoAssociateSignWithSameName.add(requestViewData);
+          List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(signCreationViewApi.getName().toUpperCase(), user.id);
+          List<RequestViewData> requestViewDatasWithNoAssociateSign = queryRequestsWithNoASsociateSign.stream()
+            .map(objectArray -> new RequestViewData(objectArray))
+            .collect(Collectors.toList());
+          List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
+          for (RequestViewData requestViewData : requestViewDatasWithNoAssociateSign) {
+            if (!requestViewData.requestName.equalsIgnoreCase(signCreationViewApi.getName())) {
+              requestsWithNoAssociateSignWithSameName.add(requestViewData);
+            }
           }
-        }
-        String sign_requestWithSameName = null;
-        if (!signsWithSameName.isEmpty()) {
-          sign_requestWithSameName = signsWithSameName.stream().map(s -> s.name).collect(Collectors.joining(","));
-        }
-        if (!requestsWithNoAssociateSignWithSameName.isEmpty()) {
+          String sign_requestWithSameName = null;
+          if (!signsWithSameName.isEmpty()) {
+            sign_requestWithSameName = signsWithSameName.stream().map(s -> s.name).collect(Collectors.joining(","));
+          }
+          if (!requestsWithNoAssociateSignWithSameName.isEmpty()) {
+            if (sign_requestWithSameName != null) {
+              sign_requestWithSameName = sign_requestWithSameName + requestsWithNoAssociateSignWithSameName.stream().map(r -> r.requestName).collect(Collectors.joining(","));
+            } else {
+              sign_requestWithSameName = requestsWithNoAssociateSignWithSameName.stream().map(r -> r.requestName).collect(Collectors.joining(","));
+            }
+          }
           if (sign_requestWithSameName != null) {
-            sign_requestWithSameName = sign_requestWithSameName + requestsWithNoAssociateSignWithSameName.stream().map(r -> r.requestName).collect(Collectors.joining(","));
+            if (force) {
+              services.sign().renameSign(signId, signCreationViewApi.getName());
+              response.setStatus(HttpServletResponse.SC_OK);
+              return signResponseApi;
+            } else {
+              signResponseApi.warningMessage = messageByLocaleService.getMessage("same_name_exist", new Object[]{sign_requestWithSameName});
+              response.setStatus(HttpServletResponse.SC_CONFLICT);
+              return signResponseApi;
+            }
           } else {
-            sign_requestWithSameName = requestsWithNoAssociateSignWithSameName.stream().map(r -> r.requestName).collect(Collectors.joining(","));
+            services.sign().renameSign(signId, signCreationViewApi.getName());
+            response.setStatus(HttpServletResponse.SC_OK);
+            return signResponseApi;
           }
         }
-        if (sign_requestWithSameName != null) {
-          signResponseApi.warningMessage = messageByLocaleService.getMessage("same_name_exist", new Object[]{sign_requestWithSameName});
-          response.setStatus(HttpServletResponse.SC_CONFLICT);
-        }
-
       } else {
         signResponseApi.errorMessage = messageByLocaleService.getMessage("sign.name_already_exist");
         response.setStatus(HttpServletResponse.SC_CONFLICT);
+        return signResponseApi;
       }
     }
+
+    response.setStatus(HttpServletResponse.SC_OK);
 
     return signResponseApi;
   }
