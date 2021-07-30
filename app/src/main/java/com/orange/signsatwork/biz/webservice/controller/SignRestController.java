@@ -765,13 +765,14 @@ public class SignRestController {
       if (services.sign().withName(signCreationViewApi.getName()).list().isEmpty()) {
         Requests requestsMatches = services.request().withName(signCreationViewApi.getName());
         if (!requestsMatches.list().isEmpty()) {
-          services.sign().renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, signCreationViewApi.getName());
+          renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, videoId, signCreationViewApi.getName());
           response.setStatus(HttpServletResponse.SC_OK);
           return signResponseApi;
         } else {
           List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().toUpperCase());
           List<SignViewData> signViewData = querySigns.stream()
             .map(objectArray -> new SignViewData(objectArray))
+            .filter(o -> o.id != signId)
             .collect(Collectors.toList());
           List<SignViewData> signsWithSameName = new ArrayList<>();
           for (SignViewData s : signViewData) {
@@ -802,7 +803,7 @@ public class SignRestController {
           }
           if (sign_requestWithSameName != null) {
             if (force) {
-              services.sign().renameSign(signId, signCreationViewApi.getName());
+              renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName());
               response.setStatus(HttpServletResponse.SC_OK);
               return signResponseApi;
             } else {
@@ -811,7 +812,7 @@ public class SignRestController {
               return signResponseApi;
             }
           } else {
-            services.sign().renameSign(signId, signCreationViewApi.getName());
+            renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName());
             response.setStatus(HttpServletResponse.SC_OK);
             return signResponseApi;
           }
@@ -826,6 +827,79 @@ public class SignRestController {
     response.setStatus(HttpServletResponse.SC_OK);
 
     return signResponseApi;
+  }
+
+  private void renameSignAndAssociateToRequest(Long signId, long requestId, long videoId, String name) {
+    services.sign().renameSignAndAssociateToRequest(signId, requestId, name);
+    Video video = services.video().withId(videoId);
+    ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+    ChangeSignNamesOnDailyMotion(signId, videoId, name);
+  }
+
+  private void ChangeSignNamesOnDailyMotion(Long signId, Long videoId, String name) {
+    Sign sign = services.sign().withId(signId);
+    sign.videos.stream().filter(v -> v.id != videoId).forEach(v -> ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name));
+    if (sign.videoDefinition != null) {
+      if (!sign.videoDefinition.isEmpty()) {
+        String signDefinitionTitle =  messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});
+        ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+      }
+
+    }
+  }
+
+  private void renameSignAndAssociatedRequest(Long signId, Long videoId, String name) {
+    services.sign().renameSign(signId, name);
+    Video video = services.video().withId(videoId);
+    ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+    ChangeAllNamesOnDailyMotion(signId, videoId, name);
+  }
+
+  private void ChangeAllNamesOnDailyMotion(Long signId, Long videoId, String name) {
+    Sign sign = services.sign().withId(signId);
+    Request request = services.sign().requestForSign(sign);
+    sign.videos.stream().filter(v -> v.id != videoId).forEach(v -> ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name));
+    if (sign.videoDefinition != null) {
+      if (!sign.videoDefinition.isEmpty()) {
+        String signDefinitionTitle = messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});
+        ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+      }
+    }
+    if (request != null) {
+      if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+        if (!request.requestVideoDescription.isEmpty() && !sign.videoDefinition.isEmpty()) {
+          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+            String requestDescrioptionTitle = messageByLocaleService.getMessage("request.title_description_LSF", new Object[]{name});
+            ChangeVideoNameOnDailyMotion(request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1), requestDescrioptionTitle);
+          }
+        }
+      }
+    }
+  }
+
+  private void ChangeVideoNameOnDailyMotion(String dailymotionId, String name) {
+
+    AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    if (authTokenInfo.isExpired()) {
+      dalymotionToken.retrieveToken();
+      authTokenInfo = dalymotionToken.getAuthTokenInfo();
+    }
+
+    final String uri = environment.getProperty("app.dailymotion_url") + "/video/"+dailymotionId;
+    RestTemplate restTemplate = springRestClient.buildRestTemplate();
+
+    MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    headers.add("Authorization", "Bearer " + authTokenInfo.getAccess_token());
+
+    MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+    body.add("title", name);
+
+    HttpEntity<?> request = new HttpEntity<Object>(body, headers);
+
+    ResponseEntity<VideoDailyMotion> response = restTemplate.exchange(uri, HttpMethod.POST, request, VideoDailyMotion.class );
+    VideoDailyMotion videoDailyMotion = response.getBody();
+
+    return;
   }
 
   @Secured("ROLE_USER_A")

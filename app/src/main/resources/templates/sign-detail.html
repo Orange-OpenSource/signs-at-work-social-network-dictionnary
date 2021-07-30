@@ -64,7 +64,7 @@
       <div class="sign_menu col-md-4 col-xs-12">
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
-            <li th:if="${isVideoCreatedByMe}" class="label_sign aside_bckg_li">
+            <li th:if="${isVideoCreatedByMe} and ${#strings.contains(videoView.url, 'http')}" class="label_sign aside_bckg_li">
               <a data-target="#rename-sign" data-toggle="modal" href="#">
                 <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
                 <div>
@@ -72,7 +72,7 @@
                 </div>
               </a>
             </li>
-            <li th:if="!${isVideoCreatedByMe}" class="label_sign aside_bckg_li">
+            <li th:if="!${isVideoCreatedByMe} or !${#strings.contains(videoView.url, 'http')}" class="label_sign aside_bckg_li">
                 <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
             </li>
             <li class="clear aside_bckg_li">
