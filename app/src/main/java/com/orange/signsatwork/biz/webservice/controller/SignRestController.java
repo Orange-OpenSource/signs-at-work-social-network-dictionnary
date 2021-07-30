@@ -765,9 +765,16 @@ public class SignRestController {
       if (services.sign().withName(signCreationViewApi.getName()).list().isEmpty()) {
         Requests requestsMatches = services.request().withName(signCreationViewApi.getName());
         if (!requestsMatches.list().isEmpty()) {
-          renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, videoId, signCreationViewApi.getName());
-          response.setStatus(HttpServletResponse.SC_OK);
-          return signResponseApi;
+          Request request = services.sign().requestForSign(sign);
+          if (request != null) {
+            signResponseApi.errorMessage = messageByLocaleService.getMessage("request.name_already_exist_and_sign_are_associated_to_a_request");
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            return signResponseApi;
+          } else {
+            renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, videoId, signCreationViewApi.getName());
+            response.setStatus(HttpServletResponse.SC_OK);
+            return signResponseApi;
+          }
         } else {
           List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().toUpperCase());
           List<SignViewData> signViewData = querySigns.stream()
