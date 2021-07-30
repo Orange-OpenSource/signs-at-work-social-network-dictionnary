@@ -832,7 +832,9 @@ public class SignRestController {
   private void renameSignAndAssociateToRequest(Long signId, long requestId, long videoId, String name) {
     services.sign().renameSignAndAssociateToRequest(signId, requestId, name);
     Video video = services.video().withId(videoId);
-    ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+    if (video.url.contains("http")) {
+      ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+    }
     ChangeSignNamesOnDailyMotion(signId, videoId, name);
   }
 
@@ -842,9 +844,10 @@ public class SignRestController {
     if (sign.videoDefinition != null) {
       if (!sign.videoDefinition.isEmpty()) {
         String signDefinitionTitle =  messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});
-        ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+        if (sign.videoDefinition.contains("http")) {
+          ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+        }
       }
-
     }
   }
 
@@ -862,7 +865,9 @@ public class SignRestController {
     if (sign.videoDefinition != null) {
       if (!sign.videoDefinition.isEmpty()) {
         String signDefinitionTitle = messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});
-        ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+        if (sign.videoDefinition.contains("http")) {
+          ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+        }
       }
     }
     if (request != null) {
@@ -870,7 +875,9 @@ public class SignRestController {
         if (!request.requestVideoDescription.isEmpty() && !sign.videoDefinition.isEmpty()) {
           if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
             String requestDescrioptionTitle = messageByLocaleService.getMessage("request.title_description_LSF", new Object[]{name});
-            ChangeVideoNameOnDailyMotion(request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1), requestDescrioptionTitle);
+            if (request.requestVideoDescription.contains("http")) {
+              ChangeVideoNameOnDailyMotion(request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1), requestDescrioptionTitle);
+            }
           }
         }
       }
