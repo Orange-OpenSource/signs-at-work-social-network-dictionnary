@@ -189,7 +189,7 @@ public class CommunityController {
     Community community = services.community().withId(communityId);
 
 
-    model.addAttribute("title", messageByLocaleService.getMessage("favorite.title_create_community", new Object[]{community.name}));
+    model.addAttribute("title", community.name);
     model.addAttribute("community", community);
     CommunityProfileView communityProfileView = new CommunityProfileView(community, services.user());
     model.addAttribute("communityProfileView", communityProfileView);
