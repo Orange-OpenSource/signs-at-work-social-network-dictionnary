@@ -47,8 +47,8 @@
         <div th:if="${!#strings.contains(videoView.url, 'http')}">
           <div class="embed-responsive embed-responsive-16by9">
           <video controls  autoplay playsinline>
-            <source th:src="@{/ws/sec/videosOnServer/} + ${videoView.url}" type="video/webm"/>
-            <source th:src="@{/ws/sec/videosOnServer/} + ${videoView.url}" type="video/mp4"/>
+            <source th:src="@{/data/} + ${videoView.url}" type="video/webm"/>
+            <source th:src="@{/data/} + ${videoView.url}" type="video/mp4"/>
           </video>
           </div>
         </div>

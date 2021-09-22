@@ -39,8 +39,8 @@
         <div th:if="${!#strings.contains(community.descriptionVideo, 'http')}">
           <div class="embed-responsive embed-responsive-16by9">
             <video controls autoplay playsinline>
-              <source th:src="@{/ws/sec/videosOnServer/} + ${community.descriptionVideo}" type="video/webm"/>
-              <source th:src="@{/ws/sec/videosOnServer/} + ${community.descriptionVideo}" type="video/mp4"/>
+              <source th:src="@{/data/} + ${community.descriptionVideo}" type="video/webm"/>
+              <source th:src="@{/data/} + ${community.descriptionVideo}" type="video/mp4"/>
             </video>
           </div>
         </div>

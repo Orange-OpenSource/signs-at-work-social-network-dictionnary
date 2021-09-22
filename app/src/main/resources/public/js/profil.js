@@ -539,7 +539,7 @@ function displayVideo(url, name) {
   } else {
     document.getElementById("videoOnDailyMotion").style.display="none"
     document.getElementById("videoOnServer").style.display="block"
-    document.getElementById("videoUrlOnServer").src='/ws/sec/videosOnServer/' + url;
+    document.getElementById("videoUrlOnServer").src='/data/' + url;
     document.getElementById("videoplayer").load();
   }
 

@@ -85,7 +85,7 @@ function displayVideo(url, name, idForName, nbVideo) {
   } else {
     document.getElementById("videoOnDailyMotion").style.display="none"
     document.getElementById("videoOnServer").style.display="block"
-    document.getElementById("videoUrlOnServer").src='/ws/sec/videosOnServer/' + url;
+    document.getElementById("videoUrlOnServer").src='/data/' + url;
     document.getElementById("videoplayer").load();
   }
   /*document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';*/
