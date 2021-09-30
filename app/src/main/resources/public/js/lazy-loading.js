@@ -625,14 +625,14 @@ function displayVideoForFavoriteFilter(url, name, idForName, nbVideo) {
   console.log("http");
   document.getElementById("videoOnDailyMotion").style.display="block"
   document.getElementById("videoOnServer").style.display="none"
-  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';
   } else {
     document.getElementById("videoOnDailyMotion").style.display="none"
     document.getElementById("videoOnServer").style.display="block"
     document.getElementById("videoUrlOnServer").src='/data/' + url;
     document.getElementById("videoplayer").load();
   }
-  /*document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';*/
+  /*document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';*/
 }
 
 function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
@@ -680,14 +680,14 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
   console.log("http");
   document.getElementById("videoOnDailyMotion").style.display="block"
   document.getElementById("videoOnServer").style.display="none"
-  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
+  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';
   } else {
     document.getElementById("videoOnDailyMotion").style.display="none"
     document.getElementById("videoOnServer").style.display="block"
     document.getElementById("videoUrlOnServer").src='/data/' + url;
     document.getElementById("videoplayer").load();
   }
- /* document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';*/
+ /* document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';*/
 
   document.getElementById("next_variante").onclick = function () {
     console.log("next variante "+indice);
@@ -703,14 +703,14 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
       console.log("http");
       document.getElementById("videoOnDailyMotion").style.display="block"
       document.getElementById("videoOnServer").style.display="none"
-      document.getElementById("videoUrl").src = data[indice].url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
+      document.getElementById("videoUrl").src = data[indice].url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';
       } else {
         document.getElementById("videoOnDailyMotion").style.display="none"
         document.getElementById("videoOnServer").style.display="block"
         document.getElementById("videoUrlOnServer").src='/data/' + url;
         document.getElementById("videoplayer").load();
       }
-    /*document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';*/
+    /*document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';*/
     if (indice == nbVideo -1) {
       document.getElementById("next_variante").style.visibility = "hidden";
     }
@@ -731,14 +731,14 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
             console.log("http");
             document.getElementById("videoOnDailyMotion").style.display="block"
             document.getElementById("videoOnServer").style.display="none"
-            document.getElementById("videoUrl").src = data[indice].url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';
+            document.getElementById("videoUrl").src = data[indice].url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';
             } else {
               document.getElementById("videoOnDailyMotion").style.display="none"
               document.getElementById("videoOnServer").style.display="block"
               document.getElementById("videoUrlOnServer").src='/data/' + url;
               document.getElementById("videoplayer").load();
             }
-      /*document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&queue-enable=false';*/
+      /*document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';*/
       if (indice == 0) {
         document.getElementById("next_variante").style.visibility = "visible";
         document.getElementById("previous_variante").style.visibility = "hidden";
