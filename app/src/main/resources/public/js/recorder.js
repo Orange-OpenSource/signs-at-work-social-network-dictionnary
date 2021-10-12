@@ -40,6 +40,8 @@ var errorSpan = document.getElementById('errorSpan');
 var counter = 3;
 var t;
 
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 && ('netscape' in window) && / rv:/.test(navigator.userAgent);
+
 function timedCount() {
   document.getElementById("counter").textContent = counter;
   counter = counter - 1;
@@ -117,21 +119,29 @@ stopRecording.onclick = function() {
     videoElement.muted = false;
     videoElement.play();
 
-/*    videoElement.onended = function() {
-      videoElement.pause();
 
-      // dirty workaround for: "firefox seems unable to playback"
-      videoElement.src = URL.createObjectURL(audioVideoRecorder.getBlob());
-    };*/
-    audioVideoRecorder.getDataURL(function(audioVideoDataURL) {
-      var video = {
-        blob: audioVideoRecorder.getBlob(),
-        dataURL: audioVideoDataURL
-      };
-      prepareFileToPost(video);
-    });
-
-  });
+  if (isFirefox) {
+      getSeekableBlob(audioVideoRecorder.getBlob(), function(seekableBlob) {
+      var reader = new FileReader();
+      reader.readAsDataURL(seekableBlob);
+      reader.onload = function(event) {
+          var video = {
+                  blob: seekableBlob,
+                  dataURL: event.target.result
+                };
+                prepareFileToPost(video);
+          };
+      });
+  } else {
+      audioVideoRecorder.getDataURL(function(audioVideoDataURL) {
+            var video = {
+              blob: audioVideoRecorder.getBlob(),
+              dataURL: audioVideoDataURL
+            };
+            prepareFileToPost(video);
+          });
+  }
+     });
 };
 
 cancelRecording.onclick = function() {
