@@ -74,6 +74,7 @@ function visualizeBeforeRecord() {
   captureUserMedia00(function (stream) {
     window.audioVideoRecorder = window.RecordRTC(stream, {
       type: 'video',
+      mimeType: 'video/webm;codecs=vp8',
       disableLogs: false
     });
     document.getElementById('video').style.visibility = "visible";
