@@ -330,6 +330,7 @@ public class SignRestController {
       videoBelowToFavorite.contains(videoViewData.videoId));
   }
 
+  @CrossOrigin
   @RequestMapping(value = RestApi.WS_ROOT_SIGNS)
   public ResponseEntity<?> signsWithoutUser(@RequestParam("sort") Optional<String> sort, @RequestParam("name") Optional<String> name,  Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;

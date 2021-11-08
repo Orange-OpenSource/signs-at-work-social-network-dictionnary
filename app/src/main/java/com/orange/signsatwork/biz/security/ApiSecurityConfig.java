@@ -22,10 +22,23 @@ package com.orange.signsatwork.biz.security;
  */
 
 import com.orange.signsatwork.biz.webservice.controller.RestApi;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 
 @Configuration
 // order 1 since we have to check the REST api first
@@ -35,8 +48,8 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    disableCsrfForNonBrowserApi(http);
     http.cors();
+    disableCsrfForNonBrowserApi(http);
     initApi(http);
   }
 
