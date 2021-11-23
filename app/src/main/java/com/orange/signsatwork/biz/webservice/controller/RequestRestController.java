@@ -183,13 +183,15 @@ public class RequestRestController {
 
     Request request = services.request().withId(requestId);
     services.request().delete(request);
-    if (request.requestVideoDescription !=  null) {
-      dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      } catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+    if (request.requestVideoDescription != null) {
+      if (request.requestVideoDescription.contains("http")) {
+        dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
       }
     }
     response.setStatus(HttpServletResponse.SC_OK);
@@ -348,13 +350,15 @@ public class RequestRestController {
     Request request = services.request().withId(requestId);
     services.request().delete(request);
     if (request.requestVideoDescription !=  null) {
-      dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      } catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-        return requestResponseApi;
+      if (request.requestVideoDescription.contains("http")) {
+        dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return requestResponseApi;
+        }
       }
     }
     response.setStatus(HttpServletResponse.SC_OK);
@@ -555,14 +559,15 @@ public class RequestRestController {
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (requestId != 0) {
             if (request.requestVideoDescription != null) {
-              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionId);
-              }
-              catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                return  requestResponseApi;
+              if (request.requestVideoDescription.contains("http")) {
+                dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionId);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                  return requestResponseApi;
+                }
               }
             }
             services.request().changeRequestVideoDescription(requestId, videoDailyMotion.embed_url);
@@ -744,14 +749,15 @@ public class RequestRestController {
       if (signId.isPresent() && (videoId.isPresent())) {
        /* sign = services.sign().withId(signId.getAsLong());*/
         video = services.video().withId(videoId.getAsLong());
-        dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
-        try {
-          DeleteVideoOnDailyMotion(dailymotionId);
-        }
-        catch (Exception errorDailymotionDeleteVideo) {
-          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-          requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-          return requestResponseApi;
+        if (video.url.contains("http")) {
+          dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            return requestResponseApi;
+          }
         }
         sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoDailyMotion.embed_url, pictureUri);
       } else if (signId.isPresent() && !(videoId.isPresent())) {

@@ -249,13 +249,14 @@ public class FileUploadRestController {
       Video video;
       if (signId.isPresent() && (videoId.isPresent())) {
           video = services.video().withId(videoId.getAsLong());
-          dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
-          try {
-            DeleteVideoOnDailyMotion(dailymotionId);
-          }
-          catch (Exception errorDailymotionDeleteVideo) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          if (video.url.contains("http")) {
+            dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            }
           }
           sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
       } else if (signId.isPresent() && !(videoId.isPresent())) {
@@ -484,13 +485,14 @@ public class FileUploadRestController {
       Video video;
       if (signId.isPresent() && (videoId.isPresent())) {
         video = services.video().withId(videoId.getAsLong());
-        dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
-        try {
-          DeleteVideoOnDailyMotion(dailymotionId);
-        }
-        catch (Exception errorDailymotionDeleteVideo) {
-          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        if (video.url.contains("http")) {
+          dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          }
         }
         sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
       } else if (signId.isPresent() && !(videoId.isPresent())) {
@@ -557,13 +559,14 @@ public class FileUploadRestController {
       String dailymotionId;
       User user = services.user().withUserName(principal.getName());
       if (user.nameVideo != null) {
-        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
-        try {
-          DeleteVideoOnDailyMotion(dailymotionId);
-        }
-        catch (Exception errorDailymotionDeleteVideo) {
-          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        if (user.nameVideo.contains("http")) {
+          dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          }
         }
         services.user().changeNameVideoUrl(user, null, null);
       }
@@ -577,13 +580,14 @@ public class FileUploadRestController {
     String dailymotionId;
     User user = services.user().withUserName(principal.getName());
     if (user.jobDescriptionVideo != null) {
-      dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
-      try {
-        DeleteVideoOnDailyMotion(dailymotionId);
-      }
-      catch (Exception errorDailymotionDeleteVideo) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+      if (user.jobDescriptionVideo.contains("http")) {
+        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
       }
       services.user().changeDescriptionVideoUrl(user, null, null);
     }
@@ -701,25 +705,27 @@ public class FileUploadRestController {
        /* if (!videoDailyMotion.embed_url.isEmpty()) {*/
           if (inputType.equals("JobDescription")) {
             if (user.jobDescriptionVideo != null) {
-              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionId);
-              }
-              catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              if (user.jobDescriptionVideo.contains("http")) {
+                dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionId);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                }
               }
             }
             services.user().changeDescriptionVideoUrl(user, videoUrl, pictureUri);
           } else {
             if (user.nameVideo != null) {
-              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionId);
-              }
-              catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              if (user.nameVideo.contains("http")) {
+                dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionId);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                }
               }
             }
             services.user().changeNameVideoUrl(user, videoUrl, pictureUri);
@@ -915,25 +921,27 @@ public class FileUploadRestController {
      /* if (!videoDailyMotion.embed_url.isEmpty()) {*/
         if (inputType.equals("JobDescription")) {
           if (user.jobDescriptionVideo != null) {
-            dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
-            try {
-              DeleteVideoOnDailyMotion(dailymotionId);
-            }
-            catch (Exception errorDailymotionDeleteVideo) {
-              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            if (user.jobDescriptionVideo.contains("http")) {
+              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              }
             }
           }
           services.user().changeDescriptionVideoUrl(user, videoUrl, pictureUri);
         } else {
           if (user.nameVideo != null) {
-            dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
-            try {
-              DeleteVideoOnDailyMotion(dailymotionId);
-            }
-            catch (Exception errorDailymotionDeleteVideo) {
-              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            if (user.nameVideo.contains("http")) {
+              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              }
             }
           }
           services.user().changeNameVideoUrl(user, videoUrl, pictureUri);
@@ -1108,14 +1116,15 @@ public class FileUploadRestController {
           if (requestId != 0) {
             request = services.request().withId(requestId);
             if (request.requestVideoDescription != null) {
-              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionId);
-              }
-              catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                return  requestResponse;
+              if (request.requestVideoDescription.contains("http")) {
+                dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionId);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                  return requestResponse;
+                }
               }
             }
             services.request().changeRequestVideoDescription(requestId, videoUrl);
@@ -1320,14 +1329,15 @@ public class FileUploadRestController {
         if (requestId != 0) {
           request = services.request().withId(requestId);
           if (request.requestVideoDescription != null) {
-            dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
-            try {
-              DeleteVideoOnDailyMotion(dailymotionId);
-            }
-            catch (Exception errorDailymotionDeleteVideo) {
-              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-              requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-              return  requestResponse;
+            if (request.requestVideoDescription.contains("http")) {
+              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                requestResponse.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                return requestResponse;
+              }
             }
           }
           services.request().changeRequestVideoDescription(requestId, videoUrl);
@@ -1520,13 +1530,14 @@ public class FileUploadRestController {
       /*if (!videoDailyMotion.embed_url.isEmpty()) {*/
 
         if (sign.videoDefinition != null) {
-          dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-          try {
-            DeleteVideoOnDailyMotion(dailymotionId);
-          }
-          catch (Exception errorDailymotionDeleteVideo) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          if (sign.videoDefinition.contains("http")) {
+            dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            }
           }
         }
         services.sign().changeSignVideoDefinition(signId, videoUrl);
@@ -1660,13 +1671,14 @@ public class FileUploadRestController {
         videoUrl= fileName;
        /* if (!videoDailyMotion.embed_url.isEmpty()) {*/
           if (sign.videoDefinition != null) {
-            dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-            try {
-              DeleteVideoOnDailyMotion(dailymotionId);
-            }
-            catch (Exception errorDailymotionDeleteVideo) {
-              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            if (sign.videoDefinition.contains("http")) {
+              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              }
             }
           }
           services.sign().changeSignVideoDefinition(signId, videoUrl);
@@ -1826,13 +1838,14 @@ public class FileUploadRestController {
       /*if (!videoDailyMotion.embed_url.isEmpty()) {*/
 
         if (community.descriptionVideo != null) {
-          dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
-          try {
-            DeleteVideoOnDailyMotion(dailymotionId);
-          }
-          catch (Exception errorDailymotionDeleteVideo) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          if (community.descriptionVideo.contains("http")) {
+            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            }
           }
         }
         services.community().changeDescriptionVideo(communityId, videoUrl);
@@ -1979,13 +1992,14 @@ public class FileUploadRestController {
         videoUrl= fileName;
         /*if (!videoDailyMotion.embed_url.isEmpty()) {*/
           if (community.descriptionVideo != null) {
-            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
-            try {
-              DeleteVideoOnDailyMotion(dailymotionId);
-            }
-            catch (Exception errorDailymotionDeleteVideo) {
-              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-              return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            if (community.descriptionVideo.contains("http")) {
+              dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              }
             }
           }
           services.community().changeDescriptionVideo(communityId, videoUrl);

@@ -609,14 +609,15 @@ public class CommunityRestController {
 
         if (!videoDailyMotion.embed_url.isEmpty()) {
           if (community.descriptionVideo != null) {
-            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
-            try {
-              DeleteVideoOnDailyMotion(dailymotionId);
-            }
-            catch (Exception errorDailymotionDeleteVideo) {
-              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-              communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-              return communityResponseApi;
+            if (community.descriptionVideo.contains("http")) {
+              dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                return communityResponseApi;
+              }
             }
           }
           services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
