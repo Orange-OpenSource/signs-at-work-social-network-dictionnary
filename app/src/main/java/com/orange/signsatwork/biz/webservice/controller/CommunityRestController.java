@@ -409,7 +409,7 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
-  public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
+  public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
@@ -521,7 +521,7 @@ public class CommunityRestController {
     }
 
     if (fileCommunityDescriptionVideo.isPresent()) {
-      return handleSelectedVideoFileUploadForCommunityDescription(fileCommunityDescriptionVideo.get(), communityId, principal, response, request);
+      return handleSelectedVideoFileUploadForCommunityDescription(fileCommunityDescriptionVideo.get(), communityId, leaveBeforePublished, principal, response, request);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -529,12 +529,27 @@ public class CommunityRestController {
 
   }
 
-  private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
+  private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
-
+      String videoUrl = null;
+      String fileName = file.getOriginalFilename();
+      File inputFile;
+      Boolean leaveDailymotionAfterLoadVideo = false;
+      if (leaveBeforePublished.isPresent()) {
+        leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
+      }
       CommunityResponseApi communityResponseApi = new CommunityResponseApi();
       Community community = null;
       community = services.community().withId(communityId);
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+        return communityResponseApi;
+      }
 
       try {
         String dailymotionId;
@@ -546,8 +561,6 @@ public class CommunityRestController {
         }
 
         User user = services.user().withUserName(principal.getName());
-        storageService.store(file);
-        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -595,48 +608,79 @@ public class CommunityRestController {
 
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-        int i=0;
-        do {
-          videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
-          Thread.sleep(2 * 1000);
-          if (i > 30) {
-            break;
+        String id = videoDailyMotion.id;
+        if (leaveDailymotionAfterLoadVideo) {
+          videoUrl= fileName;
+        } else {
+          int i = 0;
+          do {
+            videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+            Thread.sleep(2 * 1000);
+            if (i > 30) {
+              break;
+            }
+            i++;
+            log.info("status " + videoDailyMotion.status);
           }
-          i++;
-          log.info("status "+videoDailyMotion.status);
+          while (!videoDailyMotion.status.equals("published"));
+          if (!videoDailyMotion.embed_url.isEmpty()) {
+            videoUrl = videoDailyMotion.embed_url;
+          }
         }
-        while (!videoDailyMotion.status.equals("published"));
 
-        if (!videoDailyMotion.embed_url.isEmpty()) {
-          if (community.descriptionVideo != null) {
-            if (community.descriptionVideo.contains("http")) {
-              dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionId);
-              } catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                return communityResponseApi;
-              }
+        if (community.descriptionVideo != null) {
+          if (community.descriptionVideo.contains("http")) {
+            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              return communityResponseApi;
             }
           }
-          services.community().changeDescriptionVideo(communityId, videoDailyMotion.embed_url);
-          List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
-          if (emails.size() != 0) {
-            Community finalCommunity = community;
-            Runnable task = () -> {
-              String title, bodyMail;
-              final String urlDescriptionCommunity = getAppUrl(request) + "/sec/descriptionCommunity/" + finalCommunity.id;
-              title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-              bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
-              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
-            };
+        }
+        services.community().changeDescriptionVideo(communityId, videoUrl);
+        List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        if (emails.size() != 0) {
+          Community finalCommunity = community;
+          Runnable task = () -> {
+            String title, bodyMail;
+            final String urlDescriptionCommunity = getAppUrl(request) + "/sec/descriptionCommunity/" + finalCommunity.id;
+            title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+            bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
+          };
 
-            new Thread(task).start();
-          }
+          new Thread(task).start();
         }
 
+        if (leaveDailymotionAfterLoadVideo) {
+          Runnable task = () -> {
+            int i = 0;
+            VideoDailyMotion dailyMotion;
+            do {
+              dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+              try {
+                Thread.sleep(2 * 1000);
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+              if (i > 60) {
+                break;
+              }
+              i++;
+              log.info("status " + dailyMotion.status);
+            }
+            while (!dailyMotion.status.equals("published"));
+            if (!dailyMotion.embed_url.isEmpty()) {
+              services.community().changeDescriptionVideo(communityId, dailyMotion.embed_url);
+            }
+          };
+
+          new Thread(task).start();
+        }
         response.setStatus(HttpServletResponse.SC_OK);
         communityResponseApi.communityId = community.id;
         return communityResponseApi;

@@ -369,10 +369,10 @@ public class FileUploadRestController {
   }
 
   private String handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
-    String videoUrl = null;
-    String fileName = file.getOriginalFilename();
-    String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
-    File inputFile;
+      String videoUrl = null;
+      String fileName = file.getOriginalFilename();
+      String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
+      File inputFile;
 
     try {
       storageService.store(file);

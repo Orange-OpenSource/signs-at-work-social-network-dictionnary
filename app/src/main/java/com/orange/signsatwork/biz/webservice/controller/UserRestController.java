@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -280,7 +281,7 @@ public class UserRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_USER_ME, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
-  public UserResponseApi updateProfil(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, HttpServletResponse response, Principal principal) throws
+  public UserResponseApi updateProfil(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     UserResponseApi userResponseApi = new UserResponseApi();
 
@@ -358,11 +359,11 @@ public class UserRestController {
     }
 
     if (fileVideoName.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), principal, "Name", response);
+      return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), leaveBeforePublished, principal, "Name", response);
     }
 
     if (fileJobVideoDescription.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), principal, "JobDescription", response);
+      return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), leaveBeforePublished, principal, "JobDescription", response);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -473,10 +474,45 @@ public class UserRestController {
     return userResponseApi;
   }
 
+  private void GenerateThumbnail(String thumbnailFile, String fileOutput) {
+    String cmdGenerateThumbnail;
 
-  private UserResponseApi handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
+    cmdGenerateThumbnail = String.format("input=\"%s\"&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -y -ss \"$(echo \"$dur / 2\" | bc -l)\" -i  \"$input\" -vframes 1 -s 360x360 -vf crop=360:360,scale=-1:360 \"%s\"", fileOutput, thumbnailFile);
+    String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
+    NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
+  }
+
+  private UserResponseApi handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Optional<Boolean> leaveBeforePublished, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
+      String videoUrl = null;
+      String fileName = file.getOriginalFilename();
+      String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
+      File inputFile;
       UserResponseApi userResponseApi = new UserResponseApi();
+      Boolean leaveDailymotionAfterLoadVideo = false;
+      if (leaveBeforePublished.isPresent()) {
+        leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
+      }
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+        return userResponseApi;
+      }
+
+      if (leaveDailymotionAfterLoadVideo) {
+        try {
+          GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
+        } catch (Exception errorEncondingFile) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          userResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
+          return userResponseApi;
+        }
+      }
+
       try {
         String dailymotionId;
         String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
@@ -487,8 +523,6 @@ public class UserRestController {
         }
 
         User user = services.user().withUserName(principal.getName());
-        storageService.store(file);
-        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -539,59 +573,98 @@ public class UserRestController {
 
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-        int i=0;
-        do {
-          videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
-          Thread.sleep(2 * 1000);
-          if (i > 30) {
-            break;
-          }
-          i++;
-          log.info("status "+videoDailyMotion.status);
-        }
-        while (!videoDailyMotion.status.equals("published"));
-
         String pictureUri = null;
-        if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-          if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
-            pictureUri = "/img/no-such-asset.jpg";
-          } else {
-            pictureUri = videoDailyMotion.thumbnail_360_url;
+        String id = videoDailyMotion.id;
+        if (leaveDailymotionAfterLoadVideo) {
+          pictureUri = thumbnailFile;
+          videoUrl= fileName;
+        } else {
+          int i = 0;
+          do {
+            videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+            Thread.sleep(2 * 1000);
+            if (i > 30) {
+              break;
+            }
+            i++;
+            log.info("status " + videoDailyMotion.status);
           }
-          log.warn("handleSelectedVideoFileUploadForProfil : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+          while (!videoDailyMotion.status.equals("published"));
+
+          if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+            if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
+              pictureUri = "/img/no-such-asset.jpg";
+            } else {
+              pictureUri = videoDailyMotion.thumbnail_360_url;
+            }
+            log.warn("handleSelectedVideoFileUploadForProfil : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+          }
+          if (!videoDailyMotion.embed_url.isEmpty()) {
+            videoUrl = videoDailyMotion.embed_url;
+            log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
+          }
         }
 
-        if (!videoDailyMotion.embed_url.isEmpty()) {
-          if (inputType.equals("JobDescription")) {
-            if (user.jobDescriptionVideo != null) {
-              if (user.jobDescriptionVideo.contains("http")) {
-                dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
-                try {
-                  DeleteVideoOnDailyMotion(dailymotionId);
-                } catch (Exception errorDailymotionDeleteVideo) {
-                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                  userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                  return userResponseApi;
-                }
+        if (inputType.equals("JobDescription")) {
+          if (user.jobDescriptionVideo != null) {
+            if (user.jobDescriptionVideo.contains("http")) {
+              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                return userResponseApi;
               }
             }
-            services.user().changeDescriptionVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
-          } else {
-            if (user.nameVideo != null) {
-              if (user.nameVideo.contains("http")) {
-                dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
-                try {
-                  DeleteVideoOnDailyMotion(dailymotionId);
-                } catch (Exception errorDailymotionDeleteVideo) {
-                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                  userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                }
-              }
-            }
-            services.user().changeNameVideoUrl(user, videoDailyMotion.embed_url, pictureUri);
           }
+          services.user().changeDescriptionVideoUrl(user, videoUrl, pictureUri);
+        } else {
+          if (user.nameVideo != null) {
+            if (user.nameVideo.contains("http")) {
+              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+              }
+            }
+          }
+          services.user().changeNameVideoUrl(user, videoUrl, pictureUri);
+        }
 
-          log.warn("handleSelectedVideoFileUploadForProfil : embed_url = {}", videoDailyMotion.embed_url);
+        log.warn("handleSelectedVideoFileUploadForProfil : embed_url = {}", videoDailyMotion.embed_url);
+
+        if (leaveDailymotionAfterLoadVideo) {
+          Runnable task = () -> {
+            int i = 0;
+            VideoDailyMotion dailyMotion;
+            do {
+              dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+              try {
+                Thread.sleep(2 * 1000);
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+              if (i > 60) {
+                break;
+              }
+              i++;
+              log.info("status " + dailyMotion.status);
+            }
+            while (!dailyMotion.status.equals("published"));
+            if (!dailyMotion.embed_url.isEmpty()) {
+              if (inputType.equals("JobDescription")) {
+                services.user().changeDescriptionVideoUrl(user, dailyMotion.embed_url, dailyMotion.thumbnail_360_url);
+              } else {
+                services.user().changeNameVideoUrl(user, dailyMotion.embed_url, dailyMotion.thumbnail_360_url);
+              }
+            }
+
+          };
+
+          new Thread(task).start();
         }
 
         response.setStatus(HttpServletResponse.SC_OK);

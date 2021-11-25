@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.model.RequestViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -367,7 +368,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST, method = RequestMethod.PUT,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
-  public RequestResponseApi modifyRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<RequestCreationViewApi> requestCreationViewApi, @PathVariable long requestId, HttpServletResponse response, HttpServletRequest req, Principal principal) throws InterruptedException {
+  public RequestResponseApi modifyRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<RequestCreationViewApi> requestCreationViewApi, @PathVariable long requestId, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, HttpServletRequest req, Principal principal) throws InterruptedException {
     RequestResponseApi requestResponseApi = new RequestResponseApi();
     Request request = services.request().withId(requestId);
     User user = services.user().withUserName(principal.getName());
@@ -409,7 +410,7 @@ public class RequestRestController {
     }
 
     if (file.isPresent()) {
-      return createRequestWithVideoFileForRequestDescription(file.get(), requestId, Optional.empty(), principal, response, req);
+      return createRequestWithVideoFileForRequestDescription(file.get(), requestId, Optional.empty(), leaveBeforePublished, principal, response, req);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -420,7 +421,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_REQUESTS, method = RequestMethod.POST,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
-  public RequestResponseApi createRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") RequestCreationViewApi requestCreationViewApi, HttpServletResponse response, HttpServletRequest req, Principal principal) throws InterruptedException {
+  public RequestResponseApi createRequest(@RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") RequestCreationViewApi requestCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, HttpServletRequest req, Principal principal) throws InterruptedException {
     List<String> emails;
     String title, bodyMail;
     Request request;
@@ -457,7 +458,7 @@ public class RequestRestController {
           return requestResponseApi;
 
     } else {
-      return createRequestWithVideoFileForRequestDescription(file.get(), 0,  Optional.of(requestCreationViewApi) , principal, response, req);
+      return createRequestWithVideoFileForRequestDescription(file.get(), 0,  Optional.of(requestCreationViewApi) , leaveBeforePublished, principal, response, req);
     }
 
   }
@@ -465,24 +466,37 @@ public class RequestRestController {
 
 
 
-  private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
+  private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
     {
-      String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
+      String videoUrl = null;
+      String fileName = file.getOriginalFilename();
+      File inputFile;
       Request request = null;
       RequestResponseApi requestResponseApi = new RequestResponseApi();
+      Boolean leaveDailymotionAfterLoadVideo = false;
+      if (leaveBeforePublished.isPresent()) {
+        leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
+      }
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+        return requestResponseApi;
+      }
+
       try {
         String dailymotionId;
+        String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
         AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
         if (authTokenInfo.isExpired()) {
           dalymotionToken.retrieveToken();
           authTokenInfo = dalymotionToken.getAuthTokenInfo();
         }
 
-        log.info("Avant storage");
         User user = services.user().withUserName(principal.getName());
-        storageService.store(file);
-        File inputFile = storageService.load(file.getOriginalFilename()).toFile();
-        log.info("Aprés storage et load file " +inputFile.getAbsolutePath());
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -532,75 +546,103 @@ public class RequestRestController {
         headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-        String videoUrl = REST_SERVICE_URI + "/videos";
-        log.info("url POST "+videoUrl);
-        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videoUrl,
+        String videosUrl = REST_SERVICE_URI + "/videos";
+        ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
           HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
         VideoDailyMotion videoDailyMotion = response1.getBody();
-        log.info("body "+response1.getBody().toString());
-
-        log.info("Avant load file in dailymotion");
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-        int i=0;
-        do {
-          videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
-          Thread.sleep(2 * 1000);
-          if (i > 30) {
-            break;
+        String id = videoDailyMotion.id;
+        if (leaveDailymotionAfterLoadVideo) {
+          videoUrl= fileName;
+        } else {
+          int i = 0;
+          do {
+            videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+            Thread.sleep(2 * 1000);
+            if (i > 30) {
+              break;
+            }
+            i++;
+            log.info("status " + videoDailyMotion.status);
           }
-          i++;
-          log.info("status "+videoDailyMotion.status);
+          while (!videoDailyMotion.status.equals("published"));
+          if (!videoDailyMotion.embed_url.isEmpty()) {
+            videoUrl = videoDailyMotion.embed_url;
+          }
         }
-        while (!videoDailyMotion.status.equals("published"));
 
         List<String> emails;
         String title, bodyMail;
-        if (!videoDailyMotion.embed_url.isEmpty()) {
-          if (requestId != 0) {
-            if (request.requestVideoDescription != null) {
-              if (request.requestVideoDescription.contains("http")) {
-                dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
-                try {
-                  DeleteVideoOnDailyMotion(dailymotionId);
-                } catch (Exception errorDailymotionDeleteVideo) {
-                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                  requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                  return requestResponseApi;
-                }
-              }
-            }
-            services.request().changeRequestVideoDescription(requestId, videoDailyMotion.embed_url);
-
-          } else {
-            if (services.sign().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
-              if (services.request().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
-                request = services.request().create(user.id, requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription(), videoDailyMotion.embed_url);
-                log.info("createRequest: username = {} / request name = {}", user.username, requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription());
-                emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
-                title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-                bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
-
-                Request finalRequest = request;
-                Runnable task = () -> {
-                  log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
-                };
-
-                new Thread(task).start();
-              } else {
-                response.setStatus(HttpServletResponse.SC_CONFLICT);
-                requestResponseApi.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+        if (requestId != 0) {
+          if (request.requestVideoDescription != null) {
+            if (request.requestVideoDescription.contains("http")) {
+              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
                 return requestResponseApi;
               }
+            }
+          }
+          services.request().changeRequestVideoDescription(requestId, videoUrl);
+
+        } else {
+          if (services.sign().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
+            if (services.request().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
+              request = services.request().create(user.id, requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription(), videoUrl);
+              log.info("createRequest: username = {} / request name = {}", user.username, requestCreationViewApi.get().getName(), requestCreationViewApi.get().getTextDescription());
+              emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
+              title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
+              bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+
+              Request finalRequest = request;
+              Runnable task = () -> {
+                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+              };
+
+              new Thread(task).start();
             } else {
               response.setStatus(HttpServletResponse.SC_CONFLICT);
-              requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
-              requestResponseApi.signId = services.sign().withName(requestCreationViewApi.get().getName()).list().get(0).id;
+              requestResponseApi.errorMessage = messageByLocaleService.getMessage("request.already_exists");
               return requestResponseApi;
             }
-            log.warn("handleSelectedVideoFileUploadForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
+          } else {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+            requestResponseApi.signId = services.sign().withName(requestCreationViewApi.get().getName()).list().get(0).id;
+            return requestResponseApi;
           }
+          log.warn("handleSelectedVideoFileUploadForRequestDescription : embed_url = {}", videoDailyMotion.embed_url);
+        }
+
+        if (leaveDailymotionAfterLoadVideo) {
+          Request finalRequest1 = request;
+          Runnable task = () -> {
+            int i = 0;
+            VideoDailyMotion dailyMotion;
+            do {
+              dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+              try {
+                Thread.sleep(2 * 1000);
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+              if (i > 60) {
+                break;
+              }
+              i++;
+              log.info("status " + dailyMotion.status);
+            }
+            while (!dailyMotion.status.equals("published"));
+            if (!dailyMotion.embed_url.isEmpty()) {
+              services.request().changeRequestVideoDescription(finalRequest1.id, dailyMotion.embed_url);
+            }
+          };
+          new Thread(task).start();
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
@@ -621,7 +663,7 @@ public class RequestRestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_SIGNS, method = RequestMethod.POST,  headers = {"content-type=multipart/mixed","content-type=multipart/form-data"})
-  public RequestResponseApi createSignAssociateToRequest(@RequestPart("file") MultipartFile file, @PathVariable long requestId, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws InterruptedException {
+  public RequestResponseApi createSignAssociateToRequest(@RequestPart("file") MultipartFile file, @PathVariable long requestId, @RequestPart("data") SignCreationViewApi signCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, Principal principal) throws InterruptedException {
 
     RequestResponseApi requestResponseApi = new RequestResponseApi();
     if (!AuthentModel.hasRole("ROLE_USER_A")) {
@@ -647,15 +689,50 @@ public class RequestRestController {
     }
 
 
-    return handleSelectedVideoFileUpload(file,  OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+    return handleSelectedVideoFileUpload(file,  OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, leaveBeforePublished, principal, response);
   }
 
-  private RequestResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private void GenerateThumbnail(String thumbnailFile, String fileOutput) {
+    String cmdGenerateThumbnail;
 
-    String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
+    cmdGenerateThumbnail = String.format("input=\"%s\"&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -y -ss \"$(echo \"$dur / 2\" | bc -l)\" -i  \"$input\" -vframes 1 -s 360x360 -vf crop=360:360,scale=-1:360 \"%s\"", fileOutput, thumbnailFile);
+    String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
+    NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
+  }
+
+  private RequestResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response) throws InterruptedException {
+    String videoUrl = null;
+    String fileName = file.getOriginalFilename();
+    String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
+    File inputFile;
+    Boolean leaveDailymotionAfterLoadVideo = false;
+    if (leaveBeforePublished.isPresent()) {
+      leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
+    }
+
     RequestResponseApi requestResponseApi = new RequestResponseApi();
+
+    try {
+      storageService.store(file);
+      inputFile = storageService.load(file.getOriginalFilename()).toFile();
+    } catch (Exception errorLoadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+      return requestResponseApi;
+    }
+    if (leaveDailymotionAfterLoadVideo) {
+      try {
+        GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
+      } catch (Exception errorEncondingFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
+        return requestResponseApi;
+      }
+    }
+
     try {
       String dailymotionId;
+      String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
@@ -664,8 +741,6 @@ public class RequestRestController {
       }
 
       User user = services.user().withUserName(principal.getName());
-      storageService.store(file);
-      File inputFile = storageService.load(file.getOriginalFilename()).toFile();
 
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -710,33 +785,44 @@ public class RequestRestController {
       headers1.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
       HttpEntity<MultiValueMap<String, Object>> requestEntity1 = new HttpEntity<MultiValueMap<String, Object>>(body, headers1);
-      String videoUrl = REST_SERVICE_URI + "/videos";
-      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videoUrl,
+      String videosUrl = REST_SERVICE_URI + "/videos";
+      ResponseEntity<VideoDailyMotion> response1 = restTemplate1.exchange(videosUrl,
         HttpMethod.POST, requestEntity1, VideoDailyMotion.class);
       VideoDailyMotion videoDailyMotion = response1.getBody();
 
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
-      int i=0;
-      do {
-        videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
-        Thread.sleep(2 * 1000);
-        if (i > 30) {
-          break;
-        }
-        i++;
-        log.info("status "+videoDailyMotion.status);
-      }
-      while (!videoDailyMotion.status.equals("published"));
-
       String pictureUri = null;
-      if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-        if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
-          pictureUri = "/img/no-such-asset.jpg";
-        } else {
-          pictureUri = videoDailyMotion.thumbnail_360_url;
+      String id = videoDailyMotion.id;
+      if (leaveDailymotionAfterLoadVideo) {
+        pictureUri = thumbnailFile;
+        videoUrl= fileName;
+      } else {
+        int i=0;
+        do {
+          videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
+          Thread.sleep(2 * 1000);
+          if (i > 30) {
+            break;
+          }
+          i++;
+          log.info("status "+videoDailyMotion.status);
         }
-        log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+        while (!videoDailyMotion.status.equals("published"));
+
+        if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
+          if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
+            pictureUri = "/img/no-such-asset.jpg";
+          } else {
+            pictureUri = videoDailyMotion.thumbnail_360_url;
+          }
+          log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
+        }
+
+        if (!videoDailyMotion.embed_url.isEmpty()) {
+          videoUrl = videoDailyMotion.embed_url;
+          log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
+        }
       }
 
   /*    if (!videoDailyMotion.embed_url.isEmpty()) {
@@ -770,6 +856,30 @@ public class RequestRestController {
 
       if (requestId.isPresent()) {
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+      }
+
+      if (leaveDailymotionAfterLoadVideo) {
+        Runnable task = () -> {
+          int i = 0;
+          VideoDailyMotion dailyMotion;
+          do {
+            dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+            try {
+              Thread.sleep(2 * 1000);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            if (i > 60) {
+              break;
+            }
+            i++;
+            log.info("status " + dailyMotion.status);
+          }
+          while (!dailyMotion.status.equals("published"));
+          services.sign().updateWithDailymotionInfo(sign.id, sign.lastVideoId, dailyMotion.thumbnail_360_url, dailyMotion.embed_url);
+        };
+
+        new Thread(task).start();
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
