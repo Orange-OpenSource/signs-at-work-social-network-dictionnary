@@ -87,7 +87,7 @@
                 </div>
               </a>
             </li>
-            <li class="aside_bckg_li" sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated and nbRating > 0}">
+            <li class="aside_bckg_li" sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated}">
               <a data-target="#new-video" data-toggle="modal" href="#">
                 <div>
                   <div class="pull-left variant_blue"></div>
