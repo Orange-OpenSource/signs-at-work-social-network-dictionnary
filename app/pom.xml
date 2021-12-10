@@ -5,7 +5,7 @@
 
     <groupId>com.orange</groupId>
     <artifactId>signs-at-work</artifactId>
-    <version>4.2.1-SNAPSHOT</version>
+    <version>4.2.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Signs at work</name>
@@ -165,7 +165,7 @@
       </dependency>
       <dependency>
         <groupId>org.thymeleaf.extras</groupId>
-        <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         <version>3.0.4.RELEASE</version>
         <scope>compile</scope>
       </dependency>
