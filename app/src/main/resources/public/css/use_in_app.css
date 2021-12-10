@@ -398,8 +398,8 @@ button.close{
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
-  width: 30px;
-  margin-right: 20px;
+  width: 27px;
+  margin-right: 14px;
 }
 
 .errorRegexLastName, .errorRegexFirstName, .errorRegexEmail, #errorForgetPassword, #errorCreateUser, #errorUserExist {
@@ -959,7 +959,7 @@ li.disabled > a {
 
 .logo_signsatwork_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -6445px center;
+  background-position: -6446px center;
   background-repeat: no-repeat;
   background-size: auto 50px;
   height: 70px;
@@ -2308,7 +2308,7 @@ table tbody td{
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 46px;
-  width: 23px;
+  width: 21px;
   margin-right: 20px;
 }
 

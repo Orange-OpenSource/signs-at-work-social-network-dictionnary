@@ -79,6 +79,14 @@
     .navbar_title {
       text-align:center!important;
     }
+
+    H2.text_hyphenation{
+      width: 46rem!important;
+    }
+
+    .label_request_H2.container_H2{
+          width: auto!important;
+        }
 }
 
 @media only screen and (min-width:1200px) and (max-width:1365px) {
@@ -163,7 +171,13 @@
     .navbar_title {
       text-align:center!important;
     }
+    H2.text_hyphenation{
+      width: 46rem!important;
+    }
 
+    .label_request_H2.container_H2{
+          width: auto!important;
+        }
 }
 
 @media only screen  and (min-width:1366px) and (max-width:1540px)  {
@@ -270,6 +284,14 @@
     .navbar_title {
       text-align:center!important;
     }
+
+    H2.text_hyphenation{
+      width: 46rem!important;
+    }
+
+    .label_request_H2.container_H2{
+      width: auto!important;
+    }
 }
 
 @media only screen  and (min-width:1541px)  {
@@ -368,6 +390,14 @@
   .navbar_title {
     text-align:center!important;
   }
+
+  H2.text_hyphenation{
+    width: 46rem!important;
+  }
+
+  .label_request_H2.container_H2{
+        width: auto!important;
+      }
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
