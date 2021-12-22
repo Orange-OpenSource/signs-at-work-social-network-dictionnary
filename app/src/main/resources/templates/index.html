@@ -49,17 +49,19 @@
   <link rel='manifest' th:href="${manifest}"/>
 </head>
 
-<header role="banner" th:replace="fragments/header-home :: header">&nbsp;</header>
+<header sec:authorize="hasRole('USER_A') or hasRole('USER')" role="banner" th:replace="fragments/header-home :: header">&nbsp;</header>
+<header sec:authorize="hasRole('ADMIN')" role="banner" th:replace="fragments/header-admin :: header">&nbsp;</header>
 <div th:replace="fragments/modal-new-suggest :: div"/>
 
 <body>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 col-xl-12">
-      <h2 class="lexical" th:if="${#strings.equals(appName,'LocalHost')}" th:text="#{signatwork.lexical}"></h2>
-      <h2 class="lexical" th:if="${#strings.equals(appName,'Signs@Work')}" th:text="#{signatwork.lexical}"></h2>
-      <h2 class="lexical_signsatform col-md-9 col-xs-12 col-lg-9" th:if="${#strings.equals(appName,'Signs@Form')}" th:text="#{signatform.lexical}"></h2>
-      <div class="col-lg-3 col-md-3 col-xs-12 middle-col hidden-xs hidden-sm">
+      <h2 sec:authorize="hasRole('ADMIN')" class="lexical" th:text="#{welcome_admin}"></h2>
+      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical" th:if="${#strings.equals(appName,'LocalHost')}" th:text="#{signatwork.lexical}"></h2>
+      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical" th:if="${#strings.equals(appName,'Signs@Work')}" th:text="#{signatwork.lexical}"></h2>
+      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-9 col-xs-12 col-lg-9" th:if="${#strings.equals(appName,'Signs@Form')}" th:text="#{signatform.lexical}"></h2>
+      <div sec:authorize="hasRole('USER_A') or hasRole('USER')" class="col-lg-3 col-md-3 col-xs-12 middle-col hidden-xs hidden-sm">
         <a th:if="${#strings.equals(appName,'Signs@Form')}" class="btn_go_to_signsatwork btn btn-default pull-right" href="https://signsatwork.orange-labs.fr/" target="_blank">
           <div class="pull-left logo_signsatwork_blue"></div>
           <div class="go_to_signsatwork_label" th:text="#{go_to_signsatwork}"></div>
@@ -69,6 +71,39 @@
         <div class="sign_menu col-md-4 col-xs-12 col-lg-4">
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
+              <li class="clear aside_bckg_li" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
+                <a th:href="@{/sec/admin/manage_communities_users}">
+                  <div>
+                    <div class="pull-left member_add_blue_circle"></div>
+                    <h2 class="container_H2 text_hyphenation" th:text="#{admin_create_user}"></h2>
+                    <div>
+                      <div class="pull-right add_black"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="clear aside_bckg_li double_border-bottom" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
+                <a th:href="@{/sec/admin/users}">
+                  <div>
+                    <div class="pull-left member_blue_circle"></div>
+                    <h2 class="container_H2" th:text="#{manage_users}"></h2>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="clear aside_bckg_li double_border-bottom space_bottom" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
+                <a th:href="@{/sec/admin/manage_communities_users}">
+                  <div>
+                    <div class="pull-left group_project_blue_circle"></div>
+                    <h2 class="container_H2" th:text="#{manage_communities}"></h2>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
               <li class="aside_bckg_li">
                 <a th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=false)}">
                   <div>
@@ -81,7 +116,7 @@
                   </div>
                 </a>
               </li>
-              <li class="aside_bckg_li" th:if="${isAuthenticated}">
+              <li class="aside_bckg_li" sec:authorize="hasRole('USER_A') or hasRole('USER')" th:if="${isAuthenticated}">
                 <a th:href="@{/sec/requests}">
                   <div>
                     <div class="pull-left sign_ask-for_black"></div>
@@ -92,7 +127,18 @@
                   </div>
                 </a>
               </li>
-              <li class="clear aside_bckg_li" sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated}">
+              <li class="aside_bckg_li" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
+                <a th:href="@{/sec/requests}">
+                  <div>
+                    <div class="pull-left sign_ask-for_black"></div>
+                    <h2 class="container_H2" th:text="#{manage_requests}"></h2>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="clear aside_bckg_li" sec:authorize="hasRole('USER_A') or hasRole('ADMIN')" th:if="${isAuthenticated}">
                 <a data-target="#new-suggest" data-toggle="modal" href="#">
                   <div>
                     <div class="pull-left sign_add"></div>
@@ -114,7 +160,7 @@
                     th:src="${display_url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;disable-queue=1'"></iframe>
           </div>
         </div>
-        <div class="text-center hidden-lg hidden-md">
+        <div sec:authorize="hasRole('USER_A') or hasRole('USER')" class="text-center hidden-lg hidden-md">
           <a th:if="${#strings.equals(appName,'Signs@Form')}" class="btn_go_to_signsatwork btn btn-default" href="https://signsatwork.orange-labs.fr/" target="_blank">
             <div class="pull-left logo_signsatwork_blue"></div>
             <div class="go_to_signsatwork_label" th:text="#{go_to_signsatwork}"></div>

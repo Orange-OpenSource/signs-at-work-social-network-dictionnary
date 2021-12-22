@@ -327,9 +327,11 @@ public class UserServiceImpl implements UserService {
   }
 
   private void addUserRole(UserDB userDB, String role) {
-    userDB.getUserRoles().add(
-            userRoleRepository.findByRole(AppSecurityRoles.Role.ROLE_USER.toString()).get(0)
-    );
+    if (role.equals("USER")) {
+      userDB.getUserRoles().add(
+        userRoleRepository.findByRole(AppSecurityRoles.Role.ROLE_USER.toString()).get(0)
+      );
+    }
     if (role.equals("USER_A")) {
       userDB.getUserRoles().add(
         userRoleRepository.findByRole(AppSecurityRoles.Role.ROLE_USER_A.toString()).get(0)

@@ -42,6 +42,16 @@ $(document).ready(function()
     $('#member_me').addClass('member_me_white');
   });
 
+  $('#server_message_menu').on('mouseover', function () {
+    $('#server_message').removeClass('message_white_desktop');
+    $('#server_message').addClass('message_black_desktop');
+  });
+
+  $('#server_message_menu').on('mouseout', function () {
+    $('#server_message').removeClass('message_black_desktop');
+    $('#server_message').addClass('message_white_desktop');
+  });
+
   $('#group_menu').on('mouseover', function () {
     $('#group').removeClass('group_white');
     $('#group').addClass('group_black');

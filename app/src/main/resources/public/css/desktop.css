@@ -24,10 +24,19 @@
 
   .container_H2.container_header_H2.text_hyphenation{
     width: auto;
-    padding-right: 20px;
-    margin-left: 7px;
+    /*padding-right: 20px;
+    margin-left: 7px;*/
     margin-top: 0px;
+    margin-left: auto;
   }
+
+    H2.container_H2.text_hyphenation{
+      width: auto!important;
+    }
+
+    .nav > li {
+      padding-right: 20px;
+    }
 
   /* End index page /index */
 
@@ -109,9 +118,18 @@
 
   .container_H2.container_header_H2.text_hyphenation{
     width: auto;
-    padding-right: 20px;
-    margin-left: 7px;
+  /*  padding-right: 20px;
+    margin-left: 7px;*/
     margin-top: 0px;
+    margin-left: auto;
+  }
+
+    H2.container_H2.text_hyphenation{
+      width: auto!important;
+    }
+
+  .nav > li {
+    padding-right: 20px;
   }
 
   /* End index page /index */
@@ -201,9 +219,18 @@
 
   .container_H2.container_header_H2.text_hyphenation{
     width: auto;
-    padding-right: 20px;
-    margin-left: 7px;
+   /* padding-right: 20px;
+    margin-left: 7px;*/
     margin-top: 0px;
+    margin-left: auto;
+  }
+
+    H2.container_H2.text_hyphenation{
+      width: auto!important;
+    }
+
+  .nav > li {
+    padding-right: 20px;
   }
 
   /* End index page /index */
@@ -315,10 +342,19 @@
 
   .container_H2.container_header_H2.text_hyphenation{
     width: auto;
-    padding-right: 20px;
-    margin-left: 7px;
+   /* padding-right: 20px;
+    margin-left: 7px;*/
     margin-top: 0px;
+    margin-left: auto;
   }
+
+    H2.container_H2.text_hyphenation{
+      width: auto!important;
+    }
+
+    .nav > li {
+      padding-right: 20px;
+    }
 
   /* Begin index page /index */
 

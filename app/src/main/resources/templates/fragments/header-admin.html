@@ -27,18 +27,97 @@
 <body>
 
 <header role="banner" th:fragment="header">
-    <nav role="navigation" class="navbar navbar-inverse" id="main_nav">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a th:href="@{/sec/admin}" class="text-center" style="color: #FFFFFF" th:text="#{home}"/>
-            </div>
-            <a class="pull-left" th:if="${isAuthenticated}" href="">
-                <form th:action="@{/logout}" method = "post">
-                    <button style="background-color: red;display: none" class="btn btn-secondary" type="submit" th:text="#{logout}"></button>
-                </form>
-            </a>
+  <nav role="navigation" id="main_nav">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="overlay"></div>
+      <div class="navbar-header">
+        <button id="sidebarCollapse" th:if="${isAuthenticated}" class="navbar-toggle hidden-lg menu"
+                type="button">
+        </button>
+        <div th:if="${isAuthenticated}" class="hidden-lg navbar-toggle-complement">
+          <ul role="tablist" class="nav navbar-nav">
+            <li id="presentation_header" role="tab">
+              <a th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=true)}" th:attr="aria-label=#{sign.search}">
+                <div class="search_white pull-left"></div>
+              </a>
+            </li>
+          </ul>
         </div>
-    </nav>
+
+        <a href="/" class="text-center" th:attr="aria-label=#{home}">
+          <div th:if="${#strings.equals(appName,'LocalHost')}" class="logo_admin_signsatwork-text_white pull-left" alt="logo admin de sign@work"></div>
+          <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_admin_signsatwork-text_white pull-left" alt="logo admin de sign@work"></div>
+          <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_admin_signsatform-text_white pull-left" alt="logo admin de sign@form"></div>
+        </a>
+        <div class="navbar-right hidden-xs hidden-sm hidden-md">
+          <ul class=" col-lg-12 col-md-12 nav navbar-nav mr-auto" role="tablist">
+            <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
+              <a id="search_menu" class="nav-link" th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=true)}">
+                <div id="search" class="search_white_desktop center-block"></div>
+                <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{sign.search}"></h4>
+              </a>
+            </li>
+            <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
+              <a id="server_message_menu" class="nav-link" th:href="@{/sec/admin/server-message}">
+                <div id="server_message" class="message_white_desktop center-block"></div>
+                <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{server_message}"></h4>
+              </a>
+            </li>
+            <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
+              <a id="about_menu" class="nav-link" th:href="@{/sec/about}">
+                <div id="about" class="about_white center-block"></div>
+                <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{about}"></h4>
+              </a>
+            </li>
+            <li class="nav_item active hidden-xs hidden-sm pull-left" th:if="${isAuthenticated and isDevProfile}">
+              <a id="close_menu" class="nav-link" th:href="@{/logout}">
+                <div id="close" class="x-close_white center-block"></div>
+                <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{logout}"></h4>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+          <div id="dismiss">
+          </div>
+
+          <div class="sidebar-header">
+            <h2 th:text="#{Menu}"></h2>
+          </div>
+
+          <ul class="list-unstyled components" role="menu">
+            <li class=" aside_bckg_li" th:if="${isAuthenticated}" role="menuitem" >
+              <a th:href="@{/sec/my-profil}">
+                <div>
+                  <div class="pull-left message_black"></div>
+                  <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{server_message}"></h4>
+                  <div>
+                    <div class="hidden-lg hidden-md pull-right chevron"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menuitem">
+              <a th:href="@{/sec/about}">
+                <div>
+                  <div class="pull-left about "></div>
+                  <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{about}"></h4>
+                  <div>
+                    <div class="hidden-lg hidden-md pull-right chevron"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </nav>
 </header>
 
 </body>

@@ -65,10 +65,43 @@ a {
   margin-top: 11px;
 }
 
+.logo_admin_signsatwork-text_white {
+  background-image: url("/img/logoAdmin-text_blue-background.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: auto 40px;
+  width: 100px;
+  height: 70px;
+  margin-left: 10px;
+  margin-top: 11px;
+}
+
+.logo_admin_signsatform-text_white {
+  background-image: url("/img/logoAdmin-textForm_blue-background.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: auto 40px;
+  width: 100px;
+  height: 70px;
+  margin-left: 10px;
+  margin-top: 11px;
+}
+
 .logo_signsatform-text_white {
   background-image: url("../img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
   background-position: -5627px center;
+  background-size: auto 40px;
+  width: 100px;
+  height: 70px;
+  margin-left: 10px;
+  margin-top: 11px;
+}
+
+.logo_admin_signsatform-text_white {
+  background-image: url("/img/logoAdmin-text_blue-background.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
   background-size: auto 40px;
   width: 100px;
   height: 70px;
@@ -221,6 +254,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   border-bottom: 1px solid #8C8C8C;
   text-align: left;
   overflow: hidden;
+}
+
+.double_border-bottom {
+  border-bottom: 3px solid #8C8C8C!important;
+}
+
+.space_bottom {
+  margin-bottom: 20px;
 }
 
 .aside_bckg_li > a > div {
@@ -717,6 +758,36 @@ ul[role="tablist"]{
   margin-top: 4px;
 }
 
+.member_add_blue_circle {
+  background-image: url("/img/member_add_blue_circle.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
+.member_blue_circle {
+  background-image: url("/img/member_blue_circle.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
+.group_project_blue_circle {
+  background-image: url("/img/group_project_blue_circle.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
 .search_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -4094px center;
@@ -739,6 +810,24 @@ ul[role="tablist"]{
 .search_black_desktop {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -3710px center;
+  background-repeat: no-repeat;
+  background-size: auto 25px;
+  height: 45px;
+  width: 25px;
+}
+
+.message_white_desktop {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1516px center;
+  background-repeat: no-repeat;
+  background-size: auto 25px;
+  height: 40px;
+  width: 25px;
+}
+
+.message_black_desktop {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3682px center;
   background-repeat: no-repeat;
   background-size: auto 25px;
   height: 45px;
@@ -796,6 +885,15 @@ ul[role="tablist"]{
   background-image: url("/img/sprite_picto_400X400.png");
   background-repeat: no-repeat;
   background-position: 0px center;
+  background-size: auto 25px;
+  height: 44px;
+  width: 25px;
+}
+
+.message_black{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -3683px center;
   background-size: auto 25px;
   height: 44px;
   width: 25px;
@@ -2365,6 +2463,16 @@ table tbody td{
 .job_white {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -3524px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.message_white {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1820px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;
