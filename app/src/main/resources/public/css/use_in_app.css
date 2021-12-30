@@ -3207,11 +3207,91 @@ h2.container_CGU {
   color: #4866F7;
 }
 
+/* Begin Messages Serveur */
+
+.pinlist_shared_admin {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1790px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.group_project_add_admin{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -818px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+.edit_blue_admin{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -592px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.group_delete_blue_admin{
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -740px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.description_sign_admin {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -443px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.member_choose_blue_admin {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1179px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.member_blue_admin {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1153px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.member_add_blue_admin {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -1104px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.font-weight_normal{
+  font-weight: normal;
+}
+
+/* End Messages Serveur */
+
 @media only screen and (max-width:768px) {
 .footer {
   left: 0;
   width: 100%;
 }
+
 }
 
 

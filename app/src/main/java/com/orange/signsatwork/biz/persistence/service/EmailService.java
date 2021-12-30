@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public interface EmailService {
 
-  public void sendSimpleMessage(String to, String subject, String text);
+  public void sendSimpleMessage(String to, String subject, String text, String type, String values);
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url, Locale locale);
 
@@ -34,17 +34,19 @@ public interface EmailService {
 
   public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
 
+  public void sendCommunityAddMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
+
   public void sendCommunityDeleteMessage(String[] to, String subject, String userName, String communityName, Locale locale);
 
-  public void sendCommunityRemoveMessage(String[] to, String subject, String communityName, Locale locale);
+  public void sendCommunityRemoveMessage(String[] to, String subject, String userName, String communityName, Locale locale);
 
-  public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url, Locale locale);
+  public void sendCommunityRenameMessage(String[] to, String subject, String userName, String oldName, String newName, String url, Locale locale);
 
-  public void sendResetPasswordMessage(String to, String subject, String url, Locale locale);
+  public void sendResetPasswordMessage(String to, String subject, String userName, String url, Locale locale);
 
   public void sendCreatePasswordMessage(String to, String subject, String username, String url, Locale locale);
 
   public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
 
-  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url, Locale locale);
+  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject,  String username, String url, Locale locale);
 }

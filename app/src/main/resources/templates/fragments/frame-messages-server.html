@@ -1,0 +1,116 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="utf-8"/>
+</head>
+<body>
+
+<div id="frame-messages-server" th:fragment="div">
+  <div th:if="${isAuthenticated}" class="dropdown">
+    <button th:attr="class=${classDropdownSize}" type="button" id="dropdownMenu1"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span class="menu_down_black pull-left"></span>
+      <span th:attr="class=${classDropdownTitle}"></span>
+      <span th:attr="class=${classDropdownDirection}"></span>
+      <span class="" th:text="${dropdownTitle}"></span>
+      <span id="nb" th:text="'('+${#lists.size(messagesServer)}+')'"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isAllAsc}" th:href="@{/sec/admin/messages-server/frame(isAllAsc=${isAllAsc})}">
+          <div class="pull-left all-signs_blue"></div>
+          <span th:text="#{all_message}"></span>
+          <div class="pull-right v-done-down_black"></div>
+        </a>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${!isAllAsc and !isAllDesc}" th:href="@{/sec/admin/messages-server/frame(isAllAsc=${isAllAsc})}">
+          <div class="pull-left all-signs_blue"></div>
+          <span th:text="#{all_message}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isAllDesc}" th:href="@{/sec/admin/messages-server/frame(isAllAsc=${isAllAsc})}">
+          <div class="pull-left all-signs_blue"></div>
+          <span th:text="#{all_message}"></span>
+          <div class="pull-right v-done-up_black"></div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row ">
+    <div class="col-xs-12 col-lg-12">
+      <div th:if="${not #lists.isEmpty(messagesServer)}" class="text-left title_middle" id="messagesServer_container">
+        <div th:id="${#dates.format(messageServer.date,'dd/MM/yyyy') + ';' + messageServer.values}" th:each="messageServer:${messagesServer}">
+          <aside class="sidebar">
+           <!-- <ul class="nav nav-list primary left-menu">
+              <li th:if="${request.sign == null}" class="aside_bckg_li">
+                <a th:href="@{/sec/my-request-detail/} + ${request.id}">
+                  <div>
+                    <h4 class="text_hyphenation container_H2 " th:text="${request.name}"></h4>
+                    <div>
+                      <div class="pull-right chevron"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li th:if="${request.sign != null}" class="aside_bckg_li">
+                <a th:href="@{/sign/} + ${request.sign.id}">
+                  <div>
+                    <div class="pull-left new_blue"></div>
+                    <h4 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${request.name}"></h4>
+                    <h4 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${request.name}, ${request.sign.name})}"></h4>
+                    <div >
+                      <div class="pull-right chevron"></div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>-->
+            <ul class="nav nav-list primary left-menu">
+              <li class="aside_bckg_li">
+                <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
+                <div th:if="${messageServer.type == 'FavoriteShareMessage'}" class="pinlist_shared_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CommunityCreateMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CommunityRenameMessage'}" class="edit_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CommunityDeleteMessage'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CommunityAddDescriptionMessage'}" class="description_sign_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CommunityRemoveMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CommunityRemoveMeMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CommunityAddMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'RequestCreateUserMessage'}" class="member_add_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'ResetPasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CreatePasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CreatePasswordMessageAfterChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'SavePasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
+                <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).TODO}" class="pull-right chevron"></div>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

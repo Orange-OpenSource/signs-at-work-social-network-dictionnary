@@ -59,9 +59,9 @@
               </a>
             </li>
             <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
-              <a id="server_message_menu" class="nav-link" th:href="@{/sec/admin/server-message}">
+              <a id="server_message_menu" class="nav-link" th:href="@{/sec/admin/messages-server?isAllAsc=true}">
                 <div id="server_message" class="message_white_desktop center-block"></div>
-                <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{server_message}"></h4>
+                <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{messages_server}"></h4>
               </a>
             </li>
             <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">

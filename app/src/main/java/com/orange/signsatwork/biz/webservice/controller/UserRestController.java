@@ -218,7 +218,7 @@ public class UserRestController {
 
         Runnable task = () -> {
           log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), title, url, request.getLocale());
+          services.emailService().sendResetPasswordMessage(userCreationView.getUsername(), title, user.name(), url, request.getLocale());
         };
 
         new Thread(task).start();
@@ -312,9 +312,11 @@ public class UserRestController {
         if (userSearch == null) {
           body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationViewApi.get().getEmail()});
           title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
+          User finalUser = user;
           Runnable task = () -> {
             log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-            services.emailService().sendSimpleMessage(admin.email, title , body);
+            String values = finalUser.name() + ";" + finalUser.username + ";" + userCreationViewApi.get().getEmail();
+            services.emailService().sendSimpleMessage(admin.email, title , body, "RequestChangeEmailMessage", values);
           };
 
           new Thread(task).start();
@@ -720,6 +722,10 @@ public class UserRestController {
 
     services.user().changeUserPassword(user, userCreationView.getPassword());
 
+    String values = user.name();
+    MessageServer messageServer = new MessageServer(new Date(), "SavePasswordMessage", values, ActionType.NO);
+    services.messageServerService().addMessageServer(messageServer);
+
     response.setStatus(HttpServletResponse.SC_OK);
     return  userResponseApi;
   }
@@ -736,7 +742,8 @@ public class UserRestController {
       title = messageByLocaleService.getMessage("ask_to_create_user_title", new Object[]{appName});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-        services.emailService().sendSimpleMessage(admin.email, title, body);
+        String values = userCreationView.getFirstName() + ";" + userCreationView.getLastName() + ";" + userCreationView.getEmail();
+        services.emailService().sendSimpleMessage(admin.email, title, body, "RequestCreateUserMessage", values);
       };
 
       new Thread(task).start();
@@ -763,7 +770,8 @@ public class UserRestController {
       title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-        services.emailService().sendSimpleMessage(admin.email, title , body);
+        String values = user.name() + ";" + user.username + ";" + userCreationView.getEmail();
+        services.emailService().sendSimpleMessage(admin.email, title , body, "RequestChangeEmailMessage", values);
       };
 
       new Thread(task).start();

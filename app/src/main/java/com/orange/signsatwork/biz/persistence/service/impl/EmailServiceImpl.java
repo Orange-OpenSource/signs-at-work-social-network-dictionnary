@@ -22,8 +22,15 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.ActionType;
+import com.orange.signsatwork.biz.domain.MessageServer;
+import com.orange.signsatwork.biz.persistence.repository.MessageServerRepository;
+import com.orange.signsatwork.biz.persistence.repository.UserRepository;
 import com.orange.signsatwork.biz.persistence.service.EmailService;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import com.orange.signsatwork.biz.persistence.service.MessageServerService;
+import com.orange.signsatwork.biz.persistence.service.Services;
+import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.*;
@@ -32,20 +39,23 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+
 @Component
+@RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
+  private final Services services;
 
   @Value("${app.admin.username}")
   String adminUsername;
@@ -57,6 +67,8 @@ public class EmailServiceImpl implements EmailService {
   public JavaMailSender emailSender;
   @Autowired
   TemplateEngine templateEngine;
+
+
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url, Locale locale) {
     InputStream imageIs = null;
@@ -88,6 +100,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + StringUtils.join(Arrays.asList(to), ',') + ';' + requestName;
+      MessageServer messageServer = new MessageServer(new Date(), "RequestMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -134,6 +151,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + favoriteName + ';' + StringUtils.join(Arrays.asList(to), ',');
+      MessageServer messageServer = new MessageServer(new Date(), "FavoriteShareMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -181,6 +203,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + communityName + ';' + StringUtils.join(Arrays.asList(to), ',');
+      MessageServer messageServer = new MessageServer(new Date(), "CommunityCreateMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -200,7 +227,59 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityRenameMessage(String[] to, String subject, String oldName, String newName, String url, Locale locale) {
+  public void sendCommunityAddMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale) {
+    InputStream imageIs = null;
+    String imageName;
+    try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom(adminUsername);
+      Context ctx = new Context(locale);
+      ctx.setVariable("user_name", userName);
+      ctx.setVariable("community_name", communityName);
+      ctx.setVariable("url", url);
+      ctx.setVariable("imageResourceName", imageName);
+      ctx.setVariable("appName", appName);
+      String htmlContent = templateEngine.process("email-community", ctx);
+      helper.setText(htmlContent, true);
+
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + StringUtils.join(Arrays.asList(to), ',') + ';' + communityName;
+      MessageServer messageServer = new MessageServer(new Date(), "CommunityAddMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  public void sendCommunityRenameMessage(String[] to, String subject, String userName, String oldName, String newName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -228,6 +307,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + oldName + ';' + newName;
+      MessageServer messageServer = new MessageServer(new Date(), "CommunityRenameMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -274,6 +358,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + communityName;
+      MessageServer messageServer = new MessageServer(new Date(), "CommunityDeleteMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -293,7 +382,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityRemoveMessage(String[] to, String subject, String communityName, Locale locale) {
+  public void sendCommunityRemoveMessage(String[] to, String subject, String userName, String communityName, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -318,6 +407,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + StringUtils.join(Arrays.asList(to), ',') + ';' + communityName;
+      MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -337,7 +431,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendResetPasswordMessage(String to, String subject, String url, Locale locale) {
+  public void sendResetPasswordMessage(String to, String subject, String userName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -362,6 +456,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName;
+      MessageServer messageServer = new MessageServer(new Date(), "ResetPasswordMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -408,6 +507,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = adminUsername + ";" + username;
+      MessageServer messageServer = new MessageServer(new Date(), "CreatePasswordMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -427,7 +531,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String url, Locale locale) {
+  public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject, String username, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -452,6 +556,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = adminUsername + ";" + username;
+      MessageServer messageServer = new MessageServer(new Date(), "CreatePasswordMessageAfterChangeEmailMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -498,6 +607,11 @@ public class EmailServiceImpl implements EmailService {
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
 
       helper.addInline(imageName, imageSource, "image/png");
+
+      String values = userName + ';' + communityName;
+      MessageServer messageServer = new MessageServer(new Date(), "CommunityAddDescriptionMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();
@@ -517,7 +631,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendSimpleMessage(String to, String subject, String text) {
+  public void sendSimpleMessage(String to, String subject, String text, String type, String values) {
 
     try {
       SimpleMailMessage message = new SimpleMailMessage();
@@ -525,6 +639,10 @@ public class EmailServiceImpl implements EmailService {
       message.setSubject(subject);
       message.setText(text);
       message.setFrom(adminUsername);
+
+      MessageServer messageServer = new MessageServer(new Date(), type, values, ActionType.TODO);
+      services.messageServerService().addMessageServer(messageServer);
+
       emailSender.send(message);
     } catch (MailException exception) {
       exception.printStackTrace();

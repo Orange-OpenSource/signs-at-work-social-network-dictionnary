@@ -32,6 +32,7 @@ import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.CommunityView;
 import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
@@ -51,10 +52,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -320,7 +318,7 @@ public class CommunityRestController {
               title = messageByLocaleService.getMessage("community_renamed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_renamed_by_user_body", new Object[]{community.name, communityCreationViewApi.getName(), url});
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, community.name, communityCreationViewApi.getName(), url, request.getLocale());
+              services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, communityCreationViewApi.getName(), url, request.getLocale());
             };
 
             new Thread(task).start();
@@ -339,6 +337,9 @@ public class CommunityRestController {
           return communityResponseApi;
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
+          String values = userToRemove.name() + ';' + community.name;
+          MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMeMessage", values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
         }
     } else if (communityCreationViewApi.getDescriptionText() != null && !communityCreationViewApi.getDescriptionText().isEmpty()) {
         services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
@@ -381,7 +382,7 @@ public class CommunityRestController {
             title = messageByLocaleService.getMessage("community_created_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
             log.info("send mail email = {} / title = {} / body = {}", emailsUsersAdded.toString(), title, bodyMail);
-            services.emailService().sendCommunityCreateMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
+            services.emailService().sendCommunityAddMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
           };
 
           new Thread(task).start();
@@ -394,7 +395,7 @@ public class CommunityRestController {
             title = messageByLocaleService.getMessage("community_removed_user_title");
             bodyMail = messageByLocaleService.getMessage("community_removed_user_body", new Object[]{finalCommunity.name});
             log.info("send mail email = {} / title = {} / body = {}", emailsUsersRemoved.toString(), title, bodyMail);
-            services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, finalCommunity.name, request.getLocale());
+            services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, user.name(), finalCommunity.name, request.getLocale());
           };
 
           new Thread(task).start();
@@ -437,7 +438,7 @@ public class CommunityRestController {
                 title = messageByLocaleService.getMessage("community_renamed_by_user_title");
                 bodyMail = messageByLocaleService.getMessage("community_renamed_by_user_body", new Object[]{community.name, communityCreationViewApi.get().getName(), url});
                 log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, community.name, communityCreationViewApi.get().getName(), url, request.getLocale());
+                services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, communityCreationViewApi.get().getName(), url, request.getLocale());
               };
 
               new Thread(task).start();
@@ -456,6 +457,9 @@ public class CommunityRestController {
           return communityResponseApi;
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
+          String values = userToRemove.name() + ';' + community.name;
+          MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMeMessage", values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
         }
       } else if (communityCreationViewApi.get().getDescriptionText() != null && !communityCreationViewApi.get().getDescriptionText().isEmpty()) {
           services.community().updateDescriptionText(communityId, communityCreationViewApi.get().getDescriptionText());
@@ -498,7 +502,7 @@ public class CommunityRestController {
               title = messageByLocaleService.getMessage("community_created_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
               log.info("send mail email = {} / title = {} / body = {}", emailsUsersAdded.toString(), title, bodyMail);
-              services.emailService().sendCommunityCreateMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
+              services.emailService().sendCommunityAddMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
             };
 
             new Thread(task).start();
@@ -511,7 +515,7 @@ public class CommunityRestController {
               title = messageByLocaleService.getMessage("community_removed_user_title");
               bodyMail = messageByLocaleService.getMessage("community_removed_user_body", new Object[]{finalCommunity.name});
               log.info("send mail email = {} / title = {} / body = {}", emailsUsersRemoved.toString(), title, bodyMail);
-              services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, finalCommunity.name, request.getLocale());
+              services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, user.name(), finalCommunity.name, request.getLocale());
             };
 
             new Thread(task).start();

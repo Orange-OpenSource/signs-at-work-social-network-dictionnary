@@ -1,0 +1,45 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-messages-server :: header">&nbsp;</header>
+
+<body>
+<div class="container">
+  <div class="row">
+  <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div">
+    <div id="myform">
+      <input class="border form-control" id="search-criteria" th:attr="aria-label=#{request.search}" th:autocomplete="off"
+             th:placeholder="#{search}" type="search"/>
+      <input id='reset_search_request' type='button'/>
+    </div>
+    <div th:replace="fragments/frame-messages-server :: div"/>
+  </div>
+</div>
+</div>
+</body>
+<script src="../public/js/messages-server.js" th:src="@{/js/messages-server.js}" type="text/javascript"></script>
+</html>
