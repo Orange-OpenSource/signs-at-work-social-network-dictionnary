@@ -11,4 +11,28 @@ public interface MessageServerService {
   MessagesServer messagesServerAllAsc();
 
   MessagesServer messagesServerAllDesc();
+
+  MessagesServer messagesServerCreateUserAsc();
+
+  MessagesServer messagesServerCreateUserDesc();
+
+  MessagesServer messagesServerChangeUserLoginAsc();
+
+  MessagesServer messagesServerChangeUserLoginDesc();
+
+  MessagesServer messagesServerUserProfilActionAsc();
+
+  MessagesServer messagesServerUserProfilActionDesc();
+
+  MessagesServer messagesServerCommunityActionAsc();
+
+  MessagesServer messagesServerCommunityActionDesc();
+
+  MessagesServer messagesServerRequestAsc();
+
+  MessagesServer messagesServerRequestDesc();
+
+  MessagesServer messagesServerShareFavoriteAsc();
+
+  MessagesServer messagesServerShareFavoriteDesc();
 }

@@ -21,11 +21,11 @@
 
 var messagesServerContainer = document.getElementById("messagesServer_container");
 if (messagesServerContainer != null) {
-  var messagesServer = messagesServerContainer.getElementsByClassName("container_H2");
+  var messagesServer = messagesServerContainer.getElementsByClassName("text_hyphenation");
   var messagesServerCount =  messagesServer.length;
 }
 var search_criteria = document.getElementById("search-criteria");
-var button_reset = document.getElementById("reset_search_request");
+var button_reset = document.getElementById("reset_search_messages_server");
 
 var accentMap = {
   "é": "e",
@@ -58,9 +58,9 @@ function onFiltreMessagesServer(event, href) {
     context: document.body,
     success: function (response) {
       console.log("Success ");
-      document.getElementById("frame-messagesServer").innerHTML = response;
+      document.getElementById("frame-messages-server").innerHTML = response;
       messagesServerContainer = document.getElementById("messagesServer_container");
-      messagesServer = messagesServerContainer.getElementsByClassName("container_H2");
+      messagesServer = messagesServerContainer.getElementsByClassName("text_hyphenation");
       messagesServerCount =  messagesServer.length;
       console.log("messagesServerCount after filter "+messagesServerCount);
       if (messagesServerCount != 0) {
@@ -95,9 +95,8 @@ function search(event) {
 
   if (g!="") {
     $("#messagesServer_container").children("div").each(function () {
-      $("#reset_search_request").css("visibility", "visible");
+      $("#reset_search_messages_server").css("visibility", "visible");
       var text = $(this).attr("id");
-      console.log("text "+text);
       if (text != null) {
         var s = normalize(text);
         if (s.toUpperCase().indexOf(g.toUpperCase()) != -1) {
@@ -112,7 +111,7 @@ function search(event) {
     nb.innerHTML = '('+display+')';
     $(nb).show();
   } else {
-    $("#reset_search_request").css("visibility", "hidden");
+    $("#reset_search_messages_server").css("visibility", "hidden");
     $("#messagesServer_container").children("div").each(function () {
       $(this).show();
     });
@@ -127,7 +126,7 @@ function searchAfterReload(search_value) {
 
   if (g!="") {
     $("#messagesServer_container").children("div").each(function () {
-      $("#reset_search_request").css("visibility", "visible");
+      $("#reset_search_messages_server").css("visibility", "visible");
       var text = $(this).attr("id");
       if (text != "") {
         var s = normalize(text);
@@ -143,7 +142,7 @@ function searchAfterReload(search_value) {
     nb.innerHTML = '('+display+')';
     $(nb).show();
   } else {
-    $("#reset_search_request").css("visibility", "hidden");
+    $("#reset_search_messages_server").css("visibility", "hidden");
     $("#messagesServer_container").children("div").each(function () {
       $(this).show();
     });
@@ -157,7 +156,7 @@ function onReset(event) {
   $(':input', '#myform')
     .not(':button, :submit, :reset, :hidden')
     .val('');
-  $("#reset_search_request").css("visibility", "hidden");
+  $("#reset_search_messages_server").css("visibility", "hidden");
 
   $("#messagesServer_container").children("div").each(function () {
     $(this).show();
@@ -182,7 +181,7 @@ function main() {
   button_reset.addEventListener('click', onReset);
 }
 
-(function displayRequest($) {
+(function displayMessageServer($) {
   main();
 
 })($);
