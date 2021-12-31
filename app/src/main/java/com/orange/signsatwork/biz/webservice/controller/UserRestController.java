@@ -487,8 +487,8 @@ public class UserRestController {
   private UserResponseApi handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Optional<Boolean> leaveBeforePublished, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
       String videoUrl = null;
-      String fileName = file.getOriginalFilename();
-      String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
+      String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
+      String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".png";
       File inputFile;
       UserResponseApi userResponseApi = new UserResponseApi();
       Boolean leaveDailymotionAfterLoadVideo = false;

@@ -39,6 +39,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private AppProfile appProfile;
+  @Autowired
+  private Environment environment;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -46,6 +48,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private void configureRoutes(HttpSecurity http) throws Exception {
+    String fileDirectory =  environment.getProperty("app.file");
+
     disableSecurityOnWebJars(http);
     disableSecurityOnAssets(http);
     disableSecForDBConsole(http);
@@ -56,7 +60,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
             // configure restricting access
             .authorizeRequests()
             // open api is... opened
-            .antMatchers("/data/**", "/signs/**","/articles", "/cgu", "/about-cgu-lsf", "/personal-data-lsf", "/sendMail", "/forgetPassword", "/user/createPassword*", "/user/changePassword*", "/user/*/savePassword").permitAll()
+            .antMatchers(fileDirectory+ "/**", "/signs/**","/articles", "/cgu", "/about-cgu-lsf", "/personal-data-lsf", "/sendMail", "/forgetPassword", "/user/createPassword*", "/user/changePassword*", "/user/*/savePassword").permitAll()
 //            .antMatchers("/", "/signs/**", "/sign/**").permitAll()
             // admin api restricted to... ADMIN
             .antMatchers("/sec/admin/**").hasRole("ADMIN")

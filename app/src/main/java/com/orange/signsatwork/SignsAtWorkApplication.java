@@ -24,6 +24,7 @@ package com.orange.signsatwork;
 
 import com.orange.signsatwork.biz.storage.StorageProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +32,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -49,6 +51,9 @@ import java.util.concurrent.TimeUnit;
 @ComponentScan
 @EnableConfigurationProperties(StorageProperties.class)
 public class SignsAtWorkApplication extends WebMvcConfigurerAdapter {
+
+  @Autowired
+  private Environment environment;
 
   public static void main(String[] args) {
     SpringApplication.run(SignsAtWorkApplication.class, args);
@@ -72,29 +77,13 @@ public class SignsAtWorkApplication extends WebMvcConfigurerAdapter {
     return localeResolver;
   }
 
-  /*@Override
-  *//** Enable static resources cache control: images, css, fonts, js (app & libraries) *//*
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry
-      .addResourceHandler(
-        "/**",
-        "/webjars/**")
-      .addResourceLocations(
-        "classpath:/public/",
-        "classpath:/META-INF/resources/webjars/")
-      .setCacheControl(
-        CacheControl.
-          maxAge(1, TimeUnit.DAYS)
-          .cachePublic()
-          .mustRevalidate()
-      );
-  }*/
 
   @Override
   //* Enable static resources cache control: images, css, fonts, js (app & libraries)
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    String file = "file:/data";
-    String fileThumbnails = "file:/data/thumbnail";
+    String fileDirectory =  environment.getProperty("app.file");
+    String file = "file:"+fileDirectory;
+    String fileThumbnails = "file:"+fileDirectory+"/thumbnail";
     registry
       .addResourceHandler(
         "/**",

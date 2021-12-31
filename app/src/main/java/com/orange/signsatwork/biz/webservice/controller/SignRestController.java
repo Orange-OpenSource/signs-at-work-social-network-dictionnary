@@ -965,8 +965,8 @@ public class SignRestController {
 
   private VideoResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi,Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response) throws InterruptedException {
     String videoUrl = null;
-    String fileName = file.getOriginalFilename();
-    String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
+    String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
+    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".png";
     File inputFile;
     Boolean leaveDailymotionAfterLoadVideo = false;
     if (leaveBeforePublished.isPresent()) {
@@ -1180,7 +1180,7 @@ public class SignRestController {
     Sign sign = null;
     sign = services.sign().withId(signId);
     String videoUrl = null;
-    String fileName = file.getOriginalFilename();
+    String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
     File inputFile;
     Boolean leaveDailymotionAfterLoadVideo = false;
     if (leaveBeforePublished.isPresent()) {

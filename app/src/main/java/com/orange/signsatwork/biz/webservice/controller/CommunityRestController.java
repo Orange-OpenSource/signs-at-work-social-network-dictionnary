@@ -536,7 +536,7 @@ public class CommunityRestController {
   private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
       String videoUrl = null;
-      String fileName = file.getOriginalFilename();
+      String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
       File inputFile;
       Boolean leaveDailymotionAfterLoadVideo = false;
       if (leaveBeforePublished.isPresent()) {

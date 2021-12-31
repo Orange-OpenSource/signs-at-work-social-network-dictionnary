@@ -40,8 +40,8 @@
       <div th:if="${!#strings.contains(signView.videoDefinition, 'http')}">
       <div class="embed-responsive embed-responsive-16by9">
         <video controls autoplay playsinline>
-          <source th:src="@{/data/} + ${signView.videoDefinition}" type="video/webm"/>
-          <source th:src="@{/data/} + ${signView.videoDefinition}" type="video/mp4"/>
+          <source th:src="${signView.videoDefinition}" type="video/webm"/>
+          <source th:src="${signView.videoDefinition}" type="video/mp4"/>
         </video>
       </div>
     </div>

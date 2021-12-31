@@ -469,7 +469,7 @@ public class RequestRestController {
   private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
     {
       String videoUrl = null;
-      String fileName = file.getOriginalFilename();
+      String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
       File inputFile;
       Request request = null;
       RequestResponseApi requestResponseApi = new RequestResponseApi();
@@ -702,7 +702,7 @@ public class RequestRestController {
 
   private RequestResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response) throws InterruptedException {
     String videoUrl = null;
-    String fileName = file.getOriginalFilename();
+    String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
     String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
     File inputFile;
     Boolean leaveDailymotionAfterLoadVideo = false;
