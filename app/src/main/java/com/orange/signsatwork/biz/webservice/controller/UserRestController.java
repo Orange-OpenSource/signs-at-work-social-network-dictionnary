@@ -281,7 +281,7 @@ public class UserRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_USER_ME, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
-  public UserResponseApi updateProfil(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, Principal principal) throws
+  public UserResponseApi updateProfil(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     UserResponseApi userResponseApi = new UserResponseApi();
 
@@ -361,11 +361,11 @@ public class UserRestController {
     }
 
     if (fileVideoName.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), leaveBeforePublished, principal, "Name", response);
+      return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), principal, "Name", response);
     }
 
     if (fileJobVideoDescription.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), leaveBeforePublished, principal, "JobDescription", response);
+      return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), principal, "JobDescription", response);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -484,17 +484,13 @@ public class UserRestController {
     NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
   }
 
-  private UserResponseApi handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Optional<Boolean> leaveBeforePublished, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
+  private UserResponseApi handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
       String videoUrl = null;
       String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
       String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".png";
       File inputFile;
       UserResponseApi userResponseApi = new UserResponseApi();
-      Boolean leaveDailymotionAfterLoadVideo = false;
-      if (leaveBeforePublished.isPresent()) {
-        leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
-      }
 
       try {
         storageService.store(file);
@@ -505,14 +501,12 @@ public class UserRestController {
         return userResponseApi;
       }
 
-      if (leaveDailymotionAfterLoadVideo) {
-        try {
-          GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
-        } catch (Exception errorEncondingFile) {
-          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-          userResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
-          return userResponseApi;
-        }
+      try {
+        GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
+      } catch (Exception errorEncondingFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
+        return userResponseApi;
       }
 
       try {
@@ -577,10 +571,10 @@ public class UserRestController {
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
         String pictureUri = null;
         String id = videoDailyMotion.id;
-        if (leaveDailymotionAfterLoadVideo) {
+/*        if (leaveDailymotionAfterLoadVideo) {*/
           pictureUri = thumbnailFile;
           videoUrl= fileName;
-        } else {
+/*        } else {
           int i = 0;
           do {
             videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
@@ -605,7 +599,7 @@ public class UserRestController {
             videoUrl = videoDailyMotion.embed_url;
             log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
           }
-        }
+        }*/
 
         if (inputType.equals("JobDescription")) {
           if (user.jobDescriptionVideo != null) {
@@ -638,7 +632,7 @@ public class UserRestController {
 
         log.warn("handleSelectedVideoFileUploadForProfil : embed_url = {}", videoDailyMotion.embed_url);
 
-        if (leaveDailymotionAfterLoadVideo) {
+        /*if (leaveDailymotionAfterLoadVideo) {*/
           Runnable task = () -> {
             int i = 0;
             VideoDailyMotion dailyMotion;
@@ -667,7 +661,7 @@ public class UserRestController {
           };
 
           new Thread(task).start();
-        }
+/*        }*/
 
         response.setStatus(HttpServletResponse.SC_OK);
         return  userResponseApi;

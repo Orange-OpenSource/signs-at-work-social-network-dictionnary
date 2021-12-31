@@ -410,7 +410,7 @@ public class CommunityRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
-  public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
+  public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
@@ -525,7 +525,7 @@ public class CommunityRestController {
     }
 
     if (fileCommunityDescriptionVideo.isPresent()) {
-      return handleSelectedVideoFileUploadForCommunityDescription(fileCommunityDescriptionVideo.get(), communityId, leaveBeforePublished, principal, response, request);
+      return handleSelectedVideoFileUploadForCommunityDescription(fileCommunityDescriptionVideo.get(), communityId, principal, response, request);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -533,15 +533,12 @@ public class CommunityRestController {
 
   }
 
-  private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
+  private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
       String videoUrl = null;
       String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
       File inputFile;
-      Boolean leaveDailymotionAfterLoadVideo = false;
-      if (leaveBeforePublished.isPresent()) {
-        leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
-      }
+
       CommunityResponseApi communityResponseApi = new CommunityResponseApi();
       Community community = null;
       community = services.community().withId(communityId);
@@ -613,9 +610,9 @@ public class CommunityRestController {
 
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
         String id = videoDailyMotion.id;
-        if (leaveDailymotionAfterLoadVideo) {
+/*        if (leaveDailymotionAfterLoadVideo) {*/
           videoUrl= fileName;
-        } else {
+/*        } else {
           int i = 0;
           do {
             videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
@@ -630,7 +627,7 @@ public class CommunityRestController {
           if (!videoDailyMotion.embed_url.isEmpty()) {
             videoUrl = videoDailyMotion.embed_url;
           }
-        }
+        }*/
 
         if (community.descriptionVideo != null) {
           if (community.descriptionVideo.contains("http")) {
@@ -660,7 +657,7 @@ public class CommunityRestController {
           new Thread(task).start();
         }
 
-        if (leaveDailymotionAfterLoadVideo) {
+/*        if (leaveDailymotionAfterLoadVideo) {*/
           Runnable task = () -> {
             int i = 0;
             VideoDailyMotion dailyMotion;
@@ -684,7 +681,7 @@ public class CommunityRestController {
           };
 
           new Thread(task).start();
-        }
+/*        }*/
         response.setStatus(HttpServletResponse.SC_OK);
         communityResponseApi.communityId = community.id;
         return communityResponseApi;

@@ -709,7 +709,7 @@ public class SignRestController {
     @Secured("ROLE_USER_A")
     @RequestMapping(value = RestApi.WS_SEC_SIGNS, method = RequestMethod.POST, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
     public VideoResponseApi createVideo(@RequestPart("file") Optional<MultipartFile> file,
-    @RequestPart("data") SignCreationViewApi signCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, Principal principal) throws
+    @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
       VideoResponseApi videoResponseApi = new VideoResponseApi();
 
@@ -726,12 +726,12 @@ public class SignRestController {
         return videoResponseApi;
       }
 
-      return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, leaveBeforePublished, principal, response);
+      return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
     }
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGN_VIDEO, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
-  public VideoResponseApi updateVideo(@PathVariable Long signId, @PathVariable Long videoId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, Principal principal) throws
+  public VideoResponseApi updateVideo(@PathVariable Long signId, @PathVariable Long videoId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
@@ -751,7 +751,7 @@ public class SignRestController {
       return videoResponseApi;
     }
 
-    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationViewApi, leaveBeforePublished, principal, response);
+    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationViewApi, principal, response);
   }
 
   @Secured("ROLE_USER_A")
@@ -934,7 +934,7 @@ public class SignRestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGNS_VIDEOS, method = RequestMethod.POST, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
-  public VideoResponseApi addVideo(@PathVariable long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, Principal principal) throws
+  public VideoResponseApi addVideo(@PathVariable long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") SignCreationViewApi signCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
@@ -952,7 +952,7 @@ public class SignRestController {
       return videoResponseApi;
     }
 
-    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationViewApi, leaveBeforePublished, principal, response);
+    return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationViewApi, principal, response);
   }
 
   private void GenerateThumbnail(String thumbnailFile, String fileOutput) {
@@ -963,15 +963,11 @@ public class SignRestController {
     NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
   }
 
-  private VideoResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi,Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private VideoResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
     String videoUrl = null;
     String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".png";
     File inputFile;
-    Boolean leaveDailymotionAfterLoadVideo = false;
-    if (leaveBeforePublished.isPresent()) {
-      leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
-    }
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
@@ -984,14 +980,12 @@ public class SignRestController {
       return videoResponseApi;
     }
 
-    if (leaveDailymotionAfterLoadVideo) {
-      try {
-        GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
-      } catch (Exception errorEncondingFile) {
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
-        return videoResponseApi;
-      }
+    try {
+      GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
+    } catch (Exception errorEncondingFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
+      return videoResponseApi;
     }
 
     try {
@@ -1058,10 +1052,10 @@ public class SignRestController {
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
       String pictureUri = null;
       String id = videoDailyMotion.id;
-      if (leaveDailymotionAfterLoadVideo) {
+    /*  if (leaveDailymotionAfterLoadVideo) {*/
         pictureUri = thumbnailFile;
         videoUrl= fileName;
-      } else {
+/*      } else {
         int i = 0;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
@@ -1087,7 +1081,7 @@ public class SignRestController {
           videoUrl = videoDailyMotion.embed_url;
           log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
         }
-      }
+      }*/
 
       Sign sign;
       Video video;
@@ -1117,7 +1111,7 @@ public class SignRestController {
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
       }
 
-      if (sign.lastVideoId != 0 && leaveDailymotionAfterLoadVideo) {
+      if (sign.lastVideoId != 0 ) {
         Runnable task = () -> {
           int i = 0;
           VideoDailyMotion dailyMotion;
@@ -1155,7 +1149,7 @@ public class SignRestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGN, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data"})
-  public VideoResponseApi updateVideo(@PathVariable Long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<SignCreationViewApi> signCreationViewApi, @RequestPart("leaveBeforePublished") Optional<Boolean> leaveBeforePublished, HttpServletResponse response, Principal principal) throws
+  public VideoResponseApi updateVideo(@PathVariable Long signId, @RequestPart("file") Optional<MultipartFile> file, @RequestPart("data") Optional<SignCreationViewApi> signCreationViewApi, HttpServletResponse response, Principal principal) throws
     InterruptedException {
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
@@ -1166,7 +1160,7 @@ public class SignRestController {
     }
 
     if (file.isPresent()) {
-      return handleSelectedVideoFileUploadForSignDefinition(file.get(), signId, leaveBeforePublished, principal, response);
+      return handleSelectedVideoFileUploadForSignDefinition(file.get(), signId, principal, response);
     }
 
 
@@ -1174,7 +1168,7 @@ public class SignRestController {
     return videoResponseApi;
   }
 
-  private VideoResponseApi handleSelectedVideoFileUploadForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Optional<Boolean> leaveBeforePublished, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private VideoResponseApi handleSelectedVideoFileUploadForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
     Sign sign = null;
@@ -1182,10 +1176,7 @@ public class SignRestController {
     String videoUrl = null;
     String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
     File inputFile;
-    Boolean leaveDailymotionAfterLoadVideo = false;
-    if (leaveBeforePublished.isPresent()) {
-      leaveDailymotionAfterLoadVideo = leaveBeforePublished.get();
-    }
+
 
     try {
       storageService.store(file);
@@ -1256,9 +1247,9 @@ public class SignRestController {
 
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
       String id = videoDailyMotion.id;
-      if (leaveDailymotionAfterLoadVideo) {
-        videoUrl= fileName;
-      } else {
+    /*  if (leaveDailymotionAfterLoadVideo) {*/
+      videoUrl= fileName;
+/*      } else {
         int i = 0;
         do {
           videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
@@ -1274,7 +1265,7 @@ public class SignRestController {
         if (!videoDailyMotion.embed_url.isEmpty()) {
           videoUrl = videoDailyMotion.embed_url;
         }
-      }
+      }*/
 
       if (sign.videoDefinition != null) {
         if (sign.videoDefinition.contains("http")) {
@@ -1290,7 +1281,7 @@ public class SignRestController {
       }
       services.sign().changeSignVideoDefinition(signId, videoUrl);
 
-      if (leaveDailymotionAfterLoadVideo) {
+/*      if (leaveDailymotionAfterLoadVideo) {*/
         Runnable task = () -> {
           int i = 0;
           VideoDailyMotion dailyMotion;
@@ -1314,7 +1305,7 @@ public class SignRestController {
         };
 
         new Thread(task).start();
-      }
+/*      }*/
 
       response.setStatus(HttpServletResponse.SC_OK);
       videoResponseApi.signId = sign.id;
