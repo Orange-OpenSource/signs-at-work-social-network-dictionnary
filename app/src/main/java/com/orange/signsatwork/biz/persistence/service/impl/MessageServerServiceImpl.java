@@ -24,7 +24,7 @@ public class MessageServerServiceImpl implements MessageServerService {
 
   @Override
   public void addMessageServer(MessageServer messageServer) {
-    MessageServerDB messageServerDB = messageServerRepository.save(MessageServerDBFrom(messageServer));
+    /*MessageServerDB messageServerDB = messageServerRepository.save(MessageServerDBFrom(messageServer));*/
   }
 
   @Override
