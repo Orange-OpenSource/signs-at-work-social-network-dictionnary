@@ -945,13 +945,6 @@ public class SignRestController {
       return videoResponseApi;
     }
 
-    Long nbRating = services.sign().NbRatingForSign(signId);
-    if (nbRating == 0) {
-      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-      videoResponseApi.errorMessage = messageByLocaleService.getMessage("sign_with_no_rate");
-      return videoResponseApi;
-    }
-
     return handleSelectedVideoFileUpload(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationViewApi, principal, response);
   }
 
