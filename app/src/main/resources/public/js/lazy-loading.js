@@ -62,7 +62,9 @@ var accentMap = {
   "ù": "u",
   "û": "u",
   "î": "i",
-  "ç": "c"
+  "ç": "c",
+  "œ" : "oe",
+  "æ" : "ae"
 };
 
 var dropdownFilter = document.getElementById("dropdown-filter");

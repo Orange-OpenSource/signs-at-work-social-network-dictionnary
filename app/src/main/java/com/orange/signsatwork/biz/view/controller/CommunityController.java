@@ -117,7 +117,7 @@ public class CommunityController {
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.create_community"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
-    List<Object[]> queryCommunities = services.community().searchBis(decodeName.toUpperCase());
+    List<Object[]> queryCommunities = services.community().searchBis(decodeName.replace("œ", "oe").replace("æ", "ae").toUpperCase());
 
     List<CommunityViewData> communityViewData = queryCommunities.stream()
       .map(objectArray -> new CommunityViewData(objectArray))
@@ -127,7 +127,7 @@ public class CommunityController {
     model.addAttribute("isCommunityAlreadyExist", false);
     List<CommunityViewData> communitiesWithSameName = new ArrayList<>();
     for (CommunityViewData community:communityViewData) {
-      if (community.name.equalsIgnoreCase(decodeName) ) {
+      if (community.name.replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.replace("œ", "oe").replace("æ", "ae")) ) {
         model.addAttribute("isCommunityAlreadyExist", true);
         model.addAttribute("communityMatche", community);
       } else {

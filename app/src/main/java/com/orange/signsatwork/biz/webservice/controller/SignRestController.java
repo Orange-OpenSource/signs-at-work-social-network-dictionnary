@@ -419,7 +419,7 @@ public class SignRestController {
       }
     } else {
       if (name.isPresent()) {
-        List<Object[]> querySignsByName = services.sign().searchBis(name.get().toUpperCase());
+        List<Object[]> querySignsByName = services.sign().searchBis(name.get().replace("œ", "oe").replace("æ", "ae").toUpperCase());
         List<SignViewData> signViewsDataByName = querySignsByName.stream()
           .map(objectArray -> new SignViewData(objectArray))
           .collect(Collectors.toList());
@@ -541,7 +541,7 @@ public class SignRestController {
       }
     } else {
       if (name.isPresent()) {
-        List<Object[]> querySignsByName = services.sign().searchBis(name.get().toUpperCase());
+        List<Object[]> querySignsByName = services.sign().searchBis(name.get().replace("œ", "oe").replace("æ", "ae").toUpperCase());
         List<SignViewData> signViewsDataByName = querySignsByName.stream()
           .map(objectArray -> new SignViewData(objectArray))
           .collect(Collectors.toList());
@@ -792,18 +792,18 @@ public class SignRestController {
             return signResponseApi;
           }
         } else {
-          List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().toUpperCase());
+          List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().replace("œ", "oe").replace("æ", "ae").toUpperCase());
           List<SignViewData> signViewData = querySigns.stream()
             .map(objectArray -> new SignViewData(objectArray))
             .filter(o -> o.id != signId)
             .collect(Collectors.toList());
           List<SignViewData> signsWithSameName = new ArrayList<>();
           for (SignViewData s : signViewData) {
-            if (!sign.name.equalsIgnoreCase(signCreationViewApi.getName())) {
+            if (!sign.name.replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(signCreationViewApi.getName())) {
               signsWithSameName.add(s);
             }
           }
-          List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(signCreationViewApi.getName().toUpperCase(), user.id);
+          List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(signCreationViewApi.getName().replace("œ", "oe").replace("æ", "ae").toUpperCase(), user.id);
           List<RequestViewData> requestViewDatasWithNoAssociateSign = queryRequestsWithNoASsociateSign.stream()
             .map(objectArray -> new RequestViewData(objectArray))
             .collect(Collectors.toList());

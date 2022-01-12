@@ -212,7 +212,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     communityRepository.findAllById(communitiesIds).forEach(favoriteCommunities::add);
     if (favoriteDB.getType() != FavoriteType.Share) {
-      Long maxIdForName = maxIdForName(favoriteDB.getName(), favoriteId);
+      Long maxIdForName = maxIdForName(favoriteDB.getName().replace("œ", "oe").replace("æ", "ae"), favoriteId);
       if (maxIdForName != null) {
         if (maxIdForName == 0) {
           favoriteDB.setIdForName(maxIdForName + 2);

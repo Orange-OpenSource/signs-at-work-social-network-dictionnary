@@ -37,7 +37,7 @@ public interface CommunityRepository extends CrudRepository<CommunityDB, Long> {
 
     List<CommunityDB> findByNameStartingWith(String name);
 
-    @Query(value="select id, type, name, user_id, description_text, description_video from communities  where upper(name) collate utf8_unicode_ci like concat('%',:name,'%')", nativeQuery = true)
+    @Query(value="select id, type, name, user_id, description_text, description_video from communities  where replace(replace(upper(name),'Œ','OE'),'Æ','AE') collate utf8_unicode_ci like concat('%',:name,'%')", nativeQuery = true)
     List<Object[]> findStartByNameIgnoreCase(@Param("name") String name);
 
     @Query("select distinct c FROM CommunityDB c inner join c.users user where user = :userDB")

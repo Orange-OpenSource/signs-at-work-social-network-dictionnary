@@ -327,7 +327,7 @@ public class FavoriteRestController {
       }
 
       if (!favorite.name.equals(favoriteCreationViewApi.getName())) {
-        Long maxIdForName = services.favorite().maxIdForName(favoriteCreationViewApi.getName(), favoriteId);
+        Long maxIdForName = services.favorite().maxIdForName(favoriteCreationViewApi.getName().replace("œ", "oe").replace("æ", "ae"), favoriteId);
         if (maxIdForName != null) {
             favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite.name_already_exist");
             response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -383,7 +383,7 @@ public class FavoriteRestController {
       }
     }
 
-    Long maxIdForName = services.favorite().maxIdForName(favoriteCreationViewApi.getName(), favoriteId);
+    Long maxIdForName = services.favorite().maxIdForName(favoriteCreationViewApi.getName().replace("œ", "oe").replace("æ", "ae"), favoriteId);
     if (maxIdForName != null) {
       favoriteResponseApi.errorMessage = messageByLocaleService.getMessage("favorite.name_already_exist");
       response.setStatus(HttpServletResponse.SC_CONFLICT);

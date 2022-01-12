@@ -304,14 +304,14 @@ public class RequestRestController {
     }
 
     List<RequestViewApi> requestsWithSameName = new ArrayList<>();
-    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(name, user.id);
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(name.replace("œ", "oe").replace("æ", "ae"), user.id);
     List<RequestViewApi> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
       .map(objectArray -> new RequestViewApi(objectArray))
       .collect(Collectors.toList());
     requestsWithSameName.addAll(requestViewDatasWithNoAssociateSign);
 
 
-    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(name, user.id);
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(name.replace("œ", "oe").replace("æ", "ae"), user.id);
     List<RequestViewApi> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
       .map(objectArray -> new RequestViewApi(objectArray))
       .collect(Collectors.toList());
