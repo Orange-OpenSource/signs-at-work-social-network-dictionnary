@@ -33,17 +33,14 @@
     <div class="col-xs-12 col-lg-12">
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
-          <li
-            class="aside_bckg_li"
-            th:if="${iBelowToCommunity and  community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}">
+          <li class="aside_bckg_li" th:if="${iBelowToCommunity and  community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}">
             <a th:href="@{/sec/descriptionCommunity/} + ${community.id}">
               <div class="pull-left description_sign"></div>
               <h2 class="container_H2" th:text="#{community.description}"></h2>
               <div class="pull-right chevron"></div>
             </a>
           </li>
-          <li class="aside_bckg_li action"
-              th:if="${iBelowToCommunity and community.type != T(com.orange.signsatwork.biz.domain.CommunityType).Job}">
+          <li class="aside_bckg_li action" th:if="${iBelowToCommunity and community.type != T(com.orange.signsatwork.biz.domain.CommunityType).Job}">
             <a th:href="@{/sec/community/} + ${community.id} +  '/manage-community'">
               <div class="pull-left settings2_blue"></div>
               <h2 class="container_H2" th:text="#{community.manage}"></h2>
