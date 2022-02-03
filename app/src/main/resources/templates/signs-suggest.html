@@ -46,9 +46,7 @@
           <li class="aside_bckg_li" th:if="${requestId == 0}">
             <a data-target="#new-suggest" data-toggle="modal" href="#">
               <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
-              <div>
-                <div class="pull-right edit_black"></div>
-              </div>
+              <div class="pull-right edit_black"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${requestId != 0}">
@@ -56,32 +54,20 @@
           </li>
           <li class="aside_bckg_li" th:if="${isSignAlreadyExist}">
             <a th:href="@{/sign/} + ${signMatche.id}">
-              <div>
                 <h4 class="container_H2" th:text="#{see_sign}"></h4>
-                <div>
-                  <div class="pull-right chevron"></div>
-                </div>
-              </div>
+                <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${isRequestAlreadyExist and requestId == 0}">
             <a th:href="@{${requestMatche.urlForAccessToRequestDetail}}">
-              <div>
                 <h4 class="container_H2" th:text="#{see.request}"></h4>
-                <div>
-                  <div class="pull-right chevron"></div>
-                </div>
-              </div>
+                <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${isRequestWithAssociateSignAlreadyExist}">
             <a th:href="@{/sign/} + ${requestWithAssociateSignMatche.signId}">
-              <div>
                 <h4 class="container_H2" th:text="#{see_sign}"></h4>
-                <div>
-                  <div class="pull-right chevron"></div>
-                </div>
-              </div>
+                <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${!isSignAlreadyExist and requestId != 0 and !isIOSDevice}">
@@ -90,9 +76,7 @@
                th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign.create}"/>
-              <div>
-                <div class="pull-right add_black"></div>
-              </div>
+              <div class="pull-right add_black"></div>
             </a>
           </li>
           <li class="aside_bckg_li"
@@ -100,9 +84,7 @@
             <a data-target="#suggest" data-toggle="modal" href="#" th:if="${requestId == 0}">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign.create}"/>
-              <div>
-                <div class="pull-right add_black"></div>
-              </div>
+              <div class="pull-right add_black"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${!isSignAlreadyExist and requestId != 0 and isIOSDevice}">
@@ -110,9 +92,7 @@
                th:onclick="javascript:onRequestClick(this.getAttribute('data-id'), this.getAttribute('data-name'), this.getAttribute('data-isIOSDevice'))">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign.create}"/>
-              <div>
-                <div class="pull-right add_black"></div>
-              </div>
+              <div class="pull-right add_black"></div>
             </a>
           </li>
           <li class="aside_bckg_li"
@@ -120,9 +100,7 @@
             <a href="#" th:if="${requestId == 0}" th:onclick="'javascript:onClick()'">
               <div class="pull-left description_movie_blue"></div>
               <h4 class="container_H2" th:text="#{sign.create}"/>
-              <div>
-                <div class="pull-right add_black"></div>
-              </div>
+              <div class="pull-right add_black"></div>
             </a>
           </li>
         </ul>
@@ -139,12 +117,8 @@
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">
                 <a th:href="@{/sign/} + ${sign.id}">
-                  <div>
                     <h2 class="suggest text_hyphenation container_H2" th:text="${sign.name}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>
@@ -166,17 +140,13 @@
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">
                 <a th:href="@{/sign/} + ${request.signId}">
-                  <div>
                     <div class="pull-left group_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}"></div>
                     <div class="pull-left member_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}"></div>
                     <h2 class="suggest text_hyphenation container_H2"
                         th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>
@@ -189,16 +159,12 @@
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">
                 <a th:href="@{${request.urlForAccessToRequestDetail}}">
-                  <div>
                     <div class="pull-left group_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}"></div>
                     <div class="pull-left member_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}"></div>
                     <h2 class="suggest text_hyphenation container_H2" th:text="${request.requestName}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>

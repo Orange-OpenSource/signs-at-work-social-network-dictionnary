@@ -72,81 +72,52 @@
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li class="clear aside_bckg_li" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
-                <a th:href="@{/sec/admin/manage_communities_users}">
-                  <div>
+                <a th:href="@{/sec/admin/create-users}">
                     <div class="pull-left member_add_blue_circle"></div>
                     <h2 class="container_H2 text_hyphenation" th:text="#{admin_create_user}"></h2>
-                    <div>
-                      <div class="pull-right add_black"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right add_black"></div>
                 </a>
               </li>
               <li class="clear aside_bckg_li double_border-bottom" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
                 <a th:href="@{/sec/admin/users}">
-                  <div>
                     <div class="pull-left member_blue_circle"></div>
                     <h2 class="container_H2" th:text="#{manage_users}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
               <li class="clear aside_bckg_li double_border-bottom space_bottom" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
                 <a th:href="@{/sec/admin/manage_communities_users}">
-                  <div>
                     <div class="pull-left group_project_blue_circle"></div>
                     <h2 class="container_H2" th:text="#{manage_communities}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
               <li class="aside_bckg_li">
                 <a th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=false)}">
-                  <div>
                     <div class="pull-left sign_see"></div>
                     <h2 class="container_H2" th:text="#{sign.advise}"></h2>
-                    <div>
-                      <div class="pull-right chevron">
-                      </div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
               <li class="aside_bckg_li" sec:authorize="hasRole('USER_A') or hasRole('USER')" th:if="${isAuthenticated}">
                 <a th:href="@{/sec/requests}">
-                  <div>
                     <div class="pull-left sign_ask-for_black"></div>
                     <h2 class="container_H2" th:text="#{sign.request.advise}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
               <li class="aside_bckg_li" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
                 <a th:href="@{/sec/requests}">
-                  <div>
                     <div class="pull-left sign_ask-for_black"></div>
                     <h2 class="container_H2" th:text="#{manage_requests}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
               <li class="clear aside_bckg_li" sec:authorize="hasRole('USER_A') or hasRole('ADMIN')" th:if="${isAuthenticated}">
                 <a data-target="#new-suggest" data-toggle="modal" href="#">
-                  <div>
                     <div class="pull-left sign_add"></div>
                     <h2 class="container_H2" th:text="#{sign.suggest}"></h2>
-                    <div>
-                      <div class="pull-right add_black"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right add_black"></div>
                 </a>
               </li>
             </ul>

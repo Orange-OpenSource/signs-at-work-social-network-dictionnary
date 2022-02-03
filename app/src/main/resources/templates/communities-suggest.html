@@ -38,20 +38,14 @@
           <li class="aside_bckg_li">
             <a data-target="#new-community" data-toggle="modal" href="#">
               <h2 class="text_hyphenation container_H2" th:text="${communityName}"/>
-              <div>
-                <div class="pull-right  edit_black"></div>
-              </div>
+              <div class="pull-right  edit_black"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${isCommunityAlreadyExist}">
             <a th:href="@{/sec/community/} + ${communityMatche.id}">
-              <div>
-                <div class="pull-left member_blue-communities-suggest "></div>
-                <h4 class="container_H2" th:text="#{community.see_members}"></h4>
-                <div>
-                  <div class="pull-right chevron"></div>
-                </div>
-              </div>
+              <div class="pull-left member_blue-communities-suggest "></div>
+              <h4 class="container_H2" th:text="#{community.see_members}"></h4>
+              <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${!isCommunityAlreadyExist}">
@@ -59,9 +53,7 @@
                th:onclick="'javascript:onChangeFavoriteBrowserHistory('+ ${favoriteId} +')' ">
               <div class="pull-left member_add_blue"></div>
               <h4 class="container_H2" th:text="#{community.add_members}"/>
-              <div>
-                <div class="pull-right chevron"></div>
-              </div>
+              <div class="pull-right chevron"></div>
             </a>
             <a th:href="@{/sec/community/create(name=${communityName}, id=${favoriteId})}" th:if="${favoriteId == 0}"
                th:onclick="'javascript:onChangeBrowserHistory()'">
@@ -81,16 +73,12 @@
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">
                 <a th:href="@{/sec/community/} + ${community.id}">
-                  <div>
                     <div class="pull-left see_group_blue" th:if="${community.type == 'Job'}"></div>
                     <div class="pull-left see_group_member_blue" th:if="${community.type == 'JobIBelow'}"></div>
                     <div class="pull-left see_group_project_blue" th:if="${community.type == 'Project'}"></div>
                     <div class="pull-left see_group_project_me_blue" th:if="${community.type == 'ProjectIBelow'}"></div>
                     <h2 class="suggest text_hyphenation container_H2" th:text="${community.name}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>
