@@ -1,14 +1,9 @@
 package com.orange.signsatwork.biz.persistence.service.impl;
 
-import com.orange.signsatwork.biz.domain.MessageServer;
-import com.orange.signsatwork.biz.domain.MessagesServer;
-import com.orange.signsatwork.biz.domain.Request;
-import com.orange.signsatwork.biz.domain.Requests;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.MessageServerDB;
-import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.repository.MessageServerRepository;
 import com.orange.signsatwork.biz.persistence.service.MessageServerService;
-import com.orange.signsatwork.biz.persistence.service.Services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,6 +89,16 @@ public class MessageServerServiceImpl implements MessageServerService {
   @Override
   public MessagesServer messagesServerShareFavoriteDesc() {
     return messagesServerFrom(messageServerRepository.findMessagesServerShareFavoriteDesc());
+  }
+
+  @Override
+  public MessagesServer messagesServerCreateUserToDoAsc() {
+    return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserToDoAsc());
+  }
+
+  @Override
+  public MessagesServer messagesServerCreateUserWithId(long id) {
+    return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserWithId(id));
   }
 
   private MessageServerDB MessageServerDBFrom(MessageServer messageServer) {

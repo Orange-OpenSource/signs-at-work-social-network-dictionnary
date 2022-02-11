@@ -84,6 +84,9 @@ public class UserRestController {
   @Value("${app.name}")
   String appName;
 
+  @Value("${app.admin.password}")
+  String adminPassword;
+
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
   String VIDEO_STATUS = ",status";
@@ -97,15 +100,35 @@ public class UserRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_ADMIN_USERS, method = RequestMethod.POST, headers = {"content-type=application/json"})
-  public UserResponseApi user(@RequestBody UserCreationView userCreationView, HttpServletResponse response) {
+  public UserResponseApi user(@RequestBody UserCreationView userCreationView, HttpServletRequest request, HttpServletResponse response) {
+    String title, bodyMail;
     UserResponseApi userResponseApi = new UserResponseApi();
     if (services.user().withUserName(userCreationView.getUsername()) != null) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
       userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
       return userResponseApi;
     }
-    User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole(), userCreationView.getUsername());
-    services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
+    if (userCreationView.getRole().equals("Nourricier")) {
+      userCreationView.setRole("USER_A");
+    } else if (userCreationView.getRole().equals("Consultatif")) {
+      userCreationView.setRole("USER");
+    }
+    User user = services.user().create(userCreationView.toUser(), adminPassword, userCreationView.getRole(), userCreationView.getUsername());
+    if (user != null) {
+      services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
+      final String token = UUID.randomUUID().toString();
+      services.user().createPasswordResetTokenForUser(user, token);
+      final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
+      title = messageByLocaleService.getMessage("password_create_title", new Object[]{appName});
+      bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{appName, userCreationView.getUsername(), url});
+
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
+        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, userCreationView.getUsername(), url, request.getLocale());
+      };
+
+      new Thread(task).start();
+    }
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;
   }

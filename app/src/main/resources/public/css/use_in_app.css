@@ -66,9 +66,9 @@ a {
 }
 
 .logo_admin_signsatwork-text_white {
-  background-image: url("/img/logoAdmin-text_blue-background.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -101px center;
   background-size: auto 40px;
   width: 100px;
   height: 70px;
@@ -77,9 +77,9 @@ a {
 }
 
 .logo_admin_signsatform-text_white {
-  background-image: url("/img/logoAdmin-textForm_blue-background.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: 1px center;
   background-size: auto 40px;
   width: 100px;
   height: 70px;
@@ -98,16 +98,6 @@ a {
   margin-top: 11px;
 }
 
-.logo_admin_signsatform-text_white {
-  background-image: url("/img/logoAdmin-text_blue-background.png");
-  background-repeat: no-repeat;
-  background-position: 0px center;
-  background-size: auto 40px;
-  width: 100px;
-  height: 70px;
-  margin-left: 10px;
-  margin-top: 11px;
-}
 
 .illustration_welcome_signsatwork {
   background-image: url("../img/sprite_picto_400X400.png");
@@ -672,7 +662,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png")  no-repeat;
+  background: url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
 }
 
 .navbar-toggle {
@@ -3280,12 +3270,12 @@ h2.container_CGU {
 }
 
 .member_add_blue_circle_filter {
-  background-image: url("/img/member_add_blue_circle.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -100px center;
   background-size: auto 20px;
   height: 20px;
-  width: 20px;
+  width: 21px;
   margin-top: 10px;
   margin-right: 5px;
 }
@@ -3293,15 +3283,15 @@ h2.container_CGU {
 .btn .member_add_blue_circle_filter.pull-left {
   background-size: auto 20px;
   height: 20px;
-  width: 20px;
+  width: 21px;
   margin-left: 5px;
   margin-top: 3px;
 }
 
 .member_add_blue_circle {
-  background-image: url("/img/member_add_blue_circle.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -202px center;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
@@ -3309,9 +3299,9 @@ h2.container_CGU {
 }
 
 .member_blue_circle {
-  background-image: url("/img/member_blue_circle.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -243px center;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
@@ -3319,12 +3309,12 @@ h2.container_CGU {
 }
 
 .member_blue_circle_filter {
-  background-image: url("/img/member_blue_circle.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -121px center;
   background-size: auto 20px;
   height: 20px;
-  width: 20px;
+  width: 21px;
   margin-top: 10px;
   margin-right: 5px;
 }
@@ -3332,15 +3322,15 @@ h2.container_CGU {
 .btn .member_blue_circle_filter.pull-left {
   background-size: auto 20px;
   height: 20px;
-  width: 20px;
+  width: 21px;
   margin-left: 5px;
   margin-top: 3px;
 }
 
 .group_project_blue_circle {
-  background-image: url("/img/group_project_blue_circle.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -285px center;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
@@ -3348,12 +3338,12 @@ h2.container_CGU {
 }
 
 .group_project_blue_circle_filter {
-  background-image: url("/img/group_project_blue_circle.png");
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: 0px center;
+  background-position: -142px center;
   background-size: auto 20px;
   height: 20px;
-  width: 20px;
+  width: 21px;
   margin-top: 10px;
   margin-right: 5px;
 }
@@ -3361,7 +3351,7 @@ h2.container_CGU {
 .btn .group_project_blue_circle_filter.pull-left {
   background-size: auto 20px;
   height: 20px;
-  width: 20px;
+  width: 21px;
   margin-left: 5px;
   margin-top: 3px;
 }
@@ -3400,6 +3390,16 @@ h2.container_CGU {
   width: 20px;
   margin-left: 5px;
   margin-top: 3px;
+}
+
+.done{
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -228px center;
+  background-size: auto 28px;
+  height: 28px;
+  width: 40px;
+  margin-top: 10px;
 }
 /* End Messages Serveur */
 

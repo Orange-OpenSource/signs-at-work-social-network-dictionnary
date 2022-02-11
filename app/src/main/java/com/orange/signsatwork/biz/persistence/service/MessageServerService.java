@@ -3,6 +3,7 @@ package com.orange.signsatwork.biz.persistence.service;
 import com.orange.signsatwork.biz.domain.MessageServer;
 import com.orange.signsatwork.biz.domain.MessagesServer;
 import com.orange.signsatwork.biz.domain.Requests;
+import com.orange.signsatwork.biz.domain.Sign;
 
 public interface MessageServerService {
 
@@ -35,4 +36,8 @@ public interface MessageServerService {
   MessagesServer messagesServerShareFavoriteAsc();
 
   MessagesServer messagesServerShareFavoriteDesc();
+
+  MessagesServer messagesServerCreateUserToDoAsc();
+
+  MessagesServer messagesServerCreateUserWithId(long id);
 }

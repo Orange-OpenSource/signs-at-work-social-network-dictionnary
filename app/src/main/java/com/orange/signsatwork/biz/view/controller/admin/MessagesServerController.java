@@ -23,14 +23,12 @@ package com.orange.signsatwork.biz.view.controller.admin;
  */
 
 import com.orange.signsatwork.biz.domain.*;
-import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
-import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
@@ -38,14 +36,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.orange.signsatwork.biz.domain.ActionType.TODO;
+import static java.util.Collections.emptyList;
 
 @Slf4j
 @Controller
@@ -428,6 +423,48 @@ public class MessagesServerController {
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
 
     return "fragments/frame-messages-server";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/create-users")
+  public String createUsers(@RequestParam Optional<Long> id, Model model) {
+    Long idMessageServer= id.orElse(0L);
+    String messageText = "";
+    AuthentModel.addAuthenticatedModel(model, true);
+    model.addAttribute("title", messageByLocaleService.getMessage("server_message_create_users"));
+    model.addAttribute("appName", appName);
+
+    MessagesServer queryMessagesServer;
+    if (idMessageServer != 0) {
+      queryMessagesServer = services.messageServerService().messagesServerCreateUserWithId(id.get());
+      if (queryMessagesServer.list().isEmpty()) {
+        messageText = messageByLocaleService.getMessage("no_create_for_user_in_to_do");
+      } else {
+        if (queryMessagesServer.list().size() == 1) {
+          if (!queryMessagesServer.list().get(0).action.equals(TODO)){
+            Object[] valuesToArray = Arrays.stream(queryMessagesServer.list().get(0).values.split(";")).toArray();
+            messageText = messageByLocaleService.getMessage("create_user_not_in_to_do", new Object[]{valuesToArray[0], valuesToArray[1], valuesToArray[2]});
+            queryMessagesServer.list().remove(0);
+          }
+        }
+      }
+    } else {
+      queryMessagesServer = services.messageServerService().messagesServerCreateUserToDoAsc();
+      if (queryMessagesServer.list().isEmpty()) {
+        messageText = messageByLocaleService.getMessage("no_create_user_in_to_do");
+      }
+    }
+
+    List<MessageServerView> messagesServerView = queryMessagesServer.stream()
+      .map(messageServer -> new MessageServerView(messageServer.id, messageServer.date, messageServer.type, messageServer.values, createMessageText(messageServer.type, messageServer.values), messageServer.action))
+      .collect(Collectors.toList());
+
+    model.addAttribute("messagesServer", messagesServerView);
+    model.addAttribute("idMessageServer", idMessageServer);
+    model.addAttribute("messageText", messageText);
+    model.addAttribute("user", new UserCreationView());
+
+    return "admin/create-users";
   }
 
   private String createMessageText(String type, String values) {

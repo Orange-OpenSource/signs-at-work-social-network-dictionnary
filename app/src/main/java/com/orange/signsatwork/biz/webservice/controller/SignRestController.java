@@ -799,7 +799,7 @@ public class SignRestController {
             .collect(Collectors.toList());
           List<SignViewData> signsWithSameName = new ArrayList<>();
           for (SignViewData s : signViewData) {
-            if (!sign.name.replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(signCreationViewApi.getName())) {
+            if (!sign.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(signCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae"))) {
               signsWithSameName.add(s);
             }
           }
@@ -809,7 +809,7 @@ public class SignRestController {
             .collect(Collectors.toList());
           List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
           for (RequestViewData requestViewData : requestViewDatasWithNoAssociateSign) {
-            if (!requestViewData.requestName.equalsIgnoreCase(signCreationViewApi.getName())) {
+            if (!requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(signCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae"))) {
               requestsWithNoAssociateSignWithSameName.add(requestViewData);
             }
           }

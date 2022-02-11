@@ -53,5 +53,10 @@ public interface MessageServerRepository extends CrudRepository<MessageServerDB,
   @Query("select distinct m FROM MessageServerDB m where m.type='FavoriteShareMessage' order by m.date desc")
   List<MessageServerDB> findMessagesServerShareFavoriteDesc();
 
+  @Query("select distinct m FROM MessageServerDB m where m.type='RequestCreateUserMessage' and m.action='TODO' order by m.date asc")
+  List<MessageServerDB> findMessagesServerCreateUserToDoAsc();
+
+  @Query("select distinct m FROM MessageServerDB m where m.type='RequestCreateUserMessage' and m.id = :id")
+  List<MessageServerDB> findMessagesServerCreateUserWithId(@Param("id") long id);
 }
 

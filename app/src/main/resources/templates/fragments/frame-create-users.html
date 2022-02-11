@@ -1,0 +1,61 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="utf-8"/>
+</head>
+<body>
+
+<div id="frame-create-users" th:fragment="div">
+  <div class="row ">
+    <div class="col-xs-12 col-lg-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li th:unless="${idMessageServer != 0}" class="aside_bckg_li action">
+            <a data-target="#create-user" data-toggle="modal" href="#">
+              <div class="pull-left member_add_blue"></div>
+              <h2 class="container_H2" th:text="#{admin_create_user}"></h2>
+              <div class="pull-right edit_black"></div>
+            </a>
+          </li>
+           <li class="aside_bckg_li action" th:each="messageServer:${messagesServer}">
+             <a th:data-messageServer="${messageServer.values}" th:onclick="javascript:onCreateUser(this.getAttribute('data-messageServer'))" href="#" style="background-color: white;">
+              <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
+              <div th:if="${messageServer.type == 'RequestCreateUserMessage'}" class="member_add_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+              <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+              <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
+              <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).TODO}" class="pull-right chevron"></div>
+               <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).DONE}" class="pull-right done"></div>
+             </a>
+          </li>
+        </ul>
+      </aside>
+      <div class="text-center" th:if="${#lists.isEmpty(messagesServer)}">
+        <h2 th:text="${messageText}"></h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

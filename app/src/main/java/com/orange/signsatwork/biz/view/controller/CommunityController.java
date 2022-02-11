@@ -127,7 +127,7 @@ public class CommunityController {
     model.addAttribute("isCommunityAlreadyExist", false);
     List<CommunityViewData> communitiesWithSameName = new ArrayList<>();
     for (CommunityViewData community:communityViewData) {
-      if (community.name.replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.replace("œ", "oe").replace("æ", "ae")) ) {
+      if (community.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae")) ) {
         model.addAttribute("isCommunityAlreadyExist", true);
         model.addAttribute("communityMatche", community);
       } else {

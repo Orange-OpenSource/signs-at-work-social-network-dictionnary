@@ -203,7 +203,7 @@ public class RequestController {
     model.addAttribute("isSignAlreadyExist", false);
     List<SignViewData> signsWithSameName = new ArrayList<>();
     for (SignViewData sign: signViewData) {
-      if (sign.name.replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.replace("œ", "oe").replace("æ", "ae"))) {
+      if (sign.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae"))) {
         model.addAttribute("isSignAlreadyExist", true);
         model.addAttribute("signMatche", sign);
       } else {
@@ -220,7 +220,7 @@ public class RequestController {
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
-      if (requestViewData.requestName.replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.replace("œ", "oe").replace("æ", "ae"))) {
+      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae"))) {
         model.addAttribute("isRequestAlreadyExist", true);
         model.addAttribute("requestMatche", requestViewData);
       } else {
@@ -237,7 +237,7 @@ public class RequestController {
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithAssociateSign) {
-      if (requestViewData.requestName.replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.replace("œ", "oe").replace("æ", "ae"))) {
+      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae"))) {
         model.addAttribute("isRequestWithAssociateSignAlreadyExist", true);
         model.addAttribute("requestWithAssociateSignMatche", requestViewData);
       } else {
