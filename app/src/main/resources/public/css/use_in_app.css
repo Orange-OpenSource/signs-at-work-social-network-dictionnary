@@ -647,7 +647,7 @@ a.red {
   cursor: pointer;
 }
 
-#password, #confirm-password {
+#myPassword, #password, #confirm-password {
   width: 85%;
   display: inline-block;
 }

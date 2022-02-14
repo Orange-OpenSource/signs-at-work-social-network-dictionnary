@@ -76,3 +76,18 @@ function main() {
   main();
 
 })($);
+
+$(function() {
+  $('#logo-password').click(function () {
+    console.log("click on show password");
+    if ($('#logo-password').hasClass("see_password")) {
+      $('#logo-password').removeClass("see_password");
+      $('#logo-password').addClass("not_see_password");
+      $("#myPassword").attr("type", "text");
+    } else if ($('#logo-password').hasClass("not_see_password")) {
+      $('#logo-password').removeClass("not_see_password");
+      $('#logo-password').addClass("see_password");
+      $('#myPassword').attr("type", "password");
+    }
+  });
+});
