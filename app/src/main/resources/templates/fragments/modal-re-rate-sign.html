@@ -41,15 +41,15 @@
           <div class="modal-body">
             <ul class="nav nav-list primary left-menu">
               <li class="aside_bckg_li">
-                <a th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onRatePositif(this.getAttribute('data-signId'),this.getAttribute('data-videoId'))" href="#">
+                <a class="all_li_clickable" th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onRatePositif(this.getAttribute('data-signId'),this.getAttribute('data-videoId'))" href="#">
                   <div class="pull-left smiley_happy_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign.positif}"></h4>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign.positif}"></h4>
                 </a>
               </li>
               <li class="aside_bckg_li">
-                <a  th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onRateNegatif(this.getAttribute('data-signId'),this.getAttribute('data-videoId'))" href="#">
+                <a class="all_li_clickable" th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onRateNegatif(this.getAttribute('data-signId'),this.getAttribute('data-videoId'))" href="#">
                   <div class="pull-left smiley_unhappy_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign.negatif}"></h4>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign.negatif}"></h4>
                 </a>
               </li>
             </ul>

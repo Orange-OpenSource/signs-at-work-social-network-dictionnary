@@ -30,7 +30,7 @@
     margin-left: auto;
   }
 
-    H2.container_H2.text_hyphenation{
+    H2.container_H2.text_hyphenation, H4.container_H2.text_hyphenation {
       width: auto!important;
     }
 
@@ -124,7 +124,7 @@
     margin-left: auto;
   }
 
-    H2.container_H2.text_hyphenation{
+    H2.container_H2.text_hyphenation, H4.container_H2.text_hyphenation {
       width: auto!important;
     }
 
@@ -225,7 +225,7 @@
     margin-left: auto;
   }
 
-    H2.container_H2.text_hyphenation{
+   H2.container_H2.text_hyphenation, H4.container_H2.text_hyphenation {
       width: auto!important;
     }
 
@@ -348,7 +348,7 @@
     margin-left: auto;
   }
 
-    H2.container_H2.text_hyphenation{
+    H2.container_H2.text_hyphenation, H4.container_H2.text_hyphenation {
       width: auto!important;
     }
 

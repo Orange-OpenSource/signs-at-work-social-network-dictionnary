@@ -6,6 +6,11 @@
 
 }
 
+.all_li_clickable {
+  display: flow-root!important;
+  background-color: white!important;
+}
+
 #label_dictionary {
   display: inline-block;
 }
@@ -269,9 +274,9 @@ h5.container_H2{
   margin-left: 10px;
 }
 
-h4.container_H2{
+/*h4.container_H2{
   width: 73%;
-}
+}*/
 
 h4.rate.container_H2{
    width: 50%;
@@ -364,7 +369,11 @@ h4, .h4 {
 }
 
 H2.text_hyphenation{
-  width: 22rem;
+  width: 23rem;
+}
+
+H4.text_hyphenation{
+  width: 23rem;
 }
 
 a:hover,
@@ -522,7 +531,7 @@ h1, .h1 {
   background-size: auto 30px;
   height: 30px;
   width: 22px;
-  margin-right: 20px;
+  margin-right: 15px;
   margin-top: 10px;
 }
 
@@ -2195,7 +2204,12 @@ a .labelVideo {
   width: 50px;
 }
 
-.label_sign_H2.container_H2{
+/*.label_sign_H2.container_H2{
+  width: 26rem;
+  margin-left: 0px;
+}*/
+
+H1.container_H2 {
   width: 26rem;
   margin-left: 0px;
 }
@@ -3143,6 +3157,7 @@ label .text_hyphenation {
   height: 30px;
   width: 30px;
   margin-top: 10px;
+  margin-right: 5px;
 }
 
 #cgu-dailymotion {
@@ -3402,6 +3417,7 @@ h2.container_CGU {
   margin-top: 10px;
 }
 /* End Messages Serveur */
+
 
 @media only screen and (max-width:768px) {
 .footer {

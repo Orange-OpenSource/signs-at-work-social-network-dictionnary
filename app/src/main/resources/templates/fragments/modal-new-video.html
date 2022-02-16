@@ -42,26 +42,18 @@
               <h2 class="blue" th:text="#{sub_title_for_modal_video}"></h2>
               <ul class="nav nav-list primary left-menu">
                 <li th:if="${isAuthenticated}" class="forIE aside_bckg_li">
-                  <a data-target="#add_video_file_recording" data-toggle="modal" href="#">
-                    <div>
+                  <a class="all_li_clickable" data-target="#add_video_file_recording" data-toggle="modal" href="#">
                       <div class="pull-left camera_blue"></div>
-                      <h4 class="container_H2" th:text="#{sign.new_from_file_recording}"/>
-                      <div>
-                        <div class="pull-right add_black"></div>
-                      </div>
-                    </div>
+                      <h4 class="container_H2 text_hyphenation" th:text="#{sign.new_from_file_recording}"/>
+                      <div class="pull-right add_black"></div>
                   </a>
                 </li>
 
                 <li th:if="${isAuthenticated}" class="aside_bckg_li">
-                  <a data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
-                    <div>
+                  <a class="all_li_clickable" data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
                       <div class="pull-left folder_blue"></div>
-                      <h4 class="container_H2" th:text="#{sign.new_from_file_dailymotion}"/>
-                      <div>
-                        <div class="pull-right add_black"></div>
-                      </div>
-                    </div>
+                      <h4 class="container_H2 text_hyphenation" th:text="#{sign.new_from_file_dailymotion}"/>
+                      <div class="pull-right add_black"></div>
                   </a>
                 </li>
               </ul>

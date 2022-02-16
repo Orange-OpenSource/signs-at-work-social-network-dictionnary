@@ -32,20 +32,20 @@
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li class="aside_bckg_li action">
-            <a  href="#" data-toggle="modal" data-target="#create-new-favorite">
+            <a class="all_li_clickable" href="#" data-toggle="modal" data-target="#create-new-favorite">
               <div class="pinlist_add  pull-left"></div>
-              <h2 class="container_H2" th:text="#{favorite.new}"></h2>
-              <div><div class="pull-right pen"></div></div>
+              <h2 class="container_H2 text_hyphenation" th:text="#{favorite.new}"></h2>
+              <div class="pull-right pen"></div>
             </a>
           </li>
           <li th:each="favorite :${myFavorites}" class="clear aside_bckg_li">
-            <a th:href="@{/sec/favorite/} + ${favorite.id}">
+            <a class="all_li_clickable" th:href="@{/sec/favorite/} + ${favorite.id}">
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left pinlist_blue"></div>
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="pull-left pinlist_shared"></div>
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="pull-left pinlist_shared_new"></div>
-                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h4>
-                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h4>
-                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="label_favorite_Liste_H2 container_H2" th:text="${favorite.favoriteName()}"></h4>
+                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
+                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
+                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
                 <div class="pull-right chevron"></div>
             </a>
           </li>

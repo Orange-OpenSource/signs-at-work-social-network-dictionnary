@@ -65,48 +65,32 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="label_sign aside_bckg_li" id="label_sign" th:if="${isAuthenticated}">
-              <a th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} +'/detail'">
-                <div>
-                  <h1 class="label_sign_H2 container_H2" th:text="${videoName}"/>
-                  <div>
-                    <div class="pull-right chevron"></div>
-                    <div class="pull-right smiley_happy_blue" th:if="${ratingData.ratePositive}"></div>
-                    <div class="pull-right smiley_unhappy_blue" th:if="${ratingData.rateNegative}"></div>
-                  </div>
-                </div>
+              <a class="all_li_clickable" th:href="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} +'/detail'">
+                  <h1 class="container_H2 text_hyphenation" th:text="${videoName}"/>
+                  <div class="pull-right chevron"></div>
+                  <div class="pull-right smiley_happy_blue" th:if="${ratingData.ratePositive}"></div>
+                  <div class="pull-right smiley_unhappy_blue" th:if="${ratingData.rateNegative}"></div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="${!isVideoCreatedByMe and isAuthenticated and ratingData.rateNoRate}">
-              <a data-target="#evaluation_modal" data-toggle="modal" href="#">
-                <div>
+              <a class="all_li_clickable" data-target="#evaluation_modal" data-toggle="modal" href="#">
                   <div class="pull-left smiley_happy_menu_blue"></div>
-                  <h2 class="container_H2" th:text="#{sign.evaluate}"></h2>
-                  <div>
-                    <div class="pull-right chevron"></div>
-                  </div>
-                </div>
+                  <h2 class="container_H2 text_hyphenation" th:text="#{sign.evaluate}"></h2>
+                  <div class="pull-right chevron"></div>
               </a>
             </li>
             <li class="aside_bckg_li" sec:authorize="hasRole('USER_A')" th:if="${isAuthenticated}">
-              <a data-target="#new-video" data-toggle="modal" href="#">
-                <div>
+              <a class="all_li_clickable" data-target="#new-video" data-toggle="modal" href="#">
                   <div class="pull-left variant_blue"></div>
-                  <h2 class="container_H2" th:text="#{video.add}"></h2>
-                  <div>
-                    <div class="pull-right add_black"></div>
-                  </div>
-                </div>
+                  <h2 class="container_H2 text_hyphenation" th:text="#{video.add}"></h2>
+                  <div class="pull-right add_black"></div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="${isAuthenticated}">
-              <a data-target="#comment_modal" data-toggle="modal" href="#">
-                <div>
+              <a class="all_li_clickable" data-target="#comment_modal" data-toggle="modal" href="#">
                   <div class="pull-left commentary_blue"></div>
-                  <h2 class="container_H2" th:text="#{sign.modal.comments}"></h2>
-                  <div>
-                    <div class="pull-right add_black"></div>
-                  </div>
-                </div>
+                  <h2 class="container_H2 text_hyphenation" th:text="#{sign.modal.comments}"></h2>
+                  <div class="pull-right add_black"></div>
               </a>
             </li>
           </ul>

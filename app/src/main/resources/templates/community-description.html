@@ -57,7 +57,7 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="aside_bckg_li">
-              <a data-target="#add_community_description_text" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_community_description_text" data-toggle="modal" href="#">
                 <div th:if="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
                   <div class="pull-left definition_text_blue"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{community.descriptionText}"/>
@@ -65,35 +65,35 @@
                 </div>
                 <div th:unless="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
                   <div class="pull-left definition_text_blue"></div>
-                  <h4 class="container_H2 blue" th:text="${community.descriptionText}"/>
+                  <h4 class="container_H2 text_hyphenation blue" th:text="${community.descriptionText}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="!${isIOSDevice}">
-              <a data-target="#add_community_description_LSF" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_community_description_LSF" data-toggle="modal" href="#">
                 <div th:if="${community.descriptionVideo == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${community.descriptionVideo != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="${isIOSDevice}">
-              <a href="#" th:onclick="'javascript:onClick()'">
+              <a class="all_li_clickable" href="#" th:onclick="'javascript:onClick()'">
                 <div th:if="${community.descriptionVideo == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${community.descriptionVideo != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
@@ -105,7 +105,7 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="aside_bckg_li">
-              <a data-target="#add_community_description_text" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_community_description_text" data-toggle="modal" href="#">
                 <div th:if="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
                   <div class="pull-left definition_text_blue"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{community.descriptionText}"/>
@@ -113,35 +113,35 @@
                 </div>
                 <div th:unless="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}">
                   <div class="pull-left definition_text_blue"></div>
-                  <h4 class="container_H2 blue" th:text="${community.descriptionText}"/>
+                  <h4 class="container_H2 text_hyphenation blue" th:text="${community.descriptionText}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="!${isIOSDevice}">
-              <a data-target="#add_community_description_LSF" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_community_description_LSF" data-toggle="modal" href="#">
                 <div th:if="${community.descriptionVideo == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${community.descriptionVideo != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="${isIOSDevice}">
-              <a href="#" th:onclick="'javascript:onClick()'">
+              <a class="all_li_clickable" href="#" th:onclick="'javascript:onClick()'">
                 <div th:if="${community.descriptionVideo == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${community.descriptionVideo != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>

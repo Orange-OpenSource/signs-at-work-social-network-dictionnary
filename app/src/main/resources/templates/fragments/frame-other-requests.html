@@ -80,13 +80,9 @@
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li class="aside_bckg_li">
-                <a th:href="@{/sec/other-request-detail/} + ${request.id}">
-                  <div>
+                <a class="all_li_clickable" th:href="@{/sec/other-request-detail/} + ${request.id}">
                     <h4 class="container_H2 text_hyphenation" th:text="${request.name}"></h4>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>

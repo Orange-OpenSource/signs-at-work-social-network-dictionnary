@@ -34,21 +34,21 @@
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li class="aside_bckg_li" th:if="${iBelowToCommunity and  community.type == T(com.orange.signsatwork.biz.domain.CommunityType).Project}">
-            <a th:href="@{/sec/descriptionCommunity/} + ${community.id}">
+            <a class="all_li_clickable" th:href="@{/sec/descriptionCommunity/} + ${community.id}">
               <div class="pull-left description_sign"></div>
-              <h2 class="container_H2" th:text="#{community.description}"></h2>
+              <h2 class="container_H2 text_hyphenation" th:text="#{community.description}"></h2>
               <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li action" th:if="${iBelowToCommunity and community.type != T(com.orange.signsatwork.biz.domain.CommunityType).Job}">
-            <a th:href="@{/sec/community/} + ${community.id} +  '/manage-community'">
+            <a class="all_li_clickable" th:href="@{/sec/community/} + ${community.id} +  '/manage-community'">
               <div class="pull-left settings2_blue"></div>
-              <h2 class="container_H2" th:text="#{community.manage}"></h2>
+              <h2 class="container_H2 text_hyphenation" th:text="#{community.manage}"></h2>
               <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:each="user:${community.users.list()}">
-            <a th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
+            <a class="all_li_clickable" th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
               <div class="pull-left member_project_admin_me"
                    th:if="${user.id == community.user.id and user.id == userId}"></div>
               <div class="pull-left member_project_admin"
@@ -56,7 +56,7 @@
               <div class="pull-left member_project_empty-white"
                    th:if="${user.id != community.user.id and user.id != userId}"></div>
               <div class="pull-left member_me" th:if="${user.id != community.user.id and user.id == userId}"></div>
-              <h2 class="container_H2" th:text="${user.name()}"></h2>
+              <h2 class="container_H2 text_hyphenation" th:text="${user.name()}"></h2>
               <div class="pull-right chevron"></div>
             </a>
           </li>

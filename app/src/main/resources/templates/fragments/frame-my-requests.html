@@ -91,25 +91,17 @@
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li th:if="${request.sign == null}" class="aside_bckg_li">
-                <a th:href="@{/sec/my-request-detail/} + ${request.id}">
-                  <div>
-                    <h4 class="text_hyphenation container_H2 " th:text="${request.name}"></h4>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                <a class="all_li_clickable" th:href="@{/sec/my-request-detail/} + ${request.id}">
+                    <h4 class="container_H2 text_hyphenation" th:text="${request.name}"></h4>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
               <li th:if="${request.sign != null}" class="aside_bckg_li">
-                <a th:href="@{/sign/} + ${request.sign.id}">
-                  <div>
+                <a class="all_li_clickable" th:href="@{/sign/} + ${request.sign.id}">
                     <div class="pull-left new_blue"></div>
                     <h4 th:if="${request.name == request.sign.name}" class="container_H2 text_hyphenation" th:text="${request.name}"></h4>
                     <h4 th:if="${request.name != request.sign.name}" class="container_H2 text_hyphenation" th:text="#{request.rename_in(${request.name}, ${request.sign.name})}"></h4>
-                    <div >
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>

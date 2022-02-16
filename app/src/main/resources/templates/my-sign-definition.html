@@ -57,7 +57,7 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="aside_bckg_li">
-              <a data-target="#add_sign_definition_text" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_sign_definition_text" data-toggle="modal" href="#">
                 <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
                   <div class="pull-left definition_text_blue"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
@@ -65,35 +65,35 @@
                 </div>
                 <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
                   <div class="pull-left definition_text_blue"></div>
-                  <h4 class="container_H2" th:text="${signView.textDefinition}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="${signView.textDefinition}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="!${isIOSDevice}">
-              <a data-target="#add_sign_definition_LSF" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_sign_definition_LSF" data-toggle="modal" href="#">
                 <div th:if="${signView.videoDefinition == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${signView.videoDefinition != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="${isIOSDevice}">
-              <a href="#" th:onclick="'javascript:onClick()'">
+              <a class="all_li_clickable" href="#" th:onclick="'javascript:onClick()'">
                 <div th:if="${signView.videoDefinition == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${signView.videoDefinition != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
@@ -105,7 +105,7 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="aside_bckg_li">
-              <a data-target="#add_sign_definition_text" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_sign_definition_text" data-toggle="modal" href="#">
                 <div th:if="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
                   <div class="pull-left definition_text_blue"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
@@ -113,35 +113,35 @@
                 </div>
                 <div th:unless="${signView.textDefinition == null or #strings.isEmpty(signView.textDefinition)}">
                   <div class="pull-left definition_text_blue"></div>
-                  <h4 class="container_H2" th:text="${signView.textDefinition}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="${signView.textDefinition}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="!${isIOSDevice}">
-              <a data-target="#add_sign_definition_LSF" data-toggle="modal" href="#">
+              <a class="all_li_clickable" data-target="#add_sign_definition_LSF" data-toggle="modal" href="#">
                 <div th:if="${signView.videoDefinition == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${signView.videoDefinition != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="${isIOSDevice}">
-              <a href="#" th:onclick="'javascript:onClick()'">
+              <a class="all_li_clickable" href="#" th:onclick="'javascript:onClick()'">
                 <div th:if="${signView.videoDefinition == null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${signView.videoDefinition != null}">
                   <div class="pull-left description_movie_blue"></div>
-                  <h4 class="container_H2" th:text="#{sign_definition_LSF}"/>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{sign_definition_LSF}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
               </a>

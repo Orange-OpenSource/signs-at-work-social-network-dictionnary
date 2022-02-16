@@ -44,53 +44,35 @@
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li class="aside_bckg_li">
-            <a data-target="#new_request" data-toggle="modal" href="#">
-              <h2 class="text_hyphenation container_H2" th:text="${signName}"/>
-              <div>
-                <div class="pull-right edit_black"></div>
-              </div>
+            <a class="all_li_clickable" data-target="#new_request" data-toggle="modal" href="#">
+              <h2 class="container_H2 text_hyphenation" th:text="${signName}"/>
+              <div class="pull-right edit_black"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${isSignAlreadyExist}">
-            <a th:href="@{/sign/} + ${signMatche.id}">
-              <div>
-                <h4 class="container_H2" th:text="#{see_sign}"></h4>
-                <div>
-                  <div class="pull-right chevron"></div>
-                </div>
-              </div>
+            <a class="all_li_clickable" th:href="@{/sign/} + ${signMatche.id}">
+              <h4 class="container_H2 text_hyphenation" th:text="#{see_sign}"></h4>
+              <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${isRequestAlreadyExist}">
-            <a th:href="@{${requestMatche.urlForAccessToRequestDetail}}">
-              <div>
-                <h4 class="container_H2" th:text="#{see.request}"></h4>
-                <div>
-                  <div class="pull-right chevron"></div>
-                </div>
-              </div>
+            <a class="all_li_clickable" th:href="@{${requestMatche.urlForAccessToRequestDetail}}">
+              <h4 class="container_H2 text_hyphenation" th:text="#{see.request}"></h4>
+              <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li" th:if="${isRequestWithAssociateSignAlreadyExist}">
-            <a th:href="@{/sign/} + ${requestWithAssociateSignMatche.signId}">
-              <div>
-                <h4 class="container_H2" th:text="#{see_sign}"></h4>
-                <div>
-                  <div class="pull-right chevron"></div>
-                </div>
-              </div>
+            <a class="all_li_clickable" th:href="@{/sign/} + ${requestWithAssociateSignMatche.signId}">
+              <h4 class="container_H2 text_hyphenation" th:text="#{see_sign}"></h4>
+              <div class="pull-right chevron"></div>
             </a>
           </li>
           <li class="aside_bckg_li"
               th:if="${!isSignAlreadyExist and !isRequestAlreadyExist and !isRequestWithAssociateSignAlreadyExist}">
-            <a data-target="#request_text_description" data-toggle="modal" href="#">
-              <div>
-                <div class="pull-left descriptions_blue"></div>
-                <h4 class="container_H2" th:text="#{request.create}"/>
-                <div>
-                  <div class="pull-right add_black"></div>
-                </div>
-              </div>
+            <a class="all_li_clickable" data-target="#request_text_description" data-toggle="modal" href="#">
+              <div class="pull-left descriptions_blue"></div>
+              <h4 class="container_H2 text_hyphenation" th:text="#{request.create}"/>
+              <div class="pull-right add_black"></div>
             </a>
           </li>
         </ul>
@@ -106,13 +88,9 @@
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">
-                <a th:href="@{/sign/} + ${sign.id}">
-                  <div>
-                    <h2 class="suggest text_hyphenation container_H2" th:text="${sign.name}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                <a class="all_li_clickable" th:href="@{/sign/} + ${sign.id}">
+                  <h2 class="suggest text_hyphenation container_H2" th:text="${sign.name}"></h2>
+                  <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>
@@ -133,18 +111,14 @@
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">
-                <a th:href="@{/sign/} + ${request.signId}">
-                  <div>
+                <a class="all_li_clickable" th:href="@{/sign/} + ${request.signId}">
                     <div class="pull-left group_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}"></div>
                     <div class="pull-left member_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}"></div>
-                    <h2 class="suggest text_hyphenation container_H2"
+                    <h2 class="suggest container_H2 text_hyphenation "
                         th:text="#{request.rename_in(${'&laquo;'+request.requestName+'&raquo;'}, ${'&laquo;'+request.signName+'&raquo;'})}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>
@@ -156,17 +130,13 @@
           <aside class="sidebar">
             <ul class="nav nav-list primary left-menu">
               <li class="dotted-top">
-                <a th:href="@{${request.urlForAccessToRequestDetail}}">
-                  <div>
+                <a class="all_li_clickable" th:href="@{${request.urlForAccessToRequestDetail}}">
                     <div class="pull-left group_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'other-request')}"></div>
                     <div class="pull-left member_ask_blue"
                          th:if="${#strings.contains(request.urlForAccessToRequestDetail,'my-request')}"></div>
-                    <h2 class="suggest text_hyphenation container_H2" th:text="${request.requestName}"></h2>
-                    <div>
-                      <div class="pull-right chevron"></div>
-                    </div>
-                  </div>
+                    <h2 class="suggest container_H2 text_hyphenation" th:text="${request.requestName}"></h2>
+                    <div class="pull-right chevron"></div>
                 </a>
               </li>
             </ul>
