@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class MessageServerServiceImpl implements MessageServerService {
 
   @Override
   public void addMessageServer(MessageServer messageServer) {
-    /*MessageServerDB messageServerDB = messageServerRepository.save(MessageServerDBFrom(messageServer));*/
+    MessageServerDB messageServerDB = messageServerRepository.save(MessageServerDBFrom(messageServer));
   }
 
   @Override
@@ -99,6 +100,13 @@ public class MessageServerServiceImpl implements MessageServerService {
   @Override
   public MessagesServer messagesServerCreateUserWithId(long id) {
     return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserWithId(id));
+  }
+
+  @Override
+  public void updateMessageServerAction(long messageServerId, ActionType action) {
+    MessageServerDB messageServerDB = messageServerRepository.findOne(messageServerId);
+    messageServerDB.setAction(action);
+    messageServerRepository.save(messageServerDB);
   }
 
   private MessageServerDB MessageServerDBFrom(MessageServer messageServer) {

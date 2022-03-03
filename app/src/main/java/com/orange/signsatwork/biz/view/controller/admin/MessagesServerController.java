@@ -469,9 +469,8 @@ public class MessagesServerController {
 
   private String createMessageText(String type, String values) {
     Object[] valuesToArray = Arrays.stream(values.split(";")).toArray();
-    valuesToArray[0] = "<span class=\"font-weight_normal\">" + valuesToArray[0] + "</span>";
-    if (type.equals("RequestCreateUserMessage")) {
-      valuesToArray[1] = "<span class=\"font-weight_normal\">" + valuesToArray[1] + "</span>";
+    for (int i=0; i < valuesToArray.length; i++) {
+      valuesToArray[i] = "<span class=\"font-weight_normal\">" + valuesToArray[i] + "</span>";
     }
     String messageText = messageByLocaleService.getMessage(type, valuesToArray);
     return messageText;

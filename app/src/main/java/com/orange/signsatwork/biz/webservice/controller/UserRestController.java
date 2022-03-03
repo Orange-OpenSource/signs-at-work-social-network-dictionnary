@@ -118,6 +118,7 @@ public class UserRestController {
       services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
       final String token = UUID.randomUUID().toString();
       services.user().createPasswordResetTokenForUser(user, token);
+      services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.DONE);
       final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
       title = messageByLocaleService.getMessage("password_create_title", new Object[]{appName});
       bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{appName, userCreationView.getUsername(), url});

@@ -58,5 +58,9 @@ public interface MessageServerRepository extends CrudRepository<MessageServerDB,
 
   @Query("select distinct m FROM MessageServerDB m where m.type='RequestCreateUserMessage' and m.id = :id")
   List<MessageServerDB> findMessagesServerCreateUserWithId(@Param("id") long id);
+
+  public default MessageServerDB findOne(long id) {
+    return findById(id).orElse(null);
+  }
 }
 

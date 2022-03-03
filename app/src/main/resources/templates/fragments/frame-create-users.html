@@ -32,14 +32,14 @@
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu">
           <li th:unless="${idMessageServer != 0}" class="aside_bckg_li action">
-            <a data-target="#create-user" data-toggle="modal" href="#">
+            <a class="all_li_clickable" data-target="#create-user" data-toggle="modal" href="#">
               <div class="pull-left member_add_blue"></div>
               <h2 class="container_H2" th:text="#{admin_create_user}"></h2>
               <div class="pull-right edit_black"></div>
             </a>
           </li>
-           <li class="aside_bckg_li action" th:each="messageServer:${messagesServer}">
-             <a th:data-messageServer="${messageServer.values}" th:onclick="javascript:onCreateUser(this.getAttribute('data-messageServer'))" href="#" style="background-color: white;">
+           <li class="aside_bckg_li" th:each="messageServer:${messagesServer}">
+             <a class="all_li_clickable" th:data-messageServer="${messageServer.values}" th:data-messageId="${messageServer.id}" th:onclick="javascript:onCreateUser(this.getAttribute('data-messageServer'), this.getAttribute('data-messageId'))" href="#" style="background-color: white;">
               <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
               <div th:if="${messageServer.type == 'RequestCreateUserMessage'}" class="member_add_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
               <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>

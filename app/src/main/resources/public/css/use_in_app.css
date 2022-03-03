@@ -3,7 +3,6 @@
 @font-face {
   font-family: "Accessible-DfA";
   src: url('../font/AccessibleDfA.woff');
-
 }
 
 .all_li_clickable {
@@ -156,7 +155,7 @@ span.form-signin-heading{
 label {
   display: block;
   cursor: pointer;
-  line-height: 2.5;
+  line-height: 2;
   font-weight: normal;
 }
 
@@ -3287,7 +3286,7 @@ h2.container_CGU {
 .member_add_blue_circle_filter {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: -100px center;
+  background-position: -103px center;
   background-size: auto 20px;
   height: 20px;
   width: 21px;
@@ -3306,17 +3305,28 @@ h2.container_CGU {
 .member_add_blue_circle {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: -202px center;
+  background-position: -208px center;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
   margin-top: 4px;
 }
 
+.member_add_white_circle {
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -341px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+  margin-right: 8px;
+}
+
 .member_blue_circle {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: -243px center;
+  background-position: -252px center;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
@@ -3326,7 +3336,7 @@ h2.container_CGU {
 .member_blue_circle_filter {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: -121px center;
+  background-position: -125px center;
   background-size: auto 20px;
   height: 20px;
   width: 21px;
@@ -3345,7 +3355,7 @@ h2.container_CGU {
 .group_project_blue_circle {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: -285px center;
+  background-position: -297px center;
   background-size: auto 40px;
   height: 40px;
   width: 40px;
@@ -3355,7 +3365,7 @@ h2.container_CGU {
 .group_project_blue_circle_filter {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: -142px center;
+  background-position: -147px center;
   background-size: auto 20px;
   height: 20px;
   width: 21px;
@@ -3410,7 +3420,7 @@ h2.container_CGU {
 .done{
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;
-  background-position: -228px center;
+  background-position: -269px center;
   background-size: auto 28px;
   height: 28px;
   width: 40px;

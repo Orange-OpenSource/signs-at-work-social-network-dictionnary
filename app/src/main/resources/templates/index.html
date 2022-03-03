@@ -74,7 +74,7 @@
               <li class="clear aside_bckg_li" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
                 <a class="all_li_clickable" th:href="@{/sec/admin/create-users}">
                     <div class="pull-left member_add_blue_circle"></div>
-                    <h2 class="container_H2 text_hyphenation" th:text="#{admin_create_user}"></h2>
+                    <h2 class="container_H2 text_hyphenation" th:text="#{server_message_create_users}"></h2>
                     <div class="pull-right add_black"></div>
                 </a>
               </li>

@@ -40,6 +40,7 @@ inputFirstName.addEventListener('keyup',checkFirstName);
 inputEmail.addEventListener('keyup',checkEmail);
 submitCreateUser.disabled = true;
 
+var messageServerId = "";
 
 function checkLastName() {
   var valueLastName = inputLastName.value;
@@ -90,26 +91,32 @@ function checkEmail() {
   }
 }
 
-function onCreateUser(messageServer) {
-  console.log("messageServer " + messageServer);
+function onCreateUser(messageServer, messageId) {
+  console.log("messageServer " + messageServer );
+  console.log("messageId " + messageId );
   var message = messageServer.split(";");
   console.log("message " + message);
   $("#firstName").val(message[0]);
   $("#lastName").val(message[1]);
   $("#mail").val(message[2]);
   $("#create-user").modal('show');
+  messageServerId = messageId;
 }
 
 var $create_user = $('#create-user');
 $create_user.on('hidden.bs.modal', function() {
  console.log("hidden create-user");
  $("#firstName").val("");
+ $("#firstName").removeClass("disabled");
  $("#lastName").val("");
+ $("#lastName").removeClass("disabled");
  $("#mail").val("");
+ $("#mail").removeClass("disabled");
  $('.errorRegexFirstName').addClass("hidden");
  $('.errorRegexLastName').addClass("hidden");
  $('.errorRegexEmail').addClass("hidden");
  errorCreateUser.style.display = "none";
+ submitCreateUser.disabled = true;
 });
 
 var $formCreateUser= $('#input-create-user');
@@ -120,7 +127,8 @@ $formCreateUser.on('submit', function(event) {
         lastName: inputLastName.value,
         email: inputEmail.value,
         username: inputEmail.value,
-        role: role.value
+        role: role.value,
+        messageServerId : messageServerId
       };
     event.preventDefault();
     $.ajax({
@@ -140,4 +148,20 @@ $formCreateUser.on('submit', function(event) {
         console.log("Erreur " + response.responseText);
       }
     })
+});
+
+var $modalCreateUser= $('#create-user');
+$modalCreateUser.on('show.bs.modal', function() {
+  if (inputFirstName.value !== "") {
+    $("#firstName").addClass("disabled");
+     checkFirstName();
+  }
+  if (inputLastName.value !== "") {
+      $("#lastName").addClass("disabled");
+      checkLastName();
+  }
+  if (inputEmail.value !== "") {
+      $("#mail").addClass("disabled");
+      checkEmail();
+  }
 });

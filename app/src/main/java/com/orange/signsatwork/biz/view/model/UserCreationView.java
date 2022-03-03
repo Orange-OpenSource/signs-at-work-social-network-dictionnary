@@ -49,6 +49,7 @@ public class UserCreationView {
   private String jobDescriptionVideo;
   private String jobDescriptionPicture;
   private String token;
+  private Long messageServerId;
 
 
   public User toUser() {

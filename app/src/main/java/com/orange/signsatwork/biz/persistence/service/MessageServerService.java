@@ -1,9 +1,6 @@
 package com.orange.signsatwork.biz.persistence.service;
 
-import com.orange.signsatwork.biz.domain.MessageServer;
-import com.orange.signsatwork.biz.domain.MessagesServer;
-import com.orange.signsatwork.biz.domain.Requests;
-import com.orange.signsatwork.biz.domain.Sign;
+import com.orange.signsatwork.biz.domain.*;
 
 public interface MessageServerService {
 
@@ -40,4 +37,6 @@ public interface MessageServerService {
   MessagesServer messagesServerCreateUserToDoAsc();
 
   MessagesServer messagesServerCreateUserWithId(long id);
+
+  void updateMessageServerAction(long messageServerId, ActionType action);
 }

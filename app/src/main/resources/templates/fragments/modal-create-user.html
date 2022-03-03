@@ -33,22 +33,22 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
-                    <div class="edit_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{your_name}"></h2>
+                    <div class="member_add_white_circle pull-left"></div>
+                    <h2 class="text_hyphenation pull-right" th:text="#{admin_create_user}"></h2>
                 </div>
             </div>
             <form id="input-create-user" th:object="${user}" method="post">
               <div class="modal-body">
-                <label for="firstName" th:text="#{admin.first_name}"></label>
+                <label for="firstName" th:text="#{first_name}"></label>
                 <div class="errorRegexFirstName hidden" th:text="#{errorName}"></div>
                 <input id="firstName" type="text" th:placeholder="#{first_name_placeholder}" class="form-control" name="firstName" th:autofocus="true" required="true"/>
-                <label for="lastName" th:text="#{admin.last_name}"></label>
+                <label for="lastName" th:text="#{last_name}"></label>
                 <div class="errorRegexLastName hidden" th:text="#{errorName}"></div>
                 <input id="lastName" type="text" th:placeholder="#{last_name_placeholder}" class="form-control" name="lastName" required="true"/>
-                <label for="mail" th:text="#{admin.user_name}"></label>
+                <label for="mail" th:text="#{email}"></label>
                 <div class="errorRegexEmail hidden" th:text="#{errorEmail}"></div>
                 <input id="mail" type="email" th:placeholder="#{email_placeholder}" class="form-control" name="email" th:autofocus="true" required="true"/>
-                <label for="role" th:text="#{admin.role}"></label>
+                <label for="role" th:text="#{role}"></label>
                 <select
                   class="form-control" th:field="*{role}">
                   <option th:each="role: ${T(com.orange.signsatwork.biz.domain.Role).values()}"
@@ -59,10 +59,13 @@
               </div>
                 <div class="modal-footer">
                   <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-                    <span th:text="#{cancel}"></span>
+                    <div class="x-close2_black center-block"></div>
+                    <span th:text="#{notCreate}"></span>
                   </button>
-                  <button id="submit-create-user" th:text="#{finish}" type="submit" class="btn btn-default"
-                          data-dismiss=""></button>
+                  <button id="submit-create-user" type="submit" class="btn btn-default pull-right" data-dismiss="" >
+                    <div class="v-done2_blue center-block"></div>
+                    <span th:text="#{create}"></span>
+                  </button>
                 </div>
             </form>
         </div>
