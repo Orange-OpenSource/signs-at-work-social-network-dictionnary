@@ -103,32 +103,38 @@ public class UserRestController {
   public UserResponseApi user(@RequestBody UserCreationView userCreationView, HttpServletRequest request, HttpServletResponse response) {
     String title, bodyMail;
     UserResponseApi userResponseApi = new UserResponseApi();
-    if (services.user().withUserName(userCreationView.getUsername()) != null) {
-      response.setStatus(HttpServletResponse.SC_CONFLICT);
-      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
-      return userResponseApi;
-    }
-    if (userCreationView.getRole().equals("Nourricier")) {
-      userCreationView.setRole("USER_A");
-    } else if (userCreationView.getRole().equals("Consultatif")) {
-      userCreationView.setRole("USER");
-    }
-    User user = services.user().create(userCreationView.toUser(), adminPassword, userCreationView.getRole(), userCreationView.getUsername());
-    if (user != null) {
-      services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
-      final String token = UUID.randomUUID().toString();
-      services.user().createPasswordResetTokenForUser(user, token);
-      services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.DONE);
-      final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
-      title = messageByLocaleService.getMessage("password_create_title", new Object[]{appName});
-      bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{appName, userCreationView.getUsername(), url});
+    if (userCreationView.getUsername() == null) {
+      if (userCreationView.getMessageServerId() != 0) {
+        services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
+      }
+    } else {
+      if (services.user().withUserName(userCreationView.getUsername()) != null) {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_exist");
+        return userResponseApi;
+      }
+      if (userCreationView.getRole().equals("Nourricier")) {
+        userCreationView.setRole("USER_A");
+      } else if (userCreationView.getRole().equals("Consultatif")) {
+        userCreationView.setRole("USER");
+      }
+      User user = services.user().create(userCreationView.toUser(), adminPassword, userCreationView.getRole(), userCreationView.getUsername());
+      if (user != null) {
+        services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
+        final String token = UUID.randomUUID().toString();
+        services.user().createPasswordResetTokenForUser(user, token);
+        services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.DONE);
+        final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
+        title = messageByLocaleService.getMessage("password_create_title", new Object[]{appName});
+        bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{appName, userCreationView.getUsername(), url});
 
-      Runnable task = () -> {
-        log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-        services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, userCreationView.getUsername(), url, request.getLocale());
-      };
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
+          services.emailService().sendCreatePasswordMessage(userCreationView.getUsername(), title, userCreationView.getUsername(), url, request.getLocale());
+        };
 
-      new Thread(task).start();
+        new Thread(task).start();
+      }
     }
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;

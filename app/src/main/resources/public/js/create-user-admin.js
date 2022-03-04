@@ -140,7 +140,11 @@ $formCreateUser.on('submit', function(event) {
         var url = response;
         errorCreateUser.style.display = "none";
         console.log("Success " + response);
-        location.reload();
+        url = "/sec/admin/create-users";
+        console.log(window.location.href);
+        window.history.replaceState({}, 'foo', url);
+        console.log(window.location.href);
+        window.location = url;
       },
       error: function (response) {
         errorCreateUser.textContent = response.responseJSON.errorMessage;
@@ -163,5 +167,37 @@ $modalCreateUser.on('show.bs.modal', function() {
   if (inputEmail.value !== "") {
       $("#mail").addClass("disabled");
       checkEmail();
+  }
+});
+
+$('#cancel-create-user').click(function() {
+  console.log("cancel create user");
+  if (messageServerId != 0) {
+    document.getElementById('submit-create-user').disabled=true;
+     user = {
+        messageServerId : messageServerId
+      };
+    event.preventDefault();
+    $.ajax({
+      url: '/ws/admin/users',
+      type: 'post',
+      data: JSON.stringify(user),
+      contentType: "application/json",
+      success: function (response) {
+        var url = response;
+        errorCreateUser.style.display = "none";
+        console.log("Success " + response);
+        url = "/sec/admin/create-users";
+        console.log(window.location.href);
+        window.history.replaceState({}, 'foo', url);
+        console.log(window.location.href);
+        window.location = url;
+      },
+      error: function (response) {
+        errorCreateUser.textContent = response.responseJSON.errorMessage;
+        errorCreateUser.style.display = "inline-block";
+        console.log("Erreur " + response.responseText);
+      }
+    })
   }
 });

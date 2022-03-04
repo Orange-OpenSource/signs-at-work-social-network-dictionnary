@@ -3426,6 +3426,16 @@ h2.container_CGU {
   width: 40px;
   margin-top: 10px;
 }
+
+.notdone{
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -308px center;
+  background-size: auto 28px;
+  height: 28px;
+  width: 75px;
+  margin-top: 10px;
+}
 /* End Messages Serveur */
 
 

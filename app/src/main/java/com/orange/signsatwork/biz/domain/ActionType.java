@@ -25,5 +25,6 @@ package com.orange.signsatwork.biz.domain;
 public enum ActionType {
     NO,
     TODO,
-    DONE
+    DONE,
+    NOTDONE
 }
