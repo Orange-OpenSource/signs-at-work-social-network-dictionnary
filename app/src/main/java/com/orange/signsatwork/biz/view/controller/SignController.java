@@ -638,7 +638,7 @@ public class SignController {
   @RequestMapping(value = "/signs/mostrecent")
   public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
-    if (user == null && appName.equals("Signs@Form")) {
+    if (user == null && (appName.equals("Signs@Form") || appName.equals("Signs@Adis")) ) {
       return "redirect:/login";
     }
 

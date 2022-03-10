@@ -34,6 +34,7 @@
       <div class="pull-left illustration_welcome_signsatwork" th:if="${#strings.equals(appName,'LocalHost')}"></div>
       <div class="pull-left illustration_welcome_signsatwork" th:if="${#strings.equals(appName,'Signs@Work')}"></div>
       <div class="pull-left illustration_welcome_signsatform" th:if="${#strings.equals(appName,'Signs@Form')}"></div>
+      <div class="pull-left illustration_welcome_signsatwork" th:if="${#strings.equals(appName,'Signs@Adis')}"></div>
       <div id="label_invite">
         <div id="label_welcome" th:text="#{welcome}"></div>
         <div id="label_dictionary" th:if="${#strings.equals(appName,'LocalHost')}"
@@ -42,6 +43,8 @@
              th:text="#{dictionary_signsatwork}"></div>
         <div id="label_dictionary" th:if="${#strings.equals(appName,'Signs@Form')}"
              th:text="#{dictionary_signsatform}"></div>
+        <div id="label_dictionary" th:if="${#strings.equals(appName,'Signs@Adis')}"
+             th:text="#{dictionary_signsatadis}"></div>
       </div>
       <form autocomplete="off" class="login-form" method="post" role="form" th:action="@{/login}">
         <span class="form-signin-heading text-center" th:text="#{signin_invite}"></span>

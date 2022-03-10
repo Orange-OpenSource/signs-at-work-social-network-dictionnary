@@ -35,11 +35,6 @@
     <aside class="sidebar">
       <ul class="nav nav-list primary left-menu">
         <li class="aside_bckg_li action">
-         <!-- <a href="#" data-toggle="modal" data-target="#create_community">
-            <div class="pull-left group_project_add"></div>
-            <h2 class="container_H2" th:text="#{favorite.create_community}"></h2>
-            <div class="pull-right pen"></div>
-          </a>-->
         </li>
       </ul>
     </aside>
@@ -47,44 +42,12 @@
 </div>
 <div th:fragment="div">
     <div th:replace="fragments/frame-job-community :: div"/>
-  <div class="footer">
-    <!--<button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:onContinueFavorite(\'' + ${backUrl} + '\')'"></button>
-    <button class="btn btn-default" th:onclick="'javascript:onAssociateFavoriteCommunities(\''+ ${favoriteProfileView.favorite.id} + '\',\'' +${communityId} + '\')'" th:text="#{validate}"></button>-->
+  <div class="footer container">
     <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:goBack()'"></button>
     <button class="btn btn-default" th:text="#{validate}" th:onclick="'javascript:onAssociateJobToUser()'"></button>
   </div>
 </div>
 
-
-<!--<div id="create_community" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    &lt;!&ndash; Modal content&ndash;&gt;
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"></button>
-        <div class="pull-left">
-          <div class="group_project_add_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{favorite.create_community}"></h2>
-        </div>
-      </div>
-
-      <form th:action="@{/sec/community/search(id=${favoriteProfileView.favorite.id})}" th:object="${communityCreationView}" method="post" autocomplete="off">
-        <div class="modal-body text-center">
-          <input th:value="${favoriteProfileView.favorite.favoriteName()}" type="text" class="border form-control"
-                 name="name" th:autofocus="true" />
-        </div>
-        <div class="modal-footer">
-          <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
-            <span th:text="#{cancel}"></span>
-          </button>
-          <button th:text="#{continue}" type="submit" class="btn btn-default"
-                  data-dismiss=""></button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>-->
 
 </body>
 <script type="text/javascript" src="../public/js/job.js" th:src="@{/js/job.js}"></script>

@@ -1,0 +1,38 @@
+{"dir" : "ltr",
+  "lang" : "French",
+  "name" : "Signs@Adis",
+  "scope" : "/",
+  "display" : "standalone",
+  "start_url" : "https://signsatadis.orange-labs.fr/",
+  "short_name" : "Signs@Adis",
+  "theme_color" : "transparent",
+  "description" : "",
+  "orientation" : "any",
+  "background_color" : "transparent",
+  "generated" : "true",
+  "icons" : [
+    {
+      "src": "https://signsatadis.orange-labs.fr/img/icons/Signs@Adis/icon-48x48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "https://signsatadis.orange-labs.fr/img/icons/Signs@Adis/icon-72x72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "https://signsatadis.orange-labs.fr/img/icons/Signs@Adis/icon-96x96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "https://signsatadis.orange-labs.fr/img/icons/Signs@Adis/icon-144x144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "https://signsatadis.orange-labs.fr/img/icons/Signs@Adis/icon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://signsatadis.orange-labs.fr/img/icons/Signs@Adis/icon-512x512.png",
+      "sizes": "512x512"
+    }
+  ]}

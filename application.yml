@@ -1,4 +1,4 @@
-spring.profiles.active: dev
+spring.profiles.active: adis
 
 app.dailymotion.grant_type: password
 app.dailymotion.client_id: accfab055d184ff9bcf3
@@ -67,6 +67,25 @@ google.recaptcha.key.secret: 6LeYxcYUAAAAAENkMr3oKHMGqqlhPI4U6R2qfxH2
 app.admin.username: admin@signsatform.com
 app.manifest: "/manifest/signsatform/manifest.json"
 app.name: "Signs@Form"
+display-url: "https://www.dailymotion.com/embed/video/k2ADmPrk2ekIL2vU8hf"
+
+---
+
+spring.profiles: adis
+server.port: 8078
+
+spring.datasource.url: jdbc:mysql://localhost:3306/signsatadis
+spring.datasource.username: adis
+spring.datasource.password: adis
+app.proxy.server: localhost
+app.proxy.port : 3128
+
+google.recaptcha.key.site: 6LeYxcYUAAAAAM5qEs0PFmVrx5u3M6uvtEX8ZAr-
+google.recaptcha.key.secret: 6LeYxcYUAAAAAENkMr3oKHMGqqlhPI4U6R2qfxH2
+
+app.admin.username: admin@signsatadis.com
+app.manifest: "/manifest/signsatadis/manifest.json"
+app.name: "Signs@Adis"
 display-url: "https://www.dailymotion.com/embed/video/k2ADmPrk2ekIL2vU8hf"
 
 ---

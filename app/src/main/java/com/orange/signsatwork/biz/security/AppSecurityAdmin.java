@@ -36,6 +36,8 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.orange.signsatwork.biz.security.AppSecurityRoles.Role.ROLE_ADMIN;
+
 @Slf4j
 @Component
 public class AppSecurityAdmin {
@@ -68,7 +70,12 @@ public class AppSecurityAdmin {
   private void createAndPersistAdmin(Iterable<UserRoleDB> roles) {
     UserDB userDB = new UserDB(adminUsername, passwordEncoder.encode(adminPassword), "", "", "", "", "", "", "", "", "", "");
     Set<UserRoleDB> set = new HashSet<>();
-    roles.forEach(set::add);
+    for (UserRoleDB role : roles) {
+      if (role.getRole().equals("ROLE_ADMIN")) {
+        set.add(role);
+      }
+    }
+/*    roles.forEach(set::add);*/
     userDB.setUserRoles(set);
     userRepository.save(userDB);
   }
