@@ -63,12 +63,14 @@ public class AppProfile {
 
   private void initDailyMotion() {
     String dailymotionUrl = environment.getProperty("app.dailymotion_url");
-    String grantType = environment.getProperty("app.dailymotion.grant_type");
-    String clientId = environment.getProperty("app.dailymotion.client_id");
-    String clientSecret = environment.getProperty("app.dailymotion.client_secret");
-    String username = environment.getProperty("app.dailymotion.username");
-    String password = environment.getProperty("app.dailymotion.password");
-    dailymotionAccess = new DailymotionAccess(dailymotionUrl, grantType, clientId, clientSecret, username, password );
+    if (!dailymotionUrl.isEmpty()) {
+      String grantType = environment.getProperty("app.dailymotion.grant_type");
+      String clientId = environment.getProperty("app.dailymotion.client_id");
+      String clientSecret = environment.getProperty("app.dailymotion.client_secret");
+      String username = environment.getProperty("app.dailymotion.username");
+      String password = environment.getProperty("app.dailymotion.password");
+      dailymotionAccess = new DailymotionAccess(dailymotionUrl, grantType, clientId, clientSecret, username, password);
+    }
   }
 
   private void initProxy() {

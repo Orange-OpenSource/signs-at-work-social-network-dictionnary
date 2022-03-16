@@ -27,28 +27,21 @@
 
 <header role="banner" th:replace="fragments/header-job-community :: header">&nbsp;</header>
 
-<body class="container-fluid margin-for-footer">
-
-<h2 class="subtitle_job" th:text="#{choose_job}"></h2>
-<div class="row ">
-  <div class="col-xs-12">
-    <aside class="sidebar">
-      <ul class="nav nav-list primary left-menu">
-        <li class="aside_bckg_li action">
-        </li>
-      </ul>
-    </aside>
+<body class="margin-for-footer">
+<div class="container">
+  <h2 class="subtitle_job" th:text="#{choose_job}"></h2>
+  <div class="row ">
+    <div class="col-xs-12">
+      <div class="col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div">
+        <div th:replace="fragments/frame-job-community :: div"/>
+      </div>
+      <div class="footer container">
+        <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:goBack()'"></button>
+        <button class="btn btn-default" th:text="#{validate}" th:onclick="'javascript:onAssociateJobToUser()'"></button>
+      </div>
+  </div>
   </div>
 </div>
-<div th:fragment="div">
-    <div th:replace="fragments/frame-job-community :: div"/>
-  <div class="footer container">
-    <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:goBack()'"></button>
-    <button class="btn btn-default" th:text="#{validate}" th:onclick="'javascript:onAssociateJobToUser()'"></button>
-  </div>
-</div>
-
-
 </body>
 <script type="text/javascript" src="../public/js/job.js" th:src="@{/js/job.js}"></script>
 </html>

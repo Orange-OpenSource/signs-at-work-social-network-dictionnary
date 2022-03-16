@@ -88,26 +88,42 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD, method = RequestMethod.POST)
   public String uploadRecordedVideoFile(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileOnServer(videoFile, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), principal, response);
+    } else {
+      return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), principal, response);
+    }
   }
 
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
   public String uploadRecordedVideoFileFromRequest(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFile(videoFile, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileOnServer(videoFile, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), principal, response);
+    } else {
+      return handleRecordedVideoFile(videoFile, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), principal, response);
+    }
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
   public String uploadRecordedVideoFileFromSign(@RequestBody VideoFile videoFile, @PathVariable long signId, @PathVariable long videoId, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileOnServer(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), principal, response);
+    } else {
+      return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), principal, response);
+    }
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NEW_VIDEO, method = RequestMethod.POST)
   public String uploadRecordedVideoFileForNewVideo(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileOnServer(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), principal, response);
+    } else {
+      return handleRecordedVideoFile(videoFile, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), principal, response);
+    }
   }
 
   private String handleRecordedVideoFile(VideoFile videoFile, OptionalLong requestId,OptionalLong signId, OptionalLong videoId, Principal principal, HttpServletResponse response) {
@@ -229,7 +245,7 @@ public class FileUploadRestController {
         sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
       } else {
          sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
-        log.info("handleFileUpload : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
+        log.info("handleRecordedVideoFile : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
       }
 
 
@@ -272,6 +288,85 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleRecordedVideoFileOnServer(VideoFile videoFile, OptionalLong requestId,OptionalLong signId, OptionalLong videoId, Principal principal, HttpServletResponse response) {
+    log.info("VideoFile "+videoFile);
+    log.info("VideoFile name"+videoFile.name);
+    String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
+    String videoUrl = null;
+    String file = environment.getProperty("app.file") + "/" + videoFile.name;
+    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + videoFile.name.replace(".webm", ".png");
+
+    log.info("taille fichier "+videoFile.contents.length());
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
+
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorFileSize");
+    }
+
+
+    try {
+      //This will decode the String which is encoded by using Base64 class
+      extracted(videoFile, file);
+    }
+    catch(Exception errorUploadFile)
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorUploadFile");
+    }
+
+    try {
+      GenerateThumbnail(thumbnailFile, file);
+    } catch (Exception errorEncondingFile) {
+      DeleteFilesOnServer(file, null);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorThumbnailFile");
+    }
+
+
+    User user = services.user().withUserName(principal.getName());
+
+    String pictureUri = thumbnailFile;
+    videoUrl= file;
+
+    Sign sign;
+    Video video;
+    if (signId.isPresent() && (videoId.isPresent())) {
+      video = services.video().withId(videoId.getAsLong());
+      DeleteFilesOnServer(video.url, video.pictureUri);
+      sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
+    } else if (signId.isPresent() && !(videoId.isPresent())) {
+      sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
+    } else {
+      sign = services.sign().create(user.id, videoFile.signNameRecording, videoUrl, pictureUri);
+      log.info("handleRecordedVideoFileOnServer : username = {} / sign name = {} / video url = {}", user.username, videoFile.signNameRecording, videoUrl);
+    }
+
+
+    if (requestId.isPresent()) {
+      services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "/sec/sign/" + Long.toString(sign.id) + "/" + Long.toString(sign.lastVideoId) + "/detail";
+
+  }
+
+  private void DeleteFilesOnServer(String url, String pictureUri) {
+    if (url != null) {
+      File video = new File(url);
+      if (video.exists()) {
+        video.delete();
+      }
+    }
+    if (pictureUri != null) {
+      File thumbnail = new File(pictureUri);
+      if (thumbnail.exists()) {
+        thumbnail.delete();
+      }
+    }
+  }
+
   private void extracted(VideoFile videoFile, String file) throws IOException {
     String  lexical = videoFile.contents.substring(videoFile.contents.indexOf(",") + 1);
     byte[] videoByte = DatatypeConverter.parseBase64Binary(lexical);
@@ -311,26 +406,40 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD, method = RequestMethod.POST)
   public String uploadSelectedVideoFile(@RequestParam("file") MultipartFile file, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadOnServer(file, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
+    } else {
+      return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
+    }
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_REQUEST, method = RequestMethod.POST)
   public String createSignFromUploadondailymotion(@RequestParam("file") MultipartFile file,@PathVariable long requestId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUpload(file, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
-
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadOnServer(file, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
+    } else {
+      return handleSelectedVideoFileUpload(file, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationView, principal, response);
+    }
   }
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FROM_SIGN, method = RequestMethod.POST)
   public String createSignFromUploadondailymotionFromSign(@RequestParam("file") MultipartFile file,@PathVariable long signId, @PathVariable long videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationView, principal, response);
-
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadOnServer(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationView, principal, response);
+    } else {
+      return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationView, principal, response);
+    }
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NEW_VIDEO, method = RequestMethod.POST)
   public String createSignFromUploadondailymotionForNewVideo(@RequestParam("file") MultipartFile file,@PathVariable long signId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationView, principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadOnServer(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationView, principal, response);
+    } else {
+      return handleSelectedVideoFileUpload(file, OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.empty(), signCreationView, principal, response);
+    }
 
   }
 
@@ -482,17 +591,76 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleSelectedVideoFileUploadOnServer(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response) throws InterruptedException {
+    String videoUrl = null;
+    String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
+    File inputFile;
+
+    try {
+      storageService.store(file);
+      inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      File newName = new File(newAbsoluteFileName);
+      inputFile.renameTo(newName);
+    } catch (Exception errorLoadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorUploadFile");
+    }
+    try {
+      GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
+    } catch (Exception errorEncondingFile) {
+      DeleteFilesOnServer(newAbsoluteFileName, null);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorThumbnailFile");
+    }
+
+
+    User user = services.user().withUserName(principal.getName());
+
+    String pictureUri = thumbnailFile;
+    videoUrl= newAbsoluteFileName;
+
+    Sign sign;
+    Video video;
+    if (signId.isPresent() && (videoId.isPresent())) {
+      video = services.video().withId(videoId.getAsLong());
+      DeleteFilesOnServer(video.url, video.pictureUri);
+      sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
+    } else if (signId.isPresent() && !(videoId.isPresent())) {
+      sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
+    } else {
+      sign = services.sign().create(user.id, signCreationView.getSignName(), videoUrl, pictureUri);
+    }
+
+    log.info("handleSelectedVideoFileUploadOnServer : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), videoUrl);
+
+    if (requestId.isPresent()) {
+      services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "/sec/sign/" + Long.toString(sign.id) + "/" + Long.toString(sign.lastVideoId) + "/detail";
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION, method = RequestMethod.POST)
   public String uploadSelectedVideoFileForJobDescription(@RequestParam("file") MultipartFile file, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUploadForProfil(file, principal, "JobDescription", response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadForProfilOnServer(file, principal, "JobDescription", response);
+    } else {
+      return handleSelectedVideoFileUploadForProfil(file, principal, "JobDescription", response);
+    }
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME, method = RequestMethod.POST)
   public String uploadSelectedVideoFileForName(@RequestParam("file") MultipartFile file, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUploadForProfil(file, principal, "Name", response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadForProfilOnServer(file, principal, "Name", response);
+    } else {
+      return handleSelectedVideoFileUploadForProfil(file, principal, "Name", response);
+    }
   }
 
   @Secured("ROLE_USER")
@@ -509,6 +677,8 @@ public class FileUploadRestController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
           }
+        } else {
+          DeleteFilesOnServer(user.nameVideo, user.namePicture);
         }
         services.user().changeNameVideoUrl(user, null, null);
       }
@@ -530,6 +700,8 @@ public class FileUploadRestController {
           response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
           return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
         }
+      } else {
+        DeleteFilesOnServer(user.jobDescriptionVideo, user.jobDescriptionPicture);
       }
       services.user().changeDescriptionVideoUrl(user, null, null);
     }
@@ -695,17 +867,75 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleSelectedVideoFileUploadForProfilOnServer(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
+    {
+      String videoUrl = null;
+      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+      String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
+      File inputFile;
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        File newName = new File(newAbsoluteFileName);
+        inputFile.renameTo(newName);
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorUploadFile");
+      }
+
+      try {
+        GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
+      } catch (Exception errorEncondingFile) {
+        DeleteFilesOnServer(inputFile.getAbsolutePath(), null);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorThumbnailFile");
+      }
+
+      User user = services.user().withUserName(principal.getName());
+      String pictureUri = thumbnailFile;
+      videoUrl= newAbsoluteFileName;
+
+      if (inputType.equals("JobDescription")) {
+        if (user.jobDescriptionVideo != null) {
+          DeleteFilesOnServer(user.jobDescriptionVideo, user.jobDescriptionPicture);
+        }
+        services.user().changeDescriptionVideoUrl(user, videoUrl, pictureUri);
+      } else {
+        if (user.nameVideo != null) {
+          DeleteFilesOnServer(user.nameVideo, user.namePicture);
+        }
+        services.user().changeNameVideoUrl(user, videoUrl, pictureUri);
+      }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      if (inputType.equals("JobDescription")) {
+        return "/sec/your-job-description";
+      } else {
+        return "/sec/who-are-you";
+      }
+    }
+  }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION, method = RequestMethod.POST)
   public String uploadRecordedVideoFileForJobDescription(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFileForProfil(videoFile, principal, "JobDescription", response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileForProfilOnServer(videoFile, principal, "JobDescription", response);
+    } else {
+      return handleRecordedVideoFileForProfil(videoFile, principal, "JobDescription", response);
+    }
   }
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NAME, method = RequestMethod.POST)
   public String uploadRecordedVideoFileForName(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFileForProfil(videoFile, principal, "Name", response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileForProfilOnServer(videoFile, principal, "Name", response);
+    } else {
+      return handleRecordedVideoFileForProfil(videoFile, principal, "Name", response);
+    }
   }
 
   private String handleRecordedVideoFileForProfil(VideoFile videoFile, Principal principal, String inputType, HttpServletResponse response) {
@@ -714,7 +944,6 @@ public class FileUploadRestController {
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + videoFile.name.replace(".webm", ".png");
-    String fileOutput = file.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
@@ -739,6 +968,7 @@ public class FileUploadRestController {
     try {
       GenerateThumbnail(thumbnailFile, file);
     } catch (Exception errorEncondingFile) {
+      DeleteFilesOnServer(file, null);
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorThumbnailFile");
     }
@@ -883,6 +1113,68 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleRecordedVideoFileForProfilOnServer(VideoFile videoFile, Principal principal, String inputType, HttpServletResponse response) {
+    log.info("VideoFile "+videoFile);
+    log.info("VideoFile name"+videoFile.name);
+    String videoUrl = null;
+    String file = environment.getProperty("app.file") + "/" + videoFile.name;
+    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + videoFile.name.replace(".webm", ".png");
+
+    log.info("taille fichier "+videoFile.contents.length());
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
+
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorFileSize");
+    }
+
+
+    try {
+      //This will decode the String which is encoded by using Base64 class
+      extracted(videoFile, file);
+    }
+    catch(Exception errorUploadFile)
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorUploadFile");
+    }
+
+
+    try {
+      GenerateThumbnail(thumbnailFile, file);
+    } catch (Exception errorEncondingFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorThumbnailFile");
+    }
+
+    User user = services.user().withUserName(principal.getName());
+
+    String pictureUri = thumbnailFile;
+    videoUrl= file;
+
+    if (inputType.equals("JobDescription")) {
+      if (user.jobDescriptionVideo != null) {
+        DeleteFilesOnServer(user.jobDescriptionVideo, user.jobDescriptionPicture);
+      }
+      services.user().changeDescriptionVideoUrl(user, videoUrl, pictureUri);
+    } else {
+      if (user.nameVideo != null) {
+        if (user.nameVideo.contains("http")) {
+          DeleteFilesOnServer(user.nameVideo, user.namePicture);
+        }
+      }
+      services.user().changeNameVideoUrl(user, videoUrl, pictureUri);
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    if (inputType.equals("JobDescription")) {
+      return "/sec/your-job-description";
+    } else {
+      return "/sec/who-are-you";
+    }
+
+  }
+
   private void DeleteVideoOnDailyMotion(String dailymotionId) {
 
     AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
@@ -908,7 +1200,11 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION, method = RequestMethod.POST)
   public RequestResponse uploadSelectedVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response, HttpServletRequest req) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUploadForRequestDescription(file, requestId, requestCreationView, principal, response, req);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadForRequestDescriptionOnServer(file, requestId, requestCreationView, principal, response, req);
+    } else {
+      return handleSelectedVideoFileUploadForRequestDescription(file, requestId, requestCreationView, principal, response, req);
+    }
   }
 
   private RequestResponse handleSelectedVideoFileUploadForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
@@ -1076,6 +1372,75 @@ public class FileUploadRestController {
     }
   }
 
+  private RequestResponse handleSelectedVideoFileUploadForRequestDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
+    {
+      String videoUrl = null;
+      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+      Request request = null;
+      RequestResponse requestResponse = new RequestResponse();
+      File inputFile;
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        File newName = new File(newAbsoluteFileName);
+        inputFile.renameTo(newName);
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        requestResponse.errorType = 3;
+        requestResponse.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+        return requestResponse;
+      }
+
+      User user = services.user().withUserName(principal.getName());
+
+      videoUrl= newAbsoluteFileName;
+      List<String> emails;
+      String title, bodyMail;
+
+      if (requestId != 0) {
+        request = services.request().withId(requestId);
+        if (request.requestVideoDescription != null) {
+          DeleteFilesOnServer(request.requestVideoDescription, null);
+        }
+        services.request().changeRequestVideoDescription(requestId, videoUrl);
+      } else {
+        if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+          if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
+            request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), videoUrl);
+            log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+            emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
+            title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
+            bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+
+            Request finalRequest = request;
+            Runnable task = () -> {
+              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+              services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale() );
+            };
+
+            new Thread(task).start();
+          } else {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            requestResponse.errorType = 1;
+            requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+            return requestResponse;
+          }
+        } else {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          requestResponse.errorType = 2;
+          requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+          requestResponse.signId = services.sign().withName(requestCreationView.getRequestName()).list().get(0).id;
+          return requestResponse;
+        }
+      }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      requestResponse.requestId = request.id;
+      return requestResponse;
+    }
+  }
   private String getAppUrl(HttpServletRequest request) {
     return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
@@ -1083,7 +1448,11 @@ public class FileUploadRestController {
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION , method = RequestMethod.POST)
   public RequestResponse uploadRecordedVideoFileForRequestDescription(@RequestBody VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response, HttpServletRequest req) {
-    return handleRecordedVideoFileForRequestDescription(videoFile, requestId, principal, response, req);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileForRequestDescriptionOnServer(videoFile, requestId, principal, response, req);
+    } else {
+      return handleRecordedVideoFileForRequestDescription(videoFile, requestId, principal, response, req);
+    }
   }
 
   private RequestResponse handleRecordedVideoFileForRequestDescription(VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response, HttpServletRequest req) {
@@ -1264,10 +1633,92 @@ public class FileUploadRestController {
     }
   }
 
+  private RequestResponse handleRecordedVideoFileForRequestDescriptionOnServer(VideoFile videoFile, @PathVariable long requestId, Principal principal, HttpServletResponse response, HttpServletRequest req) {
+    log.info("VideoFile "+videoFile);
+    log.info("VideoFile name"+videoFile.name);
+    RequestResponse requestResponse = new RequestResponse();
+    String videoUrl = null;
+    String file = environment.getProperty("app.file") + "/" + videoFile.name;
+
+    log.info("taille fichier "+videoFile.contents.length());
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
+
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponse.errorMessage = messageByLocaleService.getMessage("errorFileSize");
+      return requestResponse;
+    }
+
+
+    try {
+      //This will decode the String which is encoded by using Base64 class
+      extracted(videoFile, file);
+    }
+    catch(Exception errorUploadFile)
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponse.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+      return requestResponse;
+    }
+
+    Request request = null;
+    User user = services.user().withUserName(principal.getName());
+    videoUrl= file;
+    List<String> emails;
+    String title, bodyMail;
+
+    if (requestId != 0) {
+      request = services.request().withId(requestId);
+      if (request.requestVideoDescription != null) {
+        DeleteFilesOnServer(request.requestVideoDescription, null);
+      }
+      services.request().changeRequestVideoDescription(requestId, videoUrl);
+
+    } else {
+      if (services.sign().withName(videoFile.requestNameRecording).list().isEmpty()) {
+        if (services.request().withName(videoFile.requestNameRecording).list().isEmpty()) {
+          request = services.request().create(user.id, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording, videoUrl);
+          log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
+          emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
+          title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
+          bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+
+          Request finalRequest = request;
+          Runnable task = () -> {
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+          };
+
+          new Thread(task).start();
+        } else {
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          requestResponse.errorType = 1;
+          requestResponse.errorMessage = messageByLocaleService.getMessage("request.already_exists");
+          return requestResponse;
+        }
+      } else {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        requestResponse.errorType = 2;
+        requestResponse.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
+        requestResponse.signId = services.sign().withName(videoFile.requestNameRecording).list().get(0).id;
+        return requestResponse;
+      }
+
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    requestResponse.requestId = request.id;
+    return requestResponse;
+
+  }
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_SIGN_DEFINITION , method = RequestMethod.POST)
   public String uploadRecordedVideoFileForSignDefinition(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
-    return handleRecordedVideoFileForSignDefinition(videoFile, signId, principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileForSignDefinitionOnServer(videoFile, signId, principal, response);
+    } else {
+      return handleRecordedVideoFileForSignDefinition(videoFile, signId, principal, response);
+    }
   }
 
   private String handleRecordedVideoFileForSignDefinition(VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
@@ -1408,10 +1859,53 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleRecordedVideoFileForSignDefinitionOnServer(VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
+    log.info("VideoFile "+videoFile);
+    log.info("VideoFile name"+videoFile.name);
+
+    String videoUrl = null;
+    String file = environment.getProperty("app.file") + "/" + videoFile.name;
+
+    log.info("taille fichier "+videoFile.contents.length());
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
+
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorFileSize");
+    }
+
+
+    try {
+      //This will decode the String which is encoded by using Base64 class
+      extracted(videoFile, file);
+    }
+    catch(Exception errorUploadFile)
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorUploadFile");
+    }
+
+    Sign sign = services.sign().withId(signId);
+
+    videoUrl= file;
+
+    if (sign.videoDefinition != null) {
+      DeleteFilesOnServer(sign.videoDefinition, null);
+    }
+    services.sign().changeSignVideoDefinition(signId, videoUrl);
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return Long.toString(sign.id);
+  }
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_SIGN_DEFINITION, method = RequestMethod.POST)
   public String uploadSelectedVideoFileForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUploadForSignDefinition(file, signId, principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadForSignDefinitionOnServer(file, signId, principal, response);
+    } else {
+      return handleSelectedVideoFileUploadForSignDefinition(file, signId, principal, response);
+    }
   }
 
   private String handleSelectedVideoFileUploadForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
@@ -1492,17 +1986,22 @@ public class FileUploadRestController {
 
         videoUrl= fileName;
 
-          if (sign.videoDefinition != null) {
-            if (sign.videoDefinition.contains("http")) {
-              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionId);
-              } catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        Request request = services.sign().requestForSign(sign);
+        if (request != null) {
+          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+            if (sign.videoDefinition != null) {
+              if (sign.videoDefinition.contains("http")) {
+                dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionId);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                }
               }
             }
           }
+        }
           services.sign().changeSignVideoDefinition(signId, videoUrl);
 
         Runnable task = () -> {
@@ -1538,11 +2037,49 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleSelectedVideoFileUploadForSignDefinitionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
+    {
+      String videoUrl = null;
+      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+      Sign sign = services.sign().withId(signId);
+      File inputFile;
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        File newName = new File(newAbsoluteFileName);
+        inputFile.renameTo(newName);
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorUploadFile");
+      }
+
+      videoUrl= newAbsoluteFileName;
+
+      if (sign.videoDefinition != null) {
+        Request request = services.sign().requestForSign(sign);
+        if (request != null) {
+          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+            DeleteFilesOnServer(sign.videoDefinition, null);
+          }
+        }
+      }
+      services.sign().changeSignVideoDefinition(signId, videoUrl);
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      return Long.toString(sign.id);
+    }
+  }
   /****/
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_COMMUNITY_DESCRIPTION , method = RequestMethod.POST)
   public String uploadRecordedVideoFileForCommunityDescription(@RequestBody VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
-    return handleRecordedVideoFileForCommunityDescription(videoFile, communityId, principal, response, request);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileForCommunityDescriptionOnServer(videoFile, communityId, principal, response, request);
+    } else {
+      return handleRecordedVideoFileForCommunityDescription(videoFile, communityId, principal, response, request);
+    }
   }
 
   private String handleRecordedVideoFileForCommunityDescription(VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
@@ -1697,10 +2234,71 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleRecordedVideoFileForCommunityDescriptionOnServer(VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
+    log.info("VideoFile "+videoFile);
+    log.info("VideoFile name"+videoFile.name);
+
+    String videoUrl = null;
+    String file = environment.getProperty("app.file") + "/" + videoFile.name;
+
+    log.info("taille fichier "+videoFile.contents.length());
+    log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
+
+    if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorFileSize");
+    }
+
+
+    try {
+      //This will decode the String which is encoded by using Base64 class
+      extracted(videoFile, file);
+    }
+    catch(Exception errorUploadFile)
+    {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("errorUploadFile");
+    }
+
+
+    Community community = services.community().withId(communityId);
+
+    User user = services.user().withUserName(principal.getName());
+
+    videoUrl= file;
+
+    if (community.descriptionVideo != null) {
+      DeleteFilesOnServer(community.descriptionVideo, null);
+    }
+    services.community().changeDescriptionVideo(communityId, videoUrl);
+    List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+    if (emails.size() != 0) {
+      Community finalCommunity = community;
+      Runnable task = () -> {
+        String title, bodyMail;
+        final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+        title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+        bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+        services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
+      };
+
+      new Thread(task).start();
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return Long.toString(community.id);
+
+  }
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_COMMUNITY_DESCRIPTION, method = RequestMethod.POST)
   public String uploadSelectedVideoFileForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws IOException, JCodecException, InterruptedException {
-    return handleSelectedVideoFileUploadForCommunityDescription(file, communityId, principal, response, request);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadForCommunityDescriptionOnServer(file, communityId, principal, response, request);
+    } else {
+      return handleSelectedVideoFileUploadForCommunityDescription(file, communityId, principal, response, request);
+    }
   }
 
   private String handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
@@ -1840,4 +2438,50 @@ public class FileUploadRestController {
     }
   }
 
+  private String handleSelectedVideoFileUploadForCommunityDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
+    {
+      String videoUrl = null;
+      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+      Community community = services.community().withId(communityId);
+      File inputFile;
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        File newName = new File(newAbsoluteFileName);
+        inputFile.renameTo(newName);
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return messageByLocaleService.getMessage("errorUploadFile");
+      }
+
+      User user = services.user().withUserName(principal.getName());
+
+      videoUrl= newAbsoluteFileName;
+
+      if (community.descriptionVideo != null) {
+        DeleteFilesOnServer(community.descriptionVideo, null);
+      }
+      services.community().changeDescriptionVideo(communityId, videoUrl);
+      List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+      if (emails.size() != 0) {
+        Community finalCommunity = community;
+        Runnable task = () -> {
+          String title, bodyMail;
+          final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+          title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
+          bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+          services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
+        };
+
+        new Thread(task).start();
+      }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      return Long.toString(community.id);
+
+    }
+  }
 }

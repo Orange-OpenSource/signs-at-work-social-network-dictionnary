@@ -24,9 +24,19 @@ console.log("Cool, article.js is loaded :)");
 
 
 function displayVideo(url, name) {
-  console.log(url);
-  console.log(name);
-  document.getElementById("videoName").innerText = name;
+   console.log(url);
+    console.log(name);
+    document.getElementById("videoName").innerText = name;
 
-  document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';
+   if  (url.includes('http')) {
+    console.log("http");
+    document.getElementById("videoOnDailyMotion").style.display="block"
+    document.getElementById("videoOnServer").style.display="none"
+    document.getElementById("videoUrl").src = url+'?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';
+    } else {
+      document.getElementById("videoOnDailyMotion").style.display="none"
+      document.getElementById("videoOnServer").style.display="block"
+      document.getElementById("videoUrlOnServer").src= url;
+      document.getElementById("videoplayer").load();
+    }
 };
