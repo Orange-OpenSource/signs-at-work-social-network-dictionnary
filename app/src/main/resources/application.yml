@@ -28,7 +28,7 @@ app.admin.password: "adminpassword"
 app.name: "Signs@Work"
 
 app.manifest: "/manifest/signsatwork/manifest.json"
-app.version: "5.0.3"
+app.version: "6.0.0"
 app.contact.support: "signsatwork.support@orange.com"
 
 cgu-url: "https://www.dailymotion.com/embed/video/k2HwFhjhimHm1uvOU3g"
