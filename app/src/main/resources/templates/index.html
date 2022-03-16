@@ -126,7 +126,7 @@
         </div>
         <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
           <div th:if="${!#strings.contains(display_url, 'http')}">
-            <div class="embed-responsive embed-responsive-16by9">
+            <div class="embed-responsive embed-responsive-16by9" id="display_url">
               <video controls autoplay playsinline>
                 <source th:src="${display_url}" type="video/webm"/>
                 <source th:src="${display_url}" type="video/mp4"/>
@@ -143,7 +143,7 @@
             </div>
           </div>
         <div sec:authorize="hasRole('USER_A') or hasRole('USER')" class="text-center hidden-lg hidden-md">
-          <a th:if="${#strings.equals(appName,'Signs@Form')}" class="btn_go_to_signsatwork btn btn-default" href="https://signsatwork.orange-labs.fr/" target="_blank">
+          <a th:if="${#strings.equals(appName,'Signs@Form') || #strings.equals(appName,'Signs@Adis')}" class="btn_go_to_signsatwork btn btn-default" href="https://signsatwork.orange-labs.fr/" target="_blank">
             <div class="pull-left logo_signsatwork_blue"></div>
             <div class="go_to_signsatwork_label" th:text="#{go_to_signsatwork}"></div>
           </a>
