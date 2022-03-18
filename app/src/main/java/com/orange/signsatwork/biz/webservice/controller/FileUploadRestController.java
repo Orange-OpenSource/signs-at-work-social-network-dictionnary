@@ -888,7 +888,7 @@ public class FileUploadRestController {
       try {
         GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
       } catch (Exception errorEncondingFile) {
-        DeleteFilesOnServer(inputFile.getAbsolutePath(), null);
+        DeleteFilesOnServer(newAbsoluteFileName, null);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return messageByLocaleService.getMessage("errorThumbnailFile");
       }

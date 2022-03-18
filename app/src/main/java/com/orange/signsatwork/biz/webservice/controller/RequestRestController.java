@@ -755,8 +755,11 @@ public class RequestRestController {
       return requestResponseApi;
     }
 
-
-    return handleSelectedVideoFileUpload(file,  OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadOnServer(file, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+    } else {
+      return handleSelectedVideoFileUpload(file, OptionalLong.of(requestId), OptionalLong.empty(), OptionalLong.empty(), signCreationViewApi, principal, response);
+    }
   }
 
   private void GenerateThumbnail(String thumbnailFile, String fileOutput) {
@@ -856,41 +859,9 @@ public class RequestRestController {
       String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
       String pictureUri = null;
       String id = videoDailyMotion.id;
-     /* if (leaveDailymotionAfterLoadVideo) {*/
+
         pictureUri = thumbnailFile;
         videoUrl= fileName;
-     /* } else {
-        int i=0;
-        do {
-          videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
-          Thread.sleep(2 * 1000);
-          if (i > 30) {
-            break;
-          }
-          i++;
-          log.info("status "+videoDailyMotion.status);
-        }
-        while (!videoDailyMotion.status.equals("published"));
-
-        if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-          if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
-            pictureUri = "/img/no-such-asset.jpg";
-          } else {
-            pictureUri = videoDailyMotion.thumbnail_360_url;
-          }
-          log.warn("handleSelectedVideoFileUpload : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
-        }
-
-        if (!videoDailyMotion.embed_url.isEmpty()) {
-          videoUrl = videoDailyMotion.embed_url;
-          log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
-        }
-      }*/
-
-  /*    if (!videoDailyMotion.embed_url.isEmpty()) {
-        signCreationView.setVideoUrl(videoDailyMotion.embed_url);
-        log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
-      }*/
 
       Sign sign;
       Video video;
@@ -907,11 +878,11 @@ public class RequestRestController {
             return requestResponseApi;
           }
         }
-        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoDailyMotion.embed_url, pictureUri);
+        sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
       } else if (signId.isPresent() && !(videoId.isPresent())) {
-        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoDailyMotion.embed_url, pictureUri);
+        sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
       } else {
-        sign = services.sign().create(user.id, signCreationViewApi.getName(), videoDailyMotion.embed_url, pictureUri);
+        sign = services.sign().create(user.id, signCreationViewApi.getName(), videoUrl, pictureUri);
       }
 
       log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationViewApi.getName(), videoDailyMotion.embed_url);
@@ -920,7 +891,6 @@ public class RequestRestController {
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
       }
 
-    /*  if (leaveDailymotionAfterLoadVideo) {*/
         Runnable task = () -> {
           int i = 0;
           VideoDailyMotion dailyMotion;
@@ -942,7 +912,7 @@ public class RequestRestController {
         };
 
         new Thread(task).start();
-     /* }*/
+
 
       response.setStatus(HttpServletResponse.SC_OK);
       requestResponseApi.signId = sign.id;
@@ -953,6 +923,78 @@ public class RequestRestController {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionUploadFile");
       return requestResponseApi;
+    }
+  }
+  private RequestResponseApi handleSelectedVideoFileUploadOnServer(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
+    String videoUrl = null;
+    String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
+    File inputFile;
+
+    RequestResponseApi requestResponseApi = new RequestResponseApi();
+
+    try {
+      storageService.store(file);
+      inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      File newName = new File(newAbsoluteFileName);
+      inputFile.renameTo(newName);
+    } catch (Exception errorLoadFile) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+      return requestResponseApi;
+    }
+
+    try {
+      GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
+    } catch (Exception errorEncondingFile) {
+      DeleteFilesOnServer(newAbsoluteFileName, null);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
+      return requestResponseApi;
+    }
+
+    User user = services.user().withUserName(principal.getName());
+
+    String pictureUri = thumbnailFile;
+    videoUrl= newAbsoluteFileName;
+
+    Sign sign;
+    Video video;
+    if (signId.isPresent() && (videoId.isPresent())) {
+      /* sign = services.sign().withId(signId.getAsLong());*/
+      video = services.video().withId(videoId.getAsLong());
+      DeleteFilesOnServer(video.url, video.pictureUri);
+      sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
+    } else if (signId.isPresent() && !(videoId.isPresent())) {
+      sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
+    } else {
+      sign = services.sign().create(user.id, signCreationViewApi.getName(), videoUrl, pictureUri);
+    }
+
+    if (requestId.isPresent()) {
+      services.request().changeSignRequest(requestId.getAsLong(), sign.id);
+    }
+
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    requestResponseApi.signId = sign.id;
+    requestResponseApi.videoId = sign.lastVideoId;
+    return requestResponseApi;
+
+  }
+  private void DeleteFilesOnServer(String url, String pictureUri) {
+    if (url!= null) {
+      File video = new File(url);
+      if (video.exists()) {
+        video.delete();
+      }
+    }
+    if (pictureUri != null) {
+      File thumbnail = new File(pictureUri);
+      if (thumbnail.exists()) {
+        thumbnail.delete();
+      }
     }
   }
 }

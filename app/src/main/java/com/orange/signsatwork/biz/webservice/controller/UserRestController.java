@@ -709,7 +709,7 @@ public class UserRestController {
       try {
         GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
       } catch (Exception errorEncondingFile) {
-        DeleteFilesOnServer(inputFile.getAbsolutePath(), null);
+        DeleteFilesOnServer(newAbsoluteFileName, null);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         userResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
         return userResponseApi;

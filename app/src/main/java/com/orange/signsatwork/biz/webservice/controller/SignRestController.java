@@ -1162,8 +1162,9 @@ public class SignRestController {
 
   private VideoResponseApi handleSelectedVideoFileUploadOnServer(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
     String videoUrl = null;
-    String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
-    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".png";
+    String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
     File inputFile;
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
@@ -1171,6 +1172,8 @@ public class SignRestController {
     try {
       storageService.store(file);
       inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      File newName = new File(newAbsoluteFileName);
+      inputFile.renameTo(newName);
     } catch (Exception errorLoadFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
@@ -1178,8 +1181,9 @@ public class SignRestController {
     }
 
     try {
-      GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
+      GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
     } catch (Exception errorEncondingFile) {
+      DeleteFilesOnServer(newAbsoluteFileName, null);
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
       return videoResponseApi;
@@ -1190,7 +1194,7 @@ public class SignRestController {
 
 
     String pictureUri = thumbnailFile;
-    videoUrl= fileName;
+    videoUrl= newAbsoluteFileName;
 
     Sign sign;
     Video video;
@@ -1389,11 +1393,13 @@ public class SignRestController {
     String videoUrl = null;
     String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
-
+    File inputFile;
 
     try {
       storageService.store(file);
-      storageService.load(file.getOriginalFilename()).toFile();
+      inputFile = storageService.load(file.getOriginalFilename()).toFile();
+      File newName = new File(newAbsoluteFileName);
+      inputFile.renameTo(newName);
     } catch (Exception errorLoadFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
