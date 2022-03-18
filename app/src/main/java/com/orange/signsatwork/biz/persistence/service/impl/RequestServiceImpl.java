@@ -130,24 +130,6 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
-  public Request create(long userId, String requestName, String requestTextDescription) {
-    RequestDB requestDB;
-    UserDB userDB = userRepository.findOne(userId);
-
-    requestDB = new RequestDB();
-    requestDB.setRequestDate(new Date());
-    requestDB.setName(requestName);
-    requestDB.setRequestTextDescription(requestTextDescription);
-    requestDB.setUser(userDB);
-    requestRepository.save(requestDB);
-
-    userDB.getRequests().add(requestDB);
-    userRepository.save(userDB);
-
-    return requestFrom(requestDB, services);
-  }
-
-  @Override
   public Request create(long userId, String requestName, String requestTextDescription, String requestVideoDescription) {
     RequestDB requestDB;
     UserDB userDB = userRepository.findOne(userId);
@@ -155,8 +137,12 @@ public class RequestServiceImpl implements RequestService {
     requestDB = new RequestDB();
     requestDB.setRequestDate(new Date());
     requestDB.setName(requestName);
-    requestDB.setRequestTextDescription(requestTextDescription);
-    requestDB.setRequestVideoDescription(requestVideoDescription);
+    if (!requestTextDescription.isEmpty()) {
+      requestDB.setRequestTextDescription(requestTextDescription);
+    }
+    if (!requestVideoDescription.isEmpty()) {
+      requestDB.setRequestVideoDescription(requestVideoDescription);
+    }
     requestDB.setUser(userDB);
     requestRepository.save(requestDB);
 

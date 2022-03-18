@@ -54,8 +54,6 @@ public interface RequestService {
 
   Request rename(long requestId, String requestName, String requestTextDescription);
 
-  Request create(long userId, String requestName, String requestTextDescription);
-
   Request create(long userId, String requestName, String requestTextDescription, String requestVideoDescription);
 
   Request priorise(long requestId);

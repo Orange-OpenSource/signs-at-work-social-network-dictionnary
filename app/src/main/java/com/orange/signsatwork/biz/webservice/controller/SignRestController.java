@@ -96,19 +96,21 @@ public class SignRestController {
     if (sign.videos.list().size() == 1) {
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
-        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-          String dailymotionIdForSignDefinition;
-          if (sign.videoDefinition != null) {
-            if (sign.videoDefinition.contains("http")) {
-              dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
-              } catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+            String dailymotionIdForSignDefinition;
+            if (sign.videoDefinition != null) {
+              if (sign.videoDefinition.contains("http")) {
+                dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                }
+              } else {
+                DeleteFilesOnServer(sign.videoDefinition, null);
               }
-            } else {
-              DeleteFilesOnServer(sign.videoDefinition, null);
             }
           }
         }
@@ -664,20 +666,22 @@ public class SignRestController {
     if (sign.videos.list().size() == 1) {
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
-        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-          String dailymotionIdForSignDefinition;
-          if (sign.videoDefinition != null) {
-            if (sign.videoDefinition.contains("http")) {
-              dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
-              } catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                return videoResponseApi;
+        if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+            String dailymotionIdForSignDefinition;
+            if (sign.videoDefinition != null) {
+              if (sign.videoDefinition.contains("http")) {
+                dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                  return videoResponseApi;
+                }
+              } else {
+                DeleteFilesOnServer(sign.videoDefinition, null);
               }
-            } else {
-              DeleteFilesOnServer(sign.videoDefinition, null);
             }
           }
         }
@@ -908,7 +912,9 @@ public class SignRestController {
   private void renameSignAndAssociatedRequest(Long signId, Long videoId, String name) {
     services.sign().renameSign(signId, name);
     Video video = services.video().withId(videoId);
-    ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+    if (video.url.contains("http")) {
+      ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+    }
     ChangeAllNamesOnDailyMotion(signId, videoId, name);
   }
 
@@ -1281,19 +1287,21 @@ public class SignRestController {
 
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
-        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-          if (sign.videoDefinition != null) {
-            if (sign.videoDefinition.contains("http")) {
-              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-              try {
-                DeleteVideoOnDailyMotion(dailymotionId);
-              } catch (Exception errorDailymotionDeleteVideo) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                return videoResponseApi;
+        if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+            if (sign.videoDefinition != null) {
+              if (sign.videoDefinition.contains("http")) {
+                dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                try {
+                  DeleteVideoOnDailyMotion(dailymotionId);
+                } catch (Exception errorDailymotionDeleteVideo) {
+                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                  videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                  return videoResponseApi;
+                }
+              } else {
+                DeleteFilesOnServer(sign.videoDefinition, null);
               }
-            } else {
-              DeleteFilesOnServer(sign.videoDefinition, null);
             }
           }
         }
@@ -1359,8 +1367,10 @@ public class SignRestController {
     if (sign.videoDefinition != null) {
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
-        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-          DeleteFilesOnServer(sign.videoDefinition, null);
+        if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+            DeleteFilesOnServer(sign.videoDefinition, null);
+          }
         }
       }
     }

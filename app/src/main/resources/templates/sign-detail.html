@@ -65,13 +65,13 @@
       <div class="sign_menu col-md-4 col-xs-12">
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
-            <li th:if="${isVideoCreatedByMe} and ${#strings.contains(videoView.url, 'http')}" class="label_sign aside_bckg_li">
+            <li th:if="${isVideoCreatedByMe}" class="label_sign aside_bckg_li">
               <a class="all_li_clickable" data-target="#rename-sign" data-toggle="modal" href="#">
                 <h1 class="container_H2 text_hyphenation" th:text="${videoName}"/>
                 <div class="pull-right edit_blue"></div>
               </a>
             </li>
-            <li th:if="!${isVideoCreatedByMe} or !${#strings.contains(videoView.url, 'http')}" class="label_sign aside_bckg_li">
+            <li th:if="!${isVideoCreatedByMe}" class="label_sign aside_bckg_li">
                 <h1 class="container_H2 text_hyphenation" th:text="${videoName}"/>
             </li>
             <li class="clear aside_bckg_li">

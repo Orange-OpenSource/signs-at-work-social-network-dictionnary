@@ -1988,15 +1988,17 @@ public class FileUploadRestController {
 
         Request request = services.sign().requestForSign(sign);
         if (request != null) {
-          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-            if (sign.videoDefinition != null) {
-              if (sign.videoDefinition.contains("http")) {
-                dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-                try {
-                  DeleteVideoOnDailyMotion(dailymotionId);
-                } catch (Exception errorDailymotionDeleteVideo) {
-                  response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                  return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+            if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+              if (sign.videoDefinition != null) {
+                if (sign.videoDefinition.contains("http")) {
+                  dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                  try {
+                    DeleteVideoOnDailyMotion(dailymotionId);
+                  } catch (Exception errorDailymotionDeleteVideo) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+                  }
                 }
               }
             }
@@ -2060,8 +2062,10 @@ public class FileUploadRestController {
       if (sign.videoDefinition != null) {
         Request request = services.sign().requestForSign(sign);
         if (request != null) {
-          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-            DeleteFilesOnServer(sign.videoDefinition, null);
+          if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+            if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+              DeleteFilesOnServer(sign.videoDefinition, null);
+            }
           }
         }
       }

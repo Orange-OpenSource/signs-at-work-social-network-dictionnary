@@ -91,7 +91,7 @@ public class RequestRestController {
     User user = services.user().withUserName(principal.getName());
     if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
       if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
-         request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
+         request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), "");
         log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
         emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
         title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
@@ -445,7 +445,7 @@ public class RequestRestController {
     }
 
     if (!file.isPresent()) {
-          request = services.request().create(user.id, requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription());
+          request = services.request().create(user.id, requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription(), "");
           log.info("createRequest: username = {} / request name = {}", user.username, requestCreationViewApi.getName(), requestCreationViewApi.getTextDescription());
           emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
           title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
