@@ -1,8 +1,8 @@
 
 delete from communities where type='Job';
-insert into communities (name, type) values ('Interprètes ADIS', 'Job');
-insert into communities (name, type) values ('Bénévoles ADIS-Usher', 'Job');
-insert into communities (name, type) values ('Stagiaires', 'Job');
+insert into communities (name, type, user_id) values ('Interprètes ADIS', 'Job', 1);
+insert into communities (name, type, user_id) values ('Bénévoles ADIS-Usher', 'Job', 1);
+insert into communities (name, type, user_id) values ('Stagiaires', 'Job', 1);
 
 alter table signs modify name varchar(255) character set utf8 collate utf8_bin;
 alter table requests modify name varchar(255) character set utf8 collate utf8_bin;

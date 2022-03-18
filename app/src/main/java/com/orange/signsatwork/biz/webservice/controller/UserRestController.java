@@ -393,11 +393,19 @@ public class UserRestController {
     }
 
     if (fileVideoName.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), principal, "Name", response);
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        return handleSelectedVideoFileUploadForProfilOnServer(fileVideoName.get(), principal, "Name", response);
+      } else {
+        return handleSelectedVideoFileUploadForProfil(fileVideoName.get(), principal, "Name", response);
+      }
     }
 
     if (fileJobVideoDescription.isPresent()) {
-      return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), principal, "JobDescription", response);
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        return handleSelectedVideoFileUploadForProfilOnServer(fileJobVideoDescription.get(), principal, "JobDescription", response);
+      } else {
+        return handleSelectedVideoFileUploadForProfil(fileJobVideoDescription.get(), principal, "JobDescription", response);
+      }
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -603,35 +611,8 @@ public class UserRestController {
         String url = REST_SERVICE_URI + "/video/" + videoDailyMotion.id + "?thumbnail_ratio=square&ssl_assets=true&fields=" + VIDEO_THUMBNAIL_FIELDS + VIDEO_EMBED_FIELD + VIDEO_STATUS;
         String pictureUri = null;
         String id = videoDailyMotion.id;
-/*        if (leaveDailymotionAfterLoadVideo) {*/
           pictureUri = thumbnailFile;
           videoUrl= fileName;
-/*        } else {
-          int i = 0;
-          do {
-            videoDailyMotion = services.sign().getVideoDailyMotionDetails(videoDailyMotion.id, url);
-            Thread.sleep(2 * 1000);
-            if (i > 30) {
-              break;
-            }
-            i++;
-            log.info("status " + videoDailyMotion.status);
-          }
-          while (!videoDailyMotion.status.equals("published"));
-
-          if (!videoDailyMotion.thumbnail_360_url.isEmpty()) {
-            if (videoDailyMotion.thumbnail_360_url.contains("no-such-asset")) {
-              pictureUri = "/img/no-such-asset.jpg";
-            } else {
-              pictureUri = videoDailyMotion.thumbnail_360_url;
-            }
-            log.warn("handleSelectedVideoFileUploadForProfil : thumbnail_360_url = {}", videoDailyMotion.thumbnail_360_url);
-          }
-          if (!videoDailyMotion.embed_url.isEmpty()) {
-            videoUrl = videoDailyMotion.embed_url;
-            log.warn("handleSelectedVideoFileUpload : embed_url = {}", videoDailyMotion.embed_url);
-          }
-        }*/
 
         if (inputType.equals("JobDescription")) {
           if (user.jobDescriptionVideo != null) {
@@ -664,7 +645,6 @@ public class UserRestController {
 
         log.warn("handleSelectedVideoFileUploadForProfil : embed_url = {}", videoDailyMotion.embed_url);
 
-        /*if (leaveDailymotionAfterLoadVideo) {*/
           Runnable task = () -> {
             int i = 0;
             VideoDailyMotion dailyMotion;
@@ -693,7 +673,6 @@ public class UserRestController {
           };
 
           new Thread(task).start();
-/*        }*/
 
         response.setStatus(HttpServletResponse.SC_OK);
         return  userResponseApi;
@@ -705,6 +684,61 @@ public class UserRestController {
       }
     }
   }
+
+  private UserResponseApi handleSelectedVideoFileUploadForProfilOnServer(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
+    {
+      String videoUrl = null;
+      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
+      String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
+      File inputFile;
+
+      UserResponseApi userResponseApi = new UserResponseApi();
+
+      try {
+        storageService.store(file);
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        File newName = new File(newAbsoluteFileName);
+        inputFile.renameTo(newName);
+      } catch (Exception errorLoadFile) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
+        return userResponseApi;
+      }
+
+      try {
+        GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
+      } catch (Exception errorEncondingFile) {
+        DeleteFilesOnServer(inputFile.getAbsolutePath(), null);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
+        return userResponseApi;
+      }
+
+
+      User user = services.user().withUserName(principal.getName());
+
+      String pictureUri = thumbnailFile;
+      videoUrl= newAbsoluteFileName;
+
+      if (inputType.equals("JobDescription")) {
+        if (user.jobDescriptionVideo != null) {
+          DeleteFilesOnServer(user.jobDescriptionVideo, user.jobDescriptionPicture);
+        }
+        services.user().changeDescriptionVideoUrl(user, videoUrl, pictureUri);
+      } else {
+        if (user.nameVideo != null) {
+          DeleteFilesOnServer(user.nameVideo, user.namePicture);
+        }
+        services.user().changeNameVideoUrl(user, videoUrl, pictureUri);
+      }
+
+      response.setStatus(HttpServletResponse.SC_OK);
+      return  userResponseApi;
+
+    }
+  }
+
   private void DeleteVideoOnDailyMotion(String dailymotionId) {
 
     AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
@@ -724,6 +758,21 @@ public class UserRestController {
     restTemplate.exchange(uri, HttpMethod.DELETE, request, String.class );
 
     return;
+  }
+
+  private void DeleteFilesOnServer(String url, String pictureUri) {
+    if (url != null) {
+      File video = new File(url);
+      if (video.exists()) {
+        video.delete();
+      }
+    }
+    if (pictureUri != null) {
+      File thumbnail = new File(pictureUri);
+      if (thumbnail.exists()) {
+        thumbnail.delete();
+      }
+    }
   }
 
   @RequestMapping(value = RestApi.SAVE_PASSWORD)

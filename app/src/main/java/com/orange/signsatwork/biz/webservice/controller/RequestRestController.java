@@ -414,7 +414,11 @@ public class RequestRestController {
     }
 
     if (file.isPresent()) {
-      return createRequestWithVideoFileForRequestDescription(file.get(), requestId, Optional.empty(), principal, response, req);
+      if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+        return createRequestWithVideoFileForRequestDescriptionOnServer(file.get(), requestId, Optional.empty(), principal, response, req);
+      } else {
+        return createRequestWithVideoFileForRequestDescription(file.get(), requestId, Optional.empty(), principal, response, req);
+      }
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -650,10 +654,13 @@ public class RequestRestController {
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Request request = null;
       RequestResponseApi requestResponseApi = new RequestResponseApi();
+      File inputFile;
 
       try {
         storageService.store(file);
-        storageService.load(file.getOriginalFilename()).toFile();
+        inputFile = storageService.load(file.getOriginalFilename()).toFile();
+        File newName = new File(newAbsoluteFileName);
+        inputFile.renameTo(newName);
       } catch (Exception errorLoadFile) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
@@ -666,6 +673,7 @@ public class RequestRestController {
       List<String> emails;
       String title, bodyMail;
       if (requestId != 0) {
+        request = services.request().withId(requestId);
         if (request.requestVideoDescription != null) {
          DeleteFileOnServer(request.requestVideoDescription);
         }
