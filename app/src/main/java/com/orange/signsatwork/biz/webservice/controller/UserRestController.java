@@ -486,10 +486,25 @@ public class UserRestController {
     User userConnected = services.user().withUserName(principal.getName());
 
     if (user.id == userConnected.id) {
-      services.user().changeNameVideoUrl(user, null, null);
+      if (user.nameVideo != null) {
+        if (user.nameVideo.contains("http")) {
+          String dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            return userResponseApi;
+          }
+        } else {
+          DeleteFilesOnServer(user.nameVideo, user.namePicture);
+        }
+        services.user().changeNameVideoUrl(user, null, null);
+      }
     } else {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       userResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+      return userResponseApi;
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -506,10 +521,25 @@ public class UserRestController {
     User userConnected = services.user().withUserName(principal.getName());
 
     if (user.id == userConnected.id) {
-      services.user().changeDescriptionVideoUrl(user, null, null);
+      if (user.jobDescriptionVideo != null) {
+        if (user.jobDescriptionVideo.contains("http")) {
+          String dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+            return userResponseApi;
+          }
+        } else {
+          DeleteFilesOnServer(user.jobDescriptionVideo, user.jobDescriptionPicture);
+        }
+        services.user().changeDescriptionVideoUrl(user, null, null);
+      }
     } else {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       userResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
+      return userResponseApi;
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
