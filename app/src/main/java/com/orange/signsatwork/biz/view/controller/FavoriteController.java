@@ -366,7 +366,7 @@ public class FavoriteController {
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("backUrl", "/sec/favorite/share/?id=" + favoriteId +"&communityId=0");
-    model.addAttribute("communityName", decodeName);
+    model.addAttribute("communityName", decodeName.trim());
     model.addAttribute("communityProfileView", new CommunityProfileView());
     Users users = services.user().allForCreateCommunity();
     List<User> usersWithoutMeAndWithoutAdmin = users.stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());

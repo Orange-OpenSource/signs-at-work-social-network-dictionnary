@@ -193,13 +193,13 @@ public class RequestController {
     model.addAttribute("title", messageByLocaleService.getMessage("sign.modal.request"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
-    List<Object[]> querySigns = services.sign().searchBis(decodeName.replace("œ", "oe").replace("æ", "ae").toUpperCase());
+    List<Object[]> querySigns = services.sign().searchBis(decodeName.trim().replace("œ", "oe").replace("æ", "ae").toUpperCase());
     List<SignViewData> signViewData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
       .collect(Collectors.toList());
 
 
-    model.addAttribute("signName", decodeName);
+    model.addAttribute("signName", decodeName.trim());
     model.addAttribute("isSignAlreadyExist", false);
     List<SignViewData> signsWithSameName = new ArrayList<>();
     for (SignViewData sign: signViewData) {
@@ -214,7 +214,7 @@ public class RequestController {
     model.addAttribute("signsWithSameName", signsWithSameName);
 
     model.addAttribute("isRequestAlreadyExist", false);
-    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(decodeName.replace("œ", "oe").replace("æ", "ae"), user.id);
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(decodeName.trim().replace("œ", "oe").replace("æ", "ae"), user.id);
     List<RequestViewData> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
       .map(objectArray -> new RequestViewData(objectArray))
       .collect(Collectors.toList());
@@ -231,7 +231,7 @@ public class RequestController {
     model.addAttribute("requestsWithSameName", requestsWithNoAssociateSignWithSameName);
 
     model.addAttribute("isRequestWithAssociateSignAlreadyExist", false);
-    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(decodeName.replace("œ", "oe").replace("æ", "ae"), user.id);
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(decodeName.trim().replace("œ", "oe").replace("æ", "ae"), user.id);
     List<RequestViewData> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
       .map(objectArray -> new RequestViewData(objectArray))
       .collect(Collectors.toList());
@@ -249,7 +249,7 @@ public class RequestController {
 
 
     RequestCreationView requestCreationView = new RequestCreationView();
-    requestCreationView.setRequestName(decodeName);
+    requestCreationView.setRequestName(decodeName.trim());
     model.addAttribute("requestCreationView", requestCreationView);
     model.addAttribute("requestView", new RequestView());
     model.addAttribute("appName", appName);

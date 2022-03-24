@@ -117,13 +117,13 @@ public class CommunityController {
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.create_community"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
-    List<Object[]> queryCommunities = services.community().searchBis(decodeName.replace("œ", "oe").replace("æ", "ae").toUpperCase());
+    List<Object[]> queryCommunities = services.community().searchBis(decodeName.trim().replace("œ", "oe").replace("æ", "ae").toUpperCase());
 
     List<CommunityViewData> communityViewData = queryCommunities.stream()
       .map(objectArray -> new CommunityViewData(objectArray))
       .collect(Collectors.toList());
 
-    model.addAttribute("communityName", decodeName);
+    model.addAttribute("communityName", decodeName.trim());
     model.addAttribute("isCommunityAlreadyExist", false);
     List<CommunityViewData> communitiesWithSameName = new ArrayList<>();
     for (CommunityViewData community:communityViewData) {
@@ -145,7 +145,7 @@ public class CommunityController {
     model.addAttribute("communitiesWithSameName", communitiesViewData);
 
     CommunityCreationView communityCreationView = new CommunityCreationView();
-    communityCreationView.setName(decodeName);
+    communityCreationView.setName(decodeName.trim());
     model.addAttribute("communityCreationView", communityCreationView);
 
     model.addAttribute("favoriteId", favoriteId);
@@ -242,7 +242,7 @@ public class CommunityController {
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("backUrl", "/sec/communities");
-    model.addAttribute("communityName", decodeName);
+    model.addAttribute("communityName", decodeName.trim());
     model.addAttribute("communityProfileView", new CommunityProfileView());
     Users users = services.user().allForCreateCommunity();
     List<User> usersWithoutMeAndWithoutAdmin = users.stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
