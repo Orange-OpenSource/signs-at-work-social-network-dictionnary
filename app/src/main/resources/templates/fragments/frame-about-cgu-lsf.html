@@ -34,7 +34,7 @@
          <div class="labelVideo text_hyphenation" th:text="${article.name}" ></div>
          <div class="chevron_blue pull-right"></div>
           <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${article.name}" th:with='cleaned=${#strings.replace(article.name, "&apos;", "\&apos;")}' th:data-descriptionVideo="${article.descriptionVideo}" th:data-name="${cleaned}" th:onclick="javascript:displayVideo(this.getAttribute('data-descriptionVideo'),this.getAttribute('data-name'))">
-            <img th:attr="src=${article.descriptionPicture}, alt=${article.name}"/>
+            <img th:attr="src=${article.descriptionPicture}, alt=${article.name}" oncontextmenu="return false;"/>
           </a>
           </div>
       </div>

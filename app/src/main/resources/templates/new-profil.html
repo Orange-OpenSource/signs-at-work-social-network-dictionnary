@@ -89,7 +89,7 @@
                 <div th:if="${videoView.videoHasView}" class="sign_see_white"></div>
                 <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="sign_see_white"></div>
               </div>
-              <img th:src="${videoView.pictureUri}">
+              <img th:src="${videoView.pictureUri}" oncontextmenu="return false;">
               </img>
             </a>
           </div>

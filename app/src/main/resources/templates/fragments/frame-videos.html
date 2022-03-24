@@ -55,7 +55,7 @@
                 <div th:if="${videoView.videoHasView}" class="sign_see_white"></div>
                 <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="sign_see_white"></div>
               </div>
-            <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
+            <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}" oncontextmenu="return false;"/>
           </a>
           </div>
       </div>

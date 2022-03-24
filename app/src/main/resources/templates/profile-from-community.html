@@ -49,7 +49,7 @@
                  th:data-nameUser="${cleaned}" th:data-nameVideo="${user.nameVideo}"
                  th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-nameUser'))"
                  th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}'>
-                <img class="name_picture" th:attr="alt=#{name_LSF}" th:src="${user.namePicture}"/>
+                <img class="name_picture" th:attr="alt=#{name_LSF}" th:src="${user.namePicture}" oncontextmenu="return false;"/>
               </a>
               <div style="display: inline-grid; float: right">
                 <a data-target="#add_video_file_recording" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}"
@@ -140,7 +140,7 @@
                  style="margin-left: 35px;" th:data-job="${user.job}"
                  th:data-jobDescriptionVideo="${user.jobDescriptionVideo}"
                  th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo'),this.getAttribute('data-job'))">
-                <img class="job_description_picture" th:attr="alt=#{description_LSF}"
+                <img class="job_description_picture" th:attr="alt=#{description_LSF}" oncontextmenu="return false;"
                      th:src="${user.jobDescriptionPicture}"/>
               </a>
               <div style="display: inline-grid; float: right">
@@ -210,7 +210,7 @@
                  th:data-nameUser="${cleaned}" th:data-nameVideo="${user.nameVideo}"
                  th:onclick="javascript:displayVideo(this.getAttribute('data-nameVideo'),this.getAttribute('data-nameUser'))"
                  th:with='cleaned=${#strings.replace(user.name(), "&apos;", "\&apos;")}'>
-                <img class="name_picture" th:attr="alt=#{name_LSF}" th:src="${user.namePicture}"/>
+                <img class="name_picture" th:attr="alt=#{name_LSF}" th:src="${user.namePicture}" oncontextmenu="return false;"/>
               </a>
             </div>
           </li>
@@ -245,8 +245,7 @@
                  style="margin-left: 35px;" th:data-job="${user.job}"
                  th:data-jobDescriptionVideo="${user.jobDescriptionVideo}"
                  th:onclick="javascript:displayVideo(this.getAttribute('data-jobDescriptionVideo'),this.getAttribute('data-job'))">
-                <img class="job_description_picture" th:attr="alt=#{description_LSF}"
-                     th:src="${user.jobDescriptionPicture}"/>
+                <img class="job_description_picture" th:attr="alt=#{description_LSF}" th:src="${user.jobDescriptionPicture}" oncontextmenu="return false;"/>
               </a>
             </div>
           </li>
@@ -295,7 +294,7 @@
                       <div class="sign_see_white" th:if="${videoView.videoHasView}"></div>
                       <div class="sign_see_white" style="visibility: hidden" th:if="${!videoView.videoHasView}"></div>
                     </div>
-                    <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}"/>
+                    <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.videoName}" oncontextmenu="return false;"/>
                   </a>
                 </div>
               </div>
@@ -315,7 +314,7 @@
       </div>
       <div class="modal-body text-center">
         <div id="videoOnServer" class="embed-responsive embed-responsive-16by9" style="display: none">
-          <video id="videoplayer" controls autoplay playsinline>
+          <video id="videoplayer" controls autoplay playsinline oncontextmenu="return false;">
             <source id="videoUrlOnServer" type="video/webm"/>
           </video>
         </div>

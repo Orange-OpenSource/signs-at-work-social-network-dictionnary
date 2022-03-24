@@ -127,7 +127,7 @@
         <div class="pull-right text-center title_middle col-lg-8 col-md-8 col-xs-12 middle-col ">
           <div th:if="${!#strings.contains(display_url, 'http')}">
             <div class="embed-responsive embed-responsive-16by9" id="display_url">
-              <video controls autoplay playsinline>
+              <video controls autoplay playsinline oncontextmenu="return false;">
                 <source th:src="${display_url}" type="video/webm"/>
                 <source th:src="${display_url}" type="video/mp4"/>
               </video>

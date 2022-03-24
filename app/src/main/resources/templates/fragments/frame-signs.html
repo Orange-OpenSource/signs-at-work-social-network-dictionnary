@@ -189,10 +189,10 @@
                 <div th:if="${signView.videoHasComment}" class="commentary_white"></div>
                 <div th:if="${!signView.videoHasComment}" style="visibility: hidden" class="commentary_white"></div>
               </div>
-              <img th:attr="data-src=${signView.pictureUri}, alt=${signView.name}"/>
+              <img th:attr="data-src=${signView.pictureUri}, alt=${signView.name}" oncontextmenu="return false;"/>
             </a>
             <a th:if="${signView.id == 0}" th:href="@{${signView.url} + ${signView.lastVideoId}}" >
-              <img th:attr="data-src=${signView.pictureUri}, alt=${signView.name}"/>
+              <img th:attr="data-src=${signView.pictureUri}, alt=${signView.name}" oncontextmenu="return false;"/>
             </a>
           </div>
         </div>
@@ -226,7 +226,7 @@
                   <div th:if="${videoView.videoHasView}" class="sign_see_white"></div>
                   <div th:if="${!videoView.videoHasView}" style="visibility: hidden" class="sign_see_white"></div>
                 </div>
-                  <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.signName}"/>
+                  <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.signName}" oncontextmenu="return false;"/>
               </a>
             </div>
           </div>

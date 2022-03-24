@@ -49,7 +49,7 @@
               <span th:if="${videoView.nbVideo == 1}" class="text_hyphenation" th:text="${videoView.signName}"></span>
               <span th:if="${videoView.nbVideo > 1}" class="text_hyphenation" th:text="${videoView.signName} + '_' + ${videoView.idForName}"></span>
               <a data-target="#play_video" data-toggle="modal" href="#" th:attr="aria-label=${videoView.signName}" th:with='cleaned=${#strings.replace(videoView.signName, "&apos;", "\&apos;")}' th:data-url="${videoView.url}" th:data-name="${cleaned}" th:data-idForName="${videoView.idForName}" th:data-nbVideo="${videoView.nbVideo}" th:onclick="javascript:displayVideo(this.getAttribute('data-url'),this.getAttribute('data-name'),this.getAttribute('data-idForName'),this.getAttribute('data-nbVideo'))">
-                  <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.signName}"/>
+                  <img th:attr="data-src=${videoView.pictureUri}, alt=${videoView.signName}" oncontextmenu="return false;"/>
               </a>
              </label>
 
