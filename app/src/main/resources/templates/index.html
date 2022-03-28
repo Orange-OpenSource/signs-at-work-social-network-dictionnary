@@ -60,9 +60,9 @@
       <h2 sec:authorize="hasRole('ADMIN')" class="lexical" th:text="#{welcome_admin}"></h2>
       <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical" th:if="${#strings.equals(appName,'LocalHost')}" th:text="#{signatwork.lexical}"></h2>
       <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical" th:if="${#strings.equals(appName,'Signs@Work')}" th:text="#{signatwork.lexical}"></h2>
-      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-9 col-xs-12 col-lg-9" th:if="${#strings.equals(appName,'Signs@Form')}" th:text="#{signatform.lexical}"></h2>
-      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-9 col-xs-12 col-lg-9" th:if="${#strings.equals(appName,'Signs@ADIS')}" th:text="#{signatadis.lexical}"></h2>
-      <div sec:authorize="hasRole('USER_A') or hasRole('USER')" class="col-lg-3 col-md-3 col-xs-12 middle-col hidden-xs hidden-sm">
+      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-8 col-xs-12 col-lg-8" th:if="${#strings.equals(appName,'Signs@Form')}" th:text="#{signatform.lexical}"></h2>
+      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-8 col-xs-12 col-lg-8" th:if="${#strings.equals(appName,'Signs@ADIS')}" th:text="#{signatadis.lexical}"></h2>
+      <div sec:authorize="hasRole('USER_A') or hasRole('USER')" class="col-lg-4 col-md-4 col-xs-12 middle-col hidden-xs hidden-sm">
         <a th:if="${#strings.equals(appName,'Signs@Form') || #strings.equals(appName,'Signs@ADIS') }" class="btn_go_to_signsatwork btn btn-default pull-right" href="https://signsatwork.orange-labs.fr/" target="_blank">
           <div class="pull-left logo_signsatwork_blue"></div>
           <div class="go_to_signsatwork_label" th:text="#{go_to_signsatwork}"></div>
