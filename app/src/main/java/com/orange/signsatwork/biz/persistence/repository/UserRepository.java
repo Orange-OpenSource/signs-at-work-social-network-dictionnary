@@ -34,7 +34,7 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<UserDB, Long> {
   List<UserDB> findByUsername(String username);
 
-  @Query(value="select A.email from userdb A, userdb_user_roles B  where A.id != :userId and A.id = B.userdb_id and B.user_roles_id=1 and A.id in (select distinct(users_id) from  communities_users where communities_id in (select communities_id from communities_users where users_id= :userId)) and A.email is not null", nativeQuery = true)
+  @Query(value="select A.email from userdb A, userdb_user_roles B  where A.id != :userId and A.id = B.userdb_id and B.user_roles_id in (select id from user_roledb where role='ROLE_USER_A') and A.id in (select distinct(users_id) from  communities_users where communities_id in (select communities_id from communities_users where users_id= :userId)) and A.email is not null", nativeQuery = true)
   List<String> findEmailForUserHaveSameCommunityAndCouldCreateSign(@Param("userId") long userId);
 
 
