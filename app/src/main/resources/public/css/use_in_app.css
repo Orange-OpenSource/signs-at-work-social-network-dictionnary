@@ -680,7 +680,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
+  background: url("/img/done_blue.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
 }
 
 .navbar-toggle {

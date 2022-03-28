@@ -725,6 +725,7 @@ public class RequestRestController {
   }
 
   private String getAppUrl(HttpServletRequest request) {
+    log.info("LocalName {} requestURL {} requestURI {}", request.getLocalName(), request.getRequestURL(), request.getRequestURI());
     return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
   }
 

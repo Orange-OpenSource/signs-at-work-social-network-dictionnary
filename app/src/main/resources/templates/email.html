@@ -4,14 +4,14 @@
   <title th:remove="all">Template for HTML email with inline image</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
+<body style="font-family: AccessibleDfA, Arial, Calibri;">
 <p th:text="#{hello}">Bonjour,</p>
 <p th:text="#{request_created_by_user_body_1(${user_name}, ${request_name})}">Manuel Sanchez a besoin d'un signe pour le mot test.</p>
 <p th:text="#{request_created_by_user_body_2(${url})}">Vous pouvez l'aider via le lien suivant https://signsatwork.orange-labs.fr</p>
 <p th:text="#{thank}">Merci</p>
-<p style="font-weight: bold" th:text="${appName}"></p>
+<p style="font-weight: bold;" th:text="${appName}"></p>
 <p>
-  <img width="100" height="40" th:src="|cid:${imageResourceName}|"/>
+  <img width="100" height="40" th:src="|cid:${imageResourceName}|" th:attr="alt=#{logo(${appName})}"/>
 </p>
 <p th:utext="#{mail_footer}">NB : cet email est un envoi automatique de l'application. Merci de ne pas y repondre</p>
 

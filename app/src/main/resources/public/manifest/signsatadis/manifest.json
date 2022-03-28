@@ -1,10 +1,10 @@
 {"dir" : "ltr",
   "lang" : "French",
-  "name" : "Signs@Adis",
+  "name" : "Signs@ADIS",
   "scope" : "/",
   "display" : "standalone",
   "start_url" : "https://telsigne.adis-savoie.fr/",
-  "short_name" : "Signs@Adis",
+  "short_name" : "Signs@ADIS",
   "theme_color" : "transparent",
   "description" : "",
   "orientation" : "any",
@@ -12,27 +12,27 @@
   "generated" : "true",
   "icons" : [
     {
-      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@Adis/icon-48x48.png",
+      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@ADIS/icon-48x48.png",
       "sizes": "48x48"
     },
     {
-      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@Adis/icon-72x72.png",
+      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@ADIS/icon-72x72.png",
       "sizes": "72x72"
     },
     {
-      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@Adis/icon-96x96.png",
+      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@ADIS/icon-96x96.png",
       "sizes": "96x96"
     },
     {
-      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@Adis/icon-144x144.png",
+      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@ADIS/icon-144x144.png",
       "sizes": "144x144"
     },
     {
-      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@Adis/icon-192x192.png",
+      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@ADIS/icon-192x192.png",
       "sizes": "192x192"
     },
     {
-      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@Adis/icon-512x512.png",
+      "src": "https://telsigne.adis-savoie.fr/img/icons/Signs@ADIS/icon-512x512.png",
       "sizes": "512x512"
     }
   ]}

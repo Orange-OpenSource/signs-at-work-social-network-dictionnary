@@ -33,10 +33,10 @@
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <a href="/" class="text-center" th:attr="aria-label=#{home}">
-          <div th:if="${#strings.equals(appName,'LocalHost')}" class="logo_signsatwork-text_white pull-left" alt="logo de sign@work"></div>
-          <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_signsatwork-text_white pull-left" alt="logo de sign@work"></div>
-          <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform-text_white pull-left" alt="logo de sign@form"></div>
-          <div th:if="${#strings.equals(appName,'Signs@Adis')}" class="logo_signsatadis-text_white pull-left" alt="logo de sign@adis"></div>
+          <div th:if="${#strings.equals(appName,'LocalHost')}" class="logo_signsatwork-text_white pull-left" alt="logo de Signs@Work"></div>
+          <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_signsatwork-text_white pull-left" alt="logo de Signs@Work"></div>
+          <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform-text_white pull-left" alt="logo de Signs@Form"></div>
+          <div th:if="${#strings.equals(appName,'Signs@ADIS')}" class="logo_signsatadis-text_white pull-left" alt="logo de Signs@ADIS"></div>
         </a>
         <h1 id="cgu_title" class="text_hyphenation navbar_title" th:text="${title}"></h1>
         <h1 id="create_account_title" class="text_hyphenation navbar_title hidden" th:text="#{create_account_title}"></h1>
