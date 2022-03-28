@@ -1313,13 +1313,15 @@ public class FileUploadRestController {
                 title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
                 bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
-                Request finalRequest = request;
-                Runnable task = () -> {
-                  log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale() );
-                };
+                if (emails.size() != 0) {
+                  Request finalRequest = request;
+                  Runnable task = () -> {
+                    log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                    services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+                  };
 
-                new Thread(task).start();
+                  new Thread(task).start();
+                }
               } else {
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
                 requestResponse.errorType = 1;
@@ -1414,13 +1416,15 @@ public class FileUploadRestController {
             title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
             bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
-            Request finalRequest = request;
-            Runnable task = () -> {
-              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale() );
-            };
+            if (emails.size() != 0) {
+              Request finalRequest = request;
+              Runnable task = () -> {
+                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+              };
 
-            new Thread(task).start();
+              new Thread(task).start();
+            }
           } else {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             requestResponse.errorType = 1;
@@ -1575,13 +1579,15 @@ public class FileUploadRestController {
               title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
               bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
-              Request finalRequest = request;
-              Runnable task = () -> {
-                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
-              };
+              if (emails.size() != 0) {
+                Request finalRequest = request;
+                Runnable task = () -> {
+                  log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+                };
 
-              new Thread(task).start();
+                new Thread(task).start();
+              }
             } else {
               response.setStatus(HttpServletResponse.SC_CONFLICT);
               requestResponse.errorType = 1;
@@ -1683,13 +1689,15 @@ public class FileUploadRestController {
           title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
           bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
-          Request finalRequest = request;
-          Runnable task = () -> {
-            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
-          };
+          if (emails.size() != 0) {
+            Request finalRequest = request;
+            Runnable task = () -> {
+              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+              services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+            };
 
-          new Thread(task).start();
+            new Thread(task).start();
+          }
         } else {
           response.setStatus(HttpServletResponse.SC_CONFLICT);
           requestResponse.errorType = 1;

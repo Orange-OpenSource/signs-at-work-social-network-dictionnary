@@ -96,13 +96,14 @@ public class RequestRestController {
         emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
         title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
         bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+        if (emails.size() != 0) {
+          Runnable task = () -> {
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id, req.getLocale());
+          };
 
-        Runnable task = () -> {
-          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id, req.getLocale());
-        };
-
-        new Thread(task).start();
+          new Thread(task).start();
+        }
 
 
       } else {
@@ -455,13 +456,14 @@ public class RequestRestController {
           title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
           bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
-          Runnable task = () -> {
-            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id, req.getLocale());
-          };
+         if (emails.size() != 0) {
+            Runnable task = () -> {
+              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+              services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id, req.getLocale());
+            };
 
-          new Thread(task).start();
-
+            new Thread(task).start();
+          }
           requestResponseApi.requestId = request.id;
           return requestResponseApi;
 
@@ -590,13 +592,15 @@ public class RequestRestController {
               title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
               bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
-              Request finalRequest = request;
-              Runnable task = () -> {
-                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
-              };
+              if (emails.size() != 0) {
+                Request finalRequest = request;
+                Runnable task = () -> {
+                  log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+                };
 
-              new Thread(task).start();
+                new Thread(task).start();
+              }
             } else {
               response.setStatus(HttpServletResponse.SC_CONFLICT);
               requestResponseApi.errorMessage = messageByLocaleService.getMessage("request.already_exists");
@@ -688,13 +692,15 @@ public class RequestRestController {
             title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
             bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
 
-            Request finalRequest = request;
-            Runnable task = () -> {
-              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
-            };
+            if (emails.size() != 0) {
+              Request finalRequest = request;
+              Runnable task = () -> {
+                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+              };
 
-            new Thread(task).start();
+              new Thread(task).start();
+            }
           } else {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             requestResponseApi.errorMessage = messageByLocaleService.getMessage("request.already_exists");
