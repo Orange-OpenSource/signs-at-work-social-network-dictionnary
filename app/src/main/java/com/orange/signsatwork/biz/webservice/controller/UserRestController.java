@@ -126,7 +126,7 @@ public class UserRestController {
         if (userCreationView.getMessageServerId() != null) {
           services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.DONE);
         }
-        final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
+        final String url = getAppUrl() + "/user/createPassword?id=" + user.id + "&token=" + token;
         title = messageByLocaleService.getMessage("password_create_title", new Object[]{appName});
         bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{appName, userCreationView.getUsername(), url});
 
@@ -244,7 +244,7 @@ public class UserRestController {
     if (!userCreationView.getUsername().isEmpty()) {
         final String token = UUID.randomUUID().toString();
         services.user().createPasswordResetTokenForUser(user, token);
-        final String url = getAppUrl(request) + "/user/changePassword?id=" + user.id + "&token=" + token;
+        final String url = getAppUrl() + "/user/changePassword?id=" + user.id + "&token=" + token;
         title = messageByLocaleService.getMessage("password_reset_title", new Object[]{appName});
         bodyMail = messageByLocaleService.getMessage("password_reset_body", new Object[]{url});
 
@@ -263,8 +263,8 @@ public class UserRestController {
     return userResponseApi;
   }
 
-  private String getAppUrl(HttpServletRequest request) {
-    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+  private String getAppUrl() {
+    return environment.getProperty("app.url");
   }
 
   @Secured("ROLE_USER")

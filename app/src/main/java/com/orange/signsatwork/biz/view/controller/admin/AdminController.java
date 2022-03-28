@@ -35,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,6 +68,8 @@ public class AdminController {
   private CommunityService communityService;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+  @Autowired
+  private Environment environment;
 
   @Value("${app.admin.username}")
   String adminUsername;
@@ -150,7 +153,7 @@ public class AdminController {
       userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
       final String token = UUID.randomUUID().toString();
       services.user().createPasswordResetTokenForUser(user, token);
-      final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
+      final String url = getAppUrl() + "/user/createPassword?id=" + user.id + "&token=" + token;
       title = messageByLocaleService.getMessage("password_create_title",new Object[]{appName});
       bodyMail = messageByLocaleService.getMessage("password_create_body", new Object[]{appName, userCreationView.getUsername(), url});
 
@@ -164,8 +167,8 @@ public class AdminController {
     return userAdminController.userDetails(user.id, model);
   }
 
-  private String getAppUrl(HttpServletRequest request) {
-    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+  private String getAppUrl() {
+    return environment.getProperty("app.url");
   }
 
   @Secured("ROLE_ADMIN")
@@ -232,7 +235,7 @@ public class AdminController {
       userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
       final String token = UUID.randomUUID().toString();
       services.user().createPasswordResetTokenForUser(user, token);
-      final String url = getAppUrl(request) + "/user/createPassword?id=" + user.id + "&token=" + token;
+      final String url = getAppUrl() + "/user/createPassword?id=" + user.id + "&token=" + token;
       title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
       bodyMail = messageByLocaleService.getMessage("email_change_body", new Object[]{url});
 

@@ -35,6 +35,7 @@ import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +61,9 @@ public class FavoriteController {
 
   @Autowired
   MessageByLocaleService messageByLocaleService;
+
+  @Autowired
+  private Environment environment;
 
   @Value("${app.name}")
   String appName;
@@ -341,13 +345,13 @@ public class FavoriteController {
     List<Long> communitiesIds =
       transformCommunitiesIdsToLong(req.getParameterMap().get("favoriteCommunitiesIds"));
 
-    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds, user.name(), getAppUrl(req), req.getLocale());
+    services.favorite().changeFavoriteCommunities(favoriteId, communitiesIds, user.name(), getAppUrl(), req.getLocale());
 
     return showFavorite(favoriteId);
   }
 
-  private String getAppUrl(HttpServletRequest request) {
-    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+  private String getAppUrl() {
+    return environment.getProperty("app.url");
   }
 
   private List<Long> transformCommunitiesIdsToLong(String[] favoriteCommunitiesIds) {

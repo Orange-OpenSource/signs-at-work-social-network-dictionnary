@@ -1311,13 +1311,13 @@ public class FileUploadRestController {
                 log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
                 emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
                 title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-                bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+                bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl() + "/sec/other-request-detail/" + request.id});
 
                 if (emails.size() != 0) {
                   Request finalRequest = request;
                   Runnable task = () -> {
                     log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                    services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+                    services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl() + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
                   };
 
                   new Thread(task).start();
@@ -1414,13 +1414,13 @@ public class FileUploadRestController {
             log.info("createRequest: username = {} / request name = {}", user.username, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription());
             emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
             title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-            bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+            bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl() + "/sec/other-request-detail/" + request.id});
 
             if (emails.size() != 0) {
               Request finalRequest = request;
               Runnable task = () -> {
                 log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+                services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl() + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
               };
 
               new Thread(task).start();
@@ -1445,8 +1445,8 @@ public class FileUploadRestController {
       return requestResponse;
     }
   }
-  private String getAppUrl(HttpServletRequest request) {
-    return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+  private String getAppUrl() {
+    return environment.getProperty("app.url");
   }
 
   @Secured("ROLE_USER")
@@ -1577,13 +1577,13 @@ public class FileUploadRestController {
               log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
               emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
               title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-              bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+              bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl() + "/sec/other-request-detail/" + request.id});
 
               if (emails.size() != 0) {
                 Request finalRequest = request;
                 Runnable task = () -> {
                   log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+                  services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl() + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
                 };
 
                 new Thread(task).start();
@@ -1687,13 +1687,13 @@ public class FileUploadRestController {
           log.info("createRequest: username = {} / request name = {}", user.username, videoFile.requestNameRecording, videoFile.requestTextDescriptionRecording);
           emails = services.user().findEmailForUserHaveSameCommunityAndCouldCreateSign(user.id);
           title = messageByLocaleService.getMessage("request_created_by_user_title", new Object[]{user.name()});
-          bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl(req) + "/sec/other-request-detail/" + request.id});
+          bodyMail = messageByLocaleService.getMessage("request_created_by_user_body", new Object[]{user.name(), request.name, getAppUrl() + "/sec/other-request-detail/" + request.id});
 
           if (emails.size() != 0) {
             Request finalRequest = request;
             Runnable task = () -> {
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl(req) + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
+              services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl() + "/sec/other-request-detail/" + finalRequest.id, req.getLocale());
             };
 
             new Thread(task).start();
@@ -2204,7 +2204,7 @@ public class FileUploadRestController {
           Community finalCommunity = community;
           Runnable task = () -> {
             String title, bodyMail;
-            final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+            final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
             title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
             log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
@@ -2288,7 +2288,7 @@ public class FileUploadRestController {
       Community finalCommunity = community;
       Runnable task = () -> {
         String title, bodyMail;
-        final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+        final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
         title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
         bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
         log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
@@ -2407,7 +2407,7 @@ public class FileUploadRestController {
             Community finalCommunity = community;
             Runnable task = () -> {
               String title, bodyMail;
-              final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+              final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
               log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
@@ -2481,7 +2481,7 @@ public class FileUploadRestController {
         Community finalCommunity = community;
         Runnable task = () -> {
           String title, bodyMail;
-          final String urlDescriptionCommunity = getAppUrl(request) + "/sec/community/" + finalCommunity.id + "/description";
+          final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
           title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
           bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
           log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
