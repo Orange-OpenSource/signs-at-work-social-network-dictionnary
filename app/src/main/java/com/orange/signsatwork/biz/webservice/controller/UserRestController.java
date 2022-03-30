@@ -105,7 +105,21 @@ public class UserRestController {
     UserResponseApi userResponseApi = new UserResponseApi();
     if (userCreationView.getUsername() == null) {
       if (userCreationView.getMessageServerId() != 0) {
-        services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
+        MessagesServer queryMessagesServer = services.messageServerService().messagesServerCreateUserWithId(userCreationView.getMessageServerId());
+        if (queryMessagesServer.list().size() == 1) {
+          Date date = queryMessagesServer.list().get(0).date;
+          String email = queryMessagesServer.list().get(0).values.substring(queryMessagesServer.list().get(0).values.lastIndexOf(";") + 1);
+          services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
+          title = messageByLocaleService.getMessage("canceled_create_user_title");
+          bodyMail = messageByLocaleService.getMessage("canceled_create_user_body", new Object[]{date});
+
+          Runnable task = () -> {
+            log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+            services.emailService().sendCanceledCreateUserMessage(email, title, date, request.getLocale());
+          };
+
+          new Thread(task).start();
+        }
       }
     } else {
       if (services.user().withUserName(userCreationView.getUsername()) != null) {
@@ -836,19 +850,23 @@ public class UserRestController {
   }
 
   @RequestMapping(value = RestApi.SEND_MAIL)
-  public UserResponseApi sendMail(@RequestBody UserCreationView userCreationView, HttpServletResponse response) {
+  public UserResponseApi sendMail(@RequestBody UserCreationView userCreationView, HttpServletRequest request, HttpServletResponse response) {
     String title, body;
     UserResponseApi userResponseApi = new UserResponseApi();
     User admin = services.user().getAdmin();
 
     User user = services.user().withUserName(userCreationView.getEmail());
     if (user == null) {
-      body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName(), userCreationView.getEmail()});
-      title = messageByLocaleService.getMessage("ask_to_create_user_title", new Object[]{appName});
+      Date date = new Date();
+      String values = userCreationView.getFirstName() + ";" + userCreationView.getLastName() + ";" + userCreationView.getEmail();
+      MessageServer messageServer = new MessageServer(new Date(), "RequestCreateUserMessage", values, ActionType.TODO);
+      long idMessage = services.messageServerService().addMessageServer(messageServer);
+      String url = getAppUrl() + "/sec/admin/create-users?id=" + idMessage;
+      body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{date, userCreationView.getEmail(), url});
+      title = messageByLocaleService.getMessage("ask_to_create_user_title", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName()});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-        String values = userCreationView.getFirstName() + ";" + userCreationView.getLastName() + ";" + userCreationView.getEmail();
-        services.emailService().sendSimpleMessage(admin.email, title, body, "RequestCreateUserMessage", values);
+        services.emailService().sendCreateUserMessage(admin.email, title, userCreationView.getEmail(), url, request.getLocale());
       };
 
       new Thread(task).start();

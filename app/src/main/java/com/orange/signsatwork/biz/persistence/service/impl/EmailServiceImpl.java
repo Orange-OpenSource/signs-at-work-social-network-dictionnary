@@ -33,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.*;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -68,7 +69,8 @@ public class EmailServiceImpl implements EmailService {
   @Autowired
   TemplateEngine templateEngine;
 
-
+  @Autowired
+  private Environment environment;
 
   public void sendRequestMessage(String[] to, String subject, String userName, String requestName, String url, Locale locale) {
     InputStream imageIs = null;
@@ -653,6 +655,103 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
+  public void sendCreateUserMessage(String to, String subject, String username, String url, Locale locale) {
+    InputStream imageIs = null;
+    String imageName;
+    try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else if (appName.equals("Signs@ADIS")){
+        imageName = "logo-textADIS_blue-white.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom(adminUsername);
+      Context ctx = new Context(locale);
+      ctx.setVariable("username", username);
+      ctx.setVariable("url", url);
+      ctx.setVariable("imageResourceName", imageName);
+      ctx.setVariable("appName", appName);
+      String htmlContent = templateEngine.process("email-create-user", ctx);
+      helper.setText(htmlContent, true);
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline(imageName, imageSource, "image/png");
+
+
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  public void  sendCanceledCreateUserMessage(String to, String subject, Date date, Locale locale) {
+    InputStream imageIs = null;
+    String imageName;
+    try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else if (appName.equals("Signs@ADIS")){
+        imageName = "logo-textADIS_blue-white.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom(adminUsername);
+      Context ctx = new Context(locale);
+      ctx.setVariable("date", date);
+      ctx.setVariable("imageResourceName", imageName);
+      ctx.setVariable("appName", appName);
+      String htmlContent = templateEngine.process("email-canceled-create-user", ctx);
+      helper.setText(htmlContent, true);
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline(imageName, imageSource, "image/png");
+
+
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
   public void sendSimpleMessage(String to, String subject, String text, String type, String values) {
 
     try {
@@ -669,5 +768,9 @@ public class EmailServiceImpl implements EmailService {
     } catch (MailException exception) {
       exception.printStackTrace();
     }
+  }
+
+  private String getAppUrl() {
+    return environment.getProperty("app.url");
   }
 }

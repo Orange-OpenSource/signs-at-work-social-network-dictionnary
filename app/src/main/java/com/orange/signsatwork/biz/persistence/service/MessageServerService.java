@@ -4,7 +4,7 @@ import com.orange.signsatwork.biz.domain.*;
 
 public interface MessageServerService {
 
-  void addMessageServer(MessageServer messageServer);
+  long addMessageServer(MessageServer messageServer);
 
   MessagesServer messagesServerAllAsc();
 

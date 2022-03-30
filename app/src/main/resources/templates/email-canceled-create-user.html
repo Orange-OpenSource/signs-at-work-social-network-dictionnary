@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:remove="all">Template for HTML email with inline image</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body style="font-family: Accessible DfA, Arial, Calibri;">
+<p th:text="#{hello}">Bonjour,</p>
+<p th:text="#{canceled_create_user_body(${date})}">Votre demande de création de compte du {0} n'a pas été acceptée.</p>
+<p th:text="#{thank}">Merci</p>
+<p style="font-weight: bold" th:text="${appName}"></p>
+<p>
+  <img width="100" height="40" th:src="|cid:${imageResourceName}|" th:attr="alt=#{logo(${appName})}"/>
+</p>
+<p th:utext="#{mail_footer}">NB : cet email est un envoi automatique de l'application. Merci de ne pas y repondre</p>
+</body>
+</html>

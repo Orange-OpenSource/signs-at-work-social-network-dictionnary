@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
+import java.util.Date;
 import java.util.Locale;
 
 public interface EmailService {
@@ -49,4 +50,8 @@ public interface EmailService {
   public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
 
   public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject,  String username, String url, Locale locale);
+
+  public void sendCreateUserMessage(String to, String subject, String username, String url, Locale locale);
+
+  public void  sendCanceledCreateUserMessage(String to, String subject, Date date, Locale locale);
 }
