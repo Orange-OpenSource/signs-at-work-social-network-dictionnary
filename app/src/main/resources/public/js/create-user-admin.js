@@ -24,12 +24,14 @@ console.log("Cool, create-user-admin.js is loaded :)");
 var inputLastName = document.getElementById('lastName');
 var inputFirstName = document.getElementById('firstName');
 var inputEmail = document.getElementById('mail');
+var inputRole = document.getElementById('role');
 var submitCreateUser = document.getElementById("submit-create-user");
 var errorCreateUser = document.getElementById('errorCreateUser');
 
 var lastName = new Boolean(false);
 var firstName = new Boolean(false);
 var mail = new Boolean(false);
+var role = new Boolean(false);
 
 
 var regexName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{1,30}$');
@@ -38,6 +40,7 @@ var regexEmail = new RegExp('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}');
 inputLastName.addEventListener('keyup',checkLastName);
 inputFirstName.addEventListener('keyup',checkFirstName);
 inputEmail.addEventListener('keyup',checkEmail);
+inputRole.addEventListener("change",checkRole);
 submitCreateUser.disabled = true;
 
 var messageServerId = "";
@@ -52,7 +55,7 @@ function checkLastName() {
   }else {
     lastName = true;
     $('.errorRegexLastName').addClass("hidden");
-    if ((firstName != false) && (mail != false)) {
+    if ((firstName != false) && (mail != false) && (role != false)) {
       submitCreateUser.disabled = false;
     }
   }
@@ -68,7 +71,7 @@ function checkFirstName() {
   } else {
     firstName = true;
     $('.errorRegexFirstName').addClass("hidden");
-    if ((lastName != false) && (mail != false)) {
+    if ((lastName != false) && (mail != false) && (role != false)) {
       submitCreateUser.disabled = false;
     }
   }
@@ -85,12 +88,27 @@ function checkEmail() {
   }else {
     mail = true;
     $('.errorRegexEmail').addClass("hidden");
-    if ((lastName != false) && (firstName != false)) {
+    if ((lastName != false) && (firstName != false) && (role != false)) {
       submitCreateUser.disabled = false;
     }
   }
 }
 
+function checkRole() {
+  var valueRole = inputRole.value;
+  console.log("inputRole "+inputRole.value)
+  if(!inputRole.value) {
+    role = false;
+    submitCreateUser.disabled = true;
+  }else {
+    role = true;
+    $('#role').css("color","#4866F7");
+    $('.errorRegexEmail').addClass("hidden");
+    if ((lastName != false) && (firstName != false) && (mail != false)) {
+      submitCreateUser.disabled = false;
+    }
+  }
+}
 function onCreateUser(messageServer, messageId) {
   console.log("messageServer " + messageServer );
   console.log("messageId " + messageId );
@@ -112,6 +130,8 @@ $create_user.on('hidden.bs.modal', function() {
  $("#lastName").removeClass("disabled");
  $("#mail").val("");
  $("#mail").removeClass("disabled");
+ $("#role").val("");
+ $('#role').css("color","#8C8C8C");
  $('.errorRegexFirstName').addClass("hidden");
  $('.errorRegexLastName').addClass("hidden");
  $('.errorRegexEmail').addClass("hidden");
