@@ -136,6 +136,7 @@ $create_user.on('hidden.bs.modal', function() {
  $('.errorRegexLastName').addClass("hidden");
  $('.errorRegexEmail').addClass("hidden");
  errorCreateUser.style.display = "none";
+ messageServerId=0;
  submitCreateUser.disabled = true;
 });
 
