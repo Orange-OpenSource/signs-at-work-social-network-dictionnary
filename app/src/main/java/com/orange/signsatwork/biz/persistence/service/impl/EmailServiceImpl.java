@@ -49,7 +49,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 
@@ -105,7 +107,8 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = userName + ';' + StringUtils.join(Arrays.asList(to), ',') + ';' + requestName;
+      List<String> toList = Arrays.asList(to);
+      String values = userName + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + requestName;
       MessageServer messageServer = new MessageServer(new Date(), "RequestMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
@@ -158,7 +161,8 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = userName + ';' + favoriteName + ';' + StringUtils.join(Arrays.asList(to), ',');
+      List<String> toList = Arrays.asList(to);
+      String values = userName + ';' + favoriteName + ';' + toList.stream().collect(Collectors.joining(", "));
       MessageServer messageServer = new MessageServer(new Date(), "FavoriteShareMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
@@ -212,7 +216,8 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = userName + ';' + communityName + ';' + StringUtils.join(Arrays.asList(to), ',');
+      List<String> toList = Arrays.asList(to);
+      String values = userName + ';' + communityName + ';' + toList.stream().collect(Collectors.joining(", "));
       MessageServer messageServer = new MessageServer(new Date(), "CommunityCreateMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
@@ -266,7 +271,8 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = userName + ';' + StringUtils.join(Arrays.asList(to), ',') + ';' + communityName;
+      List<String> toList = Arrays.asList(to);
+      String values = userName + ';' + toList.stream().collect(Collectors.joining(", ")) + communityName;
       MessageServer messageServer = new MessageServer(new Date(), "CommunityAddMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
@@ -424,7 +430,8 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = userName + ';' + StringUtils.join(Arrays.asList(to), ',') + ';' + communityName;
+      List<String> toList = Arrays.asList(to);
+      String values = userName + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + communityName;
       MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
