@@ -142,13 +142,14 @@ $create_user.on('hidden.bs.modal', function() {
 
 var $formCreateUser= $('#input-create-user');
 $formCreateUser.on('submit', function(event) {
+    var confirmCreateUserText = document.getElementById('confirm_create_user_text');
     document.getElementById('submit-create-user').disabled=true;
      user = {
         firstName: inputFirstName.value,
         lastName: inputLastName.value,
         email: inputEmail.value,
         username: inputEmail.value,
-        role: role.value,
+        role: inputRole.value,
         messageServerId : messageServerId
       };
     event.preventDefault();
@@ -160,12 +161,17 @@ $formCreateUser.on('submit', function(event) {
       success: function (response) {
         var url = response;
         errorCreateUser.style.display = "none";
-        console.log("Success " + response);
-        url = "/sec/admin/create-users";
-        console.log(window.location.href);
-        window.history.replaceState({}, 'foo', url);
-        console.log(window.location.href);
-        window.location = url;
+        $("#create-user").modal('hide');
+        confirmCreateUserText.textContent = response.errorMessage;
+        $("#confirm_create_user").modal('show');
+        setTimeout(function(){
+          $('#confirm_create_user').modal('hide');
+          url = "/sec/admin/create-users";
+          console.log(window.location.href);
+          window.history.replaceState({}, 'foo', url);
+          console.log(window.location.href);
+          window.location = url;
+        }, 3000);
       },
       error: function (response) {
         errorCreateUser.textContent = response.responseJSON.errorMessage;
@@ -194,8 +200,11 @@ $modalCreateUser.on('show.bs.modal', function() {
 $('#cancel-create-user').click(function() {
   console.log("cancel create user");
   if (messageServerId != 0) {
+    var confirmCancelCreateUserText = document.getElementById('confirm_cancel_create_user_text');
     document.getElementById('submit-create-user').disabled=true;
      user = {
+        firstName: inputFirstName.value,
+        lastName: inputLastName.value,
         messageServerId : messageServerId
       };
     event.preventDefault();
@@ -207,12 +216,17 @@ $('#cancel-create-user').click(function() {
       success: function (response) {
         var url = response;
         errorCreateUser.style.display = "none";
-        console.log("Success " + response);
-        url = "/sec/admin/create-users";
-        console.log(window.location.href);
-        window.history.replaceState({}, 'foo', url);
-        console.log(window.location.href);
-        window.location = url;
+        $("#create-user").modal('hide');
+        confirmCancelCreateUserText.textContent = response.errorMessage;
+        $("#confirm_cancel_create_user").modal('show');
+        setTimeout(function(){
+          $('#confirm_cancel_create_user').modal('hide');
+          url = "/sec/admin/create-users";
+          console.log(window.location.href);
+          window.history.replaceState({}, 'foo', url);
+          console.log(window.location.href);
+          window.location = url;
+        }, 3000);
       },
       error: function (response) {
         errorCreateUser.textContent = response.responseJSON.errorMessage;

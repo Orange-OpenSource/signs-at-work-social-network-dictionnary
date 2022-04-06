@@ -119,6 +119,7 @@ public class UserRestController {
           };
 
           new Thread(task).start();
+          userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_cancel_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName()});
         }
       }
     } else {
@@ -137,7 +138,7 @@ public class UserRestController {
         services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
         final String token = UUID.randomUUID().toString();
         services.user().createPasswordResetTokenForUser(user, token);
-        if (userCreationView.getMessageServerId() != null) {
+        if (userCreationView.getMessageServerId() != null && userCreationView.getMessageServerId() != 0)  {
           services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.DONE);
         }
         final String url = getAppUrl() + "/user/createPassword?id=" + user.id + "&token=" + token;
@@ -151,6 +152,7 @@ public class UserRestController {
 
         new Thread(task).start();
       }
+      userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName()});
     }
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;
