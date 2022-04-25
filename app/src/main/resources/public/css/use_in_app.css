@@ -377,9 +377,9 @@ h4, .h4 {
   font-weight: bold;
 }
 
-/*H2.text_hyphenation{
+H2.text_hyphenation{
   width: 23rem;
-}*/
+}
 
 H4.text_hyphenation{
   width: 23rem;
@@ -3330,9 +3330,30 @@ h2.container_CGU {
   height: 40px;
   width: 40px;
   margin-top: 4px;
+  margin-right: 7px;
+}
+
+.OkNo-Supprimer-Annuler {
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -548px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
   margin-right: 8px;
 }
 
+.Cefe {
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -594px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 18px;
+  margin-left: 15px;
+}
 .member_blue_circle {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;

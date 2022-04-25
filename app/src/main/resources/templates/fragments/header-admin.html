@@ -93,7 +93,7 @@
 
           <ul class="list-unstyled components" role="menu">
             <li class=" aside_bckg_li" th:if="${isAuthenticated}" role="menuitem" >
-              <a th:href="@{/sec/my-profil}">
+              <a th:href="@{/sec/admin/messages-server?isAllAsc=true}">
                 <div>
                   <div class="pull-left message_black"></div>
                   <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{server_message}"></h4>
