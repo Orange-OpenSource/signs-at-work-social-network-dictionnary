@@ -54,6 +54,10 @@ public interface UserService {
 
   void delete(User user);
 
+  void enable(User user);
+
+  void disable(User user);
+
   void changeJob(User user, String job);
 
   void changeEntity(User user, String entity);

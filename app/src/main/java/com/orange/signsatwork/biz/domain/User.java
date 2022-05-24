@@ -43,6 +43,7 @@ public class User {
   public final String jobDescriptionVideo;
   public final String jobDescriptionPicture;
   public final Date lastDeconnectionDate;
+  public final Boolean isEnabled;
   public final Communities communities;
   public final Requests requests;
   public final Favorites favorites;
@@ -75,7 +76,7 @@ public class User {
   public User loadCommunitiesRequestsFavorites() {
     return communities != null || requests != null || favorites != null ?
             this :
-            new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate,
+            new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled,
                     services.community().forUser(id),  services.request().requestsforUser(id), services.favorite().favoritesforUser(id), videos,
                     services);
   }
@@ -83,14 +84,14 @@ public class User {
   public User loadCommunities() {
     return communities != null ?
       this :
-      new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate,
+      new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled,
         services.community().forUser(id),  null, null, videos,
         services);
   }
 
   public User loadVideos() {
     return videos != null ? this :
-            new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate,
+            new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled,
                     communities, requests, favorites, services.video().forUser(id),
                     services);
   }
@@ -101,21 +102,21 @@ public class User {
   }
 
 
-  public static User create(String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture) {
-    return create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo,  jobDescriptionPicture, null);
+  public static User create(String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture, Boolean isEnabled) {
+    return create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo,  jobDescriptionPicture, null, isEnabled);
   }
 
-  public static User create(String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture, Date lastDeconnectionDate) {
-    return create(-1, username, firstName, lastName, namePicture, nameVideo, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate);
+  public static User create(String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture, Date lastDeconnectionDate, Boolean isEnabled) {
+    return create(-1, username, firstName, lastName, namePicture, nameVideo, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture, Date lastDeconnectionDate) {
-    return create(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, null);
+  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture, Date lastDeconnectionDate, Boolean isEnabled) {
+    return create(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled, null);
   }
 
-  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture, Date lastDeconnectionDate,
+  public static User create(long id, String username, String firstName, String lastName, String nameVideo, String namePicture, String email, String entity, String job, String jobDescriptionText, String jobDescriptionVideo, String jobDescriptionPicture, Date lastDeconnectionDate, Boolean isEnabled,
                             Services services) {
-    return new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate,
+    return new User(id, username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled,
             null, null, null, null, services);
   }
 }

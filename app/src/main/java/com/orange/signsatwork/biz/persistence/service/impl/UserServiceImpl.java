@@ -184,6 +184,21 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public void enable(User user) {
+    UserDB userDB = userRepository.findOne(user.id);
+
+    userDB.setIsEnabled(true);
+    userRepository.save(userDB);
+  }
+  @Override
+  public void disable(User user) {
+    UserDB userDB = userRepository.findOne(user.id);
+
+    userDB.setIsEnabled(false);
+    userRepository.save(userDB);
+  }
+
+  @Override
   public void createProfile(User user, String lastName, String firstName, String nameVideo, String job, String entity, String jobTextDescription, String jobVideoDescription) {
     UserDB userDB = userRepository.findOne(user.id);
     userDB.setLastName(lastName);
@@ -285,7 +300,7 @@ public class UserServiceImpl implements UserService {
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsEnabled(),
             services);
   }
 
@@ -293,7 +308,7 @@ public class UserServiceImpl implements UserService {
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate());
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsEnabled());
   }
 
 
@@ -310,7 +325,7 @@ public class UserServiceImpl implements UserService {
       return User.create(
         userDB.getId(),
         userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
-        userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate());
+        userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsEnabled());
     } else return null;
   }
 
@@ -351,7 +366,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private User userFromFavoriteView(UserDB userDB) {
-    return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null,  null, null, null, null, null, null, null, null, null, null, null, null );
+    return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null,  null, null, null, null, null, null, null, userDB.getIsEnabled(), null, null, null, null, null );
   }
 
   @Override

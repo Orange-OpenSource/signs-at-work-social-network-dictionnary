@@ -69,6 +69,8 @@ public class UserDB {
 
   private Date lastDeconnectionDate;
 
+  private Boolean isEnabled;
+
   @NotNull
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<UserRoleDB> userRoles = new HashSet<>();

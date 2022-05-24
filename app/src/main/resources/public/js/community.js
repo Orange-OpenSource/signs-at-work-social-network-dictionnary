@@ -202,7 +202,7 @@ function onReset(event) {
   $("#shareFavoriteForm").trackChanges();
   $("#ModifyCommunityForm").trackChanges();
   $("#FavoriteCreateCommunityForm").trackChanges();
-  search_user .addEventListener('keyup', search);
+  search_user.addEventListener('keyup', search);
   button_reset.addEventListener('click', onReset);
 })($);
 

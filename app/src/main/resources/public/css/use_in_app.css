@@ -957,7 +957,7 @@ h4.container_header_H2{
   background-position: -3170px center;
   background-repeat: no-repeat;
   background-size: auto 25px;
-  height: 45px;
+  height: 25px;
   width: 25px;
 }
 
@@ -1412,7 +1412,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
   width: 17px;
   position: absolute;
   margin-top: 6px;
-  right: 15%;
+  right: 30px;
   background-color: #000000;
   border: none;
   color: #FFFFFF;
@@ -1640,10 +1640,10 @@ img{
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 26px;
-  width: 14px;
+  width: 17px;
   position: absolute;
   margin-top: -43px;
-  right: 10%;
+  right: 30px;
   background-color: #000000;
   border: none;
   color: #FFFFFF;
@@ -2733,6 +2733,9 @@ input[type="radio"] {
 
 .user_name{
   width:auto;
+  display: inline;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -2849,15 +2852,15 @@ input[type="checkbox"] {
 }
 
 #reset_search_user{
-  background-image: url(/img/sprite_picto_400X400.png);
+ background-image: url(/img/sprite_picto_400X400.png);
   background-position: -2310px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 26px;
-  width: 14px;
+  width: 17px;
   position: absolute;
   margin-top: 6px;
-  right: 14%;
+  right: 30px;
   background-color: #000000;
   border: none;
   color: #FFFFFF;
@@ -3283,10 +3286,10 @@ h2.container_CGU {
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 26px;
-  width: 14px;
+  width: 17px;
   position: absolute;
   margin-top: -43px;
-  right: 10%;
+  right: 30px;
   background-color: #000000;
   border: none;
   color: #FFFFFF;

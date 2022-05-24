@@ -31,35 +31,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class UserView {
+public class UserAdminView {
   public final long id;
-  public final String username;
-  public final String firstName;
-  public final String lastName;
-  public final String nameVideo;
-  public final String namePicture;
-  public final String email;
-  public final String entity;
-  public final String job;
-  public final String jobDescriptionText;
-  public final String jobDescriptionVideo;
-  public final String jobDescriptionPicture;
-  public final Date lastDeconnectionDate;
+  public final String name;
   public final Boolean isEnabled;
 
-  public User toUser() {
-    return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled);
+
+  public static UserAdminView from(User user) {
+    return new UserAdminView(user.id, user.name(), user.isEnabled);
   }
 
-  public static UserView from(User user) {
-    return new UserView(
-            user.id, user.username, user.firstName, user.lastName, user.nameVideo, user.namePicture,
-            user.email, user.entity, user.job, user.jobDescriptionText, user.jobDescriptionVideo, user.jobDescriptionPicture, user.lastDeconnectionDate, user.isEnabled);
-  }
-
-  public static List<UserView> from(Users users) {
+  public static List<UserAdminView> from(Users users) {
     return users.stream()
-            .map(UserView::from)
+            .map(UserAdminView::from)
             .collect(Collectors.toList());
   }
 }

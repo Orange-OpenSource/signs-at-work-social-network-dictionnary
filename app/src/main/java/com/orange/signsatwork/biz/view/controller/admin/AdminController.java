@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -93,10 +94,10 @@ public class AdminController {
 
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("users"));
-    model.addAttribute("users", UserView.from(userService.all()));
+    model.addAttribute("users", UserAdminView.from(userService.all()));
     model.addAttribute("adminUserName", adminUsername);
     model.addAttribute("appName", appName);
-    return "admin/users";
+    return "admin/manage_users";
   }
 
   @Secured("ROLE_ADMIN")
@@ -267,5 +268,50 @@ public class AdminController {
     return Arrays.asList(communityUsersIds).stream()
       .map(Long::parseLong)
       .collect(Collectors.toList());
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/profile-from-admin/{userId}")
+  public String userDetails(@PathVariable long userId, Model model, Principal principal) {
+    Boolean isConnectedUser = false;
+    User connectedUser = services.user().withUserName(principal.getName());
+
+    User user = services.user().withId(userId);
+    model.addAttribute("title", user.name());
+/*    model.addAttribute("backUrl", "/sec/community/"+communityId);*/
+
+    List<Object[]> queryVideos = services.video().AllVideosCreateByUser(user.id);
+    List<VideoViewData> videoViewsData = queryVideos.stream()
+      .map(objectArray -> new VideoViewData(objectArray))
+      .collect(Collectors.toList());
+
+    List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
+
+    List<VideoView2> videoViews = videoViewsData.stream()
+      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, connectedUser))
+      .collect(Collectors.toList());
+
+    VideosViewSort videosViewSort = new VideosViewSort();
+    videoViews = videosViewSort.sort(videoViews);
+
+    model.addAttribute("videosView", videoViews);
+
+    model.addAttribute("user", user);
+    if (connectedUser.id == user.id) {
+      isConnectedUser = true;
+    }
+    model.addAttribute("isConnectedUser", true);
+    model.addAttribute("appName", appName);
+    return "profile-from-community";
+  }
+
+  private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoBelowToFavorite, User user) {
+    return new VideoView2(
+      videoViewData,
+      videoViewData.nbComment > 0,
+      VideoView2.createdAfterLastDeconnection(videoViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+      videoViewData.nbView > 0,
+      videoViewData.averageRate > 0,
+      videoBelowToFavorite.contains(videoViewData.videoId));
   }
 }

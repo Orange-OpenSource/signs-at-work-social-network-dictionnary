@@ -159,7 +159,7 @@ public class UserRestController {
   }
 
   @Secured("ROLE_ADMIN")
-  @RequestMapping(value = RestApi. WS_ADMIN_USER, method = RequestMethod.DELETE)
+  @RequestMapping(value = RestApi.WS_ADMIN_USER, method = RequestMethod.DELETE)
   public UserResponseApi deleteUser(@PathVariable long userId, HttpServletResponse response) {
     String dailymotionId;
     UserResponseApi userResponseApi = new UserResponseApi();
@@ -246,6 +246,34 @@ public class UserRestController {
     return userResponseApi;
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_ADMIN_USER, method = RequestMethod.PUT)
+  public UserResponseApi enableDisableUser(@PathVariable long userId, @RequestParam("enable") Boolean enable, HttpServletResponse response) {
+    String dailymotionId;
+    UserResponseApi userResponseApi = new UserResponseApi();
+    User user = services.user().withId(userId);
+    if (enable) {
+      if (user.isEnabled) {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_enable");
+        return userResponseApi;
+      } else if (!user.isEnabled){
+        services.user().enable(user);
+      }
+    } else if (!enable){
+      if (!user.isEnabled) {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_disable");
+        return userResponseApi;
+      } else if (user.isEnabled){
+        services.user().disable(user);
+      }
+
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    return userResponseApi;
+  }
+
   @RequestMapping(value = RestApi.FORGET_PASSWORD)
   public UserResponseApi forgotPassword(@RequestBody UserCreationView userCreationView, HttpServletResponse response, HttpServletRequest request) {
     String title, bodyMail;
@@ -291,7 +319,7 @@ public class UserRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi. WS_SEC_USER_ME, method = RequestMethod.GET)
+  @RequestMapping(value = RestApi.WS_SEC_USER_ME, method = RequestMethod.GET)
   public ResponseEntity<?> userMe(Principal principal) {
 
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
@@ -312,7 +340,7 @@ public class UserRestController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = RestApi. WS_SEC_USER, method = RequestMethod.GET)
+  @RequestMapping(value = RestApi.WS_SEC_USER, method = RequestMethod.GET)
   public ResponseEntity<?> user(@PathVariable long userId, Principal principal) {
 
     User userConnected = services.user().withUserName(principal.getName());
