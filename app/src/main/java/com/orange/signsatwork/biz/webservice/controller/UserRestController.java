@@ -40,6 +40,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +76,8 @@ public class UserRestController {
   MessageByLocaleService messageByLocaleService;
   @Autowired
   private Environment environment;
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
   @Value("${app.admin.username}")
   String adminUsername;
@@ -131,7 +134,7 @@ public class UserRestController {
       } else if (userCreationView.getRole().equals("Consultatif")) {
         userCreationView.setRole("USER");
       }
-      User user = services.user().create(userCreationView.toUser(), adminPassword, userCreationView.getRole(), userCreationView.getUsername());
+      User user = services.user().create(userCreationView.toUser(), passwordEncoder.encode(adminPassword), userCreationView.getRole(), userCreationView.getUsername());
       if (user != null) {
         services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
         final String token = UUID.randomUUID().toString();
@@ -238,6 +241,35 @@ public class UserRestController {
     }
 */
 
+    if (user.nameVideo != null) {
+      if (user.nameVideo.contains("http")) {
+        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return userResponseApi;
+        }
+      } else {
+        DeleteFilesOnServer(user.nameVideo, user.namePicture);
+      }
+    }
+
+    if (user.jobDescriptionVideo != null) {
+      if (user.jobDescriptionVideo.contains("http")) {
+        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return userResponseApi;
+        }
+      } else {
+        DeleteFilesOnServer(user.jobDescriptionVideo, user.jobDescriptionPicture);
+      }
+    }
     services.user().delete(user);
 
 

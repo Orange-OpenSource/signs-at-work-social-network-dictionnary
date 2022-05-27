@@ -25,11 +25,13 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.repository.*;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.security.AppSecurityRoles;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -54,6 +57,9 @@ public class UserServiceImpl implements UserService {
   private final PasswordResetTokenRepository passwordResetTokenRepository;
   @Value("${app.admin.username}")
   String adminUsername;
+
+  @Autowired
+  MessageByLocaleService messageByLocaleService;
 
   @Override
   public List<String> findEmailForUserHaveSameCommunityAndCouldCreateSign(long userId) {
@@ -159,11 +165,15 @@ public class UserServiceImpl implements UserService {
   public void delete(User user) {
     UserDB userDB = userRepository.findOne(user.id);
 
-    userDB.setUsername("desinscrit le 25/05/2022");
+    userDB.setUsername(UUID.randomUUID().toString());
     userDB.setEmail("");
-    userDB.setFirstName("");
-    userDB.setLastName("");
+    userDB.setFirstName(messageByLocaleService.getMessage("unsubscribed"));
+    userDB.setLastName(new Date().toString());
     userDB.setIsEnabled(false);
+    userDB.setEntity("");
+    userDB.setJob("");
+    userDB.setJobDescriptionText("");
+    userDB.setPasswordHash(passwordEncoder.encode(UUID.randomUUID().toString()));
     userRepository.save(userDB);
     /*List<RequestDB> requestDBs = new ArrayList<>();
     requestDBs.addAll(userDB.getRequests());

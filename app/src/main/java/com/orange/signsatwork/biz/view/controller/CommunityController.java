@@ -193,8 +193,8 @@ public class CommunityController {
     model.addAttribute("community", community);
     CommunityProfileView communityProfileView = new CommunityProfileView(community, services.user());
     model.addAttribute("communityProfileView", communityProfileView);
-    List<User> usersWithoutMeAndWithoutAdmin = communityProfileView.getAllUsers().stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
-    model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
+    List<User> usersWithoutMeAndWithoutAdminAndWithoutDisableUsers = communityProfileView.getAllUsers().stream().filter(u -> u.id != user.id && u.id != 1 && u.isEnabled).collect(Collectors.toList());
+    model.addAttribute("users", usersWithoutMeAndWithoutAdminAndWithoutDisableUsers);
     model.addAttribute("appName", appName);
     model.addAttribute("backUrl", "/sec/community/"+communityId);
     return "modify-community";
@@ -245,8 +245,8 @@ public class CommunityController {
     model.addAttribute("communityName", decodeName.trim());
     model.addAttribute("communityProfileView", new CommunityProfileView());
     Users users = services.user().allForCreateCommunity();
-    List<User> usersWithoutMeAndWithoutAdmin = users.stream().filter(u -> u.id != user.id).filter(u-> u.id != 1).collect(Collectors.toList());
-    model.addAttribute("users", usersWithoutMeAndWithoutAdmin);
+    List<User> usersWithoutMeAndWithoutAdminAndWithoutLockAndDisableUsers = users.stream().filter(u -> u.id != user.id && u.id != 1 && u.isEnabled && u.isNonLocked).collect(Collectors.toList());
+    model.addAttribute("users", usersWithoutMeAndWithoutAdminAndWithoutLockAndDisableUsers);
     model.addAttribute("appName", appName);
 
     return "create-community";

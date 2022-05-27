@@ -121,5 +121,6 @@ public class UserDB {
     this.jobDescriptionVideo = jobDescriptionVideo;
     this.jobDescriptionPicture = jobDescriptionPicture;
     this.isNonLocked = true;
+    this.isEnabled = true;
   }
 }
