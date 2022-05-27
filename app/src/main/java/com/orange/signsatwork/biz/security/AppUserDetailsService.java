@@ -65,6 +65,6 @@ public class AppUserDetailsService implements UserDetailsService {
   }
 
   private User toSpringSecurityUser(UserDB userDB, List<GrantedAuthority> authorities) {
-    return new User(userDB.getUsername(), userDB.getPasswordHash(), userDB.getIsEnabled(), true, true, true, authorities);
+    return new User(userDB.getUsername(), userDB.getPasswordHash(), userDB.getIsEnabled() , true, true, userDB.getIsNonLocked(), authorities);
   }
 }

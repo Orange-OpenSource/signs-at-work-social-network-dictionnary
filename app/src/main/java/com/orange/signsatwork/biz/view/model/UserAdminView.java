@@ -26,7 +26,6 @@ import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.domain.Users;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,11 +33,12 @@ import java.util.stream.Collectors;
 public class UserAdminView {
   public final long id;
   public final String name;
+  public final Boolean isNonLocked;
   public final Boolean isEnabled;
 
 
   public static UserAdminView from(User user) {
-    return new UserAdminView(user.id, user.name(), user.isEnabled);
+    return new UserAdminView(user.id, user.name(), user.isNonLocked, user.isEnabled);
   }
 
   public static List<UserAdminView> from(Users users) {

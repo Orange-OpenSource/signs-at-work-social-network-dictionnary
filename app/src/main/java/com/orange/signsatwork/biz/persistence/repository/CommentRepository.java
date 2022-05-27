@@ -26,11 +26,12 @@ import com.orange.signsatwork.biz.persistence.model.CommentDB;
 import com.orange.signsatwork.biz.persistence.model.VideoDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CommentRepository extends JpaRepository<CommentDB, Long> {
+public interface CommentRepository extends CrudRepository<CommentDB, Long> {
 
     @Query("select distinct c FROM CommentDB c inner join c.video video where video = :videoDB order by c.commentDate desc")
     List<CommentDB> findByVideo(@Param("videoDB") VideoDB videoDB);

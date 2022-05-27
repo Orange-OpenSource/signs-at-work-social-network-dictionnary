@@ -117,36 +117,36 @@ function onDeleteUser(id){
   })
 }
 
-function onDisableUser(id){
-  var errorDisableUser = document.getElementById('errorDisableUser'+id);
+function onLockUser(id){
+  var errorLockUser = document.getElementById('errorLockUser'+id);
 
   $.ajax({
-   url: "/ws/admin/users/"+ id + '?enable=false',
+   url: "/ws/admin/users/"+ id + '?unlock=false',
    type: 'put',
     success: function(response) {
      location.reload();
     },
     error: function(response) {
       console.log(response.responseJSON);
-      errorDisableUser.textContent = response.responseJSON.errorMessage;
-      errorDisableUser.style.visibility = "visible";
+      errorLockUser.textContent = response.responseJSON.errorMessage;
+      errorLockUser.style.visibility = "visible";
     }
   })
 }
 
-function onEnableUser(id){
-  var errorEnableUser = document.getElementById('errorEnableUser'+id);
+function onUnLockUser(id){
+  var errorUnLockUser = document.getElementById('errorUnLockUser'+id);
 
   $.ajax({
-    url: "/ws/admin/users/"+ id + '?enable=true',
+    url: "/ws/admin/users/"+ id + '?unlock=true',
     type: 'put',
     success: function(response) {
      location.reload();
     },
     error: function(response) {
       console.log(response.responseJSON);
-      errorEnableUser.textContent = response.responseJSON.errorMessage;
-      errorEnableUser.style.visibility = "visible";
+      errorUnLockUser.textContent = response.responseJSON.errorMessage;
+      errorUnLockUser.style.visibility = "visible";
     }
   })
 }

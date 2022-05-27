@@ -159,7 +159,13 @@ public class UserServiceImpl implements UserService {
   public void delete(User user) {
     UserDB userDB = userRepository.findOne(user.id);
 
-    List<RequestDB> requestDBs = new ArrayList<>();
+    userDB.setUsername("desinscrit le 25/05/2022");
+    userDB.setEmail("");
+    userDB.setFirstName("");
+    userDB.setLastName("");
+    userDB.setIsEnabled(false);
+    userRepository.save(userDB);
+    /*List<RequestDB> requestDBs = new ArrayList<>();
     requestDBs.addAll(userDB.getRequests());
     List<CommentDB> commentDBs = new ArrayList<>();
     commentDBs.addAll(userDB.getComments());
@@ -180,21 +186,21 @@ public class UserServiceImpl implements UserService {
     videoDBs.stream().map(v -> services.video().withId(v.getId())).forEach(v -> services.video().delete(v));
 
 
-    userRepository.delete(userDB);
+    userRepository.delete(userDB);*/
   }
 
   @Override
-  public void enable(User user) {
+  public void unlock(User user) {
     UserDB userDB = userRepository.findOne(user.id);
 
-    userDB.setIsEnabled(true);
+    userDB.setIsNonLocked(true);
     userRepository.save(userDB);
   }
   @Override
-  public void disable(User user) {
+  public void lock(User user) {
     UserDB userDB = userRepository.findOne(user.id);
 
-    userDB.setIsEnabled(false);
+    userDB.setIsNonLocked(false);
     userRepository.save(userDB);
   }
 
@@ -300,7 +306,7 @@ public class UserServiceImpl implements UserService {
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsEnabled(),
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsNonLocked(), userDB.getIsEnabled(),
             services);
   }
 
@@ -308,7 +314,7 @@ public class UserServiceImpl implements UserService {
     return User.create(
             userDB.getId(),
             userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
-            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsEnabled());
+            userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsNonLocked(), userDB.getIsEnabled());
   }
 
 
@@ -325,7 +331,7 @@ public class UserServiceImpl implements UserService {
       return User.create(
         userDB.getId(),
         userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), userDB.getNameVideo(), userDB.getNamePicture(),
-        userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsEnabled());
+        userDB.getEmail(), userDB.getEntity(), userDB.getJob(), userDB.getJobDescriptionText(), userDB.getJobDescriptionVideo(), userDB.getJobDescriptionPicture(), userDB.getLastDeconnectionDate(), userDB.getIsNonLocked(), userDB.getIsEnabled());
     } else return null;
   }
 
@@ -366,7 +372,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private User userFromFavoriteView(UserDB userDB) {
-    return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null,  null, null, null, null, null, null, null, userDB.getIsEnabled(), null, null, null, null, null );
+    return new User(userDB.getId(),userDB.getUsername(), userDB.getFirstName(), userDB.getLastName(), null, null,  null, null, null, null, null, null, null, userDB.getIsNonLocked(), userDB.getIsEnabled(), null, null, null, null, null );
   }
 
   @Override

@@ -26,11 +26,9 @@ import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
-import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageService;
-import com.orange.signsatwork.biz.view.controller.CommentOrderComparator;
 import com.orange.signsatwork.biz.view.model.*;
 import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
@@ -171,7 +169,7 @@ public class UserRestController {
     }
 
 
-    user = user.loadVideos();
+   /* user = user.loadVideos();
     if (!user.videos.list().isEmpty()) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
       userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_videos");
@@ -238,7 +236,7 @@ public class UserRestController {
     for (Community community:user.communities.list()) {
       services.community().removeMeFromCommunity(community.id, user.id);
     }
-
+*/
 
     services.user().delete(user);
 
@@ -248,25 +246,25 @@ public class UserRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_ADMIN_USER, method = RequestMethod.PUT)
-  public UserResponseApi enableDisableUser(@PathVariable long userId, @RequestParam("enable") Boolean enable, HttpServletResponse response) {
+  public UserResponseApi enableDisableUser(@PathVariable long userId, @RequestParam("unlock") Boolean unlock, HttpServletResponse response) {
     String dailymotionId;
     UserResponseApi userResponseApi = new UserResponseApi();
     User user = services.user().withId(userId);
-    if (enable) {
-      if (user.isEnabled) {
+    if (unlock) {
+      if (user.isNonLocked) {
         response.setStatus(HttpServletResponse.SC_CONFLICT);
-        userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_enable");
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_unlock");
         return userResponseApi;
-      } else if (!user.isEnabled){
-        services.user().enable(user);
+      } else if (!user.isNonLocked){
+        services.user().unlock(user);
       }
-    } else if (!enable){
-      if (!user.isEnabled) {
+    } else if (!unlock){
+      if (!user.isNonLocked) {
         response.setStatus(HttpServletResponse.SC_CONFLICT);
-        userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_disable");
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("user_already_lock");
         return userResponseApi;
-      } else if (user.isEnabled){
-        services.user().disable(user);
+      } else if (user.isNonLocked){
+        services.user().lock(user);
       }
 
     }

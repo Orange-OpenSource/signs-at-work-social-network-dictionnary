@@ -50,10 +50,11 @@ public class UserCreationView {
   private String jobDescriptionPicture;
   private String token;
   private Long messageServerId;
+  private Boolean isNonLocked;
   private Boolean isEnabled;
 
 
   public User toUser() {
-    return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, isEnabled);
+    return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, isNonLocked, isEnabled);
   }
 }

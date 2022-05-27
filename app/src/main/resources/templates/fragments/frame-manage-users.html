@@ -40,22 +40,22 @@
               <div class="pull-left member_blue"></div>
               <h2 class="user_name" th:text="${user.name}"></h2>
             </a>
-            <a data-toggle="modal" th:attr="data-target='#delete_user'+${user.id}" href="#">
-              <div class="delete-black pull-right"></div>
-            </a>
-            <a th:if="${user.isEnabled}" data-toggle="modal" th:attr="data-target='#disable_user'+${user.id}" href="#">
-              <div class="x-close_black pull-right"></div>
-            </a>
-            <a th:unless="${user.isEnabled}" data-toggle="modal" th:attr="data-target='#enable_user'+${user.id}" href="#">
-              <div class="x-close_black pull-right"></div>
-            </a>
+              <a th:if="${user.isEnabled}" data-toggle="modal" th:attr="data-target='#delete_user'+${user.id}" href="#">
+                <div class="delete-black pull-right"></div>
+              </a>
+              <a th:if="${user.isEnabled && user.isNonLocked}" data-toggle="modal" th:attr="data-target='#locked_user'+${user.id}" href="#">
+                <div class="unlock_black pull-right"></div>
+              </a>
+              <a th:if="${user.isEnabled && !user.isNonLocked}" data-toggle="modal" th:attr="data-target='#unlocked_user'+${user.id}" href="#">
+                <div class="lock_black pull-right"></div>
+              </a>
             <div  th:id="delete_user+${user.id}" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"></button>
                     <div class="pull-left">
-                      <div class="x-close_blue_whitecircle pull-left"></div>
+                      <div class="delete_white pull-left"></div>
                       <h2 class="pull-right" th:text="#{request.delete_user}"/>
                     </div>
                   </div>
@@ -76,26 +76,26 @@
                 </div>
               </div>
             </div>
-            <div  th:id="disable_user+${user.id}" class="modal fade" role="dialog">
+            <div  th:id="locked_user+${user.id}" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"></button>
                     <div class="pull-left">
-                      <div class="x-close_blue_whitecircle pull-left"></div>
-                      <h2 class="pull-right" th:text="#{request.disable_user}"/>
+                      <div class="lock_white pull-left"></div>
+                      <h2 class="pull-right" th:text="#{request.locked_user}"/>
                     </div>
                   </div>
                   <div class="modal-body text-center">
-                    <h2 th:utext="#{user.confirm_disable(${user.name})}"/>
-                    <span th:id="errorDisableUser+${user.id}" style="visibility: hidden"></span>
+                    <h2 th:utext="#{user.confirm_lock(${user.name})}"/>
+                    <span th:id="errorLockUser+${user.id}" style="visibility: hidden"></span>
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>
-                    <button type="submit" th:data-id="${user.id}" th:onclick="javascript:onDisableUser(this.getAttribute('data-id'))"  data-dismiss=""  class="btn btn-default">
+                    <button type="submit" th:data-id="${user.id}" th:onclick="javascript:onLockUser(this.getAttribute('data-id'))"  data-dismiss=""  class="btn btn-default">
                       <div class="v-done2_blue center-block"></div>
                       <span th:text="#{continue}"></span>
                     </button>
@@ -103,26 +103,26 @@
                 </div>
               </div>
             </div>
-            <div  th:id="enable_user+${user.id}" class="modal fade" role="dialog">
+            <div  th:id="unlocked_user+${user.id}" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"></button>
                     <div class="pull-left">
-                      <div class="x-close_blue_whitecircle pull-left"></div>
-                      <h2 class="pull-right" th:text="#{request.enable_user}"/>
+                      <div class="unlock_white pull-left"></div>
+                      <h2 class="pull-right" th:text="#{request.unlocked_user}"/>
                     </div>
                   </div>
                   <div class="modal-body text-center">
-                    <h2 th:utext="#{user.confirm_enable(${user.name})}"/>
-                    <span th:id="errorEnableeUser+${user.id}" style="visibility: hidden"></span>
+                    <h2 th:utext="#{user.confirm_unlock(${user.name})}"/>
+                    <span th:id="errorUnLockUser+${user.id}" style="visibility: hidden"></span>
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>
-                    <button type="submit" th:data-id="${user.id}" th:onclick="javascript:onEnableUser(this.getAttribute('data-id'))"  data-dismiss=""  class="btn btn-default">
+                    <button type="submit" th:data-id="${user.id}" th:onclick="javascript:onUnLockUser(this.getAttribute('data-id'))"  data-dismiss=""  class="btn btn-default">
                       <div class="v-done2_blue center-block"></div>
                       <span th:text="#{continue}"></span>
                     </button>

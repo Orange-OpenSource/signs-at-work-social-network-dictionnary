@@ -54,9 +54,9 @@ public interface UserService {
 
   void delete(User user);
 
-  void enable(User user);
+  void unlock(User user);
 
-  void disable(User user);
+  void lock(User user);
 
   void changeJob(User user, String job);
 

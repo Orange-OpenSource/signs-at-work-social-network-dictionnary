@@ -45,16 +45,17 @@ public class UserView {
   public final String jobDescriptionVideo;
   public final String jobDescriptionPicture;
   public final Date lastDeconnectionDate;
+  public final Boolean isNonLocked;
   public final Boolean isEnabled;
 
   public User toUser() {
-    return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isEnabled);
+    return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, lastDeconnectionDate, isNonLocked, isEnabled);
   }
 
   public static UserView from(User user) {
     return new UserView(
             user.id, user.username, user.firstName, user.lastName, user.nameVideo, user.namePicture,
-            user.email, user.entity, user.job, user.jobDescriptionText, user.jobDescriptionVideo, user.jobDescriptionPicture, user.lastDeconnectionDate, user.isEnabled);
+            user.email, user.entity, user.job, user.jobDescriptionText, user.jobDescriptionVideo, user.jobDescriptionPicture, user.lastDeconnectionDate, user.isNonLocked, user.isEnabled);
   }
 
   public static List<UserView> from(Users users) {

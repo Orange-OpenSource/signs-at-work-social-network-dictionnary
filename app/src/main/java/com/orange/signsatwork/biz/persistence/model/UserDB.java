@@ -71,6 +71,8 @@ public class UserDB {
 
   private Boolean isEnabled;
 
+  private Boolean isNonLocked;
+
   @NotNull
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<UserRoleDB> userRoles = new HashSet<>();
@@ -118,5 +120,6 @@ public class UserDB {
     this.jobDescriptionText = jobDescriptionText;
     this.jobDescriptionVideo = jobDescriptionVideo;
     this.jobDescriptionPicture = jobDescriptionPicture;
+    this.isNonLocked = true;
   }
 }
