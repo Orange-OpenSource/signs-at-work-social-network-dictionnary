@@ -272,7 +272,7 @@ public class EmailServiceImpl implements EmailService {
       helper.addInline(imageName, imageSource, "image/png");
 
       List<String> toList = Arrays.asList(to);
-      String values = userName + ';' + toList.stream().collect(Collectors.joining(", ")) + communityName;
+      String values = userName + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + communityName;
       MessageServer messageServer = new MessageServer(new Date(), "CommunityAddMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
