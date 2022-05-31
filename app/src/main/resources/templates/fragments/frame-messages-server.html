@@ -186,6 +186,9 @@
 
                 <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'ResetPasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserDeleteMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserLockMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserUnLockMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreatePasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreatePasswordMessageAfterChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'SavePasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>

@@ -161,7 +161,7 @@ public class UserRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_ADMIN_USER, method = RequestMethod.DELETE)
-  public UserResponseApi deleteUser(@PathVariable long userId, HttpServletResponse response) {
+  public UserResponseApi deleteUser(@PathVariable long userId, HttpServletResponse response, HttpServletRequest request) {
     String dailymotionId;
     UserResponseApi userResponseApi = new UserResponseApi();
     User user = services.user().withId(userId);
@@ -272,14 +272,22 @@ public class UserRestController {
     }
     services.user().delete(user);
 
+    Runnable task = () -> {
+      String title, bodyMail;
+      title = messageByLocaleService.getMessage("user_deleted_title", new Object[]{appName});
+      bodyMail = messageByLocaleService.getMessage("user_deleted_body");
+      log.info("send mail email = {} / title = {} / body = {}", user.username.toString(), title, bodyMail);
+      services.emailService().sendDeleteLockUnLockUserMessage(user.username, title, user.name(), user.username, "delete_user_body_1", "delete_user_body_2", "UserDeleteMessage", request.getLocale());
+    };
+
+    new Thread(task).start();
 
     return userResponseApi;
   }
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_ADMIN_USER, method = RequestMethod.PUT)
-  public UserResponseApi enableDisableUser(@PathVariable long userId, @RequestParam("unlock") Boolean unlock, HttpServletResponse response) {
-    String dailymotionId;
+  public UserResponseApi enableDisableUser(@PathVariable long userId, @RequestParam("unlock") Boolean unlock, HttpServletResponse response, HttpServletRequest request) {
     UserResponseApi userResponseApi = new UserResponseApi();
     User user = services.user().withId(userId);
     if (unlock) {
@@ -289,6 +297,15 @@ public class UserRestController {
         return userResponseApi;
       } else if (!user.isNonLocked){
         services.user().unlock(user);
+        Runnable task = () -> {
+          String title, bodyMail;
+          title = messageByLocaleService.getMessage("user_unlock_title", new Object[]{appName});
+          bodyMail = messageByLocaleService.getMessage("user_unlock_body");
+          log.info("send mail email = {} / title = {} / body = {}", user.username.toString(), title, bodyMail);
+          services.emailService().sendDeleteLockUnLockUserMessage(user.username, title, user.name(), user.username, "unlock_user_body_1", "unlock_user_body_2", "UserUnLockMessage", request.getLocale());
+        };
+
+        new Thread(task).start();
       }
     } else if (!unlock){
       if (!user.isNonLocked) {
@@ -297,6 +314,15 @@ public class UserRestController {
         return userResponseApi;
       } else if (user.isNonLocked){
         services.user().lock(user);
+        Runnable task = () -> {
+          String title, bodyMail;
+          title = messageByLocaleService.getMessage("user_lock_title", new Object[]{appName});
+          bodyMail = messageByLocaleService.getMessage("user_lock_body");
+          log.info("send mail email = {} / title = {} / body = {}", user.username.toString(), title, bodyMail);
+          services.emailService().sendDeleteLockUnLockUserMessage(user.username, title, user.name(), user.username, "lock_user_body_1", "lock_user_body_2", "UserLockMessage", request.getLocale());
+        };
+
+        new Thread(task).start();
       }
 
     }
@@ -926,7 +952,7 @@ public class UserRestController {
       title = messageByLocaleService.getMessage("ask_to_create_user_title", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName()});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-        services.emailService().sendCreateUserMessage(admin.email, title, userCreationView.getEmail(), url, request.getLocale());
+        services.emailService().sendCreateUserMessage(admin.email, title, date, userCreationView.getEmail(), url, request.getLocale());
       };
 
       new Thread(task).start();
