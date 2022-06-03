@@ -300,7 +300,6 @@ public class AdminController {
     if (connectedUser.id == user.id) {
       isConnectedUser = true;
     }
-    model.addAttribute("isConnectedUser", true);
     model.addAttribute("appName", appName);
     model.addAttribute("action", "/ws/sec/users/" + userId + "/datas");
     model.addAttribute("isAdmin", true);

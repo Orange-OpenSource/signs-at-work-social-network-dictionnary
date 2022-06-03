@@ -120,7 +120,7 @@ public class UserController {
     model.addAttribute("isConnectedUser", true);
     model.addAttribute("appName", appName);
     model.addAttribute("action", "/ws/sec/users/me/datas");
-    model.addAttribute("isAdmin", true);
+    model.addAttribute("isAdmin", false);
 
     return "profile-from-community";
   }
@@ -314,6 +314,8 @@ public class UserController {
     model.addAttribute("isConnectedUser", isConnectedUser);
     model.addAttribute("appName", appName);
     model.addAttribute("action", "/ws/sec/users/me/datas");
+    model.addAttribute("isAdmin", false);
+
     return "profile-from-community";
   }
 

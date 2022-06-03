@@ -262,16 +262,15 @@
           </li>
         </ul>
         <div th:if="${isAdmin && user.isEnabled}" style="border-top: 3px solid;margin-bottom:10px; position: initial; color: transparent;" class="footer container">
-         <!-- <button class="btn btn-secondary" data-backurl="/sec/favorite/283" onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))">Annuler</button>-->
-          <button th:if="${user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#lock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px;">
+          <button th:if="${user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#lock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px; color: black;">
             <div class="lock_black pull-left"></div>
             <span th:text="#{lock_account}"></span>
           </button>
-          <button th:if="${!user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#unlock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px;">
+          <button th:if="${!user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#unlock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px; color: black;">
             <div class="unlock_black pull-left"></div>
             <span th:text="#{unlock_account}"></span>
           </button>
-          <button class="btn btn-lg btn-secondary col-xs-6" data-target="#delete_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-left: 5px;">
+          <button class="btn btn-lg btn-secondary col-xs-6" data-target="#delete_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-left: 5px; color: black;">
             <div class="delete-black pull-left"></div>
             <span th:text="#{delete_account}"></span>
           </button>
