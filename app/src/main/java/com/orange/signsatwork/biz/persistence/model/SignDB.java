@@ -49,6 +49,7 @@ public class SignDB {
   @NotNull
   private String name;
 
+  @Column(length = 1000)
   private String textDefinition;
 
   private String videoDefinition;

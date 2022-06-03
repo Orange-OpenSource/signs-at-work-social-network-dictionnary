@@ -48,3 +48,6 @@ update articles set description_text='<h2> 5 - Rights of Users and / or Contribu
 --
 alter table comments CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 alter table comments MODIFY text TEXT CHARSET utf8mb4;
+
+alter table signs modify column text_definition varchar(1000);
+alter table requests modify column request_text_description varchar(1000);
