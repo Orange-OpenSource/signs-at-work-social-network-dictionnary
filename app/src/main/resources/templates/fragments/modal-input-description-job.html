@@ -36,7 +36,7 @@
                     <h2 class="pull-right text_hyphenation" th:text="#{your_job_description}"></h2>
                 </div>
             </div>
-            <form id="profileDescription" th:action="@{/sec/profil/description}" th:object="${userCreationView}" method="post">
+            <form id="profileDescription" th:action="${action}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
                 <textarea  id="jobDescription" th:text="${user.jobDescriptionText}"  th:placeholder="#{user.job_description_text}" type="text"   class="testinput  border  form-control" name="jobDescriptionText" rows="3" cols="40" th:autofocus="true"/>
               </div>

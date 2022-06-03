@@ -33,12 +33,15 @@
 <div th:replace="fragments/modal-input-job-name :: div"/>
 <div th:replace="fragments/modal-input-description-job :: div"/>
 <div th:replace="fragments/modal-input-email :: div"/>
+<div th:replace="fragments/modal-lock-user :: div"/>
+<div th:replace="fragments/modal-unlock-user :: div"/>
+<div th:replace="fragments/modal-delete-user :: div"/>
 
 <body>
 <div class="container">
   <div class="row">
-
     <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+      <h2 th:if="${isAdmin && !user.isNonLocked}" class="profil_title" th:text="#{account_lock}"></h2>
       <aside class="sidebar">
         <ul class="nav nav-list primary left-menu" th:if="${isConnectedUser}">
           <li class="aside_bckg_li">
@@ -176,7 +179,7 @@
               </a>
             </div>
           </li>
-          <li class="aside_bckg_li" style="border-bottom: 3px solid #4866F7;">
+          <li class="aside_bckg_li">
             <div th:if="${user.jobDescriptionText != null and !#strings.isEmpty(user.jobDescriptionText)}">
               <h2 style="display: inline;" th:text="#{description_text}"></h2>
               <a data-target="#add_description_job" data-toggle="modal" href="#" id="changeJobDescriptionText"
@@ -258,8 +261,23 @@
             </div>
           </li>
         </ul>
+        <div th:if="${isAdmin && user.isEnabled}" style="border-top: 3px solid;margin-bottom:10px; position: initial; color: transparent;" class="footer container">
+         <!-- <button class="btn btn-secondary" data-backurl="/sec/favorite/283" onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))">Annuler</button>-->
+          <button th:if="${user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#lock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px;">
+            <div class="lock_black pull-left"></div>
+            <span th:text="#{lock_account}"></span>
+          </button>
+          <button th:if="${!user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#unlock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px;">
+            <div class="unlock_black pull-left"></div>
+            <span th:text="#{unlock_account}"></span>
+          </button>
+          <button class="btn btn-lg btn-secondary col-xs-6" data-target="#delete_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-left: 5px;">
+            <div class="delete-black pull-left"></div>
+            <span th:text="#{delete_account}"></span>
+          </button>
+        </div>
       </aside>
-      <div class="text-center title_middle col-xs-12 middle-col ">
+      <div class="text-center title_middle col-xs-12 middle-col " style="border-top: 3px solid #4866F7;">
         <h2 class="blue" th:if="${isConnectedUser}" th:text="#{video.createBy_me(${#lists.size(videosView)})}"></h2>
         <h2 class="blue" th:text="#{video.createBy(${user.firstName}, ${#lists.size(videosView)})}"
             th:unless="${isConnectedUser}"></h2>
@@ -534,4 +552,5 @@
 </body>
 <script src="../public/js/video-lazy-loading.js" th:src="@{/js/video-lazy-loading.js}" type="text/javascript"></script>
 <script src="../public/js/profil.js" th:src="@{/js/profil.js}" type="text/javascript"></script>
+<script type="text/javascript" src="../public/js/user.js" th:src="@{/js/user.js}"></script>
 </html>

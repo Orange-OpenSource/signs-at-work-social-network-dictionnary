@@ -576,6 +576,70 @@ public class UserRestController {
     return userResponseApi;
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_USER_DATAS, method = RequestMethod.PUT, headers = {"content-type=application/json"})
+  public UserResponseApi updateDataProfilByAdmin(@PathVariable long userId, @RequestBody UserCreationViewApi userCreationViewApi, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    UserResponseApi userResponseApi = new UserResponseApi();
+
+    User user = services.user().withId(userId);
+
+    if (userCreationViewApi != null) {
+
+      if (userCreationViewApi.getFirstName() != null) {
+        if ((!userCreationViewApi.getFirstName().isEmpty()) && (userCreationViewApi.getFirstName() != user.firstName)) {
+          services.user().changeFirstName(user, userCreationViewApi.getFirstName());
+        }
+      }
+
+      if (userCreationViewApi.getLastName() != null) {
+        if ((!userCreationViewApi.getLastName().isEmpty()) && (userCreationViewApi.getLastName() != user.lastName)) {
+          services.user().changeLastName(user, userCreationViewApi.getLastName());
+        }
+      }
+
+      if (userCreationViewApi.getEmail() != null) {
+        if ((!userCreationViewApi.getEmail().isEmpty()) && (userCreationViewApi.getEmail() != user.email)) {
+          services.user().changeEmail(user, userCreationViewApi.getEmail());
+        }
+      }
+
+      if (userCreationViewApi.getEntity() != null) {
+        if ((!userCreationViewApi.getEntity().isEmpty()) && (userCreationViewApi.getEntity() != user.entity)) {
+          services.user().changeEntity(user, userCreationViewApi.getEntity());
+        }
+      }
+
+      if (userCreationViewApi.getJob() != null) {
+        if ((!userCreationViewApi.getJob().isEmpty()) && (userCreationViewApi.getJob() != user.job)) {
+          services.user().changeJob(user, userCreationViewApi.getJob());
+          user = user.loadCommunities();
+          List<Community> oldCommunitiesJob = user.communities.stream().filter(c -> c.type == CommunityType.Job).collect(Collectors.toList());
+          for(Community community:oldCommunitiesJob) {
+            Community community1 = services.community().withCommunityName(community.name);
+            List<Long> listUsersIds = community1.usersIds();
+            listUsersIds.remove(user.id);
+            services.community().changeCommunityUsers(community1.id, listUsersIds);
+          }
+
+          Community community = services.community().withCommunityName(userCreationViewApi.getJob());
+          List<Long> usersIds = community.usersIds();
+          usersIds.add(user.id);
+          services.community().changeCommunityUsers(community.id, usersIds);
+        }
+      }
+
+      if (userCreationViewApi.getJobDescriptionText() != null) {
+        if ((userCreationViewApi.getJobDescriptionText() != user.jobDescriptionText)) {
+          services.user().changeDescription(user, userCreationViewApi.getJobDescriptionText());
+        }
+      }
+    }
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return userResponseApi;
+  }
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_USER_ME_DELETE_VIDEO_NAME, method = RequestMethod.PUT)
   public UserResponseApi deleteNameVideo(@PathVariable long userId, HttpServletResponse response, Principal principal) throws

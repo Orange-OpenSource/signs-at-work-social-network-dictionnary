@@ -37,7 +37,7 @@
                     <h2 class="pull-right" th:text="#{your_name}"></h2>
                 </div>
             </div>
-            <form id="profileName" th:action="@{/sec/profil/name}" th:object="${userCreationView}" method="post">
+            <form id="profileName" th:action="${action}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
                 <h4 th:text="#{your_name_title}"></h4>
                 <div class="errorRegexFirstName hidden" th:text="#{errorName}"></div>

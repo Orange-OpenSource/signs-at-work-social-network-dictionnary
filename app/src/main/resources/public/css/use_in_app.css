@@ -2992,6 +2992,12 @@ input[type="checkbox"] {
   border-bottom: 3px solid #4866F7;
 }
 
+.profil_title {
+  text-align: center;
+  color: red;
+  font-size:18px;
+}
+
 /* End "Prénom" "Nom" /sec/profile-from-community/"community_id"/"user_id" */
 
 /* Begin Signes préférés /sec/favorites */

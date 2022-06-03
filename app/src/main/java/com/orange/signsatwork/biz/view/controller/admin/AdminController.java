@@ -302,6 +302,8 @@ public class AdminController {
     }
     model.addAttribute("isConnectedUser", true);
     model.addAttribute("appName", appName);
+    model.addAttribute("action", "/ws/sec/users/" + userId + "/datas");
+    model.addAttribute("isAdmin", true);
     return "profile-from-community";
   }
 
