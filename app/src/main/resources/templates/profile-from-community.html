@@ -43,7 +43,7 @@
     <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
       <h2 th:if="${isAdmin && !user.isNonLocked}" class="profil_title" th:text="#{account_lock}"></h2>
       <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu" th:if="${isConnectedUser}">
+        <ul class="nav nav-list primary left-menu" id="profil" th:if="${isConnectedUser}">
           <li class="aside_bckg_li">
             <div style="display: inline;" th:if="${user.namePicture != null}">
               <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
@@ -261,7 +261,7 @@
             </div>
           </li>
         </ul>
-        <div th:if="${isAdmin && user.isEnabled}" style="border-top: 3px solid;margin-bottom:10px; position: initial; color: transparent;" class="footer container">
+        <div th:if="${isAdmin && user.isEnabled}" style="border-top: 3px solid black;margin-bottom:10px; position: initial; color: transparent;" class="footer container">
           <button th:if="${user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#lock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px; color: black;">
             <div class="lock_black pull-left"></div>
             <span th:text="#{lock_account}"></span>

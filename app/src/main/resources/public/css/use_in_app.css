@@ -2989,7 +2989,7 @@ input[type="checkbox"] {
 /* Begin "Prénom" "Nom" /sec/profile-from-community/"community_id"/"user_id" */
 
 #profil li:last-child {
-  border-bottom: 3px solid #4866F7;
+  border-bottom: initial;
 }
 
 .profil_title {
