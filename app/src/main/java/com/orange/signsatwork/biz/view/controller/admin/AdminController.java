@@ -303,6 +303,8 @@ public class AdminController {
     model.addAttribute("appName", appName);
     model.addAttribute("action", "/ws/sec/users/" + userId + "/datas");
     model.addAttribute("isAdmin", true);
+    model.addAttribute("isConnectedUser", true);
+
     return "profile-from-community";
   }
 
