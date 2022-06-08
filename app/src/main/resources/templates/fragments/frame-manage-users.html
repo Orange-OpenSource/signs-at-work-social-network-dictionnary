@@ -76,6 +76,21 @@
                 </div>
               </div>
             </div>
+            <div th:id="confirm-user-deleted+${user.id}" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="pull-left">
+                      <div class="delete_white pull-left"></div>
+                      <h2 class="pull-right" th:text="#{request.delete_user}"/>
+                    </div>
+                  </div>
+                  <div class="modal-body text-center">
+                    <h2 th:text="#{user_deleted(${user.name})}"/>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div  th:id="locked_user+${user.id}" class="modal fade" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">

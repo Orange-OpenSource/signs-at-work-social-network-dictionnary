@@ -107,7 +107,17 @@ function onDeleteUser(id){
     url: "/ws/admin/users/"+ id,
     type: 'delete',
     success: function(response) {
-     location.reload();
+     $("#delete_user"+id).modal('hide');
+     $("#confirm-user-deleted"+id).modal('show');
+     setTimeout(function(){
+       $("#confirm-user-deleted"+id).modal('hide');
+       errorDeleteUser.style.visibility="hidden";
+       var url = "/sec/admin/users";
+       console.log(window.location.href);
+       window.history.replaceState({}, 'foo', url);
+       console.log(window.location.href);
+       window.location = url;
+     }, 3000);
     },
     error: function(response) {
       console.log(response.responseJSON);
