@@ -37,6 +37,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -168,7 +170,9 @@ public class UserServiceImpl implements UserService {
     userDB.setUsername(UUID.randomUUID().toString());
     userDB.setEmail("");
     userDB.setFirstName(messageByLocaleService.getMessage("unsubscribed"));
-    userDB.setLastName(new Date().toString());
+    DateFormat df = new SimpleDateFormat("dd-MM-yyyy à HH:mm:ss");
+    String date = df.format(new Date()).toString();
+    userDB.setLastName(date);
     userDB.setIsEnabled(false);
     userDB.setEntity("");
     userDB.setJob("");

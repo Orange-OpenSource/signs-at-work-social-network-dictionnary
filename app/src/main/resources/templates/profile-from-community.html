@@ -260,16 +260,16 @@
             </div>
           </li>
         </ul>
-        <div th:if="${isAdmin && user.isEnabled}" style="border-top: 3px solid black;margin-bottom:10px; position: initial; color: transparent;" class="footer container">
-          <button th:if="${user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#lock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px; color: black;">
+        <div th:if="${isAdmin && user.isEnabled}" style="border-top: 3px solid black;margin-bottom:10px; position: initial; color: transparent;" class="footer">
+          <button th:if="${user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#lock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 3px; color: black; white-space: normal !important;">
             <div class="lock_black pull-left"></div>
             <span th:text="#{lock_account}"></span>
           </button>
-          <button th:if="${!user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#unlock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 5px; color: black;">
+          <button th:if="${!user.isNonLocked}" class="btn btn-lg btn-secondary col-xs-6" data-target="#unlock_user" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-right: 3px; color: black; white-space: normal !important;">
             <div class="unlock_black pull-left"></div>
             <span th:text="#{unlock_account}"></span>
           </button>
-          <button class="btn btn-lg btn-secondary col-xs-6" th:attr="data-target='#delete_user'+${user.id}" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-left: 5px; color: black;">
+          <button class="btn btn-lg btn-secondary col-xs-6" th:attr="data-target='#delete_user'+${user.id}" data-toggle="modal" style="margin-top: 10px;margin-bottom: 10px; margin-left: 3px; color: black; white-space: normal !important;">
             <div class="delete-black pull-left"></div>
             <span th:text="#{delete_account}"></span>
           </button>
