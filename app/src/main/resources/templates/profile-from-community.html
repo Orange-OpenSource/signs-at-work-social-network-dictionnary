@@ -42,7 +42,7 @@
     <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
       <h2 th:if="${isAdmin && !user.isNonLocked}" class="profil_title" th:text="#{account_lock}"></h2>
       <aside class="sidebar">
-        <ul class="nav nav-list primary left-menu" id="profil" th:if="${isConnectedUser}">
+        <ul class="nav nav-list primary left-menu" id="profil" th:if="${isConnectedUser || isAdmin}">
           <li class="aside_bckg_li">
             <div style="display: inline;" th:if="${user.namePicture != null}">
               <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
@@ -203,7 +203,7 @@
             </div>
           </li>
         </ul>
-        <ul class="nav nav-list primary left-menu" id="profil" th:unless="${isConnectedUser}">
+        <ul class="nav nav-list primary left-menu" id="profil" th:unless="${isConnectedUser || isAdmin}">
           <li class="aside_bckg_li" th:if="${user.namePicture != null}">
             <div style="display: inline;">
               <h2 style="display: inline;vertical-align: top;" th:text="#{name_LSF}"></h2>
@@ -276,9 +276,8 @@
         </div>
       </aside>
       <div class="text-center title_middle col-xs-12 middle-col " style="border-top: 3px solid #4866F7;">
-        <h2 class="blue" th:if="${isConnectedUser}" th:text="#{video.createBy_me(${#lists.size(videosView)})}"></h2>
-        <h2 class="blue" th:text="#{video.createBy(${user.firstName}, ${#lists.size(videosView)})}"
-            th:unless="${isConnectedUser}"></h2>
+        <h2 class="blue" th:if="${isConnectedUser && !isAdmin}" th:text="#{video.createBy_me(${#lists.size(videosView)})}"></h2>
+        <h2 class="blue" th:if="${!isConnectedUser || isAdmin}" th:text="#{video.createBy(${user.firstName}, ${#lists.size(videosView)})}"></h2>
         <div class="row ">
           <div class="row" id="videos-container" th:if="${not #lists.isEmpty(videosView)}">
             <div class="video-view-hidden text-center col-lg-3 col-md-4 col-xs-6 col-sm-4"
