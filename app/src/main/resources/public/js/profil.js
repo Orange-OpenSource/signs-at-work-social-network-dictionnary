@@ -707,6 +707,67 @@ function onClick() {
   document.getElementById('InputFile').click()
 }
 
+function onLockUser(id){
+  var errorLockUser = document.getElementById('errorLockUser'+id);
+
+  $.ajax({
+   url: "/ws/admin/users/"+ id + '?unlock=false',
+   type: 'put',
+    success: function(response) {
+     location.reload();
+    },
+    error: function(response) {
+      console.log(response.responseJSON);
+      errorLockUser.textContent = response.responseJSON.errorMessage;
+      errorLockUser.style.visibility = "visible";
+    }
+  })
+}
+
+function onUnLockUser(id){
+  var errorUnLockUser = document.getElementById('errorUnLockUser'+id);
+
+  $.ajax({
+    url: "/ws/admin/users/"+ id + '?unlock=true',
+    type: 'put',
+    success: function(response) {
+     location.reload();
+    },
+    error: function(response) {
+      console.log(response.responseJSON);
+      errorUnLockUser.textContent = response.responseJSON.errorMessage;
+      errorUnLockUser.style.visibility = "visible";
+    }
+  })
+}
+
+function onDeleteUser(id){
+  var errorDeleteUser = document.getElementById('errorDeleteUser'+id);
+
+  $.ajax({
+    url: "/ws/admin/users/"+ id,
+    type: 'delete',
+    success: function(response) {
+     $("#delete_user"+id).modal('hide');
+     $("#confirm-user-deleted"+id).modal('show');
+     setTimeout(function(){
+       $("#confirm-user-deleted"+id).modal('hide');
+       errorDeleteUser.style.visibility="hidden";
+       var url = "/sec/admin/users";
+       console.log(window.location.href);
+       window.history.replaceState({}, 'foo', url);
+       console.log(window.location.href);
+       window.location = url;
+     }, 3000);
+    },
+    error: function(response) {
+      console.log(response.responseJSON);
+      errorDeleteUser.textContent = response.responseJSON.errorMessage;
+      errorDeleteUser.style.visibility = "visible";
+    }
+  })
+}
+
 $(document).ready(function(){
 
   $('input[type="file"]').change(function(e){
