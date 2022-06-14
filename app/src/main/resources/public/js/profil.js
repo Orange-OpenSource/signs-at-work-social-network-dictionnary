@@ -44,10 +44,12 @@ var errorDeletedSpanJob = document.getElementById('errorDeletedSpanJob');
 var counter = 3;
 var t;
 
+var nameVideoEdit = document.getElementById('nameVideo-edit');
 var nameVideoRecord = document.getElementById('nameVideo-record');
-var nameVideoDelete = document.getElementById('nameVideo-delete');
+var nameVideoSelect = document.getElementById('nameVideo-select');
+var jobVideoEdit = document.getElementById('jobVideo-edit')
 var jobVideoRecord = document.getElementById('jobVideo-record')
-var jobVideoDelete = document.getElementById('jobVideo-delete');
+var jobVideoSelect = document.getElementById('jobVideo-select')
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -428,48 +430,64 @@ $add_video_file_recording.on('show.bs.modal', function() {
   visualizeBeforeRecord();
 });
 
-if (nameVideoRecord) {
-  nameVideoRecord.onclick = function () {
-    console.log("click on record name lsf");
-    $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
-    $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
-    labelRecord = document.getElementById('label_record');
-    document.getElementById('label_record').style.visibility = "visible";
-    document.getElementById('label_record').style.display = "block";
-    document.getElementById('label_record_job_description').style.display = "none";
-    labelAfterRecord = document.getElementById('label_after_record');
-    document.getElementById('add_video_file_dailymotion_title_name_lsf').style.visibility = "visible";
-    document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "block";
-    document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "none";
+if (nameVideoEdit) {
+  nameVideoEdit.onclick = function () {
+  console.log("click on edit name lsf");
+    if (nameVideoRecord) {
+      nameVideoRecord.onclick = function () {
+      console.log("click on record name lsf");
+      $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
+      $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
+      labelRecord = document.getElementById('label_record');
+      document.getElementById('label_record').style.visibility = "visible";
+      document.getElementById('label_record').style.display = "block";
+      document.getElementById('label_record_job_description').style.display = "none";
+      labelAfterRecord = document.getElementById('label_after_record');
+      };
+    }
+    if (nameVideoSelect) {
+        nameVideoSelect.onclick = function () {
+        console.log("click on select name lsf");
+        $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
+        document.getElementById('add_video_file_dailymotion_title_name_lsf').style.visibility = "visible";
+        document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "block";
+        document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "none";
+        };
+     }
   };
 }
 
-if (jobVideoRecord) {
-  jobVideoRecord.onclick = function () {
-    console.log("click on record job description lsf");
-    $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForJobDescription');
-    $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForJobDescription');
-    document.getElementById('label_record_job_description').style.visibility = "visible";
-    document.getElementById('label_record_job_description').style.display = "block";
-    document.getElementById('label_record').style.display = "none";
-    labelRecord = document.getElementById('label_record_job_description');
-    labelAfterRecord = document.getElementById('label_after_record_job_description');
-    document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.visibility = "visible";
-    document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "block";
-    document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "none";
+if (jobVideoEdit) {
+  jobVideoEdit.onclick = function () {
+  console.log("click on edit job description lsf");
+  if (jobVideoRecord) {
+    jobVideoRecord.onclick = function () {
+      console.log("click on record job description lsf");
+      $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForJobDescription');
+      document.getElementById('label_record_job_description').style.visibility = "visible";
+      document.getElementById('label_record_job_description').style.display = "block";
+      document.getElementById('label_record').style.display = "none";
+      labelRecord = document.getElementById('label_record_job_description');
+      labelAfterRecord = document.getElementById('label_after_record_job_description');
+      };
+    }
+    if (jobVideoSelect) {
+          jobVideoSelect.onclick = function () {
+            console.log("click on select job description lsf");
+            $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForJobDescription');
+            document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.visibility = "visible";
+            document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "block";
+            document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "none";
+          };
+       }
   };
 }
 
 function editProfil() {
-  if ($('#nameVideo-record').is(":hidden")) {
-    $('#nameVideo-record').show();
+  if ($('#nameVideo-edit').is(":hidden")) {
+    $('#nameVideo-edit').show();
   } else {
-    $('#nameVideo-record').hide();
-  }
-  if ($('#nameVideo-delete').is(":hidden")) {
-    $('#nameVideo-delete').show();
-  } else {
-    $('#nameVideo-delete').hide();
+    $('#nameVideo-edit').hide();
   }
   if ($('#name-pen').is(":hidden")) {
     $('#changeName').css('pointer-events', '');
@@ -502,21 +520,16 @@ function editProfil() {
     $('#changeJobName').css('pointer-events', 'none');
     $('#jobName-pen').hide();
   }
-  if ($('#jobVideo-record').is(":hidden")) {
+  if ($('#jobVideo-edit').is(":hidden")) {
     if ($('#jobName').val() != null ) {
-      $('#jobVideo-record').show();
+      $('#jobVideo-edit').show();
     } else {
-      $('#jobVideo-record').hide();
+      $('#jobVideo-edit').hide();
     }
   } else {
-    $('#jobVideo-record').hide();
+    $('#jobVideo-edit').hide();
   }
 
-  if ($('#jobVideo-delete').is(":hidden")) {
-    $('#jobVideo-delete').show();
-  } else {
-    $('#jobVideo-delete').hide();
-  }
   if ($('#jobText-pen').is(":hidden")) {
     $('#changeJobDescriptionText').css('pointer-events', '');
     $('#jobText-pen').show();

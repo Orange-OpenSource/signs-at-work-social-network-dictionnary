@@ -27,7 +27,7 @@
 <body>
 
 
-<div th:fragment="div" id="add_file_LSF" class="modal fade" role="dialog">
+<div th:fragment="div" id="add_input_description_job_LSF" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -39,20 +39,28 @@
                 </div>
             </div>
             <div class="modal-body text-center">
+              <h2 class="blue" th:if="${user.jobDescriptionPicture != null}" th:text="#{sub_title_for_modal_video_with_video}"></h2>
+              <h2 class="blue" th:if="${user.jobDescriptionPicture == null}" th:text="#{sub_title_for_modal_video}"></h2>
               <ul class="nav nav-list primary left-menu">
                 <li class="forIE aside_bckg_li">
-                  <a class="all_li_clickable" data-target="#add_video_file_recording" data-toggle="modal" href="#">
+                  <a class="all_li_clickable" data-target="#add_video_file_recording" data-toggle="modal" href="#" id="jobVideo-record">
                       <div class="pull-left camera_blue"></div>
                       <h4 class="container_H2 text_hyphenation" th:text="#{recording}"/>
                       <div class="pull-right add_black"></div>
                   </a>
                 </li>
-
                 <li class="aside_bckg_li">
-                  <a class="all_li_clickable" data-target="#add_video_file_dailymotion" data-toggle="modal" href="#">
+                  <a class="all_li_clickable" data-target="#add_video_file_dailymotion" data-toggle="modal" href="#" id="jobVideo-select">
                       <div class="pull-left folder_blue"></div>
                       <h4 class="container_H2 text_hyphenation" th:text="#{explorator}"/>
                       <div class="pull-right add_black"></div>
+                  </a>
+                </li>
+                <li class="aside_bckg_li" th:if="${user.jobDescriptionPicture != null}">
+                  <a class="all_li_clickable" data-target="#delete_video_job" data-toggle="modal" href="#">
+                    <div class="pull-left x-close_blue"></div>
+                    <h4 class="container_H2 text_hyphenation" th:text="#{delete}"/>
+                    <div class="pull-right delete_black_profil"></div>
                   </a>
                 </li>
               </ul>
@@ -61,7 +69,7 @@
     </div>
 </div>
 <!--start modal-new-sign-video-file-recording-->
-<div id="add_video_file_recording" class="modal fade" role="dialog">
+<!--<div id="add_video_file_recording" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -106,12 +114,12 @@
         </form>
     </div>
   </div>
-</div>
+</div>-->
 <!--end modal-new-sign-video-file-recording-->
 
 
 <!--start modal-new-sign-video-file-dailymotion-->
-<div id="add_video_file_dailymotion" class="modal fade" role="dialog">
+<!--<div id="add_video_file_dailymotion" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -135,7 +143,7 @@
       </form>
     </div>
   </div>
-</div>
+</div>-->
 <!--end modal-new-sign-video-file-dailymotion-->
 
 
