@@ -304,6 +304,8 @@ public class AdminController {
     model.addAttribute("action", "/ws/sec/users/" + userId + "/datas");
     model.addAttribute("isAdmin", true);
     model.addAttribute("isConnectedUser", true);
+    model.addAttribute("actionForDeleteVideoName", "/ws/sec/deleteVideoFileForName/" + userId);
+    model.addAttribute("actionForDeleteVideoJob", "/ws/sec/deleteVideoFileForJob/" + userId);
 
     return "profile-from-community";
   }

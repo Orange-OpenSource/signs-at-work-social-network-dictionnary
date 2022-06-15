@@ -484,7 +484,7 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="deleteVideoFileForName" method="put" th:action="@{/ws/sec/deleteVideoFileForName}">
+      <form id="deleteVideoFileForName" method="put" th:action="${actionForDeleteVideoName}">
         <div class="modal-body text-center">
           <h4 th:text="#{video_name_lsf.confirm_delete}"></h4>
         </div>
@@ -531,7 +531,7 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="deleteVideoFileForJob" method="put" th:action="@{/ws/sec/deleteVideoFileForJob}">
+      <form id="deleteVideoFileForJob" method="put" th:action="${actionForDeleteVideoJob}">
         <div class="modal-body text-center">
           <h4 th:text="#{video_job_lsf.confirm_delete}"></h4>
         </div>

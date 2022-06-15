@@ -121,6 +121,8 @@ public class UserController {
     model.addAttribute("appName", appName);
     model.addAttribute("action", "/ws/sec/users/me/datas");
     model.addAttribute("isAdmin", false);
+    model.addAttribute("actionForDeleteVideoName", "/ws/sec/deleteVideoFileForName");
+    model.addAttribute("actionForDeleteVideoJob", "/ws/sec/deleteVideoFileForJob");
 
     return "profile-from-community";
   }
@@ -315,6 +317,8 @@ public class UserController {
     model.addAttribute("appName", appName);
     model.addAttribute("action", "/ws/sec/users/me/datas");
     model.addAttribute("isAdmin", false);
+    model.addAttribute("actionForDeleteVideoName", "/ws/sec/deleteVideoFileForName");
+    model.addAttribute("actionForDeleteVideoJob", "/ws/sec/deleteVideoFileForJob");
 
     return "profile-from-community";
   }

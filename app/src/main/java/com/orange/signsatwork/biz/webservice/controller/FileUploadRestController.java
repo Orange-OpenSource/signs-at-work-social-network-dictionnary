@@ -706,11 +706,57 @@ public class FileUploadRestController {
       return "/sec/my_profil";
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_NAME_FOR_USER, method = RequestMethod.PUT)
+  public String deleteVideoFileForNameForUser(Principal principal, @PathVariable long userId, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    String dailymotionId;
+    User user = services.user().withId(userId);
+    if (user.nameVideo != null) {
+      if (user.nameVideo.contains("http")) {
+        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
+      } else {
+        DeleteFilesOnServer(user.nameVideo, user.namePicture);
+      }
+      services.user().changeNameVideoUrl(user, null, null);
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "/sec/my_profil";
+  }
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_JOB, method = RequestMethod.PUT)
   public String deleteVideoFileForJob(Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
     String dailymotionId;
     User user = services.user().withUserName(principal.getName());
+    if (user.jobDescriptionVideo != null) {
+      if (user.jobDescriptionVideo.contains("http")) {
+        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
+      } else {
+        DeleteFilesOnServer(user.jobDescriptionVideo, user.jobDescriptionPicture);
+      }
+      services.user().changeDescriptionVideoUrl(user, null, null);
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "/sec/my_profil";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_JOB_FOR_USER, method = RequestMethod.PUT)
+  public String deleteVideoFileForJobForUser(Principal principal, @PathVariable long userId, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    String dailymotionId;
+    User user = services.user().withId(userId);
     if (user.jobDescriptionVideo != null) {
       if (user.jobDescriptionVideo.contains("http")) {
         dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);

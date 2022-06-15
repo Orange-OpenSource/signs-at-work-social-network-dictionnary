@@ -138,7 +138,11 @@ public class RestApi {
 
   public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_NAME = WS_SEC + "deleteVideoFileForName";
 
+  public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_NAME_FOR_USER = WS_SEC + "deleteVideoFileForName/{userId}";
+
   public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_JOB = WS_SEC + "deleteVideoFileForJob";
+
+  public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_JOB_FOR_USER = WS_SEC + "deleteVideoFileForJob/{userId}";
 
   public static final String WS_SEC_VIDEO_DELETE = WS_SEC + "sign/{signId}/{videoId}/delete";
 
