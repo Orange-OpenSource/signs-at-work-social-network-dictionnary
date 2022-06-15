@@ -29,7 +29,8 @@
 
 <body class="margin-for-footer">
 <div class="container">
-  <h2 class="subtitle_job" th:text="#{choose_job}"></h2>
+  <h2 th:if="${!isAdmin}" class="subtitle_job" th:text="#{choose_job}"></h2>
+  <h2 th:if="${isAdmin}" class="subtitle_job" th:text="#{admin_choose_job}"></h2>
   <div class="row ">
     <div class="col-xs-12">
       <div class="col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div">

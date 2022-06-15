@@ -33,12 +33,14 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="edit_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{your_entity}"></h2>
+                    <h2 th:if="${!isAdmin}" class="pull-right" th:text="#{your_entity}"></h2>
+                    <h2 th:if="${isAdmin}" class="pull-right" th:text="#{admin_entity}"></h2>
                 </div>
             </div>
             <form id="profileEntity" th:action="${action}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
-                <input id="entity_name" type="text" value="" th:value="${user.entity}"  th:placeholder="#{user.entity_name}" class="form-control" name="entity" th:autofocus="true" required="true"/>
+                <input th:if="${!isAdmin}" id="entity_name" type="text" value="" th:value="${user.entity}"  th:placeholder="#{user.entity_name}" class="form-control" name="entity" th:autofocus="true" required="true"/>
+                <input th:if="${isAdmin}" id="entity_name" type="text" value="" th:value="${user.entity}"  th:placeholder="#{admin.entity_name}" class="form-control" name="entity" th:autofocus="true" required="true"/>
               </div>
               <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">

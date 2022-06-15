@@ -434,7 +434,6 @@ function nameVideoRecord(isAdmin) {
    console.log("click on record name lsf");
    $("#add_video_file_recording").modal('show');
    $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
-   $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
    labelRecord = document.getElementById('label_record');
    document.getElementById('label_record').style.visibility = "visible";
    document.getElementById('label_record').style.display = "block";
@@ -444,7 +443,7 @@ function nameVideoRecord(isAdmin) {
 
 function nameVideoSelect(isAdmin) {
   console.log("click on select name lsf");
-   $("#add_video_file_dailymotion").modal('show');
+  $("#add_video_file_dailymotion").modal('show');
   $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
   document.getElementById('add_video_file_dailymotion_title_name_lsf').style.visibility = "visible";
   document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "block";
@@ -506,6 +505,7 @@ function nameVideoSelect(isAdmin) {
 
 function jobVideoRecord(isAdmin) {
   console.log("click on record job description lsf");
+  $("#add_video_file_recording").modal('show');
   $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForJobDescription');
   document.getElementById('label_record_job_description').style.visibility = "visible";
   document.getElementById('label_record_job_description').style.display = "block";
@@ -516,6 +516,7 @@ function jobVideoRecord(isAdmin) {
 
 function jobVideoSelect(isAdmin) {
   console.log("click on select job description lsf");
+   $("#add_video_file_dailymotion").modal('show');
   $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForJobDescription');
   document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.visibility = "visible";
   document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "block";
@@ -523,7 +524,8 @@ function jobVideoSelect(isAdmin) {
 }
 
 
-function editProfil() {
+function editProfil(isAdmin) {
+console.log(isAdmin);
   if ($('#nameVideo-edit').is(":hidden")) {
     $('#nameVideo-edit').show();
   } else {
@@ -537,13 +539,15 @@ function editProfil() {
     $('#name-pen').hide();
   }
 
-  if ($('#user_name-pen').is(":hidden")) {
-    $('#changeUserName').css('pointer-events', '');
-    $('#user_name-pen').show();
-  } else {
-    $('#changeUserName').css('pointer-events', 'none');
-    $('#user_name-pen').hide();
-  }
+  if (isAdmin === "false") {
+    if ($('#user_name-pen').is(":hidden")) {
+      $('#changeUserName').css('pointer-events', '');
+      $('#user_name-pen').show();
+    } else {
+      $('#changeUserName').css('pointer-events', 'none');
+      $('#user_name-pen').hide();
+    }
+   }
 
   if ($('#entity-pen').is(":hidden")) {
     $('#changeEntity').css('pointer-events', '');

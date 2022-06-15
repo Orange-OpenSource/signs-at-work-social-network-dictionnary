@@ -27,6 +27,7 @@ function onContinueFavorite(backUrl) {
 };
 
 
+var $associateJobToUserForm = $('#associateJobToUserForm');
 function onAssociateJobToUser() {
   if ($("#associateJobToUserForm").isChanged()) {
     var communityListName = document.getElementById('community_list_name');
@@ -51,7 +52,7 @@ function onAssociateJobToUser() {
     };
    /* event.preventDefault();*/
     $.ajax({
-      url: "/ws/sec/users/me/datas",
+      url: $associateJobToUserForm.attr('action'),
       type: 'put',
       data: JSON.stringify(data),
       contentType: "application/json",

@@ -33,12 +33,14 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="job_white pull-left"></div>
-                    <h2 class="pull-right text_hyphenation" th:text="#{your_job_description}"></h2>
+                    <h2 th:if="${!isAdmin}" class="pull-right text_hyphenation" th:text="#{your_job_description}"></h2>
+                    <h2 th:if="${isAdmin}" class="pull-right text_hyphenation" th:text="#{admin_job_description}"></h2>
                 </div>
             </div>
             <form id="profileDescription" th:action="${action}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
-                <textarea  id="jobDescription" th:text="${user.jobDescriptionText}"  th:placeholder="#{user.job_description_text}" type="text"   class="testinput  border  form-control" name="jobDescriptionText" rows="3" cols="40" th:autofocus="true"/>
+                <textarea  th:if="${!isAdmin}" id="jobDescription" th:text="${user.jobDescriptionText}"  th:placeholder="#{user.job_description_text}" type="text"   class="testinput  border  form-control" name="jobDescriptionText" rows="3" cols="40" th:autofocus="true"/>
+                <textarea  th:if="${isAdmin}" id="jobDescription" th:text="${user.jobDescriptionText}"  th:placeholder="#{admin.job_description_text}" type="text"   class="testinput  border  form-control" name="jobDescriptionText" rows="3" cols="40" th:autofocus="true"/>
               </div>
               <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">

@@ -28,7 +28,7 @@
 
 <div th:fragment="div">
       <form id="associateJobToUserForm" th:if="${not #lists.isEmpty(communities)}"
-            th:action="@{/sec/myjob/}"
+            th:action="${action}"
             th:object="${userJobView}"
             method="post">
         <div class="form-group">

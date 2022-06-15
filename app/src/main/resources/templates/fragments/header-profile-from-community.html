@@ -42,7 +42,7 @@
                 <div th:if="${#strings.equals(appName,'Signs@ADIS')}" class="logo_signsatwork_white pull-left"></div>
               </a>
               <h1 class="text_hyphenation navbar_title" style="display: inline-block" th:text="${title}"></h1>
-              <a th:if="${isConnectedUser}" th:onclick="'javascript:editProfil()'" style="display: inline-block; float:right">
+              <a th:if="${isConnectedUser || isAdmin}" th:data-isAdmin="${isAdmin}" th:onclick="javascript:editProfil(this.getAttribute('data-isAdmin'))" style="display: inline-block; float:right">
                 <div class="edit_white_circle pull-right"></div>
               </a>
             </div>

@@ -123,7 +123,20 @@
             </a>
           </li>
           <li class="aside_bckg_li">
-            <a href="/sec/my-job" id="changeJobName" style="pointer-events: none">
+            <a th:if="${!isAdmin}" href="/sec/my-job" id="changeJobName" style="pointer-events: none">
+              <div th:if="${user.job != null}">
+                <h2 style="display: inline;" th:text="#{job}"></h2>
+                <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+                <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
+              </div>
+              <div th:if="${user.job == null}">
+                <h2 style="display: inline;" th:text="#{job}"></h2>
+                <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;"
+                    th:text="#{to_complete}"></h2>
+                <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
+              </div>
+            </a>
+            <a th:if="${isAdmin}"  th:href="@{/sec/admin/users/} + ${user.id} +'/job'" id="changeJobName" style="pointer-events: none">
               <div th:if="${user.job != null}">
                 <h2 style="display: inline;" th:text="#{job}"></h2>
                 <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>

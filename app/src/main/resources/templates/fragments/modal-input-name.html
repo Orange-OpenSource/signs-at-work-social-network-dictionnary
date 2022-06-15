@@ -34,16 +34,20 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="edit_white pull-left"></div>
-                    <h2 class="pull-right" th:text="#{your_name}"></h2>
+                    <h2 th:if="${!isAdmin}" class="pull-right" th:text="#{your_name}"></h2>
+                    <h2 th:if="${isAdmin}" class="pull-right" th:text="#{admin_name}"></h2>
                 </div>
             </div>
             <form id="profileName" th:action="${action}" th:object="${userCreationView}" method="post">
               <div class="modal-body text-center">
-                <h4 th:text="#{your_name_title}"></h4>
+                <h4 th:if="${!isAdmin}" th:text="#{your_name_title}"></h4>
+                <h4 th:if="${isAdmin}" th:text="#{admin_name_title}"></h4>
                 <div class="errorRegexFirstName hidden" th:text="#{errorName}"></div>
-                <input  id="firstName" type="text" th:value="${user.firstName}"  th:placeholder="#{your_first_name}" class="form-control" name="firstName" th:autofocus="true" required="true"/>
+                <input  th:if="${!isAdmin}" id="firstName" type="text" th:value="${user.firstName}"  th:placeholder="#{your_first_name}" class="form-control" name="firstName" th:autofocus="true" required="true"/>
+                <input  th:if="${isAdmin}" id="firstName" type="text" th:value="${user.firstName}"  th:placeholder="#{admin_first_name}" class="form-control" name="firstName" th:autofocus="true" required="true"/>
                 <div class="errorRegexLastName hidden" th:text="#{errorName}"></div>
-                <input  id="lastName" type="text" th:value="${user.lastName}"   th:placeholder="#{your_last_name}" class="form-control" name="lastName" required="true"/>
+                <input  th:if="${!isAdmin}" id="lastName" type="text" th:value="${user.lastName}"   th:placeholder="#{your_last_name}" class="form-control" name="lastName" required="true"/>
+                <input  th:if="${isAdmin}" id="lastName" type="text" th:value="${user.lastName}"   th:placeholder="#{admin_last_name}" class="form-control" name="lastName" required="true"/>
               </div>
                 <div class="modal-footer">
                   <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">

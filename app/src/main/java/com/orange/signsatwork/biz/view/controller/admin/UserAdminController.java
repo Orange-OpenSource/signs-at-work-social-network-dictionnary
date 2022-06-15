@@ -23,8 +23,10 @@ package com.orange.signsatwork.biz.view.controller.admin;
  */
 
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.UserService;
 import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +37,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class UserAdminController {
 
   @Autowired
-  private UserService userService;
-  @Autowired
-  private CommunityService communityService;
-  @Autowired
   MessageByLocaleService messageByLocaleService;
+  @Autowired
+  private Services services;
 
   @Value("${app.name}")
   String appName;
@@ -51,12 +55,12 @@ public class UserAdminController {
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/{id}")
   public String userDetails(@PathVariable long id, Model model) {
-    User user = userService.withId(id);
+    User user = services.user().withId(id);
 
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("user_details"));
 
-    UserProfileView userProfileView = new UserProfileView(user, communityService);
+    UserProfileView userProfileView = new UserProfileView(user, services.community());
     model.addAttribute("userProfileView", userProfileView);
 
     model.addAttribute("requestView", new RequestView());
@@ -67,5 +71,27 @@ public class UserAdminController {
     return "admin/user";
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/users/{id}/job")
+  public String userJob(@PathVariable long id, Model model) {
+    User user = services.user().withId(id);
+
+    model.addAttribute("title", messageByLocaleService.getMessage("admin_job_title"));
+    UserJobView userJobView = new UserJobView(user, services.community());
+    model.addAttribute("userJobView", userJobView);
+
+    model.addAttribute("user", user);
+    List<Object[]> queryCommunities = services.community().allForJob(user.id);
+    List<CommunityViewData> communitiesViewData = queryCommunities.stream()
+      .map(objectArray -> new CommunityViewData(objectArray))
+      .collect(Collectors.toList());
+    communitiesViewData = communitiesViewData.stream().sorted((c1, c2) -> c1.name.compareTo(c2.name)).collect(Collectors.toList());
+    model.addAttribute("communities", communitiesViewData);
+    model.addAttribute("appName", appName);
+    model.addAttribute("isAdmin", true);
+    model.addAttribute("action", "/ws/sec/users/" + user.id + "/datas");
+
+    return "job-community";
+  }
 
 }
