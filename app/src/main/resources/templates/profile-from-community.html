@@ -480,13 +480,15 @@
         <button class="close" data-dismiss="modal" type="button"></button>
         <div class="pull-left">
           <div class="signlanguage_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:text="#{video_name_lsf.delete}"></h2>
+          <h2 th:if="${!isAdmin}" class="pull-right text_hyphenation" th:text="#{video_name_lsf.delete}"></h2>
+          <h2 th:if="${isAdmin}" class="pull-right text_hyphenation" th:text="#{admin_video_name_lsf.delete}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
       <form id="deleteVideoFileForName" method="put" th:action="${actionForDeleteVideoName}">
         <div class="modal-body text-center">
-          <h4 th:text="#{video_name_lsf.confirm_delete}"></h4>
+          <h4 th:if="${!isAdmin}" th:text="#{video_name_lsf.confirm_delete}"></h4>
+          <h4 th:if="${isAdmin}" th:text="#{admin_video_name_lsf.confirm_delete}"></h4>
         </div>
         <span id="errorDeletedSpan" style="visibility: hidden"></span>
         <div class="modal-footer">
@@ -514,7 +516,8 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <h4 th:text="#{validate_delete_name_lsf_video}"></h4>
+        <h4 th:if="${!isAdmin}" th:text="#{validate_delete_name_lsf_video}"></h4>
+        <h4 th:if="${isAdmin}" th:text="#{admin_validate_delete_name_lsf_video}"></h4>
       </div>
     </div>
   </div>
@@ -527,13 +530,15 @@
         <button class="close" data-dismiss="modal" type="button"></button>
         <div class="pull-left">
           <div class="signlanguage_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:text="#{video_job_lsf.delete}"></h2>
+          <h2 th:if="${!isAdmin}" class="pull-right text_hyphenation" th:text="#{video_job_lsf.delete}"></h2>
+          <h2 th:if="${isAdmin}" class="pull-right text_hyphenation" th:text="#{admin_video_job_lsf.delete}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
       <form id="deleteVideoFileForJob" method="put" th:action="${actionForDeleteVideoJob}">
         <div class="modal-body text-center">
-          <h4 th:text="#{video_job_lsf.confirm_delete}"></h4>
+          <h4 th:if="${!isAdmin}" th:text="#{video_job_lsf.confirm_delete}"></h4>
+          <h4 th:if="${isAdmin}" th:text="#{admin_video_job_lsf.confirm_delete}"></h4>
         </div>
         <span id="errorDeletedJobSpan" style="visibility: hidden"></span>
         <div class="modal-footer">
@@ -561,7 +566,8 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <h4 th:text="#{validate_delete_job_lsf_video}"></h4>
+        <h4 th:if="${!isAdmin}" th:text="#{validate_delete_job_lsf_video}"></h4>
+        <h4 th:if="${isAdmin}" th:text="#{admin_validate_delete_job_lsf_video}"></h4>
       </div>
     </div>
   </div>
