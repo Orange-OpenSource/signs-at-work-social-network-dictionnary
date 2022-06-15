@@ -43,14 +43,14 @@
               <h2 class="blue" th:if="${user.jobDescriptionPicture == null}" th:text="#{sub_title_for_modal_video}"></h2>
               <ul class="nav nav-list primary left-menu">
                 <li class="forIE aside_bckg_li">
-                  <a class="all_li_clickable" th:data-isAdmin="${isAdmin}" th:onclick="javascript:jobVideoRecord(this.getAttribute('data-isAdmin'))">
+                  <a class="all_li_clickable" th:data-isAdmin="${isAdmin}" th:data-userId="${user.id}" th:onclick="javascript:jobVideoRecord(this.getAttribute('data-isAdmin'), this.getAttribute('data-userId'))">
                       <div class="pull-left camera_blue"></div>
                       <h4 class="container_H2 text_hyphenation" th:text="#{recording}"/>
                       <div class="pull-right add_black"></div>
                   </a>
                 </li>
                 <li class="aside_bckg_li">
-                  <a class="all_li_clickable" th:data-isAdmin="${isAdmin}" th:onclick="javascript:jobVideoSelect(this.getAttribute('data-isAdmin'))">
+                  <a class="all_li_clickable" th:data-isAdmin="${isAdmin}" th:data-userId="${user.id}" th:onclick="javascript:jobVideoSelect(this.getAttribute('data-isAdmin'), this.getAttribute('data-userId'))">
                       <div class="pull-left folder_blue"></div>
                       <h4 class="container_H2 text_hyphenation" th:text="#{explorator}"/>
                       <div class="pull-right add_black"></div>

@@ -647,9 +647,19 @@ public class FileUploadRestController {
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION, method = RequestMethod.POST)
   public String uploadSelectedVideoFileForJobDescription(@RequestParam("file") MultipartFile file, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
     if (environment.getProperty("app.dailymotion_url").isEmpty()) {
-      return handleSelectedVideoFileUploadForProfilOnServer(file, principal, "JobDescription", response);
+      return handleSelectedVideoFileUploadForProfilOnServer(file, OptionalLong.empty(), principal, "JobDescription", response);
     } else {
-      return handleSelectedVideoFileUploadForProfil(file, principal, "JobDescription", response);
+      return handleSelectedVideoFileUploadForProfil(file, OptionalLong.empty(), principal, "JobDescription", response);
+    }
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION_FOR_USER, method = RequestMethod.POST)
+  public String uploadSelectedVideoFileForJobDescriptionForUser(@RequestParam("file") MultipartFile file, @PathVariable long userId, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadForProfilOnServer(file, OptionalLong.of(userId), principal, "JobDescription", response);
+    } else {
+      return handleSelectedVideoFileUploadForProfil(file, OptionalLong.of(userId), principal, "JobDescription", response);
     }
   }
 
@@ -657,9 +667,19 @@ public class FileUploadRestController {
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME, method = RequestMethod.POST)
   public String uploadSelectedVideoFileForName(@RequestParam("file") MultipartFile file, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
     if (environment.getProperty("app.dailymotion_url").isEmpty()) {
-      return handleSelectedVideoFileUploadForProfilOnServer(file, principal, "Name", response);
+      return handleSelectedVideoFileUploadForProfilOnServer(file, OptionalLong.empty(), principal, "Name", response);
     } else {
-      return handleSelectedVideoFileUploadForProfil(file, principal, "Name", response);
+      return handleSelectedVideoFileUploadForProfil(file, OptionalLong.empty(), principal, "Name", response);
+    }
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME_FOR_USER, method = RequestMethod.POST)
+  public String uploadSelectedVideoFileForNameForUser(@RequestParam("file") MultipartFile file, @PathVariable long userId, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleSelectedVideoFileUploadForProfilOnServer(file, OptionalLong.of(userId), principal, "Name", response);
+    } else {
+      return handleSelectedVideoFileUploadForProfil(file, OptionalLong.of(userId), principal, "Name", response);
     }
   }
 
@@ -709,7 +729,7 @@ public class FileUploadRestController {
     return "/sec/my_profil";
   }
 
-  private String handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
+  private String handleSelectedVideoFileUploadForProfil(@RequestParam("file") MultipartFile file, OptionalLong userId, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
       String videoUrl = null;
       String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
@@ -740,7 +760,12 @@ public class FileUploadRestController {
           authTokenInfo = dalymotionToken.getAuthTokenInfo();
         }
 
-        User user = services.user().withUserName(principal.getName());
+        User user;
+        if (userId.isPresent()) {
+          user = services.user().withId(userId.getAsLong());
+        } else {
+          user = services.user().withUserName(principal.getName());
+        }
 
         UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -867,7 +892,7 @@ public class FileUploadRestController {
     }
   }
 
-  private String handleSelectedVideoFileUploadForProfilOnServer(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
+  private String handleSelectedVideoFileUploadForProfilOnServer(@RequestParam("file") MultipartFile file, OptionalLong userId, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
       String videoUrl = null;
       String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
@@ -893,7 +918,12 @@ public class FileUploadRestController {
         return messageByLocaleService.getMessage("errorThumbnailFile");
       }
 
-      User user = services.user().withUserName(principal.getName());
+      User user;
+      if (userId.isPresent()) {
+        user = services.user().withId(userId.getAsLong());
+      } else {
+        user = services.user().withUserName(principal.getName());
+      }
       String pictureUri = thumbnailFile;
       videoUrl= newAbsoluteFileName;
 
@@ -922,9 +952,19 @@ public class FileUploadRestController {
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION, method = RequestMethod.POST)
   public String uploadRecordedVideoFileForJobDescription(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
     if (environment.getProperty("app.dailymotion_url").isEmpty()) {
-      return handleRecordedVideoFileForProfilOnServer(videoFile, principal, "JobDescription", response);
+      return handleRecordedVideoFileForProfilOnServer(videoFile, OptionalLong.empty(), principal, "JobDescription", response);
     } else {
-      return handleRecordedVideoFileForProfil(videoFile, principal, "JobDescription", response);
+      return handleRecordedVideoFileForProfil(videoFile, OptionalLong.empty(), principal, "JobDescription", response);
+    }
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION_FOR_USER, method = RequestMethod.POST)
+  public String uploadRecordedVideoFileForJobDescription(@RequestBody VideoFile videoFile, @PathVariable long userId, Principal principal, HttpServletResponse response) {
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileForProfilOnServer(videoFile,  OptionalLong.of(userId),  principal, "JobDescription", response);
+    } else {
+      return handleRecordedVideoFileForProfil(videoFile,  OptionalLong.of(userId), principal, "JobDescription", response);
     }
   }
 
@@ -932,13 +972,22 @@ public class FileUploadRestController {
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NAME, method = RequestMethod.POST)
   public String uploadRecordedVideoFileForName(@RequestBody VideoFile videoFile, Principal principal, HttpServletResponse response) {
     if (environment.getProperty("app.dailymotion_url").isEmpty()) {
-      return handleRecordedVideoFileForProfilOnServer(videoFile, principal, "Name", response);
+      return handleRecordedVideoFileForProfilOnServer(videoFile,  OptionalLong.empty(), principal, "Name", response);
     } else {
-      return handleRecordedVideoFileForProfil(videoFile, principal, "Name", response);
+      return handleRecordedVideoFileForProfil(videoFile,  OptionalLong.empty(), principal, "Name", response);
+    }
+  }
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NAME_FOR_USER, method = RequestMethod.POST)
+  public String uploadRecordedVideoFileForNameForUser(@RequestBody VideoFile videoFile, @PathVariable long userId, Principal principal, HttpServletResponse response) {
+    if (environment.getProperty("app.dailymotion_url").isEmpty()) {
+      return handleRecordedVideoFileForProfilOnServer(videoFile, OptionalLong.of(userId), principal, "Name", response);
+    } else {
+      return handleRecordedVideoFileForProfil(videoFile, OptionalLong.of(userId), principal, "Name", response);
     }
   }
 
-  private String handleRecordedVideoFileForProfil(VideoFile videoFile, Principal principal, String inputType, HttpServletResponse response) {
+  private String handleRecordedVideoFileForProfil(VideoFile videoFile, OptionalLong userId, Principal principal, String inputType, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
     String videoUrl = null;
@@ -983,7 +1032,12 @@ public class FileUploadRestController {
         authTokenInfo = dalymotionToken.getAuthTokenInfo();
       }
 
-      User user = services.user().withUserName(principal.getName());
+      User user;
+      if (userId.isPresent()) {
+        user = services.user().withId(userId.getAsLong());
+      } else {
+        user = services.user().withUserName(principal.getName());
+      }
 
       UrlFileUploadDailymotion urlfileUploadDailymotion = services.sign().getUrlFileUpload();
 
@@ -1113,7 +1167,7 @@ public class FileUploadRestController {
     }
   }
 
-  private String handleRecordedVideoFileForProfilOnServer(VideoFile videoFile, Principal principal, String inputType, HttpServletResponse response) {
+  private String handleRecordedVideoFileForProfilOnServer(VideoFile videoFile, OptionalLong userId, Principal principal, String inputType, HttpServletResponse response) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
     String videoUrl = null;
@@ -1147,7 +1201,12 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorThumbnailFile");
     }
 
-    User user = services.user().withUserName(principal.getName());
+    User user;
+    if (userId.isPresent()) {
+      user = services.user().withId(userId.getAsLong());
+    } else {
+      user = services.user().withUserName(principal.getName());
+    }
 
     String pictureUri = thumbnailFile;
     videoUrl= file;

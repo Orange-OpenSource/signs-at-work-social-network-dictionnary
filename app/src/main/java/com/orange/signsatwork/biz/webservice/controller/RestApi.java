@@ -106,11 +106,15 @@ public class RestApi {
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION = WS_SEC + "uploadRecordedVideoFileForJobDescription";
 
+  public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION_FOR_USER = WS_SEC + "uploadRecordedVideoFileForJobDescription/{userId}";
+
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION = WS_SEC + "uploadRecordedVideoFileForRequestDescription/{requestId}";
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_SIGN_DEFINITION = WS_SEC + "uploadRecordedVideoFileForSignDefinition/{signId}";
 
   public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NAME = WS_SEC + "uploadRecordedVideoFileForName";
+
+  public static final String WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_NAME_FOR_USER = WS_SEC + "uploadRecordedVideoFileForName/{userId}";
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD = WS_SEC + "uploadSelectedVideoFile";
 
@@ -122,11 +126,15 @@ public class RestApi {
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION = WS_SEC + "uploadSelectedVideoFileForJobDescription";
 
+  public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_JOB_DESCRIPTION_FOR_USER = WS_SEC + "uploadSelectedVideoFileForJobDescription/{userId}";
+
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_REQUEST_DESCRIPTION = WS_SEC + "uploadSelectedVideoFileForRequestDescription/{requestId}";
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_SIGN_DEFINITION = WS_SEC + "uploadSelectedVideoFileForSignDefinition/{signId}";
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME = WS_SEC + "uploadSelectedVideoFileForName";
+
+  public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME_FOR_USER = WS_SEC + "uploadSelectedVideoFileForName/{userId}";
 
   public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_NAME = WS_SEC + "deleteVideoFileForName";
 
