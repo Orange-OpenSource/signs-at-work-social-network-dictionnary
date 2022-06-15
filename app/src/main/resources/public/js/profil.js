@@ -45,11 +45,11 @@ var counter = 3;
 var t;
 
 var nameVideoEdit = document.getElementById('nameVideo-edit');
-var nameVideoRecord = document.getElementById('nameVideo-record');
-var nameVideoSelect = document.getElementById('nameVideo-select');
+/*var nameVideoRecord = document.getElementById('nameVideo-record');
+var nameVideoSelect = document.getElementById('nameVideo-select');*/
 var jobVideoEdit = document.getElementById('jobVideo-edit')
-var jobVideoRecord = document.getElementById('jobVideo-record')
-var jobVideoSelect = document.getElementById('jobVideo-select')
+/*var jobVideoRecord = document.getElementById('jobVideo-record')
+var jobVideoSelect = document.getElementById('jobVideo-select')*/
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -430,7 +430,28 @@ $add_video_file_recording.on('show.bs.modal', function() {
   visualizeBeforeRecord();
 });
 
-if (nameVideoEdit) {
+function nameVideoRecord(isAdmin) {
+   console.log("click on record name lsf");
+   $("#add_video_file_recording").modal('show');
+   $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForName');
+   $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
+   labelRecord = document.getElementById('label_record');
+   document.getElementById('label_record').style.visibility = "visible";
+   document.getElementById('label_record').style.display = "block";
+   document.getElementById('label_record_job_description').style.display = "none";
+   labelAfterRecord = document.getElementById('label_after_record');
+};
+
+function nameVideoSelect(isAdmin) {
+  console.log("click on select name lsf");
+   $("#add_video_file_dailymotion").modal('show');
+  $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
+  document.getElementById('add_video_file_dailymotion_title_name_lsf').style.visibility = "visible";
+  document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "block";
+  document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "none";
+};
+
+/*if (nameVideoEdit) {
   nameVideoEdit.onclick = function () {
   console.log("click on edit name lsf");
     if (nameVideoRecord) {
@@ -455,9 +476,9 @@ if (nameVideoEdit) {
         };
      }
   };
-}
+}*/
 
-if (jobVideoEdit) {
+/*if (jobVideoEdit) {
   jobVideoEdit.onclick = function () {
   console.log("click on edit job description lsf");
   if (jobVideoRecord) {
@@ -481,7 +502,26 @@ if (jobVideoEdit) {
           };
        }
   };
+}*/
+
+function jobVideoRecord(isAdmin) {
+  console.log("click on record job description lsf");
+  $('#uploadRecordedVideoFile').attr('action', '/ws/sec/uploadRecordedVideoFileForJobDescription');
+  document.getElementById('label_record_job_description').style.visibility = "visible";
+  document.getElementById('label_record_job_description').style.display = "block";
+  document.getElementById('label_record').style.display = "none";
+  labelRecord = document.getElementById('label_record_job_description');
+  labelAfterRecord = document.getElementById('label_after_record_job_description');
 }
+
+function jobVideoSelect(isAdmin) {
+  console.log("click on select job description lsf");
+  $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForJobDescription');
+  document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.visibility = "visible";
+  document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "block";
+  document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "none";
+}
+
 
 function editProfil() {
   if ($('#nameVideo-edit').is(":hidden")) {
