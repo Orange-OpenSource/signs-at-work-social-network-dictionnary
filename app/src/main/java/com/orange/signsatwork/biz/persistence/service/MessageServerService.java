@@ -38,5 +38,7 @@ public interface MessageServerService {
 
   MessagesServer messagesServerCreateUserWithId(long id);
 
+  MessagesServer messagesServerCreateUserWithUserName(String userName);
+
   void updateMessageServerAction(long messageServerId, ActionType action);
 }

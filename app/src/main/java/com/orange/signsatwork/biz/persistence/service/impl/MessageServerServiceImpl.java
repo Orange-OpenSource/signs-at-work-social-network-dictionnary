@@ -110,6 +110,11 @@ public class MessageServerServiceImpl implements MessageServerService {
     messageServerRepository.save(messageServerDB);
   }
 
+  @Override
+  public MessagesServer messagesServerCreateUserWithUserName(String userName) {
+    return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserWithUserName(userName));
+  }
+
   private MessageServerDB MessageServerDBFrom(MessageServer messageServer) {
     return new MessageServerDB(messageServer.date, messageServer.type, messageServer.values, messageServer.action);
   }

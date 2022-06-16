@@ -1007,6 +1007,12 @@ public class UserRestController {
 
     User user = services.user().withUserName(userCreationView.getEmail());
     if (user == null) {
+      MessagesServer queryMessagesServer = services.messageServerService().messagesServerCreateUserWithUserName(userCreationView.getEmail());
+      if (queryMessagesServer.list().size() >= 1) {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("request_for_create_user_already_exist");
+        return  userResponseApi;
+      }
       Date date = new Date();
       String values = userCreationView.getFirstName() + ";" + userCreationView.getLastName() + ";" + userCreationView.getEmail();
       MessageServer messageServer = new MessageServer(new Date(), "RequestCreateUserMessage", values, ActionType.TODO);
