@@ -40,5 +40,7 @@ public interface MessageServerService {
 
   MessagesServer messagesServerCreateUserWithUserName(String userName);
 
+  MessagesServer messagesServerChangeEmailWithUserName(String userName);
+
   void updateMessageServerAction(long messageServerId, ActionType action);
 }

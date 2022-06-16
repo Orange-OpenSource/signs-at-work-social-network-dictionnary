@@ -62,6 +62,9 @@ public interface MessageServerRepository extends CrudRepository<MessageServerDB,
   @Query("select distinct m FROM MessageServerDB m where m.type='RequestCreateUserMessage' and m.action='TODO' and m.val like concat('%',:userName,'%')")
   List<MessageServerDB> findMessagesServerCreateUserWithUserName(@Param("userName") String userName);
 
+  @Query("select distinct m FROM MessageServerDB m where m.type='RequestChangeEmailMessage' and m.action='TODO' and m.val like concat('%',:userName,'%')")
+  List<MessageServerDB> findMessagesServerChangeEmailWithUserName(@Param("userName") String userName);
+
   public default MessageServerDB findOne(long id) {
     return findById(id).orElse(null);
   }

@@ -1045,6 +1045,12 @@ public class UserRestController {
 
     User userSearch = services.user().withUserName(userCreationView.getEmail());
     if (userSearch == null) {
+      MessagesServer queryMessagesServer = services.messageServerService().messagesServerChangeEmailWithUserName(userCreationView.getEmail());
+      if (queryMessagesServer.list().size() >= 1) {
+        response.setStatus(HttpServletResponse.SC_CONFLICT);
+        userResponseApi.errorMessage = messageByLocaleService.getMessage("request_for_change_email_user_already_exist");
+        return  userResponseApi;
+      }
       body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationView.getEmail()});
       title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
       Runnable task = () -> {
