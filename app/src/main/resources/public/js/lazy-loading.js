@@ -709,7 +709,7 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
       } else {
         document.getElementById("videoOnDailyMotion").style.display="none"
         document.getElementById("videoOnServer").style.display="block"
-        document.getElementById("videoUrlOnServer").src= url;
+        document.getElementById("videoUrlOnServer").src= data[indice].url;
         document.getElementById("videoplayer").load();
       }
     /*document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';*/
@@ -737,7 +737,7 @@ function displayVideo(isAuthenticated, id, url, name, idForName, nbVideo) {
             } else {
               document.getElementById("videoOnDailyMotion").style.display="none"
               document.getElementById("videoOnServer").style.display="block"
-              document.getElementById("videoUrlOnServer").src= url;
+              document.getElementById("videoUrlOnServer").src= data[indice].url;
               document.getElementById("videoplayer").load();
             }
       /*document.getElementById("videoUrl").src = data[indice].url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1';*/
