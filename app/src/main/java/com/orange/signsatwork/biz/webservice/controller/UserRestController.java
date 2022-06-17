@@ -106,21 +106,42 @@ public class UserRestController {
     UserResponseApi userResponseApi = new UserResponseApi();
     if (userCreationView.getUsername() == null) {
       if (userCreationView.getMessageServerId() != 0) {
-        MessagesServer queryMessagesServer = services.messageServerService().messagesServerCreateUserWithId(userCreationView.getMessageServerId());
+        MessagesServer queryMessagesServer = services.messageServerService().messagesServerCreateUserChangeEmailWithId(userCreationView.getMessageServerId());
         if (queryMessagesServer.list().size() == 1) {
           Date date = queryMessagesServer.list().get(0).date;
-          String email = queryMessagesServer.list().get(0).values.substring(queryMessagesServer.list().get(0).values.lastIndexOf(";") + 1);
-          services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
-          title = messageByLocaleService.getMessage("canceled_create_user_title");
-          bodyMail = messageByLocaleService.getMessage("canceled_create_user_body", new Object[]{date});
+          String values = queryMessagesServer.list().get(0).values;
+          if (queryMessagesServer.list().get(0).type.equals("RequestCreateUserMessage")) {
+            Object[] valuesToArray = Arrays.stream(values.split(";")).toArray();
+            String firstName = valuesToArray[0].toString();
+            String lastName = valuesToArray[1].toString();
+            String email = valuesToArray[2].toString();
+            services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
+            title = messageByLocaleService.getMessage("canceled_create_user_title");
+            bodyMail = messageByLocaleService.getMessage("canceled_create_user_body", new Object[]{date});
 
-          Runnable task = () -> {
-            log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
-            services.emailService().sendCanceledCreateUserMessage(email, title, date, request.getLocale());
-          };
+            Runnable task = () -> {
+              log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+              services.emailService().sendCanceledCreateUserChangeEmailMessage(email, title, bodyMail, request.getLocale());
+            };
 
-          new Thread(task).start();
-          userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_cancel_create_user_text", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName()});
+            new Thread(task).start();
+            userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_cancel_create_user_text", new Object[]{firstName, lastName});
+          } else if (queryMessagesServer.list().get(0).type.equals("RequestChangeEmailMessage")) {
+            Object[] valuesToArray = Arrays.stream(values.split(";")).toArray();
+            String name = valuesToArray[0].toString();
+            String email = valuesToArray[1].toString();
+            services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
+            title = messageByLocaleService.getMessage("canceled_change_email_title");
+            bodyMail = messageByLocaleService.getMessage("canceled_change_email_body", new Object[]{date});
+
+            Runnable task = () -> {
+              log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+              services.emailService().sendCanceledCreateUserChangeEmailMessage(email, title, bodyMail, request.getLocale());
+            };
+
+            new Thread(task).start();
+            userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_cancel_change_email_text", new Object[]{name});
+          }
         }
       }
     } else {

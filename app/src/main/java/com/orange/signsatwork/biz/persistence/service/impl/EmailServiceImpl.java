@@ -769,7 +769,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void  sendCanceledCreateUserMessage(String to, String subject, Date date, Locale locale) {
+  public void sendCanceledCreateUserChangeEmailMessage(String to, String subject, String bodyMail, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -786,9 +786,9 @@ public class EmailServiceImpl implements EmailService {
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
       Context ctx = new Context(locale);
-      ctx.setVariable("date", date);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
+      ctx.setVariable("bodyMail", bodyMail);
       String htmlContent = templateEngine.process("email-canceled-create-user", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);

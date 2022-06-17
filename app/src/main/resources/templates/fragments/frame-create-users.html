@@ -39,12 +39,18 @@
             </a>
           </li>
            <li class="aside_bckg_li" th:each="messageServer:${messagesServer}">
-             <a class="all_li_clickable" th:data-messageServer="${messageServer.values}" th:data-messageId="${messageServer.id}" th:onclick="javascript:onCreateUser(this.getAttribute('data-messageServer'), this.getAttribute('data-messageId'))" href="#" style="background-color: white;">
+             <a th:if="${messageServer.type == 'RequestCreateUserMessage'}" class="all_li_clickable" th:data-messageServer="${messageServer.values}" th:data-messageId="${messageServer.id}" th:onclick="javascript:onCreateUser(this.getAttribute('data-messageServer'), this.getAttribute('data-messageId'))" href="#" style="background-color: white;">
               <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
               <div th:if="${messageServer.type == 'RequestCreateUserMessage'}" class="member_add_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
-              <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
               <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).TODO}" class="pull-right chevron"></div>
+               <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).DONE}" class="pull-right done"></div>
+             </a>
+             <a th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="all_li_clickable" th:data-messageServer="${messageServer.values}" th:data-messageId="${messageServer.id}" th:onclick="javascript:onChangeEmail(this.getAttribute('data-messageServer'), this.getAttribute('data-messageId'))" href="#" style="background-color: white;">
+               <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
+               <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+               <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
+               <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).TODO}" class="pull-right chevron"></div>
                <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).DONE}" class="pull-right done"></div>
              </a>
           </li>

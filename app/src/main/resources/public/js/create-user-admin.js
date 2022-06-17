@@ -236,3 +236,53 @@ $('#cancel-create-user').click(function() {
     })
   }
 });
+
+function onChangeEmail(messageServer, messageId) {
+  console.log("messageServer " + messageServer );
+  console.log("messageId " + messageId );
+  var message = messageServer.split(";");
+  console.log("message " + message);
+  $("#new_mail").val(message[2]);
+  $("#change-email").modal('show');
+  messageServerId = messageId;
+}
+
+$('#cancel-change-email').click(function() {
+  console.log("cancel change email");
+  if (messageServerId != 0) {
+    var confirmCancelChangeEmailText = document.getElementById('confirm_cancel_change_email_text');
+    document.getElementById('submit-change-email').disabled=true;
+     user = {
+        firstName: inputFirstName.value,
+        lastName: inputLastName.value,
+        messageServerId : messageServerId
+      };
+    event.preventDefault();
+    $.ajax({
+      url: '/ws/admin/users',
+      type: 'post',
+      data: JSON.stringify(user),
+      contentType: "application/json",
+      success: function (response) {
+        var url = response;
+        errorCreateUser.style.display = "none";
+        $("#change-email").modal('hide');
+        confirmCancelChangeEmailText.textContent = response.errorMessage;
+        $("#confirm_cancel_change_email").modal('show');
+        setTimeout(function(){
+          $('#confirm_cancel_change_email').modal('hide');
+          url = "/sec/admin/create-users";
+          console.log(window.location.href);
+          window.history.replaceState({}, 'foo', url);
+          console.log(window.location.href);
+          window.location = url;
+        }, 3000);
+      },
+      error: function (response) {
+        errorCreateUser.textContent = response.responseJSON.errorMessage;
+        errorCreateUser.style.display = "inline-block";
+        console.log("Erreur " + response.responseText);
+      }
+    })
+  }
+});

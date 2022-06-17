@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -94,13 +93,13 @@ public class MessageServerServiceImpl implements MessageServerService {
   }
 
   @Override
-  public MessagesServer messagesServerCreateUserToDoAsc() {
-    return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserToDoAsc());
+  public MessagesServer messagesServerCreateUserChangeEmailToDoAsc() {
+    return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserChangeEmailToDoAsc());
   }
 
   @Override
-  public MessagesServer messagesServerCreateUserWithId(long id) {
-    return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserWithId(id));
+  public MessagesServer messagesServerCreateUserChangeEmailWithId(long id) {
+    return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserChangeEmailWithId(id));
   }
 
   @Override

@@ -6,7 +6,7 @@
 </head>
 <body style="font-family: Accessible DfA, Arial, Calibri;">
 <p th:text="#{hello}">Bonjour,</p>
-<p th:text="#{canceled_create_user_body(${date})}">Votre demande de création de compte du {0} n'a pas été acceptée.</p>
+<p th:text="${mailBody}">Votre demande de création de compte du {0} n'a pas été acceptée.</p>
 <p th:text="#{thank}">Merci</p>
 <p style="font-weight: bold" th:text="${appName}"></p>
 <p>

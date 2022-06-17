@@ -34,9 +34,9 @@ public interface MessageServerService {
 
   MessagesServer messagesServerShareFavoriteDesc();
 
-  MessagesServer messagesServerCreateUserToDoAsc();
+  MessagesServer messagesServerCreateUserChangeEmailToDoAsc();
 
-  MessagesServer messagesServerCreateUserWithId(long id);
+  MessagesServer messagesServerCreateUserChangeEmailWithId(long id);
 
   MessagesServer messagesServerCreateUserWithUserName(String userName);
 

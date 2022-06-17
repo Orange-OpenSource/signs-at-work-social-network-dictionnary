@@ -1,8 +1,6 @@
 package com.orange.signsatwork.biz.persistence.repository;
 
 import com.orange.signsatwork.biz.persistence.model.MessageServerDB;
-import com.orange.signsatwork.biz.persistence.model.RequestDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -53,11 +51,11 @@ public interface MessageServerRepository extends CrudRepository<MessageServerDB,
   @Query("select distinct m FROM MessageServerDB m where m.type='FavoriteShareMessage' order by m.date desc")
   List<MessageServerDB> findMessagesServerShareFavoriteDesc();
 
-  @Query("select distinct m FROM MessageServerDB m where m.type='RequestCreateUserMessage' and m.action='TODO' order by m.date asc")
-  List<MessageServerDB> findMessagesServerCreateUserToDoAsc();
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('RequestCreateUserMessage','RequestChangeEmailMessage') and m.action='TODO' order by m.date asc")
+  List<MessageServerDB> findMessagesServerCreateUserChangeEmailToDoAsc();
 
-  @Query("select distinct m FROM MessageServerDB m where m.type='RequestCreateUserMessage' and m.id = :id")
-  List<MessageServerDB> findMessagesServerCreateUserWithId(@Param("id") long id);
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('RequestCreateUserMessage','RequestChangeEmailMessage') and m.id = :id")
+  List<MessageServerDB> findMessagesServerCreateUserChangeEmailWithId(@Param("id") long id);
 
   @Query("select distinct m FROM MessageServerDB m where m.type='RequestCreateUserMessage' and m.action='TODO' and m.val like concat('%',:userName,'%')")
   List<MessageServerDB> findMessagesServerCreateUserWithUserName(@Param("userName") String userName);

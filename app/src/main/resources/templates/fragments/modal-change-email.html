@@ -1,0 +1,97 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div"  id="change-email" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <div class="pull-left">
+                    <div class="member_add_white_circle pull-left"></div>
+                    <h2 class="text_hyphenation pull-right" th:text="#{admin_change_email}"></h2>
+                </div>
+            </div>
+            <form id="input-create-user" th:object="${user}" method="post">
+              <div class="modal-body">
+                <div class="form-group">
+                  <div class="errorRegexEmail hidden" th:text="#{errorEmail}"></div>
+                  <input id="new_mail" type="email" th:placeholder="#{email_placeholder}" class="form-control disabled" name="email" th:autofocus="true" required="true"/>
+                  </div>
+                <div id="errorCreateUser" style="display:none"></div>
+              </div>
+                <div class="modal-footer">
+                  <button id="cancel-change-email" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                    <div class="x-close2_black center-block"></div>
+                    <span th:text="#{notCreate}"></span>
+                  </button>
+                  <button id="submit-change-email" type="submit" class="btn btn-default pull-right" data-dismiss="" >
+                    <div class="v-done2_blue center-block"></div>
+                    <span th:text="#{create}"></span>
+                  </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div  id="confirm_create_user" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="member_add_white_circle pull-left"></div>
+          <h2 class="pull-right" th:text="#{confirm_create_user_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <div class="Cefe pull-left"></div>
+        <h4 id="confirm_create_user_text"></h4>
+        <h4 th:text="#{confirm_create_user_text_2}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div  id="confirm_cancel_change_email" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="OkNo-Supprimer-Annuler pull-left"></div>
+          <h2 class="pull-right" th:text="#{confirm_cancel_change_email_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 id="confirm_cancel_change_email_text"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

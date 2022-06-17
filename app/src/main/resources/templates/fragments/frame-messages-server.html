@@ -173,7 +173,22 @@
                   <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).DONE}" class="pull-right done"></div>
                 <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).NOTDONE}" class="pull-right notdone"></div>
               </li>
-              <li th:if="${messageServer.type != 'RequestCreateUserMessage'}" class="aside_bckg_li">
+              <li  th:if="${messageServer.type == 'RequestChangeEmailMessage' and messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).TODO}" class="aside_bckg_li">
+                <a class="all_li_clickable" th:href="@{/sec/admin/create-users(id=${messageServer.id})}" style="background-color: white;">
+                  <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
+                  <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                  <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
+                  <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).TODO}" class="pull-right chevron"></div>
+                </a>
+              </li>
+              <li  th:if="${messageServer.type == 'RequestChangeEmailMessage' and messageServer.action != T(com.orange.signsatwork.biz.domain.ActionType).TODO}" class="aside_bckg_li">
+                <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
+                <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
+                <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).DONE}" class="pull-right done"></div>
+                <div th:if="${messageServer.action == T(com.orange.signsatwork.biz.domain.ActionType).NOTDONE}" class="pull-right notdone"></div>
+              </li>
+              <li th:if="${messageServer.type != 'RequestCreateUserMessage' && messageServer.type != 'RequestChangeEmailMessage'}" class="aside_bckg_li">
                 <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
                 <div th:if="${messageServer.type == 'FavoriteShareMessage'}" class="pinlist_shared_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityCreateMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
@@ -183,8 +198,6 @@
                 <div th:if="${messageServer.type == 'CommunityRemoveMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityRemoveMeMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityAddMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
-
-                <div th:if="${messageServer.type == 'RequestChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'ResetPasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UserDeleteMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UserLockMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>

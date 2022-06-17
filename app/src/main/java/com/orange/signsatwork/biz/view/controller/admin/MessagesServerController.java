@@ -40,7 +40,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.orange.signsatwork.biz.domain.ActionType.TODO;
-import static java.util.Collections.emptyList;
 
 @Slf4j
 @Controller
@@ -436,9 +435,9 @@ public class MessagesServerController {
 
     MessagesServer queryMessagesServer;
     if (idMessageServer != 0) {
-      queryMessagesServer = services.messageServerService().messagesServerCreateUserWithId(id.get());
+      queryMessagesServer = services.messageServerService().messagesServerCreateUserChangeEmailWithId(id.get());
       if (queryMessagesServer.list().isEmpty()) {
-        messageText = messageByLocaleService.getMessage("no_create_for_user_in_to_do");
+        messageText = messageByLocaleService.getMessage("no_create_or_change_email_for_user_in_to_do");
       } else {
         if (queryMessagesServer.list().size() == 1) {
           if (!queryMessagesServer.list().get(0).action.equals(TODO)){
@@ -449,9 +448,9 @@ public class MessagesServerController {
         }
       }
     } else {
-      queryMessagesServer = services.messageServerService().messagesServerCreateUserToDoAsc();
+      queryMessagesServer = services.messageServerService().messagesServerCreateUserChangeEmailToDoAsc();
       if (queryMessagesServer.list().isEmpty()) {
-        messageText = messageByLocaleService.getMessage("no_create_user_in_to_do");
+        messageText = messageByLocaleService.getMessage("no_create_user_change_email_in_to_do");
       }
     }
 

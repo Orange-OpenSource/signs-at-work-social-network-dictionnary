@@ -53,7 +53,7 @@ public interface EmailService {
 
   public void sendCreateUserMessage(String to, String subject, Date date, String username, String url, Locale locale);
 
-  public void  sendCanceledCreateUserMessage(String to, String subject, Date date, Locale locale);
+  public void sendCanceledCreateUserChangeEmailMessage(String to, String subject, String bodyMail, Locale locale);
 
   public void sendDeleteLockUnLockUserMessage(String to, String subject, String userName, String username, String body1, String body2, String messServer, Locale locale);
 }
