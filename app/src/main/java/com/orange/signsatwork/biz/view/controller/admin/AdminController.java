@@ -218,7 +218,7 @@ public class AdminController {
     return userAdminController.userDetails(userId, model);
   }
 
-  @Secured("ROLE_ADMIN")
+ /* @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/{userId}/changeLogin", method = RequestMethod.POST)
   public String changeUserLogin(@ModelAttribute UserCreationView userCreationView, @PathVariable long userId, Model model, HttpServletRequest request) {
     String title, bodyMail;
@@ -249,7 +249,7 @@ public class AdminController {
     }
 
     return userAdminController.userDetails(userId, model);
-  }
+  }*/
 
   /** The form POST provides Ids as String, we convert it back to Long */
   private List<Long> transformCommunitiesIdsToLong(String[] userCommunitiesIds) {

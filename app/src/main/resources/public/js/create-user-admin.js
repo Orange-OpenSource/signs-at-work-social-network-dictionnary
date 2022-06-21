@@ -23,10 +23,12 @@ console.log("Cool, create-user-admin.js is loaded :)");
 
 var inputLastName = document.getElementById('lastName');
 var inputFirstName = document.getElementById('firstName');
+var inputNewEmail = document.getElementById('new_mail');
 var inputEmail = document.getElementById('mail');
 var inputRole = document.getElementById('role');
 var submitCreateUser = document.getElementById("submit-create-user");
 var errorCreateUser = document.getElementById('errorCreateUser');
+var errorChangeEmail = document.getElementById('errorChangeEmail');
 
 var lastName = new Boolean(false);
 var firstName = new Boolean(false);
@@ -247,6 +249,44 @@ function onChangeEmail(messageServer, messageId) {
   messageServerId = messageId;
 }
 
+
+var $formChangeEmail= $('#input-change-email');
+$formChangeEmail.on('submit', function(event) {
+    var confirmChangeEmailText = document.getElementById('confirm_change_email_text');
+    document.getElementById('submit-change-email').disabled=true;
+     user = {
+        email: inputNewEmail.value,
+        messageServerId : messageServerId
+      };
+    event.preventDefault();
+    $.ajax({
+      url: '/ws/admin/users',
+      type: 'post',
+      data: JSON.stringify(user),
+      contentType: "application/json",
+      success: function (response) {
+        var url = response;
+        errorChangeEmail.style.display = "none";
+        $("#change-email").modal('hide')
+        confirmChangeEmailText.textContent = response.errorMessage;;
+        $("#confirm_change_email").modal('show');
+        setTimeout(function(){
+          $('#confirm_change_email').modal('hide');
+          url = "/sec/admin/create-users";
+          console.log(window.location.href);
+          window.history.replaceState({}, 'foo', url);
+          console.log(window.location.href);
+          window.location = url;
+        }, 3000);
+      },
+      error: function (response) {
+        errorChangeEmail.textContent = response.responseJSON.errorMessage;
+        errorChangeEmail.style.display = "inline-block";
+        console.log("Erreur " + response.responseText);
+      }
+    })
+});
+
 $('#cancel-change-email').click(function() {
   console.log("cancel change email");
   if (messageServerId != 0) {
@@ -265,7 +305,7 @@ $('#cancel-change-email').click(function() {
       contentType: "application/json",
       success: function (response) {
         var url = response;
-        errorCreateUser.style.display = "none";
+        errorChangeEmail.style.display = "none";
         $("#change-email").modal('hide');
         confirmCancelChangeEmailText.textContent = response.errorMessage;
         $("#confirm_cancel_change_email").modal('show');
@@ -279,8 +319,8 @@ $('#cancel-change-email').click(function() {
         }, 3000);
       },
       error: function (response) {
-        errorCreateUser.textContent = response.responseJSON.errorMessage;
-        errorCreateUser.style.display = "inline-block";
+        errorChangeEmail.textContent = response.responseJSON.errorMessage;
+        errorChangeEmail.style.display = "inline-block";
         console.log("Erreur " + response.responseText);
       }
     })

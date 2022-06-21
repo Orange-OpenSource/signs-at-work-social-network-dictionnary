@@ -114,11 +114,24 @@ public class UserServiceImpl implements UserService {
 
 
   @Override
-  public void changeUserLogin(User user, String login) {
-    UserDB userDB = userRepository.findOne(user.id);
-    userDB.setUsername(login);
-    userDB.setEmail(login);
-    userRepository.save(userDB);
+  public User changeUserLogin(String userName, String login, String token) {
+    List<UserDB> userDBList = userRepository.findByUsername(userName);
+    if (userDBList.size() == 1) {
+      UserDB userDB = userDBList.get(0);
+      userDB.setUsername(login);
+      userDB.setEmail(login);
+      userRepository.save(userDB);
+      final PasswordResetTokenDB myToken = new PasswordResetTokenDB(token, userDB);
+      passwordResetTokenRepository.save(myToken);
+      return userFrom(userDB);
+    } else if (userDBList.size() > 1){
+      String err = "Error while retrieving user with username = '" + userName + "' (list size = " + userDBList.size() + ")";
+      RuntimeException e = new IllegalStateException(err);
+      log.error(err, e);
+      throw e;
+    } else {
+      return null;
+    }
   }
 
 /*  @Override

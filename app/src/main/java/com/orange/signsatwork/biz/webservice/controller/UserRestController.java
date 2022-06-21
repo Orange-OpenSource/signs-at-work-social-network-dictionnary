@@ -130,17 +130,36 @@ public class UserRestController {
             Object[] valuesToArray = Arrays.stream(values.split(";")).toArray();
             String name = valuesToArray[0].toString();
             String email = valuesToArray[1].toString();
-            services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
-            title = messageByLocaleService.getMessage("canceled_change_email_title");
-            bodyMail = messageByLocaleService.getMessage("canceled_change_email_body", new Object[]{date});
+            String newEmail = valuesToArray[2].toString();
+            if (userCreationView.getEmail() == null) {
+              services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.NOTDONE);
+              title = messageByLocaleService.getMessage("canceled_change_email_title");
+              bodyMail = messageByLocaleService.getMessage("canceled_change_email_body", new Object[]{date});
 
-            Runnable task = () -> {
-              log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
-              services.emailService().sendCanceledCreateUserChangeEmailMessage(email, title, bodyMail, request.getLocale());
-            };
+              Runnable task = () -> {
+                log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+                services.emailService().sendCanceledCreateUserChangeEmailMessage(email, title, bodyMail, request.getLocale());
+              };
 
-            new Thread(task).start();
-            userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_cancel_change_email_text", new Object[]{name});
+              new Thread(task).start();
+              userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_cancel_change_email_text", new Object[]{name});
+            } else {
+              final String token = UUID.randomUUID().toString();
+              User user = services.user().changeUserLogin(email, newEmail, token);
+              services.messageServerService().updateMessageServerAction(userCreationView.getMessageServerId(), ActionType.DONE);
+
+              final String url = getAppUrl() + "/user/createPassword?id=" + user.id + "&token=" + token;
+              title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
+              bodyMail = messageByLocaleService.getMessage("email_change_body", new Object[]{url});
+
+              Runnable task = () -> {
+                log.info("send mail email = {} / title = {} / body = {}", newEmail, title, bodyMail);
+                services.emailService().sendCreatePasswordMessageAfterChangeEmail(newEmail, title,  newEmail, url, request.getLocale());
+              };
+
+              new Thread(task).start();
+              userResponseApi.errorMessage = messageByLocaleService.getMessage("confirm_change_email_text", new Object[]{name});
+            }
           }
         }
       }

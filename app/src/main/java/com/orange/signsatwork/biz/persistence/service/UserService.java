@@ -44,7 +44,7 @@ public interface UserService {
 
   void changeUserPassword(User user, String password);
 
-  void changeUserLogin(User user, String login);
+  User changeUserLogin(String userName, String login, String token);
 
 /*  User changeUserCommunities(long userId, List<Long> communitiesIds);*/
 

@@ -37,13 +37,13 @@
                     <h2 class="text_hyphenation pull-right" th:text="#{admin_change_email}"></h2>
                 </div>
             </div>
-            <form id="input-create-user" th:object="${user}" method="post">
+            <form id="input-change-email" th:object="${user}" method="post">
               <div class="modal-body">
                 <div class="form-group">
                   <div class="errorRegexEmail hidden" th:text="#{errorEmail}"></div>
                   <input id="new_mail" type="email" th:placeholder="#{email_placeholder}" class="form-control disabled" name="email" th:autofocus="true" required="true"/>
                   </div>
-                <div id="errorCreateUser" style="display:none"></div>
+                <div id="errorChangeEmail" style="display:none"></div>
               </div>
                 <div class="modal-footer">
                   <button id="cancel-change-email" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
@@ -60,19 +60,19 @@
     </div>
 </div>
 
-<div  id="confirm_create_user" class="modal" role="dialog">
+<div  id="confirm_change_email" class="modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
           <div class="member_add_white_circle pull-left"></div>
-          <h2 class="pull-right" th:text="#{confirm_create_user_title}"/>
+          <h2 class="pull-right" th:text="#{confirm_change_email_title}"/>
         </div>
       </div>
       <div class="modal-body text-center">
         <div class="Cefe pull-left"></div>
-        <h4 id="confirm_create_user_text"></h4>
-        <h4 th:text="#{confirm_create_user_text_2}"></h4>
+        <h4 id="confirm_change_email_text"></h4>
+        <h4 th:text="#{confirm_change_email_text_2}"></h4>
       </div>
     </div>
   </div>
