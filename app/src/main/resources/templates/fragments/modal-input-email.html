@@ -46,10 +46,13 @@
               </div>
               <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                  <div class="x-close2_black center-block"></div>
                   <span th:text="#{cancel}"></span>
                 </button>
-                <button id="submit-change-mail" th:text="#{continue}" th:onclick="'javascript:sendMail()'" type="submit" class="btn btn-default"
-                        data-dismiss="" disabled="disabled"></button>
+                <button id="submit-change-mail" th:onclick="'javascript:sendMail()'" type="submit" class="btn btn-default pull-right" data-dismiss="" disabled="disabled">
+                  <div class="v-done2_blue center-block"></div>
+                  <span th:text="#{continue}"></span>
+                </button>
               </div>
         </div>
     </div>
