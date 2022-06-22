@@ -453,7 +453,7 @@ public class UserRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_USER_ME, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
-  public UserResponseApi updateProfil(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, HttpServletResponse response, Principal principal) throws
+  public UserResponseApi updateProfil(@RequestPart("fileVideoName") Optional<MultipartFile> fileVideoName, @RequestPart("fileJobVideoDescription") Optional<MultipartFile> fileJobVideoDescription, @RequestPart("data") Optional<UserCreationViewApi> userCreationViewApi, HttpServletResponse response, HttpServletRequest request, Principal principal) throws
     InterruptedException {
     UserResponseApi userResponseApi = new UserResponseApi();
 
@@ -482,17 +482,26 @@ public class UserRestController {
 
         User userSearch = services.user().withUserName(userCreationViewApi.get().getEmail());
         if (userSearch == null) {
-          body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationViewApi.get().getEmail()});
-          title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
+          MessagesServer queryMessagesServer = services.messageServerService().messagesServerChangeEmailWithUserName(userCreationViewApi.get().getEmail());
+          if (queryMessagesServer.list().size() >= 1) {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            userResponseApi.errorMessage = messageByLocaleService.getMessage("request_for_change_email_user_already_exist");
+            return  userResponseApi;
+          }
+          Date date = new Date();
+          String values = user.name() + ";" + user.username + ";" + userCreationViewApi.get().getEmail();
+          MessageServer messageServer = new MessageServer(new Date(), "RequestChangeEmailMessage", values, ActionType.TODO);
+          long idMessage = services.messageServerService().addMessageServer(messageServer);
+          String url = getAppUrl() + "/sec/admin/create-users?id=" + idMessage;
+          body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{date, user.name(), user.username, url});
+          title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{user.name()});
           User finalUser = user;
           Runnable task = () -> {
             log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-            String values = finalUser.name() + ";" + finalUser.username + ";" + userCreationViewApi.get().getEmail();
-            services.emailService().sendSimpleMessage(admin.email, title , body, "RequestChangeEmailMessage", values);
+            services.emailService().sendChangeEmailMessage(admin.email, title, date, finalUser.name(), finalUser.username, url, request.getLocale());
           };
 
           new Thread(task).start();
-
           response.setStatus(HttpServletResponse.SC_OK);
         } else {
           response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -1077,7 +1086,7 @@ public class UserRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.SEND_MAIL_FOR_CHANGE_EMAIL)
-  public UserResponseApi sendMailForChangeEmail(@RequestBody UserCreationView userCreationView, HttpServletResponse response, Principal principal) {
+  public UserResponseApi sendMailForChangeEmail(@RequestBody UserCreationView userCreationView, HttpServletResponse response, HttpServletRequest request, Principal principal) {
     String title, body;
     UserResponseApi userResponseApi = new UserResponseApi();
     User admin = services.user().getAdmin();
@@ -1091,12 +1100,16 @@ public class UserRestController {
         userResponseApi.errorMessage = messageByLocaleService.getMessage("request_for_change_email_user_already_exist");
         return  userResponseApi;
       }
-      body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{user.id, user.username, userCreationView.getEmail()});
-      title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
+      Date date = new Date();
+      String values = user.name() + ";" + user.username + ";" + userCreationView.getEmail();
+      MessageServer messageServer = new MessageServer(new Date(), "RequestChangeEmailMessage", values, ActionType.TODO);
+      long idMessage = services.messageServerService().addMessageServer(messageServer);
+      String url = getAppUrl() + "/sec/admin/create-users?id=" + idMessage;
+      body = messageByLocaleService.getMessage("ask_to_change_email_text", new Object[]{date, user.name(), user.username, url});
+      title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{user.name()});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-        String values = user.name() + ";" + user.username + ";" + userCreationView.getEmail();
-        services.emailService().sendSimpleMessage(admin.email, title , body, "RequestChangeEmailMessage", values);
+        services.emailService().sendChangeEmailMessage(admin.email, title, date, user.name(),user.username, url, request.getLocale());
       };
 
       new Thread(task).start();

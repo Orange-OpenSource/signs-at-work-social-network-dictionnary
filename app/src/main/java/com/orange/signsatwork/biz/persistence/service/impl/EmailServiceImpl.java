@@ -769,6 +769,57 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
+  public void sendChangeEmailMessage(String to, String subject, Date date, String name, String username, String url, Locale locale) {
+    InputStream imageIs = null;
+    String imageName;
+    try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else if (appName.equals("Signs@ADIS")){
+        imageName = "logo-textADIS_blue-white.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom(adminUsername);
+      Context ctx = new Context(locale);
+      ctx.setVariable("date", date);
+      ctx.setVariable("name", name);
+      ctx.setVariable("username", username);
+      ctx.setVariable("url", url);
+      ctx.setVariable("imageResourceName", imageName);
+      ctx.setVariable("appName", appName);
+      String htmlContent = templateEngine.process("email-change-email", ctx);
+      helper.setText(htmlContent, true);
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline(imageName, imageSource, "image/png");
+
+
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
   public void sendCanceledCreateUserChangeEmailMessage(String to, String subject, String bodyMail, Locale locale) {
     InputStream imageIs = null;
     String imageName;
