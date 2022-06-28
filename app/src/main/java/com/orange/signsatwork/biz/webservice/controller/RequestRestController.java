@@ -779,7 +779,7 @@ public class RequestRestController {
   private RequestResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
     String videoUrl = null;
     String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
-    String thumbnailFile = environment.getProperty("app.file") + "thumbnail/" + fileName.substring(0, fileName.lastIndexOf('.')) + ".png";
+    String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".png";
     File inputFile;
 
     RequestResponseApi requestResponseApi = new RequestResponseApi();
