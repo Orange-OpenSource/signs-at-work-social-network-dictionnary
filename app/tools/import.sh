@@ -147,7 +147,7 @@ do
 	lists_name="$(cut -d';' -f5 <<<"$line")"
 	echo $lists_name
 	user=$(echo "$owner_login:DEnis0007")
-response=$(curl -s -u ${user} http://localhost:8080/ws/sec/signs?name=$sign_name_encode)
+response=$(curl -s -u ${user} http://localhost:8080/ws/sec/signs?fullname=$sign_name_encode)
 echo RESPONSE : $response
 if [ "$response" != "[]" ]; then
 	name=$(jq -r ".[] | .name"  <<< "${response}")
@@ -158,14 +158,6 @@ if [ "$response" != "[]" ]; then
 		create_sign $absoluteFileName "$sign_name" $user "$sign_description"
 	else
 		echo "le signe existe déjà"
-		url=http://localhost:8080/ws/sec/signs/$id/videos
-responseSearchVideos=$(curl -s -u ${user} $url)
-echo RESPONSESEARCHVIDEOS : $responseSearchVideos
-	nbVideo=$(jq -r ".[] | .nbVideo"  <<< "${responseSearchVideos}")
-echo $nbVideo
-	url=$(jq -r ".[] | .url"  <<< "${responseSearchVideos}")
-echo $url
-	
 		create_variante_sign $absoluteFileName "$sign_name" $user "$sign_description" $id
 	fi
 else 

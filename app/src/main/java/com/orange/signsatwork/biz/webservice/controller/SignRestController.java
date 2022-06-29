@@ -501,7 +501,7 @@ public class SignRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SIGNS)
-  public ResponseEntity<?> signs(@RequestParam("sort") Optional<String> sort, @RequestParam("name") Optional<String> name,  Principal principal) {
+  public ResponseEntity<?> signs(@RequestParam("sort") Optional<String> sort, @RequestParam("name") Optional<String> name, @RequestParam("fullname") Optional<String> fullname,  Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns;
     List<Long> signWithRatingList = new ArrayList<>();
@@ -596,6 +596,21 @@ public class SignRestController {
             .collect(Collectors.toList());
         }
 
+      } else if (fullname.isPresent()) {
+        List<Object[]> querySignsByName  = services.sign().searchFull(fullname.get());
+        List<SignViewData> signViewsDataByName = querySignsByName.stream()
+          .map(objectArray -> new SignViewData(objectArray))
+          .collect(Collectors.toList());
+        if (user != null) {
+          List<Long> finalSignInFavorite3 = signInFavorite;
+          signViews = signViewsDataByName.stream()
+            .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite3, user))
+            .collect(Collectors.toList());
+        } else {
+          signViews = signViewsDataByName.stream()
+            .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+            .collect(Collectors.toList());
+        }
       } else {
         if (user != null) {
           List<Long> finalSignInFavorite2 = signInFavorite;

@@ -40,6 +40,8 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select id, name, create_date, last_video_id, url, 'picture_uri', nb_video from signs  where replace(replace(upper(name),'Œ','OE'),'Æ','AE') collate utf8_unicode_ci like concat('%',:name,'%')", nativeQuery = true)
     List<Object[]> findContainsNameIgnoreCase(@Param("name") String name);
 
+    @Query(value="select id, name, create_date, last_video_id, url, 'picture_uri', nb_video from signs  where name = :name", nativeQuery = true)
+    List<Object[]> findFullName(@Param("name") String name);
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
     List<Object[]> findSignsForSignsView();
 

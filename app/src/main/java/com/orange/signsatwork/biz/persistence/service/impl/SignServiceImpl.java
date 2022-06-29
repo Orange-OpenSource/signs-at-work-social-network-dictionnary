@@ -326,6 +326,13 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> searchFull(String signName) {
+    List<Object[]> signsMatches = signRepository.findFullName(signName);
+
+    return signsMatches;
+  }
+
+  @Override
   public Sign addNewVideo(long userId, long signId, String signUrl, String pictureUri) {
     SignDB signDB = signRepository.findOne(signId);
     UserDB userDB = userRepository.findOne(userId);
