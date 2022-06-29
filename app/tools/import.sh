@@ -121,6 +121,7 @@ echo $errorMessage
 
 INPUTFILE=$1
 ERRORFILE=error.csv
+rm $ERRORFILE
 touch $ERRORFILE
 
 
