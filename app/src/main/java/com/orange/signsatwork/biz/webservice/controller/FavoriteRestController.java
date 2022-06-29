@@ -52,6 +52,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -102,13 +103,18 @@ public class FavoriteRestController {
   /** API REST For Android and IOS **/
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_MY_FAVORITES)
-  public ResponseEntity<?> myFavorites(Principal principal) {
+  public ResponseEntity<?> myFavorites(@RequestParam("name") Optional<String> name, Principal principal) {
 
     User user = services.user().withUserName(principal.getName());
 
     List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
+    List<FavoriteViewApi> myFavoritesFilter = myFavorites;
 
-    return  new ResponseEntity<>(myFavorites, HttpStatus.OK);
+    if (name.isPresent()) {
+      myFavoritesFilter = myFavorites.stream().filter(m -> m.getName().equals(name.get())).collect(Collectors.toList());
+    }
+
+    return  new ResponseEntity<>(myFavoritesFilter, HttpStatus.OK);
   }
 
   @Secured("ROLE_USER")
