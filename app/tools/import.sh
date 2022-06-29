@@ -22,7 +22,7 @@ function urlencode() {
 
 function create_sign() {
 	echo "je créé le signe"
-	file="file=@/home/obelix/tools4adis/$1"
+	file="file=@$1"
 	echo $file
 	createSignResponse=$(curl -s --noproxy '*' -u "$3" -H 'Content-Type: multipart/form-data' -X POST -F $file -F 'data={"name":"'"$2"'"};type=application/json' http://localhost:8080/ws/sec/signs)
 	echo $createSignResponse
@@ -46,7 +46,7 @@ echo $url
 
 function create_variante_sign() {
 	echo "je créé une variante du signe"
-	file="file=@/home/obelix/tools4adis/$1"
+	file="file=@$1"
 	echo $file
 	url=http://localhost:8080/ws/sec/signs/$5/videos
 	createVarianteSignResponse=$(curl -s --noproxy '*' -u "$3" -H 'Content-Type: multipart/form-data' -X POST -F $file -F 'data={"name":"'"$2"'"};type=application/json' $url)
@@ -65,7 +65,7 @@ echo $errorMessage
 
 function create_sign_from_request() {
 	echo "je créé un signe en réponse à une demande"
-	file="file=@/home/obelix/tools4adis/$1"
+	file="file=@$1"
 	echo $file
 	url=http://localhost:8080/ws/sec/requests/$4/signs
 	createSignFromRequestResponse=$(curl -s --noproxy '*' -u "$3" -H 'Content-Type: multipart/form-data' -X POST -F $file -F 'data={"name":"'"$2"'"};type=application/json' $url)
@@ -120,6 +120,7 @@ echo $errorMessage
 }
 
 INPUTFILE=$1
+INPUT_DIRECTORY=$2
 ERRORFILE=error.csv
 rm $ERRORFILE
 touch $ERRORFILE
@@ -130,8 +131,15 @@ do
 	echo $line
 	file_name="$(cut -d';' -f1 <<<"$line")"
 	echo $file_name
+	absoluteFileName=${INPUT_DIRECTORY}/${file_name}
+	echo $absoluteFileName
+	if [ ! -f "${absoluteFileName}" ]; then
+		echo $line "${absoluteFileName}" "file not exist" >> $ERRORFILE 
+		continue;
+	fi
 	sign_name="$(cut -d';' -f2 <<<"$line")"
 	echo $sign_name
+	sign_name_encode=$(urlencode "$sign_name") 
 	owner_login="$(cut -d';' -f3 <<<"$line")"
 	echo $owner_login
 	sign_description="$(cut -d';' -f4 <<<"$line")"
@@ -139,15 +147,15 @@ do
 	lists_name="$(cut -d';' -f5 <<<"$line")"
 	echo $lists_name
 	user=$(echo "$owner_login:DEnis0007")
-response=$(curl -s -u ${user} http://localhost:8080/ws/sec/signs?name=$sign_name)
+response=$(curl -s -u ${user} http://localhost:8080/ws/sec/signs?name=$sign_name_encode)
 echo RESPONSE : $response
 if [ "$response" != "[]" ]; then
 	name=$(jq -r ".[] | .name"  <<< "${response}")
 	echo $name
 	id=$(jq -r ".[] | .id"  <<< "${response}")
 	echo $id
-	if [ $name != $sign_name ]; then
-		create_sign $file_name $sign_name $user "$sign_description"
+	if [ "$name" != "$sign_name" ]; then
+		create_sign $absoluteFileName "$sign_name" $user "$sign_description"
 	else
 		echo "le signe existe déjà"
 		url=http://localhost:8080/ws/sec/signs/$id/videos
@@ -158,10 +166,10 @@ echo $nbVideo
 	url=$(jq -r ".[] | .url"  <<< "${responseSearchVideos}")
 echo $url
 	
-		create_variante_sign $file_name $sign_name $user "$sign_description" $id
+		create_variante_sign $absoluteFileName "$sign_name" $user "$sign_description" $id
 	fi
 else 
-responseSearchRequest=$(curl -s -u ${user} http://localhost:8080/ws/sec/requests?name=$sign_name)
+responseSearchRequest=$(curl -s -u ${user} http://localhost:8080/ws/sec/requests?name=$sign_name_encode)
 echo $responseSearchRequest
 if [ "$responseSearchRequest" != "[]" ]; then
 	name=$(jq -r ".[] | .name"  <<< "${responseSearchRequest}")
@@ -169,16 +177,16 @@ if [ "$responseSearchRequest" != "[]" ]; then
 	id=$(jq -r ".[] | .id"  <<< "${responseSearchRequest}")
 	echo isCreatedByMe $isCreatedByMe
 	echo $id
-	if [ $name == $sign_name ]; then
+	if [ "$name" == "$sign_name" ]; then
 		echo "Il existe une demande avec le même nom"
 			if [ $isCreatedByMe != "true" ]; then
 				echo "que je n'ai pas créé"
-				create_sign_from_request $file_name $sign_name $user $id "$sign_description"
+				create_sign_from_request $absoluteFileName "$sign_name" $user $id "$sign_description"
 			fi
 		
 		fi
 	else
-		create_sign $file_name $sign_name $user "$sign_description"
+		create_sign $absoluteFileName "$sign_name" $user "$sign_description"
 
 	fi
 fi
@@ -201,7 +209,9 @@ echo RESPONSESEARCHFAVORITE : $responseSearchFavorite
 	else
 		create_favorite "$list_name" $user
 	fi
-	add_sign_to_favorite $favoriteId $user $videoId
+	if [ "$favoriteId" != null ] && [ "$videoId" != null ]; then
+		add_sign_to_favorite $favoriteId $user $videoId
+	fi
 fi
 done < <(echo "$lists_name" | tr ',' '\n')
 
