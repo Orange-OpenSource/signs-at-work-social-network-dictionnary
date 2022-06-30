@@ -206,6 +206,12 @@
                 <div th:if="${messageServer.type == 'CreatePasswordMessageAfterChangeEmailMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'SavePasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'RequestMessage'}" class="sign_ask-for_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeFirstLastNameMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeFirstNameMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeLastNameMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeEntityMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeJobMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeJobDescriptionTextMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>

@@ -36,7 +36,7 @@ var mail = new Boolean(false);
 var role = new Boolean(false);
 
 
-var regexName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ]{1,30}$');
+var regexName = new RegExp('^[A-zÀ-ÖØ-öø-ÿ- ]{1,30}$');
 var regexEmail = new RegExp('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}');
 
 inputLastName.addEventListener('keyup',checkLastName);

@@ -627,35 +627,40 @@ public class UserRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_SEC_USER_DATAS, method = RequestMethod.PUT, headers = {"content-type=application/json"})
-  public UserResponseApi updateDataProfilByAdmin(@PathVariable long userId, @RequestBody UserCreationViewApi userCreationViewApi, HttpServletResponse response, Principal principal) throws
+  public UserResponseApi updateDataProfilByAdmin(@PathVariable long userId, @RequestBody UserCreationViewApi userCreationViewApi, HttpServletResponse response, HttpServletRequest request, Principal principal) throws
     InterruptedException {
+    String title, body = null, messageServer = null;
     UserResponseApi userResponseApi = new UserResponseApi();
 
     User user = services.user().withId(userId);
+    User admin = services.user().getAdmin();
+    title = messageByLocaleService.getMessage("admin_change_profil");
 
     if (userCreationViewApi != null) {
 
-      if (userCreationViewApi.getFirstName() != null) {
-        if ((!userCreationViewApi.getFirstName().isEmpty()) && (userCreationViewApi.getFirstName() != user.firstName)) {
+      if ((userCreationViewApi.getFirstName() != null) && (userCreationViewApi.getLastName() != null)) {
+        if ((!userCreationViewApi.getFirstName().isEmpty()) && !(userCreationViewApi.getFirstName().equals(user.firstName)) && ((!userCreationViewApi.getLastName().isEmpty()) && !(userCreationViewApi.getLastName().equals(user.lastName)))) {
           services.user().changeFirstName(user, userCreationViewApi.getFirstName());
-        }
-      }
-
-      if (userCreationViewApi.getLastName() != null) {
-        if ((!userCreationViewApi.getLastName().isEmpty()) && (userCreationViewApi.getLastName() != user.lastName)) {
           services.user().changeLastName(user, userCreationViewApi.getLastName());
+          body = messageByLocaleService.getMessage("admin_change_your_first_and_last_name", new Object[]{admin.username});
+          messageServer = "UserChangeFirstLastNameMessage";
+        } else if  ((!userCreationViewApi.getFirstName().isEmpty()) && !(userCreationViewApi.getFirstName().equals(user.firstName))) {
+          services.user().changeFirstName(user, userCreationViewApi.getFirstName());
+          body = messageByLocaleService.getMessage("admin_change_your_first_name", new Object[]{admin.username});
+          messageServer = "UserChangeFirstNameMessage";
+        } else if ((!userCreationViewApi.getLastName().isEmpty()) && !(userCreationViewApi.getLastName().equals(user.lastName))) {
+          services.user().changeLastName(user, userCreationViewApi.getLastName());
+          body = messageByLocaleService.getMessage("admin_change_your_last_name", new Object[]{admin.username});
+          messageServer = "UserChangeLastNameMessage";
         }
       }
 
-      if (userCreationViewApi.getEmail() != null) {
-        if ((!userCreationViewApi.getEmail().isEmpty()) && (userCreationViewApi.getEmail() != user.email)) {
-          services.user().changeEmail(user, userCreationViewApi.getEmail());
-        }
-      }
 
       if (userCreationViewApi.getEntity() != null) {
         if ((!userCreationViewApi.getEntity().isEmpty()) && (userCreationViewApi.getEntity() != user.entity)) {
           services.user().changeEntity(user, userCreationViewApi.getEntity());
+          body = messageByLocaleService.getMessage("admin_change_your_entity", new Object[]{admin.username});
+          messageServer = "UserChangeEntityMessage";
         }
       }
 
@@ -675,13 +680,28 @@ public class UserRestController {
           List<Long> usersIds = community.usersIds();
           usersIds.add(user.id);
           services.community().changeCommunityUsers(community.id, usersIds);
+          body = messageByLocaleService.getMessage("admin_change_your_job", new Object[]{admin.username});
+          messageServer = "UserChangeJobMessage";
         }
       }
 
       if (userCreationViewApi.getJobDescriptionText() != null) {
         if ((userCreationViewApi.getJobDescriptionText() != user.jobDescriptionText)) {
           services.user().changeDescription(user, userCreationViewApi.getJobDescriptionText());
+          body = messageByLocaleService.getMessage("admin_change_your_job_description_text", new Object[]{admin.username});
+          messageServer = "UserChangeJobDescriptionTextMessage";
         }
+      }
+      if (body != null) {
+        String finalBody = body;
+        String finalMessageServer = messageServer;
+        User finalUser = user;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", finalUser.username, title, finalBody);
+          services.emailService().sendUpdateProfilUserByAdminMessage(finalUser.username, title, finalUser.username, finalBody, finalMessageServer, request.getLocale());
+        };
+
+        new Thread(task).start();
       }
     }
 
