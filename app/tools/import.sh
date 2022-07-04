@@ -130,10 +130,15 @@ sed 1d $INPUTFILE | while read -r line
 do
 	echo $line
 	file_name="$(cut -d';' -f1 <<<"$line")"
-	echo $file_name
-	absoluteFileName=${INPUT_DIRECTORY}/${file_name}
+	echo "${file_name}"
+	absoluteFileName=${INPUT_DIRECTORY}/"${file_name}"
+        if (echo "$file_name" | grep -q ' '); then
+		newFileName=$(echo ${file_name// /_})
+		cp "$absoluteFileName" "${INPUT_DIRECTORY}/"${newFileName}""
+		absoluteFileName=${INPUT_DIRECTORY}/"${newFileName}"
+	fi
 	echo $absoluteFileName
-	if [ ! -f "${absoluteFileName}" ]; then
+	if [ ! -f "$absoluteFileName" ]; then
 		echo $line "${absoluteFileName}" "file not exist" >> $ERRORFILE 
 		continue;
 	fi
@@ -155,10 +160,10 @@ if [ "$response" != "[]" ]; then
 	id=$(jq -r ".[] | .id"  <<< "${response}")
 	echo $id
 	if [ "$name" != "$sign_name" ]; then
-		create_sign $absoluteFileName "$sign_name" $user "$sign_description"
+		create_sign "$absoluteFileName" "${sign_name}" $user "$sign_description"
 	else
 		echo "le signe existe déjà"
-		create_variante_sign $absoluteFileName "$sign_name" $user "$sign_description" $id
+		create_variante_sign "${absoluteFileName}" "${sign_name}" $user "$sign_description" $id
 	fi
 else 
 responseSearchRequest=$(curl -s -u ${user} http://localhost:8080/ws/sec/requests?name=$sign_name_encode)
@@ -178,7 +183,7 @@ if [ "$responseSearchRequest" != "[]" ]; then
 		
 		fi
 	else
-		create_sign $absoluteFileName "$sign_name" $user "$sign_description"
+		create_sign "${absoluteFileName}" "${sign_name}" $user "$sign_description"
 
 	fi
 fi
