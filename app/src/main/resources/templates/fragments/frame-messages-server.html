@@ -212,6 +212,10 @@
                 <div th:if="${messageServer.type == 'UserChangeEntityMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UserChangeJobMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UserChangeJobDescriptionTextMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeJobDescriptionLsfMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserDeleteJobDescriptionLsfMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserChangeNameLsfMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserDeleteNameLsfMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>
