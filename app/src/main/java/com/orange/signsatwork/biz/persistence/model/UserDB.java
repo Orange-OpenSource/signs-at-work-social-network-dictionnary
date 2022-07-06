@@ -77,12 +77,6 @@ public class UserDB {
   @ManyToMany(fetch = FetchType.EAGER)
   private Set<UserRoleDB> userRoles = new HashSet<>();
 
-/*  // we use 'fetch = FetchType.EAGER' to be sure to avoid lazy loading
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinTable(name = "users_communities", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "communities_id", referencedColumnName = "id"))
-  @JsonManagedReference
-  private List<CommunityDB> communities = new ArrayList<>();*/
-
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name="user_id", referencedColumnName = "id")
   // we put this annotation because findAll and findOne don't have the same result

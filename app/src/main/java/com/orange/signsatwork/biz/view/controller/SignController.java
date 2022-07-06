@@ -813,9 +813,6 @@ public class SignController {
       }
 
 
-   /*   VideosViewSort videosViewSort = new VideosViewSort();
-      videoViews = videosViewSort.sort(videoViews);*/
-
       model.addAttribute("videosView", videoViews);
       model.addAttribute("appName", appName);
       return "videos";
@@ -888,12 +885,6 @@ public class SignController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
-/*    List<Object[]> queryVideos = services.video().AssociateVideos(videoId, videoId);
-    if (queryVideos.size() > 0) {
-      model.addAttribute("classVideoAssociate", "aside_bckg_li");
-    } else {
-      model.addAttribute("classVideoAssociate", "disabled aside_bckg_li");
-    }*/
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", video);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);

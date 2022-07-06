@@ -218,39 +218,6 @@ public class AdminController {
     return userAdminController.userDetails(userId, model);
   }
 
- /* @Secured("ROLE_ADMIN")
-  @RequestMapping(value = "/sec/admin/user/{userId}/changeLogin", method = RequestMethod.POST)
-  public String changeUserLogin(@ModelAttribute UserCreationView userCreationView, @PathVariable long userId, Model model, HttpServletRequest request) {
-    String title, bodyMail;
-    User user = userService.withId(userId);
-    userService.changeUserLogin(user , userCreationView.getUsername());
-    if (!userCreationView.getFirstName().isEmpty()) {
-      userService.changeFirstName(user, userCreationView.getFirstName());
-    }
-
-    if (!userCreationView.getLastName().isEmpty()) {
-      userService.changeLastName(user, userCreationView.getLastName());
-    }
-
-    if (user != null) {
-      userService.createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));
-      final String token = UUID.randomUUID().toString();
-      services.user().createPasswordResetTokenForUser(user, token);
-      final String url = getAppUrl() + "/user/createPassword?id=" + user.id + "&token=" + token;
-      title = messageByLocaleService.getMessage("ask_to_change_email_title", new Object[]{appName});
-      bodyMail = messageByLocaleService.getMessage("email_change_body", new Object[]{url});
-
-      Runnable task = () -> {
-        log.info("send mail email = {} / title = {} / body = {}", userCreationView.getUsername(), title, bodyMail);
-        services.emailService().sendCreatePasswordMessageAfterChangeEmail(userCreationView.getUsername(), title,  userCreationView.getUsername(), url, request.getLocale());
-      };
-
-      new Thread(task).start();
-    }
-
-    return userAdminController.userDetails(userId, model);
-  }*/
-
   /** The form POST provides Ids as String, we convert it back to Long */
   private List<Long> transformCommunitiesIdsToLong(String[] userCommunitiesIds) {
     if (userCommunitiesIds == null) {

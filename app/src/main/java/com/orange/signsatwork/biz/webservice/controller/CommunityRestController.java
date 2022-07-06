@@ -154,12 +154,6 @@ public class CommunityRestController {
     User user = services.user().withUserName(principal.getName());
     Communities communities = services.community().forUser(user.id);
 
-   /* boolean isMyCommunities = communities.stream().anyMatch(community -> community.id == communityId);
-    if (!isMyCommunities) {
-      messageError = messageByLocaleService.getMessage("do_not_below_to_this-community");
-      return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
-    }*/
-
     Community community = services.community().withId(communityId);
 
     List<UserCommunityViewApi> usersCommunityViewApi = community.users.stream()

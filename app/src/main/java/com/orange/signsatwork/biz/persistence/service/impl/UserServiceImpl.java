@@ -134,16 +134,6 @@ public class UserServiceImpl implements UserService {
     }
   }
 
-/*  @Override
-  public User changeUserCommunities(long userId, List<Long> communitiesIds) {
-    UserDB userDB = withDBId(userId);
-    List<CommunityDB> userCommunities = userDB.getCommunities();
-    userCommunities.clear();
-    communityRepository.findAll(communitiesIds).forEach(userCommunities::add);
-    userDB = userRepository.save(userDB);
-    return userFrom(userDB);
-  }*/
-
   @Override
   public Request createUserRequest(long userId, String requestName) {
     UserDB userDB = withDBId(userId);
@@ -192,28 +182,6 @@ public class UserServiceImpl implements UserService {
     userDB.setJobDescriptionText("");
     userDB.setPasswordHash(passwordEncoder.encode(UUID.randomUUID().toString()));
     userRepository.save(userDB);
-    /*List<RequestDB> requestDBs = new ArrayList<>();
-    requestDBs.addAll(userDB.getRequests());
-    List<CommentDB> commentDBs = new ArrayList<>();
-    commentDBs.addAll(userDB.getComments());
-    List<FavoriteDB> favoriteDBs = new ArrayList<>();
-    favoriteDBs.addAll(userDB.getFavorites());
-    List<VideoDB> videoDBs = new ArrayList<>();
-    videoDBs.addAll(userDB.getVideos());
-    List<PasswordResetTokenDB> passwordResetTokenDBList = passwordResetTokenRepository.findByUser(userDB);
-    if (!passwordResetTokenDBList.isEmpty()) {
-      for(PasswordResetTokenDB p: passwordResetTokenDBList) {
-        passwordResetTokenRepository.deleteById(p.getId());
-      }
-    }
-
-    requestDBs.stream().map(r -> services.request().withId(r.getId())).forEach(r -> services.request().delete(r));
-    commentDBs.stream().map(c -> services.comment().withId(c.getId())).forEach(c -> services.comment().delete(c));
-    favoriteDBs.stream().map(f -> services.favorite().withId(f.getId())).forEach(f -> services.favorite().delete(f));
-    videoDBs.stream().map(v -> services.video().withId(v.getId())).forEach(v -> services.video().delete(v));
-
-
-    userRepository.delete(userDB);*/
   }
 
   @Override
@@ -302,15 +270,6 @@ public class UserServiceImpl implements UserService {
     userDB.setJobDescriptionPicture(pictureUri);
     userRepository.save(userDB);
   }
-
-//  @Override
-//  public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
-//    String userName = ((UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal()).getUsername();
-//    UserDB userDB = userRepository.findByUsername(userName).get(0);
-//    userDB.setLastDeconnectionDate(new Date());
-//    userRepository.save(userDB);
-//
-//  }
 
   @Override
   public void changeLastDeconnectionDate(String userName) {

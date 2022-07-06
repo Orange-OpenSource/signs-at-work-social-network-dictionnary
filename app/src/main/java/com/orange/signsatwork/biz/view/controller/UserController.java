@@ -81,9 +81,6 @@ public class UserController {
       .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
       .collect(Collectors.toList());
 
-  /*  VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);
-*/
     model.addAttribute("videosView", videoViews);
 
     return "new-profil";
@@ -149,62 +146,6 @@ public class UserController {
   }
 
   @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/your-job")
-  public String yourJob(Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("your_job_title"));
-    model.addAttribute("user", user);
-    model.addAttribute("userCreationView", new UserCreationView());
-    model.addAttribute("backUrl", "/sec/new-profil");
-
-    return "your-job";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profil/job", method = RequestMethod.POST)
-  public String changeUserJob(
- @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.changeJob(user, userCreationView.getJob());
-    model.addAttribute("user", user);
-    model.addAttribute("userCreationView", new UserCreationView());
-    model.addAttribute("backUrl", "/sec/new-profil");
-
-    return "redirect:/sec/your-job";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profil/entity", method = RequestMethod.POST)
-  public String changeUserEntity(
- @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.changeEntity(user, userCreationView.getEntity());
-
-    model.addAttribute("user", user);
-    model.addAttribute("userCreationView", new UserCreationView());
-    model.addAttribute("backUrl", "/sec/new-profil");
-
-    return "redirect:/sec/your-job";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profil/description", method = RequestMethod.POST)
-  public String changeUserDescription(
- @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.changeDescription(user, userCreationView.getJobDescriptionText());
-    model.addAttribute("user", user);
-
-    return "redirect:/sec/your-job-description";
-  }
-
-  @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/your-job-description")
   public String yourJobDescription(Principal principal, Model model) {
     User user = services.user().withUserName(principal.getName());
@@ -213,73 +154,6 @@ public class UserController {
     model.addAttribute("backUrl", "/sec/new-profil");
 
     return "your-job-description";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/who-are-you")
-  public String whoAreYou(Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("who_are_you") );
-    model.addAttribute("user", user);
-    model.addAttribute("backUrl", "/sec/new-profil");
-
-    return "who-are-you";
-  }
-
-
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profil/lastName", method = RequestMethod.POST)
-  public String changeUserLastName(
-    @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.changeLastName(user, userCreationView.getLastName());
-    model.addAttribute("user", user);
-
-    return "redirect:/sec/who-are-you";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profil/firstName", method = RequestMethod.POST)
-  public String changeUserFirstName(
-    @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.changeFirstName(user, userCreationView.getFirstName());
-    model.addAttribute("user", user);
-
-    return "redirect:/sec/who-are-you";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profil/name", method = RequestMethod.POST)
-  public String changeUserName(
-    @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.changeFirstName(user, userCreationView.getFirstName());
-    userService.changeLastName(user, userCreationView.getLastName());
-    model.addAttribute("user", user);
-
-    return "redirect:/sec/who-are-you";
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/profil/email", method = RequestMethod.POST)
-  public String changeEmail(
-    @ModelAttribute UserCreationView userCreationView, Principal principal, Model model) {
-    UserService userService = services.user();
-
-    User user = userService.withUserName(principal.getName());
-    userService.changeEmail(user, userCreationView.getEmail());
-    model.addAttribute("user", user);
-    model.addAttribute("appName", appName);
-
-    return "redirect:/sec/who-are-you";
   }
 
 

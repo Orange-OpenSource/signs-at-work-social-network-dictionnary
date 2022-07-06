@@ -176,12 +176,12 @@ public class RequestController {
     return "redirect:/sec/signs-request?name="+ URLEncoder.encode(name);
   }
 
-/*  public static String stripAccents(String s)
+  public static String stripAccents(String s)
   {
     s = Normalizer.normalize(s, Normalizer.Form.NFD);
     s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
     return s;
-  }*/
+  }
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/signs-request")

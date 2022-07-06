@@ -262,9 +262,6 @@ public class SignRestController {
     }
 
 
-    /*VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);*/
-
     return new ResponseEntity<>(videoViews, HttpStatus.OK);
 
   }
@@ -291,9 +288,6 @@ public class SignRestController {
         .collect(Collectors.toList());
     }
 
-
-    /*VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);*/
 
     return new ResponseEntity<>(videoViews, HttpStatus.OK);
 

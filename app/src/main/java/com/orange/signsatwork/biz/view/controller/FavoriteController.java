@@ -67,11 +67,6 @@ public class FavoriteController {
 
   @Value("${app.name}")
   String appName;
-/*  @RequestMapping(value = REQUEST_URL)
-  public String favorite(Principal principal, Model model) {
-
-    return "favorites";
-  }*/
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/create", method = RequestMethod.POST)

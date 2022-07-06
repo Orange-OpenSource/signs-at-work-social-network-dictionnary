@@ -212,75 +212,6 @@ public class UserRestController {
     }
 
 
-   /* user = user.loadVideos();
-    if (!user.videos.list().isEmpty()) {
-      response.setStatus(HttpServletResponse.SC_CONFLICT);
-      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_videos");
-      return userResponseApi;
-    }
-
-    user = user.loadCommunitiesRequestsFavorites();
-    if (!user.requests.list().isEmpty()) {
-      response.setStatus(HttpServletResponse.SC_CONFLICT);
-      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_requests");
-      return userResponseApi;
-    }
-
-    if (!user.communities.list().isEmpty()) {
-      for (Community c:user.communities.list()) {
-        if (c.user.id == user.id) {
-          response.setStatus(HttpServletResponse.SC_CONFLICT);
-          userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_communities");
-          return userResponseApi;
-        }
-      }
-    }
-
-    if (!user.favorites.list().isEmpty()) {
-      for (Favorite f:user.favorites.list()) {
-        if (f.user.id == user.id && f.type == FavoriteType.Share) {
-          response.setStatus(HttpServletResponse.SC_CONFLICT);
-          userResponseApi.errorMessage = messageByLocaleService.getMessage("user_have_favorites_shared");
-          return userResponseApi;
-        }
-      }
-    }
-
-    if (user.nameVideo != null) {
-      if (user.nameVideo.contains("http")) {
-        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
-        try {
-          DeleteVideoOnDailyMotion(dailymotionId);
-        } catch (Exception errorDailymotionDeleteVideo) {
-          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-          userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-        }
-      }
-    }
-
-    if (user.jobDescriptionVideo != null) {
-      if (user.jobDescriptionVideo.contains("http")) {
-        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
-        try {
-          DeleteVideoOnDailyMotion(dailymotionId);
-        } catch (Exception errorDailymotionDeleteVideo) {
-          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-          userResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-          return userResponseApi;
-        }
-      }
-    }
-
-    Favorites favorites = services.favorite().oldFavoritesShareToUser(user.id);
-    for(Favorite favorite:favorites.list()) {
-      services.favorite().removeMeFromSeeFavorite(favorite.id, user.id);
-    }
-
-    for (Community community:user.communities.list()) {
-      services.community().removeMeFromCommunity(community.id, user.id);
-    }
-*/
-
     if (user.nameVideo != null) {
       if (user.nameVideo.contains("http")) {
         dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
@@ -397,8 +328,6 @@ public class UserRestController {
     }
 
 
-    /*User user = services.user().create(userCreationView.toUser(), userCreationView.getPassword(), userCreationView.getRole());
-    services.user().createUserFavorite(user.id, messageByLocaleService.getMessage("default_favorite"));*/
     response.setStatus(HttpServletResponse.SC_OK);
     return userResponseApi;
   }
@@ -474,9 +403,6 @@ public class UserRestController {
       }
 
       if (userCreationViewApi.get().getEmail() != null) {
-       /* if ((!userCreationViewApi.get().getEmail().isEmpty()) && (userCreationViewApi.get().getEmail() != user.email)) {
-          services.user().changeEmail(user, userCreationViewApi.get().getEmail());
-        }*/
         String title, body;
         User admin = services.user().getAdmin();
 

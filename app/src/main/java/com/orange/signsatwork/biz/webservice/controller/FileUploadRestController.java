@@ -982,11 +982,7 @@ public class FileUploadRestController {
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
-        if (inputType.equals("JobDescription")) {
-          return "/sec/your-job-description";
-        } else {
-          return "/sec/who-are-you";
-        }
+        return "";
       } catch (Exception errorDailymotionUploadFile) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return messageByLocaleService.getMessage("errorDailymotionUploadFile");
@@ -1062,11 +1058,7 @@ public class FileUploadRestController {
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
-      if (inputType.equals("JobDescription")) {
-        return "/sec/your-job-description";
-      } else {
-        return "/sec/who-are-you";
-      }
+      return "";
     }
   }
 
@@ -1297,11 +1289,7 @@ public class FileUploadRestController {
       }
 
       response.setStatus(HttpServletResponse.SC_OK);
-      if (inputType.equals("JobDescription")) {
-        return "/sec/your-job-description";
-      } else {
-        return "/sec/who-are-you";
-      }
+      return "";
 
     }
     catch(Exception errorDailymotionUploadFile)
@@ -1390,11 +1378,7 @@ public class FileUploadRestController {
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
-    if (inputType.equals("JobDescription")) {
-      return "/sec/your-job-description";
-    } else {
-      return "/sec/who-are-you";
-    }
+    return "";
 
   }
 

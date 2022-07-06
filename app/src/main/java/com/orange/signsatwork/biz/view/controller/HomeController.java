@@ -66,8 +66,8 @@ public class HomeController {
 
   private static final String HOME_URL = "/";
 
-/*  @Value("${cgu-url}")
-  private String cgu_url;*/
+  @Value("${cgu-url}")
+  private String cgu_url;
 
   @Value("${display-url}")
   private String display_url;

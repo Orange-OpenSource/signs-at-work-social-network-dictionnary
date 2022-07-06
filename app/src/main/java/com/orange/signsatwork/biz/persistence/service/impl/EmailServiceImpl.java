@@ -103,8 +103,6 @@ public class EmailServiceImpl implements EmailService {
       String htmlContent = templateEngine.process("email", ctx);
       helper.setText(htmlContent, true);
 
-     /* File file = ResourceUtils.getFile("classpath:public/img/logo_and_texte.png");
-      System.out.println("File Found : " + file.exists());*/
       imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
       InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
