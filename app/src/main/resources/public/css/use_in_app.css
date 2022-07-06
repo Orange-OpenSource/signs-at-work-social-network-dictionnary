@@ -601,7 +601,7 @@ p {
 }
 
 p > a {
-  color: blue;
+  color: #4866F7;
 }
 
 .red {
@@ -616,7 +616,7 @@ h4.blue-cgu {
   margin-top: 0px;
   margin-bottom: 0px;
   line-height: 25px;
-  color: blue
+  color: #4866F7;
 }
 
 h4.red-cgu {
@@ -1064,7 +1064,7 @@ li.disabled > a {
 
 .back_bar_white {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3771px center;
+  background-position: -3768px center;
   background-repeat: no-repeat;
   background-size: auto 29px;
   height: 70px;
@@ -1358,7 +1358,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 }
 
 .tooltip_variante {
-  background-color: blue;
+  background-color: #4866F7;
   width: 12px;
   height: 12px;
   border-radius: 12px;

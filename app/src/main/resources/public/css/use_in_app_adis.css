@@ -1,0 +1,223 @@
+
+
+#main_nav{
+  background-color: #662a74;
+  border-style:none;
+}
+
+
+#label_welcome {
+  color:#662a74;
+}
+
+
+.form-control {
+  color:#662a74;
+  height:42px;
+}
+
+
+.form-signin-heading {
+  color: #662a74;
+}
+
+.col-xs-12 h5:hover{
+  color: #662a74;
+}
+
+
+a:hover,
+a:focus,
+a:active{
+  color: #662a74;
+  outline: 0;
+}
+
+
+.modal-header {
+  background-color: #662a74;
+  color: #FFFFFF;
+}
+
+
+.modal-footer>.btn{
+  color: #662a74;
+  font-size: 14px;
+  border-style:none;
+  font-weight: bold;
+}
+
+
+h1, .h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color:#662a74;
+}
+
+
+.footer>.btn-default {
+  color: #662a74;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+  line-height: 16px;
+  width: 49%;
+  height: 40px;
+  background-color: #EBEBEB;
+  text-align: center;
+}
+
+
+.lexical {
+  font-size:20px;
+  text-align: center;
+  color: #662a74;
+  margin-bottom: 30px;
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 25px;
+}
+
+.lexical_signsatform {
+  font-size:20px;
+  text-align: center;
+  color: #662a74;
+  margin-bottom: 30px;
+  margin-top: 25px;
+}
+
+
+.dropdown-menu > li > a.v-done-down_black{
+  background-color: #989898;
+  color: #662a74;
+}
+
+#sign_available,
+#video_available {
+  color: #662a74;
+}
+
+#sign_not_available {
+  margin-top: 30px;
+  color: #662a74;
+}
+
+
+H4#label_record,
+H4#label_after_record,
+H4#label_record_job_description,
+H4#label_after_record_job_description {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #662a74;
+}
+
+#container-button > button,
+#continue {
+  border: none;
+  background-color: transparent;
+  color: #662a74;
+}
+
+.same_name{
+  color: #662a74;
+  margin-top: 20px;
+}
+
+
+#InputFileLabel {
+  margin-top: 20px;
+  color: #662a74;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+}
+
+textarea#text {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #EBEBEB;
+  border-style: none;
+  border-radius: 0px;
+  font-size: 14px;
+  color: #662a74;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #662a74;
+  background-color: transparent;
+}
+
+
+.blue {
+  color: #662a74;
+}
+
+
+.subtitle_job {
+  color: #662a74;
+  font-size:18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+.subtitle {
+  text-align: center;
+  color: #662a74;
+  font-size:18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.about_title {
+  text-align: center;
+  color: #662a74;
+  font-size:18px;
+}
+
+
+.container_H2_blue{
+  float: left;
+  margin-left: 15px;
+  color: #662a74;
+}
+
+
+a.nav-link:hover,
+a.nav-link:focus,
+a.nav-link:active{
+  color: #18c6bf;
+  outline: 0;
+}
+
+.noHover_nopointer > a >h2{
+  cursor: none;
+  color: #18c6bf;
+}
+
+p > a {
+  color: #662a74;
+}
+
+h4.blue-cgu {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 25px;
+  color: #662a74;
+}
+
+.tooltip_variante {
+  background-color: #662a74;
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  font-size: 9px;
+  color:white;
+  right: 19px;
+  position:absolute;
+  top:40px;
+}
