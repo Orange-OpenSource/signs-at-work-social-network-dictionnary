@@ -1150,7 +1150,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 
 .v-done-down_black {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2204px center;
+  background-position: -2207px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 48px;
@@ -1546,7 +1546,7 @@ img{
 
 .v-done_black {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2205px center;
+  background-position: -2207px center;
   background-repeat: no-repeat;
   background-size: auto 20px;
   height: 40px;
@@ -2241,7 +2241,7 @@ H1.container_H2 {
 
 .commentary_white-modal_header {
   background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -382px center;
+  background-position: -380px center;
   background-repeat: no-repeat;
   background-size: auto 30px;
   height: 45px;

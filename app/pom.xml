@@ -5,7 +5,7 @@
 
     <groupId>com.orange</groupId>
     <artifactId>signs-at-work</artifactId>
-    <version>6.0.8-SNAPSHOT</version>
+    <version>6.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Signs at work</name>
@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
+        <version>2.7.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -189,39 +189,6 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
-
-<!--            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>1.8</version>
-                <configuration>
-                    <outputDirectory>.</outputDirectory>
-                    <excludedScopes>test</excludedScopes>
-                    <includeTransitiveDependencies>false</includeTransitiveDependencies>
-                    <inceptionYear>2016</inceptionYear>
-                    <organizationName>Orange</organizationName>
-                    <projectName>Signs at work</projectName>
-                    <addJavaLicenseAfterPackage>true</addJavaLicenseAfterPackage>
-                    <licenseName>gpl_v2</licenseName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>first</id>
-                        <goals>
-                            <goal>update-file-header</goal>
-                        </goals>
-                        <phase>process-sources</phase>
-                        <configuration>
-                            <licenseName>gpl_v2</licenseName>
-                            <roots>
-                                <root>src/main/java</root>
-                                <root>src/test/java</root>
-                            </roots>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
-
         </plugins>
     </build>
 

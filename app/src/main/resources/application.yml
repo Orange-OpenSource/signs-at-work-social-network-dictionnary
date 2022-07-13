@@ -28,7 +28,7 @@ app.admin.password: "adminpassword"
 app.name: "Signs@Work"
 
 app.manifest: "/manifest/signsatwork/manifest.json"
-app.version: "6.0.8"
+app.version: "6.1.0"
 app.contact.support: "signsatwork.support@orange.com"
 
 cgu-url: "https://www.dailymotion.com/embed/video/k2HwFhjhimHm1uvOU3g"
@@ -38,6 +38,8 @@ spring:
   mail:
     host: mailhost.rd.francetelecom.fr
     port: 2525
+  main:
+    allow-circular-references: true
 
 #    5am every day
 purge.cron.expression: 0 0 5 * * ?
@@ -45,3 +47,4 @@ purge.cron.expression: 0 0 5 * * ?
 spring.jackson.serialization.write-dates-as-timestamps: true
 
 spring.jpa.properties.hibernate.id.new_generator_mappings: false
+

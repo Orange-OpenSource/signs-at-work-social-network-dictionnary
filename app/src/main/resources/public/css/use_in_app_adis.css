@@ -194,11 +194,6 @@ a.nav-link:active{
   outline: 0;
 }
 
-.noHover_nopointer > a >h2{
-  cursor: none;
-  color: #18c6bf;
-}
-
 p > a {
   color: #662a74;
 }
