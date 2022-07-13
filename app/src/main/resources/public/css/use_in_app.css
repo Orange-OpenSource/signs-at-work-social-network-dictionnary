@@ -2396,7 +2396,7 @@ table tbody td{
 /* End Description du signe /sec/sign/"sign_id""/definition */
 
 
-/* Begin Profil /sec/my-profil */
+/* Begin Profil profile-from-community */
 
 .record-profil {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -2504,9 +2504,48 @@ table tbody td{
   margin-bottom: 10px;
   width: 40%;
 }
-style="margin-bottom: 10px;width: 40%"
 
-/* End Profil /sec/my-profil */
+.to_complete {
+  display: inline;
+  font-style: italic;
+  color:lightgrey;
+}
+
+#jobName {
+  display: inline;
+  margin-left: 20px;
+  color: #4866F7;
+}
+
+.job_description_text {
+  display: inline-block;
+  color: #4866F7;
+  width: 90%;"
+}
+
+.user_entity {
+  display: inline;
+  margin-left: 20px;
+  color: #4866F7;
+}
+
+.user_name {
+  display: inline;
+  margin-left: 34px;
+  color: #4866F7;
+}
+
+.user_email {
+  display: inline;
+  margin-left: 25px;
+  color: #4866F7;
+}
+
+.double_border_top {
+  border-top: 3px solid #4866F7;
+}
+
+/* End Profil profile_from_community */
 
 /* Begin Votre Métier ? /sec/my-job */
 

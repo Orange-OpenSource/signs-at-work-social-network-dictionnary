@@ -239,8 +239,9 @@ public class AdminController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/profile-from-admin/{userId}")
-  public String userDetails(@PathVariable long userId, Model model, Principal principal) {
+  public String userDetails(@PathVariable long userId, HttpServletRequest request, Model model, Principal principal) {
     Boolean isConnectedUser = false;
+    String userAgent = request.getHeader("User-Agent");
     User connectedUser = services.user().withUserName(principal.getName());
 
     User user = services.user().withId(userId);
@@ -273,8 +274,30 @@ public class AdminController {
     model.addAttribute("isConnectedUser", true);
     model.addAttribute("actionForDeleteVideoName", "/ws/sec/deleteVideoFileForName/" + userId);
     model.addAttribute("actionForDeleteVideoJob", "/ws/sec/deleteVideoFileForJob/" + userId);
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
     return "profile-from-community";
+  }
+
+  private boolean isIOSDevice(String userAgent) {
+    boolean isIOSDevice = false;
+    String osType = "Unknown";
+    String osVersion = "Unknown";
+    String deviceType = "Unknown";
+
+    if (userAgent.indexOf("Mac OS") >= 0) {
+      osType = "Mac";
+      osVersion = userAgent.substring(userAgent.indexOf("Mac OS ") + 7, userAgent.indexOf(")"));
+
+      if (userAgent.indexOf("iPhone") >= 0) {
+        deviceType = "iPhone";
+        isIOSDevice = true;
+      } else if (userAgent.indexOf("iPad") >= 0) {
+        deviceType = "iPad";
+        isIOSDevice = true;
+      }
+    }
+    return isIOSDevice;
   }
 
   private VideoView2 buildVideoView(VideoViewData videoViewData, List<Long> videoBelowToFavorite, User user) {

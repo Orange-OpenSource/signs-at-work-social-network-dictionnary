@@ -221,3 +221,37 @@ h4.blue-cgu {
   position:absolute;
   top:40px;
 }
+
+#jobName {
+  display: inline;
+  margin-left: 20px;
+  color: #662a74;
+}
+
+.job_description_text {
+  display: inline-block;
+  color: #662a74;
+  width: 90%;"
+}
+
+.user_entity {
+  display: inline;
+  margin-left: 20px;
+  color: #662a74;
+}
+
+.user_name {
+  display: inline;
+  margin-left: 34px;
+  color: #662a74;
+}
+
+.user_email {
+  display: inline;
+  margin-left: 25px;
+  color: #662a74;
+}
+
+.double_border_top {
+  border-top: 3px solid #662a74;
+}

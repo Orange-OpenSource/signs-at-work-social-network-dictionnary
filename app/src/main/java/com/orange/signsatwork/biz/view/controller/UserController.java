@@ -159,9 +159,12 @@ public class UserController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")
-  public String userDetails(@PathVariable long userId, @PathVariable long communityId, Model model, Principal principal) {
+  public String userDetails(@PathVariable long userId, @PathVariable long communityId, HttpServletRequest request, Model model, Principal principal) {
     Boolean isConnectedUser = false;
     User connectedUser = services.user().withUserName(principal.getName());
+    String userAgent = request.getHeader("User-Agent");
+
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
     User user = services.user().withId(userId);
     model.addAttribute("title", user.name());

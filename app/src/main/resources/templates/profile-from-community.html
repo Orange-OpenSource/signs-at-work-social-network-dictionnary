@@ -62,27 +62,27 @@
                        style="margin-top: 59px; display: none;"></div>
                 </a>
                 <a href="#" th:attr="aria-label=#{name_video_record}" th:if="${isIOSDevice}"
-                   th:onclick="'javascript:onClick()'">
+                   th:data-isAdmin="${isAdmin}" th:data-userId="${user.id}" th:onclick="javascript:onClickNameVideo(this.getAttribute('data-isAdmin'), this.getAttribute('data-userId'))">
                   <div class="pull-right edit_black-profil" id="nameVideo-edit"
                        style="margin-top: 59px; display: none;"></div>
                 </a>
-             <!--   <a data-target="#delete_video" data-toggle="modal" href="#"
-                   th:attr="aria-label=#{video_name_lsf.delete}">
+                <a data-target="#delete_video" data-toggle="modal" href="#"
+                   th:attr="aria-label=#{video_name_lsf.delete}" th:if="${isIOSDevice}">
                   <div class="pull-right delete-black" id="nameVideo-delete"
                        style="margin-top: 30px; display: none;"></div>
-                </a>-->
+                </a>
               </div>
             </div>
             <div style="display: inline;" th:if="${user.namePicture == null}">
               <h2 style="display: inline;" th:text="#{name_LSF}"></h2>
-              <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+              <h2 class="to_complete" th:text="#{to_complete}"></h2>
               <a data-target="#add_input_name_LSF" data-toggle="modal" href="#" th:attr="aria-label=#{name_video_record}"
                  th:if="!${isIOSDevice}">
                 <div class="pull-right edit_black-profil" id="nameVideo-edit"
                      style="margin-top: 2px; display: none;"></div>
               </a>
               <a href="#" th:attr="aria-label=#{name_video_record}" th:if="${isIOSDevice}"
-                 th:onclick="'javascript:onClick()'">
+                 th:data-isAdmin="${isAdmin}" th:data-userId="${user.id}" th:onclick="javascript:onClickNameVideo(this.getAttribute('data-isAdmin'), this.getAttribute('data-userId'))">
                 <div class="pull-right edit_black-profil" id="nameVideo-edit"
                      style="margin-top: 2px; display: none;"></div>
               </a>
@@ -92,7 +92,7 @@
             <a data-target="#add_name" data-toggle="modal" href="#" id="changeName" style="pointer-events: none;">
               <div>
                 <h2 style="display: inline;" th:text="#{name}"></h2>
-                <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
+                <h2 class="user_name" th:text="${user.name()}"></h2>
                 <div class="pull-right edit_black-profil" id="name-pen" style="display: none;"></div>
               </div>
             </a>
@@ -101,7 +101,7 @@
             <a data-target="#add_email" data-toggle="modal" href="#" id="changeUserName" style="pointer-events: none">
               <div>
                 <h2 style="display: inline;" th:text="#{email}"></h2>
-                <h2 style="display: inline;margin-left: 25px; color: #4866F7;" th:text="${user.email}"></h2>
+                <h2 class="user_email" th:text="${user.email}"></h2>
                 <div class="pull-right edit_black-profil" id="user_name-pen" style="display: none;"></div>
               </div>
             </a>
@@ -111,13 +111,12 @@
                style="pointer-events: none">
               <div th:if="${user.entity != null}">
                 <h2 style="display: inline;" th:text="#{entity}"></h2>
-                <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
+                <h2 class="user_entity" th:text="${user.entity}"></h2>
                 <div class="pull-right edit_black-profil" id="entity-pen" style="display: none;"></div>
               </div>
               <div th:if="${user.entity == null}">
                 <h2 style="display: inline;" th:text="#{entity}"></h2>
-                <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;"
-                    th:text="#{to_complete}"></h2>
+                <h2 class="to_complete" style="margin-left: 20px;" th:text="#{to_complete}"></h2>
                 <div class="pull-right edit_black-profil" id="entity-pen" style="display: none;"></div>
               </div>
             </a>
@@ -126,26 +125,24 @@
             <a th:if="${!isAdmin}" href="/sec/my-job" id="changeJobName" style="pointer-events: none">
               <div th:if="${user.job != null}">
                 <h2 style="display: inline;" th:text="#{job}"></h2>
-                <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+                <h2 id="jobName" th:text="${user.job}"></h2>
                 <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
               </div>
               <div th:if="${user.job == null}">
                 <h2 style="display: inline;" th:text="#{job}"></h2>
-                <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;"
-                    th:text="#{to_complete}"></h2>
+                <h2 class="to_complete" style="margin-left: 20px;" th:text="#{to_complete}"></h2>
                 <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
               </div>
             </a>
             <a th:if="${isAdmin}"  th:href="@{/sec/admin/users/} + ${user.id} +'/job'" id="changeJobName" style="pointer-events: none">
               <div th:if="${user.job != null}">
                 <h2 style="display: inline;" th:text="#{job}"></h2>
-                <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+                <h2 id="jobName" th:text="${user.job}"></h2>
                 <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
               </div>
               <div th:if="${user.job == null}">
                 <h2 style="display: inline;" th:text="#{job}"></h2>
-                <h2 style="display: inline;margin-left: 20px; font-style: italic; color:lightgrey;"
-                    th:text="#{to_complete}"></h2>
+                <h2 class="to_complete" style="margin-left: 20px;" th:text="#{to_complete}"></h2>
                 <div class="pull-right edit_black-profil" id="jobName-pen" style="display: none;"></div>
               </div>
             </a>
@@ -167,27 +164,27 @@
                        style="margin-top: 55px; display: none;"></div>
                 </a>
                 <a href="#" th:attr="aria-label=#{job_video_record}" th:if="${isIOSDevice}"
-                   th:onclick="'javascript:onClick()'">
+                   th:data-isAdmin="${isAdmin}" th:data-userId="${user.id}" th:onclick="javascript:onClickJobVideo(this.getAttribute('data-isAdmin'), this.getAttribute('data-userId'))">
                   <div class="pull-right edit_black-profil" id="jobVideo-edit"
                        style="margin-top: 55px; display: none;"></div>
                 </a>
-           <!--     <a data-target="#delete_video_job" data-toggle="modal" href="#"
-                   th:attr="aria-label=#{video_job_lsf.delete}">
+                <a data-target="#delete_video_job" data-toggle="modal" href="#"
+                   th:attr="aria-label=#{video_job_lsf.delete}" th:if="${isIOSDevice}">
                   <div class="pull-right delete-black" id="jobVideo-delete"
                        style="margin-top: 30px; display: none;"></div>
-                </a>-->
+                </a>
               </div>
             </div>
             <div style="display: inline;" th:if="${user.jobDescriptionPicture == null}">
               <h2 style="display: inline;" th:text="#{description_LSF}"></h2>
-              <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+              <h2 class="to_complete" th:text="#{to_complete}"></h2>
               <a data-target="#add_input_description_job_LSF" data-toggle="modal" href="#" th:attr="aria-label=#{job_video_record}"
                  th:if="!${isIOSDevice}">
                 <div class="pull-right edit_black-profil" id="jobVideo-edit"
                      style="margin-top: 2px; display: none;"></div>
               </a>
               <a href="#" th:attr="aria-label=#{job_video_record}" th:if="${isIOSDevice}"
-                 th:onclick="'javascript:onClick()'">
+                 th:data-isAdmin="${isAdmin}" th:data-userId="${user.id}" th:onclick="javascript:onClickJobVideo(this.getAttribute('data-isAdmin'), this.getAttribute('data-userId'))">
                 <div class="pull-right edit_black-profil" id="jobVideo-edit"
                      style="margin-top: 2px; display: none;"></div>
               </a>
@@ -199,7 +196,7 @@
               <a data-target="#add_description_job" data-toggle="modal" href="#" id="changeJobDescriptionText"
                  style="pointer-events: none">
                 <div>
-                  <h2 style="display: inline-block; color: #4866F7;width: 90%;"
+                  <h2 class="job_description_text"
                       th:text="${user.jobDescriptionText}"></h2>
                   <div class="pull-right edit_black-profil" id="jobText-pen"
                        style="margin-top: 13px; display: none;"></div>
@@ -211,7 +208,7 @@
                  style="pointer-events: none">
                 <div>
                   <h2 style="display: inline;" th:text="#{description_text}"></h2>
-                  <h2 style="display: inline; font-style: italic; color:lightgrey;" th:text="#{to_complete}"></h2>
+                  <h2 class="to_complete" th:text="#{to_complete}"></h2>
                   <div class="pull-right edit_black-profil" id="jobText-pen" style="display: none;"></div>
                 </div>
               </a>
@@ -234,13 +231,13 @@
           <li class="aside_bckg_li">
             <div>
               <h2 style="display: inline;" th:text="#{name}"></h2>
-              <h2 style="display: inline;margin-left: 34px; color: #4866F7;" th:text="${user.name()}"></h2>
+              <h2 class="user_name" th:text="${user.name()}"></h2>
             </div>
           </li>
           <li class="aside_bckg_li" style="border-bottom: 3px solid;">
             <div th:if="${user.entity != null}">
               <h2 style="display: inline;" th:text="#{entity}"></h2>
-              <h2 style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.entity}"></h2>
+              <h2 class="user_entity" th:text="${user.entity}"></h2>
             </div>
             <div th:if="${user.entity == null}">
               <h2 style="display: inline;" th:text="#{entity}"></h2>
@@ -249,7 +246,7 @@
           <li class="aside_bckg_li">
             <div th:if="${user.job != null}">
               <h2 style="display: inline;" th:text="#{job}"></h2>
-              <h2 id="jobName" style="display: inline;margin-left: 20px; color: #4866F7;" th:text="${user.job}"></h2>
+              <h2 id="jobName" th:text="${user.job}"></h2>
             </div>
             <div th:if="${user.job == null}">
               <h2 style="display: inline;" th:text="#{job}"></h2>
@@ -270,7 +267,7 @@
             <div>
               <h2 style="display: inline;" th:text="#{description_text}"></h2>
               <div>
-                <h2 style="display: inline-block; color: #4866F7;width: 90%;" th:text="${user.jobDescriptionText}"></h2>
+                <h2 class="job_description_text" th:text="${user.jobDescriptionText}"></h2>
               </div>
             </div>
           </li>
@@ -290,7 +287,7 @@
           </button>
         </div>
       </aside>
-      <div class="text-center title_middle col-xs-12 middle-col " style="border-top: 3px solid #4866F7;">
+      <div class="text-center title_middle col-xs-12 middle-col double_border_top">
         <h2 class="blue" th:if="${isAdmin}" th:text="#{video.created(${#lists.size(videosView)})}"></h2>
         <h2 class="blue" th:if="${isConnectedUser && !isAdmin}" th:text="#{video.createBy_me(${#lists.size(videosView)})}"></h2>
         <h2 class="blue" th:if="${!isConnectedUser && !isAdmin}" th:text="#{video.createBy(${user.firstName}, ${#lists.size(videosView)})}"></h2>

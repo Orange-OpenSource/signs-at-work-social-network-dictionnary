@@ -45,11 +45,15 @@ var counter = 3;
 var t;
 
 var nameVideoEdit = document.getElementById('nameVideo-edit');
-/*var nameVideoRecord = document.getElementById('nameVideo-record');
-var nameVideoSelect = document.getElementById('nameVideo-select');*/
-var jobVideoEdit = document.getElementById('jobVideo-edit')
-/*var jobVideoRecord = document.getElementById('jobVideo-record')
-var jobVideoSelect = document.getElementById('jobVideo-select')*/
+var nameVideoDelete = document.getElementById('nameVideo-delete');
+/*var nameVideoRecord = document.getElementById('nameVideo-record');*/
+var nameVideoSelectForiOSDevice;
+var jobVideoEdit = document.getElementById('jobVideo-edit');
+var jobVideoDelete = document.getElementById('jobVideo-delete');
+/*var jobVideoRecord = document.getElementById('jobVideo-record')*/
+var jobVideoSelectForiOSDevice;
+var is_Admin;
+var user_id;
 
 function timedCount() {
   document.getElementById("counter").textContent = counter;
@@ -547,6 +551,12 @@ console.log(isAdmin);
   } else {
     $('#nameVideo-edit').hide();
   }
+  if ($('#nameVideo-delete').is(":hidden")) {
+    $('#nameVideo-delete').show();
+  } else {
+    $('#nameVideo-delete').hide();
+  }
+
   if ($('#name-pen').is(":hidden")) {
     $('#changeName').css('pointer-events', '');
     $('#name-pen').show();
@@ -588,6 +598,11 @@ console.log(isAdmin);
     }
   } else {
     $('#jobVideo-edit').hide();
+  }
+  if ($('#jobVideo-delete').is(":hidden")) {
+    $('#jobVideo-delete').show();
+  } else {
+    $('#jobVideo-delete').hide();
   }
 
   if ($('#jobText-pen').is(":hidden")) {
@@ -777,7 +792,24 @@ $add_video_file_dailymotion.on('hidden.bs.modal', function() {
 
 function onClick() {
   event.preventDefault();
-  document.getElementById('InputFile').click()
+  document.getElementById('InputFile').click();
+}
+
+function onClickNameVideo(isAdmin, userId) {
+  event.preventDefault();
+  document.getElementById('InputFile').click();
+  nameVideoSelectForiOSDevice="nameVideoSelect";
+  is_Admin = isAdmin;
+  user_Id = userId;
+
+}
+
+function onClickJobVideo(isAdmin, userId) {
+  event.preventDefault();
+  document.getElementById('InputFile').click();
+  jobVideoSelectForiOSDevice="jobVideoSelect";
+  is_Admin = isAdmin;
+  user_Id = userId;
 }
 
 function onLockUser(id){
@@ -845,6 +877,26 @@ $(document).ready(function(){
 
   $('input[type="file"]').change(function(e){
     $("#add_video_file_dailymotion").modal('show');
+    if (nameVideoSelectForiOSDevice) {
+        if (is_Admin === "false") {
+          $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName');
+        } else {
+          $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForName/'+ user_Id);
+        }
+        document.getElementById('add_video_file_dailymotion_title_name_lsf').style.visibility = "visible";
+        document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "block";
+        document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "none";
+    }
+    if (jobVideoSelectForiOSDevice) {
+      if (is_Admin === "false") {
+        $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForJobDescription');
+      } else {
+        $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForJobDescription/' + user_Id);
+      }
+      document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.visibility = "visible";
+      document.getElementById('add_video_file_dailymotion_title_description_job_lsf').style.display = "block";
+      document.getElementById('add_video_file_dailymotion_title_name_lsf').style.display = "none";
+    }
     document.getElementById('submitButtonFileDailymotion').disabled=false;
 
   });
