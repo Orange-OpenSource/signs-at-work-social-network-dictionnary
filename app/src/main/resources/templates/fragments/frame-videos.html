@@ -38,7 +38,11 @@
 
       <div class="row">
         <div class="col-lg-12">
-          <a th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" type="text/html">
+          <a th:if="${!isAdmin}" th:href="@{/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" type="text/html">
+            <div class="labelVideo text_hyphenation" th:text="${videoView.videoName}" ></div>
+            <div class="chevron_blue pull-right"></div>
+          </a>
+          <a th:if="${isAdmin}" th:href="@{/sec/admin/sign/} + ${videoView.signId} + '/' + ${videoView.videoId}" type="text/html">
             <div class="labelVideo text_hyphenation" th:text="${videoView.videoName}" ></div>
             <div class="chevron_blue pull-right"></div>
           </a>

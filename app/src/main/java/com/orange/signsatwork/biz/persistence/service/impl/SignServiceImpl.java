@@ -468,6 +468,16 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Sign deleteSignVideoDefinition(long signId) {
+    SignDB signDB = signRepository.findOne(signId);
+
+    signDB.setVideoDefinition(null);
+    signRepository.save(signDB);
+
+    return signFrom(signDB, services);
+  }
+
+  @Override
   public void renameSign(Long signId, String name) {
     SignDB signDB = signRepository.findOne(signId);
 

@@ -269,7 +269,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .aside_bckg_li > a > div {
-  padding: 0em;
+  /*padding: 0em;*/
   border-style:none;
 }
 
@@ -2420,6 +2420,17 @@ table tbody td{
   background-color: transparent;
 }
 
+.delete-black-comment {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -3229px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 49px;
+  width: 24px;
+  border: none;
+  background-color: transparent;
+}
+
 .delete_black_profil {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -3231px center;
@@ -3574,6 +3585,40 @@ h2.container_CGU {
   height: 45px;
   width: 31px;
   margin-right: 20px;
+}
+
+panel-title {
+  position: relative;
+}
+
+.panel-title::after {
+  content: "\f107";
+  color: #333;
+  top: -2px;
+  right: 0px;
+  position: absolute;
+  font-family: "FontAwesome"
+}
+
+.panel-title[aria-expanded="true"]::after {
+  content: "\f106";
+}
+
+/*
+ * Added 12-27-20 to showcase full title clickthrough
+ */
+
+.panel-heading-full.panel-heading {
+  padding: 0;
+}
+
+.panel-heading-full .panel-title {
+  padding: 10px 15px;
+}
+
+.panel-heading-full .panel-title::after {
+  top: 10px;
+  right: 15px;
 }
 
 @media only screen and (max-width:768px) {

@@ -180,6 +180,28 @@ public class SignRestController {
     }
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_SIGN_DEFINITION, method = RequestMethod.POST)
+  public String deleteVideoSignDefinition(@PathVariable long signId, HttpServletResponse response) {
+    Sign sign = services.sign().withId(signId);
+    if (sign.videoDefinition != null) {
+      if (sign.videoDefinition.contains("http")) {
+        String dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
+      } else {
+        DeleteFilesOnServer(sign.videoDefinition, null);
+      }
+    }
+    services.sign().deleteSignVideoDefinition(signId);
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "";
+  }
+
   private void DeleteVideoOnDailyMotion(String dailymotionId) {
 
     AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();

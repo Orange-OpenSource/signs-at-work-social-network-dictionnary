@@ -28,6 +28,7 @@ import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import com.orange.signsatwork.biz.persistence.service.VideoService;
+import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,9 @@ public class SignController {
 
   @Autowired
   MessageByLocaleService messageByLocaleService;
+
+  @Autowired
+  private AppSecurityAdmin appSecurityAdmin;
 
   @Value("${app.name}")
   String appName;
@@ -777,6 +781,7 @@ public class SignController {
 
   @RequestMapping(value = "/sign/{signId}")
   public String sign(@PathVariable long signId, Principal principal, Model model) {
+    boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
 
@@ -791,7 +796,7 @@ public class SignController {
     }
 
     if (videoViewsData.size() == 1) {
-      return showVideo(signId, videoViewsData.get(0).videoId);
+      return showVideo(signId, videoViewsData.get(0).videoId, isAdmin);
     } else {
       model.addAttribute("title", messageByLocaleService.getMessage("sign.all_video"));
       model.addAttribute("signName", videoViewsData.get(0).signName);
@@ -815,6 +820,7 @@ public class SignController {
 
       model.addAttribute("videosView", videoViews);
       model.addAttribute("appName", appName);
+      model.addAttribute("isAdmin", isAdmin);
       return "videos";
     }
 
@@ -1137,8 +1143,12 @@ public class SignController {
     return "redirect:/sign/" + signId;
   }
 
-  private String showVideo(long signId, long videoId) {
-    return "redirect:/sign/" + signId + "/" + videoId;
+  private String showVideo(long signId, long videoId, boolean isAdmin) {
+    if (isAdmin) {
+      return "redirect:/sec/admin/sign/" + signId + "/" + videoId;
+    } else {
+      return "redirect:/sign/" + signId + "/" + videoId;
+    }
   }
 
   private void fillModelWithContext(Model model, String messageEntry, Principal principal, boolean showAddFavorite) {

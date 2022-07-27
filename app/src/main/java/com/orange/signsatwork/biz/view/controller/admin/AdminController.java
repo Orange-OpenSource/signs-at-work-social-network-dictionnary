@@ -22,10 +22,10 @@ package com.orange.signsatwork.biz.view.controller.admin;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
-import com.orange.signsatwork.biz.domain.Community;
-import com.orange.signsatwork.biz.domain.CommunityType;
-import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.CommentData;
+import com.orange.signsatwork.biz.persistence.model.RatingData;
+import com.orange.signsatwork.biz.persistence.model.VideoHistoryData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.CommunityService;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -277,6 +277,95 @@ public class AdminController {
     model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
     return "profile-from-community";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/sign/{signId}/{videoId}")
+  public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+
+/*    Boolean isVideoCreatedByMe = false;
+    String referer = req.getHeader("Referer");
+
+    model.addAttribute("videoBelowToFavorite", false);
+    StringBuffer location = req.getRequestURL();
+
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+    model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
+    model.addAttribute("commentCreationView", new CommentCreationView());
+    model.addAttribute("favoriteCreationView", new FavoriteCreationView());*/
+
+
+    Sign sign = services.sign().withIdSignsView(signId);
+    if (sign == null) {
+      return "redirect:/signs/mostrecent?isMostRecent=false&isSearch=false";
+    }
+
+    Video video = services.video().withId(videoId);
+    if (video == null) {
+      return "redirect:/sign/" + signId;
+    }
+
+    model.addAttribute("title", messageByLocaleService.getMessage("card"));
+    List<Object[]> queryAllComments = services.video().AllCommentsForVideo(videoId);
+    List<CommentData> commentDatas = queryAllComments.stream()
+      .map(objectArray -> new CommentData(objectArray))
+      .collect(Collectors.toList());
+    model.addAttribute("commentDatas", commentDatas);
+    List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
+    List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
+      .map(objectArray -> new VideoHistoryData(objectArray))
+      .collect(Collectors.toList());
+    model.addAttribute("videoHistoryDatas", videoHistoryDatas);
+
+/*    if (principal != null) {
+      User user = services.user().withUserName(principal.getName());
+      Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);
+      RatingData ratingData = new RatingData(queryRating);
+      model.addAttribute("ratingData", ratingData);
+      List<Object[]> queryAllComments = services.video().AllCommentsForVideo(videoId);
+      List<CommentData> commentDatas = queryAllComments.stream()
+        .map(objectArray -> new CommentData(objectArray))
+        .collect(Collectors.toList());
+      model.addAttribute("commentDatas", commentDatas);
+      model.addAttribute("title", messageByLocaleService.getMessage("card"));
+      fillModelWithFavorites(model, user);
+      if (video.user.id == user.id) {
+        isVideoCreatedByMe = true;
+      }
+      Long nbFavorite = services.video().NbFavoriteBelowVideoForUser(videoId, user.id);
+      if (nbFavorite >= 1) {
+        model.addAttribute("videoBelowToFavorite", true);
+      }
+    }
+
+    if (video.averageRate > 0) {
+      model.addAttribute("videoHasPositiveRate", true);
+    } else {
+      model.addAttribute("videoHasPositiveRate", false);
+    }
+
+    if (!isVideoCreatedByMe) {
+      if ((referer != null) && referer.contains("detail")) {
+      } else {
+        services.video().increaseNbView(videoId);
+      }
+    }*/
+
+    if ((video.idForName == 0) || (sign.nbVideo == 1)) {
+      model.addAttribute("videoName", sign.name);
+    } else {
+      model.addAttribute("videoName", sign.name + "_" + video.idForName);
+    }
+
+    model.addAttribute("signView", sign);
+    model.addAttribute("videoView", video);
+   /* model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
+
+    Long nbRating = services.sign().NbRatingForSign(signId);
+    model.addAttribute("nbRating", nbRating);*/
+    model.addAttribute("appName", appName);
+    model.addAttribute("isAuthenticated", AuthentModel.isAuthenticated(principal));
+    return "admin/sign";
   }
 
   private boolean isIOSDevice(String userAgent) {
