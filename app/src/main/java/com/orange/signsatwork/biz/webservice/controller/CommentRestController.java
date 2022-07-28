@@ -1,11 +1,14 @@
 package com.orange.signsatwork.biz.webservice.controller;
 
-import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.CommentData;
+import com.orange.signsatwork.biz.persistence.model.SignData;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.webservice.model.CommentCreationViewApi;
 import com.orange.signsatwork.biz.webservice.model.CommentResponseApi;
 import com.orange.signsatwork.biz.webservice.model.CommentViewApi;
+import com.orange.signsatwork.biz.webservice.model.VideoResponseApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +47,15 @@ public class CommentRestController {
     User user = services.user().withUserName(principal.getName());
     services.video().createVideoComment(videoId, user.id, commentCreationViewApi.getText());
 
+    return commentResponseApi;
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_COMMENT, method = RequestMethod.DELETE)
+  public CommentResponseApi deleteApiVideo(@PathVariable long commentId, HttpServletResponse response, Principal principal) {
+    CommentResponseApi commentResponseApi = new CommentResponseApi();
+    Comment comment = services.comment().withId(commentId);
+    services.comment().delete(comment);
     return commentResponseApi;
   }
 }

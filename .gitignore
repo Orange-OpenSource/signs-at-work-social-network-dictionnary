@@ -2,3 +2,6 @@ app/application.yml
 **/.idea
 **/*.iml
 **/target
+/application-dev.yml
+/application-form.yml
+/application-prod.yml

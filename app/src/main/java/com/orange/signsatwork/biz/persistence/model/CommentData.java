@@ -28,6 +28,7 @@ import java.util.Date;
 
 public class CommentData {
 
+  public final Long id;
   public final String text;
   public final Date commentDate;
   public final String userName;
@@ -36,11 +37,12 @@ public class CommentData {
 
 
   public CommentData(Object[] queryResultItem) {
-    text = toString(queryResultItem[0]);
-    commentDate = toDate(queryResultItem[1]);
-    userName = toString(queryResultItem[2]);
-    firstName = toString(queryResultItem[3]);
-    lastName = toString(queryResultItem[4]);
+    id = toLong(queryResultItem[0]);
+    text = toString(queryResultItem[1]);
+    commentDate = toDate(queryResultItem[2]);
+    userName = toString(queryResultItem[3]);
+    firstName = toString(queryResultItem[4]);
+    lastName = toString(queryResultItem[5]);
   }
 
   public String name() {

@@ -310,7 +310,11 @@ public class AdminController {
     List<CommentData> commentDatas = queryAllComments.stream()
       .map(objectArray -> new CommentData(objectArray))
       .collect(Collectors.toList());
-    model.addAttribute("commentDatas", commentDatas);
+    List<CommentAdminView> commentAdminViews = commentDatas.stream()
+      .map(commentData ->
+      new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), messageByLocaleService.getMessage("comment_from_user_delete_message", new Object[]{commentData.name()})))
+      .collect(Collectors.toList());
+    model.addAttribute("commentDatas", commentAdminViews);
     List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);
     List<VideoHistoryData> videoHistoryDatas = queryAllVideosHistory.stream()
       .map(objectArray -> new VideoHistoryData(objectArray))

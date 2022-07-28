@@ -87,7 +87,7 @@ public class RestApi {
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";
   public static final String WS_SEC_SIGN_CREATE = WS_SEC + "sign/create";
 
-
+  public static final String WS_SEC_COMMENT = WS_SEC + "comments/{commentId}";
 
   public static final String WS_SEC_REQUEST_RENAME = WS_SEC + "request/{requestId}/rename";
 
