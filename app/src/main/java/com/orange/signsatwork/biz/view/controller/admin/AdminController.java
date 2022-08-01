@@ -281,7 +281,7 @@ public class AdminController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/sign/{signId}/{videoId}")
-  public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+  public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, HttpServletRequest  request, Principal principal, Model model) {
 
 /*    Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
@@ -294,6 +294,9 @@ public class AdminController {
     model.addAttribute("commentCreationView", new CommentCreationView());
     model.addAttribute("favoriteCreationView", new FavoriteCreationView());*/
 
+    String userAgent = request.getHeader("User-Agent");
+
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
     Sign sign = services.sign().withIdSignsView(signId);
     if (sign == null) {

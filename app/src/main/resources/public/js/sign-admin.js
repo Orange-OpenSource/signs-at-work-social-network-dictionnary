@@ -493,9 +493,45 @@ $modal_delete_comment.on('hidden.bs.modal', function() {
   }
 });
 
+function onClick() {
+  event.preventDefault();
+  document.getElementById('InputFile').click()
+}
+
+var definitionSignSelectForiOSDevice, videoSignSelectForiOSDevice;
+var sign_id;
+
+function onClickDefinitionSign(signId) {
+  event.preventDefault();
+  document.getElementById('InputFile').click();
+  definitionSignSelectForiOSDevice="definitionSignVideoSelect";
+  sign_Id = signId;
+
+}
+
+function onClickVideoSign(signId, videoId) {
+  event.preventDefault();
+  document.getElementById('InputFile').click();
+  videoSignSelectForiOSDevice="videoSignSelect";
+  sign_Id = signId;
+  video_Id = videoId;
+}
+
 $(document).ready(function(){
   $('input[type="file"]').change(function(e){
     $("#add_video_file_dailymotion").modal('show');
+    if (definitionSignSelectForiOSDevice) {
+      $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileForSignDefinition/'+ sign_Id);
+      document.getElementById('add_video_file_dailymotion_title_sign_definition').style.visibility = "visible";
+      document.getElementById('add_video_file_dailymotion_title_sign_definition').style.display = "block";
+      document.getElementById('add_video_file_dailymotion_title_sign_video').style.display = "none";
+    }
+    if (videoSignSelectForiOSDevice) {
+      $('#uploadSelectedVideoFile').attr('action', '/ws/sec/uploadSelectedVideoFileFromSign/'+ sign_Id + '/' + video_Id);
+      document.getElementById('add_video_file_dailymotion_title_sign_video').style.visibility = "visible";
+      document.getElementById('add_video_file_dailymotion_title_sign_video').style.display = "block";
+      document.getElementById('add_video_file_dailymotion_title_sign_definition').style.display = "none";
+    }
     document.getElementById('submitButtonFileDailymotion').disabled=false;
   });
 });
