@@ -183,7 +183,7 @@
             <div class="panel-body">
               <ul th:if="${not #lists.isEmpty(commentDatas)}"  style="padding-left: 0px;">
                   <li class="aside_bckg_li" th:each="comment :${commentDatas}" style="border: 1px solid #ddd;;">
-                    <a class="all_li_clickable" style="cursor:pointer" th:data-commentId="${comment.id}" th:data-commentMessage="${comment.messageInDeleteCommentModal}" th:onclick="javascript:commentDelete(this.getAttribute('data-commentId'), this.getAttribute('data-commentMessage'))">
+                    <a class="all_li_clickable" style="cursor:pointer" th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:data-commentId="${comment.id}" th:data-commentMessage="${comment.messageInDeleteCommentModal}" th:onclick="javascript:commentDelete(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-commentId'), this.getAttribute('data-commentMessage'))">
                     <div class="col-lg-2 col-md-2 col-xs-6">
                       <h4 class="comment_name" th:text="${comment.name}"></h4>
                     </div>

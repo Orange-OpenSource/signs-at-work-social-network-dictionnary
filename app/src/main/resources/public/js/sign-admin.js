@@ -433,18 +433,12 @@ $delete_definition_sign.on('hidden.bs.modal', function() {
   }
 });
 
-function commentDelete(commentId, commentMessage) {
-  console.log("commentDelete ", commentId, commentMessage);
+function commentDelete(signId, videoId, commentId, commentMessage) {
+  console.log("commentDelete ", signId, videoId, commentId, commentMessage);
   var confirmCommentDelete = document.getElementById('confirm_comment_delete');
   confirmCommentDelete.textContent = commentMessage;
   $("#modal_delete_comment").modal('show');
-  $('#deleteComment').attr('action', '/ws/sec/comments/'+ commentId);
-
-  /*document.getElementById('label_record').style.visibility = "visible";
-  document.getElementById('label_record').style.display = "block";
-  document.getElementById('label_record_sign_definition').style.display = "none";
-  labelRecord = document.getElementById('label_record');
-  labelAfterRecord = document.getElementById('label_after_record');*/
+  $('#deleteComment').attr('action', '/ws/sec/signs/' +signId+ '/videos/' +videoId+ '/comments/'+ commentId)
 }
 
 var errorDeletedCommentSpan = document.getElementById('errorDeletedCommentSpan');

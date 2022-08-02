@@ -60,4 +60,6 @@ public interface EmailService {
   public void sendDeleteLockUnLockUserMessage(String to, String subject, String userName, String username, String body1, String body2, String messServer, Locale locale);
 
   public void sendUpdateProfilUserByAdminMessage(String to, String subject, String username, String body, String messageServerType, Locale locale);
+
+  public void sendCommentDeleteMessage(String[] to, String subject, String userName, Date commentDate, String url, String videoName, Locale locale);
 }

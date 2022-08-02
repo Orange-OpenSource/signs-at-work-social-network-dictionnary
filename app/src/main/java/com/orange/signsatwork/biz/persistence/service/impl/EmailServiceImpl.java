@@ -940,4 +940,57 @@ public class EmailServiceImpl implements EmailService {
       }
     }
   }
+
+  public void sendCommentDeleteMessage(String[] to, String subject, String userName, Date commentDate, String url, String videoName, Locale locale) {
+    InputStream imageIs = null;
+    String imageName;
+    try {
+      if (appName.equals("Signs@Form")) {
+        imageName = "logo-textForm_blue-background.png";
+      } else if (appName.equals("Signs@ADIS")){
+        imageName = "logo-textADIS_blue-white.png";
+      } else {
+        imageName = "logo-text_blue-background.png";
+      }
+      MimeMessage message = emailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(message, true);
+      helper.setTo(to);
+      helper.setSubject(subject);
+      helper.setFrom(adminUsername);
+      Context ctx = new Context(locale);
+      ctx.setVariable("user_name", userName);
+      ctx.setVariable("comment_date", commentDate);
+      ctx.setVariable("url", url);
+      ctx.setVariable("imageResourceName", imageName);
+      ctx.setVariable("appName", appName);
+      String htmlContent = templateEngine.process("email-delete-comment", ctx);
+      helper.setText(htmlContent, true);
+      imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
+      byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
+      InputStreamSource imageSource = new ByteArrayResource((imageByteArray));
+
+      helper.addInline(imageName, imageSource, "image/png");
+
+      String values = adminUsername + ';' + videoName + ';' + userName + ';' + commentDate ;
+      MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+
+      emailSender.send(message);
+    } catch (MailException exception) {
+      exception.printStackTrace();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (imageIs != null) {
+        try {
+          imageIs.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
 }

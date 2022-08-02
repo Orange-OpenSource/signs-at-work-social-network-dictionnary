@@ -3537,6 +3537,15 @@ h2.container_CGU {
   width: 75px;
   margin-top: 10px;
 }
+
+.cross_red{
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -328px center;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+}
 /* End Messages Serveur */
 
 .unlock_black {
