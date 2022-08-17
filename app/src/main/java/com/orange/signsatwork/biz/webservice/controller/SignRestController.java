@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.security.Principal;
@@ -1389,7 +1390,14 @@ public class SignRestController {
       String id = videoDailyMotion.id;
       videoUrl= fileName;
 
-      Request request = services.sign().requestForSign(sign);
+      if (changeSignDefinition(signId, response, videoUrl, sign)) {
+        videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        return videoResponseApi;
+      }
+
+
+
+    /*  Request request = services.sign().requestForSign(sign);
       if (request != null) {
         if (request.requestVideoDescription != null && sign.videoDefinition != null) {
           if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
@@ -1410,7 +1418,7 @@ public class SignRestController {
           }
         }
       }
-      services.sign().changeSignVideoDefinition(signId, videoUrl);
+      services.sign().changeSignVideoDefinition(signId, videoUrl);*/
 
       Runnable task = () -> {
         int i = 0;
@@ -1448,6 +1456,66 @@ public class SignRestController {
     }
   }
 
+  private boolean changeSignDefinition(long signId, HttpServletResponse response, String videoUrl, Sign sign) {
+    String dailymotionId;
+    Request request = services.sign().requestForSign(sign);
+    if (request != null) {
+      if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+          if (sign.videoDefinition != null) {
+            if (sign.videoDefinition.contains("http")) {
+              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return true;
+              }
+            } else {
+              DeleteFilesOnServer(sign.videoDefinition, null);
+            }
+          }
+        }
+      }
+    } else {
+      if (sign.videoDefinition != null) {
+        if (sign.videoDefinition.contains("http")) {
+          dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return true;
+          }
+        } else {
+          DeleteFilesOnServer(sign.videoDefinition, null);
+        }
+      }
+    }
+    services.sign().changeSignVideoDefinition(signId, videoUrl);
+    return false;
+  }
+
+  private void changeSignDefinitionOnServer(long signId, String videoUrl, Sign sign) {
+
+    Request request = services.sign().requestForSign(sign);
+    if (request != null) {
+      if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+          if (sign.videoDefinition != null) {
+              DeleteFilesOnServer(sign.videoDefinition, null);
+            }
+          }
+        }
+    } else {
+      if (sign.videoDefinition != null) {
+          DeleteFilesOnServer(sign.videoDefinition, null);
+      }
+    }
+    services.sign().changeSignVideoDefinition(signId, videoUrl);
+    return;
+  }
+
   private VideoResponseApi handleSelectedVideoFileUploadForSignDefinitionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
@@ -1470,7 +1538,7 @@ public class SignRestController {
 
     videoUrl= newAbsoluteFileName;
 
-    if (sign.videoDefinition != null) {
+/*    if (sign.videoDefinition != null) {
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
         if (request.requestVideoDescription != null && sign.videoDefinition != null) {
@@ -1480,7 +1548,9 @@ public class SignRestController {
         }
       }
     }
-    services.sign().changeSignVideoDefinition(signId, videoUrl);
+    services.sign().changeSignVideoDefinition(signId, videoUrl);*/
+
+    changeSignDefinitionOnServer(signId, videoUrl, sign);
 
     response.setStatus(HttpServletResponse.SC_OK);
     videoResponseApi.signId = sign.id;

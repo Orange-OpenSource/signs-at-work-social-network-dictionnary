@@ -1928,23 +1928,25 @@ public class FileUploadRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_SIGN_DEFINITION , method = RequestMethod.POST)
-  public String uploadRecordedVideoFileForSignDefinition(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
+  public String uploadRecordedVideoFileForSignDefinition(@RequestBody VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
     if (environment.getProperty("app.dailymotion_url").isEmpty()) {
-      return handleRecordedVideoFileForSignDefinitionOnServer(videoFile, signId, principal, response);
+      return handleRecordedVideoFileForSignDefinitionOnServer(videoFile, signId, principal, response, request);
     } else {
-      return handleRecordedVideoFileForSignDefinition(videoFile, signId, principal, response);
+      return handleRecordedVideoFileForSignDefinition(videoFile, signId, principal, response, request);
     }
   }
 
-  private String handleRecordedVideoFileForSignDefinition(VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
+  private String handleRecordedVideoFileForSignDefinition(VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
 
+    String title = null, bodyMail = null, messageType = null;
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
+
 
     if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -1968,6 +1970,8 @@ public class FileUploadRestController {
       Sign sign = null;
       String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
       sign = services.sign().withId(signId);
+      Videos videos = services.video().forSign(signId);
+      List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
 
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
@@ -2029,7 +2033,10 @@ public class FileUploadRestController {
 
       videoUrl= file;
 
-        if (sign.videoDefinition != null) {
+      if (changeSignDefinition(signId, response, request, title, bodyMail, messageType, videoUrl, sign, emails, user))
+        return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+
+/*        if (sign.videoDefinition != null) {
           if (sign.videoDefinition.contains("http")) {
             dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
             try {
@@ -2039,34 +2046,49 @@ public class FileUploadRestController {
               return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
             }
           }
+          title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+          bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+          messageType = "UpdateSignDefinitionMessage";
+        } else {
+          title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+          bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+          messageType = "AddSignDefinitionMessage";
         }
         services.sign().changeSignVideoDefinition(signId, videoUrl);
+        if (emails.size() != 0 && user.username == services.user().getAdmin().username) {
+          Sign finalSign = sign;
+          Runnable task = () -> {
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), title, bodyMail, finalSign.name, messageType, request.getLocale());
+          };
+          new Thread(task).start();
+        }*/
 
-      Runnable task = () -> {
-        int i = 0;
-        VideoDailyMotion dailyMotion;
-        do {
-          dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
-          try {
-            Thread.sleep(2 * 1000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
+        Runnable task = () -> {
+          int i = 0;
+          VideoDailyMotion dailyMotion;
+          do {
+            dailyMotion = services.sign().getVideoDailyMotionDetails(id, url);
+            try {
+              Thread.sleep(2 * 1000);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            if (i > 60) {
+              break;
+            }
+            i++;
+            log.info("status " + dailyMotion.status);
           }
-          if (i > 60) {
-            break;
+          while (!dailyMotion.status.equals("published"));
+          if (!dailyMotion.embed_url.isEmpty()) {
+            services.sign().changeSignVideoDefinition(signId, dailyMotion.embed_url);
           }
-          i++;
-          log.info("status " + dailyMotion.status);
-        }
-        while (!dailyMotion.status.equals("published"));
-        if (!dailyMotion.embed_url.isEmpty()) {
-          services.sign().changeSignVideoDefinition(signId, dailyMotion.embed_url);
-        }
-      };
+        };
 
-      new Thread(task).start();
-      response.setStatus(HttpServletResponse.SC_OK);
-      return Long.toString(sign.id);
+        new Thread(task).start();
+        response.setStatus(HttpServletResponse.SC_OK);
+        return Long.toString(sign.id);
 
     } catch (Exception errorDailymotionUploadFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -2074,15 +2096,18 @@ public class FileUploadRestController {
     }
   }
 
-  private String handleRecordedVideoFileForSignDefinitionOnServer(VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response) {
+  private String handleRecordedVideoFileForSignDefinitionOnServer(VideoFile videoFile, @PathVariable long signId, Principal principal, HttpServletResponse response, HttpServletRequest request) {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
 
+    String title = null, bodyMail = null, messageType = null;
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
+
+    User user = services.user().withUserName(principal.getName());
 
     if (videoFile.contents.length() > parseSize(environment.getProperty("spring.servlet.multipart.max-request-size"))) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -2101,13 +2126,33 @@ public class FileUploadRestController {
     }
 
     Sign sign = services.sign().withId(signId);
+    Videos videos = services.video().forSign(signId);
+    List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
 
     videoUrl= file;
 
-    if (sign.videoDefinition != null) {
+    changeSignDefinitionOnServer(signId, request, title, bodyMail, messageType, videoUrl, sign, emails, user);
+
+
+ /*   if (sign.videoDefinition != null) {
       DeleteFilesOnServer(sign.videoDefinition, null);
+      title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+      bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+      messageType = "UpdateSignDefinitionMessage";
+    } else {
+      title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+      bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+      messageType = "AddSignDefinitionMessage";
     }
     services.sign().changeSignVideoDefinition(signId, videoUrl);
+
+    if (emails.size() != 0 && user.username == services.user().getAdmin().username) {
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), title, bodyMail, sign.name, messageType, request.getLocale());
+      };
+      new Thread(task).start();
+    }*/
 
     response.setStatus(HttpServletResponse.SC_OK);
     return Long.toString(sign.id);
@@ -2115,21 +2160,24 @@ public class FileUploadRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_SIGN_DEFINITION, method = RequestMethod.POST)
-  public String uploadSelectedVideoFileForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws IOException, JCodecException, InterruptedException {
+  public String uploadSelectedVideoFileForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws IOException, JCodecException, InterruptedException {
     if (environment.getProperty("app.dailymotion_url").isEmpty()) {
-      return handleSelectedVideoFileUploadForSignDefinitionOnServer(file, signId, principal, response);
+      return handleSelectedVideoFileUploadForSignDefinitionOnServer(file, signId, principal, response, request);
     } else {
-      return handleSelectedVideoFileUploadForSignDefinition(file, signId, principal, response);
+      return handleSelectedVideoFileUploadForSignDefinition(file, signId, principal, response, request);
     }
   }
 
-  private String handleSelectedVideoFileUploadForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private String handleSelectedVideoFileUploadForSignDefinition(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     {
+      String title = null, bodyMail = null, messageType = null;
       String videoUrl = null;
       String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
       File inputFile;
       Sign sign = null;
       sign = services.sign().withId(signId);
+      Videos videos = services.video().forSign(signId);
+      List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
 
       try {
         storageService.store(file);
@@ -2201,25 +2249,9 @@ public class FileUploadRestController {
 
         videoUrl= fileName;
 
-        Request request = services.sign().requestForSign(sign);
-        if (request != null) {
-          if (request.requestVideoDescription != null && sign.videoDefinition != null) {
-            if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-              if (sign.videoDefinition != null) {
-                if (sign.videoDefinition.contains("http")) {
-                  dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
-                  try {
-                    DeleteVideoOnDailyMotion(dailymotionId);
-                  } catch (Exception errorDailymotionDeleteVideo) {
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
-                  }
-                }
-              }
-            }
-          }
-        }
-          services.sign().changeSignVideoDefinition(signId, videoUrl);
+        if (changeSignDefinition(signId, response, requestHttp, title, bodyMail, messageType, videoUrl, sign, emails, user))
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+
 
         Runnable task = () -> {
           int i = 0;
@@ -2254,13 +2286,128 @@ public class FileUploadRestController {
     }
   }
 
-  private String handleSelectedVideoFileUploadForSignDefinitionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response) throws InterruptedException {
+  private boolean changeSignDefinition(long signId, HttpServletResponse response, HttpServletRequest requestHttp, String title, String bodyMail, String messageType, String videoUrl, Sign sign, List<String> emails, User user) {
+    String dailymotionId;
+    Request request = services.sign().requestForSign(sign);
+    if (request != null) {
+      if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+          if (sign.videoDefinition != null) {
+            if (sign.videoDefinition.contains("http")) {
+              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+              try {
+                DeleteVideoOnDailyMotion(dailymotionId);
+              } catch (Exception errorDailymotionDeleteVideo) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return true;
+              }
+            } else {
+              DeleteFilesOnServer(sign.videoDefinition, null);
+            }
+            title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+            bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+            messageType = "UpdateSignDefinitionMessage";
+          } else {
+            title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+            bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+            messageType = "AddSignDefinitionMessage";
+          }
+        }
+      }
+    } else {
+      if (sign.videoDefinition != null) {
+        if (sign.videoDefinition.contains("http")) {
+          dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          try {
+            DeleteVideoOnDailyMotion(dailymotionId);
+          } catch (Exception errorDailymotionDeleteVideo) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return true;
+          }
+        } else {
+          DeleteFilesOnServer(sign.videoDefinition, null);
+        }
+        title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+        bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+        messageType = "UpdateSignDefinitionMessage";
+      } else {
+        title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+        bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+        messageType = "AddSignDefinitionMessage";
+      }
+    }
+    if (emails.size() != 0 && user.username == services.user().getAdmin().username) {
+      final String finalTitle = title;
+      final String finalBodyMail = bodyMail;
+      final String finalMessageType = messageType;
+      final String finalSignName = sign.name;
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
+        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
+      };
+      new Thread(task).start();
+    }
+    services.sign().changeSignVideoDefinition(signId, videoUrl);
+    return false;
+  }
+
+  private void changeSignDefinitionOnServer(long signId, HttpServletRequest requestHttp, String title, String bodyMail, String messageType, String videoUrl, Sign sign, List<String> emails, User user) {
+
+    Request request = services.sign().requestForSign(sign);
+    if (request != null) {
+      if (request.requestVideoDescription != null && sign.videoDefinition != null) {
+        if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
+          if (sign.videoDefinition != null) {
+            DeleteFilesOnServer(sign.videoDefinition, null);
+            title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+            bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+            messageType = "UpdateSignDefinitionMessage";
+          } else {
+            title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+            bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+            messageType = "AddSignDefinitionMessage";
+          }
+        }
+      }
+    } else {
+      if (sign.videoDefinition != null) {
+        DeleteFilesOnServer(sign.videoDefinition, null);
+        title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+        bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+        messageType = "UpdateSignDefinitionMessage";
+      } else {
+        title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+        bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+        messageType = "AddSignDefinitionMessage";
+      }
+    }
+    if (emails.size() != 0 && user.username == services.user().getAdmin().username) {
+      final String finalTitle = title;
+      final String finalBodyMail = bodyMail;
+      final String finalMessageType = messageType;
+      final String finalSignName = sign.name;
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
+        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
+      };
+      new Thread(task).start();
+    }
+    services.sign().changeSignVideoDefinition(signId, videoUrl);
+    return;
+  }
+
+  private String handleSelectedVideoFileUploadForSignDefinitionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long signId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     {
+      String title = null, bodyMail = null, messageType = null;
       String videoUrl = null;
       String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Sign sign = services.sign().withId(signId);
+      Videos videos = services.video().forSign(signId);
+      List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
       File inputFile;
+
+      User user = services.user().withUserName(principal.getName());
 
       try {
         storageService.store(file);
@@ -2274,7 +2421,9 @@ public class FileUploadRestController {
 
       videoUrl= newAbsoluteFileName;
 
-      if (sign.videoDefinition != null) {
+      changeSignDefinitionOnServer(signId, requestHttp, title, bodyMail, messageType, videoUrl, sign, emails, user);
+
+/*      if (sign.videoDefinition != null) {
         Request request = services.sign().requestForSign(sign);
         if (request != null) {
           if (request.requestVideoDescription != null && sign.videoDefinition != null) {
@@ -2284,7 +2433,7 @@ public class FileUploadRestController {
           }
         }
       }
-      services.sign().changeSignVideoDefinition(signId, videoUrl);
+      services.sign().changeSignVideoDefinition(signId, videoUrl);*/
 
       response.setStatus(HttpServletResponse.SC_OK);
       return Long.toString(sign.id);
