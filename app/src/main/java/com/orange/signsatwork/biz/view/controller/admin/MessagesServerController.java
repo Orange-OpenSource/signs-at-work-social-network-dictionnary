@@ -102,6 +102,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all_message"));
     model.addAttribute("classDropdownTitle", "  all-signs_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
@@ -147,6 +149,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("all_message"));
     model.addAttribute("classDropdownTitle", "  all-signs_blue pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
@@ -192,6 +196,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("requestCreateUser"));
     model.addAttribute("classDropdownTitle", "  member_add_blue_circle_filter pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
@@ -237,6 +243,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("requestChangeUserLogin"));
     model.addAttribute("classDropdownTitle", "  member_blue_circle_filter pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
@@ -282,6 +290,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("userProfilAction"));
     model.addAttribute("classDropdownTitle", "  member_blue_circle_filter pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
@@ -327,6 +337,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("communityAction"));
     model.addAttribute("classDropdownTitle", "  group_project_blue_circle_filter pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
@@ -372,6 +384,8 @@ public class MessagesServerController {
     model.addAttribute("isCommunityActionDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("request"));
     model.addAttribute("classDropdownTitle", "  sign_ask-for_blue_filter pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
@@ -417,8 +431,57 @@ public class MessagesServerController {
     model.addAttribute("isCommunityActionDesc", false);
     model.addAttribute("isRequestAsc", false);
     model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataSignDesc", false);
+    model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("shareFavorite"));
     model.addAttribute("classDropdownTitle", "  pinlist_shared_filter pull-left");
+    model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
+
+    return "fragments/frame-messages-server";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/dataSign/frame")
+  public String messagesServerisDataSignFrame(@RequestParam("isDataSignAsc") boolean isDataSignAsc, Model model) {
+    AuthentModel.addAuthenticatedModel(model, true);
+    model.addAttribute("title", messageByLocaleService.getMessage("server_message"));
+    model.addAttribute("appName", appName);
+
+    MessagesServer queryMessagesServer;
+    if (isDataSignAsc == true) {
+      queryMessagesServer = services.messageServerService().messagesServerDataSignDesc();
+      model.addAttribute("isDataSignDesc", true);
+      model.addAttribute("isDataSignAsc", false);
+      model.addAttribute("classDropdownDirection", "  up_black pull-right");
+    } else {
+      queryMessagesServer = services.messageServerService().messagesServerDataSignAsc();
+      model.addAttribute("isDataSignAsc", true);
+      model.addAttribute("isDataSignDesc", false);
+      model.addAttribute("classDropdownDirection", "  down_black pull-right");
+    }
+
+    List<MessageServerView> messagesServerView = queryMessagesServer.stream()
+      .map(messageServer -> new MessageServerView(messageServer.id, messageServer.date, messageServer.type, messageServer.values, createMessageText(messageServer.type, messageServer.values), messageServer.action))
+      .collect(Collectors.toList());
+
+    model.addAttribute("messagesServer", messagesServerView);
+
+    model.addAttribute("isAllAsc", false);
+    model.addAttribute("isAllDesc", false);
+    model.addAttribute("isRequestCreateUserAsc", false);
+    model.addAttribute("isRequestCreateUserDesc", false);
+    model.addAttribute("isRequestChangeUserLoginAsc", false);
+    model.addAttribute("isRequestChangeUserLoginDesc", false);
+    model.addAttribute("isUserProfilActionAsc", false);
+    model.addAttribute("isUserProfilActionDesc", false);
+    model.addAttribute("isCommunityActionAsc", false);
+    model.addAttribute("isCommunityActionDesc", false);
+    model.addAttribute("isRequestAsc", false);
+    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isShareFavoriteDesc", false);
+    model.addAttribute("isShareFavoriteAsc", false);
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("signsAction"));
+    model.addAttribute("classDropdownTitle", "  fond_blanc_noir_LSF_filter pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
 
     return "fragments/frame-messages-server";

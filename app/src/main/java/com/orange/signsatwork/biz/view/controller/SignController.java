@@ -1119,6 +1119,8 @@ public class SignController {
     model.addAttribute("signView", sign);
     model.addAttribute("signDefinitionCreationView", new SignDefinitionCreationView());
     model.addAttribute("appName", appName);
+    model.addAttribute("modalSignDefinitionAction", "/sec/sign/" + signId + "/definitionText");
+
     return "my-sign-definition";
   }
 
@@ -1129,6 +1131,39 @@ public class SignController {
     services.sign().changeSignTextDefinition(signId, signDefinitionCreationView.getTextDefinition());
 
     return "redirect:/sec/sign/" + signId + "/definition";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/sign/{signId}/{videoId}/definitionText", method = RequestMethod.POST)
+  public String changeDefinitionSignByAdmin(@PathVariable long signId, @PathVariable long videoId, @ModelAttribute SignDefinitionCreationView signDefinitionCreationView, HttpServletRequest requestHttp) {
+    String title = null, bodyMail = null, messageType = null;
+    Sign sign = services.sign().withId(signId);
+    Videos videos = services.video().forSign(signId);
+    List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+    if (sign.textDefinition != null) {
+      title = messageByLocaleService.getMessage("update_sign_definition_text_title", new Object[]{sign.name});
+      bodyMail = messageByLocaleService.getMessage("update_sign_definition_text_body", new Object[]{sign.name});
+      messageType = "UpdateSignDefinitionTextMessage";
+    } else {
+      title = messageByLocaleService.getMessage("add_sign_definition_text_title", new Object[]{sign.name});
+      bodyMail = messageByLocaleService.getMessage("add_sign_definition_text_body", new Object[]{sign.name});
+      messageType = "AddSignDefinitionTextMessage";
+    }
+    if (emails.size() != 0) {
+      final String finalTitle = title;
+      final String finalBodyMail = bodyMail;
+      final String finalMessageType = messageType;
+      final String finalSignName = sign.name;
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
+        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
+      };
+      new Thread(task).start();
+    }
+
+    services.sign().changeSignTextDefinition(signId, signDefinitionCreationView.getTextDefinition());
+
+    return "redirect:/sec/admin/sign/" + signId + "/" + videoId;
   }
 
   private String signUrl(long signId) {

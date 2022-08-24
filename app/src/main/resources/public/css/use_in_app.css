@@ -3403,6 +3403,25 @@ h2.container_CGU {
   margin-right: 7px;
 }
 
+.fond_blanc_noir_LSF_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -416px center;
+  background-size: auto 20px;
+  height: 20px;
+  width: 21px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.btn .fond_blanc_noir_LSF_filter.pull-left {
+  background-size: auto 20px;
+  height: 20px;
+  width: 21px;
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
 .OkNo-Supprimer-Annuler {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");
   background-repeat: no-repeat;

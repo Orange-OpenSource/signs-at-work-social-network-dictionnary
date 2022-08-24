@@ -183,7 +183,7 @@ public class SignRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_SIGN_DEFINITION, method = RequestMethod.POST)
-  public String deleteVideoSignDefinition(@PathVariable long signId, HttpServletResponse response) {
+  public String deleteVideoSignDefinition(@PathVariable long signId, HttpServletResponse response, HttpServletRequest request) {
     Sign sign = services.sign().withId(signId);
     if (sign.videoDefinition != null) {
       if (sign.videoDefinition.contains("http")) {
@@ -199,6 +199,23 @@ public class SignRestController {
       }
     }
     services.sign().deleteSignVideoDefinition(signId);
+    String title = messageByLocaleService.getMessage("delete_sign_definition_title", new Object[]{sign.name});
+    String bodyMail = messageByLocaleService.getMessage("delete_sign_definition_body", new Object[]{sign.name});
+    String messageType = "DeleteSignDefinitionMessage";
+    Videos videos = services.video().forSign(signId);
+    List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+    if (emails.size() != 0) {
+      final String finalTitle = title;
+      final String finalBodyMail = bodyMail;
+      final String finalMessageType = messageType;
+      final String finalSignName = sign.name;
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
+        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, request.getLocale());
+      };
+      new Thread(task).start();
+    }
+
     response.setStatus(HttpServletResponse.SC_OK);
     return "";
   }

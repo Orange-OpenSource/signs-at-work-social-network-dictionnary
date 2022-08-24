@@ -36,9 +36,9 @@
                   <h2 class="pull-right text_hyphenation" th:utext="#{sign.description(${signView.name})}"></h2>
                 </div>
             </div>
-            <form id="requestDescription" th:action="@{/sec/sign/} + ${signView.id} + '/definitionText' " th:object="${signDefinitionCreationView}" method="post">
+            <form id="signDefinition" th:action="${modalSignDefinitionAction}" th:object="${signDefinitionCreationView}" method="post">
               <div class="modal-body text-center">
-                <textarea  th:text="${signView.textDefinition}"  th:placeholder="#{sign.enter_definition_text}" type="text"   class="testinput  border form-control" name="textDefinition" rows="3" cols="40" th:autofocus="true" required="true"/>
+                <textarea  th:text="${signView.textDefinition}"  th:placeholder="#{sign.enter_definition_text}" type="text" class="testinput  border form-control" id="textDefinition" name="textDefinition" rows="3" cols="40" th:autofocus="true" required="true"/>
               </div>
                 <div class="modal-footer">
                   <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">

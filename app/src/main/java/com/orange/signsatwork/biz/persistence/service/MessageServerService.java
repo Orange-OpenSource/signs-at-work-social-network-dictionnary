@@ -34,6 +34,10 @@ public interface MessageServerService {
 
   MessagesServer messagesServerShareFavoriteDesc();
 
+  MessagesServer messagesServerDataSignAsc();
+
+  MessagesServer messagesServerDataSignDesc();
+
   MessagesServer messagesServerCreateUserChangeEmailToDoAsc();
 
   MessagesServer messagesServerCreateUserChangeEmailWithId(long id);

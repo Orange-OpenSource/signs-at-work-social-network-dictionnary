@@ -281,7 +281,7 @@ public class AdminController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/sign/{signId}/{videoId}")
-  public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, HttpServletRequest  request, Principal principal, Model model) {
+  public String video(@PathVariable long signId, @PathVariable long videoId, HttpServletRequest  request, Principal principal, Model model) {
 
 /*    Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
@@ -372,6 +372,8 @@ public class AdminController {
     model.addAttribute("nbRating", nbRating);*/
     model.addAttribute("appName", appName);
     model.addAttribute("isAuthenticated", AuthentModel.isAuthenticated(principal));
+    model.addAttribute("modalSignDefinitionAction", "/sec/sign/" + signId + "/" +videoId + "/definitionText");
+
     return "admin/sign";
   }
 

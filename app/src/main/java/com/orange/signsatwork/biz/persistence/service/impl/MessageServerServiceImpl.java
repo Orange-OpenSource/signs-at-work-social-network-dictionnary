@@ -93,6 +93,16 @@ public class MessageServerServiceImpl implements MessageServerService {
   }
 
   @Override
+  public MessagesServer messagesServerDataSignAsc() {
+    return messagesServerFrom(messageServerRepository.findMessagesServerDataSignAsc());
+  }
+
+  @Override
+  public MessagesServer messagesServerDataSignDesc() {
+    return messagesServerFrom(messageServerRepository.findMessagesServerDataSignDesc());
+  }
+
+  @Override
   public MessagesServer messagesServerCreateUserChangeEmailToDoAsc() {
     return messagesServerFrom(messageServerRepository.findMessagesServerCreateUserChangeEmailToDoAsc());
   }

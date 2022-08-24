@@ -63,7 +63,7 @@
           <div class="pull-left member_add_blue_circle_filter"></div>
           <span th:text="#{requestCreateUser}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestCreateUserDesc}" th:href="@{//sec/admin/requestCreateUser/frame(isRequestCreateUserAsc=${isRequestCreateUserAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestCreateUserDesc}" th:href="@{/sec/admin/requestCreateUser/frame(isRequestCreateUserAsc=${isRequestCreateUserAsc})}">
           <div class="pull-left member_add_blue_circle_filter"></div>
           <span th:text="#{requestCreateUser}"></span>
           <div class="pull-right v-done-up_black"></div>
@@ -79,7 +79,7 @@
           <div class="pull-left member_blue_circle_filter"></div>
           <span th:text="#{requestChangeUserLogin}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestChangeUserLoginDesc}" th:href="@{//sec/admin/requestChangeUserLogin/frame(isRequestChangeUserLoginAsc=${isRequestChangeUserLoginAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestChangeUserLoginDesc}" th:href="@{/sec/admin/requestChangeUserLogin/frame(isRequestChangeUserLoginAsc=${isRequestChangeUserLoginAsc})}">
           <div class="pull-left member_blue_circle_filter"></div>
           <span th:text="#{requestChangeUserLogin}"></span>
           <div class="pull-right v-done-up_black"></div>
@@ -95,7 +95,7 @@
           <div class="pull-left member_blue_circle_filter"></div>
           <span th:text="#{userProfilAction}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isUserProfilActionDesc}" th:href="@{//sec/admin/userProfilAction/frame(isUserProfilActionAsc=${isUserProfilActionAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isUserProfilActionDesc}" th:href="@{/sec/admin/userProfilAction/frame(isUserProfilActionAsc=${isUserProfilActionAsc})}">
           <div class="pull-left member_blue_circle_filter"></div>
           <span th:text="#{userProfilAction}"></span>
           <div class="pull-right v-done-up_black"></div>
@@ -111,7 +111,7 @@
           <div class="pull-left group_project_blue_circle_filter"></div>
           <span th:text="#{communityAction}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isCommunityActionDesc}" th:href="@{//sec/admin/communityAction/frame(isCommunityActionAsc=${isCommunityActionAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isCommunityActionDesc}" th:href="@{/sec/admin/communityAction/frame(isCommunityActionAsc=${isCommunityActionAsc})}">
           <div class="pull-left group_project_blue_circle_filter"></div>
           <span th:text="#{communityAction}"></span>
           <div class="pull-right v-done-up_black"></div>
@@ -127,7 +127,7 @@
           <div class="pull-left sign_ask-for_blue_filter"></div>
           <span th:text="#{request}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestDesc}" th:href="@{//sec/admin/request/frame(isRequestAsc=${isRequestAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestDesc}" th:href="@{/sec/admin/request/frame(isRequestAsc=${isRequestAsc})}">
           <div class="pull-left sign_ask-for_blue_filter"></div>
           <span th:text="#{request}"></span>
           <div class="pull-right v-done-up_black"></div>
@@ -143,9 +143,25 @@
           <div class="pull-left pinlist_shared_filter"></div>
           <span th:text="#{shareFavorite}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isShareFavoriteDesc}" th:href="@{//sec/admin/shareFavorite/frame(isShareFavoriteAsc=${isShareFavoriteAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isShareFavoriteDesc}" th:href="@{/sec/admin/shareFavorite/frame(isShareFavoriteAsc=${isShareFavoriteAsc})}">
           <div class="pull-left pinlist_shared_filter"></div>
           <span th:text="#{shareFavorite}"></span>
+          <div class="pull-right v-done-up_black"></div>
+        </a>
+      </li>
+      <li>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isDataSignAsc}" th:href="@{/sec/admin/dataSign/frame(isDataSignAsc=${isDataSignAsc})}">
+          <div class="pull-left fond_blanc_noir_LSF_filter"></div>
+          <span th:text="#{signsAction}"></span>
+          <div class="pull-right v-done-down_black"></div>
+        </a>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${!isDataSignAsc and !isDataSignDesc}" th:href="@{/sec/admin/dataSign/frame(isDataSignAsc=${isDataSignAsc})}">
+        <div class="pull-left fond_blanc_noir_LSF_filter"></div>
+          <span th:text="#{signsAction}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isDataSignDesc}" th:href="@{/sec/admin/dataSign/frame(isDataSignAsc=${isDataSignAsc})}">
+          <div class="pull-left fond_blanc_noir_LSF_filter"></div>
+          <span th:text="#{signsAction}"></span>
           <div class="pull-right v-done-up_black"></div>
         </a>
       </li>
@@ -219,6 +235,9 @@
                 <div th:if="${messageServer.type == 'CommentDeleteMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UpdateSignDefinitionMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'AddSignDefinitionMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteSignDefinitionMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddSignDefinitionTextMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateSignDefinitionTextMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>
