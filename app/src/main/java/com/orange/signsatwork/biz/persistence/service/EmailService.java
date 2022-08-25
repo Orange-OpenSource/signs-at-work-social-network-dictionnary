@@ -64,4 +64,6 @@ public interface EmailService {
   public void sendCommentDeleteMessage(String[] to, String subject, String userName, Date commentDate, String url, String videoName, Locale locale);
 
   public void sendSignDefinitionMessage(String[] to, String subject, String body, String signName, String messageType, Locale locale);
+
+  public void sendVideoMessage(String[] to, String subject, String body, String videoName, String messageType, Locale locale);
 }

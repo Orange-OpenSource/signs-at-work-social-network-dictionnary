@@ -91,9 +91,13 @@ public class SignRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEO_DELETE, method = RequestMethod.POST)
-  public String deleteVideo(@PathVariable long signId, @PathVariable long videoId, HttpServletResponse response) {
+  public String deleteVideo(@PathVariable long signId, @PathVariable long videoId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) {
     String dailymotionId;
+    String title, bodyMail, messageType;
+    User user = services.user().withUserName(principal.getName());
+    User admin = services.user().getAdmin();
     Sign sign = services.sign().withId(signId);
+    Video video = services.video().withId(videoId);
     if (sign.videos.list().size() == 1) {
       Request request = services.sign().requestForSign(sign);
       if (request != null) {
@@ -148,6 +152,20 @@ public class SignRestController {
       }
       String thumbnail = services.video().withId(sign.lastVideoId).pictureUri;
       services.sign().delete(sign);
+      if (user.username == admin.username) {
+        title = messageByLocaleService.getMessage("delete_sign_title", new Object[]{sign.name});
+        bodyMail = messageByLocaleService.getMessage("delete_sign_body", new Object[]{sign.name});
+        messageType = "DeleteSignMessage";
+        List<String> emails = new ArrayList<String>();
+        emails.add(video.user.username);
+        if (emails.size() != 0) {
+          Runnable task = () -> {
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendVideoMessage(emails.toArray(new String[emails.size()]), title, bodyMail, sign.name, messageType, requestHttp.getLocale());
+          };
+          new Thread(task).start();
+        }
+      }
       if (sign.url.contains("http")) {
         dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
         try {
@@ -163,8 +181,22 @@ public class SignRestController {
       return "/signs/mostrecent?isMostRecent=false&isSearch=false";
 
     } else {
-      Video video = services.video().withId(videoId);
       services.video().delete(video);
+      if (user.username == admin.username) {
+        String videoName = sign.name + "_" + video.idForName;
+        title = messageByLocaleService.getMessage("delete_video_title", new Object[]{videoName});
+        bodyMail = messageByLocaleService.getMessage("delete_video_body", new Object[]{videoName});
+        messageType = "DeleteVideoMessage";
+        Videos videos = services.video().forSign(signId);
+        List<String> emails = videos.stream().filter(v -> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+        if (emails.size() != 0) {
+          Runnable task = () -> {
+            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
+            services.emailService().sendVideoMessage(emails.toArray(new String[emails.size()]), title, bodyMail, videoName, messageType, requestHttp.getLocale());
+          };
+          new Thread(task).start();
+        }
+      }
       if (video.url.contains("http")) {
         dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
         try {

@@ -238,6 +238,9 @@
                 <div th:if="${messageServer.type == 'DeleteSignDefinitionMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'AddSignDefinitionTextMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UpdateSignDefinitionTextMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateVideoMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteSignMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteVideoMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>
