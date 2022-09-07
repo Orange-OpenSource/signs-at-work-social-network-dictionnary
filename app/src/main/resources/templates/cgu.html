@@ -50,19 +50,28 @@
               </a>
             </li>
             <li class="aside_bckg_li">
-              <!--<a data-target="#see_condition_of_use" data-toggle="modal" href="#">-->
-              <a class="all_li_clickable" th:href="@{/about-cgu-lsf}">
-                <div class="pull-left cgu_conditions_lsf_blue"></div>
-                <h2 class="container_H2 text_hyphenation" th:text="#{see.condition_of_use}"/>
+              <a class="all_li_clickable" data-target="#read_personnal_data" data-toggle="modal" href="#">
+                <div class="pull-left cgu_conditions_blue"></div>
+                <h2 class="container_H2 text_hyphenation" th:text="#{cgu.read_personal_data}"/>
                 <div>
                   <div class="pull-right chevron"></div>
                 </div>
               </a>
             </li>
             <li class="aside_bckg_li">
-              <a class="all_li_clickable" data-target="#read_personnal_data" data-toggle="modal" href="#">
-                <div class="pull-left cgu_conditions_blue"></div>
-                <h2 class="container_H2 text_hyphenation" th:text="#{cgu.read_personal_data}"/>
+              <a th:if="${#strings.equals(appName,'Signs@Work')}" class="all_li_clickable" th:href="@{/doc/Doc_FALC04022022-CGU_Signs@Work_version_pour_le_web.pdf}" th:target="_blank">
+                <div class="pull-left FALC_logo"></div>
+                <h2 class="container_H2 text_hyphenation" th:text="#{cgu.read_falc}"/>
+                <div>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <!--<a data-target="#see_condition_of_use" data-toggle="modal" href="#">-->
+              <a class="all_li_clickable" th:href="@{/about-cgu-lsf}">
+                <div class="pull-left cgu_conditions_lsf_blue"></div>
+                <h2 class="container_H2 text_hyphenation" th:text="#{see.condition_of_use}"/>
                 <div>
                   <div class="pull-right chevron"></div>
                 </div>

@@ -554,6 +554,15 @@ h1, .h1 {
   margin-top: 4px;
 }
 
+.FALC_logo {
+  background-image: url("/img/FALC_logo.jpg");
+  background-repeat: no-repeat;
+  background-size: auto 33px;
+  height: 33px;
+  width: 33px;
+  margin-top: 7px;
+}
+
 .cgu_conditions_lsf_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -274px center;

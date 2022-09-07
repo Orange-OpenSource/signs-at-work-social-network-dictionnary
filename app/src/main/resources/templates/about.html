@@ -50,6 +50,13 @@
                 <div class="pull-right chevron"></div>
               </a>
             </li>
+            <li th:if="${#strings.equals(appName,'Signs@Work')}" class="aside_bckg_li">
+              <a class="all_li_clickable" th:href="@{/doc/Doc_FALC04022022-CGU_Signs@Work_version_pour_le_web.pdf}" th:target="_blank">
+                <div class="pull-left FALC_logo"></div>
+                <h2 class="container_H2 text_hyphenation" th:text="#{about_see_condition_of_use_in_falc}"/>
+                <div class="pull-right chevron"></div>
+              </a>
+            </li>
             <li class="aside_bckg_li">
               <a class="all_li_clickable" th:href="'mailto:' + ${appContactSupport} + '?subject=' + #{question.to.support(${appName})}">
                 <div class="pull-left contact"></div>
