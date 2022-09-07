@@ -1240,6 +1240,7 @@ input[type=search].form-control,input[type=search].form-control:focus{
 #sign_not_available {
   margin-top: 30px;
   color: #4866F7;
+  white-space: pre-line;
 }
 
 .new_blue-signs {
@@ -3620,7 +3621,7 @@ panel-title {
 }
 
 .panel-title::after {
-  content: "\f107";
+  content: url("/img/menu_down_black_24x24.png");;
   color: #333;
   top: -2px;
   right: 0px;
@@ -3628,10 +3629,10 @@ panel-title {
   font-family: "FontAwesome"
 }
 
-.panel-title[aria-expanded="true"]::after {
-  content: "\f106";
-}
 
+.panel-title[aria-expanded="true"]::after {
+  content: url("/img/menu_up_black_24x24.png");
+}
 /*
  * Added 12-27-20 to showcase full title clickthrough
  */
