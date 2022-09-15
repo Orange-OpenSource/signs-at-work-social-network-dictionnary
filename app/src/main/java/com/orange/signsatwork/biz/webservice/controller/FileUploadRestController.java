@@ -365,15 +365,23 @@ public class FileUploadRestController {
       }
       String title = messageByLocaleService.getMessage("update_video_title", new Object[]{videoName});
       String bodyMail = messageByLocaleService.getMessage("update_video_body", new Object[]{getAppUrl() + "/sign/" + sign.id + "/" + video.id});
-      String messageType = "UpdateVideoMessage";
+      String messageType = "UpdateVideoSendEmailMessage";
       Videos videos = services.video().forSign(signId.getAsLong());
-      List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+      List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
+        List<String> finalEmails = emails;
+        String finalMessageType = messageType;
         Runnable task = () -> {
-          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendVideoMessage(emails.toArray(new String[emails.size()]), title, bodyMail, videoName, messageType, requestHttp.getLocale());
+          log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+          services.emailService().sendVideoMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, videoName, finalMessageType, requestHttp.getLocale());
         };
         new Thread(task).start();
+      } else {
+        messageType = "UpdateVideoMessage";
+        String values = admin.username + ';' + videoName;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
       }
     }
   }
@@ -1999,8 +2007,8 @@ public class FileUploadRestController {
       String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
       sign = services.sign().withId(signId);
       Videos videos = services.video().forSign(signId);
-      List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
-
+      List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();
       if (authTokenInfo.isExpired()) {
         dalymotionToken.retrieveToken();
@@ -2155,8 +2163,8 @@ public class FileUploadRestController {
 
     Sign sign = services.sign().withId(signId);
     Videos videos = services.video().forSign(signId);
-    List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
-
+    List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+    emails = emails.stream().distinct().collect(Collectors.toList());
     videoUrl= file;
 
     changeSignDefinitionOnServer(signId, requestHttp, title, bodyMail, messageType, videoUrl, sign, emails, user);
@@ -2205,8 +2213,8 @@ public class FileUploadRestController {
       Sign sign = null;
       sign = services.sign().withId(signId);
       Videos videos = services.video().forSign(signId);
-      List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
-
+      List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       try {
         storageService.store(file);
         inputFile = storageService.load(file.getOriginalFilename()).toFile();
@@ -2316,6 +2324,7 @@ public class FileUploadRestController {
 
   private boolean changeSignDefinition(long signId, HttpServletResponse response, HttpServletRequest requestHttp, String title, String bodyMail, String messageType, String videoUrl, Sign sign, List<String> emails, User user) {
     String dailymotionId;
+    User admin = services.user().getAdmin();
     Request request = services.sign().requestForSign(sign);
     if (request != null) {
       if (request.requestVideoDescription != null && sign.videoDefinition != null) {
@@ -2334,11 +2343,11 @@ public class FileUploadRestController {
             }
             title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
             bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
-            messageType = "UpdateSignDefinitionMessage";
+            messageType = "UpdateSignDefinitionSendEmailMessage";
           } else {
             title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
             bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
-            messageType = "AddSignDefinitionMessage";
+            messageType = "AddSignDefinitionSendEmailMessage";
           }
         }
       }
@@ -2357,30 +2366,42 @@ public class FileUploadRestController {
         }
         title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
         bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
-        messageType = "UpdateSignDefinitionMessage";
+        messageType = "UpdateSignDefinitionSendEmailMessage";
       } else {
         title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
         bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
-        messageType = "AddSignDefinitionMessage";
+        messageType = "AddSignDefinitionSendEmailMessage";
       }
     }
-    if (emails.size() != 0 && user.username == services.user().getAdmin().username) {
-      final String finalTitle = title;
-      final String finalBodyMail = bodyMail;
-      final String finalMessageType = messageType;
-      final String finalSignName = sign.name;
-      Runnable task = () -> {
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
-        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
-      };
-      new Thread(task).start();
+    if (user.username == admin.username) {
+      if (emails.size() != 0) {
+        final String finalTitle = title;
+        final String finalBodyMail = bodyMail;
+        final String finalMessageType = messageType;
+        final String finalSignName = sign.name;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
+          services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        if (messageType.equals("UpdateSignDefinitionSendEmailMessage")) {
+          messageType = "UpdateSignDefinitionMessage";
+        } else if (messageType.equals("AddSignDefinitionSendEmailMessage")) {
+          messageType = "AddSignDefinitionMessage";
+        }
+        String values = admin.username + ';' + sign.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
     }
+
     services.sign().changeSignVideoDefinition(signId, videoUrl);
     return false;
   }
 
   private void changeSignDefinitionOnServer(long signId, HttpServletRequest requestHttp, String title, String bodyMail, String messageType, String videoUrl, Sign sign, List<String> emails, User user) {
-
+    User admin = services.user().getAdmin();
     Request request = services.sign().requestForSign(sign);
     if (request != null) {
       if (request.requestVideoDescription != null && sign.videoDefinition != null) {
@@ -2389,11 +2410,11 @@ public class FileUploadRestController {
             DeleteFilesOnServer(sign.videoDefinition, null);
             title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
             bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
-            messageType = "UpdateSignDefinitionMessage";
+            messageType = "UpdateSignDefinitionSendEmailMessage";
           } else {
             title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
             bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
-            messageType = "AddSignDefinitionMessage";
+            messageType = "AddSignDefinitionSendEmailMessage";
           }
         }
       }
@@ -2402,23 +2423,34 @@ public class FileUploadRestController {
         DeleteFilesOnServer(sign.videoDefinition, null);
         title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
         bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
-        messageType = "UpdateSignDefinitionMessage";
+        messageType = "UpdateSignDefinitionSendEmailMessage";
       } else {
         title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
         bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
-        messageType = "AddSignDefinitionMessage";
+        messageType = "AddSignDefinitionSendEmailMessage";
       }
     }
-    if (emails.size() != 0 && user.username == services.user().getAdmin().username) {
-      final String finalTitle = title;
-      final String finalBodyMail = bodyMail;
-      final String finalMessageType = messageType;
-      final String finalSignName = sign.name;
-      Runnable task = () -> {
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
-        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
-      };
-      new Thread(task).start();
+    if (user.username == admin.username) {
+      if (emails.size() != 0) {
+        final String finalTitle = title;
+        final String finalBodyMail = bodyMail;
+        final String finalMessageType = messageType;
+        final String finalSignName = sign.name;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
+          services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        if (messageType.equals("UpdateSignDefinitionSendEmailMessage")) {
+          messageType = "UpdateSignDefinitionMessage";
+        } else if (messageType.equals("AddSignDefinitionSendEmailMessage")) {
+          messageType = "AddSignDefinitionMessage";
+        }
+        String values = admin.username + ';' + sign.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
     }
     services.sign().changeSignVideoDefinition(signId, videoUrl);
     return;
@@ -2432,7 +2464,8 @@ public class FileUploadRestController {
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Sign sign = services.sign().withId(signId);
       Videos videos = services.video().forSign(signId);
-      List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+      List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       File inputFile;
 
       User user = services.user().withUserName(principal.getName());
@@ -2584,15 +2617,17 @@ public class FileUploadRestController {
         }
         services.community().changeDescriptionVideo(communityId, videoUrl);
         List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
           Community finalCommunity = community;
+          List<String> finalEmails = emails;
           Runnable task = () -> {
             String title, bodyMail;
             final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
             title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
-            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+            log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
           };
 
           new Thread(task).start();
@@ -2668,15 +2703,17 @@ public class FileUploadRestController {
     }
     services.community().changeDescriptionVideo(communityId, videoUrl);
     List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+    emails = emails.stream().distinct().collect(Collectors.toList());
     if (emails.size() != 0) {
       Community finalCommunity = community;
+      List<String> finalEmails = emails;
       Runnable task = () -> {
         String title, bodyMail;
         final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
         title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
         bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-        services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+        services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
       };
 
       new Thread(task).start();
@@ -2787,15 +2824,17 @@ public class FileUploadRestController {
           }
           services.community().changeDescriptionVideo(communityId, videoUrl);
           List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          emails = emails.stream().distinct().collect(Collectors.toList());
           if (emails.size() != 0) {
             Community finalCommunity = community;
+            List<String> finalEmails = emails;
             Runnable task = () -> {
               String title, bodyMail;
               final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
-              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+              log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+              services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
             };
 
             new Thread(task).start();
@@ -2861,15 +2900,17 @@ public class FileUploadRestController {
       }
       services.community().changeDescriptionVideo(communityId, videoUrl);
       List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
         Community finalCommunity = community;
+        List<String> finalEmails = emails;
         Runnable task = () -> {
           String title, bodyMail;
           final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
           title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
           bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
-          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+          log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
         };
 
         new Thread(task).start();

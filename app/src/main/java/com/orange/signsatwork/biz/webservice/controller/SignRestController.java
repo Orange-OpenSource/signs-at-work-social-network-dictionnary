@@ -155,15 +155,21 @@ public class SignRestController {
       if (user.username == admin.username) {
         title = messageByLocaleService.getMessage("delete_sign_title", new Object[]{sign.name});
         bodyMail = messageByLocaleService.getMessage("delete_sign_body", new Object[]{sign.name});
-        messageType = "DeleteSignMessage";
+        messageType = "DeleteSignSendEmailMessage";
         List<String> emails = new ArrayList<String>();
         emails.add(video.user.username);
         if (emails.size() != 0) {
+          String finalMessageType = messageType;
           Runnable task = () -> {
             log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendVideoMessage(emails.toArray(new String[emails.size()]), title, bodyMail, sign.name, messageType, requestHttp.getLocale());
+            services.emailService().sendVideoMessage(emails.toArray(new String[emails.size()]), title, bodyMail, sign.name, finalMessageType, requestHttp.getLocale());
           };
           new Thread(task).start();
+        } else {
+          messageType = "DeleteSignMessage";
+          String values = admin.username + ';' + sign.name;
+          MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
         }
       }
       if (sign.url.contains("http")) {
@@ -186,15 +192,23 @@ public class SignRestController {
         String videoName = sign.name + "_" + video.idForName;
         title = messageByLocaleService.getMessage("delete_video_title", new Object[]{videoName});
         bodyMail = messageByLocaleService.getMessage("delete_video_body", new Object[]{videoName});
-        messageType = "DeleteVideoMessage";
+        messageType = "DeleteVideoSendEmailMessage";
         Videos videos = services.video().forSign(signId);
-        List<String> emails = videos.stream().filter(v -> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+        List<String> emails = videos.stream().filter(v -> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+        emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
+          List<String> finalEmails = emails;
+          String finalMessageType1 = messageType;
           Runnable task = () -> {
-            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendVideoMessage(emails.toArray(new String[emails.size()]), title, bodyMail, videoName, messageType, requestHttp.getLocale());
+            log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+            services.emailService().sendVideoMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, videoName, finalMessageType1, requestHttp.getLocale());
           };
           new Thread(task).start();
+        } else {
+          messageType = "DeleteVideoMessage";
+          String values = admin.username + ';' + videoName;
+          MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
         }
       }
       if (video.url.contains("http")) {
@@ -235,17 +249,25 @@ public class SignRestController {
     String bodyMail = messageByLocaleService.getMessage("delete_sign_definition_body", new Object[]{sign.name});
     String messageType = "DeleteSignDefinitionMessage";
     Videos videos = services.video().forSign(signId);
-    List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+    List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+    emails = emails.stream().distinct().collect(Collectors.toList());
     if (emails.size() != 0) {
+      messageType = "DeleteSignDefinitionSendEmailMessage";
       final String finalTitle = title;
       final String finalBodyMail = bodyMail;
       final String finalMessageType = messageType;
       final String finalSignName = sign.name;
+      List<String> finalEmails = emails;
       Runnable task = () -> {
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
-        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, request.getLocale());
+        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), finalTitle, finalBodyMail);
+        services.emailService().sendSignDefinitionMessage(finalEmails.toArray(new String[finalEmails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, request.getLocale());
       };
       new Thread(task).start();
+    } else {
+      User admin = services.user().getAdmin();
+      String values = admin.username + ';' + sign.name;
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -912,22 +934,28 @@ public class SignRestController {
   @RequestMapping(value = RestApi.WS_SEC_SIGN_VIDEO_RENAME, method = RequestMethod.PUT)
   public SignResponseApi renameSign(@RequestBody SignCreationViewApi signCreationViewApi, @PathVariable Long signId, @PathVariable Long videoId, @RequestParam("force") Boolean force, HttpServletResponse response, Principal principal) throws
     InterruptedException {
+    Boolean isAdmin = false;
     SignResponseApi signResponseApi = new SignResponseApi();
 
-    if (!AuthentModel.hasRole("ROLE_USER_A")) {
+    if (!AuthentModel.hasRole("ROLE_USER_A") && !AuthentModel.hasRole("ROLE_ADMIN")) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       signResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
       return signResponseApi;
     }
 
     User user = services.user().withUserName(principal.getName());
+    User admin = services.user().getAdmin();
     Videos videos = services.video().forUser(user.id);
 
-    boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
-    if (!isVideoBellowToMe) {
-      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-      signResponseApi.errorMessage = messageByLocaleService.getMessage("video_not_below_to_you");
-      return signResponseApi;
+    if (user.username != admin.username) {
+      boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
+      if (!isVideoBellowToMe) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        signResponseApi.errorMessage = messageByLocaleService.getMessage("video_not_below_to_you");
+        return signResponseApi;
+      }
+    } else {
+      isAdmin = true;
     }
 
     Sign sign = services.sign().withId(signId);
@@ -941,7 +969,7 @@ public class SignRestController {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return signResponseApi;
           } else {
-            renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, videoId, signCreationViewApi.getName());
+            renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, videoId, signCreationViewApi.getName(), sign.name, isAdmin);
             response.setStatus(HttpServletResponse.SC_OK);
             return signResponseApi;
           }
@@ -980,7 +1008,7 @@ public class SignRestController {
           }
           if (sign_requestWithSameName != null) {
             if (force) {
-              renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName());
+              renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName(), sign.name, isAdmin);
               response.setStatus(HttpServletResponse.SC_OK);
               return signResponseApi;
             } else {
@@ -989,7 +1017,7 @@ public class SignRestController {
               return signResponseApi;
             }
           } else {
-            renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName());
+            renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName(), sign.name, isAdmin);
             response.setStatus(HttpServletResponse.SC_OK);
             return signResponseApi;
           }
@@ -1006,19 +1034,23 @@ public class SignRestController {
     return signResponseApi;
   }
 
-  private void renameSignAndAssociateToRequest(Long signId, long requestId, long videoId, String name) {
+  private void renameSignAndAssociateToRequest(Long signId, long requestId, long videoId, String name, String oldName, Boolean isAdmin) {
     services.sign().renameSignAndAssociateToRequest(signId, requestId, name);
-    Video video = services.video().withId(videoId);
+  /*  Video video = services.video().withId(videoId);
     if (video.url.contains("http")) {
       ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
-    }
-    ChangeSignNamesOnDailyMotion(signId, videoId, name);
+    }*/
+    ChangeSignNamesOnDailyMotion(signId, videoId, name, oldName);
   }
 
-  private void ChangeSignNamesOnDailyMotion(Long signId, Long videoId, String name) {
+  private void ChangeSignNamesOnDailyMotion(Long signId, Long videoId, String name, String oldName) {
     Sign sign = services.sign().withId(signId);
-    sign.videos.stream().filter(v -> v.id != videoId).forEach(v -> ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name));
+    sign.videos.stream().forEach(v -> {
+      if (v.url.contains("http")) {
+        ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name);
+      }});
     if (sign.videoDefinition != null) {
+
       if (!sign.videoDefinition.isEmpty()) {
         String signDefinitionTitle =  messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});
         if (sign.videoDefinition.contains("http")) {
@@ -1028,19 +1060,22 @@ public class SignRestController {
     }
   }
 
-  private void renameSignAndAssociatedRequest(Long signId, Long videoId, String name) {
+  private void renameSignAndAssociatedRequest(Long signId, Long videoId, String name, String oldName, Boolean isAdmin) {
     services.sign().renameSign(signId, name);
-    Video video = services.video().withId(videoId);
+/*    Video video = services.video().withId(videoId);
     if (video.url.contains("http")) {
       ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
-    }
-    ChangeAllNamesOnDailyMotion(signId, videoId, name);
+    }*/
+    ChangeAllNamesOnDailyMotion(signId, videoId, name, oldName, isAdmin);
   }
 
-  private void ChangeAllNamesOnDailyMotion(Long signId, Long videoId, String name) {
+  private void ChangeAllNamesOnDailyMotion(Long signId, Long videoId, String name, String oldName, Boolean isAdmin) {
     Sign sign = services.sign().withId(signId);
     Request request = services.sign().requestForSign(sign);
-    sign.videos.stream().filter(v -> v.id != videoId).forEach(v -> ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name));
+    sign.videos.stream().forEach(v -> {
+      if (v.url.contains("http")) {
+        ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name);
+      }});
     if (sign.videoDefinition != null) {
       if (!sign.videoDefinition.isEmpty()) {
         String signDefinitionTitle = messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});

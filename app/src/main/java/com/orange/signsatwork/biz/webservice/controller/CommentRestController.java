@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -63,6 +61,7 @@ public class CommentRestController {
   @RequestMapping(value = RestApi.WS_SEC_COMMENT, method = RequestMethod.DELETE)
   public CommentResponseApi deleteApiVideo(@PathVariable long signId, @PathVariable long videoId, @PathVariable long commentId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
     CommentResponseApi commentResponseApi = new CommentResponseApi();
+    User admin = services.user().getAdmin();
     List<String> emails = new ArrayList<>();
     String videoName;
     Sign sign = services.sign().withId(signId);
@@ -70,6 +69,7 @@ public class CommentRestController {
     Comment comment = services.comment().withId(commentId);
     emails.add(video.user.username);
     emails.add(comment.user.username);
+    emails = emails.stream().distinct().collect(Collectors.toList());
     services.comment().delete(comment);
     if ((video.idForName == 0) || (sign.nbVideo == 1)) {
       videoName = sign.name;
@@ -77,16 +77,21 @@ public class CommentRestController {
       videoName = sign.name + "_" + video.idForName;
     }
     if (emails.size() != 0) {
+      List<String> finalEmails = emails;
       Runnable task = () -> {
         String title, bodyMail;
         final String url = getAppUrl() + "/sign/" + sign.id + "/" + video.id;
         title = messageByLocaleService.getMessage("comment_delete_title", new Object[]{videoName});
         bodyMail = messageByLocaleService.getMessage("comment_delete_body", new Object[]{comment.user.name(), comment.commentDate, url});
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-        services.emailService().sendCommentDeleteMessage(emails.toArray(new String[emails.size()]), title, comment.user.name(), comment.commentDate, url, videoName, request.getLocale());
+        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+        services.emailService().sendCommentDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, comment.user.name(), comment.commentDate, url, videoName, request.getLocale());
       };
 
       new Thread(task).start();
+    } else {
+      String values = admin.username + ';' + videoName + ';' + comment.user.name() + ';' + comment.commentDate ;
+      MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
     }
     return commentResponseApi;
   }

@@ -51,10 +51,10 @@ public interface MessageServerRepository extends CrudRepository<MessageServerDB,
   @Query("select distinct m FROM MessageServerDB m where m.type='FavoriteShareMessage' order by m.date desc")
   List<MessageServerDB> findMessagesServerShareFavoriteDesc();
 
-  @Query("select distinct m FROM MessageServerDB m where m.type in ('CommentDeleteMessage', 'UpdateSignDefinitionMessage', 'AddSignDefinitionMessage', 'DeleteSignDefinitionMessage', 'AddSignDefinitionTextMessage', 'UpdateSignDefinitionTextMessage') order by m.date asc")
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('CommentDeleteMessage', 'CommentDeleteSendEmailMessage', 'UpdateSignDefinitionMessage', 'UpdateSignDefinitionSendEmailMessage', 'AddSignDefinitionMessage', 'AddSignDefinitionSendEmailMessage', 'DeleteSignDefinitionMessage', 'DeleteSignDefinitionSendEmailMessage', 'AddSignDefinitionTextMessage', 'UpdateSignDefinitionTextMessage', 'AddSignDefinitionTextSendEmailMessage', 'UpdateSignDefinitionTextSendEmailMessage', 'DeleteVideoSendEmailMessage', 'DeleteVideoMessage', 'DeleteSignSendEmailMessage', 'DeleteSignMessage', 'UpdateVideoSendEmailMessage', 'UpdateVideoMessage') order by m.date asc")
   List<MessageServerDB> findMessagesServerDataSignAsc();
 
-  @Query("select distinct m FROM MessageServerDB m where m.type in ('CommentDeleteMessage', 'UpdateSignDefinitionMessage', 'AddSignDefinitionMessage', 'DeleteSignDefinitionMessage', 'AddSignDefinitionTextMessage', 'UpdateSignDefinitionTextMessage', 'DeleteVideoMessage', 'DeleteSignMessage') order by m.date desc")
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('CommentDeleteMessage', 'CommentDeleteSendEmailMessage', 'UpdateSignDefinitionMessage','UpdateSignDefinitionSendEmailMessage', 'AddSignDefinitionMessage', 'AddSignDefinitionSendEmailMessage', 'DeleteSignDefinitionMessage', 'DeleteSignDefinitionSendEmailMessage', 'AddSignDefinitionTextSendEmailMessage', 'UpdateSignDefinitionTextSendEmailMessage', 'DeleteVideoSendEmailMessage', 'DeleteVideoMessage', 'DeleteSignSendEmailMessage', 'DeleteSignMessage', 'UpdateVideoSendEmailMessage', 'UpdateVideoMessage') order by m.date desc")
   List<MessageServerDB> findMessagesServerDataSignDesc();
 
   @Query("select distinct m FROM MessageServerDB m where m.type in ('RequestCreateUserMessage','RequestChangeEmailMessage') and m.action='TODO' order by m.date asc")

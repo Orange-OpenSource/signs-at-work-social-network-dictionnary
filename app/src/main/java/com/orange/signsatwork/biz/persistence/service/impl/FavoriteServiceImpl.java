@@ -246,13 +246,15 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     if (userDBList.size() != 0) {
       emails = userDBList.stream().filter(u-> u.getEmail() != null).map(u -> u.getEmail()).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
         title = messageByLocaleService.getMessage("favorite_share_by_user_title", new Object[]{userName});
         bodyMail = messageByLocaleService.getMessage("favorite_share_by_user_body", new Object[]{userName, favorite.favoriteName(), url + "/sec/favorite/" + favorite.id});
 
+        List<String> finalEmails = emails;
         Runnable task = () -> {
-          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendFavoriteShareMessage(emails.toArray(new String[emails.size()]), title, userName, favorite.favoriteName(), url + "/sec/favorite/" + favorite.id, locale);
+          log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+          services.emailService().sendFavoriteShareMessage(finalEmails.toArray(new String[finalEmails.size()]), title, userName, favorite.favoriteName(), url + "/sec/favorite/" + favorite.id, locale);
         };
 
         new Thread(task).start();

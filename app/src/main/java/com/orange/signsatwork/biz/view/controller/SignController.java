@@ -43,10 +43,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -71,6 +68,10 @@ public class SignController {
 
   @Value("${app.name}")
   String appName;
+
+  @Value("${app.admin.username}")
+  String adminUsername;
+
   @RequestMapping(value = SIGNS_URL)
   public String signs(@RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
@@ -1139,7 +1140,8 @@ public class SignController {
     String title = null, bodyMail = null, messageType = null;
     Sign sign = services.sign().withId(signId);
     Videos videos = services.video().forSign(signId);
-    List<String> emails = videos.stream().filter(v-> v.user.username != null).map(v -> v.user.username).collect(Collectors.toList());
+    List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+    emails = emails.stream().distinct().collect(Collectors.toList());
     if (sign.textDefinition != null) {
       title = messageByLocaleService.getMessage("update_sign_definition_text_title", new Object[]{sign.name});
       bodyMail = messageByLocaleService.getMessage("update_sign_definition_text_body", new Object[]{sign.name});
@@ -1150,15 +1152,25 @@ public class SignController {
       messageType = "AddSignDefinitionTextMessage";
     }
     if (emails.size() != 0) {
+      if (sign.textDefinition != null) {
+        messageType = "UpdateSignDefinitionTextSendEmailMessage";
+      } else {
+        messageType = "AddSignDefinitionTextSendEmailMessage";
+      }
       final String finalTitle = title;
       final String finalBodyMail = bodyMail;
       final String finalMessageType = messageType;
       final String finalSignName = sign.name;
+      List<String> finalEmails = emails;
       Runnable task = () -> {
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), finalTitle, finalBodyMail);
-        services.emailService().sendSignDefinitionMessage(emails.toArray(new String[emails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
+        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), finalTitle, finalBodyMail);
+        services.emailService().sendSignDefinitionMessage(finalEmails.toArray(new String[finalEmails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
       };
       new Thread(task).start();
+    } else {
+      String values = adminUsername + ';' + sign.name;
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
     }
 
     services.sign().changeSignTextDefinition(signId, signDefinitionCreationView.getTextDefinition());

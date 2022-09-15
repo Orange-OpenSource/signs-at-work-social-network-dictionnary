@@ -969,8 +969,9 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = adminUsername + ';' + videoName + ';' + userName + ';' + commentDate ;
-      MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteMessage", values, ActionType.NO);
+      List<String> toList = Arrays.asList(to);
+      String values = adminUsername + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + videoName + ';' + userName + ';' + commentDate ;
+      MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteSendEmailMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
       emailSender.send(message);
@@ -1020,7 +1021,8 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = adminUsername + ';' + signName;
+      List<String> toList = Arrays.asList(to);
+      String values = adminUsername + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + signName;
       MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
@@ -1071,7 +1073,8 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = adminUsername + ';' + videoName;
+      List<String> toList = Arrays.asList(to);
+      String values = adminUsername + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + videoName;
       MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 

@@ -152,7 +152,7 @@ do
 	echo $sign_description
 	lists_name="$(cut -d';' -f5 <<<"$line")"
 	echo $lists_name
-	user=$(echo "$owner_login:DEnis0007")
+	user=$(echo "$owner_login:1234GAlet")
 response=$(curl -s -u ${user} ${BASE_URL}/ws/sec/signs?fullname=$sign_name_encode)
 echo RESPONSE : $response
 if [ "$response" != "[]" ]; then

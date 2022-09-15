@@ -220,15 +220,17 @@ public class CommunityRestController {
       List<String> name = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
 
       emails = community.users.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
         Community finalCommunity = community;
+        List<String> finalEmails = emails;
         Runnable task = () -> {
           String title, bodyMail;
           final String url = getAppUrl() + "/sec/community/" + finalCommunity.id;
           title = messageByLocaleService.getMessage("community_created_by_user_title");
           bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
-          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendCommunityCreateMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
+          log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+          services.emailService().sendCommunityCreateMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
         };
 
         new Thread(task).start();
@@ -280,14 +282,16 @@ public class CommunityRestController {
     services.community().delete(community);
 
     emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+    emails = emails.stream().distinct().collect(Collectors.toList());
     if (emails.size() != 0) {
       Community finalCommunity = community;
+      List<String> finalEmails = emails;
       Runnable task = () -> {
         String title, bodyMail;
         title = messageByLocaleService.getMessage("community_deleted_by_user_title");
         bodyMail = messageByLocaleService.getMessage("community_deleted_by_user_body", new Object[]{user.name(), finalCommunity.name});
-        log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-        services.emailService().sendCommunityDeleteMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, request.getLocale());
+        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+        services.emailService().sendCommunityDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, request.getLocale());
       };
 
       new Thread(task).start();
@@ -319,14 +323,16 @@ public class CommunityRestController {
           services.community().updateName(communityId, communityCreationViewApi.getName());
           communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.renamed", new Object[]{community.name, communityCreationViewApi.getName()});
           emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          emails = emails.stream().distinct().collect(Collectors.toList());
           if (emails.size() != 0) {
+            List<String> finalEmails = emails;
             Runnable task = () -> {
               String title, bodyMail;
               final String url = getAppUrl() + "/sec/community/" + community.id;
               title = messageByLocaleService.getMessage("community_renamed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_renamed_by_user_body", new Object[]{community.name, communityCreationViewApi.getName(), url});
-              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, communityCreationViewApi.getName(), url, request.getLocale());
+              log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+              services.emailService().sendCommunityRenameMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), community.name, communityCreationViewApi.getName(), url, request.getLocale());
             };
 
             new Thread(task).start();
@@ -352,14 +358,16 @@ public class CommunityRestController {
     } else if (communityCreationViewApi.getDescriptionText() != null && !communityCreationViewApi.getDescriptionText().isEmpty()) {
         services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
         emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
+          List<String> finalEmails1 = emails;
           Runnable task = () -> {
             String title, bodyMail;
             final String url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
             title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
-            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url, request.getLocale());
+            log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title, bodyMail);
+            services.emailService().sendCommunityAddDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title, user.name(), community.name, url, request.getLocale());
           };
 
           new Thread(task).start();
@@ -439,14 +447,16 @@ public class CommunityRestController {
             services.community().updateName(communityId, communityCreationViewApi.get().getName());
             communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.renamed", new Object[]{community.name, communityCreationViewApi.get().getName()});
             emails = community.users.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
+            emails = emails.stream().distinct().collect(Collectors.toList());
             if (emails.size() != 0) {
+              List<String> finalEmails = emails;
               Runnable task = () -> {
                 String title, bodyMail;
                 final String url = getAppUrl() + "/sec/community/" + community.id;
                 title = messageByLocaleService.getMessage("community_renamed_by_user_title");
                 bodyMail = messageByLocaleService.getMessage("community_renamed_by_user_body", new Object[]{community.name, communityCreationViewApi.get().getName(), url});
-                log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                services.emailService().sendCommunityRenameMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, communityCreationViewApi.get().getName(), url, request.getLocale());
+                log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+                services.emailService().sendCommunityRenameMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), community.name, communityCreationViewApi.get().getName(), url, request.getLocale());
               };
 
               new Thread(task).start();
@@ -472,14 +482,16 @@ public class CommunityRestController {
       } else if (communityCreationViewApi.get().getDescriptionText() != null && !communityCreationViewApi.get().getDescriptionText().isEmpty()) {
           services.community().updateDescriptionText(communityId, communityCreationViewApi.get().getDescriptionText());
           emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        emails = emails.stream().distinct().collect(Collectors.toList());
           if (emails.size() != 0) {
+            List<String> finalEmails1 = emails;
             Runnable task = () -> {
               String title, bodyMail;
               final String url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
               title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
-              log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), community.name, url, request.getLocale());
+              log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title, bodyMail);
+              services.emailService().sendCommunityAddDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title, user.name(), community.name, url, request.getLocale());
             };
 
             new Thread(task).start();
@@ -638,15 +650,17 @@ public class CommunityRestController {
         }
         services.community().changeDescriptionVideo(communityId, videoUrl);
         List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
           Community finalCommunity = community;
+          List<String> finalEmails = emails;
           Runnable task = () -> {
             String title, bodyMail;
             final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
             title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
-            log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
+            log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
           };
 
           new Thread(task).start();
@@ -716,15 +730,17 @@ public class CommunityRestController {
       }
       services.community().changeDescriptionVideo(communityId, videoUrl);
       List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+      emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
         Community finalCommunity = community;
+        List<String> finalEmails = emails;
         Runnable task = () -> {
           String title, bodyMail;
           final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
           title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
           bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
-          log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-          services.emailService().sendCommunityAddDescriptionMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
+          log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
         };
 
         new Thread(task).start();
