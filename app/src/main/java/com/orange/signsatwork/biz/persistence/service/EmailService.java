@@ -66,4 +66,6 @@ public interface EmailService {
   public void sendSignDefinitionMessage(String[] to, String subject, String body, String signName, String messageType, Locale locale);
 
   public void sendVideoMessage(String[] to, String subject, String body, String videoName, String messageType, Locale locale);
+
+  public void sendRenameSignMessage(String[] to, String subject, String body, String name, String oldName, String messageType, Locale locale);
 }

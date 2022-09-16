@@ -229,7 +229,7 @@ public class SignRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_SIGN_DEFINITION, method = RequestMethod.POST)
-  public String deleteVideoSignDefinition(@PathVariable long signId, HttpServletResponse response, HttpServletRequest request) {
+  public String deleteVideoSignDefinition(@PathVariable long signId, HttpServletResponse response, HttpServletRequest requestHttp) {
     Sign sign = services.sign().withId(signId);
     if (sign.videoDefinition != null) {
       if (sign.videoDefinition.contains("http")) {
@@ -260,7 +260,7 @@ public class SignRestController {
       List<String> finalEmails = emails;
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), finalTitle, finalBodyMail);
-        services.emailService().sendSignDefinitionMessage(finalEmails.toArray(new String[finalEmails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, request.getLocale());
+        services.emailService().sendSignDefinitionMessage(finalEmails.toArray(new String[finalEmails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
       };
       new Thread(task).start();
     } else {
@@ -932,7 +932,7 @@ public class SignRestController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = RestApi.WS_SEC_SIGN_VIDEO_RENAME, method = RequestMethod.PUT)
-  public SignResponseApi renameSign(@RequestBody SignCreationViewApi signCreationViewApi, @PathVariable Long signId, @PathVariable Long videoId, @RequestParam("force") Boolean force, HttpServletResponse response, Principal principal) throws
+  public SignResponseApi renameSign(@RequestBody SignCreationViewApi signCreationViewApi, @PathVariable Long signId, @PathVariable Long videoId, @RequestParam("force") Boolean force, HttpServletRequest requestHttp,  HttpServletResponse response, Principal principal) throws
     InterruptedException {
     Boolean isAdmin = false;
     SignResponseApi signResponseApi = new SignResponseApi();
@@ -969,7 +969,7 @@ public class SignRestController {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return signResponseApi;
           } else {
-            renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, videoId, signCreationViewApi.getName(), sign.name, isAdmin);
+            renameSignAndAssociateToRequest(signId, requestsMatches.list().get(0).id, videoId, signCreationViewApi.getName(), sign.name, isAdmin, requestHttp);
             response.setStatus(HttpServletResponse.SC_OK);
             return signResponseApi;
           }
@@ -1008,7 +1008,7 @@ public class SignRestController {
           }
           if (sign_requestWithSameName != null) {
             if (force) {
-              renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName(), sign.name, isAdmin);
+              renameSignAndAssociatedRequest(signId, signCreationViewApi.getName(), sign.name, isAdmin, requestHttp);
               response.setStatus(HttpServletResponse.SC_OK);
               return signResponseApi;
             } else {
@@ -1017,7 +1017,7 @@ public class SignRestController {
               return signResponseApi;
             }
           } else {
-            renameSignAndAssociatedRequest(signId, videoId,signCreationViewApi.getName(), sign.name, isAdmin);
+            renameSignAndAssociatedRequest(signId, signCreationViewApi.getName(), sign.name, isAdmin, requestHttp);
             response.setStatus(HttpServletResponse.SC_OK);
             return signResponseApi;
           }
@@ -1034,17 +1034,21 @@ public class SignRestController {
     return signResponseApi;
   }
 
-  private void renameSignAndAssociateToRequest(Long signId, long requestId, long videoId, String name, String oldName, Boolean isAdmin) {
+  private void renameSignAndAssociateToRequest(Long signId, long requestId, long videoId, String name, String oldName, Boolean isAdmin, HttpServletRequest requestHttp) {
     services.sign().renameSignAndAssociateToRequest(signId, requestId, name);
   /*  Video video = services.video().withId(videoId);
     if (video.url.contains("http")) {
       ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
     }*/
-    ChangeSignNamesOnDailyMotion(signId, videoId, name, oldName);
+    ChangeSignNamesOnDailyMotion(signId, name, oldName, isAdmin, requestHttp);
   }
 
-  private void ChangeSignNamesOnDailyMotion(Long signId, Long videoId, String name, String oldName) {
+  private void ChangeSignNamesOnDailyMotion(Long signId, String name, String oldName, Boolean isAdmin, HttpServletRequest requestHttp) {
+    String title, bodyMail, messageType;
     Sign sign = services.sign().withId(signId);
+    if (isAdmin) {
+      sendEmailAndInsertMessage(name, oldName, requestHttp, sign);
+    }
     sign.videos.stream().forEach(v -> {
       if (v.url.contains("http")) {
         ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name);
@@ -1060,17 +1064,46 @@ public class SignRestController {
     }
   }
 
-  private void renameSignAndAssociatedRequest(Long signId, Long videoId, String name, String oldName, Boolean isAdmin) {
+  private void sendEmailAndInsertMessage(String name, String oldName, HttpServletRequest requestHttp, Sign sign) {
+    String bodyMail;
+    String title;
+    String messageType;
+    title = messageByLocaleService.getMessage("rename_sign_title", new Object[]{oldName, name});
+    bodyMail = messageByLocaleService.getMessage("rename_sign_body", new Object[]{oldName, name});
+    messageType = "RenameSignSendEmailMessage";
+    List<String> emails = sign.videos.stream().filter(v -> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+    emails = emails.stream().distinct().collect(Collectors.toList());
+    if (emails.size() != 0) {
+      List<String> finalEmails = emails;
+      String finalMessageType = messageType;
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
+        services.emailService().sendRenameSignMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, name, oldName, finalMessageType, requestHttp.getLocale());
+      };
+      new Thread(task).start();
+    } else {
+      User admin = services.user().getAdmin();
+      messageType = "RenameSignMessage";
+      String values = admin.username + ';' + oldName + ';' + name;
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+    }
+  }
+
+  private void renameSignAndAssociatedRequest(Long signId, String name, String oldName, Boolean isAdmin, HttpServletRequest requestHttp) {
     services.sign().renameSign(signId, name);
 /*    Video video = services.video().withId(videoId);
     if (video.url.contains("http")) {
       ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
     }*/
-    ChangeAllNamesOnDailyMotion(signId, videoId, name, oldName, isAdmin);
+    ChangeAllNamesOnDailyMotion(signId, name, oldName, isAdmin, requestHttp);
   }
 
-  private void ChangeAllNamesOnDailyMotion(Long signId, Long videoId, String name, String oldName, Boolean isAdmin) {
+  private void ChangeAllNamesOnDailyMotion(Long signId, String name, String oldName, Boolean isAdmin, HttpServletRequest requestHttp) {
     Sign sign = services.sign().withId(signId);
+    if (isAdmin) {
+      sendEmailAndInsertMessage(name, oldName, requestHttp, sign);
+    }
     Request request = services.sign().requestForSign(sign);
     sign.videos.stream().forEach(v -> {
       if (v.url.contains("http")) {
