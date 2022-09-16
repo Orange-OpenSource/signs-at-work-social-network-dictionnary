@@ -1,0 +1,22 @@
+{
+   "applinks":{
+      "details":[
+         {
+            "appIDs":[
+                "269J2W3P7L.com.orange.signs-at-form"
+            ],
+            "components":[
+               {
+                   "/": "*",
+               }
+            ]
+         }
+      ]
+   }
+   "webcredentials": {
+        "apps": [ "269J2W3P7L.com.orange.signs-at-form" ]
+    }
+    "appclips": {
+        "apps": ["269J2W3P7L.com.orange.signs-at-form"]
+    }
+}
