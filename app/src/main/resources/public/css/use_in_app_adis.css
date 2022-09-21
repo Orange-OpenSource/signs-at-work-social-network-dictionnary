@@ -1,4 +1,6 @@
-
+#prefetch {
+  background:  url("/img/done_adis.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400_logo_ADIS.png"), url("/img/sprite_pictoAdmin_400X400_ADIS.png") no-repeat;
+}
 
 #main_nav{
   background-color: #662a74;
@@ -193,6 +195,11 @@ a.nav-link:focus,
 a.nav-link:active{
   color: #18c6bf;
   outline: 0;
+}
+
+.nav > li.disabled > a,
+li.disabled > a {
+  color : #18c6bf;
 }
 
 p > a {
@@ -454,4 +461,135 @@ h4.blue-cgu {
 
 .smiley_unhappy_blue_after_rate {
   background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.pin_blue_in_frame {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.logo_signsatwork_white {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.about {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.search_black_desktop {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.member_me_black {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.group_black {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.pinlist_black {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.x-close_black {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.message_black_desktop {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.member_add_blue {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.member_blue {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.member_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.member_add_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.group_project_add_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.group_delete_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png")
+}
+
+.description_sign_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.pinlist_shared_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.member_choose_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.edit_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.pinlist_shared_filter {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.sign_ask-for_blue_filter {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.member_add_blue_circle {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}
+
+.member_blue_circle {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}
+
+.group_project_blue_circle {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}
+
+.member_blue_circle_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}
+
+.member_add_blue_circle_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}
+
+.group_project_blue_circle_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}
+.settings_grey {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+[type="radio"]:checked + span:before ,
+[type="radio"]:checked + [type="hidden"] + span:before {
+   background-image: url("/img/done_adis.png");
+}
+
+[type="radio"]:checked + h4:after ,
+[type="radio"]:checked + [type="hidden"] + h4:after {
+  background-image: url("/img/done_adis.png");
+}
+
+[type="checkbox"]:checked + span:before ,
+[type="checkbox"]:checked + [type="hidden"] + span:before {
+  background-image: url("/img/done_adis.png");
+}
+
+[type="checkbox"]:checked + h4:after ,
+[type="checkbox"]:checked + [type="hidden"] + h4:after {
+  background-image: url("/img/done_adis.png");
 }
