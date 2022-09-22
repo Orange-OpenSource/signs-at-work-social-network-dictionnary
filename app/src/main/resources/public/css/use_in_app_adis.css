@@ -574,6 +574,21 @@ h4.blue-cgu {
   background-image: url("/img/sprite_picto_400X400_ADIS.png");
 }
 
+.prio_blue {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.descriptions_blue {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+.x-close_blue_whitecircle {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+.prio_blue_whitebackground {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
 [type="radio"]:checked + span:before ,
 [type="radio"]:checked + [type="hidden"] + span:before {
    background-image: url("/img/done_adis.png");

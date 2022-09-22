@@ -659,6 +659,8 @@ public class RequestRestController {
       Request request = null;
       RequestResponseApi requestResponseApi = new RequestResponseApi();
       File inputFile;
+      String fileCodec = null;
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
       try {
         storageService.store(file);
@@ -669,6 +671,22 @@ public class RequestRestController {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
         return requestResponseApi;
+      }
+
+      try {
+        fileCodec = SearchFileCodec(newAbsoluteFileName);
+      } catch (Exception errorSerachFileCodec) {
+        fileCodec = "";
+      }
+
+      if (fileCodec.equals("hevc"))
+      {
+        try {
+          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } catch (Exception errorEncodeFileInH264) {
+
+        }
       }
 
       User user = services.user().withUserName(principal.getName());
@@ -719,6 +737,20 @@ public class RequestRestController {
       return requestResponseApi;
 
     }
+  }
+
+  private String SearchFileCodec(String file) {
+    String cmdFileCodec = String.format("ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 %s", file);
+    String fileCodec = NativeInterface.launchAndGetOutput(cmdFileCodec, null, null);
+    return fileCodec;
+  }
+
+  private void EncodeFileInH264(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -i %s -c:v libx264 -crf 20 -c:a copy %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
   }
 
   private void DeleteFileOnServer(String url) {

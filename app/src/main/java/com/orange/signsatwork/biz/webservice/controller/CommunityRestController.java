@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.webservice.controller;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -707,6 +708,9 @@ public class CommunityRestController {
       String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       File inputFile;
+      String fileCodec = null;
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+
       CommunityResponseApi communityResponseApi = new CommunityResponseApi();
       Community community = services.community().withId(communityId);
 
@@ -719,6 +723,22 @@ public class CommunityRestController {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         communityResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
         return communityResponseApi;
+      }
+
+      try {
+        fileCodec = SearchFileCodec(newAbsoluteFileName);
+      } catch (Exception errorSerachFileCodec) {
+        fileCodec = "";
+      }
+
+      if (fileCodec.equals("hevc"))
+      {
+        try {
+          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } catch (Exception errorEncodeFileInH264) {
+
+        }
       }
 
       User user = services.user().withUserName(principal.getName());
@@ -753,6 +773,19 @@ public class CommunityRestController {
     }
   }
 
+  private String SearchFileCodec(String file) {
+    String cmdFileCodec = String.format("ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 %s", file);
+    String fileCodec = NativeInterface.launchAndGetOutput(cmdFileCodec, null, null);
+    return fileCodec;
+  }
+
+  private void EncodeFileInH264(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -i %s -c:v libx264 -crf 20 -c:a copy %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
   private void DeleteFileOnServer(String url) {
     if (url!= null) {
       File video = new File(url);

@@ -1346,6 +1346,8 @@ public class SignRestController {
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
     File inputFile;
+    String fileCodec = null;
+    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
@@ -1358,6 +1360,22 @@ public class SignRestController {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       videoResponseApi.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
       return videoResponseApi;
+    }
+
+    try {
+      fileCodec = SearchFileCodec(newAbsoluteFileName);
+    } catch (Exception errorSerachFileCodec) {
+      fileCodec = "";
+    }
+
+    if (fileCodec.equals("hevc"))
+    {
+      try {
+        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } catch (Exception errorEncodeFileInH264) {
+
+      }
     }
 
     try {
@@ -1641,6 +1659,9 @@ public class SignRestController {
     String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     File inputFile;
+    String fileCodec = null;
+    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+
 
     try {
       storageService.store(file);
@@ -1653,19 +1674,23 @@ public class SignRestController {
       return videoResponseApi;
     }
 
-    videoUrl= newAbsoluteFileName;
+    try {
+      fileCodec = SearchFileCodec(newAbsoluteFileName);
+    } catch (Exception errorSerachFileCodec) {
+      fileCodec = "";
+    }
 
-/*    if (sign.videoDefinition != null) {
-      Request request = services.sign().requestForSign(sign);
-      if (request != null) {
-        if (request.requestVideoDescription != null && sign.videoDefinition != null) {
-          if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
-            DeleteFilesOnServer(sign.videoDefinition, null);
-          }
-        }
+    if (fileCodec.equals("hevc"))
+    {
+      try {
+        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } catch (Exception errorEncodeFileInH264) {
+
       }
     }
-    services.sign().changeSignVideoDefinition(signId, videoUrl);*/
+
+    videoUrl= newAbsoluteFileName;
 
     changeSignDefinitionOnServer(signId, videoUrl, sign);
 
@@ -1674,6 +1699,20 @@ public class SignRestController {
     videoResponseApi.videoId = sign.lastVideoId;
     return videoResponseApi;
 
+  }
+
+  private String SearchFileCodec(String file) {
+    String cmdFileCodec = String.format("ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 %s", file);
+    String fileCodec = NativeInterface.launchAndGetOutput(cmdFileCodec, null, null);
+    return fileCodec;
+  }
+
+  private void EncodeFileInH264(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -i %s -c:v libx264 -crf 20 -c:a copy %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
   }
 
   @Secured("ROLE_USER")

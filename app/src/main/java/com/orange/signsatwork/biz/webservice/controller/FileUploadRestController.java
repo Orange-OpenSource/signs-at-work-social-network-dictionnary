@@ -416,13 +416,18 @@ public class FileUploadRestController {
     NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
   }
 
-  private void EncodeFileInMp4(String file, String fileOutput) {
+  private String SearchFileCodec(String file) {
+    String cmdFileCodec = String.format("ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 %s", file);
+    String fileCodec = NativeInterface.launchAndGetOutput(cmdFileCodec, null, null);
+    return fileCodec;
+  }
+
+  private void EncodeFileInH264(String file, String fileOutput) {
     String cmd;
 
-    cmd = String.format("mencoder %s -vf scale=640:-1 -ovc x264 -o %s", file, fileOutput);
+    cmd = String.format("ffmpeg -i %s -c:v libx264 -crf 20 -c:a copy %s", file, fileOutput);
 
-    String cmdFilterLog = "/tmp/mencoder.log";
-    NativeInterface.launch(cmd, null, cmdFilterLog);
+    NativeInterface.launch(cmd, null, null);
   }
 
 
@@ -632,6 +637,8 @@ public class FileUploadRestController {
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
     File inputFile;
+    String fileCodec = null;
+    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
     try {
       storageService.store(file);
@@ -642,6 +649,24 @@ public class FileUploadRestController {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorUploadFile");
     }
+
+    try {
+      fileCodec = SearchFileCodec(newAbsoluteFileName);
+    } catch (Exception errorSerachFileCodec) {
+      fileCodec = "";
+    }
+
+    if (fileCodec.equals("hevc"))
+    {
+      try {
+        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } catch (Exception errorEncodeFileInH264) {
+
+      }
+    }
+
+
     try {
       GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
     } catch (Exception errorEncondingFile) {
@@ -1034,6 +1059,8 @@ public class FileUploadRestController {
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
       File inputFile;
+      String fileCodec = null;
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
       User admin = services.user().getAdmin();
       title = messageByLocaleService.getMessage("admin_change_profil");
@@ -1046,6 +1073,22 @@ public class FileUploadRestController {
       } catch (Exception errorLoadFile) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return messageByLocaleService.getMessage("errorUploadFile");
+      }
+
+      try {
+        fileCodec = SearchFileCodec(newAbsoluteFileName);
+      } catch (Exception errorSerachFileCodec) {
+        fileCodec = "";
+      }
+
+      if (fileCodec.equals("hevc"))
+      {
+        try {
+          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } catch (Exception errorEncodeFileInH264) {
+
+        }
       }
 
       try {
@@ -1625,6 +1668,9 @@ public class FileUploadRestController {
       Request request = null;
       RequestResponse requestResponse = new RequestResponse();
       File inputFile;
+      String fileCodec = null;
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+
 
       try {
         storageService.store(file);
@@ -1636,6 +1682,22 @@ public class FileUploadRestController {
         requestResponse.errorType = 3;
         requestResponse.errorMessage = messageByLocaleService.getMessage("errorUploadFile");
         return requestResponse;
+      }
+
+      try {
+        fileCodec = SearchFileCodec(newAbsoluteFileName);
+      } catch (Exception errorSerachFileCodec) {
+        fileCodec = "";
+      }
+
+      if (fileCodec.equals("hevc"))
+      {
+        try {
+          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } catch (Exception errorEncodeFileInH264) {
+
+        }
       }
 
       User user = services.user().withUserName(principal.getName());
@@ -2467,6 +2529,9 @@ public class FileUploadRestController {
       List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
       emails = emails.stream().distinct().collect(Collectors.toList());
       File inputFile;
+      String fileCodec = null;
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+
 
       User user = services.user().withUserName(principal.getName());
 
@@ -2478,6 +2543,21 @@ public class FileUploadRestController {
       } catch (Exception errorLoadFile) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return messageByLocaleService.getMessage("errorUploadFile");
+      }
+      try {
+        fileCodec = SearchFileCodec(newAbsoluteFileName);
+      } catch (Exception errorSerachFileCodec) {
+        fileCodec = "";
+      }
+
+      if (fileCodec.equals("hevc"))
+      {
+        try {
+          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } catch (Exception errorEncodeFileInH264) {
+
+        }
       }
 
       videoUrl= newAbsoluteFileName;
@@ -2880,6 +2960,9 @@ public class FileUploadRestController {
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Community community = services.community().withId(communityId);
       File inputFile;
+      String fileCodec = null;
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+
 
       try {
         storageService.store(file);
@@ -2889,6 +2972,22 @@ public class FileUploadRestController {
       } catch (Exception errorLoadFile) {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return messageByLocaleService.getMessage("errorUploadFile");
+      }
+
+      try {
+        fileCodec = SearchFileCodec(newAbsoluteFileName);
+      } catch (Exception errorSerachFileCodec) {
+        fileCodec = "";
+      }
+
+      if (fileCodec.equals("hevc"))
+      {
+        try {
+          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } catch (Exception errorEncodeFileInH264) {
+
+        }
       }
 
       User user = services.user().withUserName(principal.getName());

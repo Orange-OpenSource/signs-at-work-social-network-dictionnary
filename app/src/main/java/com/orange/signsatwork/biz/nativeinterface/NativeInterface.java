@@ -3,7 +3,9 @@ package com.orange.signsatwork.biz.nativeinterface;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /*
  * #%L
@@ -15,12 +17,12 @@ import java.io.IOException;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 2 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
@@ -66,9 +68,64 @@ public class NativeInterface {
   private static void launchCmd(String cmd) throws InterruptedException, IOException {
     String[] cmdArray = {"/bin/sh", "-c", cmd};
     Process proc = Runtime.getRuntime().exec(cmdArray);
+
     proc.waitFor();
     if (proc.exitValue() != 0) {
       throw new NativeException(String.format("Command line '%s' returned error code %d", cmd, proc.exitValue()));
+    }
+  }
+
+  /**
+   * Launch in command line mode the executable 'exe'
+   * @param exe command line executable
+   */
+  public static String launchAndGetOutput(@NonNull String exe) {
+    return launchAndGetOutput(exe, null, null);
+  }
+
+  /**
+   * Launch in command line mode the executable 'exe'
+   * @param exe command line executable
+   * @param args command line arguments
+   */
+  public static String launchAndGetOutput(@NonNull String exe, String [] args) {
+    return launchAndGetOutput(exe, args, null);
+  }
+
+  /**
+   * Launch in command line mode the executable 'exe', with arguments 'args'
+   * @param exe command line executable
+   * @param args command line arguments
+   * @param logFilePath command output log file
+   */
+  public static String launchAndGetOutput(@NonNull String exe, String [] args, String logFilePath) {
+    String output = null;
+    String cmd = getCmd(exe, args, logFilePath);
+    log.info(String.format("Start command line: '%s'", cmd));
+    try {
+      output = launchCmdAndGetOutput(cmd);
+    } catch (IOException | InterruptedException e) {
+      throwException(cmd, e);
+    }
+    return output;
+  }
+
+  private static String launchCmdAndGetOutput(String cmd) throws InterruptedException, IOException {
+    String[] cmdArray = {"/bin/sh", "-c", cmd};
+    Process proc = Runtime.getRuntime().exec(cmdArray);
+    StringBuilder output = new StringBuilder();
+    BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+    String line;
+    while ((line = reader.readLine()) != null) {
+      log.info(String.format("Result line: '%s'", line));
+      output.append(line);
+    }
+
+    proc.waitFor();
+    if (proc.exitValue() != 0) {
+      throw new NativeException(String.format("Command line '%s' returned error code %d", cmd, proc.exitValue()));
+    } else {
+      return output.toString();
     }
   }
 
