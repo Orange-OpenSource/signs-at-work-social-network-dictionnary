@@ -5,13 +5,29 @@
          {
             "appID": "269J2W3P7L.com.orange.signs-at-form",
             "paths":["*"]
+         },
+         {
+            "appID": "269J2W3P7L.com.orange.signs-at-work",
+            "paths":["*"]
+         },
+         {
+            "appID": "269J2W3P7L.com.orange.signs-at-adis",
+            "paths":["*"]
          }
       ]
    },
    "webcredentials": {
-        "apps": [ "269J2W3P7L.com.orange.signs-at-form" ]
+        "apps": [
+        "269J2W3P7L.com.orange.signs-at-form",
+        "269J2W3P7L.com.orange.signs-at-work",
+        "269J2W3P7L.com.orange.signs-at-adis"
+        ]
     },
     "appclips": {
-        "apps": ["269J2W3P7L.com.orange.signs-at-form"]
+        "apps": [
+        "269J2W3P7L.com.orange.signs-at-form",
+        "269J2W3P7L.com.orange.signs-at-work",
+        "269J2W3P7L.com.orange.signs-at-adis"
+        ]
     }
 }

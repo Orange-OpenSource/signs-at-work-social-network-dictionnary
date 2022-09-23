@@ -624,3 +624,11 @@ h4.blue-cgu {
 [type="checkbox"]:checked + [type="hidden"] + h4:after {
   background-image: url("/img/done_adis.png");
 }
+
+.spinner_show{
+  background-image: url("/img/spinner-purple.gif");
+}
+
+.spinner-delete_show{
+  background-image: url("/img/spinner-purple.gif");
+}
