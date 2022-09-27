@@ -1029,25 +1029,25 @@ public class UserRestController {
     String title, body;
     UserResponseApi userResponseApi = new UserResponseApi();
     User admin = services.user().getAdmin();
-
-    User user = services.user().withUserName(userCreationView.getEmail());
+    String userToCreateEmail = userCreationView.getEmail().trim();
+    User user = services.user().withUserName(userToCreateEmail);
     if (user == null) {
-      MessagesServer queryMessagesServer = services.messageServerService().messagesServerCreateUserWithUserName(userCreationView.getEmail());
+      MessagesServer queryMessagesServer = services.messageServerService().messagesServerCreateUserWithUserName(userToCreateEmail);
       if (queryMessagesServer.list().size() >= 1) {
         response.setStatus(HttpServletResponse.SC_CONFLICT);
         userResponseApi.errorMessage = messageByLocaleService.getMessage("request_for_create_user_already_exist");
         return  userResponseApi;
       }
       Date date = new Date();
-      String values = userCreationView.getFirstName() + ";" + userCreationView.getLastName() + ";" + userCreationView.getEmail();
+      String values = userCreationView.getFirstName() + ";" + userCreationView.getLastName() + ";" + userToCreateEmail;
       MessageServer messageServer = new MessageServer(new Date(), "RequestCreateUserMessage", values, ActionType.TODO);
       long idMessage = services.messageServerService().addMessageServer(messageServer);
       String url = getAppUrl() + "/sec/admin/create-users?id=" + idMessage;
-      body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{date, userCreationView.getEmail(), url});
+      body = messageByLocaleService.getMessage("ask_to_create_user_text", new Object[]{date, userToCreateEmail, url});
       title = messageByLocaleService.getMessage("ask_to_create_user_title", new Object[]{userCreationView.getFirstName(), userCreationView.getLastName()});
       Runnable task = () -> {
         log.info("send mail email = {} / title = {} / body = {}", admin.email, title, body);
-        services.emailService().sendCreateUserMessage(admin.email, title, date, userCreationView.getEmail(), url, request.getLocale());
+        services.emailService().sendCreateUserMessage(admin.email, title, date, userToCreateEmail, url, request.getLocale());
       };
 
       new Thread(task).start();
@@ -1067,17 +1067,17 @@ public class UserRestController {
     UserResponseApi userResponseApi = new UserResponseApi();
     User admin = services.user().getAdmin();
     User user = services.user().withUserName(principal.getName());
-
-    User userSearch = services.user().withUserName(userCreationView.getEmail());
+    String userToCreateEmail = userCreationView.getEmail().trim();
+    User userSearch = services.user().withUserName(userToCreateEmail);
     if (userSearch == null) {
-      MessagesServer queryMessagesServer = services.messageServerService().messagesServerChangeEmailWithUserName(userCreationView.getEmail());
+      MessagesServer queryMessagesServer = services.messageServerService().messagesServerChangeEmailWithUserName(userToCreateEmail);
       if (queryMessagesServer.list().size() >= 1) {
         response.setStatus(HttpServletResponse.SC_CONFLICT);
         userResponseApi.errorMessage = messageByLocaleService.getMessage("request_for_change_email_user_already_exist");
         return  userResponseApi;
       }
       Date date = new Date();
-      String values = user.name() + ";" + user.username + ";" + userCreationView.getEmail();
+      String values = user.name() + ";" + user.username + ";" + userToCreateEmail;
       MessageServer messageServer = new MessageServer(new Date(), "RequestChangeEmailMessage", values, ActionType.TODO);
       long idMessage = services.messageServerService().addMessageServer(messageServer);
       String url = getAppUrl() + "/sec/admin/create-users?id=" + idMessage;
