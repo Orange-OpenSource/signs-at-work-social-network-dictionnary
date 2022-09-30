@@ -89,7 +89,7 @@
           </div>
 
         </div>
-        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.id}" th:object="${signCreationView}" method="post">
+        <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.video.id}" th:object="${signCreationView}" method="post">
           <div class="modal-body text-center">
             <span id="errorSpan"  style="display: none"></span>
           </div>
@@ -126,7 +126,7 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.video.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div th:if="!${isIOSDevice}" class="modal-body text-center">
           <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sign.join_video}"></h4><br/>
           <input name="file" type="file" id="InputFile"/>

@@ -271,6 +271,11 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
+  public Long[] FavoritesBelowVideoForUser(long videoId, long userId) {
+    return videoRepository.findFavoritesBelowVideoForUser(videoId, userId);
+  }
+
+  @Override
   public List<Object[]> AllVideosCreateByUser(long userId) {
     return videoRepository.findAllVideosCreateByUser(userId);
   }
@@ -283,5 +288,17 @@ public class VideoServiceImpl implements VideoService {
   @Override
   public List<Object[]> AllRatingsForVideo(long videoId) {
     return videoRepository.allRatingsForVideo(videoId);
+  }
+
+  public void AddVideoToFavorites(long videoId, List<Long> favoriteIds) {
+    VideoDB videoDB = videoRepository.findOne(videoId);
+    for (long id : favoriteIds) {
+      FavoriteDB favoriteDB = favoriteRepository.findOne(id);
+      List<VideoDB> videoDBs = favoriteDB.getVideos();
+      if (!videoDBs.contains(videoDB)) {
+        videoDBs.add(videoDB);
+        favoriteRepository.save(favoriteDB);
+      }
+    }
   }
 }

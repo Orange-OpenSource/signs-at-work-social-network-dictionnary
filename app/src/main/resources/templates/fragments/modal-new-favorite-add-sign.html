@@ -36,7 +36,7 @@
                     <h2 class="pull-right" th:text="#{favorite.modal.new}"></h2>
                 </div>
             </div>
-            <form th:action="@{/sec/favorite/create_favorite_add_video/{videoid}(videoid=${videoView.id})}" th:object="${favoriteCreationView}" method="post">
+            <form th:action="@{/sec/favorite/create_favorite_add_video/{videoid}(videoid=${videoView.video.id})}" th:object="${favoriteCreationView}" method="post">
                 <div class="modal-body text-center">
                     <input th:field="*{favoriteName}" type="text" class="border form-control"
                            th:placeholder="#{favorite.enter_name}" required=""/>

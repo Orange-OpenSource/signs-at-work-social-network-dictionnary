@@ -63,9 +63,13 @@ public interface VideoService {
 
   Long NbFavoriteBelowVideoForUser(long videoId, long userId);
 
+  Long[] FavoritesBelowVideoForUser(long videoId, long userId);
+
   List<Object[]> AllVideosCreateByUser(long userId);
 
   List<Object[]> SignForVideo(long videoId);
 
   List<Object[]> AllRatingsForVideo(long videoId);
+
+  void AddVideoToFavorites(long videoId, List<Long> favoriteIds);
 }

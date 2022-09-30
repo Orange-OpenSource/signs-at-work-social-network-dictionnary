@@ -36,7 +36,7 @@
                     <h2 class="pull-right" th:text="#{sign.modal.comments}"></h2>
                 </div>
             </div>
-            <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.id} + '/add/comment'" th:object="${commentCreationView}" method="post">
+            <form th:action="@{/sec/sign/} + ${signView.id} + '/' + ${videoView.video.id} + '/add/comment'" th:object="${commentCreationView}" method="post">
                 <div class="modal-body text-center">
                     <textarea required="" th:placeholder="#{sign.enter_comment}" id="text" th:field="*{text}" rows="3" cols="40"></textarea>
                 </div>

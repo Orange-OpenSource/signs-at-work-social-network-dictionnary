@@ -259,6 +259,14 @@ h4.blue-cgu {
   border-top: 3px solid #662a74;
 }
 
+#validate_modal_add_favorite {
+  color: #662a74;
+}
+
+.charte_color {
+  color: #662a74;
+}
+
 .illustration_welcome_signsatwork {
   background-image: url("../img/sprite_picto_400X400_ADIS.png");
 }
@@ -570,6 +578,11 @@ h4.blue-cgu {
 .group_project_blue_circle_filter {
   background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
 }
+
+.Cefe {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}
+
 .settings_grey {
   background-image: url("/img/sprite_picto_400X400_ADIS.png");
 }

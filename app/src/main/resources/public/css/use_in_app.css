@@ -2873,6 +2873,11 @@ input[type="checkbox"] {
   margin-top:1px;
 }
 
+.disabled > [type="checkbox"] + h4:after,
+.disabled > [type="checkbox"] + [type="hidden"] +  h4:after  {
+  box-shadow: none;
+}
+
 /* the checked style using the :checked pseudo class */
 [type="checkbox"]:checked + h4:after ,
 [type="checkbox"]:checked + [type="hidden"] + h4:after {
@@ -2892,6 +2897,10 @@ input[type="checkbox"] {
 }
 
 #users-container>label>h4 {
+  border-bottom: 1px solid #8C8C8C;
+}
+
+#favorites-container>label>h4 {
   border-bottom: 1px solid #8C8C8C;
 }
 
@@ -2934,6 +2943,11 @@ input[type="checkbox"] {
   padding-left: 8px;
   padding-right: 8px;
 }
+
+/*#favorites-container {
+  padding-left: 8px;
+  padding-right: 8px;
+}*/
 
 [type="checkbox"] + h4::after, [type="checkbox"] + [type="hidden"] + h4::after {
   float: right;
@@ -3065,8 +3079,8 @@ input[type="checkbox"] {
 
 /* Begin Signes préférés /sec/favorites */
 
-.label_favorite_Liste_H2.container_H2{
-  width:24rem;
+H4.label_favorite_Liste_H2.container_H2{
+  width: 26rem;
 }
 /* End Signes préférés /sec/favorites */
 
@@ -3649,6 +3663,44 @@ panel-title {
 .panel-heading-full .panel-title::after {
   top: 10px;
   right: 15px;
+}
+
+
+#validate_modal_add_favorite {
+  color: #4866F7;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+  line-height: 16px;
+  width: 49%;
+  height: 40px;
+  background-color: #EBEBEB;
+  text-align: center;
+}
+
+#cancel_modal_add_favorite {
+  color: #8C8C8C;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+  line-height: 16px;
+  width: 49%;
+  height: 40px;
+  background-color: #EBEBEB;
+  text-align: center;
+}
+
+#modal_body_add_favorite {
+  height: 250px;
+  overflow: auto;
+}
+
+#modal_body_add_favorite>.nav>li {
+  padding-right: 0px !important;
+}
+
+.charte_color {
+  color: #4866F7;
 }
 
 @media only screen and (max-width:768px) {

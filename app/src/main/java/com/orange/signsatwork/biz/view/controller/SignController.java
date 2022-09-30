@@ -829,7 +829,7 @@ public class SignController {
 
   @RequestMapping(value = "/sign/{signId}/{videoId}")
   public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
-
+    List<Long> favoritesIdBelowVideo = new ArrayList<>();
     Boolean isVideoCreatedByMe = false;
     String referer = req.getHeader("Referer");
 
@@ -863,14 +863,15 @@ public class SignController {
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
       model.addAttribute("title", messageByLocaleService.getMessage("card"));
-      fillModelWithFavorites(model, user);
+      favoritesIdBelowVideo = Arrays.asList(services.video().FavoritesBelowVideoForUser(videoId, user.id));
+      if (favoritesIdBelowVideo.size() >= 1) {
+        model.addAttribute("videoBelowToFavorite", true);
+      }
+      favoritesIdBelowVideo = fillModelWithFavorites(model, user, videoId);
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
       }
-      Long nbFavorite = services.video().NbFavoriteBelowVideoForUser(videoId, user.id);
-      if (nbFavorite >= 1) {
-        model.addAttribute("videoBelowToFavorite", true);
-      }
+
     }
 
     if (video.averageRate > 0) {
@@ -892,8 +893,9 @@ public class SignController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
+    VideoProfileView2 videoProfileView = new VideoProfileView2(video, favoritesIdBelowVideo);
     model.addAttribute("signView", sign);
-    model.addAttribute("videoView", video);
+    model.addAttribute("videoView", videoProfileView);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
 
     Long nbRating = services.sign().NbRatingForSign(signId);
@@ -906,6 +908,7 @@ public class SignController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/sign/{signId}/{videoId}/detail")
   public String videoDetail(@PathVariable long signId, @PathVariable long videoId, HttpServletRequest request, Principal principal, Model model) {
+    List<Long> favoritesIdBelowVideo = new ArrayList<>();
     Boolean isVideoCreatedByMe = false;
     String userAgent = request.getHeader("User-Agent");
 
@@ -934,13 +937,13 @@ public class SignController {
         .map(objectArray -> new CommentData(objectArray))
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentDatas);
-      fillModelWithFavorites(model, user);
+      favoritesIdBelowVideo = Arrays.asList(services.video().FavoritesBelowVideoForUser(videoId, user.id));
+      if (favoritesIdBelowVideo.size() >= 1) {
+        model.addAttribute("videoBelowToFavorite", true);
+      }
+      favoritesIdBelowVideo = fillModelWithFavorites(model, user, videoId);
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
-      }
-      Long nbFavorite = services.video().NbFavoriteBelowVideoForUser(videoId, user.id);
-      if (nbFavorite >= 1) {
-        model.addAttribute("videoBelowToFavorite", true);
       }
     }
 
@@ -962,9 +965,10 @@ public class SignController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
+    VideoProfileView2 videoProfileView = new VideoProfileView2(video, favoritesIdBelowVideo);
     model.addAttribute("signView", sign);
     model.addAttribute("signCreationView", new SignCreationView());
-    model.addAttribute("videoView", video);
+    model.addAttribute("videoView", videoProfileView);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
     model.addAttribute("appName", appName);
     return "sign-detail";
@@ -1301,7 +1305,8 @@ public class SignController {
     }
   }
 
-  private void fillModelWithFavorites(Model model, User user) {
+  private List<Long> fillModelWithFavorites(Model model, User user, Long videoId) {
+    List<Long> favoritesIdBelowVideo = new ArrayList<>();
     if (user != null) {
       List<FavoriteModalView> favorites = new ArrayList<>();
       List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
@@ -1315,8 +1320,14 @@ public class SignController {
       favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
       favorites.addAll(favoritesAlpha);
 
+      for (FavoriteModalView f : favorites) {
+        if (f.getVideos().ids().contains(videoId)) {
+          favoritesIdBelowVideo.add(f.getId());
+        }
+      }
       model.addAttribute("myFavorites", favorites);
     }
+    return favoritesIdBelowVideo;
   }
 
 }

@@ -25,6 +25,7 @@ package com.orange.signsatwork.biz.view.model;
 import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.FavoriteType;
 import com.orange.signsatwork.biz.domain.Favorites;
+import com.orange.signsatwork.biz.domain.Videos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,12 +44,15 @@ public class FavoriteModalView {
   private long idForName;
   private FavoriteType type;
 
+  private Videos videos;
+
   public Favorite toFavorite() {
     return new Favorite(id, name, idForName, type, null, null, null, null, null);
   }
 
   public static FavoriteModalView from(Favorite favorite) {
-    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, favorite.type);
+    favorite = favorite.loadVideos();
+    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, favorite.type, favorite.videos);
   }
 
   public static List<FavoriteModalView> from(Favorites favorites) {
@@ -59,7 +63,8 @@ public class FavoriteModalView {
 
 
   public static FavoriteModalView fromNewShare(Favorite favorite) {
-    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare);
+    favorite = favorite.loadVideos();
+    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.videos);
   }
 
   public static List<FavoriteModalView> fromNewShare(Favorites favorites) {

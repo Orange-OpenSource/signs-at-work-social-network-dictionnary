@@ -38,6 +38,14 @@
       padding-right: 20px;
     }
 
+  #favorites-container > li {
+    padding-right: 0px !important;
+  }
+
+  H4.label_favorite_Liste_H2.container_H2{
+    width: 52rem !important;
+  }
+
   /* End index page /index */
 
 
@@ -138,6 +146,14 @@
 
   .nav > li {
     padding-right: 20px;
+  }
+
+  #favorites-container > li {
+    padding-right: 0px !important;
+  }
+
+  H4.label_favorite_Liste_H2.container_H2{
+    width: 52rem !important;
   }
 
   /* End index page /index */
@@ -247,6 +263,14 @@
 
   .nav > li {
     padding-right: 20px;
+  }
+
+  #favorites-container > li {
+    padding-right: 0px !important;
+  }
+
+  H4.label_favorite_Liste_H2.container_H2{
+    width: 52rem !important;
   }
 
   /* End index page /index */
@@ -379,6 +403,14 @@
     .nav > li {
       padding-right: 20px;
     }
+
+  #favorites-container > li {
+    padding-right: 0px !important;
+  }
+
+  H4.label_favorite_Liste_H2.container_H2{
+    width: 52rem !important;
+  }
 
   /* Begin index page /index */
 

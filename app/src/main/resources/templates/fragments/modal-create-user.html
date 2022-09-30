@@ -57,7 +57,7 @@
                       <option th:text="#{role_placeholder}" value="" hidden selected></option>
                       <option th:each="role: ${T(com.orange.signsatwork.biz.domain.Role).values()}"
                               th:value="${role}"
-                              th:text="${role}" style="color: #4866F7;"></option>
+                              th:text="${role}" class="charte_color"></option>
                     </select>
                 </div>
                 <div id="errorCreateUser" style="display:none"></div>

@@ -21,16 +21,12 @@
 console.log("Cool, sign.js is loaded :)");
 
 var errorSelectedSpan = document.getElementById('errorSelectedSpan');
-/*var cancelSelectVideo = document.getElementById('cancel-select-video');*/
-
 
 var $formUploadSelectedVideoFile = $('#uploadSelectedVideoFile');
 $formUploadSelectedVideoFile.on('submit', function(event) {
-  /*if (document.getElementById("InputFile").value) {*/
     $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
     $(".spinner").css("z-index", "1500").visibility = "visible";
     $(".spinner").css("opacity", "1");
-/*    $("#submitButtonFileDailymotion").css("color", "black");*/
     var $form = $(this);
     var formdata = new FormData($form[0]);
     var data = (formdata !== null) ? formdata : $form.serialize();
@@ -60,12 +56,6 @@ $formUploadSelectedVideoFile.on('submit', function(event) {
         console.log("Erreur " + response.responseText);
       }
     })
-  /*} else {
-    event.preventDefault();
-    errorSelectedSpan.textContent = "Vous devez séléctionner un fichier";
-    errorSelectedSpan.style.display = "block";
-  }*/
-
 });
 
 $formUploadSelectedVideoFile.on('input', function(event) {
@@ -88,23 +78,63 @@ $add_video_file_dailymotion.on('hidden.bs.modal', function() {
 
 });
 
-/*if (cancelSelectVideo) {
-  cancelSelectVideo.onclick = function () {
-    $('#add_sign_definition_LSF').modal('hide');
-    location.reload();
-  };
-}*/
 
 function onClick() {
   event.preventDefault();
   document.getElementById('InputFile').click()
 }
 
-$(document).ready(function(){
+function onAddVideoToFavoritesForm(videoId) {
+  console.log("onAddVideoToFavoritesForm ", videoId);
+  if ($("#AddVideoToFavoritesForm").isChanged()) {
+    var videoFavoritesIds = [];
+    i = 1;
+    $("#favorites-container").children("li").children("label").each(function () {
+      if (!this.classList.contains("disabled")) {
+        if (document.getElementById("videoFavoritesIds" + i).checked) {
+          var selectedFavoriteId = document.getElementById("videoFavoritesIds" + i).value;
+          videoFavoritesIds.push(selectedFavoriteId);
+        }
+      }
+        i = i + 1;
+    });
 
+    $.ajax({
+      url: "/ws/sec/video/" + videoId + "/add/favorites",
+      type: 'post',
+      data: JSON.stringify(videoFavoritesIds),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        $('#add_sign_to_favorite').modal('hide');
+        location.reload();
+      },
+      error: function (response) {
+      }
+    })
+  } else {
+    $('#add_sign_to_favorite').modal('hide');
+  }
+};
+
+
+$.fn.extend({
+  trackChanges: function() {
+    $(":input",this).change(function() {
+      $(this.form).data("changed", true);
+    });
+  }
+  ,
+  isChanged: function() {
+    return this.data("changed");
+  }
+});
+
+
+$(document).ready(function(){
   $('input[type="file"]').change(function(e){
     $("#add_video_file_dailymotion").modal('show');
     document.getElementById('submitButtonFileDailymotion').disabled=false;
   });
-
+  $("#AddVideoToFavoritesForm").trackChanges();
 });
