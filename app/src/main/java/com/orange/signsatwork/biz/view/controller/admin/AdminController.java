@@ -283,17 +283,6 @@ public class AdminController {
   @RequestMapping(value = "/sec/admin/sign/{signId}/{videoId}")
   public String video(@PathVariable long signId, @PathVariable long videoId, HttpServletRequest  request, Principal principal, Model model) {
 
-/*    Boolean isVideoCreatedByMe = false;
-    String referer = req.getHeader("Referer");
-
-    model.addAttribute("videoBelowToFavorite", false);
-    StringBuffer location = req.getRequestURL();
-
-    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
-    model.addAttribute("showAddFavorite", SHOW_ADD_FAVORITE && AuthentModel.isAuthenticated(principal));
-    model.addAttribute("commentCreationView", new CommentCreationView());
-    model.addAttribute("favoriteCreationView", new FavoriteCreationView());*/
-
     String userAgent = request.getHeader("User-Agent");
 
     model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
@@ -324,39 +313,6 @@ public class AdminController {
       .collect(Collectors.toList());
     model.addAttribute("videoHistoryDatas", videoHistoryDatas);
 
-/*    if (principal != null) {
-      User user = services.user().withUserName(principal.getName());
-      Object[] queryRating = services.video().RatingForVideoByUser(videoId, user.id);
-      RatingData ratingData = new RatingData(queryRating);
-      model.addAttribute("ratingData", ratingData);
-      List<Object[]> queryAllComments = services.video().AllCommentsForVideo(videoId);
-      List<CommentData> commentDatas = queryAllComments.stream()
-        .map(objectArray -> new CommentData(objectArray))
-        .collect(Collectors.toList());
-      model.addAttribute("commentDatas", commentDatas);
-      model.addAttribute("title", messageByLocaleService.getMessage("card"));
-      fillModelWithFavorites(model, user);
-      if (video.user.id == user.id) {
-        isVideoCreatedByMe = true;
-      }
-      Long nbFavorite = services.video().NbFavoriteBelowVideoForUser(videoId, user.id);
-      if (nbFavorite >= 1) {
-        model.addAttribute("videoBelowToFavorite", true);
-      }
-    }
-
-    if (video.averageRate > 0) {
-      model.addAttribute("videoHasPositiveRate", true);
-    } else {
-      model.addAttribute("videoHasPositiveRate", false);
-    }
-
-    if (!isVideoCreatedByMe) {
-      if ((referer != null) && referer.contains("detail")) {
-      } else {
-        services.video().increaseNbView(videoId);
-      }
-    }*/
 
     if ((video.idForName == 0) || (sign.nbVideo == 1)) {
       model.addAttribute("videoName", sign.name);
@@ -364,12 +320,10 @@ public class AdminController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
-    model.addAttribute("signView", sign);
-    model.addAttribute("videoView", video);
-   /* model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
+    VideoProfileView2 videoProfileView = new VideoProfileView2(video, null);
 
-    Long nbRating = services.sign().NbRatingForSign(signId);
-    model.addAttribute("nbRating", nbRating);*/
+    model.addAttribute("signView", sign);
+    model.addAttribute("videoView", videoProfileView);
     model.addAttribute("appName", appName);
     model.addAttribute("isAuthenticated", AuthentModel.isAuthenticated(principal));
     model.addAttribute("modalSignDefinitionAction", "/sec/sign/" + signId + "/" +videoId + "/definitionText");

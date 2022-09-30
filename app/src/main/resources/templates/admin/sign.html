@@ -50,19 +50,19 @@
             </li>
             <li class="aside_bckg_li">
               <div class="pull-left text-center title_middle col-lg-8 col-md-8 col-xs-8 middle-col" style="margin-top: 20px;margin-bottom: 20px;">
-                <div th:if="${!#strings.contains(videoView.url, 'http')}">
+                <div th:if="${!#strings.contains(videoView.video.url, 'http')}">
                   <div class="embed-responsive embed-responsive-16by9">
                     <video controls playsinline oncontextmenu="return false;">
-                      <source th:src="${videoView.url}" type="video/webm"/>
-                      <source th:src="${videoView.url}" type="video/mp4"/>
+                      <source th:src="${videoView.video.url}" type="video/webm"/>
+                      <source th:src="${videoView.video.url}" type="video/mp4"/>
                     </video>
                   </div>
                 </div>
-                <div th:if="${#strings.contains(videoView.url, 'http')}">
+                <div th:if="${#strings.contains(videoView.video.url, 'http')}">
                   <div class="embed-responsive embed-responsive-16by9">
                     <iframe allowfullscreen="" class="embed-responsive-item"
                             frameborder="0"
-                            th:attr="title=${signView.name}" th:src="${videoView.url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;disable-queue=1'"></iframe>
+                            th:attr="title=${signView.name}" th:src="${videoView.video.url} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;disable-queue=1'"></iframe>
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@
                 </a>
               </div>
               <div class="col-lg-4 col-md-4 col-xs-4" style="padding-right: 0px!important" th:if="${isIOSDevice}">
-                <a th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:onclick="javascript:onClickVideoSign(this.getAttribute('data-signId'), this.getAttribute('data-videoId'))">
+                <a th:data-signId="${signView.id}" th:data-videoId="${videoView.video.id}" th:onclick="javascript:onClickVideoSign(this.getAttribute('data-signId'), this.getAttribute('data-videoId'))">
                   <div class="pull-right edit_black"></div>
                 </a>
               </div>
@@ -183,7 +183,7 @@
             <div class="panel-body">
               <ul th:if="${not #lists.isEmpty(commentDatas)}"  style="padding-left: 0px;">
                   <li class="aside_bckg_li" th:each="comment :${commentDatas}" style="border: 1px solid #ddd;;">
-                    <a class="all_li_clickable" style="cursor:pointer" th:data-signId="${signView.id}" th:data-videoId="${videoView.id}" th:data-commentId="${comment.id}" th:data-commentMessage="${comment.messageInDeleteCommentModal}" th:onclick="javascript:commentDelete(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-commentId'), this.getAttribute('data-commentMessage'))">
+                    <a class="all_li_clickable" style="cursor:pointer" th:data-signId="${signView.id}" th:data-videoId="${videoView.video.id}" th:data-commentId="${comment.id}" th:data-commentMessage="${comment.messageInDeleteCommentModal}" th:onclick="javascript:commentDelete(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-commentId'), this.getAttribute('data-commentMessage'))">
                     <div class="col-lg-2 col-md-2 col-xs-6">
                       <h4 class="comment_name" th:text="${comment.name}"></h4>
                     </div>
@@ -263,7 +263,7 @@
         </div>
 
       </div>
-      <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.id}" th:object="${signCreationView}" method="post">
+      <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.video.id}" th:object="${signCreationView}" method="post">
         <div class="modal-body text-center">
           <span id="errorSpan"  style="display: none"></span>
         </div>
@@ -301,7 +301,7 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${signView.id} + '/' + ${videoView.video.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
         <div th:if="!${isIOSDevice}" class="modal-body text-center">
           <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sign.join_video}"></h4><br/>
           <input name="file" type="file" id="InputFile"/>
