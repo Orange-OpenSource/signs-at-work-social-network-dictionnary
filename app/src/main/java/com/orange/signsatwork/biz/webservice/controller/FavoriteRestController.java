@@ -129,6 +129,16 @@ public class FavoriteRestController {
   }
 
 
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi. WS_SEC_VIDEO_FAVORITES)
+  public ResponseEntity<?> favoritesHaveVideo(@PathVariable long videoId, Principal principal)  {
+
+    User user = services.user().withUserName(principal.getName());
+    List<FavoriteViewApi> myFavorites = fillModelWithFavorites(user, videoId);
+
+    return  new ResponseEntity<>(myFavorites, HttpStatus.OK);
+  }
+
   private List<FavoriteViewApi> fillModelWithFavorites(User user) {
     List<FavoriteViewApi> favorites = new ArrayList<>();
     List<FavoriteViewApi> newFavoritesShareToMe = FavoriteViewApi.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
@@ -143,6 +153,30 @@ public class FavoriteRestController {
     favorites.addAll(favoritesAlpha);
 
     return favorites;
+  }
+
+  private List<FavoriteViewApi> fillModelWithFavorites(User user, Long videoId) {
+    List<FavoriteViewApi> favoritesBelowVideo = new ArrayList<>();
+    if (user != null) {
+      List<FavoriteModalView> favorites = new ArrayList<>();
+      List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
+      favorites.addAll(newFavoritesShareToMe);
+
+      List<FavoriteModalView> favoritesAlpha = new ArrayList<>();
+      List<FavoriteModalView> oldFavoritesShareToMe = FavoriteModalView.from(services.favorite().oldFavoritesShareToUser(user.id));
+      favoritesAlpha.addAll(oldFavoritesShareToMe);
+      List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUser(user.id));
+      favoritesAlpha.addAll(myFavorites);
+      favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
+      favorites.addAll(favoritesAlpha);
+
+      for (FavoriteModalView f : favorites) {
+        if (f.getVideos().ids().contains(videoId)) {
+          favoritesBelowVideo.add(FavoriteViewApi.fromFavoriteModalView(f));
+        }
+      }
+    }
+    return favoritesBelowVideo;
   }
 
   @Secured("ROLE_USER")

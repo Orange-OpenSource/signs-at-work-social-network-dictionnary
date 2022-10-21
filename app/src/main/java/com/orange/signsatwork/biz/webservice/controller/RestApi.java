@@ -72,6 +72,7 @@ public class RestApi {
   public static final String WS_SEC_SIGN = WS_SEC + "signs/{signId}";
   public static final String WS_SEC_MY_COMMUNITIES = WS_SEC + "users/me/communities";
   public static final String WS_SEC_COMMUNITY_USERS = WS_SEC + "communities/{communityId}/users";
+  public static final String WS_SEC_VIDEO_FAVORITES = WS_SEC + "videos/{videoId}/favorites";
   public static final String WS_SEC_COMMUNITIES = WS_SEC + "communities";
   public static final String FORGET_PASSWORD = "/forgetPassword";
   public static final String SAVE_PASSWORD = "/user/{userId}/savePassword";

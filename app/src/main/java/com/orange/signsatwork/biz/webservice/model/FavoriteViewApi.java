@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Favorite;
 import com.orange.signsatwork.biz.domain.FavoriteType;
 import com.orange.signsatwork.biz.domain.Favorites;
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.view.model.FavoriteModalView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -81,5 +82,10 @@ public class FavoriteViewApi {
     return favorites.stream()
       .map(FavoriteViewApi::fromShare)
       .collect(Collectors.toList());
+  }
+
+  public static FavoriteViewApi fromFavoriteModalView(FavoriteModalView favoriteModalView) {
+    FavoriteViewApi favoriteViewApi = new FavoriteViewApi(favoriteModalView.getId(), favoriteModalView.getName(), favoriteModalView.getIdForName(), favoriteModalView.getType(), "", 0, 0);
+    return(favoriteViewApi);
   }
 }
