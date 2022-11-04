@@ -156,6 +156,7 @@ public class FavoriteRestController {
   }
 
   private List<FavoriteViewApi> fillModelWithFavorites(User user, Long videoId) {
+    List<Long> favoritesIdBelowVideo = new ArrayList<>();
     List<FavoriteViewApi> favoritesBelowVideo = new ArrayList<>();
     if (user != null) {
       List<FavoriteModalView> favorites = new ArrayList<>();
@@ -170,11 +171,11 @@ public class FavoriteRestController {
       favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
       favorites.addAll(favoritesAlpha);
 
-      for (FavoriteModalView f : favorites) {
-        if (f.getVideos().ids().contains(videoId)) {
-          favoritesBelowVideo.add(FavoriteViewApi.fromFavoriteModalView(f));
-        }
-      }
+      favoritesIdBelowVideo = Arrays.asList(services.favorite().FavoriteIdsBelowVideoId(videoId, favorites.stream().map(f -> f.getId()).collect(Collectors.toList())));
+
+      List<Long> finalFavoritesIdBelowVideo = favoritesIdBelowVideo;
+      favoritesBelowVideo = favorites.stream().filter(f -> finalFavoritesIdBelowVideo.contains(f.getId())).map(f ->FavoriteViewApi.fromFavoriteModalView(f)).collect(Collectors.toList());
+
     }
     return favoritesBelowVideo;
   }

@@ -287,4 +287,8 @@ public class FavoriteServiceImpl implements FavoriteService {
     return favoriteFrom(favoriteDB, services);
   }
 
+  @Override
+  public Long[] FavoriteIdsBelowVideoId(long videoId, List<Long> favoriteIds) {
+    return favoriteRepository.findFavoriteIdsBelowVideoId(videoId, favoriteIds);
+  }
 }

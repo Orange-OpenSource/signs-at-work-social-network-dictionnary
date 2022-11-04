@@ -44,15 +44,12 @@ public class FavoriteModalView {
   private long idForName;
   private FavoriteType type;
 
-  private Videos videos;
-
   public Favorite toFavorite() {
     return new Favorite(id, name, idForName, type, null, null, null, null, null);
   }
 
   public static FavoriteModalView from(Favorite favorite) {
-    favorite = favorite.loadVideos();
-    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, favorite.type, favorite.videos);
+    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, favorite.type);
   }
 
   public static List<FavoriteModalView> from(Favorites favorites) {
@@ -63,8 +60,7 @@ public class FavoriteModalView {
 
 
   public static FavoriteModalView fromNewShare(Favorite favorite) {
-    favorite = favorite.loadVideos();
-    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare, favorite.videos);
+    return new FavoriteModalView(favorite.id, favorite.name, favorite.idForName, FavoriteType.NewShare);
   }
 
   public static List<FavoriteModalView> fromNewShare(Favorites favorites) {

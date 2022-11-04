@@ -60,7 +60,10 @@ public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
     List<FavoriteDB> findByUserForSignFilter(@Param("userId") long userId);
 
     @Query(value="select max(id_for_name) from favorites A, favorites_communities B where replace(replace(upper(A.name),'Œ','OE'),'Æ','AE') = :favoriteName and A.id != :favoriteId and A.id = B.favorites_id", nativeQuery = true)
-      Long findMaxIdForName(@Param("favoriteName") String favoriteName, @Param("favoriteId") Long favoriteId);
+    Long findMaxIdForName(@Param("favoriteName") String favoriteName, @Param("favoriteId") Long favoriteId);
+
+    @Query(value="select a.favorites_id from favorites_videos a where a.videos_id = :videoId and a.favorites_id in (:favoriteIds)", nativeQuery = true)
+    Long[] findFavoriteIdsBelowVideoId(@Param("videoId") long videoId, @Param("favoriteIds") List<Long> favoriteIds);
 
     public default FavoriteDB findOne(long id) {
       return findById(id).orElse(null);
