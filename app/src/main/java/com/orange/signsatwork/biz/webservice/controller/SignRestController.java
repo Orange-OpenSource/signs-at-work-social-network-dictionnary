@@ -22,6 +22,9 @@ package com.orange.signsatwork.biz.webservice.controller;
  * #L%
  */
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
@@ -1346,7 +1349,7 @@ public class SignRestController {
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
     File inputFile;
-    String fileCodec = null;
+    Streams streamInfo;
     String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
@@ -1363,18 +1366,20 @@ public class SignRestController {
     }
 
     try {
-      fileCodec = SearchFileCodec(newAbsoluteFileName);
-    } catch (Exception errorSerachFileCodec) {
-      fileCodec = "";
+      streamInfo = SearchFileInfo(newAbsoluteFileName);
+    } catch (Exception errorSearchFileInfo) {
+      streamInfo = new Streams(new ArrayList<>());
     }
 
-    if (fileCodec.equals("hevc"))
-    {
-      try {
-        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+    if (streamInfo.getStreams().stream().findFirst().get().getCodec_name().equals("hevc")) {
+      EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+      newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+    } else {
+      if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
+        (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
+        (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+        ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
-      } catch (Exception errorEncodeFileInH264) {
-
       }
     }
 
@@ -1417,6 +1422,33 @@ public class SignRestController {
     videoResponseApi.videoId = sign.lastVideoId;
     return videoResponseApi;
 
+  }
+
+  private Streams SearchFileInfo(String file) throws JsonProcessingException {
+    String cmdFileInfo = String.format("ffprobe -v quiet -print_format json -show_streams -select_streams v:0 %s", file);
+    String fileInfo = NativeInterface.launchAndGetOutput(cmdFileInfo, null, null);
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    Streams streams = objectMapper.readValue(fileInfo, Streams.class);
+    return streams;
+  }
+
+  private void ReduceFileSizeInChangingResolution(String file, String fileOutput) {
+    String cmd;
+    cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
+
+  public static long parseSize(String text) {
+    double d = Double.parseDouble(text.replaceAll("[GMK]B$", ""));
+    long l = Math.round(d * 1024 * 1024 * 1024L);
+    switch (text.charAt(Math.max(0, text.length() - 2))) {
+      default:  l /= 1024;
+      case 'K': l /= 1024;
+      case 'M': l /= 1024;
+      case 'G': return l;
+    }
   }
 
   @Secured("ROLE_USER_A")
@@ -1659,7 +1691,7 @@ public class SignRestController {
     String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     File inputFile;
-    String fileCodec = null;
+    Streams streamInfo;
     String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
 
@@ -1675,18 +1707,20 @@ public class SignRestController {
     }
 
     try {
-      fileCodec = SearchFileCodec(newAbsoluteFileName);
-    } catch (Exception errorSerachFileCodec) {
-      fileCodec = "";
+      streamInfo = SearchFileInfo(newAbsoluteFileName);
+    } catch (Exception errorSearchFileInfo) {
+      streamInfo = new Streams(new ArrayList<>());
     }
 
-    if (fileCodec.equals("hevc"))
-    {
-      try {
-        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+    if (streamInfo.getStreams().stream().findFirst().get().getCodec_name().equals("hevc")) {
+      EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+      newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+    } else {
+      if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
+        (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
+        (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+        ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
-      } catch (Exception errorEncodeFileInH264) {
-
       }
     }
 

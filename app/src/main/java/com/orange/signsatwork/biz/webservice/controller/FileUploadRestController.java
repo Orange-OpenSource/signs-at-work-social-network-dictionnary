@@ -22,6 +22,14 @@ package com.orange.signsatwork.biz.webservice.controller;
  * #L%
  */
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
@@ -32,7 +40,10 @@ import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import com.orange.signsatwork.biz.view.model.SignCreationView;
 import com.orange.signsatwork.biz.webservice.model.RequestResponse;
+import com.orange.signsatwork.biz.webservice.model.Stream;
+import com.orange.signsatwork.biz.webservice.model.Streams;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.json.JSONParser;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -422,6 +433,15 @@ public class FileUploadRestController {
     return fileCodec;
   }
 
+  private Streams SearchFileInfo(String file) throws JsonProcessingException {
+    String cmdFileInfo = String.format("ffprobe -v quiet -print_format json -show_streams -select_streams v:0 %s", file);
+    String fileInfo = NativeInterface.launchAndGetOutput(cmdFileInfo, null, null);
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    Streams streams = objectMapper.readValue(fileInfo, Streams.class);
+    return streams;
+  }
+
   private void EncodeFileInH264(String file, String fileOutput) {
     String cmd;
 
@@ -430,6 +450,12 @@ public class FileUploadRestController {
     NativeInterface.launch(cmd, null, null);
   }
 
+  private void ReduceFileSizeInChangingResolution(String file, String fileOutput) {
+    String cmd;
+    cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
 
   public static long parseSize(String text) {
     double d = Double.parseDouble(text.replaceAll("[GMK]B$", ""));
@@ -637,7 +663,7 @@ public class FileUploadRestController {
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
     File inputFile;
-    String fileCodec = null;
+    Streams streamInfo;
     String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
     try {
@@ -651,18 +677,20 @@ public class FileUploadRestController {
     }
 
     try {
-      fileCodec = SearchFileCodec(newAbsoluteFileName);
-    } catch (Exception errorSerachFileCodec) {
-      fileCodec = "";
+      streamInfo = SearchFileInfo(newAbsoluteFileName);
+    } catch (Exception errorSearchFileInfo) {
+      streamInfo = new Streams(new ArrayList<>());
     }
 
-    if (fileCodec.equals("hevc"))
-    {
-      try {
+    if (streamInfo.getStreams().stream().findFirst().get().getCodec_name().equals("hevc")) {
         EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
-      } catch (Exception errorEncodeFileInH264) {
-
+    } else {
+      if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
+        (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
+        (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+        ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
       }
     }
 
@@ -1059,7 +1087,7 @@ public class FileUploadRestController {
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
       File inputFile;
-      String fileCodec = null;
+      Streams streamInfo;
       String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
       User admin = services.user().getAdmin();
@@ -1076,18 +1104,20 @@ public class FileUploadRestController {
       }
 
       try {
-        fileCodec = SearchFileCodec(newAbsoluteFileName);
-      } catch (Exception errorSerachFileCodec) {
-        fileCodec = "";
+        streamInfo = SearchFileInfo(newAbsoluteFileName);
+      } catch (Exception errorSearchFileInfo) {
+        streamInfo = new Streams(new ArrayList<>());
       }
 
-      if (fileCodec.equals("hevc"))
-      {
-        try {
-          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+      if (streamInfo.getStreams().stream().findFirst().get().getCodec_name().equals("hevc")) {
+        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } else {
+        if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
+          (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
+          (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+          ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
-        } catch (Exception errorEncodeFileInH264) {
-
         }
       }
 
@@ -1668,7 +1698,7 @@ public class FileUploadRestController {
       Request request = null;
       RequestResponse requestResponse = new RequestResponse();
       File inputFile;
-      String fileCodec = null;
+      Streams streamInfo;
       String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
 
@@ -1685,18 +1715,20 @@ public class FileUploadRestController {
       }
 
       try {
-        fileCodec = SearchFileCodec(newAbsoluteFileName);
-      } catch (Exception errorSerachFileCodec) {
-        fileCodec = "";
+        streamInfo = SearchFileInfo(newAbsoluteFileName);
+      } catch (Exception errorSearchFileInfo) {
+        streamInfo = new Streams(new ArrayList<>());
       }
 
-      if (fileCodec.equals("hevc"))
-      {
-        try {
-          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+      if (streamInfo.getStreams().stream().findFirst().get().getCodec_name().equals("hevc")) {
+        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } else {
+        if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
+          (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
+          (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+          ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
-        } catch (Exception errorEncodeFileInH264) {
-
         }
       }
 
@@ -2529,7 +2561,7 @@ public class FileUploadRestController {
       List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
       emails = emails.stream().distinct().collect(Collectors.toList());
       File inputFile;
-      String fileCodec = null;
+      Streams streamInfo;
       String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
 
@@ -2544,19 +2576,22 @@ public class FileUploadRestController {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return messageByLocaleService.getMessage("errorUploadFile");
       }
+
       try {
-        fileCodec = SearchFileCodec(newAbsoluteFileName);
-      } catch (Exception errorSerachFileCodec) {
-        fileCodec = "";
+        streamInfo = SearchFileInfo(newAbsoluteFileName);
+      } catch (Exception errorSearchFileInfo) {
+        streamInfo = new Streams(new ArrayList<>());
       }
 
-      if (fileCodec.equals("hevc"))
-      {
-        try {
-          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+      if (streamInfo.getStreams().stream().findFirst().get().getCodec_name().equals("hevc")) {
+        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } else {
+        if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
+          (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
+          (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+          ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
-        } catch (Exception errorEncodeFileInH264) {
-
         }
       }
 
@@ -2960,7 +2995,7 @@ public class FileUploadRestController {
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Community community = services.community().withId(communityId);
       File inputFile;
-      String fileCodec = null;
+      Streams streamInfo;
       String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
 
 
@@ -2975,18 +3010,20 @@ public class FileUploadRestController {
       }
 
       try {
-        fileCodec = SearchFileCodec(newAbsoluteFileName);
-      } catch (Exception errorSerachFileCodec) {
-        fileCodec = "";
+        streamInfo = SearchFileInfo(newAbsoluteFileName);
+      } catch (Exception errorSearchFileInfo) {
+        streamInfo = new Streams(new ArrayList<>());
       }
 
-      if (fileCodec.equals("hevc"))
-      {
-        try {
-          EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+      if (streamInfo.getStreams().stream().findFirst().get().getCodec_name().equals("hevc")) {
+        EncodeFileInH264(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+        newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } else {
+        if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
+          (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
+          (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+          ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
-        } catch (Exception errorEncodeFileInH264) {
-
         }
       }
 
