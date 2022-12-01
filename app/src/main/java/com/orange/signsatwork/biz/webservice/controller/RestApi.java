@@ -81,7 +81,7 @@ public class RestApi {
   public static final String WS_SEC_COMMUNITY_DATAS = WS_SEC + "communities/{communityId}/datas";
   public static final String WS_SEC_COMMUNITY = WS_SEC + "communities/{communityId}";
   public static final String ARTICLES = "/articles";
-  public static final String WS_ROOT_SIGNS_VIDEOS = WS_ROOT + "/signs/{signId}/videos";
+  public static final String WS_ROOT_SIGNS_VIDEOS = WS_ROOT + "signs/{signId}/videos";
   public static final String WS_SEC_SIGN_VIDEO_RENAME = WS_SEC + "signs/{signId}/videos/{videoId}/rename";
   /** Fin API REST For Android and IOS **/
 
