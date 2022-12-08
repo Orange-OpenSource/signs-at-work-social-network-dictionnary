@@ -443,7 +443,7 @@ button.close{
   margin-right: 14px;
 }
 
-.errorRegexLastName, .errorRegexFirstName, .errorRegexEmail, #errorForgetPassword, #errorCreateUser, #errorUserExist {
+.errorRegexLastName, .errorRegexFirstName, .errorRegexEmail, .errorRegexFavoriteName, .errorRegexSignName, .errorRegexRequestName, .errorRegexCommunityName, #errorForgetPassword, #errorCreateUser, #errorUserExist {
   font-size: 14px;
   color: red;
 }

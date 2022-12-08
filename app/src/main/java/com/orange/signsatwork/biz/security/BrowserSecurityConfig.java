@@ -53,7 +53,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     disableSecurityOnWebJars(http);
     disableSecurityOnAssets(http);
     disableSecForDBConsole(http);
-/*    securyFilterChain(http);*/
+    securyFilterChain(http);
 
     http.csrf().disable()
             // configure the HttpSecurity to only be invoked when matching the provided ant pattern
@@ -101,6 +101,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     http.headers()
       .xssProtection()
       .and()
-      .contentSecurityPolicy("script-src 'self' http///localhost:8080");
+      .contentSecurityPolicy("script-src 'self' 'unsafe-inline' 'report-sample'");
   }
 }

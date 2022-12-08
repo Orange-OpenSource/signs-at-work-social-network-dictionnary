@@ -79,17 +79,21 @@
       <form autocomplete="off"
             method="post" th:action="@{/sec/community/search(id=${favoriteProfileView.favorite.id})}" th:object="${communityCreationView}">
         <div class="modal-body text-center">
-          <input class="border form-control" name="name" th:autofocus="true"
+          <div class="errorRegexCommunityName hidden" th:text="#{errorName}"></div>
+          <input class="border form-control" id="communityName" name="name" th:autofocus="true"
                  th:placeholder="#{community.enter_name}"
-                 th:value="${favoriteProfileView.favorite.favoriteName()}" type="text"/>
+                 th:value="${favoriteProfileView.favorite.favoriteName()}" type="text" autocomplete="off"/>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary pull-left" data-dismiss="modal" id="cancel-modal" title="Cliquer pour annuler"
                   type="button">
+            <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
-          <button class="btn btn-default" data-dismiss="" th:text="#{continue}"
-                  type="submit"></button>
+          <button type="submit" id="submit-create-community" class="btn btn-default pull-right" data-dismiss="">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{continue}"></span>
+          </button>
         </div>
       </form>
     </div>

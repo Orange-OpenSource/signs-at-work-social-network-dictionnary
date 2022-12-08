@@ -48,6 +48,10 @@ var normalize = function( term ) {
 };
 
 
+var inputCommunityName = document.getElementById('communityName');
+var submitCreateCommunity = document.getElementById("submit-create-community");
+
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
 
 function onContinueFavorite(backUrl) {
   var url = backUrl;
@@ -205,6 +209,25 @@ function onReset(event) {
 
 }
 
+function checkCommunityName() {
+  var valueCommunityName = inputCommunityName.value;
+
+  if (valueCommunityName != '') {
+    if (!regexName.test(valueCommunityName)) {
+      $('.errorRegexCommunityName').removeClass("hidden");
+      submitCreateCommunity.disabled = true;
+    } else {
+      $('.errorRegexCommunityName').addClass("hidden");
+      submitCreateCommunity.disabled = false;
+    }
+  } else {
+    $('.errorRegexCommunityName').addClass("hidden");
+    submitCreateCommunity.disabled = true;
+  }
+}
+
+
+
 (function main($) {
   $("#shareFavoriteForm").trackChanges();
   $("#FavoriteCreateCommunityForm").trackChanges();
@@ -214,5 +237,8 @@ function onReset(event) {
   if (button_reset) {
     button_reset.addEventListener('click', onReset);
   }
+  inputCommunityName.addEventListener('keyup',checkCommunityName);
+  submitCreateCommunity.disabled = true;
+
 })($);
 

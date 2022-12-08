@@ -24,6 +24,24 @@ var oldsignName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
 var submitForceRenameModal = document.getElementById("submit-force-rename-modal");
 
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+
+function checkSignName() {
+  var valueSignName = signName.value;
+
+  if (valueSignName != '') {
+    if (!regexName.test(valueSignName)) {
+      $('.errorRegexSignName').removeClass("hidden");
+     submitRenameModal.disabled = true;
+    } else {
+      $('.errorRegexSignName').addClass("hidden");
+     submitRenameModal.disabled = false;
+    }
+  } else {
+    $('.errorRegexSignName').addClass("hidden");
+    submitRenameModal.disabled = true;
+  }
+}
 
 function onRenameSign(signId, videoId, force) {
 
@@ -77,6 +95,7 @@ $('#rename-sign').on('hidden.bs.modal', function (e) {
   submitRenameModal.style.display="block";
   submitForceRenameModal.style.display = "none";
   submitRenameModal.disabled = true;
+  $('.errorRegexSignName').addClass("hidden");
 })
 
 
@@ -89,8 +108,9 @@ function resetRenameError(event) {
   submitForceRenameModal.style.display = "none";
   if (oldsignName == signName.value) {
     submitRenameModal.disabled = true;
+    $('.errorRegexSignName').addClass("hidden")
   } else {
-    submitRenameModal.disabled = false;
+    checkSignName();
   }
 }
 

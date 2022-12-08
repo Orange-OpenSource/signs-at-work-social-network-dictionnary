@@ -38,16 +38,17 @@
             </div>
             <form th:action="@{/sec/sign/search(id=${requestId})}" th:object="${signCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
+                    <div class="errorRegexSignName hidden" th:text="#{errorName}"></div>
                     <input th:field="*{signName}" id="signName" name="signName" type="text" class="form-control"
-                           th:placeholder="#{sign.enter_name}" required=""/>
+                           th:placeholder="#{sign.enter_name}" required="" autocomplete="off"/>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                    <button type="button"  data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>
-                    <button type="submit" class="btn btn-default pull-right" data-dismiss="">
+                    <button type="submit" id="submit-create-sign" class="btn btn-default pull-right" data-dismiss="">
                       <div class="v-done2_blue center-block"></div>
                       <span th:text="#{continue}"></span>
                     </button>

@@ -70,8 +70,9 @@
       <form autocomplete="off" method="post" th:action="@{/sec/community/search(id='0')}"
             th:object="${communityCreationView}">
         <div class="modal-body text-center">
-          <input class="border form-control" name="name" required="" th:autofocus="true"
-                 th:placeholder="#{community.enter_name}" type="text"/>
+          <div class="errorRegexCommunityName hidden" th:text="#{errorName}"></div>
+          <input class="border form-control" id="communityName" name="name" required="" th:autofocus="true"
+                 th:placeholder="#{community.enter_name}" type="text" autocomplete="off"/>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary pull-left" data-dismiss="modal" id="cancel-modal" title="Cliquer pour annuler"
@@ -79,7 +80,7 @@
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
-          <button class="btn btn-default pull-right" data-dismiss="" type="submit">
+          <button id="submit-create-community" class="btn btn-default pull-right" data-dismiss="" type="submit">
             <div class="v-done2_blue center-block"></div>
             <span th:text="#{continue}"></span>
           </button>
@@ -89,4 +90,5 @@
   </div>
 </div>
 </body>
+<script src="../public/js/create-community.js" th:src="@{/js/create-community.js}" type="text/javascript"></script>
 </html>

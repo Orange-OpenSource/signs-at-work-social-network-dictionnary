@@ -23,6 +23,26 @@ var communityName = document.getElementById("communityName");
 var oldCommunityName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
 
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+
+
+function checkCommunityName() {
+  var valueCommunityName = communityName.value;
+
+  if (valueCommunityName != '') {
+    if (!regexName.test(valueCommunityName)) {
+      $('.errorRegexCommunityName').removeClass("hidden");
+      submitRenameModal.disabled = true;
+    } else {
+      $('.errorRegexCommunityName').addClass("hidden");
+      submitRenameModal.disabled = false;
+    }
+  } else {
+    $('.errorRegexCommunityName').addClass("hidden");
+    submitRenameModal.disabled = true;
+  }
+}
+
 function onDeleteCommunity(communityId) {
 
     $.ajax({
@@ -115,6 +135,7 @@ $('#rename_community').on('hidden.bs.modal', function (e) {
   errorRename.style.visibility = "hidden";
   communityName.value= oldCommunityName;
   submitRenameModal.disabled = true;
+  $('.errorRegexCommunityName').addClass("hidden");
 })
 
 
@@ -124,7 +145,7 @@ function resetRenameError(event) {
   if (oldCommunityName == communityName.value) {
     submitRenameModal.disabled = true;
   } else {
-    submitRenameModal.disabled = false;
+    checkCommunityName();
   }
 }
 

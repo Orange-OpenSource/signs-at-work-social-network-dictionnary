@@ -267,8 +267,12 @@ h4.blue-cgu {
   color: #662a74;
 }
 
+.member_blue-communities-suggest {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
 .illustration_welcome_signsatwork {
-  background-image: url("../img/sprite_picto_400X400_ADIS.png");
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
 }
 
 .logo_signsatwork_blue {

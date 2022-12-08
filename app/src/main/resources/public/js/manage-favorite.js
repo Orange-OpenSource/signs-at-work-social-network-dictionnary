@@ -24,6 +24,43 @@ var duplicateFavoriteName = document.getElementById("duplicateFavoriteName");
 var oldFavoriteName;
 var oldDuplicateFavoriteName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
+var submitDuplicateModal = document.getElementById("submit-duplicate-modal");
+
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+
+function checkFavoriteName() {
+  var valueFavoriteName = favoriteName.value;
+
+  if (valueFavoriteName != '') {
+    if (!regexName.test(valueFavoriteName)) {
+      $('.errorRegexFavoriteName').removeClass("hidden");
+      submitRenameModal.disabled = true;
+    } else {
+      $('.errorRegexFavoriteName').addClass("hidden");
+      submitRenameModal.disabled = false;
+    }
+  } else {
+    $('.errorRegexFavoriteName').addClass("hidden");
+    submitRenameModal.disabled = true;
+  }
+}
+
+function checkDuplicateFavoriteName() {
+  var valueDuplicateFavoriteName = duplicateFavoriteName.value;
+
+  if (valueDuplicateFavoriteName != '') {
+    if (!regexName.test(valueDuplicateFavoriteName)) {
+      $('.errorRegexFavoriteName').removeClass("hidden");
+      submitDuplicateModal.disabled = true;
+    } else {
+      $('.errorRegexFavoriteName').addClass("hidden");
+      submitDuplicateModal.disabled = false;
+    }
+  } else {
+    $('.errorRegexFavoriteName').addClass("hidden");
+    submitDuplicateModal.disabled = true;
+  }
+}
 
 function onDeleteFavorite(favoriteId) {
 
@@ -120,12 +157,15 @@ $('#rename_favorite').on('hidden.bs.modal', function (e) {
   errorRename.style.visibility = "hidden";
   favoriteName.value= oldFavoriteName;
   submitRenameModal.disabled = true;
+  $('.errorRegexFavoriteName').addClass("hidden");
 })
 
 $('#duplicate_favorite').on('hidden.bs.modal', function (e) {
   var errorDuplicate = document.getElementById('errorDuplicate');
   errorDuplicate.style.visibility = "hidden";
   duplicateFavoriteName.value = oldDuplicateFavoriteName;
+  $('.errorRegexFavoriteName').addClass("hidden");
+  submitDuplicateModal.disabled = false;
 })
 
 function resetRenameError(event) {
@@ -134,13 +174,14 @@ function resetRenameError(event) {
   if (oldFavoriteName == favoriteName.value) {
     submitRenameModal.disabled = true;
   } else {
-    submitRenameModal.disabled = false;
+    checkFavoriteName();
   }
 }
 
 function resetDuplicateError(event) {
   var errorDuplicate = document.getElementById('errorDuplicate');
   errorDuplicate.style.visibility = "hidden";
+  checkDuplicateFavoriteName();
 }
 
 function main() {

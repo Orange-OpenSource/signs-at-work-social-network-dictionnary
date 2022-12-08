@@ -123,8 +123,9 @@
         </div>
       </div>
       <div class="modal-body text-center">
+        <div class="errorRegexCommunityName hidden" th:text="#{errorName}"></div>
         <input class="form-control" id="communityName" name="communityName" th:autofocus="true"
-               th:value="${community.name}" type="text"/>
+               th:value="${community.name}" type="text" autocomplete="off"/>
         <span id="errorRename" style="visibility: hidden"></span>
       </div>
       <div class="modal-footer">

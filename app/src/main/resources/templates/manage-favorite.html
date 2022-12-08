@@ -125,8 +125,9 @@
         </div>
       </div>
       <div class="modal-body text-center">
+        <div class="errorRegexFavoriteName hidden" th:text="#{errorName}"></div>
         <input class="form-control" id="favoriteName" name="favoriteName" th:autofocus="true"
-               th:value="${favoriteManageView.name}" type="text"/>
+               th:value="${favoriteManageView.name}" type="text" autocomplete="off"/>
         <span id="errorRename" style="visibility: hidden"></span>
       </div>
       <div class="modal-footer">
@@ -162,8 +163,9 @@
         <h4 th:text="#{favorite.duplicate_text(${favoriteManageView.name})}"></h4>
       </div>
       <div class="modal-body text-center">
+        <div class="errorRegexFavoriteName hidden" th:text="#{errorName}"></div>
         <input class="form-control" id="duplicateFavoriteName" name="favoriteName" th:autofocus="true"
-               th:value="${favoriteManageView.name}" type="text"/>
+               th:value="${favoriteManageView.name}" type="text" autocomplete="off"/>
         <span id="errorDuplicate" style="visibility: hidden"></span>
       </div>
       <div class="modal-footer">
@@ -171,7 +173,7 @@
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
-        <button class="btn btn-default pull-right" data-dismiss=""
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-duplicate-modal"
                 th:data-favoriteId="${favoriteId}"
                 th:onclick="javascript:onDuplicateFavorite(this.getAttribute('data-favoriteId'))"
                 type="submit">

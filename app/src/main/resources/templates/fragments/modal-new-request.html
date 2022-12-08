@@ -38,8 +38,9 @@
             </div>
             <form th:action="@{/sec/request/search}" th:object="${requestCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
+                    <div class="errorRegexRequestName hidden" th:text="#{errorName}"></div>
                     <input th:field="*{requestName}" id="requestName" name="requestName" type="text" class="border form-control"
-                           th:placeholder="#{sign.enter_name}" required=""/>
+                           th:placeholder="#{sign.enter_name}" required="" autocomplete="off"/>
                 </div>
 
                 <div class="modal-footer">
@@ -47,7 +48,7 @@
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>
-                    <button type="submit" class="btn btn-default pull-right" data-dismiss="">
+                    <button type="submit" id="submit-create-request" class="btn btn-default pull-right" data-dismiss="">
                       <div class="v-done2_blue center-block"></div>
                       <span th:text="#{continue}"></span>
                     </button>
