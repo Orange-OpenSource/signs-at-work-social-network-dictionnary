@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.webservice.model;
 
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
+import com.orange.signsatwork.biz.security.ClearXss;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -38,5 +39,11 @@ public class CommunityCreationApi {
 
   public Community toCommunity() {
     return new Community(-1, this.name, null, null, null, CommunityType.Project, null);
+  }
+
+  public void clearXss() {
+    if (name != null) {
+      name = ClearXss.cleanFormString(name);
+    }
   }
 }

@@ -209,6 +209,7 @@ public class CommunityRestController {
     List<String> emails;
     User user = services.user().withUserName(principal.getName());
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+    communityCreationApi.clearXss();
     if (services.community().withCommunityName(communityCreationApi.getName()) == null) {
       List<Long> usersIds = communityCreationApi.getCommunityUsersIds();
       usersIds.add(user.id);
@@ -315,6 +316,7 @@ public class CommunityRestController {
 
 
     Community community = services.community().withId(communityId);
+    communityCreationViewApi.clearXss();
     if (communityCreationViewApi.getName() != null) {
       if (community.user.id != user.id) {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -439,6 +441,7 @@ public class CommunityRestController {
 
     Community community = services.community().withId(communityId);
     if (communityCreationViewApi.isPresent()) {
+      communityCreationViewApi.get().clearXss();
       if (communityCreationViewApi.get().getName() != null) {
         if (community.user.id != user.id) {
           response.setStatus(HttpServletResponse.SC_FORBIDDEN);

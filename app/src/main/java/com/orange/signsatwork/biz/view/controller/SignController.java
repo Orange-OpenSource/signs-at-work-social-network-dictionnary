@@ -1152,6 +1152,7 @@ public class SignController {
   @RequestMapping(value = "/sec/sign/{signId}/definitionText", method = RequestMethod.POST)
   public String changeDefinitionSign(@PathVariable long signId, @ModelAttribute SignDefinitionCreationView signDefinitionCreationView) {
 
+    signDefinitionCreationView.clearXss();
     services.sign().changeSignTextDefinition(signId, signDefinitionCreationView.getTextDefinition());
 
     return "redirect:/sec/sign/" + signId + "/definition";
@@ -1163,6 +1164,7 @@ public class SignController {
     String title = null, bodyMail = null, messageType = null;
     Sign sign = services.sign().withId(signId);
     Videos videos = services.video().forSign(signId);
+    signDefinitionCreationView.clearXss();
     List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
     emails = emails.stream().distinct().collect(Collectors.toList());
     if (sign.textDefinition != null) {

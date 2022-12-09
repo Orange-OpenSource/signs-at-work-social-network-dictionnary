@@ -142,6 +142,7 @@ public class RequestController {
   public String changeSignRequest(@PathVariable long requestId, Model model, @ModelAttribute SignCreationView signCreationView, Principal principal) {
 
     User user = services.user().withUserName(principal.getName());
+    signCreationView.clearXss();
     Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
     services.request().changeSignRequest(requestId, sign.id);
     log.info("createSign: username = {} / sign name = {} / video url = {} and associate to request = {} ", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl(),requestId);
@@ -260,6 +261,7 @@ public class RequestController {
   @RequestMapping(value = "/sec/request/{requestId}/description", method = RequestMethod.POST)
   public String changeDescriptionnRequest(@PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView) {
 
+    requestCreationView.clearXss();
     services.request().changeRequestTextDescription(requestId, requestCreationView.getRequestTextDescription());
 
     return "redirect:/sec/my-request-detail/" + requestId;

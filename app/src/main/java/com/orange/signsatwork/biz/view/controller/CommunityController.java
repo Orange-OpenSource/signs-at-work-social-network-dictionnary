@@ -94,6 +94,7 @@ public class CommunityController {
     @RequestMapping(value = "/sec/community/create", method = RequestMethod.POST)
     public String createCommunity(@ModelAttribute CommunityView communityView, Model model, Principal principal) {
       User user = services.user().withUserName(principal.getName());
+      communityView.clearXss();
       Community community = services.community().create(user.id, communityView.toCommunity());
       return community(community.id, model, principal);
     }

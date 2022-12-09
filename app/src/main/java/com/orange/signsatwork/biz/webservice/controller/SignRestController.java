@@ -326,6 +326,7 @@ public class SignRestController {
   @RequestMapping(value = RestApi.WS_SEC_SIGN_CREATE, method = RequestMethod.POST)
   public SignId createSign(@RequestBody SignCreationView signCreationView, Principal principal) {
     User user = services.user().withUserName(principal.getName());
+    signCreationView.clearXss();
     Sign sign = services.sign().create(user.id, signCreationView.getSignName(), signCreationView.getVideoUrl(), "");
 
     log.info("createSign: username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), signCreationView.getVideoUrl());
@@ -891,6 +892,7 @@ public class SignRestController {
         return videoResponseApi;
       }
 
+      signCreationViewApi.clearXss();
       if (!services.sign().withName(signCreationViewApi.getName()).list().isEmpty()) {
         response.setStatus(HttpServletResponse.SC_CONFLICT);
         videoResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
@@ -926,6 +928,7 @@ public class SignRestController {
       videoResponseApi.errorMessage = messageByLocaleService.getMessage("video_not_below_to_you");
       return videoResponseApi;
     }
+    signCreationViewApi.clearXss();
     if (environment.getProperty("app.dailymotion_url").isEmpty()) {
       return handleSelectedVideoFileUploadOnServer(file.get(), OptionalLong.empty(), OptionalLong.of(signId), OptionalLong.of(videoId), signCreationViewApi, principal, response);
     } else {
@@ -950,6 +953,7 @@ public class SignRestController {
     User admin = services.user().getAdmin();
     Videos videos = services.video().forUser(user.id);
 
+    signCreationViewApi.clearXss();
     if (user.username != admin.username) {
       boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
       if (!isVideoBellowToMe) {
@@ -1166,6 +1170,7 @@ public class SignRestController {
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
+    signCreationViewApi.clearXss();
     if (!AuthentModel.hasRole("ROLE_USER_A")) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       videoResponseApi.errorMessage = messageByLocaleService.getMessage("forbidden_action");
@@ -1458,6 +1463,7 @@ public class SignRestController {
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
     if (signCreationViewApi.isPresent()) {
+      signCreationViewApi.get().clearXss();
       if (!signCreationViewApi.get().getTextDefinition().isEmpty()) {
         services.sign().changeSignTextDefinition(signId, signCreationViewApi.get().getTextDefinition());
       }

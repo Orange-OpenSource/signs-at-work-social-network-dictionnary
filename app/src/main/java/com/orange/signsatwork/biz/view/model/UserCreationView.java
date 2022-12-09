@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.view.model;
  */
 
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.security.ClearXss;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,5 +57,32 @@ public class UserCreationView {
 
   public User toUser() {
     return User.create(username, firstName, lastName, nameVideo, namePicture, email, entity, job, jobDescriptionText, jobDescriptionVideo, jobDescriptionPicture, isNonLocked, isEnabled);
+  }
+
+  public void clearXss() {
+    if (username != null) {
+      username = ClearXss.cleanFormString(username);
+    }
+    if (role != null) {
+      role = ClearXss.cleanFormString(role);
+    }
+    if (firstName != null) {
+      firstName = ClearXss.cleanFormString(firstName);
+    }
+    if (lastName != null) {
+      lastName = ClearXss.cleanFormString(lastName);
+    }
+    if (email != null) {
+      email = ClearXss.cleanFormString(email);
+    }
+    if (entity != null) {
+      entity = ClearXss.cleanFormString(entity);
+    }
+    if (job != null) {
+      job = ClearXss.cleanFormString(job);
+    }
+    if (jobDescriptionText != null) {
+      jobDescriptionText = ClearXss.cleanFormString(jobDescriptionText);
+    }
   }
 }

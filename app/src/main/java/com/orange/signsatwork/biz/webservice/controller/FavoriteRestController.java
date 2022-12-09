@@ -339,6 +339,7 @@ public class FavoriteRestController {
     FavoriteResponseApi favoriteResponseApi = new FavoriteResponseApi();
     User user = services.user().withUserName(principal.getName());
 
+    favoriteCreationViewApi.clearXss();
     Favorite favorite = services.favorite().create(user.id, favoriteCreationViewApi.getName());
 
     if (favoriteCreationViewApi.getVideoIdToAdd() != null) {
@@ -361,6 +362,7 @@ public class FavoriteRestController {
 
 
     Favorite favorite = services.favorite().withId(favoriteId);
+    favoriteCreationViewApi.clearXss();
     if (favoriteCreationViewApi.getName() != null) {
       List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
 
@@ -417,6 +419,7 @@ public class FavoriteRestController {
     FavoriteResponseApi favoriteResponseApi = new FavoriteResponseApi();
     User user = services.user().withUserName(principal.getName());
 
+    favoriteCreationViewApi.clearXss();
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favorite.type == FavoriteType.Individual) {
       List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));

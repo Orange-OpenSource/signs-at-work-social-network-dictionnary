@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.webservice.model;
  * #L%
  */
 
+import com.orange.signsatwork.biz.security.ClearXss;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +38,13 @@ public class RequestCreationViewApi {
   private String name;
   private String textDescription;
   private Date date;
+
+  public void clearXss() {
+    if (name != null) {
+      name = ClearXss.cleanFormString(name);
+    }
+    if (textDescription != null) {
+      textDescription = ClearXss.cleanFormString(textDescription);
+    }
+  }
 }

@@ -92,6 +92,7 @@ public class RequestRestController {
     Request request;
     RequestResponse requestResponse = new RequestResponse();
     User user = services.user().withUserName(principal.getName());
+    requestCreationView.clearXss();
     if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
       if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
          request = services.request().create(user.id, requestCreationView.getRequestName(), requestCreationView.getRequestTextDescription(), "");
@@ -132,6 +133,7 @@ public class RequestRestController {
   public RequestResponse renameRequest(@RequestBody RequestCreationView requestCreationView, @PathVariable long requestId, HttpServletResponse response) {
     RequestResponse requestResponse = new RequestResponse();
     Request request = services.request().withId(requestId);
+    requestCreationView.clearXss();
     if (!request.name.equals(requestCreationView.getRequestName())) {
       if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
         if (services.request().withName(requestCreationView.getRequestName()).list().isEmpty()) {
@@ -387,6 +389,7 @@ public class RequestRestController {
     }
 
     if (requestCreationViewApi.isPresent()) {
+      requestCreationViewApi.get().clearXss();
       if ((requestCreationViewApi.get().getName() != null) && !request.name.equals(requestCreationViewApi.get().getName())) {
         if (services.sign().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
           if (services.request().withName(requestCreationViewApi.get().getName()).list().isEmpty()) {
@@ -439,7 +442,7 @@ public class RequestRestController {
     Request request;
     RequestResponseApi requestResponseApi = new RequestResponseApi();
     User user = services.user().withUserName(principal.getName());
-
+    requestCreationViewApi.clearXss();
     if (!services.sign().withName(requestCreationViewApi.getName()).list().isEmpty()) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
       requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");
@@ -817,6 +820,7 @@ public class RequestRestController {
       return requestResponseApi;
     }
 
+    signCreationViewApi.clearXss();
     if (!services.sign().withName(signCreationViewApi.getName()).list().isEmpty()) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
       requestResponseApi.errorMessage = messageByLocaleService.getMessage("sign.already_exists");

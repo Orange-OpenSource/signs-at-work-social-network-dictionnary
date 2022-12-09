@@ -308,6 +308,7 @@ public class UserRestController {
   public UserResponseApi forgotPassword(@RequestBody UserCreationView userCreationView, HttpServletResponse response, HttpServletRequest request) {
     String title, bodyMail;
     UserResponseApi userResponseApi = new UserResponseApi();
+    userCreationView.clearXss();
     User user = services.user().withUserName(userCreationView.getUsername());
     if ( user == null) {
       response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -392,7 +393,7 @@ public class UserRestController {
     User user = services.user().withUserName(principal.getName());
 
     if (userCreationViewApi.isPresent()) {
-
+      userCreationViewApi.get().clearXss();
       if (userCreationViewApi.get().getFirstName() != null) {
         if ((!userCreationViewApi.get().getFirstName().isEmpty()) && (userCreationViewApi.get().getFirstName() != user.firstName)) {
           services.user().changeFirstName(user, userCreationViewApi.get().getFirstName());
@@ -498,8 +499,9 @@ public class UserRestController {
 
     User user = services.user().withUserName(principal.getName());
 
-    if (userCreationViewApi != null) {
 
+    if (userCreationViewApi != null) {
+      userCreationViewApi.clearXss();
       if (userCreationViewApi.getFirstName() != null) {
         if ((!userCreationViewApi.getFirstName().isEmpty()) && (userCreationViewApi.getFirstName() != user.firstName)) {
           services.user().changeFirstName(user, userCreationViewApi.getFirstName());
@@ -566,7 +568,7 @@ public class UserRestController {
     title = messageByLocaleService.getMessage("admin_change_profil");
 
     if (userCreationViewApi != null) {
-
+      userCreationViewApi.clearXss();
       if ((userCreationViewApi.getFirstName() != null) && (userCreationViewApi.getLastName() != null)) {
         if ((!userCreationViewApi.getFirstName().isEmpty()) && !(userCreationViewApi.getFirstName().equals(user.firstName)) && ((!userCreationViewApi.getLastName().isEmpty()) && !(userCreationViewApi.getLastName().equals(user.lastName)))) {
           services.user().changeFirstName(user, userCreationViewApi.getFirstName());
@@ -1031,7 +1033,7 @@ public class UserRestController {
     UserResponseApi userResponseApi = new UserResponseApi();
 
     User user = services.user().withId(userId);
-
+    userCreationView.clearXss();
     PasswordResetToken passToken = services.user().getPasswordResetToken(userCreationView.getToken());
     if ((passToken == null) || (user.id != passToken.user.id)) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -1061,6 +1063,7 @@ public class UserRestController {
     String title, body;
     UserResponseApi userResponseApi = new UserResponseApi();
     User admin = services.user().getAdmin();
+    userCreationView.clearXss();
     String userToCreateEmail = userCreationView.getEmail().trim();
     User user = services.user().withUserName(userToCreateEmail);
     if (user == null) {
@@ -1099,6 +1102,7 @@ public class UserRestController {
     UserResponseApi userResponseApi = new UserResponseApi();
     User admin = services.user().getAdmin();
     User user = services.user().withUserName(principal.getName());
+    userCreationView.clearXss();
     String userToCreateEmail = userCreationView.getEmail().trim();
     User userSearch = services.user().withUserName(userToCreateEmail);
     if (userSearch == null) {

@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.domain.Users;
+import com.orange.signsatwork.biz.security.ClearXss;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,5 +63,11 @@ public class CommunityView {
     return communities.stream()
       .map(CommunityView::from)
       .collect(Collectors.toList());
+  }
+
+  public void clearXss() {
+    if (name != null) {
+      name = ClearXss.cleanFormString(name);
+    }
   }
 }

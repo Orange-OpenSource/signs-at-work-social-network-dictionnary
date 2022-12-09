@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.webservice.model;
  */
 
 import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.security.ClearXss;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -36,4 +37,25 @@ public class UserCreationViewApi {
   private String entity;
   private String job;
   private String jobDescriptionText;
+
+  public void clearXss() {
+    if (firstName != null) {
+      firstName = ClearXss.cleanFormString(firstName);
+    }
+    if (lastName != null) {
+      lastName = ClearXss.cleanFormString(lastName);
+    }
+    if (email != null) {
+      email = ClearXss.cleanFormString(email);
+    }
+    if (entity != null) {
+      entity = ClearXss.cleanFormString(entity);
+    }
+    if (job != null) {
+      job = ClearXss.cleanFormString(job);
+    }
+    if (jobDescriptionText != null) {
+      jobDescriptionText = ClearXss.cleanFormString(jobDescriptionText);
+    }
+  }
 }

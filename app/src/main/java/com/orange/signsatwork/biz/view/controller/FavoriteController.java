@@ -31,6 +31,7 @@ import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.security.ClearXss;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,7 @@ public class FavoriteController {
   @RequestMapping(value = "/sec/favorite/create", method = RequestMethod.POST)
   public String createFavorite(@ModelAttribute FavoriteCreationView favoriteCreationView, Principal principal) {
     User user = services.user().withUserName(principal.getName());
+    favoriteCreationView.clearXss();
     Favorite favorite = services.favorite().create(user.id, favoriteCreationView.getFavoriteName());
 
     log.info("createFavorite: username = {} / favorite name = {}", user.username, favoriteCreationView.getFavoriteName());

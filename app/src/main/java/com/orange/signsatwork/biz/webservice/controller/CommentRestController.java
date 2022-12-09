@@ -52,6 +52,7 @@ public class CommentRestController {
   public CommentResponseApi addComment(@PathVariable long videoId, @RequestBody CommentCreationViewApi commentCreationViewApi, HttpServletResponse response, Principal principal) {
     CommentResponseApi commentResponseApi = new CommentResponseApi();
     User user = services.user().withUserName(principal.getName());
+    commentCreationViewApi.clearXss();
     services.video().createVideoComment(videoId, user.id, commentCreationViewApi.getText());
 
     return commentResponseApi;

@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.webservice.model;
  * #L%
  */
 
+import com.orange.signsatwork.biz.security.ClearXss;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,4 +36,9 @@ import java.util.Date;
 @Setter
 public class CommentCreationViewApi {
   private String text;
+  public void clearXss() {
+    if (text != null) {
+      text = ClearXss.cleanFormString(text);
+    }
+  }
 }

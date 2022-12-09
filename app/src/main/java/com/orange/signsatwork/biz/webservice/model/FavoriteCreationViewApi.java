@@ -22,6 +22,7 @@ package com.orange.signsatwork.biz.webservice.model;
  * #L%
  */
 
+import com.orange.signsatwork.biz.security.ClearXss;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,4 +39,10 @@ public class FavoriteCreationViewApi {
   private List<Long> videosIds;
   private Long videoIdToAdd;
   private List<Long> communitiesIds;
+
+  public void clearXss() {
+    if (name != null) {
+      name = ClearXss.cleanFormString(name);
+    }
+  }
 }
