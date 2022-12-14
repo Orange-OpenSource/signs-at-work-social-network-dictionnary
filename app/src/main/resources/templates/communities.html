@@ -70,7 +70,7 @@
       <form autocomplete="off" method="post" th:action="@{/sec/community/search(id='0')}"
             th:object="${communityCreationView}">
         <div class="modal-body text-center">
-          <div class="errorRegexCommunityName hidden" th:text="#{errorName}"></div>
+          <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
           <input class="border form-control" id="communityName" name="name" required="" th:autofocus="true"
                  th:placeholder="#{community.enter_name}" type="text" autocomplete="off"/>
         </div>

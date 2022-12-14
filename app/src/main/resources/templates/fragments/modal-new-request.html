@@ -38,7 +38,7 @@
             </div>
             <form th:action="@{/sec/request/search}" th:object="${requestCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
-                    <div class="errorRegexRequestName hidden" th:text="#{errorName}"></div>
+                    <div class="errorRegexRequestName hidden" th:text="#{errorNameAuthorize}"></div>
                     <input th:field="*{requestName}" id="requestName" name="requestName" type="text" class="border form-control"
                            th:placeholder="#{sign.enter_name}" required="" autocomplete="off"/>
                 </div>

@@ -38,7 +38,7 @@
             </div>
             <form th:action="@{/sec/community/search(id=${favoriteId})}" th:object="${communityCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
-                    <div class="errorRegexCommunityName hidden" th:text="#{errorName}"></div>
+                    <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
                     <input th:field="*{name}" id="communityName" name="name" type="text" class="form-control"
                            th:placeholder="#{community.enter_name}" required="" autocomplete="off"/>
                 </div>

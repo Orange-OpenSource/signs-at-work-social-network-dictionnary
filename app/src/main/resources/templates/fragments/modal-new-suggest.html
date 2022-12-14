@@ -38,7 +38,7 @@
             </div>
             <form th:action="@{/sec/sign/search(id=${requestId})}" th:object="${signCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
-                    <div class="errorRegexSignName hidden" th:text="#{errorName}"></div>
+                    <div class="errorRegexSignName hidden" th:text="#{errorNameAuthorize}"></div>
                     <input th:field="*{signName}" id="signName" name="signName" type="text" class="form-control"
                            th:placeholder="#{sign.enter_name}" required="" autocomplete="off"/>
                 </div>

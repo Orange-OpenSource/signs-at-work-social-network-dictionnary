@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <div class="errorRegexFavoriteName hidden" th:text="#{errorName}"></div>
+        <div class="errorRegexFavoriteName hidden" th:text="#{errorNameAuthorize}"></div>
         <input class="form-control" id="favoriteName" name="favoriteName" th:autofocus="true"
                th:value="${favoriteManageView.name}" type="text" autocomplete="off"/>
         <span id="errorRename" style="visibility: hidden"></span>
@@ -163,7 +163,7 @@
         <h4 th:text="#{favorite.duplicate_text(${favoriteManageView.name})}"></h4>
       </div>
       <div class="modal-body text-center">
-        <div class="errorRegexFavoriteName hidden" th:text="#{errorName}"></div>
+        <div class="errorRegexFavoriteName hidden" th:text="#{errorNameAuthorize}"></div>
         <input class="form-control" id="duplicateFavoriteName" name="favoriteName" th:autofocus="true"
                th:value="${favoriteManageView.name}" type="text" autocomplete="off"/>
         <span id="errorDuplicate" style="visibility: hidden"></span>

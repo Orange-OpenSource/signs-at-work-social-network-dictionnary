@@ -70,7 +70,7 @@
       </div>
       <form th:action="@{/sec/favorite/create}" th:object="${favoriteCreationView}" method="post">
         <div class="modal-body text-center">
-          <div class="errorRegexFavoriteName hidden" th:text="#{errorName}"></div>
+          <div class="errorRegexFavoriteName hidden" th:text="#{errorNameAuthorize}"></div>
           <input id="favoriteName" th:field="*{favoriteName}" type="text" class="form-control"
                  th:placeholder="#{favorite.enter_name}" required="" autocomplete="off"/>
         </div>
