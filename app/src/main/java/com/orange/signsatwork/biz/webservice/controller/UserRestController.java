@@ -311,8 +311,8 @@ public class UserRestController {
     userCreationView.clearXss();
     User user = services.user().withUserName(userCreationView.getUsername());
     if ( user == null) {
-      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-      userResponseApi.errorMessage = messageByLocaleService.getMessage("user_not_exist");
+      response.setStatus(HttpServletResponse.SC_OK);
+      /*userResponseApi.errorMessage = messageByLocaleService.getMessage("user_not_exist");*/
       return userResponseApi;
     }
 
