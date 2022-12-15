@@ -24,7 +24,7 @@ console.log("Cool, create_request.js is loaded :)");
 var inputRequestName = document.getElementById('requestName');
 var submitCreateRequest = document.getElementById("submit-create-request");
 
-var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 inputRequestName.addEventListener('keyup',checkRequestName);
 submitCreateRequest.disabled = true;

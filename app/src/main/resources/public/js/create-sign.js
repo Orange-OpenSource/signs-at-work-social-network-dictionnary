@@ -24,7 +24,7 @@ console.log("Cool, create_sign.js is loaded :)");
 var inputSignName = document.getElementById('signName');
 var submitCreateSign = document.getElementById("submit-create-sign");
 
-var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 inputSignName.addEventListener('keyup',checkSignName);
 submitCreateSign.disabled = true;

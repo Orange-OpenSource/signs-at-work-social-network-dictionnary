@@ -23,7 +23,7 @@ var communityName = document.getElementById("communityName");
 var oldCommunityName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
 
-var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 
 function checkCommunityName() {

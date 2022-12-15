@@ -51,7 +51,7 @@ var normalize = function( term ) {
 var inputCommunityName = document.getElementById('communityName');
 var submitCreateCommunity = document.getElementById("submit-create-community");
 
-var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 function onContinueFavorite(backUrl) {
   var url = backUrl;

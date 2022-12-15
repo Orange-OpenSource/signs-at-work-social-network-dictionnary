@@ -24,7 +24,7 @@ console.log("Cool, create_favorite.js is loaded :)");
 var inputFavoriteName = document.getElementById('favoriteName');
 var submitCreateFavorite = document.getElementById("submit-create-favorite");
 
-var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 inputFavoriteName.addEventListener('keyup',checkFavoriteName);
 submitCreateFavorite.disabled = true;

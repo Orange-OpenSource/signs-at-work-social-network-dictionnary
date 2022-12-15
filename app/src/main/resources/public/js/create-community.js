@@ -24,7 +24,7 @@ console.log("Cool, create_community.js is loaded :)");
 var inputCommunityName = document.getElementById('communityName');
 var submitCreateCommunity = document.getElementById("submit-create-community");
 
-var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 inputCommunityName.addEventListener('keyup',checkCommunityName);
 submitCreateCommunity.disabled = true;

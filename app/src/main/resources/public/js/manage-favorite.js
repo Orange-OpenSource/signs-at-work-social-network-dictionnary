@@ -26,7 +26,7 @@ var oldDuplicateFavoriteName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
 var submitDuplicateModal = document.getElementById("submit-duplicate-modal");
 
-var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()\'°/:]{1,255}$');
+var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 function checkFavoriteName() {
   var valueFavoriteName = favoriteName.value;
