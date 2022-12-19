@@ -128,7 +128,7 @@ public class CommunityRestController {
       }
     } else {
       if (name.isPresent()) {
-        List<Object[]> querySearchCommunity = services.community().searchBis(name.get().replace("œ", "oe").replace("æ", "ae").toUpperCase());
+        List<Object[]> querySearchCommunity = services.community().searchBis(name.get().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
         communitiesSearchViewData = querySearchCommunity.stream()
           .map(objectArray -> new CommunityViewData(objectArray))
           .collect(Collectors.toList());

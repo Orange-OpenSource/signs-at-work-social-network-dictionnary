@@ -1065,7 +1065,7 @@ public class SignController {
     model.addAttribute("title", messageByLocaleService.getMessage("sign.suggest"));
     AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
     User user = services.user().withUserName(principal.getName());
-    List<Object[]> querySigns = services.sign().searchBis(decodeName.trim().replace("œ", "oe").replace("æ", "ae").toUpperCase());
+    List<Object[]> querySigns = services.sign().searchBis(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
     List<SignViewData> signViewData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
       .collect(Collectors.toList());
@@ -1074,7 +1074,7 @@ public class SignController {
     model.addAttribute("isSignAlreadyExist", false);
     List<SignViewData> signsWithSameName = new ArrayList<>();
     for (SignViewData sign: signViewData) {
-      if (sign.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae")) ) {
+      if (sign.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE")) ) {
         model.addAttribute("isSignAlreadyExist", true);
         model.addAttribute("signMatche", sign);
       } else {
@@ -1085,13 +1085,13 @@ public class SignController {
     model.addAttribute("signsWithSameName", signsWithSameName);
 
     model.addAttribute("isRequestAlreadyExist", false);
-    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(decodeName.trim().replace("œ", "oe").replace("æ", "ae"), user.id);
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"), user.id);
     List<RequestViewData> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
       .map(objectArray -> new RequestViewData(objectArray))
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
-      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae"))) {
+      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
         model.addAttribute("isRequestAlreadyExist", true);
         model.addAttribute("requestMatche", requestViewData);
       } else {
@@ -1102,13 +1102,13 @@ public class SignController {
     model.addAttribute("requestsWithSameName", requestsWithNoAssociateSignWithSameName);
 
     model.addAttribute("isRequestWithAssociateSignAlreadyExist", false);
-    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(decodeName.trim().replace("œ", "oe").replace("æ", "ae"), user.id);
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"), user.id);
     List<RequestViewData> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
       .map(objectArray -> new RequestViewData(objectArray))
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithAssociateSign) {
-      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae"))) {
+      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
         model.addAttribute("isRequestWithAssociateSignAlreadyExist", true);
         model.addAttribute("requestWithAssociateSignMatche", requestViewData);
       } else {

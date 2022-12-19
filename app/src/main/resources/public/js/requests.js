@@ -28,19 +28,14 @@ var search_criteria = document.getElementById("search-criteria");
 var button_reset = document.getElementById("reset_search_request");
 
 var accentMap = {
-  "é": "e",
-  "è": "e",
-  "ê": "e",
-  "à": "a",
-  "â": "a",
-  "î": "i",
-  "ô": "o",
-  "ù": "u",
-  "û": "u",
-  "î": "i",
-  "ç": "c",
-  "œ" : "oe",
-  "æ" : "ae"
+  "à": "a", "â": "a", "á": "a", "ä": "a", "ã": "a", "å": "a", "ā": "a", "æ" : "ae", "Æ" : "AE",
+  "ç": "c", "ć": "c", "č": "c",
+  "é": "e", "è": "e", "ê": "e", "ë": "e", "ę": "e", "ė": "e", "ē": "e",
+  "î": "i", "ï": "i", "ì": "i", "í": "i", "į": "i", "ī": "i",
+  "ñ": "n", "ń": "n",
+  "ô": "o", "ö": "o", "ò": "o", "ó": "o", "õ": "o", "ø": "o", "ō": "o", "œ" : "oe", "Œ" : "OE",
+  "û": "u", "ù": "u", "ü": "u", "ú": "u", "ū": "u",
+  "ÿ": "y"
 };
 
 var normalize = function( term ) {
