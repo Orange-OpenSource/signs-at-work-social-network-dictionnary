@@ -1350,12 +1350,13 @@ public class SignRestController {
 
   private VideoResponseApi handleSelectedVideoFileUploadOnServer(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
     String videoUrl = null;
-    String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
     File inputFile;
     Streams streamInfo;
-    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
     VideoResponseApi videoResponseApi = new VideoResponseApi();
 
@@ -1385,6 +1386,11 @@ public class SignRestController {
         (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
         ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } else {
+        if (fileExtension.equals("webm")) {
+          TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        }
       }
     }
 
@@ -1694,11 +1700,12 @@ public class SignRestController {
     VideoResponseApi videoResponseApi = new VideoResponseApi();
     Sign sign = services.sign().withId(signId);
     String videoUrl = null;
-    String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     File inputFile;
     Streams streamInfo;
-    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
 
     try {
@@ -1727,6 +1734,11 @@ public class SignRestController {
         (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
         ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } else {
+        if (fileExtension.equals("webm")) {
+          TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        }
       }
     }
 
@@ -1751,6 +1763,14 @@ public class SignRestController {
     String cmd;
 
     cmd = String.format("ffmpeg -i %s -c:v libx264 -crf 20 -c:a copy %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
+
+  private void TransformWebmInMp4(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -fflags +genpts -i %s -r 25 %s", file, fileOutput);
 
     NativeInterface.launch(cmd, null, null);
   }

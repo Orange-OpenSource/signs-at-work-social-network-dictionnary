@@ -711,11 +711,12 @@ public class CommunityRestController {
   private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
       String videoUrl = null;
-      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       File inputFile;
       Streams streamInfo;
-      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
       CommunityResponseApi communityResponseApi = new CommunityResponseApi();
       Community community = services.community().withId(communityId);
@@ -746,6 +747,11 @@ public class CommunityRestController {
           (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
           ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } else {
+          if (fileExtension.equals("webm")) {
+            TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+          }
         }
       }
 
@@ -821,6 +827,15 @@ public class CommunityRestController {
 
     NativeInterface.launch(cmd, null, null);
   }
+
+  private void TransformWebmInMp4(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -fflags +genpts -i %s -r 25 %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
+
   private void DeleteFileOnServer(String url) {
     if (url!= null) {
       File video = new File(url);

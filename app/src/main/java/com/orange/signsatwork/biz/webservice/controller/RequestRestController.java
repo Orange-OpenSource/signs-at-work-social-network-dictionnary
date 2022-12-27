@@ -660,13 +660,14 @@ public class RequestRestController {
   private RequestResponseApi createRequestWithVideoFileForRequestDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
     {
       String videoUrl = null;
-      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Request request = null;
       RequestResponseApi requestResponseApi = new RequestResponseApi();
       File inputFile;
       Streams streamInfo;
-      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
       try {
         storageService.store(file);
@@ -694,6 +695,11 @@ public class RequestRestController {
           (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
           ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } else {
+          if (fileExtension.equals("webm")) {
+            TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+          }
         }
       }
 
@@ -783,6 +789,14 @@ public class RequestRestController {
     String cmd;
 
     cmd = String.format("ffmpeg -i %s -c:v libx264 -crf 20 -c:a copy %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
+
+  private void TransformWebmInMp4(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -fflags +genpts -i %s -r 25 %s", file, fileOutput);
 
     NativeInterface.launch(cmd, null, null);
   }

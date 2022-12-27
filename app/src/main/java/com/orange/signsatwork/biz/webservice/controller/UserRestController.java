@@ -882,12 +882,13 @@ public class UserRestController {
   private UserResponseApi handleSelectedVideoFileUploadForProfilOnServer(@RequestParam("file") MultipartFile file, Principal principal, String inputType, HttpServletResponse response) throws InterruptedException {
     {
       String videoUrl = null;
-      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
       File inputFile;
       Streams streamInfo;
-      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
       UserResponseApi userResponseApi = new UserResponseApi();
 
@@ -926,6 +927,11 @@ public class UserRestController {
           (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
           ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } else {
+          if (fileExtension.equals("webm")) {
+            TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+          }
         }
       }
 
@@ -992,6 +998,15 @@ public class UserRestController {
 
     NativeInterface.launch(cmd, null, null);
   }
+
+  private void TransformWebmInMp4(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -fflags +genpts -i %s -r 25 %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
+
   private void DeleteVideoOnDailyMotion(String dailymotionId) {
 
     AuthTokenInfo authTokenInfo = dalymotionToken.getAuthTokenInfo();

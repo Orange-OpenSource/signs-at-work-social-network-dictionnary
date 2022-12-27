@@ -450,6 +450,14 @@ public class FileUploadRestController {
     NativeInterface.launch(cmd, null, null);
   }
 
+  private void TransformWebmInMp4(String file, String fileOutput) {
+    String cmd;
+
+    cmd = String.format("ffmpeg -fflags +genpts -i %s -r 25 %s", file, fileOutput);
+
+    NativeInterface.launch(cmd, null, null);
+  }
+
   private void ReduceFileSizeInChangingResolution(String file, String fileOutput) {
     String cmd;
     cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileOutput);
@@ -663,12 +671,13 @@ public class FileUploadRestController {
 
   private String handleSelectedVideoFileUploadOnServer(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationView signCreationView, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     String videoUrl = null;
-    String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+    String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
     File inputFile;
     Streams streamInfo;
-    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+    String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
     try {
       storageService.store(file);
@@ -695,6 +704,11 @@ public class FileUploadRestController {
         (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
         ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+      } else {
+        if (fileExtension.equals("webm")) {
+          TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        }
       }
     }
 
@@ -1087,12 +1101,13 @@ public class FileUploadRestController {
     {
       String title, body = null, messageServer = null;
       String videoUrl = null;
-      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
       File inputFile;
       Streams streamInfo;
-      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
       User admin = services.user().getAdmin();
       title = messageByLocaleService.getMessage("admin_change_profil");
@@ -1122,6 +1137,11 @@ public class FileUploadRestController {
           (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
           ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } else {
+          if (fileExtension.equals("webm")) {
+            TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+          }
         }
       }
 
@@ -1698,13 +1718,14 @@ public class FileUploadRestController {
   private RequestResponse handleSelectedVideoFileUploadForRequestDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     {
       String videoUrl = null;
-      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Request request = null;
       RequestResponse requestResponse = new RequestResponse();
       File inputFile;
       Streams streamInfo;
-      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
 
       try {
@@ -1734,6 +1755,11 @@ public class FileUploadRestController {
           (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
           ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } else {
+          if (fileExtension.equals("webm")) {
+            TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+          }
         }
       }
 
@@ -2559,7 +2585,8 @@ public class FileUploadRestController {
     {
       String title = null, bodyMail = null, messageType = null;
       String videoUrl = null;
-      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Sign sign = services.sign().withId(signId);
       Videos videos = services.video().forSign(signId);
@@ -2567,7 +2594,7 @@ public class FileUploadRestController {
       emails = emails.stream().distinct().collect(Collectors.toList());
       File inputFile;
       Streams streamInfo;
-      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
 
       User user = services.user().withUserName(principal.getName());
@@ -2597,6 +2624,11 @@ public class FileUploadRestController {
           (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
           ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } else {
+          if (fileExtension.equals("webm")) {
+            TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+          }
         }
       }
 
@@ -2996,12 +3028,13 @@ public class FileUploadRestController {
   private String handleSelectedVideoFileUploadForCommunityDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     {
       String videoUrl = null;
-      String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+      String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
       String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
       Community community = services.community().withId(communityId);
       File inputFile;
       Streams streamInfo;
-      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newFileName.lastIndexOf('.')) + ".mp4";
+      String newAbsoluteFileNameWithExtensionMp4 = newAbsoluteFileName.substring(0, newAbsoluteFileName.lastIndexOf('.')) + ".mp4";
 
 
       try {
@@ -3029,6 +3062,11 @@ public class FileUploadRestController {
           (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
           ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+        } else {
+          if (fileExtension.equals("webm")) {
+            TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
+          }
         }
       }
 
