@@ -698,6 +698,7 @@ public class RequestRestController {
         } else {
           if (fileExtension.equals("webm")) {
             TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            DeleteFileOnServer(newAbsoluteFileName);
             newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
           }
         }

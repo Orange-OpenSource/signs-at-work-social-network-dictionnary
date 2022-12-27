@@ -1389,6 +1389,7 @@ public class SignRestController {
       } else {
         if (fileExtension.equals("webm")) {
           TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          DeleteFilesOnServer(newAbsoluteFileName, null);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
         }
       }
@@ -1737,6 +1738,7 @@ public class SignRestController {
       } else {
         if (fileExtension.equals("webm")) {
           TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          DeleteFilesOnServer(newAbsoluteFileName, null);DeleteFilesOnServer(newAbsoluteFileName, null);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
         }
       }

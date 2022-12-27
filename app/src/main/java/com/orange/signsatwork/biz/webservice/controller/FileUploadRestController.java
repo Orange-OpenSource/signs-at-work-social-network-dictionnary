@@ -306,6 +306,7 @@ public class FileUploadRestController {
     String REST_SERVICE_URI = environment.getProperty("app.dailymotion_url");
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
+    String newAbsoluteFileName = environment.getProperty("app.file") + "/" + videoFile.name.replace(".webm", ".mp4");
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + videoFile.name.replace(".webm", ".png");
 
     log.info("taille fichier "+videoFile.contents.length());
@@ -327,10 +328,13 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorUploadFile");
     }
 
+    TransformWebmInMp4(file, newAbsoluteFileName);
+    DeleteFilesOnServer(file, null);
+
     try {
-      GenerateThumbnail(thumbnailFile, file);
+      GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
     } catch (Exception errorEncondingFile) {
-      DeleteFilesOnServer(file, null);
+      DeleteFilesOnServer(newAbsoluteFileName, null);
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorThumbnailFile");
     }
@@ -339,7 +343,7 @@ public class FileUploadRestController {
     User user = services.user().withUserName(principal.getName());
 
     String pictureUri = thumbnailFile;
-    videoUrl= file;
+    videoUrl= newAbsoluteFileName;
 
     Sign sign;
     Video video;
@@ -707,6 +711,7 @@ public class FileUploadRestController {
       } else {
         if (fileExtension.equals("webm")) {
           TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+          DeleteFilesOnServer(newAbsoluteFileName, null);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
         }
       }
@@ -1140,6 +1145,7 @@ public class FileUploadRestController {
         } else {
           if (fileExtension.equals("webm")) {
             TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            DeleteFilesOnServer(newAbsoluteFileName, null);
             newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
           }
         }
@@ -1438,6 +1444,7 @@ public class FileUploadRestController {
     String title, body = null, messageServer = null;
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
+    String newAbsoluteFileName = environment.getProperty("app.file") + "/" + videoFile.name.replace(".webm", ".mp4");
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + videoFile.name.replace(".webm", ".png");
 
     log.info("taille fichier "+videoFile.contents.length());
@@ -1463,9 +1470,13 @@ public class FileUploadRestController {
     }
 
 
+    TransformWebmInMp4(file, newAbsoluteFileName);
+    DeleteFilesOnServer(file, null);
+
     try {
-      GenerateThumbnail(thumbnailFile, file);
+      GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
     } catch (Exception errorEncondingFile) {
+      DeleteFilesOnServer(newAbsoluteFileName, null);
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return messageByLocaleService.getMessage("errorThumbnailFile");
     }
@@ -1478,7 +1489,7 @@ public class FileUploadRestController {
     }
 
     String pictureUri = thumbnailFile;
-    videoUrl= file;
+    videoUrl= newAbsoluteFileName;
 
     if (inputType.equals("JobDescription")) {
       if (user.jobDescriptionVideo != null) {
@@ -1758,6 +1769,7 @@ public class FileUploadRestController {
         } else {
           if (fileExtension.equals("webm")) {
             TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            DeleteFilesOnServer(newAbsoluteFileName, null);
             newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
           }
         }
@@ -2264,6 +2276,7 @@ public class FileUploadRestController {
     String title = null, bodyMail = null, messageType = null;
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
+    String newAbsoluteFileName = environment.getProperty("app.file") + "/" + videoFile.name.replace(".webm", ".mp4");
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
@@ -2286,11 +2299,14 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorUploadFile");
     }
 
+    TransformWebmInMp4(file, newAbsoluteFileName);
+    DeleteFilesOnServer(file, null);
+
     Sign sign = services.sign().withId(signId);
     Videos videos = services.video().forSign(signId);
     List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
     emails = emails.stream().distinct().collect(Collectors.toList());
-    videoUrl= file;
+    videoUrl= newAbsoluteFileName;
 
     changeSignDefinitionOnServer(signId, requestHttp, title, bodyMail, messageType, videoUrl, sign, emails, user);
 
@@ -2627,6 +2643,7 @@ public class FileUploadRestController {
         } else {
           if (fileExtension.equals("webm")) {
             TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            DeleteFilesOnServer(newAbsoluteFileName, null);
             newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
           }
         }
@@ -2823,6 +2840,8 @@ public class FileUploadRestController {
 
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
+    String newAbsoluteFileName = environment.getProperty("app.file") + "/" + videoFile.name.replace(".webm", ".mp4");
+
 
     log.info("taille fichier "+videoFile.contents.length());
     log.info("taille max "+parseSize(environment.getProperty("spring.servlet.multipart.max-request-size")));
@@ -2843,12 +2862,14 @@ public class FileUploadRestController {
       return messageByLocaleService.getMessage("errorUploadFile");
     }
 
+    TransformWebmInMp4(file, newAbsoluteFileName);
+    DeleteFilesOnServer(file, null);
 
     Community community = services.community().withId(communityId);
 
     User user = services.user().withUserName(principal.getName());
 
-    videoUrl= file;
+    videoUrl= newAbsoluteFileName;
 
     if (community.descriptionVideo != null) {
       DeleteFilesOnServer(community.descriptionVideo, null);
@@ -3065,6 +3086,7 @@ public class FileUploadRestController {
         } else {
           if (fileExtension.equals("webm")) {
             TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            DeleteFilesOnServer(newAbsoluteFileName, null);
             newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
           }
         }

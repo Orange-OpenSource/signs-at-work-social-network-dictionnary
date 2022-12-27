@@ -930,6 +930,7 @@ public class UserRestController {
         } else {
           if (fileExtension.equals("webm")) {
             TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
+            DeleteFilesOnServer(newAbsoluteFileName, null);
             newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
           }
         }
