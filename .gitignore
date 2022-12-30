@@ -4,4 +4,12 @@ app/application.yml
 **/target
 /application-dev.yml
 /application-form.yml
-/application-prod.yml
+/application-work.yml
+/debian/signsatwork/DEBIAN/
+/debian/signsatwork/etc/
+/debian/signsatwork/lib/
+/debian/signsatwork/usr/
+/debian/.debhelper/
+/etc/
+/usr/
+/signsatwork_6.4.0_amd64.deb
