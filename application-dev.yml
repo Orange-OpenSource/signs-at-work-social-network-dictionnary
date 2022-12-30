@@ -18,5 +18,12 @@ display-url: "/data/Presentation_Signs@Form.mp4"
 spring.jpa.properties.hibernate.id.new_generator_mappings: false
 app.url: "http://localhost:8080"
 
+app.dailymotion_url:
+app.dailymotion.grant_type: password
+app.dailymotion.client_id: accfab055d184ff9bcf3
+app.dailymotion.client_secret: 3dcd460d28d887fa25bc29c8031039a7edf52187
+app.dailymotion.username: SignsAtWork
+app.dailymotion.password: Decola1&
+
 logging:
-  config: classpath:logback-adis.xml
+  config: classpath:logback-dev.xml
