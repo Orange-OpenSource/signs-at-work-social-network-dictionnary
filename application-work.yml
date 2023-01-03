@@ -24,5 +24,4 @@ app.dailymotion.username: SignsAtWork
 app.dailymotion.password: Decola1&
 
 logging:
-  config: :q!
-  logback-work.xml
+  config: classpath:logback-work.xml

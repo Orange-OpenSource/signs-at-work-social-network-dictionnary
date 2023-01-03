@@ -1,5 +1,6 @@
 MVN=mvn ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
 VERSION=`git describe`
+INSTANCE=form
 
 # Used to build debian package
 # here we consider that artifacts are already built (to speed up continuous integration)
@@ -8,15 +9,16 @@ build:
 
 # Build debian package
 deb:
+	rm -rf debian && mkdir -p debian && cp -a debian_$(INSTANCE)/. debian
 	dch -v ${VERSION} "git update, version ${VERSION}"
 	bash .dh_build.sh
-	mv ../signsatwork*.deb .
+	mv ../signsat$(INSTANCE)*.deb .
 
 # Debian package install
 install:
-	rm -rf usr && mkdir -p usr/share/java/signsatwork
-	cp app/target/signs-at-work-*.jar usr/share/java/signsatwork/signsatwork.jar
-	rm -rf etc && mkdir -p etc/systemd/system/ && cp debian/signsatwork.service etc/systemd/system/ && mkdir -p etc/signsatwork && cp application-work.yml etc/signsatwork
+	rm -rf usr && mkdir -p usr/share/java/signsat$(INSTANCE)
+	cp app/target/signs-at-work-*.jar usr/share/java/signsat$(INSTANCE)/signsat$(INSTANCE).jar
+	rm -rf etc && mkdir -p etc/systemd/system/ && cp debian/signsat$(INSTANCE).service etc/systemd/system/ && mkdir -p etc/signsat$(INSTANCE) && cp application-$(INSTANCE).yml etc/signsat$(INSTANCE)
 
 clean:
 	debclean

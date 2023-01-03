@@ -1,9 +1,0 @@
-[Unit]
-Description=signsatwork
-
-[Service]
-Type=simple
-ExecStart=/bin/sh -c 'java -Xmx200m -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -jar /usr/share/java/signsatwork/signsatwork.jar --spring.config.additional-location=optional:file:/etc/signsatwork/ --spring.profiles.active=work'
-
-[Install]
-WantedBy=multi-user.target
