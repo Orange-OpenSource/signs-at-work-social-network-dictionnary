@@ -13,3 +13,4 @@ app/application.yml
 /etc/
 /usr/
 /signsatwork_6.4.0_amd64.deb
+/debian/
