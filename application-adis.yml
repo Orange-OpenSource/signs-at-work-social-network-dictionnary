@@ -1,9 +1,8 @@
 server.port: 8080
 spring.datasource.url: jdbc:mysql://localhost:3306/signsatadis?serverTimezone=UTC
-spring.datasource.username: asterix
-spring.datasource.password: obelix
-app.proxy.server: localhost
-app.proxy.port : 3128
+spring.datasource.username: adis
+spring.datasource.password: adis835%%
+
 spring:
   jpa:
     show-sql: true
@@ -12,11 +11,16 @@ google.recaptcha.key.site: 6LeYxcYUAAAAAM5qEs0PFmVrx5u3M6uvtEX8ZAr-
 google.recaptcha.key.secret: 6LeYxcYUAAAAAENkMr3oKHMGqqlhPI4U6R2qfxH2
 
 app.admin.username: admin.signsatadis@adis-savoie.fr
-app.manifest: "/manifest/signsatform/manifest.json"
+app.admin.password: Tel835%%
+app.manifest: "/manifest/signsatadis/manifest.json"
 app.name: "Signs@ADIS"
+app.contact.support: "T.Pouey@my-it.fr"
 display-url: "/data/Presentation_Signs@Form.mp4"
 spring.jpa.properties.hibernate.id.new_generator_mappings: false
-app.url: "http://localhost:8080"
+app.url: "https://telsigne.adis-savoie.fr"
+
+spring.mail.host: 192.168.0.12
+spring.mail.port: 25
 
 logging:
   config: classpath:logback-adis.xml
