@@ -423,8 +423,8 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context(locale);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
-      ctx.setVariable("body1", messageByLocaleService.getMessage(body1));
-      ctx.setVariable("body2", messageByLocaleService.getMessage(body2));
+      ctx.setVariable("body_1", messageByLocaleService.getMessage(body1));
+      ctx.setVariable("body_2", messageByLocaleService.getMessage(body2));
       String htmlContent = templateEngine.process("email-delete-lock-unlock-user", ctx);
       helper.setText(htmlContent, true);
 
