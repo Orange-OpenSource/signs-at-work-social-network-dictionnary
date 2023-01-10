@@ -54,4 +54,14 @@ public class VideoRestController {
     response.setStatus(HttpServletResponse.SC_OK);
     return;
   }
+
+  @Secured("ROLE_USER")
+  @RequestMapping(value = RestApi.WS_SEC_VIDEO_FAVORITES_ASSOCIATE, method = RequestMethod.POST)
+  public void videoAssociateFavorites(@RequestBody List<Long> videoFavoriteIds, @PathVariable long videoId, HttpServletResponse response) {
+
+    services.video().AddVideoToFavorites(videoId, videoFavoriteIds);
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return;
+  }
 }
