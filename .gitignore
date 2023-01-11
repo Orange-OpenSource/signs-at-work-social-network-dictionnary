@@ -14,3 +14,8 @@ app/application.yml
 /usr/
 /signsatwork_6.4.0_amd64.deb
 /debian/
+/application.yml.enc
+/application-adis.yml
+/application-dev.yml
+/application-form.yml
+/application-work.yml

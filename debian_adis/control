@@ -2,14 +2,14 @@ Source: signsatadis
 Section: unknown
 Priority: optional
 Maintainer: Denis Boisset <denis.boisset@orange.com>
-Build-Depends: debhelper (>= 9), openjdk-11-jre-headless, ffmpeg, mariadb-server-10.3, mariadb-client-10.3
+Build-Depends: debhelper (>= 9), openjdk-11-jre-headless, ffmpeg, mariadb-server-10.3 | mariadb-server-10.5, mariadb-client-10.3 | mariadb-client-10.5
 Standards-Version: 3.9.8
 Homepage: https://github.com/Orange-OpenSource/signs-at-work-social-network-dictionnary
 
 Package: signsatadis
 Architecture: any
-Depends: ${misc:Depends}, openjdk-11-jre-headless, ffmpeg, mariadb-server-10.3, mariadb-client-10.3
-Description: Signs@Form
- Dictionnary to learn LSF
+Depends: ${misc:Depends}, openjdk-11-jre-headless, ffmpeg, mariadb-server-10.3 | mariadb-server-10.5 , mariadb-client-10.3 | mariadb-client-10.5
+Description: Signs@ADIS
+ Dictionary of ADIS Interpreters
 
 

@@ -1382,8 +1382,7 @@ public class SignRestController {
       newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
     } else {
       if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
-        (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
-        (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+        (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce")))) {
         ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
       } else {
@@ -1731,8 +1730,7 @@ public class SignRestController {
       newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
     } else {
       if ((streamInfo.getStreams().stream().findFirst().get().getWidth() == 1920) &&
-        (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce"))) &&
-        (streamInfo.getStreams().stream().findFirst().get().getTags().getRotate() == null)) {
+        (file.getSize() >= parseSize(environment.getProperty("file-size-max-to-reduce")))) {
         ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
       } else {
