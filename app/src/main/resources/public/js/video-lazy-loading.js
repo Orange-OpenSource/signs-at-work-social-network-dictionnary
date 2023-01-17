@@ -220,6 +220,18 @@ function displayVideo(url, name, idForName, nbVideo) {
 
 
   main();
+  var $play_video = $('#play_video');
+  $play_video.on('hidden.bs.modal', function() {
+    console.log("hidden play_video");
+    console.log(document.getElementById("videoOnDailyMotion").style.display);
+
+    if ((document.getElementById("videoOnDailyMotion").style.display) === "none") {
+      document.getElementById("videoUrlOnServer").src = "";
+      document.getElementById("videoplayer").load();
+    } else {
+      document.getElementById("videoUrl").src = "";
+    }
+  });
 
 })($);
 
