@@ -38,7 +38,7 @@
             </div>
             <form id="requestDescription" th:action="@{/sec/request/} + ${requestView.id} + '/description' " th:object="${requestCreationView}" method="post">
               <div class="modal-body text-center">
-                <textarea  th:text="${requestView.requestTextDescription}"  th:placeholder="#{request.description_text_placeholder}" type="text"   class="testinput  border form-control" name="requestTextDescription" rows="3" cols="40" required="true"/>
+                <textarea  th:text="${requestView.requestTextDescription}"  th:placeholder="#{request.description_text_placeholder}" type="text"   class="testinput  border form-control" name="requestTextDescription" rows="3" cols="40"/>
               </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
