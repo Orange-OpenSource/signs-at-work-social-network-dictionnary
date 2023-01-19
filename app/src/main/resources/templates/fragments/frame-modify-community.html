@@ -40,7 +40,7 @@
           method="post">
         <div class="form-group">
           <div id="users-container">
-              <label th:id="${user.username}" th:each="user : ${users}"
+              <label th:id="${user.name()}" th:each="user : ${users}"
                        th:for="${#ids.next('communityUsersIds')}">
                     <div class="pull-left member_blue"></div>
                     <input type="checkbox" th:field="*{communityUsersIds}" th:value="${user.id}"/>
