@@ -99,7 +99,7 @@ public class UserRestController {
   @Secured("ROLE_USER")
   @RequestMapping(RestApi.WS_SEC_GET_USERS)
   public List<UserCommunityViewApi> users() {
-    return services.user().all().stream().map(u -> new UserCommunityViewApi(u)).collect(Collectors.toList());
+    return services.user().all().stream().filter(u -> u.id != 1 && u.isEnabled).map(u -> new UserCommunityViewApi(u)).collect(Collectors.toList());
   }
 
   @Secured("ROLE_ADMIN")
