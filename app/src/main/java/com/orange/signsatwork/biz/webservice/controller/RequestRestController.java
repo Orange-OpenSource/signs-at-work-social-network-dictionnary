@@ -849,18 +849,18 @@ public class RequestRestController {
     }
   }
 
-  private void GenerateThumbnail(String thumbnailFile, String fileOutput) {
+  private void GenerateThumbnail(String thumbnailFile, String fileOutput, String logFile) {
     String cmdGenerateThumbnail;
 
     cmdGenerateThumbnail = String.format("input=\"%s\"&&dur=$(ffprobe -loglevel error -show_entries format=duration -of default=nk=1:nw=1 \"$input\")&&ffmpeg -y -ss \"$(echo \"$dur / 2\" | bc -l | sed -e 's/^-\\./-0./' -e 's/^\\./0./')\" -i  \"$input\" -vframes 1 -s 360x360 -vf \"scale=(iw*sar)*max(360.1/(iw*sar)\\,360.1/ih):ih*max(360.1/(iw*sar)\\,360.1/ih), crop=360:360\" \"%s\"", fileOutput, thumbnailFile);
-    String cmdGenerateThumbnailFilterLog = "/tmp/ffmpeg.log";
-    NativeInterface.launch(cmdGenerateThumbnail, null, cmdGenerateThumbnailFilterLog);
+    NativeInterface.launch(cmdGenerateThumbnail, null, logFile);
   }
 
   private RequestResponseApi handleSelectedVideoFileUpload(@RequestParam("file") MultipartFile file, OptionalLong requestId, OptionalLong signId, OptionalLong videoId, @ModelAttribute SignCreationViewApi signCreationViewApi, Principal principal, HttpServletResponse response) throws InterruptedException {
     String videoUrl = null;
     String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".png";
+    String logFile = "/tmp/" + file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')) + ".log";
     File inputFile;
 
     RequestResponseApi requestResponseApi = new RequestResponseApi();
@@ -875,7 +875,7 @@ public class RequestRestController {
     }
 
     try {
-      GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath());
+      GenerateThumbnail(thumbnailFile, inputFile.getAbsolutePath(), logFile);
     } catch (Exception errorEncondingFile) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorThumbnailFile");
@@ -1017,6 +1017,7 @@ public class RequestRestController {
     String newFileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
     String newAbsoluteFileName = environment.getProperty("app.file") +"/" + newFileName;
     String thumbnailFile = environment.getProperty("app.file") + "/thumbnail/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".png";
+    String logFile = "/tmp/" + newFileName.substring(0, newFileName.lastIndexOf('.')) + ".log";
     File inputFile;
 
     RequestResponseApi requestResponseApi = new RequestResponseApi();
@@ -1033,7 +1034,7 @@ public class RequestRestController {
     }
 
     try {
-      GenerateThumbnail(thumbnailFile, newAbsoluteFileName);
+      GenerateThumbnail(thumbnailFile, newAbsoluteFileName, logFile);
     } catch (Exception errorEncondingFile) {
       DeleteFilesOnServer(newAbsoluteFileName, null);
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
