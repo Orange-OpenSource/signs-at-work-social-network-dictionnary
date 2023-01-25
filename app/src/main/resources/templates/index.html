@@ -108,7 +108,7 @@
                 </a>
               </li>
               <li class="aside_bckg_li" sec:authorize="hasRole('ADMIN')" th:if="${isAuthenticated}">
-                <a class="all_li_clickable" th:href="@{/sec/requests}">
+                <a class="all_li_clickable" th:href="@{/sec/admin/requests}">
                     <div class="pull-left sign_ask-for_black"></div>
                     <h2 class="container_H2 text_hyphenation" th:text="#{manage_requests}"></h2>
                     <div class="pull-right chevron"></div>

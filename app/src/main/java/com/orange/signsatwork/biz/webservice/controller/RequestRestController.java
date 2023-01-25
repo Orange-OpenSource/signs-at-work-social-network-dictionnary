@@ -484,7 +484,32 @@ public class RequestRestController {
 
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_ADMIN_REQUEST, method = RequestMethod.DELETE)
+  public RequestResponseApi adminDeleteRequest(@PathVariable long requestId, HttpServletResponse response, Principal principal) {
+    RequestResponseApi requestResponseApi = new RequestResponseApi();
+    String dailymotionId;
 
+    Request request = services.request().withId(requestId);
+    services.request().deleteFromAdmin(request);
+
+    if ((request.requestVideoDescription !=  null) && (request.sign.videoDefinition != request.requestVideoDescription)) {
+      if (request.requestVideoDescription.contains("http")) {
+        dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionId);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          requestResponseApi.errorMessage = messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+          return requestResponseApi;
+        }
+      } else {
+        DeleteFileOnServer(request.requestVideoDescription);
+      }
+    }
+    response.setStatus(HttpServletResponse.SC_OK);
+    return requestResponseApi;
+  }
 
 
   private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {

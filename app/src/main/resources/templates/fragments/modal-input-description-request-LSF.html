@@ -39,7 +39,8 @@
                 </div>
             </div>
             <div class="modal-body text-center">
-              <h2 class="blue" th:text="#{sub_title_for_modal_video}"></h2>
+              <h2 class="blue" th:if="${requestView.requestVideoDescription != null}" th:text="#{sub_title_for_modal_video_with_video}"></h2>
+              <h2 class="blue" th:if="${requestView.requestVideoDescription == null}" th:text="#{sub_title_for_modal_video}"></h2>
               <ul class="nav nav-list primary left-menu">
                 <li class="forIE aside_bckg_li">
                   <a class="all_li_clickable" data-target="#add_video_file_recording" data-toggle="modal" href="#">
@@ -54,6 +55,13 @@
                       <div class="pull-left folder_blue"></div>
                       <h4 class="container_H2 text_hyphenation" th:text="#{explorator}"/>
                       <div class="pull-right add_black"></div>
+                  </a>
+                </li>
+                <li class="aside_bckg_li" th:if="${requestView.requestVideoDescription != null}">
+                  <a class="all_li_clickable" data-target="#delete_video" data-toggle="modal" href="#">
+                    <div class="pull-left x-close_blue"></div>
+                    <h4 class="container_H2 text_hyphenation" th:text="#{delete}"/>
+                    <div class="pull-right delete_black_profil"></div>
                   </a>
                 </li>
               </ul>
@@ -165,6 +173,52 @@
 </div>
 <!--end modal-new-sign-video-file-dailymotion-->
 
+<div class="modal fade" id="delete_video" role="dialog" th:fragment="div">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="signlanguage_white pull-left"></div>
+          <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
+        </div>
+      </div>
+      <div class="spinner spinner_hidden"></div>
+      <form id="deleteVideoFileForName" method="put" th:action="${actionForDeleteVideoName}">
+        <div class="modal-body text-center">
+          <h4 th:text="#{video_name_lsf.confirm_delete}"></h4>
+        </div>
+        <span id="errorDeletedSpan" style="visibility: hidden"></span>
+        <div class="modal-footer">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button class="btn btn-default pull-right" data-dismiss="" id="submitButtonDelete" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{confirm}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="validate_delete_video" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="signlanguage_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{name_lsf_video_delete}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{validate_delete_name_lsf_video}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 

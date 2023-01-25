@@ -60,6 +60,7 @@ public interface RequestService {
 
   void delete(Request request);
 
+  void deleteFromAdmin(Request request);
   List<Object[]> requestsByNameWithNoAssociateSign(String requestName, long userId);
 
   List<Object[]> requestsByNameWithAssociateSign(String requestName, long userId);

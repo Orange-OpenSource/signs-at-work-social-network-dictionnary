@@ -1,0 +1,97 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div th:fragment="div">
+  <div id="myform" >
+    <input type='button' class="pull-rigth" id="reset"/>
+    <div id="container-input">
+      <input type="search" id="search-criteria" th:placeholder="#{search_name}" class="border form-control"/>
+    </div>
+  </div>
+
+      <div id="requests_container">
+          <div class="clear aside_bckg_li" th:id="${request.name}" th:each="request : ${requests}">
+            <a th:href="@{/sec/admin/request/} + ${request.id}">
+              <div class="pull-left admin_group_ask_blue"></div>
+              <h2 class="request_name" th:text="${request.name}"></h2>
+            </a>
+            <a data-toggle="modal" th:attr="data-target='#delete_request'+${request.id}" href="#">
+              <div class="delete-black pull-right"></div>
+            </a>
+            <div  th:id="delete_request+${request.id}" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <div class="pull-left">
+                      <div class="delete_white pull-left"></div>
+                      <h2 class="pull-right" th:text="#{request.delete_request}"/>
+                    </div>
+                  </div>
+                  <div class="modal-body text-center">
+                    <h2 th:text="#{admin_request.confirm_delete(${request.name})}"/>
+                    <span th:id="errorDeleteRequest+${request.id}" style="visibility: hidden"></span>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+                      <div class="x-close2_black center-block"></div>
+                      <span th:text="#{cancel}"></span>
+                    </button>
+                    <button type="submit"  th:data-id="${request.id}" th:onclick="javascript:onDeleteRequest(this.getAttribute('data-id'))"  data-dismiss=""  class="btn btn-default pull-right">
+                      <div class="v-done2_blue center-block"></div>
+                      <span th:text="#{continue}"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div th:id="confirm-request-deleted+${request.id}" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="pull-left">
+                      <div class="delete_white pull-left"></div>
+                      <h2 class="pull-right" th:text="#{request.delete_request}"/>
+                    </div>
+                  </div>
+                  <div class="modal-body text-center">
+                    <h2 th:text="#{admin_validate_delete_request}"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+    <div th:if="${#lists.isEmpty(requests)}" class="text-center">
+        <h2 th:text="#{request.not_available}"></h2>
+    </div>
+</div>
+
+</body>
+</html>

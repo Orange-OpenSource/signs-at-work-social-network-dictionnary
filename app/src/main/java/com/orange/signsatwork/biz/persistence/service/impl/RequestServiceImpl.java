@@ -171,6 +171,14 @@ public class RequestServiceImpl implements RequestService {
     requestRepository.delete(requestDB);
   }
 
+  @Override
+  public void deleteFromAdmin(Request request) {
+    RequestDB requestDB = requestRepository.findOne(request.id);
+    requestDB.getUser().getRequests().remove(requestDB);
+    requestDB.setUser(null);
+    requestDB.setSign(null);
+    requestRepository.delete(requestDB);
+  }
   private Requests requestsFrom(Iterable<RequestDB> requestsDB) {
     List<Request> requests = new ArrayList<>();
     requestsDB.forEach(requestDB -> requests.add(requestFrom(requestDB, services)));

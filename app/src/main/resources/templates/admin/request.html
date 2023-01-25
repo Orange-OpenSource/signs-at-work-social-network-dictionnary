@@ -1,0 +1,333 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+  <script src="../public/js/EBML.js" th:src="@{/js/EBML.js}" type="text/javascript"></script>
+  <script src="../public/js/RecordRTC.js" th:src="@{/js/RecordRTC.js}" type="text/javascript"></script>
+  <script src="../public/js/adapter.js" th:src="@{/js/adapter.js}" type="text/javascript"></script>
+</head>
+
+<header role="banner" th:replace="fragments/header-sign-admin :: header">&nbsp;</header>
+<!--<div th:replace="fragments/modal-sign :: div"/>
+<div th:replace="fragments/modal-rename-sign :: div"/>
+<div th:replace="fragments/modal-input-definition-sign :: div"/>
+<div th:replace="fragments/modal-definition-sign-LSF :: div"/>
+<div th:replace="fragments/modal-delete-video :: div"/>-->
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
+        <h2 style="text-align: right;" th:text="#{request.created_on_by(${#dates.format(requestView.requestDate, 'dd-MM-yyyy')}, ${#dates.format(requestView.requestDate, 'HH:mm')}, ${requestView.user.name()})}"/>
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="label_sign aside_bckg_li">
+              <a class="all_li_clickable" data-target="#rename-sign" data-toggle="modal" href="#">
+                <h1 class="container_H2 text_hyphenation" th:text="${requestView.name}"/>
+                <div class="pull-right edit_black"></div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <a class="all_li_clickable" data-target="#add_sign_definition_text" data-toggle="modal" href="#">
+                <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}" class="pull-left col-lg-12 col-md-12 col-xs-12">
+                    <div class="pull-left definition_text_blue"></div>
+                    <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
+                    <div class="pull-right add_black"></div>
+                </div>
+                <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+                  <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                    <div class="pull-left definition_text_blue"></div>
+                    <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
+                  </div>
+                  <div class="pull-left col-lg-11 col-md-11 col-xs-11">
+                    <h4 class="container_H2 text_hyphenation" th:text="${requestView.requestTextDescription}"/>
+                  </div>
+                  <div class="col-lg-1 col-md-1 col-xs-1" style="padding-right: 0px!important">
+                    <div class="pull-right edit_black"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="!${isIOSDevice}">
+              <a class="all_li_clickable" data-target="#definition_sign_LSF" data-toggle="modal" href="#">
+                <div th:if="${requestView.requestVideoDescription == null}" class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left description_movie_blue"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
+                  <div class="pull-right add_black"></div>
+                </div>
+                <div th:if="${requestView.requestVideoDescription != null}">
+                  <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                    <div class="pull-left description_movie_blue"></div>
+                    <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
+                  </div>
+                  <div class="pull-left text-center title_middle col-lg-8 col-md-8 col-xs-8 middle-col" style="margin-top: 20px;margin-bottom: 20px;" th:if="${requestView.requestVideoDescription} != null">
+                    <div th:if="${!#strings.contains(requestView.requestVideoDescription, 'http')}">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <video controls playsinline oncontextmenu="return false;">
+                          <source th:src="${requestView.requestVideoDescription}" type="video/webm"/>
+                          <source th:src="${requestView.requestVideoDescription}" type="video/mp4"/>
+                        </video>
+                      </div>
+                    </div>
+                    <div th:if="${#strings.contains(requestView.requestVideoDescription, 'http')}">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <iframe allowfullscreen="" class="embed-responsive-item"
+                                frameborder="0"
+                                th:attr="title=#{sign.description(${title})}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;disable-queue=1'"></iframe>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-xs-4" style="padding-right: 0px!important">
+                    <div class="pull-right edit_black"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${isIOSDevice}">
+              <a class="all_li_clickable" th:data-requestId="${requestView.id}" th:onclick="javascript:onClickDefinitionSign(this.getAttribute('data-requestId'))">
+                <div th:if="${requestView.requestVideoDescription == null}" class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left description_movie_blue"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
+                  <div class="pull-right add_black"></div>
+                </div>
+                <div th:if="${requestView.requestVideoDescription != null}">
+                  <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                    <div class="pull-left description_movie_blue"></div>
+                    <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
+                  </div>
+                  <div class="pull-left text-center title_middle col-lg-8 col-md-8 col-xs-8 middle-col" style="margin-top: 20px;margin-bottom: 20px;" th:if="${requestView.requestVideoDescription} != null">
+                    <div th:if="${!#strings.contains(requestView.requestVideoDescription, 'http')}">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <video controls playsinline oncontextmenu="return false;">
+                          <source th:src="${requestView.requestVideoDescription}" type="video/webm"/>
+                          <source th:src="${requestView.requestVideoDescription}" type="video/mp4"/>
+                        </video>
+                      </div>
+                    </div>
+                    <div th:if="${#strings.contains(requestView.requestVideoDescription, 'http')}">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <iframe allowfullscreen="" class="embed-responsive-item"
+                                frameborder="0"
+                                th:attr="title=#{sign.description(${title})}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;disable-queue=1'"></iframe>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-xs-4" style="padding-right: 0px!important">
+                    <div class="pull-right edit_black"></div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <a class="all_li_clickable" href="#"
+                 th:data-requestId="${requestView.id}"
+                 th:onclick="javascript:onPrioriseRequest(this.getAttribute('data-requestId'))">
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left prio_blue"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{request.priorise}"/>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <a class="all_li_clickable" data-target="#delete_request" data-toggle="modal" href="#">
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left x-close_blue"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{request.delete}"/>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:unless="${requestView.sign != null}">
+              <a class="all_li_clickable" th:href="@{/sec/signs-suggest(name=${requestView.name}, id=${requestView.id})}">
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left sign_add"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{create_sign}"/>
+                  <div class="pull-right add_black"></div>
+                </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" th:if="${requestView.sign != null}">
+              <a class="all_li_clickable" th:href="@{/sign/} + ${requestView.sign.id}">
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left new_blue"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{see_associate_sign}"></h4>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+      </div>
+  </div>
+</div>
+<!--start modal-new-sign-video-file-recording-->
+<!--<div th:if="${isAuthenticated}" id="add_video_file_recording" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"></button>
+        <div class="pull-left">
+          <div class="camera_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{recording}"></h2>
+        </div>
+      </div>
+      <div  class="container_record text-center">
+        <h4 id="label_record" style="display: none" th:text="#{record_sign(${requestView.name})}"></h4>
+        <h4 id="label_after_record" th:text="#{after_record_sign(${requestView.name})}" style="display: none"></h4>
+        <h4 id="label_record_sign_definition" style="display: none" th:text="#{record_description_sign_lsf(${requestView.name})}"></h4>
+        <h4 id="label_after_record_sign_definition" th:text="#{after_record_description_sign_lsf(${requestView.name})}" style="display: none"></h4>
+        <div id="container_video" class="col-xs-offset-1 col-xs-10">
+          <div class="spinner spinner_hidden"></div>
+          <span id="counter"></span>
+          <video id="video"></video>
+        </div>
+
+        <div class="btn-group-vertical" role="group">
+          <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
+          <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
+          </div>
+          <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
+        </div>
+
+      </div>
+      <form id="uploadRecordedVideoFile" th:action="@{/ws/sec/uploadRecordedVideoFileFromSign/} + ${requestView.id} + '/' + ${videoView.video.id}" th:object="${signCreationView}" method="post">
+        <div class="modal-body text-center">
+          <span id="errorSpan"  style="display: none"></span>
+        </div>
+        <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
+          <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button id="retry-recording" type="button" class="btn btn-secondary" title="Cliquer pour enregistrer">
+            <div class="rewind_black center-block"></div>
+            <span th:text="#{retry}"></span>
+          </button>
+          <button id="continue" type="submit" class="btn btn-primary pull-right" data-dismiss="" disabled="" >
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{publish}" ></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+&lt;!&ndash;end modal-new-sign-video-file-recording&ndash;&gt;
+
+
+&lt;!&ndash;start modal-new-sign-video-file-dailymotion&ndash;&gt;
+<div  th:if="${isAuthenticated}" id="add_video_file_dailymotion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"></button>
+        <div class="pull-left">
+          <div class="description_movie_white pull-left"></div>
+          <h2 class="pull-right" id="add_video_file_dailymotion_title_sign_video" th:text="#{sign.video}" style="display: none" ></h2>
+          <h2 class="pull-right" id="add_video_file_dailymotion_title_sign_definition" th:text="#{request_description_LSF}" style="display: none" ></h2>
+        </div>
+      </div>
+      <div class="spinner spinner_hidden"></div>
+      <form id="uploadSelectedVideoFile" th:action="@{/ws/sec/uploadSelectedVideoFileFromSign/} + ${requestView.id} + '/' + ${videoView.video.id}"  enctype="multipart/form-data" th:object="${signCreationView}" method="post">
+        <div th:if="!${isIOSDevice}" class="modal-body text-center">
+          <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sign.join_video}"></h4><br/>
+          <input name="file" type="file" id="InputFile"/>
+          <h4 id="errorSelectedSpan"  style="display: none"></h4>
+        </div>
+        <div th:if="${isIOSDevice}" class="modal-body">
+          <br/>
+          <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
+          <input name="file" accept="video/*" capture="camera" type="file" id="InputFile" style="display: none"/>
+          <h4 id="errorSelectedSpan"  style="display: none"></h4>
+        </div>
+        <div id="modal-footer_add_video_file_recording" class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button id="submitButtonFileDailymotion" type="submit" class="btn btn-default pull-right"
+                  data-dismiss="" disabled="true">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{publish}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+&lt;!&ndash;end modal-new-sign-video-file-dailymotion&ndash;&gt;
+
+<div class="modal fade" id="delete_definition_sign" role="dialog" th:fragment="div">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="description_movie_white pull-left"></div>
+          <h2 class="pull-right text_hyphenation" th:text="#{definition_sign.delete}"></h2>
+        </div>
+      </div>
+      <div class="spinner spinner_hidden"></div>
+      <form id="deleteVideoFileForSignDefinition" method="post" th:action="@{/ws/sec/deleteVideoFileForSignDefinition/} + ${requestView.id}">
+        <div class="modal-body text-center">
+          <h4 th:text="#{definition_sign_delete}"></h4>
+        </div>
+        <span id="errorDeletedSignDefinitionSpan" style="visibility: hidden"></span>
+        <div class="modal-footer">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button class="btn btn-default pull-right" data-dismiss="" id="submitButtonDeleteSignDefinition" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{confirm}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="validate_delete_definition_sign" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="description_movie_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{definition_delete}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{validate_definition_sign}"></h4>
+      </div>
+    </div>
+  </div>
+</div>-->
+</body>
+
+<script src="../public/js/requests-admin.js" th:src="@{/js/requests-admin.js}" type="text/javascript"></script>
+<script src="../public/js/rename-sign.js" th:src="@{/js/rename-sign.js}" type="text/javascript"></script>
+<script src="../public/js/video.js" th:src="@{/js/video.js}" type="text/javascript"></script>
+</html>

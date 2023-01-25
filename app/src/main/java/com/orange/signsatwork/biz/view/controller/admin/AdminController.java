@@ -168,6 +168,18 @@ public class AdminController {
     return userAdminController.userDetails(user.id, model);
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping("/sec/admin/requests")
+  public String requests(Model model) {
+
+    AuthentModel.addAuthenticatedModel(model, true);
+    model.addAttribute("title", messageByLocaleService.getMessage("users"));
+    model.addAttribute("requests", RequestAdminView.from(services.request().all()));
+    model.addAttribute("adminUserName", adminUsername);
+    model.addAttribute("appName", appName);
+    return "admin/manage_requests";
+  }
+
   private String getAppUrl() {
     return environment.getProperty("app.url");
   }
@@ -329,6 +341,29 @@ public class AdminController {
     model.addAttribute("modalSignDefinitionAction", "/sec/sign/" + signId + "/" +videoId + "/definitionText");
 
     return "admin/sign";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/request/{requestId}")
+  public String request(@PathVariable long requestId, HttpServletRequest  httpServletRequest, Principal principal, Model model) {
+
+    String userAgent = httpServletRequest.getHeader("User-Agent");
+
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
+
+    Request request = services.request().withId(requestId);
+
+    model.addAttribute("title", request.name);
+    RequestView requestView = RequestView.from(request);
+
+    model.addAttribute("requestView", requestView);
+
+    model.addAttribute("signCreationView", new SignCreationView());
+
+    model.addAttribute("appName", appName);
+    model.addAttribute("isAuthenticated", AuthentModel.isAuthenticated(principal));
+
+    return "admin/request";
   }
 
   private boolean isIOSDevice(String userAgent) {

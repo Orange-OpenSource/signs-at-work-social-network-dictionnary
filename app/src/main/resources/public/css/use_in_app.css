@@ -1597,6 +1597,15 @@ img{
   height: 45px;
   width: 30px;
 }
+.admin_group_ask_blue {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -2847px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 24px;
+  width: 24px;
+  margin-right: 15px;
+}
 
 .sign_ask-for_blue {
   background-image: url("/img/sprite_picto_400X400.png");
@@ -2542,9 +2551,19 @@ table tbody td{
   color: #4866F7;
 }
 
-.user_name {
+.user_profil_name {
   display: inline;
   margin-left: 34px;
+  color: #4866F7;
+}
+
+.user_name {
+  display: inline;
+  color: #4866F7;
+}
+
+.request_name {
+  display: inline;
   color: #4866F7;
 }
 
@@ -2939,7 +2958,7 @@ input[type="checkbox"] {
   visibility: hidden;
 }
 
-#users-container {
+#users-container, #requests_container {
   padding-left: 8px;
   padding-right: 8px;
 }
