@@ -32,6 +32,8 @@ import java.util.List;
 public interface RequestService {
   Requests all();
 
+  Requests byOrderByRequestDateDesc();
+
   Requests requestsforUser(long id);
 
   Requests requestsforUserWithoutSignAssociate(long userId);

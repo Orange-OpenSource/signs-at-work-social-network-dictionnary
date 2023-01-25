@@ -22,10 +22,7 @@ package com.orange.signsatwork.biz.persistence.repository;
  * #L%
  */
 
-import com.orange.signsatwork.biz.persistence.model.CommunityDB;
-import com.orange.signsatwork.biz.persistence.model.RequestDB;
-import com.orange.signsatwork.biz.persistence.model.SignDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
+import com.orange.signsatwork.biz.persistence.model.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -34,6 +31,8 @@ import java.util.List;
 
 public interface RequestRepository extends CrudRepository<RequestDB, Long> {
     List<RequestDB> findByName(String name);
+
+    List<RequestDB> findByOrderByRequestDateDesc();
 
     RequestDB findBySign(SignDB signDB);
 

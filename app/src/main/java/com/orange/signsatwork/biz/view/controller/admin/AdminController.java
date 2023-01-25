@@ -174,7 +174,7 @@ public class AdminController {
 
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("users"));
-    model.addAttribute("requests", RequestAdminView.from(services.request().all()));
+    model.addAttribute("requests", RequestAdminView.from(services.request().byOrderByRequestDateDesc()));
     model.addAttribute("adminUserName", adminUsername);
     model.addAttribute("appName", appName);
     return "admin/manage_requests";

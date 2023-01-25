@@ -57,6 +57,11 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
+  public Requests byOrderByRequestDateDesc() {
+    return requestsFrom(requestRepository.findByOrderByRequestDateDesc());
+  }
+
+  @Override
   public Request withId(long id) {
     return requestFrom(requestRepository.findOne(id), services);
   }
