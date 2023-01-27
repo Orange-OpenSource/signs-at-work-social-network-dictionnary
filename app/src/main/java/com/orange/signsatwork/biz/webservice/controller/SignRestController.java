@@ -941,6 +941,7 @@ public class SignRestController {
   public SignResponseApi renameSign(@RequestBody SignCreationViewApi signCreationViewApi, @PathVariable Long signId, @PathVariable Long videoId, @RequestParam("force") Boolean force, HttpServletRequest requestHttp,  HttpServletResponse response, Principal principal) throws
     InterruptedException {
     Boolean isAdmin = false;
+    Boolean isVideoBellowToMe = false;
     SignResponseApi signResponseApi = new SignResponseApi();
 
     if (!AuthentModel.hasRole("ROLE_USER_A") && !AuthentModel.hasRole("ROLE_ADMIN")) {
@@ -951,11 +952,14 @@ public class SignRestController {
 
     User user = services.user().withUserName(principal.getName());
     User admin = services.user().getAdmin();
-    Videos videos = services.video().forUser(user.id);
+    Video video = services.video().withId(videoId);
+    /*Videos videos = services.video().forUser(user.id);*/
+    if (video.user.id == user.id) {
+      isVideoBellowToMe = true;
+    }
 
     signCreationViewApi.clearXss();
     if (user.username != admin.username) {
-      boolean isVideoBellowToMe = videos.stream().anyMatch(video -> video.id == videoId);
       if (!isVideoBellowToMe) {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         signResponseApi.errorMessage = messageByLocaleService.getMessage("video_not_below_to_you");
