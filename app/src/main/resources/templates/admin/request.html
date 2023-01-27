@@ -43,10 +43,11 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="label_sign aside_bckg_li">
-              <a class="all_li_clickable" data-target="#rename-sign" data-toggle="modal" href="#">
+              <a th:if="${requestView.sign == null}" class="all_li_clickable" data-target="#rename-sign" data-toggle="modal" href="#">
                 <h1 class="container_H2 text_hyphenation" th:text="${requestView.name}"/>
                 <div class="pull-right edit_black"></div>
               </a>
+              <h1 th:if="${requestView.sign != null}" class="container_H2 text_hyphenation" th:text="${requestView.name}"/>
             </li>
             <li class="aside_bckg_li">
               <a class="all_li_clickable" data-target="#add_sign_definition_text" data-toggle="modal" href="#">
