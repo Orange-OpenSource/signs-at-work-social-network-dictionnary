@@ -225,11 +225,12 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
           $(".spinner").visibility="hidden";
           $("video").css("z-index","1500").css("opacity","1");
           console.log("Success " + response);
-          var url = "/sec/my-request-detail/"+response.requestId;
+          /*var url = "/sec/my-request-detail/"+response.requestId;
           console.log(window.location.href);
           window.history.replaceState({}, 'foo', url);
           console.log(window.location.href);
-          window.location = url;
+          window.location = url;*/
+          location.reload;
         }, 3000);
 
 

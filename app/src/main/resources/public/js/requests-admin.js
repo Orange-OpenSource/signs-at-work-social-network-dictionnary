@@ -19,7 +19,7 @@
  * #L%
  */
 
-console.log("Cool, requests.js is loaded :)");
+console.log("Cool, requests-admin.js is loaded :)");
 
 var requestsContainer = document.getElementById("requests_container");
 if (requestsContainer != null) {
@@ -111,33 +111,6 @@ function onReset(event) {
   nb.innerHTML = '('+requestsCount+')';
   $(nb).show();
 
-}
-
-function onDeleteRequest(id){
-  var errorDeleteRequest = document.getElementById('errorDeleteRequest'+id);
-
-  $.ajax({
-    url: "/ws/admin/requests/"+ id,
-    type: 'delete',
-    success: function(response) {
-      $("#delete_request"+id).modal('hide');
-      $("#confirm-request-deleted"+id).modal('show');
-      setTimeout(function(){
-        $("#confirm-request-deleted"+id).modal('hide');
-        errorDeleteRequest.style.visibility="hidden";
-        var url = "/sec/admin/requests";
-        console.log(window.location.href);
-        window.history.replaceState({}, 'foo', url);
-        console.log(window.location.href);
-        window.location = url;
-      }, 3000);
-    },
-    error: function(response) {
-      console.log(response.responseJSON);
-      errorDeleteRequest.textContent = response.responseJSON.errorMessage;
-      errorDeleteRequest.style.visibility = "visible";
-    }
-  })
 }
 
 function main() {

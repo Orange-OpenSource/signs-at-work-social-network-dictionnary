@@ -493,7 +493,7 @@ public class RequestRestController {
     Request request = services.request().withId(requestId);
     services.request().deleteFromAdmin(request);
 
-    if ((request.requestVideoDescription !=  null) && (request.sign.videoDefinition != request.requestVideoDescription)) {
+    if ((request.requestVideoDescription !=  null) && (request.sign.videoDefinition != null) && (request.sign.videoDefinition != request.requestVideoDescription)) {
       if (request.requestVideoDescription.contains("http")) {
         dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
         try {

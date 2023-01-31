@@ -43,11 +43,12 @@ $formRequest.on('submit', function(event) {
          setTimeout(function(){
            $('#confirm-request-created').modal('hide');
            requestSpan.style.visibility="hidden";
-           var url = "/sec/my-request-detail/"+response.requestId;
+          /* var url = "/sec/my-request-detail/"+response.requestId;
            console.log(window.location.href);
            window.history.replaceState({}, 'foo', url);
            console.log(window.location.href);
-           window.location = url;
+           window.location = url;*/
+           location.reload();
          }, 3000);
        },
        error: function(response) {
@@ -96,7 +97,6 @@ $formRequestDescription.on('submit', function(event) {
   console.log("submit uploadSelectedVideoFile");
   console.log("requestName "+ $('#requestName').val());
   console.log("requestTextDescription " + $('#requestTextDescription').val());
-  document.getElementById('requestInfoSubmit').disabled=true;
   //document.getElementById('submitButtonFileDailymotion').disabled = true;
   /*if (document.getElementById("InputFile").value) {*/
         $(".spinner").removeClass("spinner_hidden").addClass("spinner_show");
@@ -120,11 +120,12 @@ $formRequestDescription.on('submit', function(event) {
             $("#confirm-request-created").modal('show');
             setTimeout(function(){
               $('#confirm-request-created').modal('hide');
-              var url = "/sec/my-request-detail/"+response.requestId;
+ /*             var url = "/sec/my-request-detail/"+response.requestId;
               console.log(window.location.href);
               window.history.replaceState({}, 'foo', url);
               console.log(window.location.href);
-              window.location = url;
+              window.location = url;*/
+              location.reload();
               errorSelectedSpan.style.display="none";
               $(".spinner").visibility="hidden";
             }, 3000);
@@ -151,14 +152,12 @@ $formRequestDescription.on('submit', function(event) {
 
 $formRequestDescription.on('input', function(event) {
   document.getElementById('errorSelectedSpan').style.display="none";
-  document.getElementById('requestInfoSubmit').disabled=true;
 });
 
 var $add_video_file_dailymotion = $('#add_video_file_dailymotion');
 $add_video_file_dailymotion.on('hidden.bs.modal', function() {
   console.log("hidden add_video_file_dailymotion modal");
   //document.getElementById('submitButtonFileDailymotion').disabled = false;
-  document.getElementById('requestInfoSubmit').disabled=false;
   if ($('#uploadSelectedVideoFile').find('#errorSelectedSpan').length) {
     errorSelectedSpan.style.display="none";
   }
@@ -172,12 +171,10 @@ $add_video_file_dailymotion.on('hidden.bs.modal', function() {
 var $add_request_description_LSF = $('#add_request_description_LSF');
 $add_request_description_LSF.on('show.bs.modal', function() {
   console.log("show $add_request_description_LSF modal");
-  document.getElementById('requestInfoSubmit').disabled=true;
 });
 
 $add_request_description_LSF.on('hidden.bs.modal', function() {
   console.log("hidden $add_request_description_LSF modal");
-  document.getElementById('requestInfoSubmit').disabled=false;
 });
 
 function onClick() {

@@ -35,7 +35,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                   <div class="description_movie_white pull-left"></div>
-                  <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
+                  <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestView.name})}"></h2>
                 </div>
             </div>
             <div class="modal-body text-center">
@@ -82,8 +82,8 @@
         </div>
 
         <div  class="container_record text-center">
-          <h4 id="label_record" th:text="#{record_description_request_lsf(${requestCreationView.requestName})}"></h4>
-          <h4 id="label_after_record" th:text="#{after_record_description_request_lsf(${requestCreationView.requestName})}" style="display: none"></h4>
+          <h4 id="label_record" th:text="#{record_description_request_lsf(${requestView.name})}"></h4>
+          <h4 id="label_after_record" th:text="#{after_record_description_request_lsf(${requestView.name})}" style="display: none"></h4>
           <div id="container_video" class="col-xs-offset-1 col-xs-10" >
             <div class="spinner spinner_hidden"></div>
             <span id="counter"></span>
@@ -133,11 +133,11 @@
         <button type="button" class="close" data-dismiss="modal"></button>
         <div th:if="!${isIOSDevice}" class="pull-left">
           <div class="signlanguage_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
+          <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestView.name})}"></h2>
         </div>
         <div  th:if="${isIOSDevice}" class="pull-left">
           <div class="description_movie_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
+          <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestView.name})}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
@@ -180,7 +180,7 @@
         <button class="close" data-dismiss="modal" type="button"></button>
         <div class="pull-left">
           <div class="signlanguage_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestCreationView.requestName})}"></h2>
+          <h2 class="pull-right text_hyphenation" th:utext="#{request.description_LSF(${requestView.name})}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>

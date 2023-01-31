@@ -252,7 +252,9 @@ public class RequestController {
     RequestCreationView requestCreationView = new RequestCreationView();
     requestCreationView.setRequestName(decodeName.trim());
     model.addAttribute("requestCreationView", requestCreationView);
-    model.addAttribute("requestView", new RequestView());
+    RequestView requestView = new RequestView();
+    requestView.setName(decodeName.trim());
+    model.addAttribute("requestView", requestView);
     model.addAttribute("appName", appName);
     return "signs-request";
   }
