@@ -27,6 +27,7 @@ import com.orange.signsatwork.biz.persistence.model.RequestViewData;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import com.orange.signsatwork.biz.view.model.RequestView;
@@ -54,6 +55,8 @@ import java.util.stream.Collectors;
 public class RequestController {
 
 
+  @Autowired
+  private AppSecurityAdmin appSecurityAdmin;
   @Autowired
   private Services services;
 
@@ -259,14 +262,19 @@ public class RequestController {
     return "signs-request";
   }
 
-  @Secured("ROLE_USER")
+  @Secured({"ROLE_USER","ROLE_ADMIN"})
   @RequestMapping(value = "/sec/request/{requestId}/description", method = RequestMethod.POST)
-  public String changeDescriptionnRequest(@PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView) {
+  public String changeDescriptionnRequest(@PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal) {
 
+    Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     requestCreationView.clearXss();
     services.request().changeRequestTextDescription(requestId, requestCreationView.getRequestTextDescription());
 
-    return "redirect:/sec/my-request-detail/" + requestId;
+    if (isAdmin) {
+      return "redirect:/sec/admin/request/" + requestId;
+    } else {
+      return "redirect:/sec/my-request-detail/" + requestId;
+    }
   }
 
   @RequestMapping(value = "/sec/my-requests/mostrecent")
