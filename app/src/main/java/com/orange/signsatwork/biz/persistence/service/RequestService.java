@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.persistence.service;
 
 import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.domain.Requests;
+import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
 
 import java.util.Date;
@@ -47,6 +48,8 @@ public interface RequestService {
   Request changeRequestTextDescription(long requestId, String requestTextDescription);
 
   Request changeRequestVideoDescription(long requestId, String requestVideoDescription);
+
+  Request deleteRequestVideoDescription(long requestId);
 
   Request withId(long id);
 

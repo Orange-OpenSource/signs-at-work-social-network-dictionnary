@@ -24,6 +24,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 
 import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.domain.Requests;
+import com.orange.signsatwork.biz.domain.Sign;
 import com.orange.signsatwork.biz.domain.Signs;
 import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.model.SignDB;
@@ -230,6 +231,16 @@ public class RequestServiceImpl implements RequestService {
     RequestDB requestDB = requestRepository.findOne(requestId);
 
     requestDB.setRequestVideoDescription(requestVideoDescription);
+    requestRepository.save(requestDB);
+
+    return requestFrom(requestDB, services);
+  }
+
+  @Override
+  public Request deleteRequestVideoDescription(long requestId) {
+    RequestDB requestDB = requestRepository.findOne(requestId);
+
+    requestDB.setRequestVideoDescription(null);
     requestRepository.save(requestDB);
 
     return requestFrom(requestDB, services);

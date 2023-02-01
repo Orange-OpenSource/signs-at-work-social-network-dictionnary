@@ -511,7 +511,52 @@ public class RequestRestController {
     return requestResponseApi;
   }
 
+  @Secured({"ROLE_ADMIN", "ROLE_USER"})
+  @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_REQUEST_DESCRIPTION, method = RequestMethod.POST)
+  public String deleteVideoRequestDescription(@PathVariable long requestId, HttpServletResponse response, HttpServletRequest requestHttp) {
+    Request request = services.request().withId(requestId);
+    if (request.requestVideoDescription != null) {
+      if (request.requestVideoDescription.contains("http")) {
+        String dailymotionIdForRequestDescription = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionIdForRequestDescription);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
+      } else {
+        DeleteFilesOnServer(request.requestVideoDescription, null);
+      }
+    }
+    services.request().deleteRequestVideoDescription(requestId);
+/*    String title = messageByLocaleService.getMessage("delete_sign_definition_title", new Object[]{sign.name});
+    String bodyMail = messageByLocaleService.getMessage("delete_sign_definition_body", new Object[]{sign.name});
+    String messageType = "DeleteSignDefinitionMessage";
+    Videos videos = services.video().forSign(signId);
+    List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
+    emails = emails.stream().distinct().collect(Collectors.toList());
+    if (emails.size() != 0) {
+      messageType = "DeleteSignDefinitionSendEmailMessage";
+      final String finalTitle = title;
+      final String finalBodyMail = bodyMail;
+      final String finalMessageType = messageType;
+      final String finalSignName = sign.name;
+      List<String> finalEmails = emails;
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), finalTitle, finalBodyMail);
+        services.emailService().sendSignDefinitionMessage(finalEmails.toArray(new String[finalEmails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
+      };
+      new Thread(task).start();
+    } else {
+      User admin = services.user().getAdmin();
+      String values = admin.username + ';' + sign.name;
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+    }*/
 
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "";
+  }
   private RequestResponseApi createRequestWithVideoFileForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute Optional<RequestCreationViewApi> requestCreationViewApi, Principal principal, HttpServletResponse response, HttpServletRequest req) throws InterruptedException {
     {
       String videoUrl = null;
