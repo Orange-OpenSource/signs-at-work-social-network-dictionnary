@@ -667,3 +667,7 @@ h4.blue-cgu {
 .spinner-delete_show{
   background-image: url("/img/spinner-purple.gif");
 }
+
+.sign_add_chartre_color {
+  background-image: url("/img/sprite_pictoAdmin_400X400_ADIS.png");
+}

@@ -32,6 +32,7 @@
 <div th:replace="fragments/modal-input-description-request :: div"/>
 <div th:replace="fragments/modal-input-description-request-LSF :: div"/>
 <div th:replace="fragments/modal-delete-description-request :: div"/>
+<div th:replace="fragments/modal-rename-request :: div"/>
 
 <body>
 <div class="container">
@@ -68,7 +69,10 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="aside_bckg_li">
-              <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
+              <a class="all_li_clickable" data-target="#rename-request" data-toggle="modal" href="#">
+                <h1 class="container_H2 text_hyphenation" th:text="${requestView.name}"/>
+                <div class="pull-right edit_black"></div>
+              </a>
             </li>
             <li class="aside_bckg_li">
               <a class="all_li_clickable" data-target="#add_description_request" data-toggle="modal" href="#">
@@ -136,7 +140,10 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="aside_bckg_li">
-              <h1 class="label_request_H2 container_H2" th:text="${requestView.name}"/>
+              <a class="all_li_clickable" data-target="#rename-request" data-toggle="modal" href="#">
+                <h1 class="container_H2 text_hyphenation" th:text="${requestView.name}"/>
+                <div class="pull-right edit_black"></div>
+              </a>
             </li>
             <li class="aside_bckg_li">
               <a class="all_li_clickable" data-target="#add_description_request" data-toggle="modal" href="#">
@@ -203,7 +210,7 @@
     </div>
   </div>
   <!--start modal modify name request-->
-  <div class="modal fade" id="modify_request" role="dialog">
+ <!-- <div class="modal fade" id="modify_request" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -230,7 +237,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div>-->
   <!--end modal modify name request-->
   <!--start modal confirm priority-->
   <div class="modal" id="priorise_request" role="dialog">
@@ -302,4 +309,6 @@
 <script src="../public/js/request-detail.js" th:src="@{/js/request-detail.js}" type="text/javascript"></script>
 <script src="../public/js/request.js" th:src="@{/js/request.js}" type="text/javascript"></script>
 <script src="../public/js/recorderRequestLSF.js" th:src="@{/js/recorderRequestLSF.js}" type="text/javascript"></script>
+<script src="../public/js/rename-request.js" th:src="@{/js/rename-request.js}" type="text/javascript"></script>
+</html>
 </html>
