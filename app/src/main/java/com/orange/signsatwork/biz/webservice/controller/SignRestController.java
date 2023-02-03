@@ -551,7 +551,7 @@ public class SignRestController {
       }
     } else {
       if (name.isPresent()) {
-        List<Object[]> querySignsByName = services.sign().searchBis(name.get().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
+        List<Object[]> querySignsByName = services.sign().searchBis(name.get().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
         List<SignViewData> signViewsDataByName = querySignsByName.stream()
           .map(objectArray -> new SignViewData(objectArray))
           .collect(Collectors.toList());
@@ -673,7 +673,7 @@ public class SignRestController {
       }
     } else {
       if (name.isPresent()) {
-        List<Object[]> querySignsByName = services.sign().searchBis(name.get().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
+        List<Object[]> querySignsByName = services.sign().searchBis(name.get().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
         List<SignViewData> signViewsDataByName = querySignsByName.stream()
           .map(objectArray -> new SignViewData(objectArray))
           .collect(Collectors.toList());
@@ -985,14 +985,14 @@ public class SignRestController {
             return signResponseApi;
           }
         } else {
-          List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().replace("œ", "oe").replace("æ", "ae").toUpperCase());
+          List<Object[]> querySigns = services.sign().searchBis(signCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
           List<SignViewData> signViewData = querySigns.stream()
             .map(objectArray -> new SignViewData(objectArray))
             .filter(o -> o.id != signId)
             .collect(Collectors.toList());
           List<SignViewData> signsWithSameName = new ArrayList<>();
           for (SignViewData s : signViewData) {
-            if (!sign.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(signCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
+            if (!sign.name.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").equalsIgnoreCase(signCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
               signsWithSameName.add(s);
             }
           }

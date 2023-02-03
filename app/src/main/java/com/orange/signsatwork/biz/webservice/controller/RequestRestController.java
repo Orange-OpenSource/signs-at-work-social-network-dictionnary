@@ -30,6 +30,7 @@ import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.model.RequestViewData;
+import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.storage.StorageService;
@@ -312,14 +313,14 @@ public class RequestRestController {
     }
 
     List<RequestViewApi> requestsWithSameName = new ArrayList<>();
-    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(name.replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"), user.id);
+    List<Object[]> queryRequestsWithNoASsociateSign = services.request().requestsByNameWithNoAssociateSign(name.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"), user.id);
     List<RequestViewApi> requestViewDatasWithNoAssociateSign =  queryRequestsWithNoASsociateSign.stream()
       .map(objectArray -> new RequestViewApi(objectArray))
       .collect(Collectors.toList());
     requestsWithSameName.addAll(requestViewDatasWithNoAssociateSign);
 
 
-    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(name.replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"), user.id);
+    List<Object[]> queryRequestsWithASsociateSign = services.request().requestsByNameWithAssociateSign(name.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"), user.id);
     List<RequestViewApi> requestViewDatasWithAssociateSign =  queryRequestsWithASsociateSign.stream()
       .map(objectArray -> new RequestViewApi(objectArray))
       .collect(Collectors.toList());
@@ -1155,4 +1156,5 @@ public class RequestRestController {
       }
     }
   }
+
 }

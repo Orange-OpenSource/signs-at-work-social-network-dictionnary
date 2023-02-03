@@ -57,7 +57,7 @@
                       <div class="pull-right add_black"></div>
                   </a>
                 </li>
-                <li class="aside_bckg_li" th:if="${requestView.requestVideoDescription != null and !#strings.isEmpty(requestView.requestTextDescription)}">
+                <li class="aside_bckg_li" th:if="${requestView.requestVideoDescription != null}">
                   <a class="all_li_clickable" data-target="#delete_description_request" data-toggle="modal" href="#">
                     <div class="pull-left x-close_blue"></div>
                     <h4 class="container_H2 text_hyphenation" th:text="#{delete}"/>

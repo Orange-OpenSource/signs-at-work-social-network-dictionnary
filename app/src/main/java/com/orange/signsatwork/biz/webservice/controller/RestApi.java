@@ -83,6 +83,7 @@ public class RestApi {
   public static final String ARTICLES = "/articles";
   public static final String WS_ROOT_SIGNS_VIDEOS = WS_ROOT + "signs/{signId}/videos";
   public static final String WS_SEC_SIGN_VIDEO_RENAME = WS_SEC + "signs/{signId}/videos/{videoId}/rename";
+
   /** Fin API REST For Android and IOS **/
 
   public static final String WS_OPEN_SIGN = WS_OPEN + "sign/";

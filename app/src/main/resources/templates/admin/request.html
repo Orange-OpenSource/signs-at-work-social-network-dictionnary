@@ -33,6 +33,7 @@
 <div th:replace="fragments/modal-input-description-request :: div"/>
 <div th:replace="fragments/modal-delete-request :: div"/>
 <div th:replace="fragments/modal-delete-description-request :: div"/>
+<div th:replace="fragments/modal-rename-request :: div"/>
 
 <body>
 <div class="container">
@@ -42,7 +43,7 @@
         <aside class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="label_sign aside_bckg_li">
-              <a th:if="${requestView.sign == null}" class="all_li_clickable" data-target="#rename-sign" data-toggle="modal" href="#">
+              <a th:if="${requestView.sign == null}" class="all_li_clickable" data-target="#rename-request" data-toggle="modal" href="#">
                 <h1 class="container_H2 text_hyphenation" th:text="${requestView.name}"/>
                 <div class="pull-right edit_black"></div>
               </a>
@@ -50,12 +51,12 @@
             </li>
             <li  class="aside_bckg_li">
               <a th:if="${requestView.sign == null}" class="all_li_clickable" data-target="#add_description_request" data-toggle="modal" href="#">
-                <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}" class="pull-left col-lg-12 col-md-12 col-xs-12">
+                <div th:if="${#strings.isEmpty(requestView.requestTextDescription)}" class="pull-left col-lg-12 col-md-12 col-xs-12">
                     <div class="pull-left definition_text_blue"></div>
                     <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
                     <div class="pull-right add_black"></div>
                 </div>
-                <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+                <div th:unless="${#strings.isEmpty(requestView.requestTextDescription)}">
                   <div class="pull-left col-lg-12 col-md-12 col-xs-12">
                     <div class="pull-left definition_text_blue"></div>
                     <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
@@ -69,21 +70,17 @@
                 </div>
               </a>
               <div th:if="${requestView.sign != null}">
-                <div th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}" class="pull-left col-lg-12 col-md-12 col-xs-12">
+                <div th:if="${#strings.isEmpty(requestView.requestTextDescription)}" class="pull-left col-lg-12 col-md-12 col-xs-12">
                   <div class="pull-left definition_text_blue"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
-                  <div class="pull-right add_black"></div>
                 </div>
-                <div th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}">
+                <div th:unless="${#strings.isEmpty(requestView.requestTextDescription)}">
                   <div class="pull-left col-lg-12 col-md-12 col-xs-12">
                     <div class="pull-left definition_text_blue"></div>
                     <h4 class="container_H2 text_hyphenation" th:text="#{your_request_description}"/>
                   </div>
                   <div class="pull-left col-lg-11 col-md-11 col-xs-11">
                     <h4 class="container_H2 text_hyphenation" th:text="${requestView.requestTextDescription}"/>
-                  </div>
-                  <div class="col-lg-1 col-md-1 col-xs-1" style="padding-right: 0px!important">
-                    <div class="pull-right edit_black"></div>
                   </div>
                 </div>
               </div>
@@ -126,7 +123,6 @@
                 <div th:if="${requestView.requestVideoDescription == null}" class="pull-left col-lg-12 col-md-12 col-xs-12">
                   <div class="pull-left description_movie_blue"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
-                  <div class="pull-right add_black"></div>
                 </div>
                 <div th:if="${requestView.requestVideoDescription != null}">
                   <div class="pull-left col-lg-12 col-md-12 col-xs-12">
@@ -150,14 +146,11 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-md-4 col-xs-4" style="padding-right: 0px!important">
-                    <div class="pull-right edit_black"></div>
-                  </div>
                 </div>
               </div>
             </li>
             <li th:if="${isIOSDevice}" class="aside_bckg_li">
-              <a class="all_li_clickable" th:data-requestId="${requestView.id}" th:onclick="javascript:onClickDefinitionSign(this.getAttribute('data-requestId'))">
+              <a th:if="${requestView.sign == null}" class="all_li_clickable" th:data-requestId="${requestView.id}" th:onclick="javascript:onClickDefinitionSign(this.getAttribute('data-requestId'))">
                 <div th:if="${requestView.requestVideoDescription == null}" class="pull-left col-lg-12 col-md-12 col-xs-12">
                   <div class="pull-left description_movie_blue"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
@@ -190,6 +183,35 @@
                   </div>
                 </div>
               </a>
+              <div th:if="${requestView.sign != null}">
+                <div th:if="${requestView.requestVideoDescription == null}" class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left description_movie_blue"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
+                </div>
+                <div th:if="${requestView.requestVideoDescription != null}">
+                  <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                    <div class="pull-left description_movie_blue"></div>
+                    <h4 class="container_H2 text_hyphenation" th:text="#{request_description_LSF}"/>
+                  </div>
+                  <div class="pull-left text-center title_middle col-lg-8 col-md-8 col-xs-8 middle-col" style="margin-top: 20px;margin-bottom: 20px;" th:if="${requestView.requestVideoDescription} != null">
+                    <div th:if="${!#strings.contains(requestView.requestVideoDescription, 'http')}">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <video controls playsinline oncontextmenu="return false;">
+                          <source th:src="${requestView.requestVideoDescription}" type="video/webm"/>
+                          <source th:src="${requestView.requestVideoDescription}" type="video/mp4"/>
+                        </video>
+                      </div>
+                    </div>
+                    <div th:if="${#strings.contains(requestView.requestVideoDescription, 'http')}">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <iframe allowfullscreen="" class="embed-responsive-item"
+                                frameborder="0"
+                                th:attr="title=#{sign.description(${title})}" th:src="${requestView.requestVideoDescription} + '?endscreen-enable=false&amp;sharing-enable=false&amp;wmode=transparent&amp;disable-queue=1'"></iframe>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
             <li th:if="${requestView.sign == null}" class="aside_bckg_li">
               <a class="all_li_clickable" href="#"
@@ -255,5 +277,5 @@
 <script src="../public/js/request-admin.js" th:src="@{/js/request-admin.js}" type="text/javascript"></script>
 <script src="../public/js/request.js" th:src="@{/js/request.js}" type="text/javascript"></script>
 <script src="../public/js/recorderRequestLSF.js" th:src="@{/js/recorderRequestLSF.js}" type="text/javascript"></script>
-
+<script src="../public/js/rename-request.js" th:src="@{/js/rename-request.js}" type="text/javascript"></script>
 </html>
