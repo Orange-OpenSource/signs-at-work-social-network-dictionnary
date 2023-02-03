@@ -1779,6 +1779,15 @@ img{
   margin-right: 20px;
 }
 
+.signlanguage_chartre_color {
+  background-image: url("/img/sprite_pictoAdmin_400X400.png");
+  background-position: -524px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
 .prio_blue_whitebackground {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2363px center;
