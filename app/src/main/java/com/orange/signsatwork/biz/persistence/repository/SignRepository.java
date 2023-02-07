@@ -36,6 +36,7 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
 
     List<SignDB> findByNameIgnoreCaseStartingWith(String name);
 
+    List<SignDB> findByNameIgnoreCase(String name);
 
     @Query(value="select id, name, create_date, last_video_id, url, 'picture_uri', nb_video from signs  where replace(replace(upper(name),'Œ','OE'),'Æ','AE') collate utf8_unicode_ci like concat('%',:name,'%')", nativeQuery = true)
     List<Object[]> findContainsNameIgnoreCase(@Param("name") String name);

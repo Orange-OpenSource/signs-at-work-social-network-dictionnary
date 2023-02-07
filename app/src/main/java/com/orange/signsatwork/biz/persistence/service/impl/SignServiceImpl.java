@@ -205,7 +205,10 @@ public class SignServiceImpl implements SignService {
     return signsFromSignsView(signRepository.findByName(name));
   }
 
-
+  @Override
+  public Signs withNameIgnoreCase(String name) {
+    return signsFromSignsView(signRepository.findByNameIgnoreCase(name));
+  }
 
   @Override
   public Sign create(Sign sign) {

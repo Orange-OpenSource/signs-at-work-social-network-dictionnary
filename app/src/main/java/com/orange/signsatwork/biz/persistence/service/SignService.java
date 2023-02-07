@@ -76,6 +76,8 @@ public interface SignService {
 
   Signs withName(String name);
 
+  Signs withNameIgnoreCase(String name);
+
   Sign create(Sign sign);
 
   Sign create(long userId, String signName, String signUrl, String pictureUri);
