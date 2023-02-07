@@ -1074,7 +1074,7 @@ public class SignController {
     model.addAttribute("isSignAlreadyExist", false);
     List<SignViewData> signsWithSameName = new ArrayList<>();
     for (SignViewData sign: signViewData) {
-      if (sign.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE")) ) {
+      if (sign.name.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE")) ) {
         model.addAttribute("isSignAlreadyExist", true);
         model.addAttribute("signMatche", sign);
       } else {
@@ -1091,7 +1091,7 @@ public class SignController {
       .collect(Collectors.toList());
     List<RequestViewData> requestsWithNoAssociateSignWithSameName = new ArrayList<>();
     for( RequestViewData requestViewData: requestViewDatasWithNoAssociateSign) {
-      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
+      if (requestViewData.requestName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
         model.addAttribute("isRequestAlreadyExist", true);
         model.addAttribute("requestMatche", requestViewData);
       } else {
