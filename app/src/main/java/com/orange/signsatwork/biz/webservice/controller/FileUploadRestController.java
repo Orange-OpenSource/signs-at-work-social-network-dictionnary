@@ -2496,6 +2496,27 @@ public class FileUploadRestController {
             messageType = "AddSignDefinitionSendEmailMessage";
           }
         }
+      } else {
+        if (sign.videoDefinition != null) {
+          if (sign.videoDefinition.contains("http")) {
+            dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            try {
+              DeleteVideoOnDailyMotion(dailymotionId);
+            } catch (Exception errorDailymotionDeleteVideo) {
+              response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+              return true;
+            }
+          } else {
+            DeleteFilesOnServer(sign.videoDefinition, null);
+          }
+          title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+          bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+          messageType = "UpdateSignDefinitionSendEmailMessage";
+        } else {
+          title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+          bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+          messageType = "AddSignDefinitionSendEmailMessage";
+        }
       }
     } else {
       if (sign.videoDefinition != null) {
