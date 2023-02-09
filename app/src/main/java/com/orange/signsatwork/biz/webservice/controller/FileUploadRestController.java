@@ -2563,6 +2563,17 @@ public class FileUploadRestController {
             messageType = "AddSignDefinitionSendEmailMessage";
           }
         }
+      } else {
+        if (sign.videoDefinition != null) {
+          DeleteFilesOnServer(sign.videoDefinition, null);
+          title = messageByLocaleService.getMessage("update_sign_definition_title", new Object[]{sign.name});
+          bodyMail = messageByLocaleService.getMessage("update_sign_definition_body", new Object[]{sign.name});
+          messageType = "UpdateSignDefinitionSendEmailMessage";
+        } else {
+          title = messageByLocaleService.getMessage("add_sign_definition_title", new Object[]{sign.name});
+          bodyMail = messageByLocaleService.getMessage("add_sign_definition_body", new Object[]{sign.name});
+          messageType = "AddSignDefinitionSendEmailMessage";
+        }
       }
     } else {
       if (sign.videoDefinition != null) {
