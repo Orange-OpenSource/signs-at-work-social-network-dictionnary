@@ -113,6 +113,33 @@ function onReset(event) {
 
 }
 
+function onDeleteRequest(id){
+  var errorDeleteRequest = document.getElementById('errorDeleteRequest'+id);
+
+  $.ajax({
+    url: "/ws/admin/requests/"+ id,
+    type: 'delete',
+    success: function(response) {
+      $("#delete_request"+id).modal('hide');
+      $("#confirm-request-deleted"+id).modal('show');
+      setTimeout(function(){
+        $("#confirm-request-deleted"+id).modal('hide');
+        errorDeleteRequest.style.visibility="hidden";
+        var url = "/sec/admin/requests";
+        console.log(window.location.href);
+        window.history.replaceState({}, 'foo', url);
+        console.log(window.location.href);
+        window.location = url;
+      }, 3000);
+    },
+    error: function(response) {
+      console.log(response.responseJSON);
+      errorDeleteRequest.textContent = response.responseJSON.errorMessage;
+      errorDeleteRequest.style.visibility = "visible";
+    }
+  })
+}
+
 function main() {
     $("#requests_container").children("div").each(function () {
       $(this).show();
