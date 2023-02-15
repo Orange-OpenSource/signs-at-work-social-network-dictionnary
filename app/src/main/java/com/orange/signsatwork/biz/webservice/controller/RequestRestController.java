@@ -33,6 +33,7 @@ import com.orange.signsatwork.biz.persistence.model.RequestViewData;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
@@ -80,6 +81,9 @@ public class RequestRestController {
   private StorageService storageService;
   @Autowired
   private Environment environment;
+
+  @Autowired
+  private AppSecurityAdmin appSecurityAdmin;
 
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
@@ -514,7 +518,8 @@ public class RequestRestController {
 
   @Secured({"ROLE_ADMIN", "ROLE_USER"})
   @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_REQUEST_DESCRIPTION, method = RequestMethod.POST)
-  public String deleteVideoRequestDescription(@PathVariable long requestId, HttpServletResponse response, HttpServletRequest requestHttp) {
+  public String deleteVideoRequestDescription(@PathVariable long requestId, HttpServletResponse response, HttpServletRequest requestHttp, Principal principal) {
+    Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     Request request = services.request().withId(requestId);
     if (request.requestVideoDescription != null) {
       if (request.requestVideoDescription.contains("http")) {
@@ -530,30 +535,30 @@ public class RequestRestController {
       }
     }
     services.request().deleteRequestVideoDescription(requestId);
-/*    String title = messageByLocaleService.getMessage("delete_sign_definition_title", new Object[]{sign.name});
-    String bodyMail = messageByLocaleService.getMessage("delete_sign_definition_body", new Object[]{sign.name});
-    String messageType = "DeleteSignDefinitionMessage";
-    Videos videos = services.video().forSign(signId);
-    List<String> emails = videos.stream().filter(v-> v.user.email != null).map(v -> v.user.email).collect(Collectors.toList());
-    emails = emails.stream().distinct().collect(Collectors.toList());
-    if (emails.size() != 0) {
-      messageType = "DeleteSignDefinitionSendEmailMessage";
-      final String finalTitle = title;
-      final String finalBodyMail = bodyMail;
-      final String finalMessageType = messageType;
-      final String finalSignName = sign.name;
-      List<String> finalEmails = emails;
-      Runnable task = () -> {
-        log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), finalTitle, finalBodyMail);
-        services.emailService().sendSignDefinitionMessage(finalEmails.toArray(new String[finalEmails.size()]), finalTitle, finalBodyMail, finalSignName, finalMessageType, requestHttp.getLocale());
-      };
-      new Thread(task).start();
-    } else {
-      User admin = services.user().getAdmin();
-      String values = admin.username + ';' + sign.name;
-      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
-      services.messageServerService().addMessageServer(messageServer);
-    }*/
+    if (isAdmin) {
+      String title = messageByLocaleService.getMessage("delete_request_description_title", new Object[]{request.name});
+      String bodyMail = messageByLocaleService.getMessage("delete_request_description_body", new Object[]{request.name});
+      String messageType = "DeleteRequestDescriptionMessage";
+      String email = request.user.email;
+      if (!email.isEmpty()) {
+        messageType = "DeleteRequestDescriptionSendEmailMessage";
+        final String finalTitle = title;
+        final String finalBodyMail = bodyMail;
+        final String finalMessageType = messageType;
+        final String finalRequestName = request.name;
+        String finalEmail = email;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", finalEmail, finalTitle, finalBodyMail);
+          services.emailService().sendRequestDescriptionMessage(finalEmail, finalTitle, finalBodyMail, finalRequestName, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        User admin = services.user().getAdmin();
+        String values = admin.username + ';' + request.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
+    }
 
     response.setStatus(HttpServletResponse.SC_OK);
     return "";

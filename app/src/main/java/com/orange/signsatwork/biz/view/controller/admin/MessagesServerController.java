@@ -98,8 +98,8 @@ public class MessagesServerController {
     model.addAttribute("isUserProfilActionDesc", false);
     model.addAttribute("isCommunityActionAsc", false);
     model.addAttribute("isCommunityActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isDataSignDesc", false);
@@ -145,8 +145,8 @@ public class MessagesServerController {
     model.addAttribute("isUserProfilActionDesc", false);
     model.addAttribute("isCommunityActionAsc", false);
     model.addAttribute("isCommunityActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isDataSignDesc", false);
@@ -192,8 +192,8 @@ public class MessagesServerController {
     model.addAttribute("isUserProfilActionDesc", false);
     model.addAttribute("isCommunityActionAsc", false);
     model.addAttribute("isCommunityActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isDataSignDesc", false);
@@ -239,8 +239,8 @@ public class MessagesServerController {
     model.addAttribute("isUserProfilActionDesc", false);
     model.addAttribute("isCommunityActionAsc", false);
     model.addAttribute("isCommunityActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isDataSignDesc", false);
@@ -286,8 +286,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestChangeUserLoginDesc", false);
     model.addAttribute("isCommunityActionAsc", false);
     model.addAttribute("isCommunityActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isDataSignDesc", false);
@@ -333,8 +333,8 @@ public class MessagesServerController {
     model.addAttribute("isRequestChangeUserLoginDesc", false);
     model.addAttribute("isUserProfilActionAsc", false);
     model.addAttribute("isUserProfilActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isDataSignDesc", false);
@@ -347,22 +347,22 @@ public class MessagesServerController {
   }
 
   @Secured("ROLE_ADMIN")
-  @RequestMapping(value = "/sec/admin/request/frame")
-  public String messagesServerisRequestFrame(@RequestParam("isRequestAsc") boolean isRequestAsc, Model model) {
+  @RequestMapping(value = "/sec/admin/dataRequest/frame")
+  public String messagesServerisRequestFrame(@RequestParam("isDataRequestAsc") boolean isDataRequestAsc, Model model) {
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("server_message"));
     model.addAttribute("appName", appName);
 
     MessagesServer queryMessagesServer;
-    if (isRequestAsc == true) {
-      queryMessagesServer = services.messageServerService().messagesServerRequestDesc();
-      model.addAttribute("isRequestDesc", true);
-      model.addAttribute("isRequestAsc", false);
+    if (isDataRequestAsc == true) {
+      queryMessagesServer = services.messageServerService().messagesServerDataRequestDesc();
+      model.addAttribute("isDataRequestDesc", true);
+      model.addAttribute("isDataRequestAsc", false);
       model.addAttribute("classDropdownDirection", "  up_black pull-right");
     } else {
-      queryMessagesServer = services.messageServerService().messagesServerRequestAsc();
-      model.addAttribute("isRequestAsc", true);
-      model.addAttribute("isRequestDesc", false);
+      queryMessagesServer = services.messageServerService().messagesServerDataRequestAsc();
+      model.addAttribute("isDataRequestAsc", true);
+      model.addAttribute("isDataRequestDesc", false);
       model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
 
@@ -386,7 +386,7 @@ public class MessagesServerController {
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isDataSignDesc", false);
     model.addAttribute("isDataSignAsc", false);
-    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("request"));
+    model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("requestsAction"));
     model.addAttribute("classDropdownTitle", "  sign_ask-for_blue_filter pull-left");
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
 
@@ -429,8 +429,8 @@ public class MessagesServerController {
     model.addAttribute("isUserProfilActionDesc", false);
     model.addAttribute("isCommunityActionAsc", false);
     model.addAttribute("isCommunityActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isDataSignDesc", false);
     model.addAttribute("isDataSignAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("shareFavorite"));
@@ -476,8 +476,8 @@ public class MessagesServerController {
     model.addAttribute("isUserProfilActionDesc", false);
     model.addAttribute("isCommunityActionAsc", false);
     model.addAttribute("isCommunityActionDesc", false);
-    model.addAttribute("isRequestAsc", false);
-    model.addAttribute("isRequestDesc", false);
+    model.addAttribute("isDataRequestAsc", false);
+    model.addAttribute("isDataRequestDesc", false);
     model.addAttribute("isShareFavoriteDesc", false);
     model.addAttribute("isShareFavoriteAsc", false);
     model.addAttribute("dropdownTitle", messageByLocaleService.getMessage("signsAction"));

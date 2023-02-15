@@ -73,13 +73,13 @@ public class MessageServerServiceImpl implements MessageServerService {
   }
 
   @Override
-  public MessagesServer messagesServerRequestAsc() {
-    return messagesServerFrom(messageServerRepository.findMessagesServerRequestAsc());
+  public MessagesServer messagesServerDataRequestAsc() {
+    return messagesServerFrom(messageServerRepository.findMessagesServerDataRequestAsc());
   }
 
   @Override
-  public MessagesServer messagesServerRequestDesc() {
-    return messagesServerFrom(messageServerRepository.findMessagesServerRequestDesc());
+  public MessagesServer messagesServerDataRequestDesc() {
+    return messagesServerFrom(messageServerRepository.findMessagesServerDataRequestDesc());
   }
 
   @Override

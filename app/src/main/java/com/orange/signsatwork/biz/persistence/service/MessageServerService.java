@@ -26,9 +26,9 @@ public interface MessageServerService {
 
   MessagesServer messagesServerCommunityActionDesc();
 
-  MessagesServer messagesServerRequestAsc();
+  MessagesServer messagesServerDataRequestAsc();
 
-  MessagesServer messagesServerRequestDesc();
+  MessagesServer messagesServerDataRequestDesc();
 
   MessagesServer messagesServerShareFavoriteAsc();
 

@@ -39,11 +39,11 @@ public interface MessageServerRepository extends CrudRepository<MessageServerDB,
   @Query("select distinct m FROM MessageServerDB m where m.type in ('CommunityCreateMessage', 'CommunityRenameMessage', 'CommunityDeleteMessage', 'CommunityAddDescriptionMessage', 'CommunityRemoveMessage', 'CommunityRemoveMeMessage', 'CommunityAddMessage') order by m.date desc")
   List<MessageServerDB> findMessagesServerCommunityActionDesc();
 
-  @Query("select distinct m FROM MessageServerDB m where m.type='RequestMessage' order by m.date asc")
-  List<MessageServerDB> findMessagesServerRequestAsc();
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('UpdateRequestDescriptionMessage','UpdateRequestDescriptionSendEmailMessage', 'AddRequestDescriptionMessage', 'AddRequestDescriptionSendEmailMessage', 'DeleteRequestDescriptionMessage', 'DeleteRequestDescriptionSendEmailMessage', 'AddRequestDescriptionTextSendEmailMessage', 'UpdateRequestDescriptionTextSendEmailMessage')  order by m.date asc")
+  List<MessageServerDB> findMessagesServerDataRequestAsc();
 
-  @Query("select distinct m FROM MessageServerDB m where m.type='RequestMessage' order by m.date desc")
-  List<MessageServerDB> findMessagesServerRequestDesc();
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('UpdateRequestDescriptionMessage','UpdateRequestDescriptionSendEmailMessage', 'AddRequestDescriptionMessage', 'AddRequestDescriptionSendEmailMessage', 'DeleteRequestDescriptionMessage', 'DeleteRequestDescriptionSendEmailMessage', 'AddRequestDescriptionTextSendEmailMessage', 'UpdateRequestDescriptionTextSendEmailMessage')  order by m.date desc")
+  List<MessageServerDB> findMessagesServerDataRequestDesc();
 
   @Query("select distinct m FROM MessageServerDB m where m.type='FavoriteShareMessage' order by m.date asc")
   List<MessageServerDB> findMessagesServerShareFavoriteAsc();

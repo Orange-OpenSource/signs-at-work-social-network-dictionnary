@@ -118,18 +118,18 @@
         </a>
       </li>
       <li>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestAsc}" th:href="@{/sec/admin/request/frame(isRequestAsc=${isRequestAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isDataRequestAsc}" th:href="@{/sec/admin/dataRequest/frame(isDataRequestAsc=${isDataRequestAsc})}">
           <div class="pull-left sign_ask-for_blue_filter"></div>
-          <span th:text="#{request}"></span>
+          <span th:text="#{requestsAction}"></span>
           <div class="pull-right v-done-down_black"></div>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${!isRequestAsc and !isRequestDesc}" th:href="@{/sec/admin/request/frame(isRequestAsc=${isRequestAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${!isDataRequestAsc and !isDataRequestDesc}" th:href="@{/sec/admin/dataRequest/frame(isDataRequestAsc=${isDataRequestAsc})}">
           <div class="pull-left sign_ask-for_blue_filter"></div>
-          <span th:text="#{request}"></span>
+          <span th:text="#{requestsAction}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isRequestDesc}" th:href="@{/sec/admin/request/frame(isRequestAsc=${isRequestAsc})}">
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isDataRequestDesc}" th:href="@{/sec/admin/dataRequest/frame(isDataRequestAsc=${isDataRequestAsc})}">
           <div class="pull-left sign_ask-for_blue_filter"></div>
-          <span th:text="#{request}"></span>
+          <span th:text="#{requestsAction}"></span>
           <div class="pull-right v-done-up_black"></div>
         </a>
       </li>
@@ -239,10 +239,19 @@
                 <div th:if="${messageServer.type == 'AddSignDefinitionMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'AddSignDefinitionSendEmailMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'DeleteSignDefinitionSendEmailMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
-                <div th:if="${messageServer.type == 'AddSignDefinitionTextSendEmailMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
-                <div th:if="${messageServer.type == 'AddSignDefinitionTextMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
-                <div th:if="${messageServer.type == 'UpdateSignDefinitionTextSendEmailMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
-                <div th:if="${messageServer.type == 'UpdateSignDefinitionTextMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddSignDefinitionTextSendEmailMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddSignDefinitionTextMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateSignDefinitionTextSendEmailMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateSignDefinitionTextMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateRequestDescriptionMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateRequestDescriptionSendEmailMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddRequestDescriptionMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddRequestDescriptionSendEmailMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteRequestDescriptionSendEmailMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddRequestDescriptionTextSendEmailMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddRequestDescriptionTextMessage'}" class="definition_text_bluee" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateRequestDescriptionTextSendEmailMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateRequestDescriptionTextMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UpdateVideoSendEmailMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UpdateVideoMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'DeleteSignSendEmailMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>

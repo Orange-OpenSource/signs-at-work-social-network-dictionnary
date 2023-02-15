@@ -46,6 +46,7 @@ import java.net.URLEncoder;
 import java.security.Principal;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +65,9 @@ public class RequestController {
   MessageByLocaleService messageByLocaleService;
   @Value("${app.name}")
   String appName;
+
+  @Value("${app.admin.username}")
+  String adminUsername;
 
   @RequestMapping(value = "/sec/requests")
   public String requests(Principal principal, Model model) {
@@ -264,13 +268,45 @@ public class RequestController {
 
   @Secured({"ROLE_USER","ROLE_ADMIN"})
   @RequestMapping(value = "/sec/request/{requestId}/description", method = RequestMethod.POST)
-  public String changeDescriptionnRequest(@PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal) {
-
+  public String changeDescriptionRequest(@PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletRequest requestHttp) {
+    String title = null, bodyMail = null, messageType = null;
     Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     requestCreationView.clearXss();
+    Request request = services.request().withId(requestId);
     services.request().changeRequestTextDescription(requestId, requestCreationView.getRequestTextDescription());
 
     if (isAdmin) {
+      String email = request.user.email;
+      if (request.requestTextDescription != null && !request.requestTextDescription.isEmpty()) {
+        title = messageByLocaleService.getMessage("update_request_description_text_title", new Object[]{request.name});
+        bodyMail = messageByLocaleService.getMessage("update_request_description_text_body", new Object[]{request.name});
+        messageType = "UpdateRequestDescriptionTextMessage";
+      } else {
+        title = messageByLocaleService.getMessage("add_request_description_text_title", new Object[]{request.name});
+        bodyMail = messageByLocaleService.getMessage("add_request_description_text_body", new Object[]{request.name});
+        messageType = "AddRequestDescriptionTextMessage";
+      }
+      if (!email.isEmpty()) {
+        if (request.requestTextDescription != null && !request.requestTextDescription.isEmpty()) {
+          messageType = "UpdateRequestDescriptionTextSendEmailMessage";
+        } else {
+          messageType = "AddRequestDescriptionTextSendEmailMessage";
+        }
+        final String finalTitle = title;
+        final String finalBodyMail = bodyMail;
+        final String finalMessageType = messageType;
+        final String finalRequestName = request.name;
+        String finalEmail = email;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", finalEmail, finalTitle, finalBodyMail);
+          services.emailService().sendRequestDescriptionMessage(finalEmail, finalTitle, finalBodyMail, finalRequestName, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        String values = adminUsername + ';' + request.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
       return "redirect:/sec/admin/request/" + requestId;
     } else {
       return "redirect:/sec/my-request-detail/" + requestId;
