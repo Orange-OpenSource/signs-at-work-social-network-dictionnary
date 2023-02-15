@@ -262,6 +262,8 @@
                 <div th:if="${messageServer.type == 'RenameSignMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'DeleteRequestSendEmailMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'DeleteRequestMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'PrioriseRequestSendEmailMessage'}" class="prio_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'PrioriseRequestMessage'}" class="prio_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>

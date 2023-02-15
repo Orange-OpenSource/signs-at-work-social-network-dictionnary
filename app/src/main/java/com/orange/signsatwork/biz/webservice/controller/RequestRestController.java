@@ -171,10 +171,32 @@ public class RequestRestController {
 
 
 
-  @Secured("ROLE_USER")
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @RequestMapping(value = RestApi.WS_SEC_REQUEST_PRIORISE, method = RequestMethod.POST)
-  public void  requestPriorised(@PathVariable long requestId, HttpServletResponse response) {
+  public void  requestPriorised(@PathVariable long requestId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) {
+    Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
+    User admin = services.user().getAdmin();
+    Request request = services.request().withId(requestId);
     services.request().priorise(requestId);
+    if (isAdmin) {
+      String title = messageByLocaleService.getMessage("priorise_request_title", new Object[]{request.name});
+      String bodyMail = messageByLocaleService.getMessage("priorise_request_body", new Object[]{request.name});
+      String messageType = "PrioriseRequestSendEmailMessage";
+      String email = request.user.email;
+      if (!email.isEmpty()) {
+        String finalMessageType = messageType;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+          services.emailService().sendRequestDescriptionMessage(email, title, bodyMail, request.name, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        messageType = "PrioriseRequestMessage";
+        String values = admin.username + ';' + request.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
+    }
     response.setStatus(HttpServletResponse.SC_OK);
     return;
   }
