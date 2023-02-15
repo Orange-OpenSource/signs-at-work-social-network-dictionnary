@@ -491,12 +491,32 @@ public class RequestRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_ADMIN_REQUEST, method = RequestMethod.DELETE)
-  public RequestResponseApi adminDeleteRequest(@PathVariable long requestId, HttpServletResponse response, Principal principal) {
+  public RequestResponseApi adminDeleteRequest(@PathVariable long requestId, HttpServletResponse response, Principal principal, HttpServletRequest requestHttp) {
     RequestResponseApi requestResponseApi = new RequestResponseApi();
     String dailymotionId;
+    String title, bodyMail, messageType;
 
+    User admin = services.user().getAdmin();
     Request request = services.request().withId(requestId);
     services.request().deleteFromAdmin(request);
+
+    title = messageByLocaleService.getMessage("delete_request_title", new Object[]{request.name});
+    bodyMail = messageByLocaleService.getMessage("delete_request_body", new Object[]{request.name});
+    messageType = "DeleteRequestSendEmailMessage";
+    String email = request.user.email;
+    if (!email.isEmpty()) {
+      String finalMessageType = messageType;
+      Runnable task = () -> {
+        log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+        services.emailService().sendRequestDescriptionMessage(email, title, bodyMail, request.name, finalMessageType, requestHttp.getLocale());
+      };
+      new Thread(task).start();
+    } else {
+      messageType = "DeleteRequestMessage";
+      String values = admin.username + ';' + request.name;
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+    }
 
     if ((request.requestVideoDescription !=  null) && (request.sign.videoDefinition != null) && (request.sign.videoDefinition != request.requestVideoDescription)) {
       if (request.requestVideoDescription.contains("http")) {
