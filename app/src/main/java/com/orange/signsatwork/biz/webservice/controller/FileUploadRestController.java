@@ -422,6 +422,41 @@ public class FileUploadRestController {
     }
   }
 
+  private void sendMailAndAddMessageServeurForRequestDescriptionIfAdmin(Long requestId, HttpServletRequest requestHttp, User user) {
+    String title, bodyMail, messageType;
+    User admin = services.user().getAdmin();
+    if (user.username == admin.username) {
+      Request request = services.request().withId(requestId);
+      String email = request.user.email;
+      if (!email.isEmpty()) {
+        if (request.requestVideoDescription != null && !request.requestVideoDescription.isEmpty()) {
+          title = messageByLocaleService.getMessage("update_request_description_title", new Object[]{request.name});
+          bodyMail = messageByLocaleService.getMessage("update_request_description_body", new Object[]{request.name});
+          messageType = "UpdateRequestDescriptionSendEmailMessage";
+        } else {
+          title = messageByLocaleService.getMessage("add_request_description_title", new Object[]{request.name});
+          bodyMail = messageByLocaleService.getMessage("add_request_description_body", new Object[]{request.name});
+          messageType = "AddRequestDescriptionSendEmailMessage";
+        }
+        String finalMessageType = messageType;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+          services.emailService().sendRequestDescriptionMessage(email, title, bodyMail, request.name, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        if (request.requestVideoDescription != null && !request.requestVideoDescription.isEmpty()) {
+          messageType = "UpdateRequestDescriptionMessage";
+        } else {
+          messageType = "AddRequestDescriptionMessage";
+        }
+        String values = admin.username + ';' + request.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
+    }
+  }
+
   private void DeleteFilesOnServer(String url, String pictureUri) {
     if (url != null) {
       File video = new File(url);
@@ -1586,7 +1621,7 @@ public class FileUploadRestController {
     }
   }
 
-  private RequestResponse handleSelectedVideoFileUploadForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response, HttpServletRequest requsetHttp) throws InterruptedException {
+  private RequestResponse handleSelectedVideoFileUploadForRequestDescription(@RequestParam("file") MultipartFile file, @PathVariable long requestId, @ModelAttribute RequestCreationView requestCreationView, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     {
       String videoUrl = null;
       String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
@@ -1681,6 +1716,7 @@ public class FileUploadRestController {
                 }
               }
             }
+            sendMailAndAddMessageServeurForRequestDescriptionIfAdmin(requestId, requestHttp, user);
             services.request().changeRequestVideoDescription(requestId, videoUrl);
 
           } else {
@@ -1696,7 +1732,7 @@ public class FileUploadRestController {
                   Request finalRequest = request;
                   Runnable task = () -> {
                     log.info("send mail email = {} / title = {} / body = {}", emails.toString(), title, bodyMail);
-                    services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl() + "/sec/other-request-detail/" + finalRequest.id, requsetHttp.getLocale());
+                    services.emailService().sendRequestMessage(emails.toArray(new String[emails.size()]), title, user.name(), finalRequest.name, getAppUrl() + "/sec/other-request-detail/" + finalRequest.id, requestHttp.getLocale());
                   };
 
                   new Thread(task).start();
@@ -1812,6 +1848,7 @@ public class FileUploadRestController {
         if (request.requestVideoDescription != null) {
           DeleteFilesOnServer(request.requestVideoDescription, null);
         }
+        sendMailAndAddMessageServeurForRequestDescriptionIfAdmin(requestId, requestHttp, user);
         services.request().changeRequestVideoDescription(requestId, videoUrl);
       } else {
         if (services.sign().withName(requestCreationView.getRequestName()).list().isEmpty()) {
@@ -1974,6 +2011,7 @@ public class FileUploadRestController {
               }
             }
           }
+          sendMailAndAddMessageServeurForRequestDescriptionIfAdmin(requestId, requestHttp, user);
           services.request().changeRequestVideoDescription(requestId, videoUrl);
 
         } else {
@@ -2085,6 +2123,7 @@ public class FileUploadRestController {
       if (request.requestVideoDescription != null) {
         DeleteFilesOnServer(request.requestVideoDescription, null);
       }
+      sendMailAndAddMessageServeurForRequestDescriptionIfAdmin(requestId, requestHttp, user);
       services.request().changeRequestVideoDescription(requestId, videoUrl);
 
     } else {
