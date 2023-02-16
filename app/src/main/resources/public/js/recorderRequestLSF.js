@@ -230,7 +230,7 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
           window.history.replaceState({}, 'foo', url);
           console.log(window.location.href);
           window.location = url;*/
-          location.reload;
+          location.reload();
         }, 3000);
 
 
