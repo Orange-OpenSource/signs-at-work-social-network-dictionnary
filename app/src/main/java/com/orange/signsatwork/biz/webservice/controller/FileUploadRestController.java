@@ -23,13 +23,8 @@ package com.orange.signsatwork.biz.webservice.controller;
  */
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
@@ -40,10 +35,8 @@ import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.RequestCreationView;
 import com.orange.signsatwork.biz.view.model.SignCreationView;
 import com.orange.signsatwork.biz.webservice.model.RequestResponse;
-import com.orange.signsatwork.biz.webservice.model.Stream;
 import com.orange.signsatwork.biz.webservice.model.Streams;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.json.JSONParser;
 import org.jcodec.api.JCodecException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -253,7 +246,7 @@ public class FileUploadRestController {
             }
           }
           sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
-          sendMailAndUpdateMessageServeurIfAdmin(signId, requestHttp, user, sign, video);
+          sendMailAndAddMessageServeurForSignIfAdmin(signId, requestHttp, user, sign, video);
       } else if (signId.isPresent() && !(videoId.isPresent())) {
         sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
       } else {
@@ -263,6 +256,7 @@ public class FileUploadRestController {
 
 
       if (requestId.isPresent()) {
+        sendMailAndAddMessageServeurForRequestIfAdmin(requestId.getAsLong(), requestHttp, user);
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
       }
 
@@ -353,7 +347,7 @@ public class FileUploadRestController {
       video = services.video().withId(videoId.getAsLong());
       DeleteFilesOnServer(video.url, video.pictureUri);
       sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
-      sendMailAndUpdateMessageServeurIfAdmin(signId, requestHttp, user, sign, video);
+      sendMailAndAddMessageServeurForSignIfAdmin(signId, requestHttp, user, sign, video);
     } else if (signId.isPresent() && !(videoId.isPresent())) {
       sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
     } else {
@@ -363,6 +357,7 @@ public class FileUploadRestController {
 
 
     if (requestId.isPresent()) {
+      sendMailAndAddMessageServeurForRequestIfAdmin(requestId.getAsLong(), requestHttp, user);
       services.request().changeSignRequest(requestId.getAsLong(), sign.id);
     }
 
@@ -371,7 +366,7 @@ public class FileUploadRestController {
 
   }
 
-  private void sendMailAndUpdateMessageServeurIfAdmin(OptionalLong signId, HttpServletRequest requestHttp, User user, Sign sign, Video video) {
+  private void sendMailAndAddMessageServeurForSignIfAdmin(OptionalLong signId, HttpServletRequest requestHttp, User user, Sign sign, Video video) {
     User admin = services.user().getAdmin();
     if (user.username == admin.username) {
       String videoName;
@@ -397,6 +392,30 @@ public class FileUploadRestController {
       } else {
         messageType = "UpdateVideoMessage";
         String values = admin.username + ';' + videoName;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
+    }
+  }
+
+  private void sendMailAndAddMessageServeurForRequestIfAdmin(Long requestId, HttpServletRequest requestHttp, User user) {
+    User admin = services.user().getAdmin();
+    if (user.username == admin.username) {
+      Request request = services.request().withId(requestId);
+      String title = messageByLocaleService.getMessage("create_sign_for_request_title", new Object[]{request.name});
+      String bodyMail = messageByLocaleService.getMessage("create_sign_for_request_body", new Object[]{request.name});
+      String messageType = "CreateSignForRequestSendEmailMessage";
+      String email = request.user.email;
+      if (!email.isEmpty()) {
+        String finalMessageType = messageType;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", email, title, bodyMail);
+          services.emailService().sendRequestDescriptionMessage(email, title, bodyMail, request.name, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        messageType = "CreateSignForRequestMessage";
+        String values = admin.username + ';' + request.name;
         MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
         services.messageServerService().addMessageServer(messageServer);
       }
@@ -629,7 +648,7 @@ public class FileUploadRestController {
           }
         }
         sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
-        sendMailAndUpdateMessageServeurIfAdmin(signId, requestHttp, user, sign, video);
+        sendMailAndAddMessageServeurForSignIfAdmin(signId, requestHttp, user, sign, video);
       } else if (signId.isPresent() && !(videoId.isPresent())) {
         sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
       } else {
@@ -639,6 +658,7 @@ public class FileUploadRestController {
       log.info("handleSelectedVideoFileUpload : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), videoUrl);
 
       if (requestId.isPresent()) {
+        sendMailAndAddMessageServeurForRequestIfAdmin(requestId.getAsLong(), requestHttp, user);
         services.request().changeSignRequest(requestId.getAsLong(), sign.id);
       }
 
@@ -740,7 +760,7 @@ public class FileUploadRestController {
       video = services.video().withId(videoId.getAsLong());
       DeleteFilesOnServer(video.url, video.pictureUri);
       sign = services.sign().replace(signId.getAsLong(), videoId.getAsLong(), videoUrl, pictureUri);
-      sendMailAndUpdateMessageServeurIfAdmin(signId, requestHttp, user, sign, video);
+      sendMailAndAddMessageServeurForSignIfAdmin(signId, requestHttp, user, sign, video);
     } else if (signId.isPresent() && !(videoId.isPresent())) {
       sign = services.sign().addNewVideo(user.id, signId.getAsLong(), videoUrl, pictureUri);
     } else {
@@ -750,6 +770,7 @@ public class FileUploadRestController {
     log.info("handleSelectedVideoFileUploadOnServer : username = {} / sign name = {} / video url = {}", user.username, signCreationView.getSignName(), videoUrl);
 
     if (requestId.isPresent()) {
+      sendMailAndAddMessageServeurForRequestIfAdmin(requestId.getAsLong(), requestHttp, user);
       services.request().changeSignRequest(requestId.getAsLong(), sign.id);
     }
 
