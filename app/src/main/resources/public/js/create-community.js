@@ -52,3 +52,32 @@ $('#create_community').on('hidden.bs.modal', function (e) {
   inputCommunityName.value = '';
   submitCreateCommunity.disabled = true;
 })
+
+function onCreateCommunity(name) {
+    community = {
+      name: name,
+    };
+    $.ajax({
+      url: "/ws/admin/communities",
+      type: 'post',
+      data: JSON.stringify(community),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        $("#validate_create_community_favorite").modal('show');
+        setTimeout(function () {
+          $('#validate_create_community_favorite').modal('hide');
+          url = "/sec/admin/manage_communities";
+          window.history.replaceState({}, 'foo', url);
+          window.location = url;
+        }, 3000);
+      },
+      error: function (response) {
+      }
+    })
+};
+
+function onContinueCommunity(backUrl) {
+  var url = backUrl;
+  window.location = url;
+};

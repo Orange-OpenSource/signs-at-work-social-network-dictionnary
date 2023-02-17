@@ -169,4 +169,5 @@ public class RestApi {
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_COMMUNITY_DESCRIPTION = WS_SEC + "uploadSelectedVideoFileForCommunityDescription/{communityId}";
 
   public static final String WS_ADMIN_REQUEST = WS_ADMIN + "requests/{requestId}";
+
 }

@@ -112,6 +112,17 @@ public class AdminController {
   }
 
   @Secured("ROLE_ADMIN")
+  @RequestMapping("/sec/admin/manage_communities")
+  public String manageCommunities(Model model) {
+    AuthentModel.addAuthenticatedModel(model, true);
+    model.addAttribute("title", messageByLocaleService.getMessage("manage_communities"));
+    Communities communities = communityService.allJob();
+    model.addAttribute("communities", CommunityView.from(communities));
+    model.addAttribute("appName", appName);
+    return "admin/manage_communities";
+  }
+
+  @Secured("ROLE_ADMIN")
   @RequestMapping("/sec/admin/manage_communities_users")
   public String manage_communities_users(Model model) {
     AuthentModel.addAuthenticatedModel(model, true);

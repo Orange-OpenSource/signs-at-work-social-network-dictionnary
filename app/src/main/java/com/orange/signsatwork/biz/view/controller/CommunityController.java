@@ -26,6 +26,7 @@ import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +50,10 @@ public class CommunityController {
   private Services services;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+
+  @Autowired
+  private AppSecurityAdmin appSecurityAdmin;
+
   @Value("${app.name}")
   String appName;
 
@@ -114,6 +119,7 @@ public class CommunityController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/communities-suggest")
   public String showCommunitiesSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long favoriteId, Principal principal) {
+    boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("title", messageByLocaleService.getMessage("favorite.create_community"));
@@ -152,7 +158,12 @@ public class CommunityController {
     model.addAttribute("favoriteId", favoriteId);
     model.addAttribute("appName", appName);
 
-    return "communities-suggest";
+    if (isAdmin) {
+      model.addAttribute("backUrl", "/sec/admin/manage_communities");
+      return "admin/communities-suggest";
+    } else {
+      return "communities-suggest";
+    }
   }
 
   @Secured("ROLE_USER")

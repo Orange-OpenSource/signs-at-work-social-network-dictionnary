@@ -30,6 +30,8 @@ import java.util.List;
 public interface CommunityService {
   Communities all();
 
+  Communities allJob();
+
   List<Object[]> allForFavorite(long userId);
 
   List<Object[]> allForJob(long userId);

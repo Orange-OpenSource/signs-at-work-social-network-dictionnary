@@ -1,0 +1,93 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-manage-communities :: header">&nbsp;</header>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-lg-12">
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li action">
+            <a class="all_li_clickable" data-target="#create_job_community" data-toggle="modal" href="#">
+              <div class="pull-left group_project_add"></div>
+              <h2 class="container_H2 text_hyphenation" th:text="#{create_job_community}"></h2>
+              <div class="pull-right add_black"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:each="community:${communities}">
+            <a class="all_li_clickable" th:href="@{/sec/community/} + ${community.id}">
+              <div class="pull-left admin_group_chartre_color"></div>
+              <h4 class="container_H2 text_hyphenation" th:text="${community.name}"></h4>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <div class="text-center" th:if="${#lists.isEmpty(communities)}">
+        <h2 th:text="#{no_job_community}"></h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="create_job_community" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="group_project_add_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{create_job_community}"></h2>
+        </div>
+      </div>
+      <form autocomplete="off" method="post" th:action="@{/sec/community/search(id='0')}"
+            th:object="${communityCreationView}">
+        <div class="modal-body text-center">
+          <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
+          <input class="border form-control" id="communityName" name="name" required="" th:autofocus="true"
+                 th:placeholder="#{community.enter_name}" type="text" autocomplete="off"/>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" id="cancel-modal" title="Cliquer pour annuler"
+                  type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button id="submit-create-community" class="btn btn-default pull-right" data-dismiss="" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{continue}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+<script src="../public/js/create-community.js" th:src="@{/js/create-community.js}" type="text/javascript"></script>
+</html>

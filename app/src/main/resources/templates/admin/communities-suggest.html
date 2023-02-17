@@ -1,0 +1,101 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-communities-suggest :: header">&nbsp;</header>
+<div th:replace="fragments/modal-new-community :: div"/>
+
+<body class="margin-for-footer">
+<div class="container">
+  <div class="row ">
+    <div class="col-md-4 col-xs-12 col-lg-12">
+      <h2 class="already_exits" th:if="${isCommunityAlreadyExist}" th:text="#{community.already_exists}"></h2>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li">
+            <a class="all_li_clickable" data-target="#new-community" data-toggle="modal" href="#">
+              <h2 class="container_H2 text_hyphenation" th:text="${communityName}"/>
+              <div class="pull-right  edit_black"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:if="${isCommunityAlreadyExist}">
+            <a class="all_li_clickable" th:href="@{/sec/community/} + ${communityMatche.id}">
+              <div class="pull-left member_blue-communities-suggest "></div>
+              <h4 class="container_H2 text_hyphenation" th:text="#{community.see_members}"></h4>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <div th:if="${not #lists.isEmpty(communitiesWithSameName)}">
+        <h2 class="same_name" th:text="#{community.with-same-name}"/>
+        <div th:each="community:${communitiesWithSameName}">
+          <aside class="sidebar">
+            <ul class="nav nav-list primary left-menu">
+              <li class="dotted-top">
+                <a class="all_li_clickable" th:href="@{/sec/community/} + ${community.id}">
+                    <div class="pull-left see_group_blue" th:if="${community.type == 'Job'}"></div>
+                    <div class="pull-left see_group_member_blue" th:if="${community.type == 'JobIBelow'}"></div>
+                    <div class="pull-left see_group_project_blue" th:if="${community.type == 'Project'}"></div>
+                    <div class="pull-left see_group_project_me_blue" th:if="${community.type == 'ProjectIBelow'}"></div>
+                    <h2 class="container_H2 text_hyphenation" th:text="${community.name}"></h2>
+                    <div class="pull-right chevron"></div>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+      <div class="footer container">
+        <button class="btn btn-secondary" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueCommunity(this.getAttribute('data-backUrl'))"
+                th:text="#{undo}"></button>
+        <button class="btn btn-default" th:data-name="${communityName}"
+                th:onclick="javascript:onCreateCommunity(this.getAttribute('data-name'))"
+                th:text="#{validate}"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div  id="validate_create_community_favorite" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="group_project_add_white pull-left"></div>
+          <h4 class="pull-right" th:text="#{community.created}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <div class="Cefe pull-left"></div>
+        <h4 th:utext="#{confirm_create_job_community(${communityName})}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script src="../public/js/suggest-communities.js" th:src="@{/js/suggest-communities.js}" type="text/javascript"></script>
+<script src="../public/js/create-community.js" th:src="@{/js/create-community.js}" type="text/javascript"></script>
+</html>

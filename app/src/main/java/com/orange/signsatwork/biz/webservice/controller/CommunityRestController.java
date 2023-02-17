@@ -171,6 +171,7 @@ public class CommunityRestController {
   @RequestMapping(value = RestApi.WS_ADMIN_COMMUNITIES, method = RequestMethod.POST, headers = {"content-type=application/json"})
   public CommunityResponseApi community(@RequestBody CommunityCreationViewApi communityCreationViewApi, HttpServletResponse response, Principal principal) {
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
+    communityCreationViewApi.clearXss();
     if (services.community().withCommunityName(communityCreationViewApi.getName()) != null) {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
       communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_already_exist");

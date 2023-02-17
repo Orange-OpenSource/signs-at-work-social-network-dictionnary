@@ -381,6 +381,10 @@ h4.blue-cgu {
   background-image: url("/img/sprite_picto_400X400_ADIS.png");
 }
 
+.see_group_project_blue {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
 .see_group_blue {
   background-image: url("/img/sprite_picto_400X400_ADIS.png");
 }
@@ -438,6 +442,11 @@ h4.blue-cgu {
 }
 
 .group_blue {
+  background-image: url("/img/sprite_picto_400X400_ADIS.png");
+}
+
+
+.admin_group_chartre_color {
   background-image: url("/img/sprite_picto_400X400_ADIS.png");
 }
 
