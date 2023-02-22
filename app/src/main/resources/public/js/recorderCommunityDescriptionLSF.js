@@ -220,12 +220,13 @@ $formUploadRecordedVideoFile.on('submit', function(event) {
       data: JSON.stringify(videoFile),
       contentType: "application/json",
       success: function(response) {
-        var url = "/sec/descriptionCommunity/"+response;
-        window.location = url;
+        /*var url = "/sec/descriptionCommunity/"+response;
+        window.location = url;*/
         errorSpan.style.display="none";
         $(".spinner").visibility="hidden";
         $("video").css("z-index","1500").css("opacity","1");
         console.log("Success " + response);
+        location.reload();
       },
       error: function(response) {
         errorSpan.textContent = response.responseText;

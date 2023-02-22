@@ -133,7 +133,7 @@ public class AdminController {
     return "admin/manage_communities_users";
   }
 
-  @Secured("ROLE_ADMIN")
+/*  @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/community/{id}")
   public String community(@PathVariable long id, Model model) {
     Community community = communityService.withId(id);
@@ -144,17 +144,17 @@ public class AdminController {
     model.addAttribute("communityProfileView", communityProfileView);
     model.addAttribute("appName", appName);
     return "admin/community";
-  }
+  }*/
 
 
-  @Secured("ROLE_ADMIN")
+/*  @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/community/create", method = RequestMethod.POST)
   public String community(@ModelAttribute CommunityView communityView, Model model, Principal principal) {
     User user = userService.withUserName(principal.getName());
     communityView.setType(CommunityType.Job);
     Community community = communityService.create(user.id, communityView.toCommunity());
     return community(community.id, model);
-  }
+  }*/
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/create", method = RequestMethod.POST)
@@ -219,7 +219,7 @@ public class AdminController {
     return userAdminController.userDetails(userId, model);
   }
 
-  @Secured("ROLE_ADMIN")
+/*  @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/community/{communityId}/add/users", method = RequestMethod.POST)
   public String changeCommunityUsers(
     HttpServletRequest req, @PathVariable long communityId, Model model) {
@@ -230,7 +230,7 @@ public class AdminController {
     communityService.changeCommunityUsers(communityId, usersIds);
 
     return community(communityId, model);
-  }
+  }*/
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/user/{userId}/changePassword", method = RequestMethod.POST)
@@ -375,6 +375,22 @@ public class AdminController {
     model.addAttribute("isAuthenticated", AuthentModel.isAuthenticated(principal));
 
     return "admin/request";
+  }
+
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/community/{communityId}")
+  public String community(@PathVariable long communityId, HttpServletRequest request, Principal principal, Model model)  {
+    Community community = services.community().withId(communityId);
+    String userAgent = request.getHeader("User-Agent");
+
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
+    model.addAttribute("title", community.name);
+
+    model.addAttribute("community", community);
+    model.addAttribute("appName", appName);
+
+    return "admin/community";
   }
 
   private boolean isIOSDevice(String userAgent) {
