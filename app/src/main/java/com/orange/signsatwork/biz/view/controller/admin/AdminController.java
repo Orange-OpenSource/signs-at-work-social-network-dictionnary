@@ -382,12 +382,14 @@ public class AdminController {
   @RequestMapping(value = "/sec/admin/community/{communityId}")
   public String community(@PathVariable long communityId, HttpServletRequest request, Principal principal, Model model)  {
     Community community = services.community().withId(communityId);
+    List<FavoriteModalView> favoritesShared = FavoriteModalView.from(services.favorite().shareFavoritesInCommunity(communityId));
     String userAgent = request.getHeader("User-Agent");
 
     model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
     model.addAttribute("title", community.name);
 
     model.addAttribute("community", community);
+    model.addAttribute("favoritesShared", favoritesShared);
     model.addAttribute("appName", appName);
 
     return "admin/community";

@@ -69,4 +69,6 @@ public interface FavoriteService {
 
   Long[] FavoriteIdsBelowVideoId(long videoId, List<Long>favoriteIds);
 
+  Favorites shareFavoritesInCommunity(long communityId);
+
 }

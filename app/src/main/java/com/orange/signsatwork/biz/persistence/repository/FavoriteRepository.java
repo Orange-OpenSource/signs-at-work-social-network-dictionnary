@@ -68,4 +68,7 @@ public interface FavoriteRepository extends CrudRepository<FavoriteDB, Long> {
     public default FavoriteDB findOne(long id) {
       return findById(id).orElse(null);
     }
+
+    @Query(value="select distinct A.id,A.name, A.type, A.user_id, A.id_for_name from favorites A, favorites_communities B where A.id = B.favorites_id and B.communities_id = :communityId", nativeQuery = true)
+    List<FavoriteDB> findShareFavoriteInCommunity(@Param("communityId") long communityId);
 }

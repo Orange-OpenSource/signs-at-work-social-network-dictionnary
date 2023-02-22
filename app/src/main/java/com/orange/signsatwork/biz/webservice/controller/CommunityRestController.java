@@ -307,7 +307,7 @@ public class CommunityRestController {
     return communityResponseApi;
   }
 
-  @Secured("ROLE_USER")
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY_DATAS, method = RequestMethod.PUT)
   public CommunityResponseApi updateCommunityDatas(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;
@@ -387,7 +387,9 @@ public class CommunityRestController {
         return communityResponseApi;
       }
       List<Long> usersIds = communityCreationViewApi.getCommunityUsersIds();
-      usersIds.add(user.id);
+      if (user.id != 1) {
+        usersIds.add(user.id);
+      }
       List<Long> usersIdsToAdd = usersIds.stream().filter(u -> !community.usersIds().contains(u)).collect(Collectors.toList());
       List<Long> usersIdsToRemove = community.usersIds().stream().filter(u -> !usersIds.contains(u)).collect(Collectors.toList());
       if (!usersIds.isEmpty()) {

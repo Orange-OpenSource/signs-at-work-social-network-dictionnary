@@ -54,7 +54,7 @@ function onDeleteCommunity(communityId) {
         $("#validate_delete_community").modal('show');
         setTimeout(function () {
           $('#validate_delete_community').modal('hide');
-          var url = "/sec/communities";
+          var url = "/sec/admin/manage_communities";
           window.location = url;
         }, 3000);
       },

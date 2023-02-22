@@ -291,4 +291,11 @@ public class FavoriteServiceImpl implements FavoriteService {
   public Long[] FavoriteIdsBelowVideoId(long videoId, List<Long> favoriteIds) {
     return favoriteRepository.findFavoriteIdsBelowVideoId(videoId, favoriteIds);
   }
+
+  @Override
+  public Favorites shareFavoritesInCommunity(long communityId) {
+    return favoritesFrom(
+      favoriteRepository.findShareFavoriteInCommunity(communityId)
+    );
+  }
 }
