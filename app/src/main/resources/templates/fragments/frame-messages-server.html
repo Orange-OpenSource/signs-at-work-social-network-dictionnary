@@ -266,6 +266,7 @@
                 <div th:if="${messageServer.type == 'PrioriseRequestMessage'}" class="prio_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreateSignForRequestSendEmailMessage'}" class="signlanguage_chartre_color" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreateSignForRequestMessage'}" class="signlanguage_chartre_color" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CreateJobCommunityMessage'}" class="group_project_add" style="display: inline-table;vertical-align: middle;"></div>
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>

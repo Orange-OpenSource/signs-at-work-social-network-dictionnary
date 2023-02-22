@@ -182,6 +182,10 @@ public class CommunityRestController {
 
     Community community = services.community().create(user.id, communityCreationViewApi.toCommunity());
     communityResponseApi.communityId = community.id;
+    String values = user.name() + ';' + communityCreationViewApi.getName();
+    MessageServer messageServer = new MessageServer(new Date(), "CreateJobCommunityMessage", values, ActionType.NO);
+    services.messageServerService().addMessageServer(messageServer);
+
     response.setStatus(HttpServletResponse.SC_OK);
     return communityResponseApi;
   }
