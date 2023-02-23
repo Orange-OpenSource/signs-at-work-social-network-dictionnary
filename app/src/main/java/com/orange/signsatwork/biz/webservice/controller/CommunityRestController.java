@@ -305,6 +305,10 @@ public class CommunityRestController {
       };
 
       new Thread(task).start();
+    } else {
+      String values = user.name() + ';' + community.name;
+      MessageServer messageServer = new MessageServer(new Date(), "CommunityDeleteMessage", values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);

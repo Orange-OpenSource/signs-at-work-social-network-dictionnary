@@ -382,6 +382,9 @@ public class AdminController {
   @RequestMapping(value = "/sec/admin/community/{communityId}")
   public String community(@PathVariable long communityId, HttpServletRequest request, Principal principal, Model model)  {
     Community community = services.community().withId(communityId);
+    if (community == null) {
+      return "redirect:/sec/admin/manage_communities";
+    }
     List<FavoriteModalView> favoritesShared = FavoriteModalView.from(services.favorite().shareFavoritesInCommunity(communityId));
     String userAgent = request.getHeader("User-Agent");
 
