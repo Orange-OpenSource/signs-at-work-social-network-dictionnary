@@ -36,7 +36,7 @@
                     <h2 class="pull-right" th:text="#{favorite.create_community}"></h2>
                 </div>
             </div>
-            <form th:action="@{/sec/community/search(id=${favoriteId})}" th:object="${communityCreationView}" method="post" autocomplete="off">
+            <form th:action="@{/sec/community/search(id=${favoriteId},type=${communityType})}" th:object="${communityCreationView}" method="post" autocomplete="off">
                 <div class="modal-body text-center">
                     <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
                     <input th:field="*{name}" id="communityName" name="name" type="text" class="form-control"

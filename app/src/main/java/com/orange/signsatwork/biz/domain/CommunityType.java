@@ -24,5 +24,5 @@ package com.orange.signsatwork.biz.domain;
 
 public enum CommunityType {
     Job,
-    Project
+    Project;
 }

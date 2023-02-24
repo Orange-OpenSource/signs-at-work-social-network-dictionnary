@@ -241,7 +241,7 @@ function checkCommunityName() {
     button_reset.addEventListener('click', onReset);
   }
   inputCommunityName.addEventListener('keyup',checkCommunityName);
-  submitCreateCommunity.disabled = true;
+/*  submitCreateCommunity.disabled = true;*/
 
 })($);
 

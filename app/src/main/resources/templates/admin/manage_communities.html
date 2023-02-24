@@ -40,16 +40,37 @@
               <div class="pull-right add_black"></div>
             </a>
           </li>
-          <li class="aside_bckg_li" th:each="community:${communities}">
-            <a class="all_li_clickable" th:href="@{/sec/admin/community/} + ${community.id}">
+          <li class="aside_bckg_li" th:each="jobCommunity:${jobCommunities}">
+            <a class="all_li_clickable" th:href="@{/sec/admin/community/} + ${jobCommunity.id}">
               <div class="pull-left admin_group_chartre_color"></div>
-              <h4 class="container_H2 text_hyphenation" th:text="${community.name}"></h4>
+              <h4 class="container_H2 text_hyphenation" th:text="${jobCommunity.name}"></h4>
               <div class="pull-right chevron"></div>
             </a>
           </li>
         </ul>
       </aside>
-      <div class="text-center" th:if="${#lists.isEmpty(communities)}">
+      <div class="text-center" th:if="${#lists.isEmpty(jobCommunities)}">
+        <h2 th:text="#{no_job_community}"></h2>
+      </div>
+      <aside class="sidebar">
+        <ul class="nav nav-list primary left-menu">
+          <li class="aside_bckg_li action">
+            <a class="all_li_clickable" data-target="#create_project_community" data-toggle="modal" href="#">
+              <div class="pull-left group_project_add"></div>
+              <h2 class="container_H2 text_hyphenation" th:text="#{create_project_community}"></h2>
+              <div class="pull-right add_black"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:each="projectCommunity:${projectCommunities}">
+            <a class="all_li_clickable" th:href="@{/sec/admin/community/} + ${projectCommunity.id}">
+              <div class="pull-left admin_group_chartre_color"></div>
+              <h4 class="container_H2 text_hyphenation" th:text="${projectCommunity.name}"></h4>
+              <div class="pull-right chevron"></div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <div class="text-center" th:if="${#lists.isEmpty(projectCommunities)}">
         <h2 th:text="#{no_job_community}"></h2>
       </div>
     </div>
@@ -64,6 +85,39 @@
         <div class="pull-left">
           <div class="group_project_add_white pull-left"></div>
           <h2 class="pull-right" th:text="#{create_job_community}"></h2>
+        </div>
+      </div>
+      <form autocomplete="off" method="post" th:action="@{/sec/community/search(id='0',type='Job')}"
+            th:object="${communityCreationView}">
+        <div class="modal-body text-center">
+          <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
+          <input class="border form-control" id="communityName" name="name" required="" th:autofocus="true"
+                 th:placeholder="#{community.enter_name}" type="text" autocomplete="off"/>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" id="cancel-modal" title="Cliquer pour annuler"
+                  type="button">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </button>
+          <button id="submit-create-community" class="btn btn-default pull-right" data-dismiss="" type="submit">
+            <div class="v-done2_blue center-block"></div>
+            <span th:text="#{continue}"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="create_project_community" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="group_project_add_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{create_project_community}"></h2>
         </div>
       </div>
       <form autocomplete="off" method="post" th:action="@{/sec/community/search(id='0')}"
@@ -88,6 +142,7 @@
     </div>
   </div>
 </div>
+
 </body>
 <script src="../public/js/create-community.js" th:src="@{/js/create-community.js}" type="text/javascript"></script>
 </html>

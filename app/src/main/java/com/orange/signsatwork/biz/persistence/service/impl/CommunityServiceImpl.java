@@ -56,8 +56,8 @@ public class CommunityServiceImpl implements CommunityService {
   }
 
   @Override
-  public Communities allJob() {
-    return communitiesFrom(communityRepository.findAllJob());
+  public Communities all(CommunityType communityType) {
+    return communitiesFrom(communityRepository.findAll(communityType));
   }
 
   @Override

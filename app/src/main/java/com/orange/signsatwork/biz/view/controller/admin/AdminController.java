@@ -54,6 +54,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.orange.signsatwork.biz.domain.CommunityType.Job;
+import static com.orange.signsatwork.biz.domain.CommunityType.Project;
+
 @Slf4j
 @Controller
 public class AdminController {
@@ -105,7 +108,7 @@ public class AdminController {
   public String communities(Model model) {
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("communities"));
-    List<Community> communities = communityService.all().stream().filter(c -> c.type == CommunityType.Job).collect(Collectors.toList());
+    List<Community> communities = communityService.all().stream().filter(c -> c.type == Job).collect(Collectors.toList());
     model.addAttribute("communities", CommunityView.from(communities));
     model.addAttribute("appName", appName);
     return "admin/communities";
@@ -116,8 +119,10 @@ public class AdminController {
   public String manageCommunities(Model model) {
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("manage_communities"));
-    Communities communities = communityService.allJob();
-    model.addAttribute("communities", CommunityView.from(communities));
+    Communities jobCommunities = communityService.all(Job);
+    model.addAttribute("jobCommunities", CommunityView.from(jobCommunities));
+    Communities projectCommunities = communityService.all(Project);
+    model.addAttribute("projectCommunities", CommunityView.from(projectCommunities));
     model.addAttribute("appName", appName);
     return "admin/manage_communities";
   }

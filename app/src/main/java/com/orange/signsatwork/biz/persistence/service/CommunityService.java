@@ -24,13 +24,14 @@ package com.orange.signsatwork.biz.persistence.service;
 
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.CommunityType;
 
 import java.util.List;
 
 public interface CommunityService {
   Communities all();
 
-  Communities allJob();
+  Communities all(CommunityType communityType);
 
   List<Object[]> allForFavorite(long userId);
 

@@ -32,6 +32,7 @@ import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.model.CommunityView;
 import com.orange.signsatwork.biz.webservice.model.*;
@@ -75,6 +76,9 @@ public class CommunityRestController {
   MessageByLocaleService messageByLocaleService;
   @Autowired
   private Environment environment;
+
+  @Autowired
+  private AppSecurityAdmin appSecurityAdmin;
 
   String VIDEO_THUMBNAIL_FIELDS = "thumbnail_url,thumbnail_60_url,thumbnail_120_url,thumbnail_180_url,thumbnail_240_url,thumbnail_360_url,thumbnail_480_url,thumbnail_720_url,";
   String VIDEO_EMBED_FIELD = "embed_url";
@@ -261,15 +265,16 @@ public class CommunityRestController {
     return environment.getProperty("app.url");
   }
 
-  @Secured("ROLE_USER")
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.DELETE)
   public CommunityResponseApi deleteCommunity(@PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal)  {
     List<String> emails;
+    Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     Community community = services.community().withId(communityId);
     User user = services.user().withUserName(principal.getName());
 
-    if (community.user.id != user.id) {
+    if (community.user.id != user.id  && !isAdmin) {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
       return communityResponseApi;
@@ -319,6 +324,7 @@ public class CommunityRestController {
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY_DATAS, method = RequestMethod.PUT)
   public CommunityResponseApi updateCommunityDatas(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;
+    Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
     User user = services.user().withUserName(principal.getName());
@@ -327,7 +333,7 @@ public class CommunityRestController {
     Community community = services.community().withId(communityId);
     communityCreationViewApi.clearXss();
     if (communityCreationViewApi.getName() != null) {
-      if (community.user.id != user.id) {
+      if (community.user.id != user.id && !isAdmin) {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
         return communityResponseApi;
@@ -389,7 +395,7 @@ public class CommunityRestController {
         }
     }
     else {
-      if (community.user.id != user.id) {
+      if (community.user.id != user.id && !isAdmin) {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         communityResponseApi.errorMessage = messageByLocaleService.getMessage("community_not_below_to_you");
         return communityResponseApi;
@@ -441,7 +447,7 @@ public class CommunityRestController {
 
     }
 
-  @Secured("ROLE_USER")
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
   public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;

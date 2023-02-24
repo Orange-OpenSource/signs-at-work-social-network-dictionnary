@@ -41,7 +41,10 @@ import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.orange.signsatwork.biz.domain.CommunityType.Job;
 
 @Controller
 public class CommunityController {
@@ -107,18 +110,22 @@ public class CommunityController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/community/search")
-  public String searchCommunity(@ModelAttribute CommunityCreationView communityCreationView, @RequestParam("id") Long favoriteId) {
+  public String searchCommunity(@ModelAttribute CommunityCreationView communityCreationView, @RequestParam("id") Long favoriteId, @RequestParam("type") Optional<CommunityType> communityType) {
     if (favoriteId == null) {
       favoriteId = 0L;
     }
     String name = communityCreationView.getName();
-    return "redirect:/sec/communities-suggest?name="+ URLEncoder.encode(name)+"&id="+favoriteId;
+    if (communityType.isPresent()) {
+      return "redirect:/sec/communities-suggest?name=" + URLEncoder.encode(name) + "&id=" + favoriteId + "&type=" + communityType.get();
+    } else {
+      return "redirect:/sec/communities-suggest?name=" + URLEncoder.encode(name) + "&id=" + favoriteId;
+    }
   }
 
 
-  @Secured("ROLE_USER")
+  @Secured({"ROLE_USER","ROLE_ADMIN"})
   @RequestMapping(value = "/sec/communities-suggest")
-  public String showCommunitiesSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long favoriteId, Principal principal) {
+  public String showCommunitiesSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long favoriteId, @RequestParam("type") Optional<CommunityType> communityType, Principal principal) {
     boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
@@ -156,9 +163,12 @@ public class CommunityController {
     model.addAttribute("communityCreationView", communityCreationView);
 
     model.addAttribute("favoriteId", favoriteId);
+    if (communityType.isPresent()) {
+      model.addAttribute("communityType", communityType.get());
+    }
     model.addAttribute("appName", appName);
 
-    if (isAdmin) {
+    if (isAdmin && communityType.isPresent() && communityType.get().equals(Job)) {
       model.addAttribute("backUrl", "/sec/admin/manage_communities");
       return "admin/communities-suggest";
     } else {
