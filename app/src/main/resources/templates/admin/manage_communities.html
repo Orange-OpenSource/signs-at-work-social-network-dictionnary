@@ -63,7 +63,7 @@
           </li>
           <li class="aside_bckg_li" th:each="projectCommunity:${projectCommunities}">
             <a class="all_li_clickable" th:href="@{/sec/admin/community/} + ${projectCommunity.id}">
-              <div class="pull-left admin_group_chartre_color"></div>
+              <div class="pull-left admin_group_project_chartre_color"></div>
               <h4 class="container_H2 text_hyphenation" th:text="${projectCommunity.name}"></h4>
               <div class="pull-right chevron"></div>
             </a>

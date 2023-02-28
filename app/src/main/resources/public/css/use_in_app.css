@@ -2732,6 +2732,16 @@ input[type="radio"] {
   margin-right: 16px;
 }
 
+.admin_group_project_chartre_color {
+  background-image: url("/img/sprite_picto_400X400.png");
+  background-position: -872px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 44px;
+  width: 24px;
+  margin-right:16px;
+}
+
 .group_member_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -794px center;
