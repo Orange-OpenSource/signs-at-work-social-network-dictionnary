@@ -376,7 +376,7 @@ public class CommunityRestController {
           MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMeMessage", values, ActionType.NO);
           services.messageServerService().addMessageServer(messageServer);
         }
-    } else if (communityCreationViewApi.getDescriptionText() != null && !communityCreationViewApi.getDescriptionText().isEmpty()) {
+    } else if (communityCreationViewApi.getDescriptionText() != null) {
         services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
         emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
         emails = emails.stream().distinct().collect(Collectors.toList());

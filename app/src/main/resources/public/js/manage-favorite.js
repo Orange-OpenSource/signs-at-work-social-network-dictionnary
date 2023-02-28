@@ -192,7 +192,7 @@ function main() {
   submitRenameModal.disabled = true;
 }
 
-(function ResetErrorWhenchangeNameValue($) {
+(function AfterLoad($) {
 
   main();
 

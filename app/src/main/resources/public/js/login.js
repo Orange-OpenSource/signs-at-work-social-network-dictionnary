@@ -71,7 +71,7 @@ function main() {
   submitForgetPassword.disabled = true;
 }
 
-(function ResetErrorWhenchangeNameValue($) {
+(function AfterLoad($) {
 
   main();
 
