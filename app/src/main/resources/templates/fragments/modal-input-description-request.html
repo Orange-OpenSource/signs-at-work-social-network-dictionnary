@@ -41,7 +41,7 @@
                 <textarea  th:text="${requestView.requestTextDescription}"  th:placeholder="#{request.description_text_placeholder}" type="text"   class="testinput  border form-control" name="requestTextDescription" rows="3" cols="40"/>
               </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>

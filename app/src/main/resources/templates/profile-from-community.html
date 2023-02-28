@@ -381,7 +381,7 @@
         </div>
 
         <div class="btn-group-vertical" role="group">
-          <button class="record" id="start-recording" title="Cliquer pour enregistrer"></button>
+          <button class="record" id="start-recording" th:title="#{title_record}"></button>
           <div class="btn-group-vertical" id="container-button" role="group" style="display: none">
           </div>
           <button class="stop" disabled="" id="stop-recording" style="display: none"
@@ -394,12 +394,12 @@
           <span id="errorSpan" style="display: none"></span>
         </div>
         <div class="modal-footer" id="modal-footer_add_video_file_recording" style="display: none">
-          <button class="btn btn-secondary pull-left" data-dismiss="" id="cancel-recording" title="Cliquer pour annuler"
+          <button class="btn btn-secondary pull-left" data-dismiss="" id="cancel-recording" th:title="#{title_cancel}"
                   type="button">
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
-          <button class="btn btn-secondary" id="retry-recording" title="Cliquer pour enregistrer" type="button">
+          <button class="btn btn-secondary" id="retry-recording" th:title="#{title_record}" type="button">
             <div class="rewind_black center-block"></div>
             <span th:text="#{retry}"></span>
           </button>
@@ -459,7 +459,7 @@
           <h4 id="errorSelectedSpan"  style="display: none"></h4>
         </div>
         <div id="modal-footer_add_video_file_recording" class="modal-footer">
-          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
@@ -493,7 +493,7 @@
         </div>
         <span id="errorDeletedSpan" style="visibility: hidden"></span>
         <div class="modal-footer">
-          <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
@@ -543,7 +543,7 @@
         </div>
         <span id="errorDeletedJobSpan" style="visibility: hidden"></span>
         <div class="modal-footer">
-          <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+          <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
@@ -589,7 +589,7 @@
         <span th:id="errorDeleteUser+${user.id}" style="visibility: hidden"></span>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>

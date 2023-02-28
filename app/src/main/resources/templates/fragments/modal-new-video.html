@@ -83,7 +83,7 @@
           </div>
 
           <div class="btn-group-vertical" role="group">
-            <button id="start-recording" class="record" title="Cliquer pour enregistrer"></button>
+            <button id="start-recording" class="record" th:title="#{title_record}"></button>
             <div id="container-button" class="btn-group-vertical" role="group" style="display: none">
             </div>
             <button id="stop-recording" class="stop" title="Arrêter l'enregistrement" disabled="" style="display: none"></button>
@@ -95,11 +95,11 @@
             <span id="errorSpan"  style="display: none"></span>
           </div>
           <div id="modal-footer_add_video_file_recording" class="modal-footer" style="display: none">
-            <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+            <button id="cancel-recording" type="button" data-dismiss="" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
               <div class="x-close2_black center-block"></div>
               <span th:text="#{cancel}"></span>
             </button>
-            <button id="retry-recording" type="button" class="btn btn-secondary" title="Cliquer pour enregistrer">
+            <button id="retry-recording" type="button" class="btn btn-secondary" th:title="#{title_record}">
               <div class="rewind_black center-block"></div>
               <span th:text="#{retry}"></span>
             </button>
@@ -134,7 +134,7 @@
           <h4 id="errorSelectedSpan"  style="display: none"></h4>
         </div>
         <div class="modal-footer">
-          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>

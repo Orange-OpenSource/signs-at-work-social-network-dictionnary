@@ -39,10 +39,14 @@
               <div class="modal-body text-center">
                 <textarea  id="community-description-text" th:text="${community.descriptionText}"  th:placeholder="#{community.descriptionText_placeholder}" type="text"   class="testinput  border form-control" name="textDefinition" rows="3" cols="40" th:autofocus="true" required="true"/>
               </div>
-                <div class="modal-footer">
-                  <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                <div class="modal-footer" style="text-align: center">
+                  <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
                     <div class="x-close2_black center-block"></div>
                     <span th:text="#{cancel}"></span>
+                  </button>
+                  <button th:unless="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)}" id="erase_text" type="button" class="btn btn-secondary" th:title="#{title_erase_text}">
+                    <div class="delete-black center-block"></div>
+                    <span th:text="#{erase_text}"></span>
                   </button>
                   <button id="submit-add-community-description-text" type="submit" th:data-communityId="${community.id}" th:onclick="javascript:addCommunityDescriptionText(this.getAttribute('data-communityId'))" class="btn btn-default pull-right"
                           data-dismiss="">

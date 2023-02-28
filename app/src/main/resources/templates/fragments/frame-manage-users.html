@@ -64,7 +64,7 @@
                     <span th:id="errorDeleteUser+${user.id}" style="visibility: hidden"></span>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+                    <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>
@@ -106,8 +106,8 @@
                     <span th:id="errorLockUser+${user.id}" style="visibility: hidden"></span>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
-                      <div class="x-close2_black center-block"></div>
+                    <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
+                    <div class="x-close2_black center-block"></div>"
                       <span th:text="#{cancel}"></span>
                     </button>
                     <button type="submit" th:data-id="${user.id}" th:onclick="javascript:onLockUser(this.getAttribute('data-id'))"  data-dismiss=""  class="btn btn-default">
@@ -133,7 +133,7 @@
                     <span th:id="errorUnLockUser+${user.id}" style="visibility: hidden"></span>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+                    <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>

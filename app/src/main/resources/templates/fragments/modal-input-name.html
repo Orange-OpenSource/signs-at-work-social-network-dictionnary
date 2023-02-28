@@ -50,7 +50,7 @@
                 <input  th:if="${isAdmin}" id="lastName" type="text" th:value="${user.lastName}"   th:placeholder="#{admin_last_name}" class="form-control" name="lastName" required="true"/>
               </div>
                 <div class="modal-footer">
-                  <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                  <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
                     <div class="x-close2_black center-block"></div>
                     <span th:text="#{cancel}"></span>
                   </button>

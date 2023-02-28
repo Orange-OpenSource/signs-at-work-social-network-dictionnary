@@ -80,7 +80,7 @@
                         <span th:id="errorDeleteUser+${user.id}" style="visibility: hidden"></span>
                       </div>
                       <div class="modal-footer">
-                        <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" title="Cliquer pour annuler">
+                        <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
                           <span th:text="#{cancel}"></span>
                         </button>
                         <button type="submit" th:text="#{confirm}" th:data-id="${user.id}" th:onclick="javascript:onDeleteUser(this.getAttribute('data-id'))"  data-dismiss=""  class="btn btn-default"></button>

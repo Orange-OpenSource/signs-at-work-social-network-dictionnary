@@ -1548,7 +1548,7 @@ img{
 }
 
 
-.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active {
+.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .btn-secondary:focus, .btn-secondary.focus, .btn-secondary:active, .btn-secondary.active{
   /*background-color: #4866F7;*/
  /* color: #4866F7;*/
   border:none !important;
@@ -1917,7 +1917,7 @@ img{
   background-color: transparent;
 }
 
-#retry-recording{
+#retry-recording, #erase_text{
   background-color: transparent;
   border: none;
   font-size: 14px;

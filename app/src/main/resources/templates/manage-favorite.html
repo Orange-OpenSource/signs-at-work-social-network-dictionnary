@@ -98,7 +98,7 @@
         <h4 th:text="#{favorite.confirm_delete(${favoriteManageView.name})}"></h4>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
@@ -131,7 +131,7 @@
         <span id="errorRename" style="visibility: hidden"></span>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
@@ -169,7 +169,7 @@
         <span id="errorDuplicate" style="visibility: hidden"></span>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary pull-left" data-dismiss="modal" title="Cliquer pour annuler" type="button">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
           <div class="x-close2_black center-block"></div>
           <span th:text="#{cancel}"></span>
         </button>
