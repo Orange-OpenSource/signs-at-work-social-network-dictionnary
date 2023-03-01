@@ -52,3 +52,7 @@ alter table comments MODIFY text TEXT CHARSET utf8mb4;
 alter table signs modify column text_definition varchar(1000);
 alter table requests modify column request_text_description varchar(1000);
 update userdb set is_enabled = true, is_non_locked = true;
+
+-----
+
+alter table messages_server modify column val varchar(2000);
