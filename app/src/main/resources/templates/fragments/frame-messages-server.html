@@ -208,7 +208,13 @@
                 <h4 class="font-weight_normal" th:text="${#dates.format(messageServer.date,'dd/MM/yyyy')}" style="display: inline-table;"></h4>
                 <div th:if="${messageServer.type == 'FavoriteShareMessage'}" class="pinlist_shared_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityCreateMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CreateJobCommunityMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CreateProjectCommunityMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CreateProjectCommunitySendEmailMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityRenameMessage'}" class="edit_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteCommunityMessageWithoutUsers'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteCommunityMessage'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteCommunitySendEmailMessage'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityDeleteMessage'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityDeleteSendEmailMessage'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityAddDescriptionMessage'}" class="description_sign_admin" style="display: inline-table;vertical-align: middle;"></div>
@@ -267,7 +273,6 @@
                 <div th:if="${messageServer.type == 'PrioriseRequestMessage'}" class="prio_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreateSignForRequestSendEmailMessage'}" class="signlanguage_chartre_color" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreateSignForRequestMessage'}" class="signlanguage_chartre_color" style="display: inline-table;vertical-align: middle;"></div>
-                <div th:if="${messageServer.type == 'CreateJobCommunityMessage'}" class="group_project_add" style="display: inline-table;vertical-align: middle;"></div>
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>

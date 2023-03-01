@@ -186,7 +186,7 @@ public class CommunityRestController {
 
     Community community = services.community().create(user.id, communityCreationViewApi.toCommunity());
     communityResponseApi.communityId = community.id;
-    String values = user.name() + ';' + communityCreationViewApi.getName();
+    String values = user.name() + ';' + messageByLocaleService.getMessage(CommunityType.Job.toString()) + ';' + communityCreationViewApi.getName();
     MessageServer messageServer = new MessageServer(new Date(), "CreateJobCommunityMessage", values, ActionType.NO);
     services.messageServerService().addMessageServer(messageServer);
 
@@ -231,7 +231,7 @@ public class CommunityRestController {
 
 
       response.setStatus(HttpServletResponse.SC_OK);
-      List<String> name = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
+      List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
 
       emails = community.users.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
       emails = emails.stream().distinct().collect(Collectors.toList());
@@ -244,15 +244,20 @@ public class CommunityRestController {
           title = messageByLocaleService.getMessage("community_created_by_user_title");
           bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
           log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-          services.emailService().sendCommunityCreateMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
+          services.emailService().sendCommunityCreateMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, names, url, request.getLocale());
         };
 
         new Thread(task).start();
       }
+      else {
+        String values = user.name() + ';' + messageByLocaleService.getMessage(CommunityType.Project.toString()) +';' + community.name + ';' + names.stream().collect(Collectors.joining(", "));
+        MessageServer messageServer = new MessageServer(new Date(), "CreateProjectCommunityMessage", values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
 
 
       communityResponseApi.communityId = community.id;
-      communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{name.toString()});
+      communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{names.toString()});
       return communityResponseApi;
     } else {
       response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -296,6 +301,7 @@ public class CommunityRestController {
     }
     services.community().delete(community);
 
+    List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
     emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
     emails = emails.stream().distinct().collect(Collectors.toList());
     if (emails.size() != 0) {
@@ -306,13 +312,21 @@ public class CommunityRestController {
         title = messageByLocaleService.getMessage("community_deleted_by_user_title");
         bodyMail = messageByLocaleService.getMessage("community_deleted_by_user_body", new Object[]{user.name(), finalCommunity.name});
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-        services.emailService().sendCommunityDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, request.getLocale());
+        services.emailService().sendCommunityDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.type, finalCommunity.name, names, request.getLocale());
       };
 
       new Thread(task).start();
     } else {
-      String values = user.name() + ';' + community.name;
-      MessageServer messageServer = new MessageServer(new Date(), "CommunityDeleteMessage", values, ActionType.NO);
+      String values, type;
+      if (names.size() != 0) {
+        values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) +';' + community.name + ';' + names.stream().collect(Collectors.joining(", "));
+        type="DeleteCommunityMessage";
+      } else {
+        values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) +';' + community.name + ';' + names.stream().collect(Collectors.joining(", "));
+        type="DeleteCommunityMessageWithoutUsers";
+      }
+
+      MessageServer messageServer = new MessageServer(new Date(), type, values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
     }
 

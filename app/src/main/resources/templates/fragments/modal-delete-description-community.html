@@ -27,20 +27,20 @@
 <body>
 
 
-<div class="modal fade" id="delete_description_request" role="dialog" th:fragment="div">
+<div class="modal fade" id="delete_description_community" role="dialog" th:fragment="div">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button class="close" data-dismiss="modal" type="button"></button>
         <div class="pull-left">
           <div class="description_movie_white pull-left"></div>
-          <h2 class="pull-right text_hyphenation" th:text="#{description_request_delete_title}"></h2>
+          <h2 class="pull-right text_hyphenation" th:text="#{description_community_delete_title}"></h2>
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="deleteVideoFileForRequestDescription" method="post" th:action="@{/ws/sec/deleteVideoFileForRequestDescription/} + ${requestView.id}">
+      <form id="deleteVideoFileForRequestDescription" method="post" th:action="@{/ws/sec/deleteVideoFileForRequestDescription/} + ${community.id}">
         <div class="modal-body text-center">
-          <h4 th:text="#{description_request_delete_body}"></h4>
+          <h4 th:text="#{description_community_delete_body}"></h4>
         </div>
         <span id="errorDeleteRequestDescriptionSpan" style="visibility: hidden"></span>
         <div class="modal-footer">
@@ -58,7 +58,7 @@
   </div>
 </div>
 
-<div class="modal" id="validate_delete_description_request" role="dialog">
+<div class="modal" id="validate_delete_description_community" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <h4 th:text="#{validate_description_request}"></h4>
+        <h4 th:text="#{validate_description_community}"></h4>
       </div>
     </div>
   </div>

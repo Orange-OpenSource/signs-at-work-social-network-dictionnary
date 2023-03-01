@@ -22,7 +22,10 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.CommunityType;
+
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public interface EmailService {
@@ -33,11 +36,11 @@ public interface EmailService {
 
   public void sendFavoriteShareMessage(String[] to, String subject, String userName, String favoriteName, String url, Locale locale);
 
-  public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
+  public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, List<String> names, String url, Locale locale);
 
   public void sendCommunityAddMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
 
-  public void sendCommunityDeleteMessage(String[] to, String subject, String userName, String communityName, Locale locale);
+  public void sendCommunityDeleteMessage(String[] to, String subject, String userName, CommunityType communityType, String communityName, List<String> names, Locale locale);
 
   public void sendCommunityRemoveMessage(String[] to, String subject, String userName, String communityName, Locale locale);
 
