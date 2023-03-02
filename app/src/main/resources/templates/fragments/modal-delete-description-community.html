@@ -38,17 +38,17 @@
         </div>
       </div>
       <div class="spinner spinner_hidden"></div>
-      <form id="deleteVideoFileForRequestDescription" method="post" th:action="@{/ws/sec/deleteVideoFileForRequestDescription/} + ${community.id}">
+      <form id="deleteVideoFileForCommunityDescription" method="post" th:action="@{/ws/sec/deleteVideoFileForCommunityDescription/} + ${community.id}">
         <div class="modal-body text-center">
           <h4 th:text="#{description_community_delete_body}"></h4>
         </div>
-        <span id="errorDeleteRequestDescriptionSpan" style="visibility: hidden"></span>
+        <span id="errorDeleteCommunityDescriptionSpan" style="visibility: hidden"></span>
         <div class="modal-footer">
           <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
-          <button class="btn btn-default pull-right" data-dismiss="" id="submitButtonDeleteRequestDescription" type="submit">
+          <button class="btn btn-default pull-right" data-dismiss="" id="submitButtonDeleteCommunityDescription" type="submit">
             <div class="v-done2_blue center-block"></div>
             <span th:text="#{confirm}"></span>
           </button>

@@ -25,7 +25,9 @@ package com.orange.signsatwork.biz.persistence.service.impl;
 import com.orange.signsatwork.biz.domain.Communities;
 import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
+import com.orange.signsatwork.biz.domain.Request;
 import com.orange.signsatwork.biz.persistence.model.CommunityDB;
+import com.orange.signsatwork.biz.persistence.model.RequestDB;
 import com.orange.signsatwork.biz.persistence.model.UserDB;
 import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
 import com.orange.signsatwork.biz.persistence.repository.FavoriteRepository;
@@ -223,6 +225,16 @@ public class CommunityServiceImpl implements CommunityService {
     CommunityDB communityDB = communityRepository.findOne(communityId);
 
     communityDB.setDescriptionVideo(communityDescriptionVideo);
+    communityRepository.save(communityDB);
+
+    return communityFrom(communityDB);
+  }
+
+  @Override
+  public Community deleteCommunityVideoDescription(long communityId) {
+    CommunityDB communityDB = communityRepository.findOne(communityId);
+
+    communityDB.setDescriptionVideo(null);
     communityRepository.save(communityDB);
 
     return communityFrom(communityDB);

@@ -818,6 +818,54 @@ public class CommunityRestController {
     }
   }
 
+  @Secured({"ROLE_ADMIN", "ROLE_USER"})
+  @RequestMapping(value = RestApi.WS_SEC_DELETE_VIDEO_FILE_FOR_COMMUNITY_DESCRIPTION, method = RequestMethod.POST)
+  public String deleteVideoCommunityDescription(@PathVariable long communityId, HttpServletResponse response, HttpServletRequest requestHttp, Principal principal) {
+    Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
+    Community community = services.community().withId(communityId);
+    if (community.descriptionVideo != null) {
+      if (community.descriptionVideo.contains("http")) {
+        String dailymotionIdForRequestDescription = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+        try {
+          DeleteVideoOnDailyMotion(dailymotionIdForRequestDescription);
+        } catch (Exception errorDailymotionDeleteVideo) {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+          return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
+        }
+      } else {
+        DeleteFileOnServer(community.descriptionVideo);
+      }
+    }
+    services.community().deleteCommunityVideoDescription(communityId);
+/*    if (isAdmin) {
+      String title = messageByLocaleService.getMessage("delete_request_description_title", new Object[]{request.name});
+      String bodyMail = messageByLocaleService.getMessage("delete_request_description_body", new Object[]{request.name});
+      String messageType = "DeleteRequestDescriptionMessage";
+      String email = request.user.email;
+      if (!email.isEmpty()) {
+        messageType = "DeleteRequestDescriptionSendEmailMessage";
+        final String finalTitle = title;
+        final String finalBodyMail = bodyMail;
+        final String finalMessageType = messageType;
+        final String finalRequestName = request.name;
+        String finalEmail = email;
+        Runnable task = () -> {
+          log.info("send mail email = {} / title = {} / body = {}", finalEmail, finalTitle, finalBodyMail);
+          services.emailService().sendRequestDescriptionMessage(finalEmail, finalTitle, finalBodyMail, finalRequestName, finalMessageType, requestHttp.getLocale());
+        };
+        new Thread(task).start();
+      } else {
+        User admin = services.user().getAdmin();
+        String values = admin.username + ';' + request.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+      }
+    }*/
+
+    response.setStatus(HttpServletResponse.SC_OK);
+    return "";
+  }
+
   private Streams SearchFileInfo(String file) throws JsonProcessingException {
     String cmdFileInfo = String.format("ffprobe -v quiet -print_format json -show_streams -select_streams v:0 %s", file);
     String fileInfo = NativeInterface.launchAndGetOutput(cmdFileInfo, null, null);

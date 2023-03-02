@@ -64,4 +64,6 @@ public interface CommunityService {
   Community updateDescriptionText(long communityId, String communityDescriptionText);
 
   Community changeDescriptionVideo(long communityId, String communityDescriptionVideo);
+
+  Community deleteCommunityVideoDescription(long communityId);
 }

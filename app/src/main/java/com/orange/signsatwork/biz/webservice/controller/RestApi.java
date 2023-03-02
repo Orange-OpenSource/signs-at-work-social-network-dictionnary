@@ -150,6 +150,8 @@ public class RestApi {
 
   public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_REQUEST_DESCRIPTION = WS_SEC + "deleteVideoFileForRequestDescription/{requestId}";
 
+  public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_COMMUNITY_DESCRIPTION = WS_SEC + "deleteVideoFileForCommunityDescription/{communityId}";
+
   public static final String WS_SEC_VIDEO_DELETE = WS_SEC + "sign/{signId}/{videoId}/delete";
 
   public static final String WS_SEC_VIDEO_RATE_POSITIVE = WS_SEC + "sign/{signId}/{videoId}/rate-positive";
