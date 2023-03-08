@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.persistence.service.impl;
  */
 
 import com.orange.signsatwork.biz.domain.ActionType;
+import com.orange.signsatwork.biz.domain.Community;
 import com.orange.signsatwork.biz.domain.CommunityType;
 import com.orange.signsatwork.biz.domain.MessageServer;
 import com.orange.signsatwork.biz.persistence.repository.MessageServerRepository;
@@ -243,7 +244,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityAddMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale) {
+  public void sendCommunityAddMessage(String[] to, String subject, String userName, List<String> names, CommunityType communityType, String communityName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -275,8 +276,9 @@ public class EmailServiceImpl implements EmailService {
       helper.addInline(imageName, imageSource, "image/png");
 
       List<String> toList = Arrays.asList(to);
-      String values = userName + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + communityName;
-      MessageServer messageServer = new MessageServer(new Date(), "CommunityAddMessage", values, ActionType.NO);
+      String values = userName + ';' + names.stream().collect(Collectors.joining(", ")) +';' + messageByLocaleService.getMessage(communityType.toString()) +';' + communityName + ';' + toList.stream().collect(Collectors.joining(", "));
+
+      MessageServer messageServer = new MessageServer(new Date(), "UsersAddToCommunitySendEmailMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
       emailSender.send(message);
@@ -459,7 +461,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityRemoveMessage(String[] to, String subject, String userName, String communityName, Locale locale) {
+  public void sendCommunityRemoveMessage(String[] to, String subject, String userName, List<String> names, CommunityType communityType, String communityName, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -488,8 +490,9 @@ public class EmailServiceImpl implements EmailService {
       helper.addInline(imageName, imageSource, "image/png");
 
       List<String> toList = Arrays.asList(to);
-      String values = userName + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + communityName;
-      MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMessage", values, ActionType.NO);
+      String values = userName + ';' + names.stream().collect(Collectors.joining(", ")) +';' + messageByLocaleService.getMessage(communityType.toString()) +';' + communityName + ';' + toList.stream().collect(Collectors.joining(", "));
+
+      MessageServer messageServer = new MessageServer(new Date(), "UsersRemoveToCommunitySendEmailMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
       emailSender.send(message);

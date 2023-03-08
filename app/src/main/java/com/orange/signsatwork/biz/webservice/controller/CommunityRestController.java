@@ -402,8 +402,8 @@ public class CommunityRestController {
           return communityResponseApi;
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
-          String values = userToRemove.name() + ';' + community.name;
-          MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMeMessage", values, ActionType.NO);
+          String values = userToRemove.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+          MessageServer messageServer = new MessageServer(new Date(), "UserRemoveMeCommunityMessage", values, ActionType.NO);
           services.messageServerService().addMessageServer(messageServer);
         }
     } else if (communityCreationViewApi.getDescriptionText() != null) {
@@ -457,6 +457,7 @@ public class CommunityRestController {
         List<User> usersAdded = usersIdsToAdd.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
         List<User> usersRemoved = usersIdsToRemove.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
         emailsUsersAdded = usersAdded.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        List<String> namesAdded = usersAdded.stream().map(c -> c.name()).collect(Collectors.toList());
         if (emailsUsersAdded.size() != 0) {
           Community finalCommunity = community;
           Runnable task = () -> {
@@ -465,12 +466,20 @@ public class CommunityRestController {
             title = messageByLocaleService.getMessage("community_created_by_user_title");
             bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
             log.info("send mail email = {} / title = {} / body = {}", emailsUsersAdded.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
+            services.emailService().sendCommunityAddMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), namesAdded, community.type, finalCommunity.name, url, request.getLocale());
           };
 
           new Thread(task).start();
+        } else {
+          if (namesAdded.size() != 0) {
+            String values = user.name() + ';' + namesAdded.stream().collect(Collectors.joining(", ")) +';' + messageByLocaleService.getMessage(community.type.toString()) +';' + community.name;
+
+            MessageServer messageServer = new MessageServer(new Date(), "UsersAddToCommunityMessage", values, ActionType.NO);
+            services.messageServerService().addMessageServer(messageServer);
+          }
         }
         emailsUsersRemoved = usersRemoved.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
+        List<String> namesRemoved = usersRemoved.stream().map(c -> c.name()).collect(Collectors.toList());
         if (emailsUsersRemoved.size() != 0) {
           Community finalCommunity = community;
           Runnable task = () -> {
@@ -478,10 +487,17 @@ public class CommunityRestController {
             title = messageByLocaleService.getMessage("community_removed_user_title");
             bodyMail = messageByLocaleService.getMessage("community_removed_user_body", new Object[]{finalCommunity.name});
             log.info("send mail email = {} / title = {} / body = {}", emailsUsersRemoved.toString(), title, bodyMail);
-            services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, user.name(), finalCommunity.name, request.getLocale());
+            services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, user.name(), namesRemoved, community.type, finalCommunity.name, request.getLocale());
           };
 
           new Thread(task).start();
+        } else {
+          if (namesRemoved.size() != 0) {
+            String values = user.name() + ';' + namesRemoved.stream().collect(Collectors.joining(", ")) + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+
+            MessageServer messageServer = new MessageServer(new Date(), "UsersRemoveToCommunityMessage", values, ActionType.NO);
+            services.messageServerService().addMessageServer(messageServer);
+          }
         }
       }
     }
@@ -543,8 +559,8 @@ public class CommunityRestController {
           return communityResponseApi;
         } else {
           services.community().removeMeFromCommunity(communityId, userToRemove.id);
-          String values = userToRemove.name() + ';' + community.name;
-          MessageServer messageServer = new MessageServer(new Date(), "CommunityRemoveMeMessage", values, ActionType.NO);
+          String values = userToRemove.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+          MessageServer messageServer = new MessageServer(new Date(), "UserRemoveMeCommunityMessage", values, ActionType.NO);
           services.messageServerService().addMessageServer(messageServer);
         }
       } else if (communityCreationViewApi.get().getDescriptionText() != null && !communityCreationViewApi.get().getDescriptionText().isEmpty()) {
@@ -582,6 +598,7 @@ public class CommunityRestController {
           List<User> usersAdded = usersIdsToAdd.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
           List<User> usersRemoved = usersIdsToRemove.stream().map(id -> services.user().withId(id)).collect(Collectors.toList());
           emailsUsersAdded = usersAdded.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          List<String> namesAdded = usersAdded.stream().map(c -> c.name()).collect(Collectors.toList());
           if (emailsUsersAdded.size() != 0) {
             Community finalCommunity = community;
             Runnable task = () -> {
@@ -590,12 +607,20 @@ public class CommunityRestController {
               title = messageByLocaleService.getMessage("community_created_by_user_title");
               bodyMail = messageByLocaleService.getMessage("community_created_by_user_body", new Object[]{user.name(), finalCommunity.name, url});
               log.info("send mail email = {} / title = {} / body = {}", emailsUsersAdded.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), finalCommunity.name, url, request.getLocale());
+              services.emailService().sendCommunityAddMessage(emailsUsersAdded.toArray(new String[emailsUsersAdded.size()]), title, user.name(), namesAdded, community.type, finalCommunity.name, url, request.getLocale());
             };
 
             new Thread(task).start();
+          } else {
+            if (namesAdded.size() != 0) {
+              String values = user.name() + ';' + namesAdded.stream().collect(Collectors.joining(", ")) +';' + messageByLocaleService.getMessage(community.type.toString()) +';' + community.name;
+
+              MessageServer messageServer = new MessageServer(new Date(), "UsersAddToCommunityMessage", values, ActionType.NO);
+              services.messageServerService().addMessageServer(messageServer);
+            }
           }
           emailsUsersRemoved = usersRemoved.stream().filter(u -> u.email != null).map(u -> u.email).collect(Collectors.toList());
+          List<String> namesRemoved = usersRemoved.stream().map(c -> c.name()).collect(Collectors.toList());
           if (emailsUsersRemoved.size() != 0) {
             Community finalCommunity = community;
             Runnable task = () -> {
@@ -603,10 +628,17 @@ public class CommunityRestController {
               title = messageByLocaleService.getMessage("community_removed_user_title");
               bodyMail = messageByLocaleService.getMessage("community_removed_user_body", new Object[]{finalCommunity.name});
               log.info("send mail email = {} / title = {} / body = {}", emailsUsersRemoved.toString(), title, bodyMail);
-              services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, user.name(), finalCommunity.name, request.getLocale());
+              services.emailService().sendCommunityRemoveMessage(emailsUsersRemoved.toArray(new String[emailsUsersRemoved.size()]), title, user.name(), namesRemoved, community.type, finalCommunity.name, request.getLocale());
             };
 
             new Thread(task).start();
+          } else {
+            if (namesRemoved.size() != 0) {
+              String values = user.name() + ';' + namesRemoved.stream().collect(Collectors.joining(", ")) + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+
+              MessageServer messageServer = new MessageServer(new Date(), "UsersRemoveToCommunityMessage", values, ActionType.NO);
+              services.messageServerService().addMessageServer(messageServer);
+            }
           }
         }
       }

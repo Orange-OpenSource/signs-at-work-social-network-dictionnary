@@ -38,11 +38,11 @@ public interface EmailService {
 
   public void sendCommunityCreateMessage(String[] to, String subject, String userName, String communityName, List<String> names, String url, Locale locale);
 
-  public void sendCommunityAddMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
+  public void sendCommunityAddMessage(String[] to, String subject, String userName, List<String> names, CommunityType communityType, String communityName, String url, Locale locale);
 
   public void sendCommunityDeleteMessage(String[] to, String subject, String userName, CommunityType communityType, String communityName, List<String> names, Locale locale);
 
-  public void sendCommunityRemoveMessage(String[] to, String subject, String userName, String communityName, Locale locale);
+  public void sendCommunityRemoveMessage(String[] to, String subject, String userName, List<String> names, CommunityType communityType, String communityName, Locale locale);
 
   public void sendCommunityRenameMessage(String[] to, String subject, String userName, String oldName, String newName, String url, Locale locale);
 

@@ -220,7 +220,12 @@
                 <div th:if="${messageServer.type == 'CommunityAddDescriptionMessage'}" class="description_sign_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityRemoveMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityRemoveMeMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UserRemoveMeCommunityMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityAddMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UsersRemoveToCommunitySendEmailMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UsersAddToCommunitySendEmailMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UsersRemoveToCommunityMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UsersAddToCommunityMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'ResetPasswordMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UserDeleteMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UserLockMessage'}" class="member_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
