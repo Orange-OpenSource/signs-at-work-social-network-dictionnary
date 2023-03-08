@@ -300,6 +300,14 @@ public class CommunityRestController {
       }
     }
     services.community().delete(community);
+    if (community.type == CommunityType.Job) {
+      for (long userId:community.usersIds()) {
+        User userChangeJob = services.user().withId(userId);
+        if (userChangeJob.job.equals(community.name)) {
+          services.user().changeJob(userChangeJob, null);
+        }
+      }
+    }
 
     List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
     emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
@@ -440,7 +448,7 @@ public class CommunityRestController {
           }
           for (long idToRemove:usersIdsToRemove) {
             User userChangeJob = services.user().withId(idToRemove);
-            services.user().changeJob(userChangeJob, communityCreationViewApi.getName());
+            services.user().changeJob(userChangeJob, null);
           }
         }
         Community newCommunity = services.community().changeCommunityUsers(community.id, usersIds);

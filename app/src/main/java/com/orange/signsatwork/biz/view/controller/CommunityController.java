@@ -215,7 +215,7 @@ public class CommunityController {
     model.addAttribute("community", community);
     CommunityProfileView communityProfileView = new CommunityProfileView(community, services.user());
     model.addAttribute("communityProfileView", communityProfileView);
-    List<User> usersWithoutCommunityOwnerAndWithoutAdminAndWithoutDisableUsers = communityProfileView.getAllUsers().stream().filter(u -> u.id != community.user.id && u.id != 1 && u.isEnabled).collect(Collectors.toList());
+    List<User> usersWithoutCommunityOwnerAndWithoutAdminAndWithoutDisableUsers = communityProfileView.getAllUsers().stream().filter(u -> u.id != community.user.id && u.id != 1 && u.isEnabled && u.isNonLocked).collect(Collectors.toList());
     model.addAttribute("users", usersWithoutCommunityOwnerAndWithoutAdminAndWithoutDisableUsers);
     model.addAttribute("appName", appName);
     model.addAttribute("backUrl", "/sec/community/"+communityId);
