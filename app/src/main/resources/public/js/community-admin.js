@@ -155,6 +155,19 @@ function resetRenameError(event) {
   }
 }
 
+function checkCommunityDescriptionText(event) {
+  var eraseText = document.getElementById('erase_text');
+  if (oldCommunityDescriptionText != communityDescriptionText.value) {
+    submitAddCommunityDescriptionText.disabled = false;
+  } else {
+    submitAddCommunityDescriptionText.disabled = true;
+  }
+  if (communityDescriptionText.value != "") {
+    eraseText.style.visibility = "visible";
+  } else {
+    eraseText.style.visibility = "hidden";
+  }
+}
 
 function main() {
   communityName.addEventListener('keyup', resetRenameError);

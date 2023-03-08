@@ -356,6 +356,14 @@ public class CommunityRestController {
       if (!community.name.equals(communityCreationViewApi.getName())) {
         if (services.community().withCommunityName(communityCreationViewApi.getName()) == null) {
           services.community().updateName(communityId, communityCreationViewApi.getName());
+          if (community.type == CommunityType.Job) {
+            for (long userId:community.usersIds()) {
+              User userChangeJob = services.user().withId(userId);
+              if (userChangeJob.job.equals(community.name)) {
+                services.user().changeJob(userChangeJob, communityCreationViewApi.getName());
+              }
+            }
+          }
           communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.renamed", new Object[]{community.name, communityCreationViewApi.getName()});
           emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
           emails = emails.stream().distinct().collect(Collectors.toList());
@@ -417,10 +425,24 @@ public class CommunityRestController {
       List<Long> usersIds = communityCreationViewApi.getCommunityUsersIds();
       if (user.id != 1) {
         usersIds.add(user.id);
+      } else {
+        if (community.type == CommunityType.Project) {
+          usersIds.add(community.user.id);
+        }
       }
       List<Long> usersIdsToAdd = usersIds.stream().filter(u -> !community.usersIds().contains(u)).collect(Collectors.toList());
       List<Long> usersIdsToRemove = community.usersIds().stream().filter(u -> !usersIds.contains(u)).collect(Collectors.toList());
-      if (!usersIds.isEmpty()) {
+      if (!usersIdsToAdd.isEmpty() || !usersIdsToRemove.isEmpty()) {
+        if (community.type == CommunityType.Job) {
+          for (long idToAdd:usersIdsToAdd) {
+            User userChangeJob = services.user().withId(idToAdd);
+            services.user().changeJob(userChangeJob, community.name);
+          }
+          for (long idToRemove:usersIdsToRemove) {
+            User userChangeJob = services.user().withId(idToRemove);
+            services.user().changeJob(userChangeJob, communityCreationViewApi.getName());
+          }
+        }
         Community newCommunity = services.community().changeCommunityUsers(community.id, usersIds);
         List<String> name = newCommunity.users.stream().map(c -> c.name()).collect(Collectors.toList());
         communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.members", new Object[]{name.toString()});
@@ -461,7 +483,7 @@ public class CommunityRestController {
 
     }
 
-  @Secured({"ROLE_USER", "ROLE_ADMIN"})
+  @Secured({"ROLE_USER"})
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
   public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
     List<String> emails, emailsUsersAdded, emailsUsersRemoved;
