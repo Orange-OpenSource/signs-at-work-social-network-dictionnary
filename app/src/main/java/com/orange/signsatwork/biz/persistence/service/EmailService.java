@@ -44,7 +44,7 @@ public interface EmailService {
 
   public void sendCommunityRemoveMessage(String[] to, String subject, String userName, List<String> names, CommunityType communityType, String communityName, Locale locale);
 
-  public void sendCommunityRenameMessage(String[] to, String subject, String userName, String oldName, String newName, String url, Locale locale);
+  public void sendCommunityRenameMessage(String[] to, String subject, String userName, CommunityType communityType, String oldName, String newName, String url, Locale locale);
 
   public void sendResetPasswordMessage(String to, String subject, String userName, String url, Locale locale);
 

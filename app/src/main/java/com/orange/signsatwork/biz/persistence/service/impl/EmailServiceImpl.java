@@ -263,10 +263,11 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context(locale);
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
+      ctx.setVariable("community_type", messageByLocaleService.getMessage(communityType.toString()));
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
-      String htmlContent = templateEngine.process("email-community", ctx);
+      String htmlContent = templateEngine.process("email-add-community", ctx);
       helper.setText(htmlContent, true);
 
       imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
@@ -300,7 +301,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityRenameMessage(String[] to, String subject, String userName, String oldName, String newName, String url, Locale locale) {
+  public void sendCommunityRenameMessage(String[] to, String subject, String userName, CommunityType communityType, String oldName, String newName, String url, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -317,6 +318,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
       Context ctx = new Context(locale);
+      ctx.setVariable("community_type", messageByLocaleService.getMessage(communityType.toString()));
       ctx.setVariable("old_name", oldName);
       ctx.setVariable("new_name", newName);
       ctx.setVariable("url", url);
@@ -373,6 +375,7 @@ public class EmailServiceImpl implements EmailService {
       Context ctx = new Context(locale);
       ctx.setVariable("user_name", userName);
       ctx.setVariable("community_name", communityName);
+      ctx.setVariable("community_type", messageByLocaleService.getMessage(communityType.toString()));
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-delete-community", ctx);
@@ -478,6 +481,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
       Context ctx = new Context(locale);
+      ctx.setVariable("community_type", messageByLocaleService.getMessage(communityType.toString()));
       ctx.setVariable("community_name", communityName);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
