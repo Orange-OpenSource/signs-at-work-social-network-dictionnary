@@ -152,7 +152,7 @@
               <div class="panel-body">
                 <ul style="padding-left: 0px;">
                   <li class="aside_bckg_li" th:each="user:${community.users.list()}">
-                    <a class="all_li_clickable" th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
+                    <a class="all_li_clickable" th:href="@{/sec/profile-from-admin/}  + ${user.id}">
                       <div class="pull-left member_project_admin_me"
                            th:if="${user.id == community.user.id and user.id == userId}"></div>
                       <div class="pull-left member_project_admin"
