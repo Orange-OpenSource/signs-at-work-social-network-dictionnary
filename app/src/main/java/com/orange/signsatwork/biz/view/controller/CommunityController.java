@@ -258,7 +258,7 @@ public class CommunityController {
     return isIOSDevice;
   }
 
-  @Secured("ROLE_USER")
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @RequestMapping(value = "/sec/community/create")
   public String createCommunity(@RequestParam("name") String name, Principal principal, Model model) {
     boolean isAdmin = appSecurityAdmin.isAdmin(principal);
