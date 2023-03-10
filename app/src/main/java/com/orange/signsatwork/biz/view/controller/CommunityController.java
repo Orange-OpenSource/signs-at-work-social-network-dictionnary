@@ -261,6 +261,7 @@ public class CommunityController {
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/community/create")
   public String createCommunity(@RequestParam("name") String name, Principal principal, Model model) {
+    boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("backUrl", "/sec/communities");
@@ -270,6 +271,7 @@ public class CommunityController {
     List<User> usersWithoutMeAndWithoutAdminAndWithoutLockAndDisableUsers = users.stream().filter(u -> u.id != user.id && u.id != 1 && u.isEnabled && u.isNonLocked).collect(Collectors.toList());
     model.addAttribute("users", usersWithoutMeAndWithoutAdminAndWithoutLockAndDisableUsers);
     model.addAttribute("appName", appName);
+    model.addAttribute("isAdmin", isAdmin);
 
     return "create-community";
   }

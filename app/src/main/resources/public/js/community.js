@@ -57,7 +57,7 @@ function onContinueCommunity(backUrl) {
   window.location = url;
 };
 
-function onCreateCommunity(name) {
+function onCreateCommunity(name, isAdmin) {
   if ($("#FavoriteCreateCommunityForm").isChanged()) {
     var url;
     var communityId;
@@ -88,7 +88,11 @@ function onCreateCommunity(name) {
         $("#validate_create_community_favorite").modal('show');
         setTimeout(function () {
           $('#validate_create_community_favorite').modal('hide');
-          url = "/sec/community/" + communityId;
+          if (isAdmin === "true") {
+            url = "/sec/admin/community/" + communityId;
+          } else {
+            url = "/sec/community/" + communityId;
+          }
           console.log(window.location.href);
           window.history.replaceState({}, 'foo', url);
           console.log(window.location.href);

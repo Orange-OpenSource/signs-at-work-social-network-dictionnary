@@ -30,7 +30,8 @@
   <nav id="main_nav" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a th:data-name="${communityName}" th:onclick="javascript:onCreateCommunity(this.getAttribute('data-name'))">
+        <a th:data-name="${communityName}" th:data-isAdmin="${isAdmin}"
+           th:onclick="javascript:onCreateCommunity(this.getAttribute('data-name', 'data-isAdmin'))">
           <div class="back_bar_white pull-left"></div>
         </a>
         <a href="/" th:attr="aria-label=#{home}">
