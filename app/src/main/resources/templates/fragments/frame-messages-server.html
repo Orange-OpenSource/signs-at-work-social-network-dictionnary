@@ -212,6 +212,8 @@
                 <div th:if="${messageServer.type == 'CreateProjectCommunityMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreateProjectCommunitySendEmailMessage'}" class="group_project_add_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityRenameMessage'}" class="edit_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'RenameCommunitySendEmailMessage'}" class="edit_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'RenameCommunityMessage'}" class="edit_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'DeleteCommunityMessageWithoutUsers'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'DeleteCommunityMessage'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'DeleteCommunitySendEmailMessage'}" class="group_delete_blue_admin" style="display: inline-table;vertical-align: middle;"></div>

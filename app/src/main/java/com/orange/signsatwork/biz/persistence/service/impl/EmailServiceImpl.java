@@ -333,8 +333,9 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = userName + ';' + oldName + ';' + newName;
-      MessageServer messageServer = new MessageServer(new Date(), "CommunityRenameMessage", values, ActionType.NO);
+      List<String> toList = Arrays.asList(to);
+      String values = userName + ';' + messageByLocaleService.getMessage(communityType.toString()) +';' + oldName + ';' + newName + ';' + toList.stream().collect(Collectors.joining(", "));
+      MessageServer messageServer = new MessageServer(new Date(), "RenameCommunitySendEmailMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
       emailSender.send(message);

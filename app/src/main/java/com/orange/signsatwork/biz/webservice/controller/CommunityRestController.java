@@ -387,6 +387,10 @@ public class CommunityRestController {
             };
 
             new Thread(task).start();
+          } else {
+            String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) +';' + community.name + ';' + communityCreationViewApi.getName();
+            MessageServer messageServer = new MessageServer(new Date(), "RenameCommunityMessage", values, ActionType.NO);
+            services.messageServerService().addMessageServer(messageServer);
           }
         } else {
           communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.name_already_exist");
@@ -544,6 +548,10 @@ public class CommunityRestController {
               };
 
               new Thread(task).start();
+            } else {
+              String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) +';' + community.name + ';' + communityCreationViewApi.get().getName();
+              MessageServer messageServer = new MessageServer(new Date(), "RenameCommunityMessage", values, ActionType.NO);
+              services.messageServerService().addMessageServer(messageServer);
             }
           } else {
             communityResponseApi.errorMessage = messageByLocaleService.getMessage("community.name_already_exist");
