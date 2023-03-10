@@ -56,7 +56,7 @@
               <div class="pull-right chevron"></div>
             </a>
             <a class="all_li_clickable" th:href="@{/sec/community/create(name=${communityName}, id=${favoriteId})}" th:if="${favoriteId == 0}"
-               th:onclick="'javascript:onChangeBrowserHistory()'">
+               th:data-isAdmin="${isAdmin}" th:onclick="javascript:onChangeBrowserHistory(this.getAttribute('data-isAdmin'))">
               <div class="pull-left member_add_blue"></div>
               <h4 class="container_H2 text_hyphenation" th:text="#{community.add_members}"/>
               <div class="pull-right chevron"></div>

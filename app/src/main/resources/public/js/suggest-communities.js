@@ -19,10 +19,14 @@
  * #L%
  */
 
-function onChangeBrowserHistory() {
+function onChangeBrowserHistory(isAdmin) {
   console.log("onChangeBrowserHistory");
   console.log("old "+window.location.href);
-  window.history.replaceState({}, 'foo', "/sec/communities");
+  if (isAdmin === "true") {
+    window.history.replaceState({}, 'foo', "/sec/admin/manage_communities");
+  } else {
+    window.history.replaceState({}, 'foo', "/sec/communities");
+  }
   console.log("new "+window.location.href);
 
 }

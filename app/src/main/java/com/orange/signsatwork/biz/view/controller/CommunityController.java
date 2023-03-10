@@ -167,6 +167,7 @@ public class CommunityController {
       model.addAttribute("communityType", communityType.get());
     }
     model.addAttribute("appName", appName);
+    model.addAttribute("isAdmin", isAdmin);
 
     if (isAdmin && communityType.isPresent() && communityType.get().equals(Job)) {
       model.addAttribute("backUrl", "/sec/admin/manage_communities");
