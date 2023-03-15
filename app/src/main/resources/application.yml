@@ -17,8 +17,6 @@ spring.servlet.multipart.max-request-size: 500MB
 management.security.enabled: true
 management.context-path: /admin/
 
-spring.jpa.properties.hibernate.generate_statistics: false
-spring.jpa.show-sql: false
 
 app.file: "/data"
 app.dailymotion_url:
@@ -40,12 +38,21 @@ spring:
     port: 2525
   main:
     allow-circular-references: true
+    jackson:
+      serialization.write-dates-as-timestamps: true
+  jpa:
+    properties:
+      hibernate:
+        id.new_generator_mappings: false
+        generate_statistics: false
+    show-sql: true
 
 #    5am every day
 purge.cron.expression: 0 0 5 * * ?
 
-spring.jackson.serialization.write-dates-as-timestamps: true
-
-spring.jpa.properties.hibernate.id.new_generator_mappings: false
 
 file-size-max-to-reduce: 10MB
+
+
+
+

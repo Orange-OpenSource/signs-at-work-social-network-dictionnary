@@ -345,7 +345,8 @@ public class CommunityRestController {
   @Secured({"ROLE_USER", "ROLE_ADMIN"})
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY_DATAS, method = RequestMethod.PUT)
   public CommunityResponseApi updateCommunityDatas(@RequestBody CommunityCreationViewApi communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
-    List<String> emails, emailsUsersAdded, emailsUsersRemoved;
+    String title_1, bodyMail_1, messageType;
+    List<String> emails, emailsUsersAdded, emailsUsersRemoved, names;
     Boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
@@ -412,20 +413,37 @@ public class CommunityRestController {
         }
     } else if (communityCreationViewApi.getDescriptionText() != null) {
         services.community().updateDescriptionText(communityId, communityCreationViewApi.getDescriptionText());
+        if (community.descriptionText != null && !community.descriptionText.isEmpty()) {
+          title_1 = messageByLocaleService.getMessage("update_community_description_text_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+          bodyMail_1 = messageByLocaleService.getMessage("update_community_description_text_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+          messageType = "UpdateCommunityDescriptionTextMessage";
+        } else {
+          title_1 = messageByLocaleService.getMessage("add_community_description_text_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+          bodyMail_1 = messageByLocaleService.getMessage("add_community_description_text_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+          messageType = "AddCommunityDescriptionTextMessage";
+        }
+        names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
         emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
         emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
+          if (community.descriptionText != null && !community.descriptionText.isEmpty()) {
+            messageType = "UpdateCommunityDescriptionTextSendEmailMessage";
+          } else {
+            messageType = "AddCommunityDescriptionTextSendEmailMessage";
+          }
           List<String> finalEmails1 = emails;
+          String finalMessageType = messageType;
           Runnable task = () -> {
-            String title, bodyMail;
             final String url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
-            title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-            bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
-            log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title, user.name(), community.name, url, request.getLocale());
+            log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title_1, bodyMail_1);
+            services.emailService().sendCommunityAddDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title_1, bodyMail_1, user.name(), names, community.type, community.name, url, finalMessageType, request.getLocale());
           };
 
           new Thread(task).start();
+        } else {
+          String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+          MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
         }
     }
     else {
@@ -514,7 +532,8 @@ public class CommunityRestController {
   @Secured({"ROLE_USER"})
   @RequestMapping(value = RestApi.WS_SEC_COMMUNITY, method = RequestMethod.PUT, headers = {"content-type=multipart/mixed", "content-type=multipart/form-data", "content-type=application/json"})
   public CommunityResponseApi updateCommunity(@RequestPart("file") Optional<MultipartFile> fileCommunityDescriptionVideo, @RequestPart("data") Optional<CommunityCreationViewApi> communityCreationViewApi, @PathVariable long communityId, HttpServletResponse response, HttpServletRequest request, Principal principal) throws InterruptedException {
-    List<String> emails, emailsUsersAdded, emailsUsersRemoved;
+    String title_1, bodyMail_1, messageType;
+    List<String> emails, emailsUsersAdded, emailsUsersRemoved, names;
     CommunityResponseApi communityResponseApi = new CommunityResponseApi();
     communityResponseApi.communityId = communityId;
     User user = services.user().withUserName(principal.getName());
@@ -573,20 +592,37 @@ public class CommunityRestController {
         }
       } else if (communityCreationViewApi.get().getDescriptionText() != null && !communityCreationViewApi.get().getDescriptionText().isEmpty()) {
           services.community().updateDescriptionText(communityId, communityCreationViewApi.get().getDescriptionText());
+          if (community.descriptionText != null && !community.descriptionText.isEmpty()) {
+            title_1 = messageByLocaleService.getMessage("update_community_description_text_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+            bodyMail_1 = messageByLocaleService.getMessage("update_community_description_text_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+            messageType = "UpdateCommunityDescriptionTextMessage";
+          } else {
+            title_1 = messageByLocaleService.getMessage("add_community_description_text_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+            bodyMail_1 = messageByLocaleService.getMessage("add_community_description_text_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+            messageType = "AddCommunityDescriptionTextMessage";
+          }
+          names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
           emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
-        emails = emails.stream().distinct().collect(Collectors.toList());
+          emails = emails.stream().distinct().collect(Collectors.toList());
           if (emails.size() != 0) {
+            if (community.descriptionText != null && !community.descriptionText.isEmpty()) {
+              messageType = "UpdateCommunityDescriptionTextSendEmailMessage";
+            } else {
+              messageType = "AddCommunityDescriptionTextSendEmailMessage";
+            }
             List<String> finalEmails1 = emails;
+            String finalMessageType = messageType;
             Runnable task = () -> {
-              String title, bodyMail;
               final String url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
-              title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-              bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), community.name, url});
-              log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title, user.name(), community.name, url, request.getLocale());
+              log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title_1, bodyMail_1);
+              services.emailService().sendCommunityAddDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title_1, bodyMail_1, user.name(), names, community.type, community.name, url, finalMessageType, request.getLocale());
             };
 
             new Thread(task).start();
+          } else {
+            String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+            MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+            services.messageServerService().addMessageServer(messageServer);
           }
       } else {
         if (community.user.id != user.id) {
@@ -667,6 +703,7 @@ public class CommunityRestController {
 
   private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
+      String title, bodyMail, messageType;
       String videoUrl = null;
       String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
       File inputFile;
@@ -755,23 +792,33 @@ public class CommunityRestController {
               return communityResponseApi;
             }
           }
+          title = messageByLocaleService.getMessage("update_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+          bodyMail = messageByLocaleService.getMessage("update_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+          messageType = "UpdateCommunityDescriptionMessage";
+        } else {
+          title = messageByLocaleService.getMessage("add_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+          bodyMail = messageByLocaleService.getMessage("add_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+          messageType = "AddCommunityDescriptionMessage";
         }
         services.community().changeDescriptionVideo(communityId, videoUrl);
+        List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
         List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
         emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
           Community finalCommunity = community;
           List<String> finalEmails = emails;
+          String finalMessageType = messageType;
           Runnable task = () -> {
-            String title, bodyMail;
             final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
-            title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-            bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
             log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
+            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, request.getLocale());
           };
 
           new Thread(task).start();
+        } else {
+          String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+          MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
         }
 
         Runnable task = () -> {
@@ -811,6 +858,7 @@ public class CommunityRestController {
 
   private CommunityResponseApi handleSelectedVideoFileUploadForCommunityDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest request) throws InterruptedException {
     {
+      String title, bodyMail, messageType;
       String videoUrl = null;
       String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
       String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
@@ -862,23 +910,38 @@ public class CommunityRestController {
 
       if (community.descriptionVideo != null) {
         DeleteFileOnServer(community.descriptionVideo);
+        title = messageByLocaleService.getMessage("update_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+        bodyMail = messageByLocaleService.getMessage("update_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+        messageType = "UpdateCommunityDescriptionMessage";
+      } else {
+        title = messageByLocaleService.getMessage("add_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+        bodyMail = messageByLocaleService.getMessage("add_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+        messageType = "AddCommunityDescriptionMessage";
       }
       services.community().changeDescriptionVideo(communityId, videoUrl);
+      List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
       List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
       emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
+        if (community.descriptionVideo != null) {
+          messageType = "UpdateCommunityDescriptionSendEmailMessage";
+        } else {
+          messageType = "AddCommunityDescriptionSendEmailMessage";
+        }
         Community finalCommunity = community;
         List<String> finalEmails = emails;
+        String finalMessageType = messageType;
         Runnable task = () -> {
-          String title, bodyMail;
           final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
-          title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-          bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
           log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, request.getLocale());
+          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, request.getLocale());
         };
 
         new Thread(task).start();
+      } else {
+        String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
       }
 
       response.setStatus(HttpServletResponse.SC_OK);

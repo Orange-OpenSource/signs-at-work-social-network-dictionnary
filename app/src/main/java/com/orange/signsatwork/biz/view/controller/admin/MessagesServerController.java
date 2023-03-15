@@ -71,6 +71,7 @@ public class MessagesServerController {
     model.addAttribute("title", messageByLocaleService.getMessage("server_message"));
     model.addAttribute("appName", appName);
 
+    long t0 = System.currentTimeMillis();
     MessagesServer queryMessagesServer;
     if (isAllAsc == true) {
       queryMessagesServer = services.messageServerService().messagesServerAllDesc();
@@ -83,10 +84,15 @@ public class MessagesServerController {
       model.addAttribute("isAllDesc", false);
       model.addAttribute("classDropdownDirection", "  down_black pull-right");
     }
+    long dt = System.currentTimeMillis() - t0;
+    log.info("[PERF] took " + dt + " ms to process sql request");
 
+    t0 = System.currentTimeMillis();
     List<MessageServerView> messagesServerView = queryMessagesServer.stream()
       .map(messageServer -> new MessageServerView(messageServer.id, messageServer.date, messageServer.type, messageServer.values, createMessageText(messageServer.type, messageServer.values), messageServer.action))
       .collect(Collectors.toList());
+    dt = System.currentTimeMillis() - t0;
+    log.info("[PERF] took " + dt + " ms to process messages");
 
     model.addAttribute("messagesServer", messagesServerView);
 

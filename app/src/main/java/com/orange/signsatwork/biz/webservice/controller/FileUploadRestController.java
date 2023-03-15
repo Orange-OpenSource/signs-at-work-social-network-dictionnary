@@ -2781,6 +2781,7 @@ public class FileUploadRestController {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
 
+    String title, bodyMail, messageType;
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
 
@@ -2880,23 +2881,38 @@ public class FileUploadRestController {
               return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
             }
           }
+          title = messageByLocaleService.getMessage("update_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+          bodyMail = messageByLocaleService.getMessage("update_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+          messageType = "UpdateCommunityDescriptionMessage";
+        } else {
+          title = messageByLocaleService.getMessage("add_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+          bodyMail = messageByLocaleService.getMessage("add_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+          messageType = "AddCommunityDescriptionMessage";
         }
         services.community().changeDescriptionVideo(communityId, videoUrl);
+        List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
         List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
         emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
+          if (community.descriptionVideo != null) {
+            messageType = "UpdateCommunityDescriptionSendEmailMessage";
+          } else {
+            messageType = "AddCommunityDescriptionSendEmailMessage";
+          }
           Community finalCommunity = community;
           List<String> finalEmails = emails;
+          String finalMessageType = messageType;
           Runnable task = () -> {
-            String title, bodyMail;
-            final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
-            title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-            bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+            final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
             log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
           };
 
           new Thread(task).start();
+        } else {
+          String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+          MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
         }
 
       Runnable task = () -> {
@@ -2935,6 +2951,7 @@ public class FileUploadRestController {
     log.info("VideoFile "+videoFile);
     log.info("VideoFile name"+videoFile.name);
 
+    String title, bodyMail, messageType;
     String videoUrl = null;
     String file = environment.getProperty("app.file") + "/" + videoFile.name;
     String newAbsoluteFileName = environment.getProperty("app.file") + "/" + videoFile.name.replace(".webm", ".mp4");
@@ -2970,23 +2987,38 @@ public class FileUploadRestController {
 
     if (community.descriptionVideo != null) {
       DeleteFilesOnServer(community.descriptionVideo, null);
+      title = messageByLocaleService.getMessage("update_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+      bodyMail = messageByLocaleService.getMessage("update_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+      messageType = "UpdateCommunityDescriptionMessage";
+    } else {
+      title = messageByLocaleService.getMessage("add_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+      bodyMail = messageByLocaleService.getMessage("add_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+      messageType = "AddCommunityDescriptionMessage";
     }
     services.community().changeDescriptionVideo(communityId, videoUrl);
+    List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
     List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
     emails = emails.stream().distinct().collect(Collectors.toList());
     if (emails.size() != 0) {
+      if (community.descriptionVideo != null) {
+        messageType = "UpdateCommunityDescriptionSendEmailMessage";
+      } else {
+        messageType = "AddCommunityDescriptionSendEmailMessage";
+      }
       Community finalCommunity = community;
       List<String> finalEmails = emails;
+      String finalMessageType = messageType;
       Runnable task = () -> {
-        String title, bodyMail;
-        final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
-        title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-        bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+        final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-        services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+        services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
       };
 
       new Thread(task).start();
+    } else {
+      String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
     }
 
     response.setStatus(HttpServletResponse.SC_OK);
@@ -3006,6 +3038,7 @@ public class FileUploadRestController {
 
   private String handleSelectedVideoFileUploadForCommunityDescription(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     {
+      String title, bodyMail, messageType;
       String videoUrl = null;
       String fileName = environment.getProperty("app.file") + "/" + file.getOriginalFilename();
       File inputFile;
@@ -3091,23 +3124,38 @@ public class FileUploadRestController {
                 return messageByLocaleService.getMessage("errorDailymotionDeleteVideo");
               }
             }
+            title = messageByLocaleService.getMessage("update_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+            bodyMail = messageByLocaleService.getMessage("update_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+            messageType = "UpdateCommunityDescriptionMessage";
+          } else {
+            title = messageByLocaleService.getMessage("add_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+            bodyMail = messageByLocaleService.getMessage("add_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+            messageType = "AddCommunityDescriptionMessage";
           }
           services.community().changeDescriptionVideo(communityId, videoUrl);
+          List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
           List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
           emails = emails.stream().distinct().collect(Collectors.toList());
           if (emails.size() != 0) {
+            if (community.descriptionVideo != null) {
+              messageType = "UpdateCommunityDescriptionSendEmailMessage";
+            } else {
+              messageType = "AddCommunityDescriptionSendEmailMessage";
+            }
             Community finalCommunity = community;
             List<String> finalEmails = emails;
+            String finalMessageType = messageType;
             Runnable task = () -> {
-              String title, bodyMail;
-              final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
-              title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-              bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+              final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
               log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+              services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
             };
 
             new Thread(task).start();
+          } else {
+            String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+            MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+            services.messageServerService().addMessageServer(messageServer);
           }
 
         Runnable task = () -> {
@@ -3145,6 +3193,7 @@ public class FileUploadRestController {
 
   private String handleSelectedVideoFileUploadForCommunityDescriptionOnServer(@RequestParam("file") MultipartFile file, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws InterruptedException {
     {
+      String title, bodyMail, messageType;
       String videoUrl = null;
       String fileExtension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
       String newFileName = UUID.randomUUID().toString() + "." + fileExtension;
@@ -3194,23 +3243,38 @@ public class FileUploadRestController {
 
       if (community.descriptionVideo != null) {
         DeleteFilesOnServer(community.descriptionVideo, null);
+        title = messageByLocaleService.getMessage("update_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+        bodyMail = messageByLocaleService.getMessage("update_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+        messageType = "UpdateCommunityDescriptionMessage";
+      } else {
+        title = messageByLocaleService.getMessage("add_community_description_title", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name});
+        bodyMail = messageByLocaleService.getMessage("add_community_description_body", new Object[]{messageByLocaleService.getMessage(community.type.toString()), community.name, user.name()});
+        messageType = "AddCommunityDescriptionMessage";
       }
       services.community().changeDescriptionVideo(communityId, videoUrl);
+      List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
       List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
       emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
+        if (community.descriptionVideo != null) {
+          messageType = "UpdateCommunityDescriptionSendEmailMessage";
+        } else {
+          messageType = "AddCommunityDescriptionSendEmailMessage";
+        }
         Community finalCommunity = community;
         List<String> finalEmails = emails;
+        String finalMessageType = messageType;
         Runnable task = () -> {
-          String title, bodyMail;
-          final String urlDescriptionCommunity = getAppUrl() + "/sec/community/" + finalCommunity.id + "/description";
-          title = messageByLocaleService.getMessage("community_description_changed_by_user_title");
-          bodyMail = messageByLocaleService.getMessage("community_description_changed_by_user_body", new Object[]{user.name(), finalCommunity.name, urlDescriptionCommunity});
+          final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
           log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), finalCommunity.name, urlDescriptionCommunity, requestHttp.getLocale());
+          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
         };
 
         new Thread(task).start();
+      } else {
+        String values = user.name() + ';' + messageByLocaleService.getMessage(community.type.toString()) + ';' + community.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
       }
 
       response.setStatus(HttpServletResponse.SC_OK);

@@ -50,7 +50,7 @@ public interface EmailService {
 
   public void sendCreatePasswordMessage(String to, String subject, String username, String url, Locale locale);
 
-  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale);
+  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String body, String userName, List<String> names, CommunityType communityType, String communityName, String url, String messageType, Locale locale);
 
   public void sendCreatePasswordMessageAfterChangeEmail(String to, String subject,  String username, String url, Locale locale);
 

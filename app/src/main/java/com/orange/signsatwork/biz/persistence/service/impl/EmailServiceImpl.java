@@ -48,6 +48,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -674,7 +675,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String userName, String communityName, String url, Locale locale) {
+  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String body, String userName, List<String> names, CommunityType communityType, String communityName, String url, String messageType, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -696,6 +697,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("url", url);
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
+      ctx.setVariable("body_1", body);
       String htmlContent = templateEngine.process("email-add-description-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
@@ -704,9 +706,12 @@ public class EmailServiceImpl implements EmailService {
 
       helper.addInline(imageName, imageSource, "image/png");
 
-      String values = userName + ';' + communityName;
-      MessageServer messageServer = new MessageServer(new Date(), "CommunityAddDescriptionMessage", values, ActionType.NO);
+      List<String> toList = Arrays.asList(to);
+      String values = userName + ';' + messageByLocaleService.getMessage(communityType.toString()) +';' + communityName + ';'  + toList.stream().collect(Collectors.joining(", "));
+
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
+
 
       emailSender.send(message);
     } catch (MailException exception) {
