@@ -2890,7 +2890,6 @@ public class FileUploadRestController {
           messageType = "AddCommunityDescriptionMessage";
         }
         services.community().changeDescriptionVideo(communityId, videoUrl);
-        List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
         List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
         emails = emails.stream().distinct().collect(Collectors.toList());
         if (emails.size() != 0) {
@@ -2905,7 +2904,7 @@ public class FileUploadRestController {
           Runnable task = () -> {
             final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
             log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
           };
 
           new Thread(task).start();
@@ -2996,7 +2995,7 @@ public class FileUploadRestController {
       messageType = "AddCommunityDescriptionMessage";
     }
     services.community().changeDescriptionVideo(communityId, videoUrl);
-    List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
+
     List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
     emails = emails.stream().distinct().collect(Collectors.toList());
     if (emails.size() != 0) {
@@ -3011,7 +3010,7 @@ public class FileUploadRestController {
       Runnable task = () -> {
         final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-        services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+        services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
       };
 
       new Thread(task).start();
@@ -3133,7 +3132,7 @@ public class FileUploadRestController {
             messageType = "AddCommunityDescriptionMessage";
           }
           services.community().changeDescriptionVideo(communityId, videoUrl);
-          List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
+
           List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
           emails = emails.stream().distinct().collect(Collectors.toList());
           if (emails.size() != 0) {
@@ -3148,7 +3147,7 @@ public class FileUploadRestController {
             Runnable task = () -> {
               final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
               log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+              services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
             };
 
             new Thread(task).start();
@@ -3252,7 +3251,7 @@ public class FileUploadRestController {
         messageType = "AddCommunityDescriptionMessage";
       }
       services.community().changeDescriptionVideo(communityId, videoUrl);
-      List<String> names = community.users.stream().map(c -> c.name()).collect(Collectors.toList());
+
       List<String> emails = community.users.stream().filter(u-> u.email != null).map(u -> u.email).collect(Collectors.toList());
       emails = emails.stream().distinct().collect(Collectors.toList());
       if (emails.size() != 0) {
@@ -3267,7 +3266,7 @@ public class FileUploadRestController {
         Runnable task = () -> {
           final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
           log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), names, community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
         };
 
         new Thread(task).start();

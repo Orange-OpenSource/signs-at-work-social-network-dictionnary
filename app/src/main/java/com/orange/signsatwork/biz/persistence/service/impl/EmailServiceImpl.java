@@ -675,7 +675,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String body, String userName, List<String> names, CommunityType communityType, String communityName, String url, String messageType, Locale locale) {
+  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String body, String userName, CommunityType communityType, String communityName, String url, String messageType, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
