@@ -2904,7 +2904,7 @@ public class FileUploadRestController {
           Runnable task = () -> {
             final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
             log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-            services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+            services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
           };
 
           new Thread(task).start();
@@ -3010,7 +3010,7 @@ public class FileUploadRestController {
       Runnable task = () -> {
         final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-        services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+        services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
       };
 
       new Thread(task).start();
@@ -3147,7 +3147,7 @@ public class FileUploadRestController {
             Runnable task = () -> {
               final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
               log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-              services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+              services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
             };
 
             new Thread(task).start();
@@ -3266,7 +3266,7 @@ public class FileUploadRestController {
         Runnable task = () -> {
           final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
           log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-          services.emailService().sendCommunityAddDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
+          services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
         };
 
         new Thread(task).start();

@@ -675,7 +675,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommunityAddDescriptionMessage(String[] to, String subject, String body, String userName, CommunityType communityType, String communityName, String url, String messageType, Locale locale) {
+  public void sendCommunityDescriptionMessage(String[] to, String subject, String body, String userName, CommunityType communityType, String communityName, String url, String messageType, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -698,7 +698,7 @@ public class EmailServiceImpl implements EmailService {
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       ctx.setVariable("body_1", body);
-      String htmlContent = templateEngine.process("email-add-description-community", ctx);
+      String htmlContent = templateEngine.process("email-description-community", ctx);
       helper.setText(htmlContent, true);
       imageIs = this.getClass().getClassLoader().getResourceAsStream(imageName);
       byte[] imageByteArray = org.jcodec.common.IOUtils.toByteArray(imageIs);
