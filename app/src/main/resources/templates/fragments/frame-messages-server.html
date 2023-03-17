@@ -224,6 +224,16 @@
                 <div th:if="${messageServer.type == 'CommunityRemoveMeMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UserRemoveMeCommunityMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CommunityAddMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddCommunityDescriptionTextMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddCommunityDescriptionTextSendEmailMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateCommunityDescriptionTextMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateCommunityDescriptionTextSendEmailMessage'}" class="definition_text_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddCommunityDescriptionMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddCommunityDescriptionSendEmailMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateCommunityDescriptionMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'UpdateCommunityDescriptionSendEmailMessage'}" class="description_movie_blue" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteCommunityDescriptionMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteCommunityDescriptionSendEmailMessage'}" class="cross_red" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UsersRemoveToCommunitySendEmailMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UsersAddToCommunitySendEmailMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'UsersRemoveToCommunityMessage'}" class="member_choose_blue_admin" style="display: inline-table;vertical-align: middle;"></div>
