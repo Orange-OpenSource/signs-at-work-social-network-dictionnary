@@ -182,62 +182,6 @@ function onClick() {
   document.getElementById('InputFile').click()
 }
 
-var errorDeleteRequestDescriptionSpan = document.getElementById('errorDeleteRequestDescriptionSpan');
-
-
-var $formDeleteVideoForRequestDescription = $('#deleteVideoFileForRequestDescription');
-$formDeleteVideoForRequestDescription.on('submit', function(event) {
-  document.getElementById('submitButtonDeleteRequestDescription').disabled = true;
-  $(".spinner").removeClass("spinner_hidden").addClass("spinner-delete_show");
-  $(".spinner").css("z-index","1500").visibility="visible";
-  /*  $("#submitButtonDelete").css("color","black");*/
-  var $form = $(this);
-  var formdata = new FormData($form[0]);
-  var data = (formdata !== null) ? formdata : $form.serialize();
-
-  event.preventDefault();
-  $.ajax({
-    url: $formDeleteVideoForRequestDescription.attr('action'),
-    type: 'post',
-    data: data,
-    contentType:false,
-    processData: false,
-    //dataType: 'json',
-    success: function(response) {
-      var url = response;
-      errorDeleteRequestDescriptionSpan.style.visibility="hidden";
-      $(".spinner").visibility="hidden";
-      $("#delete_description_request").modal('hide');
-      $("#validate_delete_description_request").modal('show');
-      setTimeout(function(){
-        $('#validate_delete_description_request').modal('hide');
-        location.reload();
-      }, 3000);
-
-    },
-    error: function(response) {
-      errorDeleteRequestDescriptionSpan.textContent = response.responseText;
-      errorDeleteRequestDescriptionSpan.style.visibility="visible";
-      $(".spinner").css("z-index","-1").css("opacity","0.1");
-      $(".spinner").visibility="hidden";
-      console.log("Erreur " + response.responseText);
-    }
-  })
-
-});
-
-$formDeleteVideoForRequestDescription.on('input', function(event) {
-  document.getElementById('errorDeleteRequestDescriptionSpan').style.visibility="hidden";
-});
-
-var $delete_description_request = $('#delete_description_request');
-$delete_description_request.on('hidden.bs.modal', function() {
-  console.log("hidden delete_description_request modal");
-  document.getElementById('submitButtonDeleteRequestDescription').disabled = false;
-  if ($('#delete_description_request').find('#errorDeleteRequestDescriptionSpan').length) {
-    errorDeleteRequestDescriptionSpan.style.visibility="hidden";
-  }
-});
 
 $(document).ready(function(){
 

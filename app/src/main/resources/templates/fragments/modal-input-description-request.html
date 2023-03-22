@@ -38,14 +38,22 @@
             </div>
             <form id="requestDescription" th:action="@{/sec/request/} + ${requestView.id} + '/description' " th:object="${requestCreationView}" method="post">
               <div class="modal-body text-center">
-                <textarea  th:text="${requestView.requestTextDescription}"  th:placeholder="#{request.description_text_placeholder}" type="text"   class="testinput  border form-control" name="requestTextDescription" rows="3" cols="40"/>
+                <textarea  id="request-description-text" th:text="${requestView.requestTextDescription}"  th:placeholder="#{request.description_text_placeholder}" type="text"   class="testinput  border form-control" name="requestTextDescription" rows="3" cols="40"/>
               </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
+                <div class="modal-footer" style="text-align: center">
+                    <button id="cancel-modal" type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
                       <div class="x-close2_black center-block"></div>
                       <span th:text="#{cancel}"></span>
                     </button>
-                    <button type="submit" class="btn btn-default" data-dismiss="">
+                  <button th:unless="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}" th:onclick="javascript:eraseText()" id="erase_text" type="button" class="btn btn-secondary" th:title="#{title_erase_text}" style="visibility: visible">
+                    <div class="delete-black center-block"></div>
+                    <span th:text="#{erase_text}"></span>
+                  </button>
+                  <button th:if="${requestView.requestTextDescription == null or #strings.isEmpty(requestView.requestTextDescription)}" th:onclick="javascript:eraseText()" id="erase_text" type="button" class="btn btn-secondary" th:title="#{title_erase_text}" style="visibility: hidden">
+                    <div class="delete-black center-block"></div>
+                    <span th:text="#{erase_text}"></span>
+                  </button>
+                    <button id="submit-add-request-description-text" type="submit" class="btn btn-default pull-right" data-dismiss="">
                       <div class="v-done2_blue center-block"></div>
                       <span th:text="#{continue}"></span>
                     </button>
