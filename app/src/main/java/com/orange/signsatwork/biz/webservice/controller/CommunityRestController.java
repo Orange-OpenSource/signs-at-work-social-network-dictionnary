@@ -429,7 +429,10 @@ public class CommunityRestController {
           List<String> finalEmails1 = emails;
           String finalMessageType = messageType;
           Runnable task = () -> {
-            final String url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
+            String url = null;
+            if (community.type == CommunityType.Project) {
+              url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
+            }
             log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title_1, bodyMail_1);
             services.emailService().sendCommunityDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title_1, bodyMail_1, user.name(), community.type, community.name, url, finalMessageType, request.getLocale());
           };
@@ -608,7 +611,10 @@ public class CommunityRestController {
             List<String> finalEmails1 = emails;
             String finalMessageType = messageType;
             Runnable task = () -> {
-              final String url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
+              String url = null;
+              if (community.type == CommunityType.Project) {
+                url = getAppUrl() + "/sec/descriptionCommunity/" + community.id;
+              }
               log.info("send mail email = {} / title = {} / body = {}", finalEmails1.toString(), title_1, bodyMail_1);
               services.emailService().sendCommunityDescriptionMessage(finalEmails1.toArray(new String[finalEmails1.size()]), title_1, bodyMail_1, user.name(), community.type, community.name, url, finalMessageType, request.getLocale());
             };
@@ -803,7 +809,10 @@ public class CommunityRestController {
           List<String> finalEmails = emails;
           String finalMessageType = messageType;
           Runnable task = () -> {
-            final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+            String urlDescriptionCommunity = null;
+            if (finalCommunity.type == CommunityType.Project) {
+              urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+            }
             log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
             services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, request.getLocale());
           };
@@ -926,7 +935,10 @@ public class CommunityRestController {
         List<String> finalEmails = emails;
         String finalMessageType = messageType;
         Runnable task = () -> {
-          final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+          String urlDescriptionCommunity = null;
+          if (finalCommunity.type == CommunityType.Project) {
+            urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+          }
           log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
           services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, request.getLocale());
         };

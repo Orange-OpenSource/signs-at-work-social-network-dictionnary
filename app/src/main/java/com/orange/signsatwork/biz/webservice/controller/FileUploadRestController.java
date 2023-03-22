@@ -2902,7 +2902,10 @@ public class FileUploadRestController {
           List<String> finalEmails = emails;
           String finalMessageType = messageType;
           Runnable task = () -> {
-            final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+            String urlDescriptionCommunity = null;
+            if (finalCommunity.type == CommunityType.Project) {
+              urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+            }
             log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
             services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
           };
@@ -3008,7 +3011,10 @@ public class FileUploadRestController {
       List<String> finalEmails = emails;
       String finalMessageType = messageType;
       Runnable task = () -> {
-        final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+        String urlDescriptionCommunity = null;
+        if (finalCommunity.type == CommunityType.Project) {
+          urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+        }
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
         services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
       };
@@ -3145,7 +3151,10 @@ public class FileUploadRestController {
             List<String> finalEmails = emails;
             String finalMessageType = messageType;
             Runnable task = () -> {
-              final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+              String urlDescriptionCommunity = null;
+              if (finalCommunity.type == CommunityType.Project) {
+                urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+              }
               log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
               services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), finalCommunity.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
             };
@@ -3264,7 +3273,10 @@ public class FileUploadRestController {
         List<String> finalEmails = emails;
         String finalMessageType = messageType;
         Runnable task = () -> {
-          final String urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+          String urlDescriptionCommunity = null;
+          if (finalCommunity.type == CommunityType.Project) {
+            urlDescriptionCommunity = getAppUrl() + "/sec/descriptionCommunity/" + finalCommunity.id;
+          }
           log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
           services.emailService().sendCommunityDescriptionMessage(finalEmails.toArray(new String[finalEmails.size()]), title, bodyMail, user.name(), community.type, finalCommunity.name, urlDescriptionCommunity, finalMessageType, requestHttp.getLocale());
         };
