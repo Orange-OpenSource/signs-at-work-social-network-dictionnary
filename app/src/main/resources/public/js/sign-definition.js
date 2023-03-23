@@ -63,22 +63,22 @@ $('#add_sign_definition_text').on('hidden.bs.modal', function (e) {
   }
 })
 
-/*var errorDeleteCommunityDescriptionSpan = document.getElementById('errorDeleteCommunityDescriptionSpan');
+var errorDeletedSignDefinitionSpan = document.getElementById('errorDeletedSignDefinitionSpan');
 
 
-var $formDeleteVideoForCommunityDescription = $('#deleteVideoFileForCommunityDescription');
-$formDeleteVideoForCommunityDescription.on('submit', function(event) {
-  document.getElementById('submitButtonDeleteCommunityDescription').disabled = true;
+var $formDeleteVideoForSignDefinition = $('#deleteVideoFileForSignDefinition');
+$formDeleteVideoForSignDefinition.on('submit', function(event) {
+  document.getElementById('submitButtonDeleteSignDefinition').disabled = true;
   $(".spinner").removeClass("spinner_hidden").addClass("spinner-delete_show");
   $(".spinner").css("z-index","1500").visibility="visible";
-  /!*  $("#submitButtonDelete").css("color","black");*!/
+  /*  $("#submitButtonDelete").css("color","black");*/
   var $form = $(this);
   var formdata = new FormData($form[0]);
   var data = (formdata !== null) ? formdata : $form.serialize();
 
   event.preventDefault();
   $.ajax({
-    url: $formDeleteVideoForCommunityDescription.attr('action'),
+    url: $formDeleteVideoForSignDefinition.attr('action'),
     type: 'post',
     data: data,
     contentType:false,
@@ -86,19 +86,19 @@ $formDeleteVideoForCommunityDescription.on('submit', function(event) {
     //dataType: 'json',
     success: function(response) {
       var url = response;
-      errorDeleteCommunityDescriptionSpan.style.visibility="hidden";
+      errorDeletedSignDefinitionSpan.style.visibility="hidden";
       $(".spinner").visibility="hidden";
-      $("#delete_description_community").modal('hide');
-      $("#validate_delete_description_community").modal('show');
+      $("#delete_definition_sign").modal('hide');
+      $("#validate_delete_definition_sign").modal('show');
       setTimeout(function(){
-        $('#validate_delete_description_community').modal('hide');
+        $('#validate_delete_definition_sign').modal('hide');
         location.reload();
       }, 3000);
 
     },
     error: function(response) {
-      errorDeleteCommunityDescriptionSpan.textContent = response.responseText;
-      errorDeleteCommunityDescriptionSpan.style.visibility="visible";
+      errorDeletedSignDefinitionSpan.textContent = response.responseText;
+      errorDeletedSignDefinitionSpan.style.visibility="visible";
       $(".spinner").css("z-index","-1").css("opacity","0.1");
       $(".spinner").visibility="hidden";
       console.log("Erreur " + response.responseText);
@@ -107,18 +107,18 @@ $formDeleteVideoForCommunityDescription.on('submit', function(event) {
 
 });
 
-$formDeleteVideoForCommunityDescription.on('input', function(event) {
-  document.getElementById('errorDeleteCommunityDescriptionSpan').style.visibility="hidden";
+$formDeleteVideoForSignDefinition.on('input', function(event) {
+  document.getElementById('errorDeletedSignDefinitionSpan').style.visibility="hidden";
 });
 
-var $delete_description_community = $('#delete_description_community');
-$delete_description_community.on('hidden.bs.modal', function() {
-  console.log("hidden delete_description_community modal");
-  document.getElementById('submitButtonDeleteCommunityDescription').disabled = false;
-  if ($('#delete_description_community').find('#errorDeleteCommunityDescriptionSpan').length) {
-    errorDeleteCommunityDescriptionSpan.style.visibility="hidden";
+var $delete_definition_sign = $('#delete_definition_sign');
+$delete_definition_sign.on('hidden.bs.modal', function() {
+  console.log("hidden delete_definition_sign modal");
+  document.getElementById('submitButtonDeleteSignDefinition').disabled = false;
+  if ($('#delete_definition_sign').find('#errorDeletedSignDefinitionSpan').length) {
+    errorDeletedSignDefinitionSpan.style.visibility="hidden";
   }
-});*/
+});
 
 function main() {
   signDefinitionText.addEventListener('keyup', checkSignDefinitionText);

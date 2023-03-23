@@ -39,7 +39,8 @@
                 </div>
             </div>
             <div class="modal-body text-center">
-              <h2 class="blue" th:text="#{sub_title_for_modal_video_with_video}"></h2>
+              <h2 class="blue" th:if="${signView.videoDefinition != null}" th:text="#{sub_title_for_modal_video_with_video}"></h2>
+              <h2 class="blue" th:if="${signView.videoDefinition == null}" th:text="#{sub_title_for_modal_video}"></h2>
               <ul class="nav nav-list primary left-menu">
                 <li class="forIE aside_bckg_li">
                   <a class="all_li_clickable" th:data-signId="${signView.id}" th:onclick="javascript:signDefinitionRecord(this.getAttribute('data-signId'))">
