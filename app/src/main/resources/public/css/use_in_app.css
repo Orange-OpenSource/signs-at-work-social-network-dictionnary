@@ -979,7 +979,8 @@ a.nav-link:active{
 }
 
 .nav > li.disabled > a,
-li.disabled > a {
+li.disabled > a,
+a.disabled > h4 {
   color : rgba(0,0,0,0.5);
 }
 
@@ -2753,6 +2754,10 @@ input[type="radio"] {
 }
 
 #communities-container>label>h4 {
+  border-bottom: 1px solid #8C8C8C;
+}
+
+.communities-container>a {
   border-bottom: 1px solid #8C8C8C;
 }
 

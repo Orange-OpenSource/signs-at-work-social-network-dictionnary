@@ -198,7 +198,8 @@ a.nav-link:active{
 }
 
 .nav > li.disabled > a,
-li.disabled > a {
+li.disabled > a,
+a.disabled > h4 {
   color : #18c6bf;
 }
 

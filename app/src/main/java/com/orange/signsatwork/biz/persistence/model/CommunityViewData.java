@@ -34,6 +34,8 @@ public class CommunityViewData {
   public final String type;
   public final String name;
   public Long ownerId = 0L;
+  public String descriptionText;
+  public String descriptionVideo;
 
 
   public CommunityViewData(Object[] queryResultItem) {

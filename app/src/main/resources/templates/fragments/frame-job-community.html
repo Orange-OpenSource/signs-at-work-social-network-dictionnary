@@ -32,14 +32,27 @@
             th:object="${userJobView}"
             method="post">
         <div class="form-group">
-          <div id="communities-container">
-              <label th:id="${community.name}" th:each="community : ${communities}"
+          <div class="communities-container"  th:each="community : ${communities}">
+              <label th:id="${community.name}"
                        th:for="${#ids.next('userCommunitiesIds')}">
                     <div th:if="${community.type == 'Job'}" class="pull-left group_blue"></div>
                     <div th:if="${community.type == 'JobIBelow'}" class="pull-left group_member_blue"></div>
                     <input type="radio" th:field="*{userCommunitiesIds}" th:value="${community.id}"/>
                     <h4 class="community_name" th:text="${community.name}"></h4>
-                </label>
+              </label>
+              <a th:if="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)} and ${community.descriptionVideo == null}" class="disabled all_li_clickable" href="#">
+                <div class="pull-right chevron_right_grey"></div>
+                <h4 class="pull-right" th:text="#{empty_description}" style="margin-right: 50px"></h4>
+              </a>
+              <a th:unless="${community.descriptionText == null or #strings.isEmpty(community.descriptionText)} and ${community.descriptionVideo == null}" class="all_li_clickable" href="#"
+                 data-target="#description-community" data-toggle="modal"
+                 th:attr="aria-label=${community.name}"
+                 th:with='cleaned=${#strings.replace(community.name, "&apos;", "\&apos;")}'
+                 th:data-url="${community.descriptionVideo}" th:data-name="${cleaned}" th:data-text="${community.descriptionText}"
+                 th:onclick="javascript:displayDescriptionCommunity(this.getAttribute('data-url'),this.getAttribute('data-name'), this.getAttribute('data-text'))">
+                <div class="pull-right chevron"></div>
+                <h4 class="pull-right" th:text="#{description}" style="margin-right: 50px"></h4>
+              </a>
           </div>
         </div>
     </form>

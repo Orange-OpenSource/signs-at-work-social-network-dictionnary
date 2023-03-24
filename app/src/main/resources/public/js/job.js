@@ -87,6 +87,39 @@ $.fn.extend({
   }
 });
 
+function displayDescriptionCommunity(url, name, text) {
+  var data;
+  var indice = 0;
+  var get_url
+  console.log(url);
+  console.log(name);
+  console.log(text);
+
+  document.getElementById("communityName").innerText = name;
+  if (url != null) {
+    document.getElementById("descriptionVideo").style.display = "block"
+    if (url.includes('http')) {
+      console.log("http");
+      document.getElementById("videoOnDailyMotion").style.display = "block"
+      document.getElementById("videoOnServer").style.display = "none"
+      document.getElementById("videoUrl").src = url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1&mute=true';
+    } else {
+      document.getElementById("videoOnDailyMotion").style.display = "none"
+      document.getElementById("videoOnServer").style.display = "block"
+      document.getElementById("videoUrlOnServer").src = url;
+      document.getElementById("videoplayer").load();
+    }
+  } else {
+    document.getElementById("descriptionVideo").style.display = "none"
+  }
+  if (text != null) {
+    document.getElementById("descriptionText").style.display= "block"
+    document.getElementById("descriptionTextValue").innerText = text;
+  } else {
+    document.getElementById("descriptionText").style.display = "none"
+  }
+
+}
 
 
 (function main($) {
