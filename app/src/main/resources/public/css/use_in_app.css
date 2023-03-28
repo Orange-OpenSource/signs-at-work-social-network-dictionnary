@@ -2753,13 +2753,13 @@ input[type="radio"] {
   margin-right: 16px;
 }
 
-#communities-container>label>h4 {
+#communities-container>label>a {
   border-bottom: 1px solid #8C8C8C;
 }
 
-.communities-container>a {
+/*.communities-container>a {
   border-bottom: 1px solid #8C8C8C;
-}
+}*/
 
 .margin-for-footer {
   margin-bottom: 30px;
