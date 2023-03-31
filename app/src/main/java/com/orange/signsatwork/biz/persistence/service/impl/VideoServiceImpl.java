@@ -281,8 +281,8 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
-  public List<Object[]> VideosShareInCommunitiesBelowUser(long userId) {
-    return videoRepository.findVideosShareInCommunitiesBelowUser(userId);
+  public List<Object[]> AllVideosCreateByUserFromCommunityUser(long userId, long userCommunityId) {
+    return videoRepository.findAllVideosCreateByUserFromCommunnityUser(userId, userCommunityId);
   }
 
   @Override

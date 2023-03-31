@@ -162,6 +162,7 @@ public class UserController {
   @RequestMapping(value = "/sec/profile-from-community/{communityId}/{userId}")
   public String userDetails(@PathVariable long userId, @PathVariable long communityId, HttpServletRequest request, Model model, Principal principal) {
     Boolean isConnectedUser = false;
+    List<Object[]> queryVideos;
     User connectedUser = services.user().withUserName(principal.getName());
     String userAgent = request.getHeader("User-Agent");
 
@@ -171,7 +172,12 @@ public class UserController {
     model.addAttribute("title", user.name());
     model.addAttribute("backUrl", "/sec/community/"+communityId);
 
-    List<Object[]> queryVideos = services.video().AllVideosCreateByUser(user.id);
+    if (user.id != connectedUser.id) {
+      queryVideos = services.video().AllVideosCreateByUserFromCommunityUser(user.id, connectedUser.id);
+    } else {
+      queryVideos = services.video().AllVideosCreateByUser(user.id);
+    }
+
     List<VideoViewData> videoViewsData = queryVideos.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());

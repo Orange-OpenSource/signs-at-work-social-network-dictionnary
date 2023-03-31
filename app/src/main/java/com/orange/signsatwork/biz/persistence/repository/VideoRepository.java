@@ -75,7 +75,6 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     return findById(id).orElse(null);
   }
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d where b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId" , nativeQuery = true)
-    List<Object[]> findVideosShareInCommunitiesBelowUser(@Param("userId") long userId);
-
+  @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.sign_id = b.id and a.user_id = :userId and a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userCommunityId  order by b.create_date desc", nativeQuery = true)
+  List<Object[]> findAllVideosCreateByUserFromCommunnityUser(@Param("userId") long userId, @Param("userCommunityId") long userCommunityId);
 }

@@ -38,8 +38,6 @@ public interface UserRepository extends CrudRepository<UserDB, Long> {
   List<String> findEmailForUserHaveSameCommunityAndCouldCreateSign(@Param("userId") long userId);
 
 
-  @Query("select distinct s FROM UserDB s inner join s.favorites favorite where favorite = :favoriteDB")
-  List<UserDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
   public default UserDB findOne(long id) {
     return findById(id).orElse(null);
