@@ -340,7 +340,7 @@ public class SignRestController {
   @RequestMapping(value = RestApi.WS_SEC_SIGNS_VIDEOS)
   public ResponseEntity<?> videosForSign(@PathVariable long signId, Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
-    List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
+    List<Object[]> querySigns = services.sign().AllVideosForSign(user.id, signId);
     List<VideoViewData> videoViewsData = querySigns.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
@@ -367,7 +367,7 @@ public class SignRestController {
   @RequestMapping(value = RestApi.WS_ROOT_SIGNS_VIDEOS)
   public ResponseEntity<?> videosForSignWithoutUser(@PathVariable long signId, Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
-    List<Object[]> querySigns = services.sign().AllVideosForSign(signId);
+    List<Object[]> querySigns = services.sign().AllVideosForSign(user.id, signId);
     List<VideoViewData> videoViewsData = querySigns.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
@@ -394,8 +394,9 @@ public class SignRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEOS)
-  public ResponseEntity<?> videos() {
-    List<Object[]> querySigns = services.sign().AllVideosForAllSigns();
+  public ResponseEntity<?> videos(Principal principal) {
+    final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+    List<Object[]> querySigns = services.sign().AllVideosForAllSigns(user.id);
     List<VideoViewData> videoViewsData = querySigns.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
@@ -479,25 +480,25 @@ public class SignRestController {
 
     if (sort.isPresent()) {
       if (sort.get().equals("date")) {
-        querySigns = services.sign().mostRecentWithoutDate();
+        querySigns = services.sign().mostRecentWithoutDate(user.id);
       } else if (sort.get().equals("-date")) {
-        querySigns = services.sign().lowRecentWithoutDate();
+        querySigns = services.sign().lowRecentWithoutDate(user.id);
       } else if (sort.get().equals("name")) {
-        querySigns = services.sign().SignsAlphabeticalOrderAscSignsView();
+        querySigns = services.sign().SignsAlphabeticalOrderAscSignsView(user.id);
       } else if (sort.get().equals("-name")) {
-        querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
+        querySigns = services.sign().SignsAlphabeticalOrderDescSignsView(user.id);
       } else if (sort.get().equals("averageRating")) {
-        querySigns = services.sign().SignsForSignsView();
-        signWithRatingList = Arrays.asList(services.sign().mostRating());
+        querySigns = services.sign().SignsForSignsView(user.id);
+        signWithRatingList = Arrays.asList(services.sign().mostRating(user.id));
       } else if (sort.get().equals("-averageRating")) {
-        querySigns = services.sign().SignsForSignsView();
-        signWithRatingList = Arrays.asList(services.sign().lowRating());
+        querySigns = services.sign().SignsForSignsView(user.id);
+        signWithRatingList = Arrays.asList(services.sign().lowRating(user.id));
       } else {
         messageError = messageByLocaleService.getMessage("filter_not_exits", new Object[]{sort.get()});
         return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
       }
     } else {
-      querySigns = services.sign().SignsForSignsView();
+      querySigns = services.sign().SignsForSignsView(user.id);
     }
 
     List<SignViewData> signViewsData = querySigns.stream()
@@ -505,11 +506,11 @@ public class SignRestController {
       .collect(Collectors.toList());
 
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
 
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed(user.id));
 
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
 
     List<SignView2> signViews = new ArrayList<>();
     List<Long> signInFavorite = new ArrayList<>();
@@ -601,25 +602,25 @@ public class SignRestController {
 
     if (sort.isPresent()) {
       if (sort.get().equals("date")) {
-        querySigns = services.sign().mostRecentWithoutDate();
+        querySigns = services.sign().mostRecentWithoutDate(user.id);
       } else if (sort.get().equals("-date")) {
-        querySigns = services.sign().lowRecentWithoutDate();
+        querySigns = services.sign().lowRecentWithoutDate(user.id);
       } else if (sort.get().equals("name")) {
-        querySigns = services.sign().SignsAlphabeticalOrderAscSignsView();
+        querySigns = services.sign().SignsAlphabeticalOrderAscSignsView(user.id);
       } else if (sort.get().equals("-name")) {
-        querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
+        querySigns = services.sign().SignsAlphabeticalOrderDescSignsView(user.id);
       } else if (sort.get().equals("averageRating")) {
-        querySigns = services.sign().SignsForSignsView();
-        signWithRatingList = Arrays.asList(services.sign().mostRating());
+        querySigns = services.sign().SignsForSignsView(user.id);
+        signWithRatingList = Arrays.asList(services.sign().mostRating(user.id));
       } else if (sort.get().equals("-averageRating")) {
-        querySigns = services.sign().SignsForSignsView();
-        signWithRatingList = Arrays.asList(services.sign().lowRating());
+        querySigns = services.sign().SignsForSignsView(user.id);
+        signWithRatingList = Arrays.asList(services.sign().lowRating(user.id));
       } else {
         messageError = messageByLocaleService.getMessage("filter_not_exits", new Object[]{sort.get()});
         return new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
       }
     } else {
-      querySigns = services.sign().SignsForSignsView();
+      querySigns = services.sign().SignsForSignsView(user.id);
     }
 
     List<SignViewData> signViewsData = querySigns.stream()
@@ -627,11 +628,11 @@ public class SignRestController {
       .collect(Collectors.toList());
 
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented());
+    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
 
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed());
+    List<Long> signWithView = Arrays.asList(services.sign().mostViewed(user.id));
 
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
 
     List<SignView2> signViews = new ArrayList<>();
     List<Long> signInFavorite = new ArrayList<>();

@@ -29,42 +29,36 @@ import java.util.List;
 
 public interface SignService {
 
-  List<Object[]> mostRecent(Date lastConnectionDate);
 
-  List<Object[]> lowRecent(Date lastConnectionDate);
-
-  List<Object[]> mostRecentWithoutDate();
-
-  List<Object[]> lowRecentWithoutDate();
+  List<Object[]> mostRecentWithoutDate(long userId);
 
 
-  Long[] mostViewed();
+  List<Object[]> lowRecentWithoutDate(long userId);
 
-  Long[] lowViewed();
 
-  Long[] lowCommented();
+  Long[] mostViewed(long userId);
 
-  Long[] mostCommented();
+  Long[] lowViewed(long userId);
 
-  Long[] mostRating();
+  Long[] lowCommented(long userId);
 
-  Long[] lowRating();
+  Long[] mostCommented(long userId);
 
-  List<Object[]> SignsForSignsView();
+  Long[] mostRating(long userId);
 
-  List<Object[]> SignsAndRequestsAlphabeticalOrderAscSignsView(long userId);
+  Long[] lowRating(long userId);
 
-  List<Object[]> SignsAndRequestsAlphabeticalOrderDescSignsView(long userId);
+  List<Object[]> SignsForSignsView(long userId);
 
-  List<Object[]> SignsAlphabeticalOrderAscSignsView();
+  List<Object[]> SignsAlphabeticalOrderAscSignsView(long userId);
 
-  List<Object[]> SignsAlphabeticalOrderDescSignsView();
+  List<Object[]> SignsAlphabeticalOrderDescSignsView(long userId);
 
   List<Object[]> AllVideosHistoryForSign(long signId);
 
-  List<Object[]> AllVideosForSign(long signId);
+  List<Object[]> AllVideosForSign(long userId, long signId);
 
-  List<Object[]> AllVideosForAllSigns();
+  List<Object[]> AllVideosForAllSigns(long userId);
 
   Long[] SignsBellowToFavoriteByUser(long userId);
 

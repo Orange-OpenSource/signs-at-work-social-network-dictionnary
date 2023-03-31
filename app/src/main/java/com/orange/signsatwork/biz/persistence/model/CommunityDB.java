@@ -29,6 +29,8 @@ import com.orange.signsatwork.biz.domain.FavoriteType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -70,6 +72,13 @@ public class CommunityDB {
     @ManyToMany(mappedBy = "communities", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<FavoriteDB> favorites;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "communities_videos", joinColumns = @JoinColumn(name = "communities_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "videos_id", referencedColumnName = "id"))
+    @JsonManagedReference
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<VideoDB> videos = new ArrayList<>();
+
 
     public CommunityDB(String name, CommunityType type) {
         this.name = name;

@@ -43,8 +43,6 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
 
     @Query(value="select id, name, create_date, last_video_id, url, 'picture_uri', nb_video from signs  where name = :name", nativeQuery = true)
     List<Object[]> findFullName(@Param("name") String name);
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
-    List<Object[]> findSignsForSignsView();
 
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<Object[]> findSignsAndRequestsAlphabeticalOrderAscForSignsView(@Param("userId") long userId);
@@ -52,56 +50,14 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and length(b.name) != 0 union select 0, name, request_date, id, \"/sec/my-request-detail/\", \"/img/my_request.png\", 0 from requests where sign_id is null and user_id= :userId and length(name) != 0 union select 0, name, request_date, id, \"/sec/other-request-detail/\", \"/img/request.jpg\", 0 from requests where sign_id is null and user_id != :userId and length(name) != 0 order by lower(name) collate utf8_unicode_ci desc", nativeQuery = true)
     List<Object[]> findSignsAndRequestsAlphabeticalOrderDescForSignsView(@Param("userId") long userId);
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
-    List<Object[]> findSignsAlphabeticalOrderAscForSignsView();
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by lower(name) collate utf8_unicode_ci desc", nativeQuery = true)
-    List<Object[]> findSignsAlphabeticalOrderDescForSignsView();
-
-
-  @Query(value="select distinct(c.sign_id) from favorites_videos a inner join favorites b inner join videos c on c.id = a.videos_id and a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)
+    @Query(value="select distinct(c.sign_id) from favorites_videos a inner join favorites b inner join videos c on c.id = a.videos_id and a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)
     Long[] findSignsBellowToFavoriteByUser(@Param("userId") long userId);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id order by lower(b.name)", nativeQuery = true)
-    List<Object[]> findAllVideosForAllSigns();
 
     @Query(value="select a.create_date, b.username, b.first_name, b.last_name from videos a inner join userdb b on a.sign_id = :signId and a.user_id = b.id order by a.create_date desc", nativeQuery = true)
     List<Object[]> findAllVideosHistoryForSign(@Param("signId") long signId);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id and a.sign_id = :signId order by a.create_date desc", nativeQuery = true)
-    List<Object[]> findAllVideosForSign(@Param("signId") long signId);
-
-
-    @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr desc", nativeQuery = true)
-    Long[] findMostViewed();
-
-    @Query(value="select  a.sign_id, sum(a.nb_view) as nbr from videos a where a.nb_view != 0 group by a.sign_id order by nbr asc", nativeQuery = true)
-    Long[] findLowViewed();
-
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date desc", nativeQuery = true)
-    List<Object[]> findMostRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
-
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id where b.create_date > :lastDeconnectionDate order by b.create_date asc", nativeQuery = true)
-    List<Object[]> findLowRecent(@Param("lastDeconnectionDate") Date lastDeconnectionDate);
-
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
-    List<Object[]> findMostRecentWithoutDate();
-
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date asc", nativeQuery = true)
-    List<Object[]> findLowRecentWithoutDate();
-
-
-  @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
-    Long[] findMostRating();
-
-    @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr > 0 order by nbr asc", nativeQuery = true)
-    Long[] findLowRating();
-
-    @Query(value="select  sign_id, sum(nb_comment) as nbr from videos where nb_comment != 0 group by sign_id having nbr != 0 order by nbr desc", nativeQuery = true)
-    Long[] findMostCommented();
-
-    @Query(value="select  sign_id, sum(nb_comment) as nbr from videos where nb_comment != 0 group by sign_id having nbr != 0 order by nbr asc", nativeQuery = true)
-    Long[] findLowCommented();
 
     @Query(value="select count(*) from ratings r, videos v where r.video_id = v.id and v.sign_id =  :signId", nativeQuery = true)
     Long findNbRatingForSign(@Param("signId") long signId);
@@ -110,4 +66,44 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
       return findById(id).orElse(null);
     }
 
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union  select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by create_date desc", nativeQuery = true)
+    List<Object[]> findMostRecentWithoutDate(@Param("userId") long userId);
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union  select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by create_date asc", nativeQuery = true)
+    List<Object[]> findLowRecentWithoutDate(@Param("userId") long userId);
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union  select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
+    List<Object[]> findSignsAlphabeticalOrderAscForSignsView(@Param("userId") long userId);
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union  select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by lower(name) collate utf8_unicode_ci desc", nativeQuery = true)
+    List<Object[]> findSignsAlphabeticalOrderDescForSignsView(@Param("userId") long userId);
+
+    @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
+    Long[] findMostRating(@Param("userId") long userId);
+
+    @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr asc", nativeQuery = true)
+    Long[] findLowRating(@Param("userId") long userId);
+
+    @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
+    Long[] findMostViewed(@Param("userId") long userId);
+
+    @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr asc", nativeQuery = true)
+    Long[] findLowViewed(@Param("userId") long userId);
+
+    @Query(value="select  a.sign_id, sum(a.nb_comment) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
+    Long[] findMostCommented(@Param("userId") long userId);
+
+
+    @Query(value="select  a.sign_id, sum(a.nb_comment) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr asc", nativeQuery = true)
+    Long[] findLowCommented(@Param("userId") long userId);
+
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union  select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by create_date desc", nativeQuery = true)
+    List<Object[]> findSignsForSignsView(@Param("userId") long userId);
+
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b  inner join communities_videos c inner join  communities_users d  on b.id = a.sign_id and a.sign_id = :signId and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id and a.sign_id = :signId and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by create_date desc", nativeQuery = true)
+    List<Object[]> findAllVideosForSign(@Param("userId") long userId, @Param("signId") long signId);
+
+
+  @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b  inner join communities_videos c inner join  communities_users d  on b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by lower(name)", nativeQuery = true)
+  List<Object[]> findAllVideosForAllSigns(@Param("userId") long userId);
 }

@@ -197,7 +197,8 @@ public class FavoriteController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/favorite/{favoriteId}/associate-sign")
-  public String associateSign(@PathVariable long favoriteId, Model model)  {
+  public String associateSign(@PathVariable long favoriteId, Principal principal, Model model)  {
+    User user = services.user().withUserName(principal.getName());
     Favorite favorite = services.favorite().withId(favoriteId);
     if (favorite == null) {
       return("redirect:/");
@@ -218,7 +219,7 @@ public class FavoriteController {
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
 
-    List<Object[]> querySigns = services.sign().AllVideosForAllSigns();
+    List<Object[]> querySigns = services.sign().AllVideosForAllSigns(user.id);
     List<VideoViewData> videoViewsData = querySigns.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());

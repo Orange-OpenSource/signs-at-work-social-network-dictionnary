@@ -67,6 +67,8 @@ public interface VideoService {
 
   List<Object[]> AllVideosCreateByUser(long userId);
 
+  List<Object[]> VideosShareInCommunitiesBelowUser(long userId);
+
   List<Object[]> SignForVideo(long videoId);
 
   List<Object[]> AllRatingsForVideo(long videoId);

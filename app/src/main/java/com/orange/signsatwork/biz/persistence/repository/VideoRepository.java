@@ -27,6 +27,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface VideoRepository extends CrudRepository<VideoDB, Long> {
@@ -73,4 +74,8 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     public default VideoDB findOne(long id) {
     return findById(id).orElse(null);
   }
+
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d where b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId" , nativeQuery = true)
+    List<Object[]> findVideosShareInCommunitiesBelowUser(@Param("userId") long userId);
+
 }

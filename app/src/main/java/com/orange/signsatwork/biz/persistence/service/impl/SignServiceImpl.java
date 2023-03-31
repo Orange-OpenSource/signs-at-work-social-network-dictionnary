@@ -84,81 +84,63 @@ public class SignServiceImpl implements SignService {
     return urlfileUploadDailyMotion;
   }
 
+
+
+
   @Override
-  public List<Object[]>  mostRecent(Date lastConnectionDate) {
-    return signRepository.findMostRecent(lastConnectionDate);
+  public List<Object[]> mostRecentWithoutDate(long userId) {
+    return signRepository.findMostRecentWithoutDate(userId);
   }
 
   @Override
-  public List<Object[]>  lowRecent(Date lastConnectionDate) {
-    return signRepository.findLowRecent(lastConnectionDate);
+  public List<Object[]>  lowRecentWithoutDate(long userId) {
+    return signRepository.findLowRecentWithoutDate(userId);
   }
 
   @Override
-  public List<Object[]>  mostRecentWithoutDate() {
-    return signRepository.findMostRecentWithoutDate();
+  public Long[] mostViewed(long userId) {
+    return signRepository.findMostViewed(userId);
   }
 
   @Override
-  public List<Object[]>  lowRecentWithoutDate() {
-    return signRepository.findLowRecentWithoutDate();
-  }
-
-  @Override
-  public Long[] mostViewed() {
-    return signRepository.findMostViewed();
-  }
-
-  @Override
-  public Long[] lowViewed() {
-    return signRepository.findLowViewed();
+  public Long[] lowViewed(long userId) {
+    return signRepository.findLowViewed(userId);
   }
 
 
   @Override
-  public Long[] mostCommented() {
-    return signRepository.findMostCommented();
+  public Long[] mostCommented(long userId) {
+    return signRepository.findMostCommented(userId);
   }
 
   @Override
-  public Long[] lowCommented() {
-    return signRepository.findLowCommented();
+  public Long[] lowCommented(long userId) {
+    return signRepository.findLowCommented(userId);
   }
 
   @Override
-  public Long[] mostRating() {
-    return signRepository.findMostRating();
+  public Long[] mostRating(long userId) {
+    return signRepository.findMostRating(userId);
   }
 
   @Override
-  public Long[] lowRating() {
-    return signRepository.findLowRating();
+  public Long[] lowRating(long userId) {
+    return signRepository.findLowRating(userId);
   }
 
   @Override
-  public List<Object[]> SignsForSignsView() {
-    return signRepository.findSignsForSignsView();
-  }
-
-
-  @Override
-  public List<Object[]> SignsAndRequestsAlphabeticalOrderAscSignsView(long userId) {
-    return signRepository.findSignsAndRequestsAlphabeticalOrderAscForSignsView(userId);
+  public List<Object[]> SignsForSignsView(long userId) {
+    return signRepository.findSignsForSignsView(userId);
   }
 
   @Override
-  public List<Object[]> SignsAndRequestsAlphabeticalOrderDescSignsView(long userId) {
-    return signRepository.findSignsAndRequestsAlphabeticalOrderDescForSignsView(userId);
+  public List<Object[]> SignsAlphabeticalOrderAscSignsView(long userId) {
+    return signRepository.findSignsAlphabeticalOrderAscForSignsView(userId);
   }
 
   @Override
-  public List<Object[]> SignsAlphabeticalOrderAscSignsView() {
-    return signRepository.findSignsAlphabeticalOrderAscForSignsView();
-  }
-
-  @Override
-  public List<Object[]> SignsAlphabeticalOrderDescSignsView() {
-    return signRepository.findSignsAlphabeticalOrderDescForSignsView();
+  public List<Object[]> SignsAlphabeticalOrderDescSignsView(long userId) {
+    return signRepository.findSignsAlphabeticalOrderDescForSignsView(userId);
   }
 
   @Override
@@ -173,13 +155,13 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
-  public List<Object[]> AllVideosForSign(long signId) {
-    return signRepository.findAllVideosForSign(signId);
+  public List<Object[]> AllVideosForSign(long userId, long signId) {
+    return signRepository.findAllVideosForSign(userId, signId);
   }
 
   @Override
-  public List<Object[]> AllVideosForAllSigns() {
-    return signRepository.findAllVideosForAllSigns();
+  public List<Object[]> AllVideosForAllSigns(long userId) {
+    return signRepository.findAllVideosForAllSigns(userId);
   }
 
 
