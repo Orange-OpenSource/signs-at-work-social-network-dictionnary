@@ -61,32 +61,6 @@ public class UserController {
   @Value("${app.name}")
   String appName;
 
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/new-profil")
-  public String userProfil(Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
-
-    model.addAttribute("title", messageByLocaleService.getMessage("profile"));
-    model.addAttribute("user", user);
-    fillModelWithFavorites(model, user);
-    model.addAttribute("backUrl", "/");
-
-    List<Object[]> queryVideos = services.video().AllVideosCreateByUser(user.id);
-    List<VideoViewData> videoViewsData = queryVideos.stream()
-      .map(objectArray -> new VideoViewData(objectArray))
-      .collect(Collectors.toList());
-
-    List<Long> videoInFavorite = Arrays.asList(services.video().VideosForAllFavoriteByUser(user.id));
-
-    List<VideoView2> videoViews = videoViewsData.stream()
-      .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, user))
-      .collect(Collectors.toList());
-
-    model.addAttribute("videosView", videoViews);
-
-    return "new-profil";
-  }
-
 
   @Secured("ROLE_USER")
   @RequestMapping(value = "/sec/my-profil")
@@ -144,17 +118,6 @@ public class UserController {
       }
     }
     return isIOSDevice;
-  }
-
-  @Secured("ROLE_USER")
-  @RequestMapping(value = "/sec/your-job-description")
-  public String yourJobDescription(Principal principal, Model model) {
-    User user = services.user().withUserName(principal.getName());
-    model.addAttribute("title", messageByLocaleService.getMessage("your_job_description_title"));
-    model.addAttribute("user", user);
-    model.addAttribute("backUrl", "/sec/new-profil");
-
-    return "your-job-description";
   }
 
 
