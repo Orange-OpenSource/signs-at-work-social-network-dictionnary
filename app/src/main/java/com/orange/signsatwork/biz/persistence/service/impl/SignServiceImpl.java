@@ -93,13 +93,28 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> mostRecentWithoutDate() {
+    return signRepository.findMostRecentWithoutDate();
+  }
+
+  @Override
   public List<Object[]>  lowRecentWithoutDate(long userId) {
     return signRepository.findLowRecentWithoutDate(userId);
   }
 
   @Override
+  public List<Object[]>  lowRecentWithoutDate() {
+    return signRepository.findLowRecentWithoutDate();
+  }
+
+  @Override
   public Long[] mostViewed(long userId) {
     return signRepository.findMostViewed(userId);
+  }
+
+  @Override
+  public Long[] mostViewed() {
+    return signRepository.findMostViewed();
   }
 
   @Override
@@ -114,6 +129,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Long[] mostCommented() {
+    return signRepository.findMostCommented();
+  }
+
+  @Override
   public Long[] lowCommented(long userId) {
     return signRepository.findLowCommented(userId);
   }
@@ -121,6 +141,11 @@ public class SignServiceImpl implements SignService {
   @Override
   public Long[] mostRating(long userId) {
     return signRepository.findMostRating(userId);
+  }
+
+  @Override
+  public Long[] mostRating() {
+    return signRepository.findMostRating();
   }
 
   @Override

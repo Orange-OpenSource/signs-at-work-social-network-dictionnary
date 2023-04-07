@@ -32,11 +32,15 @@ public interface SignService {
 
   List<Object[]> mostRecentWithoutDate(long userId);
 
+  List<Object[]> mostRecentWithoutDate();
 
   List<Object[]> lowRecentWithoutDate(long userId);
 
+  List<Object[]> lowRecentWithoutDate();
 
   Long[] mostViewed(long userId);
+
+  Long[] mostViewed();
 
   Long[] lowViewed(long userId);
 
@@ -44,7 +48,11 @@ public interface SignService {
 
   Long[] mostCommented(long userId);
 
+  Long[] mostCommented();
+
   Long[] mostRating(long userId);
+
+  Long[] mostRating();
 
   Long[] lowRating(long userId);
 

@@ -658,28 +658,56 @@ public class SignController {
     }
 
     List<Object[]> querySigns;
-    if (isMostRecent == true) {
-      /*querySigns = services.sign().lowRecent(user.lastDeconnectionDate);*/
-      querySigns = services.sign().lowRecentWithoutDate(user.id);
-      model.addAttribute("isLowRecent", true);
-      model.addAttribute("isMostRecent", false);
-      model.addAttribute("classDropdownDirection", "  up_black pull-right");
+    List<SignViewData> signViewsData;
+    List<Long> signWithCommentList, signWithView, signWithPositiveRate;
+    if (user != null) {
+      if (isMostRecent == true) {
+        /*querySigns = services.sign().lowRecent(user.lastDeconnectionDate);*/
+        querySigns = services.sign().lowRecentWithoutDate(user.id);
+        model.addAttribute("isLowRecent", true);
+        model.addAttribute("isMostRecent", false);
+        model.addAttribute("classDropdownDirection", "  up_black pull-right");
+      } else {
+        /*querySigns = services.sign().mostRecent(user.lastDeconnectionDate);*/
+        querySigns = services.sign().mostRecentWithoutDate(user.id);
+        model.addAttribute("isMostRecent", true);
+        model.addAttribute("isLowRecent", false);
+        model.addAttribute("classDropdownDirection", "  down_black pull-right");
+      }
+      signViewsData = querySigns.stream()
+        .map(objectArray -> new SignViewData(objectArray))
+        .collect(Collectors.toList());
+
+      signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
+
+      signWithView = Arrays.asList(services.sign().mostViewed(user.id));
+
+      signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
     } else {
-     /*querySigns = services.sign().mostRecent(user.lastDeconnectionDate);*/
-      querySigns = services.sign().mostRecentWithoutDate(user.id);
-      model.addAttribute("isMostRecent", true);
-      model.addAttribute("isLowRecent", false);
-      model.addAttribute("classDropdownDirection", "  down_black pull-right");
+      if (isMostRecent == true) {
+        /*querySigns = services.sign().lowRecent(user.lastDeconnectionDate);*/
+        querySigns = services.sign().lowRecentWithoutDate();
+        model.addAttribute("isLowRecent", true);
+        model.addAttribute("isMostRecent", false);
+        model.addAttribute("classDropdownDirection", "  up_black pull-right");
+      } else {
+        /*querySigns = services.sign().mostRecent(user.lastDeconnectionDate);*/
+        querySigns = services.sign().mostRecentWithoutDate();
+        model.addAttribute("isMostRecent", true);
+        model.addAttribute("isLowRecent", false);
+        model.addAttribute("classDropdownDirection", "  down_black pull-right");
+      }
+      signViewsData = querySigns.stream()
+        .map(objectArray -> new SignViewData(objectArray))
+        .collect(Collectors.toList());
+
+      signWithCommentList = Arrays.asList(services.sign().mostCommented());
+
+      signWithView = Arrays.asList(services.sign().mostViewed());
+
+      signWithPositiveRate = Arrays.asList(services.sign().mostRating());
     }
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
-      .collect(Collectors.toList());
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
-
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed(user.id));
-
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
     List<SignView2> signViews;
     if (user != null) {
       List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
