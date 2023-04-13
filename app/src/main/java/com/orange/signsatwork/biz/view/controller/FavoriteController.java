@@ -96,7 +96,7 @@ public class FavoriteController {
     model.addAttribute("backUrl", "/");
     model.addAttribute("favoriteManageView", favorite);
 
-    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
+    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId, user.id);
     List<VideoViewData> videoViewsData = queryVideos.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());

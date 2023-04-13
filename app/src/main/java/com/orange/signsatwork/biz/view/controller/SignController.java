@@ -255,7 +255,7 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     Favorite favorite = services.favorite().withId(favoriteId);
-    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
+    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId, user.id);
     List<VideoViewData> videoViewsData = queryVideos.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());
@@ -315,7 +315,7 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     Favorite favorite = services.favorite().withId(favoriteId);
-    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
+    List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId, user.id);
     List<VideoViewData> videoViewsData = queryVideos.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .collect(Collectors.toList());

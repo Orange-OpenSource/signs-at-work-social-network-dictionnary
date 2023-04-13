@@ -256,8 +256,8 @@ public class VideoServiceImpl implements VideoService {
   }
 
   @Override
-  public List<Object[]> VideosForFavoriteView(long favoriteId) {
-    return videoRepository.findVideosForFavoriteView(favoriteId);
+  public List<Object[]> VideosForFavoriteView(long favoriteId, long userId) {
+    return videoRepository.findVideosForFavoriteView(favoriteId, userId);
   }
 
   @Override

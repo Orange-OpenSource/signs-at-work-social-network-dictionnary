@@ -50,8 +50,8 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query("select distinct s FROM VideoDB s inner join s.favorites favorite where favorite = :favoriteDB")
     List<VideoDB> findByFavorite(@Param("favoriteDB") FavoriteDB favoriteDB);
 
-    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join favorites_videos c on a.sign_id = b.id and c.videos_id = a.id and c.favorites_id = :favoriteId order by b.create_date desc", nativeQuery = true)
-    List<Object[]> findVideosForFavoriteView(@Param("favoriteId") long favoriteId);
+    @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join favorites_videos c inner join communities_videos d inner join communities_users e  on a.sign_id = b.id and c.videos_id = a.id and c.favorites_id = :favoriteId and a.id = d.videos_id and d.communities_id = e.communities_id and e.users_id = :userId order by b.create_date desc;", nativeQuery = true)
+    List<Object[]> findVideosForFavoriteView(@Param("favoriteId") long favoriteId, @Param("userId") long userId);
 
     @Query(value="select a.videos_id from favorites_videos a inner join favorites b on a.favorites_id = b.id and b.user_id = :userId", nativeQuery = true)
     Long[] findVideosForAllFavoriteByUser(@Param("userId") long userId);

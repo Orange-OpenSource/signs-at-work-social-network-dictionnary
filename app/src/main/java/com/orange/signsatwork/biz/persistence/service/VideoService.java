@@ -57,7 +57,7 @@ public interface VideoService {
 
   Videos forFavorite(long favoriteId);
 
-  List<Object[]> VideosForFavoriteView(long favoriteId);
+  List<Object[]> VideosForFavoriteView(long favoriteId, long userId);
 
   Long[] VideosForAllFavoriteByUser(long userId);
 
