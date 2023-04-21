@@ -154,6 +154,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public Long[] lowRating() {
+    return signRepository.findLowRating();
+  }
+
+  @Override
   public List<Object[]> SignsForSignsView(long userId) {
     return signRepository.findSignsForSignsView(userId);
   }

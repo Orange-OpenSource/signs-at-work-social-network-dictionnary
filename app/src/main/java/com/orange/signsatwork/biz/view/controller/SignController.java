@@ -515,30 +515,59 @@ public class SignController {
       .collect(Collectors.toList());
 
     List<Long> signWithRatingList;
-    if (isMostRating == true) {
-      signWithRatingList = Arrays.asList(services.sign().lowRating(user.id));
-      model.addAttribute("isLowRating", true);
-      model.addAttribute("isMostRating", false);
-      model.addAttribute("classDropdownDirection", "  up_black pull-right");
+    List<SignViewData> rating;
+    List<Long> signWithCommentList, signWithView, signWithPositiveRate;
+    if (user != null) {
+      if (isMostRating == true) {
+        signWithRatingList = Arrays.asList(services.sign().lowRating(user.id));
+        model.addAttribute("isLowRating", true);
+        model.addAttribute("isMostRating", false);
+        model.addAttribute("classDropdownDirection", "  up_black pull-right");
 
+      } else {
+        signWithRatingList = Arrays.asList(services.sign().mostRating(user.id));
+        model.addAttribute("isMostRating", true);
+        model.addAttribute("isLowRating", false);
+        model.addAttribute("classDropdownDirection", "  down_black pull-right");
+
+      }
+
+      rating = signViewsData.stream()
+        .filter(signViewData -> signWithRatingList.contains(signViewData.id))
+        .sorted(new CommentOrderComparator(signWithRatingList))
+        .collect(Collectors.toList());
+
+      signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
+
+      signWithView = Arrays.asList(services.sign().mostViewed(user.id));
+
+      signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
     } else {
-      signWithRatingList = Arrays.asList(services.sign().mostRating(user.id));
-      model.addAttribute("isMostRating", true);
-      model.addAttribute("isLowRating", false);
-      model.addAttribute("classDropdownDirection", "  down_black pull-right");
+        if (isMostRating == true) {
+          signWithRatingList = Arrays.asList(services.sign().lowRating());
+          model.addAttribute("isLowRating", true);
+          model.addAttribute("isMostRating", false);
+          model.addAttribute("classDropdownDirection", "  up_black pull-right");
 
-    }
+        } else {
+          signWithRatingList = Arrays.asList(services.sign().mostRating());
+          model.addAttribute("isMostRating", true);
+          model.addAttribute("isLowRating", false);
+          model.addAttribute("classDropdownDirection", "  down_black pull-right");
 
-    List<SignViewData> rating = signViewsData.stream()
-      .filter(signViewData -> signWithRatingList.contains(signViewData.id))
-      .sorted(new CommentOrderComparator(signWithRatingList))
-      .collect(Collectors.toList());
+        }
 
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
+        rating = signViewsData.stream()
+          .filter(signViewData -> signWithRatingList.contains(signViewData.id))
+          .sorted(new CommentOrderComparator(signWithRatingList))
+          .collect(Collectors.toList());
 
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed(user.id));
+        signWithCommentList = Arrays.asList(services.sign().mostCommented());
 
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
+        signWithView = Arrays.asList(services.sign().mostViewed());
+
+        signWithPositiveRate = Arrays.asList(services.sign().mostRating());
+      }
     List<SignView2> signViews;
     if (user != null) {
       List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
@@ -646,9 +675,9 @@ public class SignController {
   @RequestMapping(value = "/signs/mostrecent")
   public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
-    if (user == null && (appName.equals("Signs@Form") || appName.equals("Signs@ADIS")) ) {
+/*    if (user == null && (appName.equals("Signs@Form") || appName.equals("Signs@ADIS")) ) {
       return "redirect:/login";
-    }
+    }*/
 
 
     if (isSearch) {

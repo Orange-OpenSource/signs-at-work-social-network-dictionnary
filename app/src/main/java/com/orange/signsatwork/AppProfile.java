@@ -22,18 +22,33 @@ package com.orange.signsatwork;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Communities;
+import com.orange.signsatwork.biz.domain.CommunityType;
+import com.orange.signsatwork.biz.persistence.model.CommunityDB;
+import com.orange.signsatwork.biz.persistence.repository.CommunityRepository;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.orange.signsatwork.biz.domain.CommunityType.Job;
 
 @Component
 public class AppProfile {
 
   @Autowired
   private Environment environment;
+
+  @Autowired
+  private Services services;
+
+  @Autowired
+  private CommunityRepository communityRepository;
 
   private boolean devProfile;
   private Proxy proxy;
@@ -58,6 +73,7 @@ public class AppProfile {
     initDevProfile();
     initProxy();
     initDailyMotion();
+    initCommunities();
   }
 
 
@@ -89,5 +105,34 @@ public class AppProfile {
 
   public boolean isHttps() {
     return environment.getProperty("server.port").equals("8443");
+  }
+
+  private void initCommunities() {
+    Set<CommunityDB> set = new HashSet<>();
+    List<String> instanceCommunitiesName = Arrays.asList(environment.getProperty("app.instances").split(","));
+    List<CommunityDB> databaseInstanceCommunities = communityRepository.findAll(CommunityType.Instance);
+    List<String> databaseInstanceCommunitiesName = databaseInstanceCommunities.stream().map(d -> d.getName()
+    ).collect(Collectors.toList());
+    if (databaseInstanceCommunitiesName != null) {
+      instanceCommunitiesName.stream().map(communityName -> {
+        if (!databaseInstanceCommunitiesName.contains(communityName)) {
+          Collections.addAll(set, new CommunityDB(communityName, CommunityType.Instance));
+        }
+        return null;
+      }).collect(Collectors.toList());
+    } else {
+      instanceCommunitiesName.stream().map(communityName -> {
+        Collections.addAll(set, new CommunityDB(communityName, CommunityType.Instance));
+        return  null;
+      }).collect(Collectors.toList());
+    }
+    List<CommunityDB> databasePublicCommunities = communityRepository.findAll(CommunityType.Public);
+    if (databasePublicCommunities.size() == 0) {
+      Collections.addAll(set, new CommunityDB("Public", CommunityType.Public));
+    }
+
+    if (!set.isEmpty()) {
+      communityRepository.saveAll(set);
+    }
   }
 }

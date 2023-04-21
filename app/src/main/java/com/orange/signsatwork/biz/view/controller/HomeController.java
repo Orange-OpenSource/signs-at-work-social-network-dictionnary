@@ -90,12 +90,15 @@ public class HomeController {
   public String index(HttpServletRequest req, Principal principal, Model model) {
     long t0 = System.currentTimeMillis();
     String pageName;
+    List<Object[]> querySigns;
+
     model.addAttribute("title", appName);
     model.addAttribute("appName", appName);
     if (AuthentModel.isAuthenticated(principal)) {
       pageName = doIndex(req, principal, model);
     } else {
-      if (appName.equals("Signs@Work")) {
+      querySigns = services.sign().mostRecentWithoutDate();
+      if (!querySigns.isEmpty()) {
         pageName="redirect:/signs/mostrecent?isMostRecent=false&isSearch=false";
       } else {
         pageName = "login";

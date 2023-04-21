@@ -66,10 +66,10 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     List<Object[]> findLowRecentWithoutDate(@Param("userId") long userId);
 
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date desc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.id and d.type = \"Public\" order by create_date desc", nativeQuery = true)
     List<Object[]> findMostRecentWithoutDate();
 
-    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id order by b.create_date asc", nativeQuery = true)
+    @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.id and d.type = \"Public\" order by create_date asc", nativeQuery = true)
     List<Object[]> findLowRecentWithoutDate();
     @Query(value="select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId union  select b.id, b.name, b.create_date, b.last_video_id, a.url, a.picture_uri, b.nb_video from videos a inner join signs b on a.id = b.last_video_id and b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<Object[]> findSignsAlphabeticalOrderAscForSignsView(@Param("userId") long userId);
@@ -80,11 +80,14 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
     Long[] findMostRating(@Param("userId") long userId);
 
-  @Query(value="select  sign_id, sum(average_rate) as nbr from videos where average_rate != 0 group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
+  @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.id and d.type = 'Public' and a.average_rate != 0 group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
   Long[] findMostRating();
 
     @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr asc", nativeQuery = true)
     Long[] findLowRating(@Param("userId") long userId);
+
+    @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.id and d.type = 'Public' and a.average_rate != 0 group by sign_id having nbr > 0 order by nbr asc", nativeQuery = true)
+    Long[] findLowRating();
 
     @Query(value="select  a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b inner join communities_videos c inner join communities_users d on a.id = b.last_video_id and b.id = a.sign_id and a.id = c.videos_id and c.communities_id = d.communities_id and d.users_id = :userId and a.average_rate != 0 union select a.sign_id, sum(a.average_rate) as nbr from videos a inner join signs b on b.id = a.sign_id and a.user_id = :userId and a.id not in (select videos_id from communities_videos) group by sign_id having nbr > 0 order by nbr desc", nativeQuery = true)
     Long[] findMostViewed(@Param("userId") long userId);

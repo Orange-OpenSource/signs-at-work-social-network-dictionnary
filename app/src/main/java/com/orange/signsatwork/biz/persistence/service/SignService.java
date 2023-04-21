@@ -56,6 +56,8 @@ public interface SignService {
 
   Long[] lowRating(long userId);
 
+  Long[] lowRating();
+
   List<Object[]> SignsForSignsView(long userId);
 
   List<Object[]> SignsAlphabeticalOrderAscSignsView(long userId);
