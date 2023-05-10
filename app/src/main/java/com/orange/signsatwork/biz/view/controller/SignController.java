@@ -533,15 +533,16 @@ public class SignController {
 
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
 
-    List<Object[]> querySigns = services.sign().SignsForSignsView(user.id);
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
-      .collect(Collectors.toList());
-
+    List<Object[]> querySigns;
+    List<SignViewData> signViewsData;
     List<Long> signWithRatingList;
     List<SignViewData> rating;
     List<Long> signWithCommentList, signWithView, signWithPositiveRate;
     if (user != null) {
+      querySigns = services.sign().SignsForSignsView(user.id);
+      signViewsData = querySigns.stream()
+        .map(objectArray -> new SignViewData(objectArray))
+        .collect(Collectors.toList());
       if (isMostRating == true) {
         signWithRatingList = Arrays.asList(services.sign().lowRating(user.id));
         model.addAttribute("isLowRating", true);
@@ -567,6 +568,10 @@ public class SignController {
 
       signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
     } else {
+        querySigns = services.sign().SignsForSignsView();
+        signViewsData = querySigns.stream()
+          .map(objectArray -> new SignViewData(objectArray))
+          .collect(Collectors.toList());
         if (isMostRating == true) {
           signWithRatingList = Arrays.asList(services.sign().lowRating());
           model.addAttribute("isLowRating", true);
@@ -1339,26 +1344,39 @@ public class SignController {
   private void fillModelWithSigns(Model model, Principal principal) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
-    List<Object[]> querySigns = services.sign().SignsForSignsView(user.id);
-    List<SignViewData> signViewsData = querySigns.stream()
-      .map(objectArray -> new SignViewData(objectArray))
-      .collect(Collectors.toList());
-
-    List<Long> signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
-
-    List<Long> signWithView = Arrays.asList(services.sign().mostViewed(user.id));
-
-    List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
+    List<Object[]> querySigns;
+    List<SignViewData> signViewsData;
+    List<Long> signWithCommentList, signWithView, signWithPositiveRate;
 
     List<SignView2> signViews;
     List<Long> signInFavorite = null;
     if (user != null) {
+      querySigns = services.sign().SignsForSignsView(user.id);
+      signViewsData = querySigns.stream()
+        .map(objectArray -> new SignViewData(objectArray))
+        .collect(Collectors.toList());
+
+      signWithCommentList = Arrays.asList(services.sign().mostCommented(user.id));
+
+      signWithView = Arrays.asList(services.sign().mostViewed(user.id));
+
+      signWithPositiveRate = Arrays.asList(services.sign().mostRating(user.id));
       signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
       List<Long> finalSignInFavorite = signInFavorite;
       signViews = signViewsData.stream()
         .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, finalSignInFavorite, user))
         .collect(Collectors.toList());
     } else {
+      querySigns = services.sign().SignsForSignsView();
+      signViewsData = querySigns.stream()
+        .map(objectArray -> new SignViewData(objectArray))
+        .collect(Collectors.toList());
+
+      signWithCommentList = Arrays.asList(services.sign().mostCommented());
+
+      signWithView = Arrays.asList(services.sign().mostViewed());
+
+      signWithPositiveRate = Arrays.asList(services.sign().mostRating());
       signViews = signViewsData.stream()
         .map(signViewData -> new SignView2(
           signViewData,

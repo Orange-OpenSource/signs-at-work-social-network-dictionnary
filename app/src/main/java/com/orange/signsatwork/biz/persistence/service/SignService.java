@@ -60,6 +60,8 @@ public interface SignService {
 
   List<Object[]> SignsForSignsView(long userId);
 
+  List<Object[]> SignsForSignsView();
+
   List<Object[]> SignsAlphabeticalOrderAscSignsView(long userId);
 
   List<Object[]> SignsAlphabeticalOrderDescSignsView(long userId);

@@ -164,6 +164,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> SignsForSignsView() {
+    return signRepository.findSignsForSignsView();
+  }
+
+  @Override
   public List<Object[]> SignsAlphabeticalOrderAscSignsView(long userId) {
     return signRepository.findSignsAlphabeticalOrderAscForSignsView(userId);
   }
