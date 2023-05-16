@@ -33,13 +33,14 @@ cgu-url: "https://www.dailymotion.com/embed/video/k2HwFhjhimHm1uvOU3g"
 display-url: "https://www.dailymotion.com/embed/video/k2ADmPrk2ekIL2vU8hf"
 
 spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
   mail:
     host: mailhost.rd.francetelecom.fr
     port: 2525
   main:
     allow-circular-references: true
-    jackson:
-      serialization.write-dates-as-timestamps: true
   jpa:
     properties:
       hibernate:
