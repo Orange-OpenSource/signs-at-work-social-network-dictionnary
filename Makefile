@@ -17,7 +17,3 @@ deb:
 	bash .dh_build.sh
 	mv ../signsat$(INSTANCE)*.deb .
 
-
-
-clean:
-	debclean
