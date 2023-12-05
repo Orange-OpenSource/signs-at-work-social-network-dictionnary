@@ -52,8 +52,8 @@
             </li>
           </ul>
         </aside>
-        <h2 th:if="${!#strings.equals(appName,'Signs@ADIS')}" class="blue" id="cgu-dailymotion" th:text="#{personal_data_dailymotion}"/>
-        <aside th:if="${!#strings.equals(appName,'Signs@ADIS')}" class="sidebar">
+        <h2 th:if="${!#strings.equals(appName,'Signs@ADIS') && !#strings.equals(appName,'Signs@LMB')}" class="blue" id="cgu-dailymotion" th:text="#{personal_data_dailymotion}"/>
+        <aside th:if="${!#strings.equals(appName,'Signs@ADIS') && !#strings.equals(appName,'Signs@LMB')}" class="sidebar">
           <ul class="nav nav-list primary left-menu">
             <li class="aside_bckg_li">
               <a class="all_li_clickable" href="https://www.dailymotion.com/legal/privacy" th:target="_blank">

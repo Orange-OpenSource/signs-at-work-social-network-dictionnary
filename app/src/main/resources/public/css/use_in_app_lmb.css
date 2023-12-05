@@ -1,0 +1,699 @@
+#prefetch {
+  background:  url("/img/done_lmb.png"), url("/img/sprite_picto_400X400_LMB.png"), url("/img/sprite_picto_400X400_logo_LMB.png"), url("/img/sprite_pictoAdmin_400X400_LMB.png") no-repeat;
+}
+
+#main_nav{
+  background-color: #72275d;
+  border-style:none;
+}
+
+
+#label_welcome {
+  color:#72275d;
+}
+
+
+.form-control {
+  color:#72275d;
+  height:42px;
+}
+
+
+.form-signin-heading {
+  color: #72275d;
+}
+
+.col-xs-12 h5:hover{
+  color: #72275d;
+}
+
+
+a:hover,
+a:focus,
+a:active{
+  color: #72275d;
+  outline: 0;
+}
+
+
+.modal-header {
+  background-color: #72275d;
+  color: #FFFFFF;
+}
+
+
+.modal-footer>.btn{
+  color: #72275d;
+  font-size: 14px;
+  border-style:none;
+  font-weight: bold;
+}
+
+
+h1, .h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color:#72275d;
+}
+
+
+.footer>.btn-default {
+  color: #72275d;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+  line-height: 16px;
+  width: 49%;
+  height: 40px;
+  background-color: #EBEBEB;
+  text-align: center;
+}
+
+
+.lexical {
+  font-size:20px;
+  text-align: center;
+  color: #72275d;
+  margin-bottom: 30px;
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 25px;
+}
+
+.lexical_signsatform {
+  font-size:20px;
+  text-align: center;
+  color: #72275d;
+  margin-bottom: 30px;
+  margin-top: 25px;
+}
+
+
+.dropdown-menu > li > a.v-done-down_black{
+  background-color: #989898;
+  color: #72275d;
+}
+
+#sign_available,
+#video_available {
+  color: #72275d;
+}
+
+#sign_not_available {
+  margin-top: 30px;
+  color: #72275d;
+  white-space: pre-line;
+}
+
+
+H4#label_record,
+H4#label_after_record,
+H4#label_record_job_description,
+H4#label_after_record_job_description {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #72275d;
+}
+
+#container-button > button,
+#continue {
+  border: none;
+  background-color: transparent;
+  color: #72275d;
+}
+
+.same_name{
+  color: #72275d;
+  margin-top: 20px;
+}
+
+
+#InputFileLabel {
+  margin-top: 20px;
+  color: #72275d;
+  font-size: 14px;
+  border-style: none;
+  font-weight: bold;
+}
+
+textarea#text {
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #EBEBEB;
+  border-style: none;
+  border-radius: 0px;
+  font-size: 14px;
+  color: #72275d;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #72275d;
+  background-color: transparent;
+}
+
+
+.blue {
+  color: #72275d;
+}
+
+
+.subtitle_job {
+  color: #72275d;
+  font-size:18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+
+.subtitle {
+  text-align: center;
+  color: #72275d;
+  font-size:18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.about_title {
+  text-align: center;
+  color: #72275d;
+  font-size:18px;
+}
+
+
+.container_H2_blue{
+  float: left;
+  margin-left: 15px;
+  color: #72275d;
+}
+
+
+a.nav-link:hover,
+a.nav-link:focus,
+a.nav-link:active{
+  color: #8e8e8b;
+  outline: 0;
+}
+
+.nav > li.disabled > a,
+li.disabled > a,
+a.disabled > h4 {
+  color : #8e8e8b;
+}
+
+p > a {
+  color: #72275d;
+}
+
+h4.blue-cgu {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 25px;
+  color: #72275d;
+}
+
+.tooltip_variante {
+  background-color: #72275d;
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  font-size: 9px;
+  color:white;
+  right: 19px;
+  position:absolute;
+  top:40px;
+}
+
+#jobName {
+  display: inline;
+  margin-left: 20px;
+  color: #72275d;
+}
+
+.job_description_text {
+  display: inline-block;
+  color: #72275d;
+  width: 90%;"
+}
+
+.user_entity {
+  display: inline;
+  margin-left: 20px;
+  color: #72275d;
+}
+
+.user_name {
+  display: inline;
+  color: #72275d;
+}
+
+.request_name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #72275d;
+}
+
+.user_profil_name {
+  display: inline;
+  color: #72275d;
+}
+
+.user_email {
+  display: inline;
+  margin-left: 25px;
+  color: #72275d;
+}
+
+.double_border_top {
+  border-top: 3px solid #72275d;
+}
+
+#validate_modal_add_favorite {
+  color: #72275d;
+}
+
+.charte_color {
+  color: #72275d;
+}
+
+.member_blue-communities-suggest {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.illustration_welcome_signsatwork {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.logo_signsatwork_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.new_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.all-signs_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.sort_alpha_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.smiley_happy_blue-sign {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.new_blue-signs {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.sign_ask-for_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_ask_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.admin_group_ask_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_ask_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.v-done2_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.camera_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.folder_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_add {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.settings2_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.share_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.add-remove {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pin_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.edit_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.copy_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_delete {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_project_add {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.see_group_project_me_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.see_group_project_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.see_group_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_project_add_white {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.description_sign {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_project_empty-white {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_project_admin_me {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_choose_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_delete_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.definition_text_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.description_movie_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.variant_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.commentary_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.rewind_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.x-close_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.history_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+
+.admin_group_chartre_color {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.admin_group_project_chartre_color {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.see_group_member_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_me {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_project_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.cgu_conditions_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.contact {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.cgu_conditions_lsf_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_shared_new {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.smiley_happy_menu_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.modal-body .smiley_happy_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png")
+}
+
+.smiley_unhappy_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.smiley_happy_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.smiley_happy_blue_after_rate {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.smiley_unhappy_blue_after_rate {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pin_blue_in_frame {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.logo_signsatwork_white {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.about {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.search_black_desktop {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_me_black {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_black {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_black {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.x-close_black {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.message_black_desktop {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_add_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_add_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_project_add_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_delete_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png")
+}
+
+.description_sign_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_shared_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_choose_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.edit_blue_admin {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_shared_filter {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.sign_ask-for_blue_filter {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.member_add_blue_circle {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.member_blue_circle {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.group_project_blue_circle {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.member_blue_circle_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.member_add_blue_circle_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.group_project_blue_circle_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.Cefe {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.settings_grey {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.prio_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.descriptions_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+.x-close_blue_whitecircle {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.prio_blue_whitebackground {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_project_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_project_me_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.group_member_blue {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+.pinlist_shared {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
+
+[type="radio"]:checked + span:before ,
+[type="radio"]:checked + [type="hidden"] + span:before {
+   background-image: url("/img/done_LMB.png");
+}
+
+[type="radio"]:checked + h4:after ,
+[type="radio"]:checked + [type="hidden"] + h4:after {
+  background-image: url("/img/done_LMB.png");
+}
+
+[type="checkbox"]:checked + span:before ,
+[type="checkbox"]:checked + [type="hidden"] + span:before {
+  background-image: url("/img/done_LMB.png");
+}
+
+[type="checkbox"]:checked + h4:after ,
+[type="checkbox"]:checked + [type="hidden"] + h4:after {
+  background-image: url("/img/done_LMB.png");
+}
+
+.spinner_show{
+  background-image: url("/img/spinner-purple.gif");
+}
+
+.spinner-delete_show{
+  background-image: url("/img/spinner-purple.gif");
+}
+
+.sign_add_chartre_color {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.signlanguage_chartre_color {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.fond_blanc_noir_LSF_filter {
+  background-image: url("/img/sprite_pictoAdmin_400X400_LMB.png");
+}
+
+.member_choose_white {
+  background-image: url("/img/sprite_picto_400X400_LMB.png");
+}
