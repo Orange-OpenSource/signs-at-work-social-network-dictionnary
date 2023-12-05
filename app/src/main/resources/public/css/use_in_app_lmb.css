@@ -3,47 +3,47 @@
 }
 
 #main_nav{
-  background-color: #72275d;
+  background-color: #82235f;
   border-style:none;
 }
 
 
 #label_welcome {
-  color:#72275d;
+  color:#82235f;
 }
 
 
 .form-control {
-  color:#72275d;
+  color:#82235f;
   height:42px;
 }
 
 
 .form-signin-heading {
-  color: #72275d;
+  color: #82235f;
 }
 
 .col-xs-12 h5:hover{
-  color: #72275d;
+  color: #82235f;
 }
 
 
 a:hover,
 a:focus,
 a:active{
-  color: #72275d;
+  color: #82235f;
   outline: 0;
 }
 
 
 .modal-header {
-  background-color: #72275d;
+  background-color: #82235f;
   color: #FFFFFF;
 }
 
 
 .modal-footer>.btn{
-  color: #72275d;
+  color: #82235f;
   font-size: 14px;
   border-style:none;
   font-weight: bold;
@@ -53,12 +53,12 @@ a:active{
 h1, .h1 {
   font-size: 20px;
   font-weight: bold;
-  color:#72275d;
+  color:#82235f;
 }
 
 
 .footer>.btn-default {
-  color: #72275d;
+  color: #82235f;
   font-size: 14px;
   border-style: none;
   font-weight: bold;
@@ -73,7 +73,7 @@ h1, .h1 {
 .lexical {
   font-size:20px;
   text-align: center;
-  color: #72275d;
+  color: #82235f;
   margin-bottom: 30px;
   margin-left: 65px;
   margin-right: 65px;
@@ -83,7 +83,7 @@ h1, .h1 {
 .lexical_signsatform {
   font-size:20px;
   text-align: center;
-  color: #72275d;
+  color: #82235f;
   margin-bottom: 30px;
   margin-top: 25px;
 }
@@ -91,17 +91,17 @@ h1, .h1 {
 
 .dropdown-menu > li > a.v-done-down_black{
   background-color: #989898;
-  color: #72275d;
+  color: #82235f;
 }
 
 #sign_available,
 #video_available {
-  color: #72275d;
+  color: #82235f;
 }
 
 #sign_not_available {
   margin-top: 30px;
-  color: #72275d;
+  color: #82235f;
   white-space: pre-line;
 }
 
@@ -112,25 +112,25 @@ H4#label_record_job_description,
 H4#label_after_record_job_description {
   margin-top: 5px;
   margin-bottom: 5px;
-  color: #72275d;
+  color: #82235f;
 }
 
 #container-button > button,
 #continue {
   border: none;
   background-color: transparent;
-  color: #72275d;
+  color: #82235f;
 }
 
 .same_name{
-  color: #72275d;
+  color: #82235f;
   margin-top: 20px;
 }
 
 
 #InputFileLabel {
   margin-top: 20px;
-  color: #72275d;
+  color: #82235f;
   font-size: 14px;
   border-style: none;
   font-weight: bold;
@@ -143,23 +143,23 @@ textarea#text {
   border-style: none;
   border-radius: 0px;
   font-size: 14px;
-  color: #72275d;
+  color: #82235f;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
-  color: #72275d;
+  color: #82235f;
   background-color: transparent;
 }
 
 
 .blue {
-  color: #72275d;
+  color: #82235f;
 }
 
 
 .subtitle_job {
-  color: #72275d;
+  color: #82235f;
   font-size:18px;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -169,7 +169,7 @@ textarea#text {
 
 .subtitle {
   text-align: center;
-  color: #72275d;
+  color: #82235f;
   font-size:18px;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -178,7 +178,7 @@ textarea#text {
 
 .about_title {
   text-align: center;
-  color: #72275d;
+  color: #82235f;
   font-size:18px;
 }
 
@@ -186,7 +186,7 @@ textarea#text {
 .container_H2_blue{
   float: left;
   margin-left: 15px;
-  color: #72275d;
+  color: #82235f;
 }
 
 
@@ -204,18 +204,18 @@ a.disabled > h4 {
 }
 
 p > a {
-  color: #72275d;
+  color: #82235f;
 }
 
 h4.blue-cgu {
   margin-top: 0px;
   margin-bottom: 0px;
   line-height: 25px;
-  color: #72275d;
+  color: #82235f;
 }
 
 .tooltip_variante {
-  background-color: #72275d;
+  background-color: #82235f;
   width: 12px;
   height: 12px;
   border-radius: 12px;
@@ -229,53 +229,53 @@ h4.blue-cgu {
 #jobName {
   display: inline;
   margin-left: 20px;
-  color: #72275d;
+  color: #82235f;
 }
 
 .job_description_text {
   display: inline-block;
-  color: #72275d;
+  color: #82235f;
   width: 90%;"
 }
 
 .user_entity {
   display: inline;
   margin-left: 20px;
-  color: #72275d;
+  color: #82235f;
 }
 
 .user_name {
   display: inline;
-  color: #72275d;
+  color: #82235f;
 }
 
 .request_name {
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #72275d;
+  color: #82235f;
 }
 
 .user_profil_name {
   display: inline;
-  color: #72275d;
+  color: #82235f;
 }
 
 .user_email {
   display: inline;
   margin-left: 25px;
-  color: #72275d;
+  color: #82235f;
 }
 
 .double_border_top {
-  border-top: 3px solid #72275d;
+  border-top: 3px solid #82235f;
 }
 
 #validate_modal_add_favorite {
-  color: #72275d;
+  color: #82235f;
 }
 
 .charte_color {
-  color: #72275d;
+  color: #82235f;
 }
 
 .member_blue-communities-suggest {
