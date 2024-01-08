@@ -656,22 +656,22 @@ h4.blue-cgu {
 
 [type="radio"]:checked + span:before ,
 [type="radio"]:checked + [type="hidden"] + span:before {
-   background-image: url("/img/done_LMB.png");
+   background-image: url("/img/done_lmb.png");
 }
 
 [type="radio"]:checked + h4:after ,
 [type="radio"]:checked + [type="hidden"] + h4:after {
-  background-image: url("/img/done_LMB.png");
+  background-image: url("/img/done_lmb.png");
 }
 
 [type="checkbox"]:checked + span:before ,
 [type="checkbox"]:checked + [type="hidden"] + span:before {
-  background-image: url("/img/done_LMB.png");
+  background-image: url("/img/done_lmb.png");
 }
 
 [type="checkbox"]:checked + h4:after ,
 [type="checkbox"]:checked + [type="hidden"] + h4:after {
-  background-image: url("/img/done_LMB.png");
+  background-image: url("/img/done_lmb.png");
 }
 
 .spinner_show{

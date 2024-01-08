@@ -1,24 +1,5 @@
 #!/bin/bash
 
-function urlencode() {
-    # urlencode <string>
-
-    old_lc_collate=$LC_COLLATE
-    LC_COLLATE=C
-
-    local length="${#1}"
-    for (( i = 0; i < length; i++ )); do
-        local c="${1:$i:1}"
-        case $c in
-            [a-zA-Z0-9.~_-]) printf '%s' "$c" ;;
-            *) printf '%%%02X' "'$c" ;;
-        esac
-    done
-
-    LC_COLLATE=$old_lc_collate
-}
-
-
 
 function create_sign() {
 	echo "je créé le signe"
@@ -145,15 +126,16 @@ do
 	fi
 	sign_name="$(cut -d';' -f2 <<<"$line")"
 	echo $sign_name
-	sign_name_encode=$(urlencode "$sign_name")
+
 	owner_login="$(cut -d';' -f3 <<<"$line")"
 	echo $owner_login
 	sign_description="$(cut -d';' -f4 <<<"$line")"
 	echo $sign_description
 	lists_name="$(cut -d';' -f5 <<<"$line")"
 	echo $lists_name
-	user=$(echo "$owner_login:1234GAlet")
-response=$(curl -s -u ${user} ${BASE_URL}/ws/sec/signs?fullname=$sign_name_encode)
+	user=$(echo "$owner_login:DEnis0007")
+ searchSign=
+response=$(curl -s -u ${user} --data-urlencode "fullname=$sign_name" ${BASE_URL}/ws/sec/signs)
 echo RESPONSE : $response
 if [ "$response" != "[]" ]; then
 	name=$(jq -r ".[] | .name"  <<< "${response}")
@@ -167,39 +149,17 @@ if [ "$response" != "[]" ]; then
 		create_variante_sign "${absoluteFileName}" "${sign_name}" $user "$sign_description" $id
 	fi
 else
-responseSearchRequest=$(curl -s -u ${user} ${BASE_URL}/ws/sec/requests?name=$sign_name_encode)
-echo $responseSearchRequest
-if [ "$responseSearchRequest" != "[]" ]; then
-	name=$(jq -r ".[] | .name"  <<< "${responseSearchRequest}")
-	isCreatedByMe=$(jq -r ".[] | .isCreatedByMe"  <<< "${responseSearchRequest}")
-	id=$(jq -r ".[] | .id"  <<< "${responseSearchRequest}")
-	echo isCreatedByMe $isCreatedByMe
-	echo $id
-	if [ "$name" == "$sign_name" ]; then
-		echo "Il existe une demande avec le même nom"
-			if [ $isCreatedByMe != "true" ]; then
-				echo "que je n'ai pas créé"
-				create_sign_from_request $absoluteFileName "$sign_name" $user $id "$sign_description"
-			fi
-
-		fi
-	else
 		create_sign "${absoluteFileName}" "${sign_name}" $user "$sign_description"
-
-	fi
 fi
-
 
 while read list_name;
 do
 
 echo -"$list_name"-
 if [ "${list_name}" ]; then
-	list_name_encode=$(urlencode "$list_name")
-echo $list_name_encode
-	url=${BASE_URL}/ws/sec/users/me/favorites?name="$list_name_encode"
+	url=${BASE_URL}/ws/sec/users/me/favorites
 echo $url
-	responseSearchFavorite=$(curl -s -u ${user} ${url})
+  responseSearchFavorite=$(curl -s -u ${user} --data-urlencode "name=$list_name" ${url})
 echo RESPONSESEARCHFAVORITE : $responseSearchFavorite
 	if [ "$responseSearchFavorite" != "[]" ]; then
 		favoriteId=$(jq -r ".[] | .id"  <<< "${responseSearchFavorite}")

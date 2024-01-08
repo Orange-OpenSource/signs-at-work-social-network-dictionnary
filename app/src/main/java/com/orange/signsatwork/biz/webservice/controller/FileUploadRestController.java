@@ -57,6 +57,10 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -517,11 +521,25 @@ public class FileUploadRestController {
     NativeInterface.launch(cmd, null, null);
   }
 
+
   private void ReduceFileSizeInChangingResolution(String file, String fileOutput) {
     String cmd;
-    cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileOutput);
+    if (file.equals(fileOutput)) {
+      String fileTmp =  fileOutput.substring(0, fileOutput.lastIndexOf('.')) + ".tmp.mp4";
+      cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileTmp);
+      NativeInterface.launch(cmd, null, null);
+      Path source = Paths.get(fileTmp);
+      Path target = Paths.get(file);
+      try{
+        Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    } else {
+      cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileOutput);
+      NativeInterface.launch(cmd, null, null);
+    }
 
-    NativeInterface.launch(cmd, null, null);
   }
 
   public static long parseSize(String text) {

@@ -59,6 +59,11 @@ import java.io.File;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * Types that carry this annotation are treated as controllers where @RequestMapping
@@ -1393,7 +1398,7 @@ public class SignRestController {
         ReduceFileSizeInChangingResolution(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
         newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
       } else {
-        if (fileExtension.equals("webm")) {
+        if ((fileExtension.equals("webm")) || (fileExtension.equals("MOV")) || (fileExtension.equals("wmv"))){
           TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
           DeleteFilesOnServer(newAbsoluteFileName, null);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
@@ -1453,9 +1458,22 @@ public class SignRestController {
 
   private void ReduceFileSizeInChangingResolution(String file, String fileOutput) {
     String cmd;
-    cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileOutput);
+    if (file.equals(fileOutput)) {
+      String fileTmp =  fileOutput.substring(0, fileOutput.lastIndexOf('.')) + ".tmp.mp4";
+      cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileTmp);
+      NativeInterface.launch(cmd, null, null);
+      Path source = Paths.get(fileTmp);
+      Path target = Paths.get(file);
+      try{
+        Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    } else {
+      cmd = String.format("ffmpeg -i %s -filter:v \"scale='min(1280,iw)':min'(720,ih)':force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,crop=1280:720\" %s", file, fileOutput);
+      NativeInterface.launch(cmd, null, null);
+    }
 
-    NativeInterface.launch(cmd, null, null);
   }
 
   public static long parseSize(String text) {
@@ -1743,7 +1761,7 @@ public class SignRestController {
       } else {
         if (fileExtension.equals("webm")) {
           TransformWebmInMp4(newAbsoluteFileName, newAbsoluteFileNameWithExtensionMp4);
-          DeleteFilesOnServer(newAbsoluteFileName, null);DeleteFilesOnServer(newAbsoluteFileName, null);
+          DeleteFilesOnServer(newAbsoluteFileName, null);
           newAbsoluteFileName = newAbsoluteFileNameWithExtensionMp4;
         }
       }
@@ -1775,9 +1793,16 @@ public class SignRestController {
   }
 
   private void TransformWebmInMp4(String file, String fileOutput) {
-    String cmd;
+    String cmd = null;
+    String fileExtension = file.substring(file.lastIndexOf(".") + 1);
 
-    cmd = String.format("ffmpeg -fflags +genpts -i %s -r 25 %s", file, fileOutput);
+    if (fileExtension.equals("webm")) {
+      cmd = String.format("ffmpeg -fflags +genpts -i %s -r 25 %s", file, fileOutput);
+    } else if (fileExtension.equals("MOV")) {
+      cmd = String.format("ffmpeg -i %s -c:v libx264 -c:a aac -vf format=yuv420p -movflags +faststart %s", file, fileOutput);
+    } else if (fileExtension.equals("wmv")) {
+      cmd = String.format("ffmpeg -i %s -c:v libx264 -crf 23 %s", file, fileOutput);
+    }
 
     NativeInterface.launch(cmd, null, null);
   }

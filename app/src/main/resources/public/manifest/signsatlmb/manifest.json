@@ -3,7 +3,7 @@
   "name" : "Signs@LMB",
   "scope" : "/",
   "display" : "standalone",
-  "start_url" : "http://164.132.51.127",
+  "start_url" : "https://telsigne.lesmainsdebretagne.com",
   "short_name" : "Signs@LMB",
   "theme_color" : "transparent",
   "description" : "",
@@ -12,27 +12,27 @@
   "generated" : "true",
   "icons" : [
     {
-      "src": "http://164.132.51.127img/icons/Signs@LMB/icon-48x48.png",
+      "src": "https://telsigne.lesmainsdebretagne.com/img/icons/Signs@LMB/icon-48x48.png",
       "sizes": "48x48"
     },
     {
-      "src": "http://164.132.51.127img/icons/Signs@LMB/icon-72x72.png",
+      "src": "https://telsigne.lesmainsdebretagne.com/img/icons/Signs@LMB/icon-72x72.png",
       "sizes": "72x72"
     },
     {
-      "src": "http://164.132.51.127img/icons/Signs@LMB/icon-96x96.png",
+      "src": "https://telsigne.lesmainsdebretagne.com/img/icons/Signs@LMB/icon-96x96.png",
       "sizes": "96x96"
     },
     {
-      "src": "http://164.132.51.127img/icons/Signs@LMB/icon-144x144.png",
+      "src": "https://telsigne.lesmainsdebretagne.com/img/icons/Signs@LMB/icon-144x144.png",
       "sizes": "144x144"
     },
     {
-      "src": "http://164.132.51.127img/icons/Signs@LMB/icon-192x192.png",
+      "src": "https://telsigne.lesmainsdebretagne.com/img/icons/Signs@LMB/icon-192x192.png",
       "sizes": "192x192"
     },
     {
-      "src": "http://164.132.51.127img/icons/Signs@LMB/icon-512x512.png",
+      "src": "https://telsigne.lesmainsdebretagne.com/img/icons/Signs@LMB/icon-512x512.png",
       "sizes": "512x512"
     }
   ]}
