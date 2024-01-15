@@ -89,6 +89,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -143,7 +145,9 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
-      } else {
+      }  else if (appName.equals("Signs@LMB")) {
+      imageName = "logo-text_S@LMB_purple-background.png";
+     } else {
         imageName = "logo-text_blue-background.png";
       }
       MimeMessage message = emailSender.createMimeMessage();
@@ -198,6 +202,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      }  else if (appName.equals("Signs@LMB")) {
+      imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -253,6 +259,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      }  else if (appName.equals("Signs@LMB")) {
+      imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -310,6 +318,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -366,6 +376,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -421,6 +433,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -474,6 +488,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -528,6 +544,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -580,6 +598,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -632,6 +652,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -683,6 +705,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -740,6 +764,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -790,6 +816,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -841,6 +869,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -912,6 +942,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -964,6 +996,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -1016,6 +1050,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -1068,6 +1104,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -1120,6 +1158,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
@@ -1171,6 +1211,8 @@ public class EmailServiceImpl implements EmailService {
         imageName = "logo-textForm_blue-background.png";
       } else if (appName.equals("Signs@ADIS")){
         imageName = "logo-textADIS_blue-white.png";
+      } else if (appName.equals("Signs@LMB")) {
+        imageName = "logo-text_S@LMB_purple-background.png";
       } else {
         imageName = "logo-text_blue-background.png";
       }
