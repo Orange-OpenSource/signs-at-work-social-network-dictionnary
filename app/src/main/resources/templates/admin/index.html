@@ -35,7 +35,7 @@
         <a th:href="@{/sec/admin/communities}" th:text="#{see_communities}" class="btn btn-secondary"></a>
         <a th:href="@{/sec/admin/manage_communities_users}" th:text="#{manage_communities_users}" class="btn btn-secondary"></a>
     </div>
-    <div th:if="${!isAuthenticated}" class="container">
+    <div th:if="${!isAuthenticated and #strings.equals(appName,'Signs@Work')}" class="container">
         <h2 class="jumbotron-heading" th:text="#{invite_message}"></h2>
         <p class="lead text-muted" th:text="#{authorization_message}"></p>
         <a th:href="@{/login}" class="btn btn-primary" th:text="#{signin}"></a>

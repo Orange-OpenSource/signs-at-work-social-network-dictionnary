@@ -697,3 +697,11 @@ h4.blue-cgu {
 .member_choose_white {
   background-image: url("/img/sprite_picto_400X400_LMB.png");
 }
+
+#sidebar .sidebar-header {
+  color: #82235f;
+}
+
+#sidebar ul li a:hover, #sidebar ul li a:focus {
+  color : #8e8e8b;
+}
