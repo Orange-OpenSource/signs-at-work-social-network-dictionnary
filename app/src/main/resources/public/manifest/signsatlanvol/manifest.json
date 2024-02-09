@@ -1,0 +1,38 @@
+{"dir" : "ltr",
+  "lang" : "French",
+  "name" : "SignsœANVOL",
+  "scope" : "/",
+  "display" : "standalone",
+  "start_url" : "https://telsigne.anvol.bzh",
+  "short_name" : "SignsœANVOL",
+  "theme_color" : "transparent",
+  "description" : "",
+  "orientation" : "any",
+  "background_color" : "transparent",
+  "generated" : "true",
+  "icons" : [
+    {
+      "src": "https://telsigne.anvol.bzh/img/icons/SignsœANVOL/icon-48x48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "https://telsigne.anvol.bzh/img/icons/SignsœANVOL/icon-72x72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "https://telsigne.anvol.bzh/img/icons/SignsœANVOL/icon-96x96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "https://telsigne.anvol.bzh/img/icons/SignsœANVOL/icon-144x144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "https://telsigne.anvol.bzh/img/icons/SignsœANVOL/icon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://telsigne.anvol.bzh/img/icons/SignsœANVOL/icon-512x512.png",
+      "sizes": "512x512"
+    }
+  ]}

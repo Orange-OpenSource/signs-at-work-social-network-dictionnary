@@ -1,0 +1,14 @@
+Source: signsatanvol
+Section: unknown
+Priority: optional
+Maintainer: Denis Boisset <denis.boisset@orange.com>
+Build-Depends: debhelper (>= 9), openjdk-11-jre-headless | openjdk-17-jre-headless, ffmpeg, mariadb-server | mariadb-server-10.3 | mariadb-server-10.5, mariadb-client | mariadb-client-10.3 | mariadb-client-10.5
+Standards-Version: 3.9.8
+Homepage: https://github.com/Orange-OpenSource/signs-at-work-social-network-dictionnary
+
+Package: signsatanvol
+Architecture: any
+Description: Signs@ANVOL
+Dictionary of ANVOL Interpreters
+
+

@@ -68,27 +68,7 @@ a {
   margin-left: 10px;
   margin-top: 11px;
 }
-.logo_signsatadis-text_white {
-  background-image: url("/img/sprite_picto_400X400_logo_ADIS.png");
-  background-repeat: no-repeat;
-  background-position: 0px center;
-  background-size: auto 40px;
-  width: 100px;
-  height: 70px;
-  margin-left: 10px;
-  margin-top: 11px;
-}
 
-.logo_signsatlmb-text_white {
-   background-image: url("/img/sprite_picto_400X400_logo_LMB.png");
-   background-repeat: no-repeat;
-   background-position: 0px center;
-   background-size: auto 40px;
-   width: 100px;
-   height: 70px;
-   margin-left: 10px;
-   margin-top: 11px;
- }
 
 .logo_admin_signsatwork-text_white {
   background-image: url("/img/sprite_pictoAdmin_400X400.png");

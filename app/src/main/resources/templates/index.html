@@ -63,8 +63,9 @@
       <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-8 col-xs-12 col-lg-8" th:if="${#strings.equals(appName,'Signs@Form')}" th:text="#{signatform.lexical}"></h2>
       <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-8 col-xs-12 col-lg-8" th:if="${#strings.equals(appName,'Signs@ADIS')}" th:text="#{signatadis.lexical}"></h2>
       <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-8 col-xs-12 col-lg-8" th:if="${#strings.equals(appName,'Signs@LMB')}" th:text="#{signatlmb.lexical}"></h2>
+      <h2 sec:authorize="hasRole('USER_A') or hasRole('USER')" class="lexical_signsatform col-md-8 col-xs-12 col-lg-8" th:if="${#strings.equals(appName,'Signs@ANVOL')}" th:text="#{signatanvol.lexical}"></h2>
       <div sec:authorize="hasRole('USER_A') or hasRole('USER')" class="col-lg-4 col-md-4 col-xs-12 middle-col hidden-xs hidden-sm">
-        <a th:if="${#strings.equals(appName,'Signs@Form') || #strings.equals(appName,'Signs@ADIS') || #strings.equals(appName,'Signs@LMB') }" class="btn_go_to_signsatwork btn btn-default pull-right" href="https://signsatwork.orange-labs.fr/" target="_blank">
+        <a th:if="${#strings.equals(appName,'Signs@Form') || #strings.equals(appName,'Signs@ADIS') || #strings.equals(appName,'Signs@LMB') || #strings.equals(appName,'Signs@ANVOL') }" class="btn_go_to_signsatwork btn btn-default pull-right" href="https://signsatwork.orange-labs.fr/" target="_blank">
           <div class="pull-left logo_signsatwork_blue"></div>
           <div class="go_to_signsatwork_label" th:text="#{go_to_signsatwork}"></div>
         </a>
@@ -144,7 +145,7 @@
             </div>
           </div>
         <div sec:authorize="hasRole('USER_A') or hasRole('USER')" class="text-center hidden-lg hidden-md">
-          <a th:if="${#strings.equals(appName,'Signs@Form') || #strings.equals(appName,'Signs@ADIS') || #strings.equals(appName,'Signs@LMB')}" class="btn_go_to_signsatwork btn btn-default" href="https://signsatwork.orange-labs.fr/" target="_blank">
+          <a th:if="${#strings.equals(appName,'Signs@Form') || #strings.equals(appName,'Signs@ADIS') || #strings.equals(appName,'Signs@LMB') || #strings.equals(appName,'Signs@ANVOL')}" class="btn_go_to_signsatwork btn btn-default" href="https://signsatwork.orange-labs.fr/" target="_blank">
             <div class="pull-left logo_signsatwork_blue"></div>
             <div class="go_to_signsatwork_label" th:text="#{go_to_signsatwork}"></div>
           </a>

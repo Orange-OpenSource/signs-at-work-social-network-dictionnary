@@ -58,26 +58,6 @@ a {
   color: #333333;
 }
 
-.logo_signsatwork-text_white {
- background-image: url("/img/sprite_picto_400X400_LMB.png");
-  background-repeat: no-repeat;
-  background-position: -1739px center;
-  background-size: auto 40px;
-  width: 100px;
-  height: 70px;
-  margin-left: 10px;
-  margin-top: 11px;
-}
-.logo_signsatadis-text_white {
-  background-image: url("/img/sprite_picto_400X400_logo_ADIS.png");
-  background-repeat: no-repeat;
-  background-position: 0px center;
-  background-size: auto 40px;
-  width: 100px;
-  height: 70px;
-  margin-left: 10px;
-  margin-top: 11px;
-}
 
 .logo_signsatlmb-text_white {
   background-image: url("/img/sprite_picto_400X400_logo_LMB.png");
@@ -112,16 +92,6 @@ a {
   margin-top: 11px;
 }
 
-.logo_signsatform-text_white {
-  background-image: url("../img/sprite_picto_400X400_LMB.png");
-  background-repeat: no-repeat;
-  background-position: -5627px center;
-  background-size: auto 40px;
-  width: 100px;
-  height: 70px;
-  margin-left: 10px;
-  margin-top: 11px;
-}
 
 
 .illustration_welcome_signsatwork {
@@ -1063,7 +1033,7 @@ a.disabled > h4 {
   padding-right: 11px;
 }
 
-.logo_signsatwork_white {
+.logo_signsatlmb_white {
  background-image: url("/img/sprite_picto_400X400_LMB.png");
   background-position: -6446px center;
   background-repeat: no-repeat;
@@ -1072,14 +1042,6 @@ a.disabled > h4 {
   width: 50px;
 }
 
-.logo_signsatform_white {
- background-image: url("/img/sprite_picto_400X400_LMB.png");
-  background-position: -7208px center;
-  background-repeat: no-repeat;
-  background-size: auto 50px;
-  height: 70px;
-  width: 50px;
-}
 
 .back_white {
  background-image: url("/img/sprite_picto_400X400_LMB.png");
