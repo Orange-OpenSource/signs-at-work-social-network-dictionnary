@@ -127,10 +127,20 @@ public class SignController {
   }
 
 
-  @RequestMapping(value = "/sec/signs/alphabetic")
+  @RequestMapping(value = "/signs/alphabetic")
   public String signsAndRequestInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-    fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
+
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
+    if (user == null && (appName.equals("Signs@Form") || appName.equals("Signs@ADIS") || appName.equals("Signs@LMB") || appName.equals("Signs@ANVOL"))) {
+      return "redirect:/login";
+    }
+
+    if (isSearch) {
+      fillModelWithContext(model, "sign.search", principal, SHOW_ADD_FAVORITE);
+    } else {
+      fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
+    }
+
     List<Object[]> querySigns;
 
     if (isAlphabeticAsc == true) {
@@ -643,7 +653,7 @@ public class SignController {
     return "signs";
   }
 
-  @RequestMapping(value = "/signs/mostrecent")
+  @RequestMapping(value = "/sec/signs/mostrecent")
   public String signsMostRecent(@RequestParam("isMostRecent") boolean isMostRecent, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     if (user == null && (appName.equals("Signs@Form") || appName.equals("Signs@ADIS") || appName.equals("Signs@LMB") || appName.equals("Signs@ANVOL"))) {
@@ -847,7 +857,7 @@ public class SignController {
 
     Sign sign = services.sign().withIdSignsView(signId);
     if (sign == null) {
-      return "redirect:/signs/mostrecent?isMostRecent=false&isSearch=false";
+      return "redirect:/signs/alphabetic?isAlphabeticAsc=false&isSearch=false";
     }
 
     Video video = services.video().withId(videoId);

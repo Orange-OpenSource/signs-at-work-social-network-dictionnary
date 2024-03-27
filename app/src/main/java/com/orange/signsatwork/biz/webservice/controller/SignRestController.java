@@ -192,7 +192,7 @@ public class SignRestController {
         DeleteFilesOnServer(sign.url, thumbnail);
       }
       response.setStatus(HttpServletResponse.SC_OK);
-      return "/signs/mostrecent?isMostRecent=false&isSearch=false";
+      return "/signs/alphabetic?isAlphabeticAsc=false&isSearch=false";
 
     } else {
       services.video().delete(video);

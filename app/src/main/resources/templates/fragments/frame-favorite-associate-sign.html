@@ -57,7 +57,7 @@
         </div>
     </form>
 
-    <h2 id="sign_not_available" class="text-center" th:text="#{sign.not_matches}"></h2>
+    <h2 id="sign_not_available" class="text-center" th:text="#{sign.not_matches}" style="display: none"></h2>
 
     <div th:if="${#lists.isEmpty(videosView)}">
         <h2 class="text-center" th:text="#{sign.not_available}"></h2>

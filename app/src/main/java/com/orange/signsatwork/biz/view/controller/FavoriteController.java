@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.security.Principal;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -218,13 +219,18 @@ public class FavoriteController {
     FavoriteProfileView favoriteProfileView = new FavoriteProfileView(favorite);
     model.addAttribute("favoriteProfileView", favoriteProfileView);
 
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+
     List<Object[]> querySigns = services.sign().AllVideosForAllSigns();
     List<VideoViewData> videoViewsData = querySigns.stream()
       .map(objectArray -> new VideoViewData(objectArray))
+      .sorted((v1, v2) -> collator.compare(v1.videoName, v2.videoName))
       .collect(Collectors.toList());
 
     List<VideoViewData> videoInFavorite = videoViewsData.stream()
       .filter(v -> favoriteProfileView.getFavoriteVideosIds().contains(v.videoId))
+      .sorted((v1, v2) -> collator.compare(v1.videoName, v2.videoName))
       .collect(Collectors.toList());
 
     videoViewsData.removeAll(videoInFavorite);
@@ -324,7 +330,9 @@ public class FavoriteController {
     List<CommunityViewData> communitiesViewData = queryCommunities.stream()
       .map(objectArray -> new CommunityViewData(objectArray))
       .collect(Collectors.toList());
-    communitiesViewData = communitiesViewData.stream().sorted((c1, c2) -> c1.name.compareTo(c2.name)).collect(Collectors.toList());
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+    communitiesViewData = communitiesViewData.stream().sorted((c1, c2) -> collator.compare(c1.name,c2.name)).collect(Collectors.toList());
     model.addAttribute("communities", communitiesViewData);
     model.addAttribute("communityCreationView", new CommunityCreationView());
     model.addAttribute("communityId", communityId);

@@ -38,7 +38,7 @@
         <div th:if="${isAuthenticated}" class="hidden-lg navbar-toggle-complement">
           <ul role="tablist" class="nav navbar-nav">
             <li id="presentation_header" role="tab">
-              <a th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=true)}" th:attr="aria-label=#{sign.search}">
+            <a th:href="@{/signs/alphabetic(isAlphabeticAsc=false, isSearch=true)}" th:attr="aria-label=#{sign.search}">
                 <div class="search_white pull-left"></div>
               </a>
             </li>
@@ -56,7 +56,7 @@
         <div class="navbar-right hidden-xs hidden-sm hidden-md">
           <ul class=" col-lg-12 col-md-12 nav navbar-nav mr-auto" role="tablist">
             <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
-              <a id="search_menu" class="nav-link" th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=true)}">
+              <a id="search_menu" class="nav-link" th:href="@{/signs/alphabetic(isAlphabeticAsc=false, isSearch=true)}">
                 <div id="search" class="search_white_desktop center-block"></div>
                 <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{sign.search}"></h4>
               </a>

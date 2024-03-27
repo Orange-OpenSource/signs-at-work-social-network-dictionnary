@@ -39,7 +39,7 @@
               <div th:if="${isAuthenticated}" class="hidden-lg navbar-toggle-complement">
                 <ul role="tablist" class="nav navbar-nav">
                   <li id="presentation_header" role="tab">
-                    <a th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=true)}" th:attr="aria-label=#{sign.search}">
+                    <a th:href="@{/signs/alphabetic(isAlphabeticAsc=false, isSearch=true)}" th:attr="aria-label=#{sign.search}">
                       <div class="search_white pull-left"></div>
                     </a>
                   </li>
@@ -48,16 +48,18 @@
 
             <a href="/" class="text-center" th:attr="aria-label=#{home}">
               <div th:if="${#strings.equals(appName,'LocalHost')}" class="logo_signsatwork-text_white pull-left" alt="logo de Signs@Work"></div>
-              <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_signsatwork-text_white pull-left" alt="logo de Signs@Work"></div>
-              <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform-text_white pull-left" alt="logo de Signs@Form"></div>
               <div th:if="${#strings.equals(appName,'Signs@ADIS')}" class="logo_signsatadis-text_white pull-left" alt="logo de Signs@ADIS"></div>
               <div th:if="${#strings.equals(appName,'Signs@LMB')}" class="logo_signsatlmb-text_white pull-left" alt="logo de Signs@LMB"></div>
               <div th:if="${#strings.equals(appName,'Signs@ANVOL')}" class="logo_signsatanvol-text_white pull-left" alt="logo de Signs@ANVOL"></div>
             </a>
+            <a href="https://orange.opensource.github.io/signs-at-work-social-network-dictionnary/index.html" class="text-center" th:attr="aria-label=#{home}">
+              <div th:if="${#strings.equals(appName,'Signs@Work')}" class="logo_signsatwork-text_white pull-left" alt="logo de Signs@Work"></div>
+              <div th:if="${#strings.equals(appName,'Signs@Form')}" class="logo_signsatform-text_white pull-left" alt="logo de Signs@Form"></div>
+            </a>
             <div class="navbar-right hidden-xs hidden-sm hidden-md">
               <ul class=" col-lg-12 col-md-12 nav navbar-nav mr-auto" role="tablist">
                 <li class="nav-item active" th:if="${isAuthenticated}" role="presentation">
-                  <a id="search_menu" class="nav-link" th:href="@{/signs/mostrecent(isMostRecent=false, isSearch=true)}">
+                  <a id="search_menu" class="nav-link" th:href="@{/signs/alphabetic(isAlphabeticAsc=false, isSearch=true)}">
                     <div id="search" class="search_white_desktop center-block"></div>
                     <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{sign.search}"></h4>
                   </a>

@@ -190,7 +190,7 @@ $.fn.extend({
 
   var displayedVideosCount = 0;
   var search_criteria = document.getElementById("search-criteria");
-  var signNotAvailable = document.getElementById("sign-not-available");
+  var signNotAvailable = document.getElementById("sign_not_available");
 
 
   var accentMap = {

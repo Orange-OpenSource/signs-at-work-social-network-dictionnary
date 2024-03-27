@@ -105,7 +105,7 @@ public class RequestController {
   public String requestDetails(@PathVariable long requestId, HttpServletRequest  requestHttp, Principal principal, Model model) {
     Request request = services.request().withId(requestId);
     if (request == null) {
-      return "redirect:/sec/my-requests/mostrecent?isMostRecent=false&isSearch=false";
+      return "redirect:/sec/my-requests/alphabetic?isAlphabetic=false&isSearch=false";
     }
 
     String userAgent = requestHttp.getHeader("User-Agent");

@@ -67,7 +67,6 @@ public class CommunityController {
     List<Object[]> queryCommunities = services.community().forCommunitiesUser(user.id);
     List<CommunityViewData> communitiesViewData = queryCommunities.stream()
       .map(objectArray -> new CommunityViewData(objectArray))
-      .sorted((c1, c2) -> c1.name.compareTo(c2.name))
       .collect(Collectors.toList());
     model.addAttribute("title", messageByLocaleService.getMessage("communities"));
     model.addAttribute("communities", communitiesViewData);
@@ -87,10 +86,15 @@ public class CommunityController {
     if (community == null) {
       return "redirect:/sec/communities";
     }
+
+    List<User> usersAlphabeticalOrder = community.users.stream().sorted((u1, u2) -> u1.lastName.concat(u1.firstName).compareToIgnoreCase(u2.lastName.concat(u2.firstName)))
+      .collect(Collectors.toList());
+
     model.addAttribute("title", community.name);
     model.addAttribute("backUrl", "/sec/communities");
     model.addAttribute("community", community);
     Boolean iBelowToCommunity = community.users.stream().anyMatch( u-> u.id == user.id);
+    model.addAttribute("usersAlphabeticalOrder", usersAlphabeticalOrder);
     model.addAttribute("iBelowToCommunity", iBelowToCommunity);
     model.addAttribute("userId", user.id);
     model.addAttribute("appName", appName);

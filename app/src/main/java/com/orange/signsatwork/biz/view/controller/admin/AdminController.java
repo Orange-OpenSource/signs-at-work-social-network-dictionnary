@@ -317,7 +317,7 @@ public class AdminController {
 
     Sign sign = services.sign().withIdSignsView(signId);
     if (sign == null) {
-      return "redirect:/signs/mostrecent?isMostRecent=false&isSearch=false";
+      return "redirect:/signs/alphabetic?isAlphabeticAsc=false&isSearch=false";
     }
 
     Video video = services.video().withId(videoId);

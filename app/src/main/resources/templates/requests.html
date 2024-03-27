@@ -37,7 +37,7 @@
           <li
             class="disabled aside_bckg_li"
             th:if="${isAuthenticated and #lists.isEmpty(myRequestsWithSignAssociate) and #lists.isEmpty(myRequestsWithoutSignAssociate)}">
-            <a class="disabled" th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+            <a class="disabled" th:href="@{/sec/my-requests/alphabetic(isAlphabeticAsc=false, isSearch=false)}">
               <div class="pull-left member_ask_blue"></div>
               <h2 class="container_H2 text_hyphenation" th:text="#{request.mine}"></h2>
               <div class="pull-right chevron_right_grey"></div>
@@ -46,7 +46,7 @@
           <li
             class="aside_bckg_li"
             th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithSignAssociate) and not #lists.isEmpty(myRequestsWithoutSignAssociate)}">
-            <a class="all_li_clickable" th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+            <a class="all_li_clickable" th:href="@{/sec/my-requests/alphabetic(isAlphabeticAsc=false, isSearch=false)}">
               <div class="pull-left member_ask_blue"></div>
               <h2 class="container_H2 text_hyphenation" th:text="#{request.mine}"></h2>
               <div class="pull-right chevron"></div>
@@ -55,7 +55,7 @@
           <li
             class="aside_bckg_li"
             th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithSignAssociate) and #lists.isEmpty(myRequestsWithoutSignAssociate) }">
-            <a class="all_li_clickable" th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+            <a class="all_li_clickable" th:href="@{/sec/my-requests/alphabetic(isAlphabeticAsc=false, isSearch=false)}">
               <div class="pull-left member_ask_blue"></div>
               <h2 class="container_H2 text_hyphenation" th:text="#{request.mine}"></h2>
               <div class="pull-right chevron"></div>
@@ -64,7 +64,7 @@
           <li
             class="aside_bckg_li"
             th:if="${isAuthenticated and not #lists.isEmpty(myRequestsWithoutSignAssociate) and #lists.isEmpty(myRequestsWithSignAssociate)}">
-            <a class="all_li_clickable" th:href="@{/sec/my-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+            <a class="all_li_clickable" th:href="@{/sec/my-requests/alphabetic(isAlphabeticAsc=false, isSearch=false)}">
               <div class="pull-left member_ask_blue"></div>
               <h2 class="container_H2 text_hyphenation" th:text="#{request.mine}"></h2>
               <div class="pull-right chevron"></div>
@@ -72,7 +72,7 @@
           </li>
           <li class="disabled aside_bckg_li"
               th:if="${isAuthenticated and  #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
-            <a class="disabled" th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+          <a class="disabled" th:href="@{/sec/other-requests/alphabetic(isAlphabeticAsc=false, isSearch=false)}">
               <div class="pull-left group_ask_blue"></div>
               <h2 class="container_H2 text_hyphenation" th:text="#{request.other}"></h2>
               <div class="pull-right chevron_right_grey"></div>
@@ -80,7 +80,7 @@
           </li>
           <li class="aside_bckg_li"
               th:if="${isAuthenticated and not #lists.isEmpty(otherRequestsWithoutSignAssociate)}">
-            <a class="all_li_clickable" th:href="@{/sec/other-requests/mostrecent(isMostRecent=false, isSearch=false)}">
+            <a class="all_li_clickable" th:href="@{/sec/other-requests/alphabetic(isAlphabeticAsc=false, isSearch=false)}">
               <div class="pull-left group_ask_blue"></div>
               <h2 class="container_H2 text_hyphenation" th:text="#{request.other}"></h2>
               <div class="pull-right chevron"></div>

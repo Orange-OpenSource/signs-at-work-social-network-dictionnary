@@ -47,7 +47,7 @@
               <div class="pull-right chevron"></div>
             </a>
           </li>
-          <li class="aside_bckg_li" th:each="user:${community.users.list()}">
+          <li class="aside_bckg_li" th:each="user:${usersAlphabeticalOrder}">
             <a class="all_li_clickable" th:href="@{/sec/profile-from-community/} + ${community.id} + '/' + ${user.id}">
               <div class="pull-left member_project_admin_me"
                    th:if="${user.id == community.user.id and user.id == userId}"></div>
