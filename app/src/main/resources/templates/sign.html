@@ -99,21 +99,47 @@
                   <div class="pull-right add_black"></div>
               </a>
             </li>
-            <li class="aside_bckg_li" th:if="${isAuthenticated}">
-              <a class="all_li_clickable" data-target="#comment_modal" data-toggle="modal" href="#">
-                  <div class="pull-left commentary_blue"></div>
-                  <h2 class="container_H2 text_hyphenation" th:text="#{sign.modal.comments}"></h2>
-                  <div class="pull-right add_black"></div>
-              </a>
-            </li>
           </ul>
-          <div th:if="${not #lists.isEmpty(commentDatas)}">
-            <div th:each="comment :${commentDatas}">
-              <h4 class="comment_name" th:text="${comment.name()}"></h4>
-              <h4 class="comment_date" th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
-              <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
+
+          <div class="panel-group" id="accordion">
+
+            <!-- First Panel -->
+            <div class="panel panel-default">
+              <div class="panel-heading-full">
+                <span class="pull-left commentary_blue" style="margin-right: 10px; margin-left: 6px; height: 49px;"></span>
+                <h4 class="panel-title" data-toggle="collapse" data-target="#collapseOne" th:text="#{see_comments}" style="cursor:pointer"></h4>
+              </div>
+
+              <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <ul  style="padding-left: 0px;">
+                    <li class="aside_bckg_li" th:if="${isAuthenticated}">
+                      <a class="all_li_clickable" data-target="#comment_modal" data-toggle="modal" href="#">
+                        <h2 class="container_H2 text_hyphenation" th:text="#{sign.modal.comments}"></h2>
+                        <div class="pull-right add_black"></div>
+                      </a>
+                    </li>
+                    <li  class="aside_bckg_li" th:each="comment :${commentDatas}" style="border: 1px solid #ddd;;">
+                      <a class="all_li_clickable" style="cursor:pointer" th:data-signId="${signView.id}" th:data-videoId="${videoView.video.id}" th:data-commentId="${comment.id}" th:data-commentMessage="${comment.messageInDeleteCommentModal}" th:onclick="javascript:commentDelete(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-commentId'), this.getAttribute('data-commentMessage'))">
+                        <div class="col-lg-3 col-md-3 col-xs-3">
+                          <h4 class="comment_name" th:text="${comment.name}"></h4>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-xs-3">
+                          <h4 th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xs-4">
+                          <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-2">
+                          <span class="pull-right delete-black-comment"></span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
+    </div>
         </aside>
       </div>
     </div>

@@ -874,7 +874,11 @@ public class SignController {
       List<CommentData> commentDatas = queryAllComments.stream()
         .map(objectArray -> new CommentData(objectArray))
         .collect(Collectors.toList());
-      model.addAttribute("commentDatas", commentDatas);
+      List<CommentAdminView> commentAdminViews = commentDatas.stream()
+        .map(commentData ->
+          new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), messageByLocaleService.getMessage("comment_from_user_delete_message", new Object[]{commentData.name()})))
+        .collect(Collectors.toList());
+      model.addAttribute("commentDatas", commentAdminViews);
       model.addAttribute("title", messageByLocaleService.getMessage("card"));
       favoritesIdBelowVideo = Arrays.asList(services.video().FavoritesBelowVideoForUser(videoId, user.id));
       if (favoritesIdBelowVideo.size() >= 1) {
