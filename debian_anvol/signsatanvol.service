@@ -1,0 +1,9 @@
+[Unit]
+Description=signsatanvol
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'java -Xmx200m -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -jar /usr/share/java/signsatanvol/signsatanvol.jar --spring.config.additional-location=optional:file:/etc/signsatanvol/ --spring.profiles.active=anvol'
+
+[Install]
+WantedBy=multi-user.target
