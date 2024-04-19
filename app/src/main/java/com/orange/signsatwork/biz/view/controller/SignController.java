@@ -42,6 +42,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
+import java.text.Collator;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -1327,14 +1328,18 @@ public class SignController {
       List<FavoriteModalView> favorites = new ArrayList<>();
       List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUserForSignFilter(user.id));
       favorites.addAll(newFavoritesShareToMe);
-
-      List<FavoriteModalView> favoritesAlpha = new ArrayList<>();
       List<FavoriteModalView> oldFavoritesShareToMe = FavoriteModalView.from(services.favorite().oldFavoritesShareToUserForSignFilter(user.id));
-      favoritesAlpha.addAll(oldFavoritesShareToMe);
+      favorites.addAll(oldFavoritesShareToMe);
+
+      Collator collator = Collator.getInstance();
+      collator.setStrength(0);
+      favorites = favorites.stream().sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+
+
       List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUserForSignFilter(user.id));
-      favoritesAlpha.addAll(myFavorites);
-      favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
-      favorites.addAll(favoritesAlpha);
+      myFavorites = myFavorites.stream().sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+
+      favorites.addAll(myFavorites);
 
       model.addAttribute("myFavorites", favorites);
     }
