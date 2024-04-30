@@ -116,8 +116,13 @@ public class FavoriteController {
       .collect(Collectors.toList());
 
 
-    VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+
+    videoViews = videoViews.stream()
+      .sorted((v1, v2) -> collator.compare(v1.getVideoName(), v2.getVideoName()))
+      .collect(Collectors.toList());
+    ;
 
     model.addAttribute("videosView", videoViews);
     model.addAttribute("shareNumber", services.community().forFavorite(favorite.id).stream().count());

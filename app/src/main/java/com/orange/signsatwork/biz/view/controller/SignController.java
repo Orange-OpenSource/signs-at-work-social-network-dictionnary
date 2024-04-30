@@ -1330,23 +1330,20 @@ public class SignController {
       favorites.addAll(newFavoritesShareToMe);
       List<FavoriteModalView> oldFavoritesShareToMe = FavoriteModalView.from(services.favorite().oldFavoritesShareToUserForSignFilter(user.id));
       favorites.addAll(oldFavoritesShareToMe);
+      List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUserForSignFilter(user.id));
+      favorites.addAll(myFavorites);
 
       Collator collator = Collator.getInstance();
       collator.setStrength(0);
       favorites = favorites.stream().sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
 
 
-      List<FavoriteModalView> myFavorites = FavoriteModalView.from(services.favorite().favoritesforUserForSignFilter(user.id));
-      myFavorites = myFavorites.stream().sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
-
-      favorites.addAll(myFavorites);
-
       model.addAttribute("myFavorites", favorites);
     }
   }
 
   private List<Long> fillModelWithFavorites(Model model, User user, Long videoId) {
-    List<Long> favoritesIdBelowVideo = new ArrayList<>();
+    List<Long> favoritesIdBelowVideo;
     if (user != null) {
       List<FavoriteModalView> favorites = new ArrayList<>();
       List<FavoriteModalView> newFavoritesShareToMe = FavoriteModalView.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
@@ -1361,10 +1358,25 @@ public class SignController {
       favorites.addAll(favoritesAlpha);
 
       favoritesIdBelowVideo = Arrays.asList(services.favorite().FavoriteIdsBelowVideoId(videoId, favorites.stream().map(f -> f.getId()).collect(Collectors.toList())));
+      List<FavoriteModalView> favoritesOrdered = new ArrayList<>();
+      Collator collator = Collator.getInstance();
+      collator.setStrength(0);
+      List<FavoriteModalView> favoritesBelowVideo = new ArrayList<>();
+      List<Long> finalFavoritesIdBelowVideo = favoritesIdBelowVideo;
+      favoritesBelowVideo = favorites.stream().filter(f -> finalFavoritesIdBelowVideo.contains(f.getId()))
+        .sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+      favoritesOrdered.addAll(favoritesBelowVideo);
+      List<FavoriteModalView> favoritesNotBelowVideo = new ArrayList<>();
+      favoritesNotBelowVideo = favorites.stream().filter(f -> !finalFavoritesIdBelowVideo.contains(f.getId()))
+        .sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+      favoritesOrdered.addAll(favoritesNotBelowVideo);
 
-      model.addAttribute("myFavorites", favorites);
+
+      model.addAttribute("myFavorites", favoritesOrdered);
+    } else {
+        favoritesIdBelowVideo = new ArrayList<>();
     }
-    return favoritesIdBelowVideo;
+      return favoritesIdBelowVideo;
   }
 
 }
