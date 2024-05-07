@@ -43,8 +43,8 @@
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left pinlist_blue"></div>
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="pull-left pinlist_shared"></div>
                 <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="pull-left pinlist_shared_new"></div>
-                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
-                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
+                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}" style="font-weight: normal !important"></h4>
+                <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}" style="font-weight: normal !important"></h4>
                 <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
                 <div class="pull-right chevron"></div>
             </a>
