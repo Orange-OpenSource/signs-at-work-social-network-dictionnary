@@ -30,15 +30,16 @@
 <body>
 <div class="container">
   <div class="row">
-  <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col">
-    <div id="myform">
-      <input class="border form-control" id="search-criteria" th:attr="aria-label=#{request.search}" th:autocomplete="off"
-             th:placeholder="#{search}" type="search"/>
-      <input id='reset_search_messages_server' type='button'/>
+    <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col">
+      <div id="myform">
+        <input class="border form-control" id="search-criteria" th:attr="aria-label=#{request.search}" th:autocomplete="off"
+               th:placeholder="#{search}" type="search"/>
+        <input id='reset_search_messages_server' type='button'/>
+      </div>
+      <div th:replace="fragments/frame-messages-server :: div"/>
     </div>
-    <div th:replace="fragments/frame-messages-server :: div"/>
   </div>
-</div>
+  <button type="button" class="btn-floating btn btn-link" id="btn-back-to-top"></button>
 </div>
 </body>
 <script src="../public/js/messages-server.js" th:src="@{/js/messages-server.js}" type="text/javascript"></script>

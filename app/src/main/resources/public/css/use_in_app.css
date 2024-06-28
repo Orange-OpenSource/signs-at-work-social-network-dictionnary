@@ -674,7 +674,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
+  background: url("/img/Arrow-up_blue.png"), url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
 }
 
 .navbar-toggle {
@@ -3754,8 +3754,20 @@ panel-title {
   padding-right: 0px !important;
 }
 
-.charte_color {c
+.charte_color {
   color: #4866F7;
+}
+
+#btn-back-to-top {
+  background-image: url("/img/Arrow-up_blue.png");
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+  display: none;
 }
 
 @media only screen and (max-width:768px) {
