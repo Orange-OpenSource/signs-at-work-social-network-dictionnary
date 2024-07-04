@@ -35,6 +35,8 @@ public interface RequestService {
 
   Requests byOrderByRequestDateDesc();
 
+  Requests allRequestsAlphabeticalOrderAsc();
+
   Requests requestsforUser(long id);
 
   Requests requestsforUserWithoutSignAssociate(long userId);

@@ -287,6 +287,12 @@ public class RequestServiceImpl implements RequestService {
   }
 
   @Override
+  public Requests allRequestsAlphabeticalOrderAsc() {
+    return requestsFrom(requestRepository.findAllRequestsAlphabeticalOrderAsc());
+  }
+
+
+  @Override
   public Request updateName(long requestId, String requestName) {
     RequestDB requestDB = requestRepository.findOne(requestId);
 

@@ -48,6 +48,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.Principal;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -97,7 +98,10 @@ public class AdminController {
 
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("users"));
-    model.addAttribute("users", UserAdminView.from(userService.all()));
+    List<User> usersAlphabeticalOrder = userService.all().list().stream().sorted((u1, u2) -> u1.lastName.concat(u1.firstName).compareToIgnoreCase(u2.lastName.concat(u2.firstName)))
+      .collect(Collectors.toList());
+
+    model.addAttribute("users", usersAlphabeticalOrder);
     model.addAttribute("adminUserName", adminUsername);
     model.addAttribute("appName", appName);
     return "admin/manage_users";
@@ -188,9 +192,12 @@ public class AdminController {
   @RequestMapping("/sec/admin/requests")
   public String requests(Model model) {
 
+    Requests queryRequests;
+    queryRequests = services.request().allRequestsAlphabeticalOrderAsc();
+    List<RequestView> requestsView = RequestView.from(queryRequests);
     AuthentModel.addAuthenticatedModel(model, true);
     model.addAttribute("title", messageByLocaleService.getMessage("users"));
-    model.addAttribute("requests", RequestAdminView.from(services.request().byOrderByRequestDateDesc()));
+    model.addAttribute("requests", requestsView);
     model.addAttribute("adminUserName", adminUsername);
     model.addAttribute("appName", appName);
     return "admin/manage_requests";
@@ -287,9 +294,13 @@ public class AdminController {
       .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, connectedUser))
       .collect(Collectors.toList());
 
-    VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
 
+    videoViews = videoViews.stream()
+      .sorted((v1, v2) -> collator.compare(v1.getVideoName(), v2.getVideoName()))
+      .collect(Collectors.toList());
+    ;
     model.addAttribute("videosView", videoViews);
 
     model.addAttribute("user", user);
