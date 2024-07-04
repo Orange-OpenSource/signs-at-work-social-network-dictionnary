@@ -662,7 +662,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background:  url("/img/done_adis.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400_logo_ADIS.png"), url("/img/sprite_pictoAdmin_400X400_ADIS.png") no-repeat;
+  background: url("/img/Arrow-up_adis.png"), url("/img/done_adis.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400_logo_ADIS.png"), url("/img/sprite_pictoAdmin_400X400_ADIS.png") no-repeat;
 }
 
 .navbar-toggle {
@@ -3745,6 +3745,18 @@ panel-title {
 
 .charte_color {
   color: #662a74;
+}
+
+#btn-back-to-top {
+  background-image: url("/img/Arrow-up_adis.png");
+  background-repeat: no-repeat;
+  background-size: auto 36px;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+  display: none;
 }
 
 @media only screen and (max-width:768px) {
