@@ -343,7 +343,7 @@ public class AdminController {
       .collect(Collectors.toList());
     List<CommentAdminView> commentAdminViews = commentDatas.stream()
       .map(commentData ->
-      new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), messageByLocaleService.getMessage("comment_from_user_delete_message", new Object[]{commentData.name()})))
+      new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), messageByLocaleService.getMessage("comment_from_user_delete_message", new Object[]{commentData.name()}), commentData.userId))
       .collect(Collectors.toList());
     model.addAttribute("commentDatas", commentAdminViews);
     List<Object[]> queryAllVideosHistory = services.sign().AllVideosHistoryForSign(signId);

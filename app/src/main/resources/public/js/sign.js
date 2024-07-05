@@ -130,6 +130,59 @@ $.fn.extend({
   }
 });
 
+function commentDelete(signId, videoId, commentId, commentMessage) {
+  console.log("commentDelete ", signId, videoId, commentId, commentMessage);
+  var confirmCommentDelete = document.getElementById('confirm_comment_delete');
+  confirmCommentDelete.textContent = commentMessage;
+  $("#modal_delete_comment").modal('show');
+  $('#deleteComment').attr('action', '/ws/sec/signs/' +signId+ '/videos/' +videoId+ '/comments/'+ commentId)
+}
+
+var errorDeletedCommentSpan = document.getElementById('errorDeletedCommentSpan');
+
+var $formDeleteComment = $('#deleteComment');
+$formDeleteComment.on('submit', function(event) {
+  document.getElementById('submitButtonDeleteComment').disabled = true;
+  $(".spinner").removeClass("spinner_hidden").addClass("spinner-delete_show");
+  $(".spinner").css("z-index","1500").visibility="visible";
+  event.preventDefault();
+  $.ajax({
+    url: $formDeleteComment.attr('action'),
+    type: 'delete',
+    success: function(response) {
+      errorDeletedCommentSpan.style.visibility="hidden";
+      $(".spinner").visibility="hidden";
+      $("#modal_delete_comment").modal('hide');
+      $("#validate_delete_comment").modal('show');
+      setTimeout(function(){
+        $('#validate_delete_comment').modal('hide');
+        location.reload();
+      }, 3000);
+
+    },
+    error: function(response) {
+      errorDeletedCommentSpan.textContent = response.responseText;
+      errorDeletedCommentSpan.style.visibility="visible";
+      $(".spinner").css("z-index","-1").css("opacity","0.1");
+      $(".spinner").visibility="hidden";
+      console.log("Erreur " + response.responseText);
+    }
+  })
+
+});
+
+$formDeleteComment.on('input', function(event) {
+  document.getElementById('errorDeletedCommentSpan').style.visibility="hidden";
+});
+
+var $modal_delete_comment = $('#modal_delete_comment');
+$modal_delete_comment.on('hidden.bs.modal', function() {
+  console.log("hidden modal_delete_comment");
+  document.getElementById('submitButtonDeleteComment').disabled = false;
+  if ($('#modal_delete_comment').find('#errorDeletedCommentSpan').length) {
+    errorDeletedCommentSpan.style.visibility="hidden";
+  }
+});
 
 $(document).ready(function(){
   $('input[type="file"]').change(function(e){

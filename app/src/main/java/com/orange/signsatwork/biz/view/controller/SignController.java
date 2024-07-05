@@ -877,7 +877,7 @@ public class SignController {
         .collect(Collectors.toList());
       List<CommentAdminView> commentAdminViews = commentDatas.stream()
         .map(commentData ->
-          new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), messageByLocaleService.getMessage("comment_from_user_delete_message", new Object[]{commentData.name()})))
+          new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), messageByLocaleService.getMessage("comment_from_user_delete_message", new Object[]{commentData.name()}), commentData.userId))
         .collect(Collectors.toList());
       model.addAttribute("commentDatas", commentAdminViews);
       model.addAttribute("title", messageByLocaleService.getMessage("card"));
@@ -889,7 +889,7 @@ public class SignController {
       if (video.user.id == user.id) {
         isVideoCreatedByMe = true;
       }
-
+      model.addAttribute("userId", user.id);
     }
 
     if (video.averageRate > 0) {
@@ -919,6 +919,7 @@ public class SignController {
     Long nbRating = services.sign().NbRatingForSign(signId);
     model.addAttribute("nbRating", nbRating);
     model.addAttribute("appName", appName);
+
     return "sign";
   }
 

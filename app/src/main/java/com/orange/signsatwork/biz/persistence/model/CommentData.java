@@ -34,6 +34,7 @@ public class CommentData {
   public final String userName;
   public final String firstName;
   public final String lastName;
+  public final Long userId;
 
 
   public CommentData(Object[] queryResultItem) {
@@ -43,6 +44,7 @@ public class CommentData {
     userName = toString(queryResultItem[3]);
     firstName = toString(queryResultItem[4]);
     lastName = toString(queryResultItem[5]);
+    userId = toLong(queryResultItem[6]);
   }
 
   public String name() {

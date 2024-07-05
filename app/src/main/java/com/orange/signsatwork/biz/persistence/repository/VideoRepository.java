@@ -40,7 +40,7 @@ public interface VideoRepository extends CrudRepository<VideoDB, Long> {
     @Query(value="select a.rating  from ratings a where a.video_id = :videoId and a.user_id = :userId", nativeQuery = true)
     Object[] findRatingForVideoByUser(@Param("videoId") long signId, @Param("userId") long userId );
 
-    @Query(value="select a.id, a.text, a.comment_date, c.username, c.first_name, c.last_name  from comments a inner join userdb c on a.video_id = :videoId and a.user_id=c.id order by comment_date desc", nativeQuery = true)
+    @Query(value="select a.id, a.text, a.comment_date, c.username, c.first_name, c.last_name, a.user_id  from comments a inner join userdb c on a.video_id = :videoId and a.user_id=c.id order by comment_date desc", nativeQuery = true)
     List<Object[]> findAllCommentsForVideo(@Param("videoId") long videoId);
 
     @Query(value="select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id = b.id and c.associate_video_id = a.id and c.video_id = ? union select a.sign_id, b.name, a.create_date, a.id, a.url, a.picture_uri, a.nb_view, a.average_rate, a.nb_comment, a.id_for_name, b.nb_video from videos a inner join signs b inner join associate_video c on a.sign_id=b.id and c.video_id = a.id and c.associate_video_id = ?" , nativeQuery = true)

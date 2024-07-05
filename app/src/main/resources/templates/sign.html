@@ -33,6 +33,7 @@
 <div th:replace="fragments/modal-rate-sign :: div"/>
 <div th:replace="fragments/modal-add-favorite :: div"/>
 <div th:replace="fragments/modal-new-video :: div"/>
+<div th:replace="fragments/modal-delete-comment :: div"/>
 
 <body>
 <div class="container">
@@ -120,9 +121,25 @@
                       </a>
                     </li>
                     <li  class="aside_bckg_li" th:each="comment :${commentDatas}" style="border: 1px solid #ddd;;">
-                      <a class="all_li_clickable" style="cursor:pointer" th:data-signId="${signView.id}" th:data-videoId="${videoView.video.id}" th:data-commentId="${comment.id}" th:data-commentMessage="${comment.messageInDeleteCommentModal}" th:onclick="javascript:commentDelete(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-commentId'), this.getAttribute('data-commentMessage'))">
+                      <div th:if="${isVideoCreatedByMe} or ${comment.userId == userId}">
+                          <a class="all_li_clickable" style="cursor:pointer" th:data-signId="${signView.id}" th:data-videoId="${videoView.video.id}" th:data-commentId="${comment.id}" th:data-commentMessage="${comment.messageInDeleteCommentModal}" th:onclick="javascript:commentDelete(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-commentId'), this.getAttribute('data-commentMessage'))">
+                          <div class="col-lg-3 col-md-3 col-xs-3">
+                            <h4 class="comment_name" th:text="${comment.name}"></h4>
+                          </div>
+                          <div class="col-lg-3 col-md-3 col-xs-3">
+                            <h4 th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-xs-4">
+                            <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
+                          </div>
+                          <div class="col-lg-2 col-md-2 col-xs-2">
+                            <span class="pull-right delete-black-comment"></span>
+                          </div>
+                        </a>
+                      </div>
+                      <div th:if="${!isVideoCreatedByMe} and ${comment.userId != userId}">
                         <div class="col-lg-3 col-md-3 col-xs-3">
-                          <h4 class="comment_name" th:text="${comment.name}"></h4>
+                        <h4 class="comment_name" th:text="${comment.name}"></h4>
                         </div>
                         <div class="col-lg-3 col-md-3 col-xs-3">
                           <h4 th:text="${#dates.format(comment.commentDate, 'dd-MM-yyyy')}"></h4>
@@ -130,10 +147,7 @@
                         <div class="col-lg-4 col-md-4 col-xs-4">
                           <h4 class="hyphenation_table comment_text" th:text="${comment.text}"></h4>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-xs-2">
-                          <span class="pull-right delete-black-comment"></span>
-                        </div>
-                      </a>
+                      </div>
                     </li>
                   </ul>
                 </div>

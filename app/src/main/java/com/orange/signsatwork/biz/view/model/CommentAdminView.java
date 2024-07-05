@@ -47,6 +47,7 @@ public class CommentAdminView {
   private String text;
   private String name;
   private String messageInDeleteCommentModal;
+  public Long userId;
 
   @Autowired
   static
@@ -54,7 +55,7 @@ public class CommentAdminView {
 
   public static CommentAdminView from(CommentData commentData) {
     String message = messageByLocaleService.getMessage("comment_from_user_delete_message", new Object[]{commentData.name()});
-    return new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), message);
+    return new CommentAdminView(commentData.id, commentData.commentDate, commentData.text, commentData.name(), message, commentData.userId);
   }
 
 }
