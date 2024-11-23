@@ -47,9 +47,7 @@
     </div>
     <div th:if="${#strings.contains(signView.videoDefinition, 'http')}">
       <div class="embed-responsive embed-responsive-16by9">
-        <iframe allowfullscreen="" class="embed-responsive-item"
-                frameborder="0"
-                th:attr="title=#{sign.description(${title})}" th:src="${signView.videoDefinition} + '?endscreen-enable=false&amp;autoplay=1&amp;sharing-enable=false&amp;wmode=transparent&amp;disable-queue=1&amp;mute=true'"></iframe>
+        <iframe allowfullscreen="" th:attr="title=#{sign.description(${title})}" th:src="${signView.videoDefinition}" allow="autoplay; fullscreen; picture-in-picture; web-share"></iframe>
       </div>
       </div>
       </div>
