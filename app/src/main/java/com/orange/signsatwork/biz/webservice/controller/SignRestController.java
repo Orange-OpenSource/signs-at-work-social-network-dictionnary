@@ -114,7 +114,7 @@ public class SignRestController {
             String dailymotionIdForSignDefinition;
             if (sign.videoDefinition != null) {
               if (sign.videoDefinition.contains("http")) {
-                dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
                 try {
                   DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
                 } catch (Exception errorDailymotionDeleteVideo) {
@@ -130,7 +130,7 @@ public class SignRestController {
           String dailymotionIdForSignDefinition;
           if (sign.videoDefinition != null) {
             if (sign.videoDefinition.contains("http")) {
-              dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+              dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -146,7 +146,7 @@ public class SignRestController {
         String dailymotionIdForSignDefinition;
         if (sign.videoDefinition != null) {
           if (sign.videoDefinition.contains("http")) {
-            dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
             } catch (Exception errorDailymotionDeleteVideo) {
@@ -181,7 +181,7 @@ public class SignRestController {
         }
       }
       if (sign.url.contains("http")) {
-        dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+        dailymotionId = sign.url.substring(sign.url.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -220,7 +220,7 @@ public class SignRestController {
         }
       }
       if (video.url.contains("http")) {
-        dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+        dailymotionId = video.url.substring(video.url.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -241,7 +241,7 @@ public class SignRestController {
     Sign sign = services.sign().withId(signId);
     if (sign.videoDefinition != null) {
       if (sign.videoDefinition.contains("http")) {
-        String dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+        String dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -798,7 +798,7 @@ public class SignRestController {
             String dailymotionIdForSignDefinition;
             if (sign.videoDefinition != null) {
               if (sign.videoDefinition.contains("http")) {
-                dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
                 try {
                   DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
                 } catch (Exception errorDailymotionDeleteVideo) {
@@ -815,7 +815,7 @@ public class SignRestController {
           String dailymotionIdForSignDefinition;
           if (sign.videoDefinition != null) {
             if (sign.videoDefinition.contains("http")) {
-              dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+              dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -832,7 +832,7 @@ public class SignRestController {
         String dailymotionIdForSignDefinition;
         if (sign.videoDefinition != null) {
           if (sign.videoDefinition.contains("http")) {
-            dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            dailymotionIdForSignDefinition = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionIdForSignDefinition);
             } catch (Exception errorDailymotionDeleteVideo) {
@@ -848,7 +848,7 @@ public class SignRestController {
       String thumbnail = services.video().withId(sign.lastVideoId).pictureUri;
       services.sign().delete(sign);
       if (sign.url.contains("http")) {
-        dailymotionId = sign.url.substring(sign.url.lastIndexOf('/') + 1);
+        dailymotionId = sign.url.substring(sign.url.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -866,7 +866,7 @@ public class SignRestController {
     } else {
       services.video().delete(video);
       if (video.url.contains("http")) {
-        dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+        dailymotionId = video.url.substring(video.url.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -1056,7 +1056,7 @@ public class SignRestController {
     services.sign().renameSignAndAssociateToRequest(signId, requestId, name);
   /*  Video video = services.video().withId(videoId);
     if (video.url.contains("http")) {
-      ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+      ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('=') + 1), name);
     }*/
     ChangeSignNamesOnDailyMotion(signId, name, oldName, isAdmin, requestHttp);
   }
@@ -1069,14 +1069,14 @@ public class SignRestController {
     }
     sign.videos.stream().forEach(v -> {
       if (v.url.contains("http")) {
-        ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name);
+        ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('=') + 1), name);
       }});
     if (sign.videoDefinition != null) {
 
       if (!sign.videoDefinition.isEmpty()) {
         String signDefinitionTitle =  messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});
         if (sign.videoDefinition.contains("http")) {
-          ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+          ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1), signDefinitionTitle);
         }
       }
     }
@@ -1112,7 +1112,7 @@ public class SignRestController {
     services.sign().renameSign(signId, name);
 /*    Video video = services.video().withId(videoId);
     if (video.url.contains("http")) {
-      ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('/') + 1), name);
+      ChangeVideoNameOnDailyMotion(video.url.substring(video.url.lastIndexOf('=') + 1), name);
     }*/
     ChangeAllNamesOnDailyMotion(signId, name, oldName, isAdmin, requestHttp);
   }
@@ -1125,13 +1125,13 @@ public class SignRestController {
     Request request = services.sign().requestForSign(sign);
     sign.videos.stream().forEach(v -> {
       if (v.url.contains("http")) {
-        ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('/') + 1), name);
+        ChangeVideoNameOnDailyMotion(v.url.substring(v.url.lastIndexOf('=') + 1), name);
       }});
     if (sign.videoDefinition != null) {
       if (!sign.videoDefinition.isEmpty()) {
         String signDefinitionTitle = messageByLocaleService.getMessage("sign.title_description_LSF", new Object[]{name});
         if (sign.videoDefinition.contains("http")) {
-          ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1), signDefinitionTitle);
+          ChangeVideoNameOnDailyMotion(sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1), signDefinitionTitle);
         }
       }
     }
@@ -1141,7 +1141,7 @@ public class SignRestController {
           if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
             String requestDescrioptionTitle = messageByLocaleService.getMessage("request.title_description_LSF", new Object[]{name});
             if (request.requestVideoDescription.contains("http")) {
-              ChangeVideoNameOnDailyMotion(request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1), requestDescrioptionTitle);
+              ChangeVideoNameOnDailyMotion(request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('=') + 1), requestDescrioptionTitle);
             }
           }
         }
@@ -1299,7 +1299,7 @@ public class SignRestController {
       if (signId.isPresent() && (videoId.isPresent())) {
         video = services.video().withId(videoId.getAsLong());
         if (video.url.contains("http")) {
-          dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+          dailymotionId = video.url.substring(video.url.lastIndexOf('=') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionId);
           } catch (Exception errorDailymotionDeleteVideo) {
@@ -1607,7 +1607,7 @@ public class SignRestController {
           if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
             if (sign.videoDefinition != null) {
               if (sign.videoDefinition.contains("http")) {
-                dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+                dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
                 try {
                   DeleteVideoOnDailyMotion(dailymotionId);
                 } catch (Exception errorDailymotionDeleteVideo) {
@@ -1668,7 +1668,7 @@ public class SignRestController {
         if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
           if (sign.videoDefinition != null) {
             if (sign.videoDefinition.contains("http")) {
-              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -1684,7 +1684,7 @@ public class SignRestController {
     } else {
       if (sign.videoDefinition != null) {
         if (sign.videoDefinition.contains("http")) {
-          dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionId);
           } catch (Exception errorDailymotionDeleteVideo) {

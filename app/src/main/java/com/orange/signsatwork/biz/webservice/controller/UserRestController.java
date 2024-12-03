@@ -222,7 +222,7 @@ public class UserRestController {
 
     if (user.nameVideo != null) {
       if (user.nameVideo.contains("http")) {
-        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -237,7 +237,7 @@ public class UserRestController {
 
     if (user.jobDescriptionVideo != null) {
       if (user.jobDescriptionVideo.contains("http")) {
-        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -657,7 +657,7 @@ public class UserRestController {
     if (user.id == userConnected.id) {
       if (user.nameVideo != null) {
         if (user.nameVideo.contains("http")) {
-          String dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+          String dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('=') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionId);
           } catch (Exception errorDailymotionDeleteVideo) {
@@ -692,7 +692,7 @@ public class UserRestController {
     if (user.id == userConnected.id) {
       if (user.jobDescriptionVideo != null) {
         if (user.jobDescriptionVideo.contains("http")) {
-          String dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+          String dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('=') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionId);
           } catch (Exception errorDailymotionDeleteVideo) {
@@ -816,7 +816,7 @@ public class UserRestController {
         if (inputType.equals("JobDescription")) {
           if (user.jobDescriptionVideo != null) {
             if (user.jobDescriptionVideo.contains("http")) {
-              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -830,7 +830,7 @@ public class UserRestController {
         } else {
           if (user.nameVideo != null) {
             if (user.nameVideo.contains("http")) {
-              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {

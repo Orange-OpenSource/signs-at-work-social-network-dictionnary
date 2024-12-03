@@ -241,7 +241,7 @@ public class FileUploadRestController {
       if (signId.isPresent() && (videoId.isPresent())) {
           video = services.video().withId(videoId.getAsLong());
           if (video.url.contains("http")) {
-            dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+            dailymotionId = video.url.substring(video.url.lastIndexOf('=') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionId);
             } catch (Exception errorDailymotionDeleteVideo) {
@@ -692,7 +692,7 @@ public class FileUploadRestController {
       if (signId.isPresent() && (videoId.isPresent())) {
         video = services.video().withId(videoId.getAsLong());
         if (video.url.contains("http")) {
-          dailymotionId = video.url.substring(video.url.lastIndexOf('/') + 1);
+          dailymotionId = video.url.substring(video.url.lastIndexOf('=') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionId);
           } catch (Exception errorDailymotionDeleteVideo) {
@@ -878,7 +878,7 @@ public class FileUploadRestController {
       User user = services.user().withUserName(principal.getName());
       if (user.nameVideo != null) {
         if (user.nameVideo.contains("http")) {
-          dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+          dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('=') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionId);
           } catch (Exception errorDailymotionDeleteVideo) {
@@ -905,7 +905,7 @@ public class FileUploadRestController {
 
     if (user.nameVideo != null) {
       if (user.nameVideo.contains("http")) {
-        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+        dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -942,7 +942,7 @@ public class FileUploadRestController {
     User user = services.user().withUserName(principal.getName());
     if (user.jobDescriptionVideo != null) {
       if (user.jobDescriptionVideo.contains("http")) {
-        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -969,7 +969,7 @@ public class FileUploadRestController {
 
     if (user.jobDescriptionVideo != null) {
       if (user.jobDescriptionVideo.contains("http")) {
-        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+        dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -1099,7 +1099,7 @@ public class FileUploadRestController {
           if (inputType.equals("JobDescription")) {
             if (user.jobDescriptionVideo != null) {
               if (user.jobDescriptionVideo.contains("http")) {
-                dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+                dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('=') + 1);
                 try {
                   DeleteVideoOnDailyMotion(dailymotionId);
                 } catch (Exception errorDailymotionDeleteVideo) {
@@ -1114,7 +1114,7 @@ public class FileUploadRestController {
           } else {
             if (user.nameVideo != null) {
               if (user.nameVideo.contains("http")) {
-                dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+                dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('=') + 1);
                 try {
                   DeleteVideoOnDailyMotion(dailymotionId);
                 } catch (Exception errorDailymotionDeleteVideo) {
@@ -1435,7 +1435,7 @@ public class FileUploadRestController {
         if (inputType.equals("JobDescription")) {
           if (user.jobDescriptionVideo != null) {
             if (user.jobDescriptionVideo.contains("http")) {
-              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('/') + 1);
+              dailymotionId = user.jobDescriptionVideo.substring(user.jobDescriptionVideo.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -1450,7 +1450,7 @@ public class FileUploadRestController {
         } else {
           if (user.nameVideo != null) {
             if (user.nameVideo.contains("http")) {
-              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('/') + 1);
+              dailymotionId = user.nameVideo.substring(user.nameVideo.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -1724,7 +1724,7 @@ public class FileUploadRestController {
             request = services.request().withId(requestId);
             if (request.requestVideoDescription != null) {
               if (request.requestVideoDescription.contains("http")) {
-                dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+                dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('=') + 1);
                 try {
                   DeleteVideoOnDailyMotion(dailymotionId);
                 } catch (Exception errorDailymotionDeleteVideo) {
@@ -2019,7 +2019,7 @@ public class FileUploadRestController {
           request = services.request().withId(requestId);
           if (request.requestVideoDescription != null) {
             if (request.requestVideoDescription.contains("http")) {
-              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('/') + 1);
+              dailymotionId = request.requestVideoDescription.substring(request.requestVideoDescription.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -2295,7 +2295,7 @@ public class FileUploadRestController {
 
 /*        if (sign.videoDefinition != null) {
           if (sign.videoDefinition.contains("http")) {
-            dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionId);
             } catch (Exception errorDailymotionDeleteVideo) {
@@ -2556,7 +2556,7 @@ public class FileUploadRestController {
         if (!request.requestVideoDescription.equals(sign.videoDefinition)) {
           if (sign.videoDefinition != null) {
             if (sign.videoDefinition.contains("http")) {
-              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+              dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {
@@ -2578,7 +2578,7 @@ public class FileUploadRestController {
       } else {
         if (sign.videoDefinition != null) {
           if (sign.videoDefinition.contains("http")) {
-            dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+            dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionId);
             } catch (Exception errorDailymotionDeleteVideo) {
@@ -2600,7 +2600,7 @@ public class FileUploadRestController {
     } else {
       if (sign.videoDefinition != null) {
         if (sign.videoDefinition.contains("http")) {
-          dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('/') + 1);
+          dailymotionId = sign.videoDefinition.substring(sign.videoDefinition.lastIndexOf('=') + 1);
           try {
             DeleteVideoOnDailyMotion(dailymotionId);
           } catch (Exception errorDailymotionDeleteVideo) {
@@ -2891,7 +2891,7 @@ public class FileUploadRestController {
 
         if (community.descriptionVideo != null) {
           if (community.descriptionVideo.contains("http")) {
-            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('=') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionId);
             } catch (Exception errorDailymotionDeleteVideo) {
@@ -3139,7 +3139,7 @@ public class FileUploadRestController {
 
           if (community.descriptionVideo != null) {
             if (community.descriptionVideo.contains("http")) {
-              dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+              dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('=') + 1);
               try {
                 DeleteVideoOnDailyMotion(dailymotionId);
               } catch (Exception errorDailymotionDeleteVideo) {

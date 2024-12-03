@@ -288,7 +288,7 @@ public class CommunityRestController {
 
     if (community.descriptionVideo != null) {
       if (community.descriptionVideo.contains("http")) {
-        String dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+        String dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionId);
         } catch (Exception errorDailymotionDeleteVideo) {
@@ -789,7 +789,7 @@ public class CommunityRestController {
 
         if (community.descriptionVideo != null) {
           if (community.descriptionVideo.contains("http")) {
-            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+            dailymotionId = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('=') + 1);
             try {
               DeleteVideoOnDailyMotion(dailymotionId);
             } catch (Exception errorDailymotionDeleteVideo) {
@@ -969,7 +969,7 @@ public class CommunityRestController {
     Community community = services.community().withId(communityId);
     if (community.descriptionVideo != null) {
       if (community.descriptionVideo.contains("http")) {
-        String dailymotionIdForRequestDescription = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('/') + 1);
+        String dailymotionIdForRequestDescription = community.descriptionVideo.substring(community.descriptionVideo.lastIndexOf('=') + 1);
         try {
           DeleteVideoOnDailyMotion(dailymotionIdForRequestDescription);
         } catch (Exception errorDailymotionDeleteVideo) {
