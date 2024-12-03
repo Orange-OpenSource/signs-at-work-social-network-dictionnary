@@ -168,11 +168,23 @@ public class SignController {
 
     List<Long> signWithPositiveRate = Arrays.asList(services.sign().mostRating());
 
-    List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+    List<SignView2> signViews;
+    if (user != null) {
+      List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
-    List<SignView2> signViews = signViewsData.stream()
-      .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
-      .collect(Collectors.toList());
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+        .collect(Collectors.toList());
+    } else {
+      signViews = signViewsData.stream()
+        .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+        .collect(Collectors.toList());
+    }
+   // List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
+
+    //List<SignView2> signViews = signViewsData.stream()
+    //  .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+    //  .collect(Collectors.toList());
 
 
     fillModelWithFavoritesForSignFilter(model, user);
