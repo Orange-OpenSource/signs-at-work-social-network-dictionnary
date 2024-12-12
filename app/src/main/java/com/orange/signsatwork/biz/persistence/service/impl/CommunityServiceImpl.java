@@ -222,6 +222,16 @@ public class CommunityServiceImpl implements CommunityService {
 
   @Override
   public Community changeDescriptionVideo(long communityId, String communityDescriptionVideo) {
+    String dailymotionUrl = "https://geo.dailymotion.com/player.html?video=";
+    String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
+    String videoIdFromUrl = null;
+
+    if (communityDescriptionVideo.startsWith(dailymotionUrl)) {
+      videoIdFromUrl = communityDescriptionVideo.substring(communityDescriptionVideo.lastIndexOf('=') + 1);
+    }
+    if (videoIdFromUrl != null) {
+      communityDescriptionVideo = dailymotionUrlWithPlayerId + videoIdFromUrl;
+    }
     CommunityDB communityDB = communityRepository.findOne(communityId);
 
     communityDB.setDescriptionVideo(communityDescriptionVideo);

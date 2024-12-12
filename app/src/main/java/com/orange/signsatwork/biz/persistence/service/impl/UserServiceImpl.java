@@ -257,6 +257,16 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void changeNameVideoUrl(User user, String videoWebPath, String pictureUri) {
+    String dailymotionUrl = "https://geo.dailymotion.com/player.html?video=";
+    String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
+    String videoIdFromUrl = null;
+
+    if (videoWebPath.startsWith(dailymotionUrl)) {
+      videoIdFromUrl = videoWebPath.substring(videoWebPath.lastIndexOf('=') + 1);
+    }
+    if (videoIdFromUrl != null) {
+      videoWebPath = dailymotionUrlWithPlayerId + videoIdFromUrl;
+    }
     UserDB userDB = userRepository.findOne(user.id);
     userDB.setNameVideo(videoWebPath);
     userDB.setNamePicture(pictureUri);
@@ -265,6 +275,16 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void changeDescriptionVideoUrl(User user, String videoWebPath, String pictureUri) {
+    String dailymotionUrl = "https://geo.dailymotion.com/player.html?video=";
+    String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
+    String videoIdFromUrl = null;
+
+    if (videoWebPath.startsWith(dailymotionUrl)) {
+      videoIdFromUrl = videoWebPath.substring(videoWebPath.lastIndexOf('=') + 1);
+    }
+    if (videoIdFromUrl != null) {
+      videoWebPath = dailymotionUrlWithPlayerId + videoIdFromUrl;
+    }
     UserDB userDB = userRepository.findOne(user.id);
     userDB.setJobDescriptionVideo(videoWebPath);
     userDB.setJobDescriptionPicture(pictureUri);

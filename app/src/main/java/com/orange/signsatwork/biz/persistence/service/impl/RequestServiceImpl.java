@@ -228,6 +228,16 @@ public class RequestServiceImpl implements RequestService {
 
   @Override
   public Request changeRequestVideoDescription(long requestId, String requestVideoDescription) {
+    String dailymotionUrl = "https://geo.dailymotion.com/player.html?video=";
+    String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
+    String videoIdFromUrl = null;
+
+    if (requestVideoDescription.startsWith(dailymotionUrl)) {
+      videoIdFromUrl = requestVideoDescription.substring(requestVideoDescription.lastIndexOf('=') + 1);
+    }
+    if (videoIdFromUrl != null) {
+      requestVideoDescription = dailymotionUrlWithPlayerId + videoIdFromUrl;
+    }
     RequestDB requestDB = requestRepository.findOne(requestId);
 
     requestDB.setRequestVideoDescription(requestVideoDescription);

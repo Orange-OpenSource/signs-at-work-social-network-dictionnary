@@ -404,6 +404,17 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public void updateWithDailymotionInfo(long signId, long videoId, String pictureUri, String videoUrl) {
+    String dailymotionUrl = "https://geo.dailymotion.com/player.html?video=";
+    String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
+    String videoIdFromUrl = null;
+
+    if (videoUrl.startsWith(dailymotionUrl)) {
+      videoIdFromUrl = videoUrl.substring(videoUrl.lastIndexOf('=') + 1);
+    }
+    if (videoIdFromUrl != null) {
+      videoUrl = dailymotionUrlWithPlayerId + videoIdFromUrl;
+    }
+
     SignDB signDB = signRepository.findOne(signId);
     signDB.setUrl(videoUrl);
 
@@ -462,6 +473,16 @@ public class SignServiceImpl implements SignService {
 
   @Override
   public Sign changeSignVideoDefinition(long signId, String signVideoDefinition) {
+    String dailymotionUrl = "https://geo.dailymotion.com/player.html?video=";
+    String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
+    String videoIdFromUrl = null;
+
+    if (signVideoDefinition.startsWith(dailymotionUrl)) {
+      videoIdFromUrl = signVideoDefinition.substring(signVideoDefinition.lastIndexOf('=') + 1);
+    }
+    if (videoIdFromUrl != null) {
+      signVideoDefinition = dailymotionUrlWithPlayerId + videoIdFromUrl;
+    }
     SignDB signDB = signRepository.findOne(signId);
 
     signDB.setVideoDefinition(signVideoDefinition);
