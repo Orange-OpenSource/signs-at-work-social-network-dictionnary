@@ -30,6 +30,7 @@ import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
+import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
@@ -58,6 +59,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.text.Collator;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -92,8 +94,12 @@ public class CommunityRestController {
     User user = services.user().withUserName(principal.getName());
     Communities communities = services.community().forUser(user.id);
 
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+
     List<CommunityViewApi> communitiesViewApi = communities.stream()
       .map(community -> CommunityViewApi.fromMe(community))
+      .sorted((c1, c2) -> collator.compare(c1.getName(), c2.getName()))
       .collect(Collectors.toList());
 
     return new ResponseEntity<>(communitiesViewApi, HttpStatus.OK);
@@ -116,6 +122,9 @@ public class CommunityRestController {
   @RequestMapping(value = RestApi. WS_SEC_COMMUNITIES, method = RequestMethod.GET)
   public ResponseEntity<?> communities(@RequestParam("type") Optional<String> type, @RequestParam("name") Optional<String> name, Principal principal) {
     User user = services.user().withUserName(principal.getName());
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+
     List<Object[]> queryCommunities = new ArrayList<>();
     List<CommunityViewData> communitiesViewData;
     List<CommunityViewData> communitiesSearchViewData = new ArrayList<>();
@@ -147,6 +156,7 @@ public class CommunityRestController {
         queryCommunities = services.community().allForFavorite(user.id);
         communitiesViewData = queryCommunities.stream()
           .map(objectArray -> new CommunityViewData(objectArray))
+          .sorted((c1, c2) -> collator.compare(c1.name, c2.name))
           .collect(Collectors.toList());
       }
     }

@@ -1850,10 +1850,6 @@ public class SignRestController {
       .map(videoViewData -> buildVideoView(videoViewData, videoInFavorite, connectedUser))
       .collect(Collectors.toList());
 
-    VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);
-
-
     return new ResponseEntity<>(videoViews, HttpStatus.OK);
 
   }

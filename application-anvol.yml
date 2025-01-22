@@ -18,12 +18,12 @@ display-url: "/data/Presentation_Signs@Form.mp4"
 spring.jpa.properties.hibernate.id.new_generator_mappings: false
 app.url: "https://telsigne.anvol.bzh"
 
-spring.mail.host: anvol-bzh.mail.protection.outlook.com
-spring.mail.port: 25
-#spring.mail.username: telsigne.lesmainsdebretagne@gmail.com
-#spring.mail.password: jkld yyns sqkj zfrw
-#spring.mail.properties.mail.smtp.auth: true
-#spring.mail.properties.mail.smtp.starttls.enable: true
+spring.mail.host: smtp.gmail.com
+spring.mail.port: 587
+spring.mail.username: telsigne.anvol@gmail.com
+spring.mail.password: danl kcpt hxlp qreb
+spring.mail.properties.mail.smtp.auth: true
+spring.mail.properties.mail.smtp.starttls.enable: true
 
 logging:
   config: classpath:logback-anvol.xml

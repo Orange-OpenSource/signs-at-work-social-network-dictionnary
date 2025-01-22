@@ -49,6 +49,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -143,17 +144,20 @@ public class FavoriteRestController {
     List<FavoriteViewApi> favorites = new ArrayList<>();
     List<FavoriteViewApi> newFavoritesShareToMe = FavoriteViewApi.fromNewShare(services.favorite().newFavoritesShareToUser(user.id));
     favorites.addAll(newFavoritesShareToMe);
-
-    List<FavoriteViewApi> favoritesAlpha = new ArrayList<>();
     List<FavoriteViewApi> oldFavoritesShareToMe = FavoriteViewApi.from(services.favorite().oldFavoritesShareToUser(user.id));
-    favoritesAlpha.addAll(oldFavoritesShareToMe);
+    favorites.addAll(oldFavoritesShareToMe);
+
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+    favorites = favorites.stream().sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+
     List<FavoriteViewApi> myFavorites = FavoriteViewApi.from(services.favorite().favoritesforUser(user.id));
-    favoritesAlpha.addAll(myFavorites);
-    favoritesAlpha = favoritesAlpha.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
-    favorites.addAll(favoritesAlpha);
+    myFavorites = myFavorites.stream().sorted((f1, f2) -> f1.getName().compareTo(f2.getName())).collect(Collectors.toList());
+    favorites.addAll(myFavorites);
 
     return favorites;
   }
+
 
   private List<FavoriteViewApi> fillModelWithFavorites(User user, Long videoId) {
     List<Long> favoritesIdBelowVideo = new ArrayList<>();
@@ -255,6 +259,7 @@ public class FavoriteRestController {
       }
     }
 
+
     List<Object[]> queryVideos = services.video().VideosForFavoriteView(favoriteId);
     List<VideoViewData> videoViewsData = queryVideos.stream()
       .map(objectArray -> new VideoViewData(objectArray))
@@ -274,8 +279,12 @@ public class FavoriteRestController {
       .collect(Collectors.toList());
 
 
-    VideosViewSort videosViewSort = new VideosViewSort();
-    videoViews = videosViewSort.sort(videoViews);
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+
+    videoViews = videoViews.stream()
+      .sorted((v1, v2) -> collator.compare(v1.getVideoName(), v2.getVideoName()))
+      .collect(Collectors.toList());
 
 
     return  new ResponseEntity<>(videoViews, HttpStatus.OK);
