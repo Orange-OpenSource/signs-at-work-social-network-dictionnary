@@ -3754,7 +3754,7 @@ panel-title {
   width: 40px;
   height: 40px;
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 40px;
   display: none;
 }
