@@ -101,6 +101,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     http.headers()
       .xssProtection()
       .and()
-      .contentSecurityPolicy("script-src 'self' 'unsafe-inline' 'report-sample'  https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data: blob:");
+      .httpStrictTransportSecurity()
+      .includeSubDomains(true)
+      .maxAgeInSeconds(31536000)
+      .and()
+      .contentSecurityPolicy("script-src 'self' 'unsafe-inline' 'report-sample'  https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data: blob: https://cdn.jsdelivr.net");
   }
 }
