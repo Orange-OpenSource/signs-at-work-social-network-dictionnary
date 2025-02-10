@@ -16,6 +16,7 @@ app/application.yml
 /debian/
 /application.yml.enc
 /application-adis.yml
+/application-anvol.yml
 /application-dev.yml
 /application-form.yml
 /application-work.yml
