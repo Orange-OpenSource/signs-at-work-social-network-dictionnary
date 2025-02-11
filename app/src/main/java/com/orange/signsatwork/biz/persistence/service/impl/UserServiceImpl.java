@@ -261,8 +261,10 @@ public class UserServiceImpl implements UserService {
     String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
     String videoIdFromUrl = null;
 
-    if (videoWebPath.startsWith(dailymotionUrl)) {
-      videoIdFromUrl = videoWebPath.substring(videoWebPath.lastIndexOf('=') + 1);
+    if (videoWebPath  != null) {
+      if (videoWebPath.startsWith(dailymotionUrl)) {
+        videoIdFromUrl = videoWebPath.substring(videoWebPath.lastIndexOf('=') + 1);
+      }
     }
     if (videoIdFromUrl != null) {
       videoWebPath = dailymotionUrlWithPlayerId + videoIdFromUrl;
@@ -279,8 +281,10 @@ public class UserServiceImpl implements UserService {
     String dailymotionUrlWithPlayerId = "https://geo.dailymotion.com/player/x11srk.html?video=";
     String videoIdFromUrl = null;
 
-    if (videoWebPath.startsWith(dailymotionUrl)) {
-      videoIdFromUrl = videoWebPath.substring(videoWebPath.lastIndexOf('=') + 1);
+    if (videoWebPath  != null) {
+      if (videoWebPath.startsWith(dailymotionUrl)) {
+        videoIdFromUrl = videoWebPath.substring(videoWebPath.lastIndexOf('=') + 1);
+      }
     }
     if (videoIdFromUrl != null) {
       videoWebPath = dailymotionUrlWithPlayerId + videoIdFromUrl;
