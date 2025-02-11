@@ -105,6 +105,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
       .includeSubDomains(true)
       .maxAgeInSeconds(31536000)
       .and()
-      .contentSecurityPolicy("script-src 'self' 'unsafe-inline' 'report-sample'  https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data: blob: https://cdn.jsdelivr.net");
+      .contentSecurityPolicy("script-src 'self' 'unsafe-inline' 'report-sample'  https://*.googleapis.com https://*.gstatic.com *.google.com *.googleusercontent.com data: blob: https://cdn.jsdelivr.net https://code.jquery.com");
   }
 }
