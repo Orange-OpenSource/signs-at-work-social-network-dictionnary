@@ -60,9 +60,9 @@ public class CommentRestController {
 
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = RestApi.WS_SEC_COMMENT, method = RequestMethod.DELETE)
-  public CommentResponseApi deleteApiVideo(@PathVariable long signId, @PathVariable long videoId, @PathVariable long commentId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
+  public CommentResponseApi deleteComment(@PathVariable long signId, @PathVariable long videoId, @PathVariable long commentId, HttpServletResponse response, HttpServletRequest request, Principal principal) {
     CommentResponseApi commentResponseApi = new CommentResponseApi();
-    User admin = services.user().getAdmin();
+    User user = services.user().withUserName(principal.getName());
     List<String> emails = new ArrayList<>();
     String videoName;
     Sign sign = services.sign().withId(signId);
@@ -83,14 +83,14 @@ public class CommentRestController {
         String title, bodyMail;
         final String url = getAppUrl() + "/sign/" + sign.id + "/" + video.id;
         title = messageByLocaleService.getMessage("comment_delete_title", new Object[]{videoName});
-        bodyMail = messageByLocaleService.getMessage("comment_delete_body", new Object[]{comment.user.name(), comment.commentDate, url});
+        bodyMail = messageByLocaleService.getMessage("comment_delete_body", new Object[]{comment.user.name(), comment.commentDate, url, user.name()});
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-        services.emailService().sendCommentDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, comment.user.name(), comment.commentDate, url, videoName, request.getLocale());
+        services.emailService().sendCommentDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), comment.user.name(), comment.commentDate, url, videoName, request.getLocale());
       };
 
       new Thread(task).start();
     } else {
-      String values = admin.username + ';' + videoName + ';' + comment.user.name() + ';' + comment.commentDate ;
+      String values = user.name() + ';' + videoName + ';' + comment.user.name() + ';' + comment.commentDate ;
       MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
     }

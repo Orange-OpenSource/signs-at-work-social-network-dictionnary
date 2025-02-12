@@ -1020,7 +1020,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommentDeleteMessage(String[] to, String subject, String userName, Date commentDate, String url, String videoName, Locale locale) {
+  public void sendCommentDeleteMessage(String[] to, String subject, String userNameDeleted, String userName, Date commentDate, String url, String videoName, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -1041,7 +1041,7 @@ public class EmailServiceImpl implements EmailService {
       helper.setSubject(subject);
       helper.setFrom(adminUsername);
       Context ctx = new Context(locale);
-      ctx.setVariable("body", messageByLocaleService.getMessage("comment_delete_body_1", new Object[]{userName, commentDate, url}));
+      ctx.setVariable("body", messageByLocaleService.getMessage("comment_delete_body_1", new Object[]{userName, commentDate, url, userNameDeleted}));
       ctx.setVariable("imageResourceName", imageName);
       ctx.setVariable("appName", appName);
       String htmlContent = templateEngine.process("email-update-data-sign-by-admin", ctx);
@@ -1053,7 +1053,7 @@ public class EmailServiceImpl implements EmailService {
       helper.addInline(imageName, imageSource, "image/png");
 
       List<String> toList = Arrays.asList(to);
-      String values = adminUsername + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + videoName + ';' + userName + ';' + commentDate ;
+      String values = adminUsername + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + userNameDeleted + ';' + videoName + ';' + userName + ';' + commentDate ;
       MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteSendEmailMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 

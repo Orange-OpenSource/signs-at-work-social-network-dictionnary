@@ -64,7 +64,7 @@ public interface EmailService {
 
   public void sendUpdateProfilUserByAdminMessage(String to, String subject, String username, String body, String messageServerType, Locale locale);
 
-  public void sendCommentDeleteMessage(String[] to, String subject, String userName, Date commentDate, String url, String videoName, Locale locale);
+  public void sendCommentDeleteMessage(String[] to, String subject, String userNameDeleted, String userName, Date commentDate, String url, String videoName, Locale locale);
 
   public void sendSignDefinitionMessage(String[] to, String subject, String body, String signName, String messageType, Locale locale);
 
