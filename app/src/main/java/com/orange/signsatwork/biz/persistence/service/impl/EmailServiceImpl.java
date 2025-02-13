@@ -51,6 +51,8 @@ import javax.mail.internet.MimeMessage;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -1020,7 +1022,7 @@ public class EmailServiceImpl implements EmailService {
     }
   }
 
-  public void sendCommentDeleteMessage(String[] to, String subject, String userNameDeleted, String userName, Date commentDate, String url, String videoName, Locale locale) {
+  public void sendCommentDeleteMessage(String[] to, String subject, String userNameDeleted, String userName, String commentDate, String url, String videoName, Locale locale) {
     InputStream imageIs = null;
     String imageName;
     try {
@@ -1053,8 +1055,8 @@ public class EmailServiceImpl implements EmailService {
       helper.addInline(imageName, imageSource, "image/png");
 
       List<String> toList = Arrays.asList(to);
-      String values = adminUsername + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + userNameDeleted + ';' + videoName + ';' + userName + ';' + commentDate ;
-      MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteSendEmailMessage", values, ActionType.NO);
+      String values = adminUsername + ';' + toList.stream().collect(Collectors.joining(", ")) + ';' + userNameDeleted + ';' + videoName + ';' + userName + ';' + commentDate;
+      MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteByUserSendEmailMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
 
       emailSender.send(message);

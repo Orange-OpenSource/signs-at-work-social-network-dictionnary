@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,6 +70,8 @@ public class CommentRestController {
     Sign sign = services.sign().withId(signId);
     Video video = services.video().withId(videoId);
     Comment comment = services.comment().withId(commentId);
+    DateFormat df = new SimpleDateFormat("dd-MM-yyyy à HH:mm");
+    String commentDate = df.format(comment.commentDate);
     emails.add(video.user.username);
     emails.add(comment.user.username);
     emails = emails.stream().distinct().collect(Collectors.toList());
@@ -85,12 +89,12 @@ public class CommentRestController {
         title = messageByLocaleService.getMessage("comment_delete_title", new Object[]{videoName});
         bodyMail = messageByLocaleService.getMessage("comment_delete_body", new Object[]{comment.user.name(), comment.commentDate, url, user.name()});
         log.info("send mail email = {} / title = {} / body = {}", finalEmails.toString(), title, bodyMail);
-        services.emailService().sendCommentDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), comment.user.name(), comment.commentDate, url, videoName, request.getLocale());
+        services.emailService().sendCommentDeleteMessage(finalEmails.toArray(new String[finalEmails.size()]), title, user.name(), comment.user.name(), commentDate, url, videoName, request.getLocale());
       };
 
       new Thread(task).start();
     } else {
-      String values = user.name() + ';' + videoName + ';' + comment.user.name() + ';' + comment.commentDate ;
+      String values = user.name() + ';' + videoName + ';' + comment.user.name() + ';' + commentDate ;
       MessageServer messageServer = new MessageServer(new Date(), "CommentDeleteMessage", values, ActionType.NO);
       services.messageServerService().addMessageServer(messageServer);
     }
