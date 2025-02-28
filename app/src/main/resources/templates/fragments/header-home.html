@@ -172,6 +172,17 @@
                     </div>
                   </a>
                 </li>
+                <li class="aside_bckg_li" th:if="${isAuthenticated}" role="menuitem">
+                  <a th:href="@{/logout}">
+                    <div>
+                      <div class="pull-left x-close_black"></div>
+                      <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{logout}"></h4>
+                      <div>
+                        <div class="hidden-lg hidden-md pull-right chevron"></div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
               </ul>
             </nav>
           </div>

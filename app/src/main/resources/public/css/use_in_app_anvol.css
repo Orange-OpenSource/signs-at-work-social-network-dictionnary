@@ -663,7 +663,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/Arrow-up_anvol.png"), url("/img/done_anvol.png"), url("/img/sprite_picto_400X400_ANVOL.png"),  url("/img/sprite_picto_400X400_logo_ANVOL.png"), url("/img/sprite_pictoAdmin_400X400_ANVOL.png") no-repeat;
+  background: url("/img/disconnect_black.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_anvol.png"), url("/img/done_anvol.png"), url("/img/sprite_picto_400X400_ANVOL.png"),  url("/img/sprite_picto_400X400_logo_ANVOL.png"), url("/img/sprite_pictoAdmin_400X400_ANVOL.png") no-repeat;
 }
 
 .navbar-toggle {

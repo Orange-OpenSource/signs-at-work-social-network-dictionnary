@@ -23,12 +23,16 @@ package com.orange.signsatwork.biz.security;
  */
 
 import com.orange.signsatwork.AppProfile;
+import com.orange.signsatwork.biz.persistence.service.Services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 import java.util.Arrays;
@@ -36,6 +40,9 @@ import java.util.Arrays;
 @Slf4j
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+
+  @Autowired
+  Services services;
 
   @Autowired
   private AppProfile appProfile;
@@ -76,6 +83,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .logout()
             .logoutSuccessUrl("/")
+              .addLogoutHandler((request, response, authentication)-> {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                if (auth != null) {
+                  services.user().changeLastDeconnectionDate(auth.getName());
+                }
+            })
             .permitAll();
   }
 

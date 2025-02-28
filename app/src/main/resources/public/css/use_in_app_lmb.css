@@ -662,7 +662,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/Arrow-up_lmb.png"), url("/img/done_lmb.png"), url("/img/sprite_picto_400X400_LMB.png"),  url("/img/sprite_picto_400X400_logo_LMB.png"), url("/img/sprite_pictoAdmin_400X400_LMB.png") no-repeat;
+  background: url("/img/disconnect_black.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_lmb.png"), url("/img/done_lmb.png"), url("/img/sprite_picto_400X400_LMB.png"),  url("/img/sprite_picto_400X400_logo_LMB.png"), url("/img/sprite_pictoAdmin_400X400_LMB.png") no-repeat;
 }
 
 .navbar-toggle {

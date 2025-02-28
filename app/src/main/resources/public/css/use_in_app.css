@@ -674,7 +674,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/Arrow-up_blue.png"), url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
+  background: url("/img/disconnect_black.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_blue.png"), url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
 }
 
 .navbar-toggle {
@@ -935,8 +935,8 @@ ul[role="tablist"]{
 }
 
 .x-close_white {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -2885px center;
+  background-image: url("/img/disconnect_white.png");
+  background-position: 0px center;
   background-repeat: no-repeat;
   background-size: auto 25px;
   height: 40px;
@@ -956,8 +956,8 @@ h4.container_header_H2{
 }
 
 .x-close_black {
-  background-image: url("/img/sprite_picto_400X400.png");
-  background-position: -3170px center;
+  background-image: url("/img/disconnect_black.png");
+  background-position: 0px center;
   background-repeat: no-repeat;
   background-size: auto 25px;
   height: 40px;
