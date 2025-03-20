@@ -102,7 +102,7 @@ function displayDescriptionCommunity(url, name, text) {
       console.log("http");
       document.getElementById("videoOnDailyMotion").style.display = "block"
       document.getElementById("videoOnServer").style.display = "none"
-      document.getElementById("videoUrl").src = url + '?endscreen-enable=false&autoplay=1&sharing-enable=false&wmode=transparent&disable-queue=1&mute=true';
+      document.getElementById("videoUrl").src = url;
     } else {
       document.getElementById("videoOnDailyMotion").style.display = "none"
       document.getElementById("videoOnServer").style.display = "block"
