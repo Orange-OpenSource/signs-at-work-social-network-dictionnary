@@ -301,4 +301,24 @@ public class VideoServiceImpl implements VideoService {
       }
     }
   }
+
+  public void VideoToFavorites(long videoId, List<Long> favoriteIdsCheck, List<Long> favoriteIdsNoCheck) {
+    VideoDB videoDB = videoRepository.findOne(videoId);
+    for (long id : favoriteIdsCheck) {
+      FavoriteDB favoriteDB = favoriteRepository.findOne(id);
+      List<VideoDB> videoDBs = favoriteDB.getVideos();
+      if (!videoDBs.contains(videoDB)) {
+        videoDBs.add(videoDB);
+        favoriteRepository.save(favoriteDB);
+      }
+    }
+    for (long id : favoriteIdsNoCheck) {
+      FavoriteDB favoriteDB = favoriteRepository.findOne(id);
+      List<VideoDB> videoDBs = favoriteDB.getVideos();
+      if (videoDBs.contains(videoDB)) {
+        videoDBs.remove(videoDB);
+        favoriteRepository.save(favoriteDB);
+      }
+    }
+  }
 }

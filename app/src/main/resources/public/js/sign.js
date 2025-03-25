@@ -87,22 +87,29 @@ function onClick() {
 function onAddVideoToFavoritesForm(videoId) {
   console.log("onAddVideoToFavoritesForm ", videoId);
   if ($("#AddVideoToFavoritesForm").isChanged()) {
-    var videoFavoritesIds = [];
+    var videoFavoritesIdsCheck = [];
+    var videoFavoritesIdsNoCheck =  [];
     i = 1;
     $("#favorites-container").children("li").children("label").each(function () {
       if (!this.classList.contains("disabled")) {
         if (document.getElementById("videoFavoritesIds" + i).checked) {
           var selectedFavoriteId = document.getElementById("videoFavoritesIds" + i).value;
-          videoFavoritesIds.push(selectedFavoriteId);
+          videoFavoritesIdsCheck.push(selectedFavoriteId);
+        } else {
+          var selectedFavoriteId = document.getElementById("videoFavoritesIds" + i).value;
+          videoFavoritesIdsNoCheck.push(selectedFavoriteId);
         }
       }
         i = i + 1;
     });
-
+    var videoFavoriteViewApi = {
+      videoFavoritesIdsCheck: videoFavoritesIdsCheck,
+      videoFavoritesIdsNoCheck: videoFavoritesIdsNoCheck
+    };
     $.ajax({
       url: "/ws/sec/video/" + videoId + "/add/favorites",
       type: 'post',
-      data: JSON.stringify(videoFavoritesIds),
+      data: JSON.stringify(videoFavoriteViewApi),
       contentType: "application/json",
       success: function (response) {
         console.log(response);
@@ -117,6 +124,10 @@ function onAddVideoToFavoritesForm(videoId) {
   }
 };
 
+function onReloadForm() {
+  console.log("onReloadForm");
+  location.reload();
+};
 
 $.fn.extend({
   trackChanges: function() {

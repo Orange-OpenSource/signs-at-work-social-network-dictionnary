@@ -55,17 +55,7 @@
                     <div class="form-group">
                       <ul id="favorites-container" class="nav nav-list primary left-menu">
                         <li class="clear aside_bckg_li" th:each="favorite :${myFavorites}">
-                          <label th:if="${#lists.contains(videoView.videoFavoritesIds, favorite.id)}" th:id="${favorite.favoriteName()}"
-                                 th:for="${#ids.next('videoFavoritesIds')}" class="disabled">
-                            <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left pinlist_blue"></div>
-                            <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="pull-left pinlist_shared"></div>
-                            <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="pull-left pinlist_shared_new"></div>
-                            <input type="checkbox" th:field="*{videoFavoritesIds}" th:value="${favorite.id}"/>
-                            <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
-                            <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
-                            <h4 th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).NewShare}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
-                          </label>
-                          <label th:unless="${#lists.contains(videoView.videoFavoritesIds, favorite.id)}" th:id="${favorite.favoriteName()}"
+                          <label th:id="${favorite.favoriteName()}"
                                  th:for="${#ids.next('videoFavoritesIds')}">
                             <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Individual}" class="pull-left pinlist_blue"></div>
                             <div th:if="${favorite.type == T(com.orange.signsatwork.biz.domain.FavoriteType).Share}" class="pull-left pinlist_shared"></div>
@@ -82,6 +72,7 @@
             </div>
           <div class="modal-footer">
             <button id="cancel_modal_add_favorite" data-dismiss="modal"
+                    th:onclick="javascript:onReloadForm()"
                     th:text="#{undo}"></button>
             <button id="validate_modal_add_favorite" th:data-videoId="${videoView.video.id}"
                     th:onclick="javascript:onAddVideoToFavoritesForm(this.getAttribute('data-videoId'))"

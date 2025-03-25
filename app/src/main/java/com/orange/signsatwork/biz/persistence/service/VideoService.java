@@ -72,4 +72,6 @@ public interface VideoService {
   List<Object[]> AllRatingsForVideo(long videoId);
 
   void AddVideoToFavorites(long videoId, List<Long> favoriteIds);
+
+  void VideoToFavorites(long videoId, List<Long> favoriteIdsCheck, List<Long> favoriteIdsNoCheck);
 }

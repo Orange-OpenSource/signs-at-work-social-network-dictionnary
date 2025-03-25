@@ -4,6 +4,7 @@ import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.webservice.MultipartFileSender;
 import com.orange.signsatwork.biz.webservice.model.FavoriteCreationViewApi;
 import com.orange.signsatwork.biz.webservice.model.FavoriteResponseApi;
+import com.orange.signsatwork.biz.webservice.model.VideoFavoriteViewApi;
 import com.orange.signsatwork.biz.webservice.model.VideoViewApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,9 @@ public class VideoRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_VIDEO_FAVORITES_ASSOCIATE, method = RequestMethod.POST)
-  public void videoAssociateFavorites(@RequestBody List<Long> videoFavoriteIds, @PathVariable long videoId, HttpServletResponse response) {
+  public void videoAssociateFavorites(@RequestBody VideoFavoriteViewApi videoFavoriteViewApi, @PathVariable long videoId, HttpServletResponse response) {
 
-    services.video().AddVideoToFavorites(videoId, videoFavoriteIds);
+    services.video().VideoToFavorites(videoId, videoFavoriteViewApi.getVideoFavoritesIdsCheck(), videoFavoriteViewApi.getVideoFavoritesIdsNoCheck());
 
     response.setStatus(HttpServletResponse.SC_OK);
     return;
