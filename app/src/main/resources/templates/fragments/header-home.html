@@ -94,7 +94,7 @@
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{about}"></h4>
                   </a>
                 </li>
-                <li class="nav_item active hidden-xs hidden-sm pull-left" th:if="${isAuthenticated and isDevProfile}">
+                <li class="nav_item active hidden-xs hidden-sm pull-left" th:if="${isAuthenticated}">
                   <a id="close_menu" class="nav-link" th:href="@{/logout}">
                       <div id="close" class="x-close_white center-block"></div>
                       <h4 class="container_H2 container_header_H2 text_hyphenation" th:text="#{logout}"></h4>
