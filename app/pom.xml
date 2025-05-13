@@ -5,7 +5,7 @@
 
     <groupId>com.orange</groupId>
     <artifactId>signs-at-work</artifactId>
-    <version>6.7.1-SNAPSHOT</version>
+    <version>6.7.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Signs at work</name>
