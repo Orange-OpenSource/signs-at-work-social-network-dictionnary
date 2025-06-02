@@ -38,7 +38,7 @@
           <div class="clear aside_bckg_li" th:id="${user.name}" th:each="user : ${users}">
             <a th:href="@{/sec/profile-from-admin/} + ${user.id}">
               <div class="pull-left member_blue"></div>
-              <h2 class="user_name" th:text="${user.name}"></h2>
+              <h2 class="user_name" th:text="${user.nameForAdmin}"></h2>
             </a>
               <a th:if="${user.isEnabled}" data-toggle="modal" th:attr="data-target='#delete_user'+${user.id}" href="#">
                 <div class="delete-black pull-right"></div>
