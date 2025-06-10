@@ -52,12 +52,20 @@
         <div th:replace="fragments/frame-favorite-share :: div"/>
       </div>
       <div class="footer container">
-        <button class="btn btn-secondary" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))"
-                th:text="#{undo}"></button>
-        <button class="btn btn-default" th:data-communityId="${communityId}"
+        <button class="btn btn-secondary pull-left" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))">
+          <div class="btn-content">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{undo}"></span>
+          </div>
+        </button>
+        <button class="btn btn-default pull-right" th:data-communityId="${communityId}"
                 th:data-favoriteId="${favoriteProfileView.favorite.id}"
-                th:onclick="javascript:onAssociateFavoriteCommunities(this.getAttribute('data-favoriteId'),this.getAttribute('data-communityId'))"
-                th:text="#{validate}"></button>
+                th:onclick="javascript:onAssociateFavoriteCommunities(this.getAttribute('data-favoriteId'),this.getAttribute('data-communityId'))">
+          <div class="btn-content">
+            <div class="v-done_white center-block"></div>
+            <span th:text="#{validate}"></span>
+          </div>
+        </button>
       </div>
     </div>
   </div>

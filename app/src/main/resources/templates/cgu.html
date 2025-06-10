@@ -88,8 +88,18 @@
             </li>
           </ul>
           <div class="footer container">
-            <button class="btn btn-secondary" th:onclick="'javascript:onRefused()'" th:text="#{no_i_disagree}"></button>
-            <button class="btn btn-default" th:onclick="'javascript:onAccepted()'" th:text="#{yes_i_agree}"></button>
+            <button class="btn btn-secondary pull-left" th:onclick="'javascript:onRefused()'">
+              <div class="btn-content">
+                <div class="x-close2_black center-block"></div>
+                <span th:text="#{no_i_disagree}"></span>
+              </div>
+            </button>
+            <button class="btn btn-default pull-right" th:onclick="'javascript:onAccepted()'">
+              <div class="btn-content">
+                <div class="v-done_white center-block"></div>
+                <span th:text="#{yes_i_agree}"></span>
+              </div>
+            </button>
           </div>
         </aside>
       </div>

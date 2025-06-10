@@ -465,27 +465,55 @@ h1, .h1 {
 }
 
 .footer>.btn-default {
-  color: #662a74;
+  color: #EBEBEB;
   font-size: 14px;
   border-style: none;
   font-weight: bold;
   line-height: 16px;
   width: 49%;
   height: 40px;
-  background-color: #EBEBEB;
+  background-color: #662a74;
   text-align: center;
+  border : 2px solid black;
+  border-radius: 10px;
 }
 
 .footer>.btn-secondary {
-  color: #8C8C8C;
+  color: black;
   font-size: 14px;
   border-style: none;
   font-weight: bold;
   line-height: 16px;
   width: 49%;
   height: 40px;
-  background-color: #EBEBEB;
+  background-color: white;
   text-align: center;
+  border : 2px solid black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-content {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-content>.x-close2_black {
+  margin-right: 10px;
+}
+
+.v-done_white {
+  background-image: url("/img/done_white.png");
+  background-repeat: no-repeat;
+  background-size: auto 20px;
+  height: 24px;
+  width: 24px;
+}
+
+.btn-content>.v-done_white {
+  margin-right: 10px;
 }
 
 .create-user{
@@ -662,7 +690,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/disconnect_adis.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_adis.png"), url("/img/done_adis.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400_logo_ADIS.png"), url("/img/sprite_pictoAdmin_400X400_ADIS.png") no-repeat;
+  background: url("/img/done_white.png"), url("/img/disconnect_adis.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_adis.png"), url("/img/done_adis.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400_logo_ADIS.png"), url("/img/sprite_pictoAdmin_400X400_ADIS.png") no-repeat;
 }
 
 .navbar-toggle {

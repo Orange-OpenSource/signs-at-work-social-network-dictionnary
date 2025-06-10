@@ -35,11 +35,19 @@
         <div th:replace="fragments/frame-favorite-associate-sign :: div"/>
       </div>
       <div class="footer container">
-        <button class="btn btn-secondary" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))"
-                th:text="#{undo}"></button>
-        <button class="btn btn-default" th:data-id="${favoriteProfileView.favorite.id}"
-                th:onclick="javascript:onAssociateFavoriteRequest(this.getAttribute('data-id'))"
-                th:text="#{validate}"></button>
+        <button class="btn btn-secondary pull-left" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueFavorite(this.getAttribute('data-backUrl'))">
+          <div class="btn-content">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{cancel}"></span>
+          </div>
+        </button>
+        <button class="btn btn-default pull-right" th:data-id="${favoriteProfileView.favorite.id}"
+                th:onclick="javascript:onAssociateFavoriteRequest(this.getAttribute('data-id'))">
+          <div class="btn-content">
+            <div class="v-done_white center-block"></div>
+            <span th:text="#{validate}"></span>
+          </div>
+        </button>
       </div>
     </div>
   </div>

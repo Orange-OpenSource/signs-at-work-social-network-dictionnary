@@ -70,11 +70,19 @@
         </div>
       </div>
       <div class="footer container">
-        <button class="btn btn-secondary" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueCommunity(this.getAttribute('data-backUrl'))"
-                th:text="#{undo}"></button>
-        <button class="btn btn-default" th:data-name="${communityName}"
-                th:onclick="javascript:onCreateCommunity(this.getAttribute('data-name'))"
-                th:text="#{validate}"></button>
+        <button class="btn btn-secondary pull-left" th:data-backUrl="${backUrl}" th:onclick="javascript:onContinueCommunity(this.getAttribute('data-backUrl'))">
+          <div class="btn-content">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{undo}"></span>
+          </div>
+        </button>
+        <button class="btn btn-default pull-right" th:data-name="${communityName}"
+                th:onclick="javascript:onCreateCommunity(this.getAttribute('data-name'))">
+          <div class="btn-content">
+            <div class="v-done_white center-block"></div>
+            <span th:text="#{validate}"></span>
+          </div>
+        </button>
       </div>
     </div>
   </div>

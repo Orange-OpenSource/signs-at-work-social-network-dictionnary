@@ -38,8 +38,18 @@
         <div th:replace="fragments/frame-job-community :: div"/>
       </div>
       <div class="footer container">
-        <button class="btn btn-secondary" th:text="#{undo}" th:onclick="'javascript:goBack()'"></button>
-        <button class="btn btn-default" th:text="#{validate}" th:onclick="'javascript:onAssociateJobToUser()'"></button>
+        <button class="btn btn-secondary pull-left" th:onclick="'javascript:goBack()'">
+          <div class="btn-content">
+            <div class="x-close2_black center-block"></div>
+            <span th:text="#{undo}"></span>
+          </div>
+        </button>
+        <button class="btn btn-default pull-right" th:onclick="'javascript:onAssociateJobToUser()'">
+          <div class="btn-content">
+            <div class="v-done_white center-block"></div>
+            <span th:text="#{validate}"></span>
+          </div>
+        </button>
       </div>
   </div>
   </div>
