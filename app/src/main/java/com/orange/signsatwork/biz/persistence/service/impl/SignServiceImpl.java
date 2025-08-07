@@ -526,6 +526,11 @@ public class SignServiceImpl implements SignService {
     requestRepository.save(requestDB);
   }
 
+  @Override
+  public List<Object[]> LabelsForSign(long signId) {
+    return signRepository.findLabelsForSign(signId);
+  }
+
   private SignDB withDBId(long id) {
     return signRepository.findOne(id);
   }

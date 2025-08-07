@@ -857,6 +857,7 @@ public class SignController {
   public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
     List<Long> favoritesIdBelowVideo = new ArrayList<>();
     Boolean isVideoCreatedByMe = false;
+    Boolean isSignHaveLabels = false;
     String referer = req.getHeader("Referer");
 
     model.addAttribute("videoBelowToFavorite", false);
@@ -902,6 +903,14 @@ public class SignController {
         isVideoCreatedByMe = true;
       }
       model.addAttribute("userId", user.id);
+      List<Object[]> queryLabelsForSign = services.sign().LabelsForSign(signId);
+      List<LabelData> labelDatas = queryLabelsForSign.stream()
+        .map(objectArray -> new LabelData(objectArray))
+        .collect(Collectors.toList());
+      if (labelDatas.size() >= 1) {
+        isSignHaveLabels = true;
+      }
+      model.addAttribute("isSignHaveLabels", isSignHaveLabels);
     }
 
     if (video.averageRate > 0) {
@@ -1390,6 +1399,25 @@ public class SignController {
         favoritesIdBelowVideo = new ArrayList<>();
     }
       return favoritesIdBelowVideo;
+  }
+
+  private void fillModelWithLabels(Model model, Boolean isSignHaveLabels, Long signId) {
+    List<LabelModalView> labels = new ArrayList<>();
+    if (!isSignHaveLabels) {
+      List<LabelModalView> labelsThematic = LabelModalView.from(services.label().labelsByType(LabelType.Admin));
+      List<LabelModalView> labelsAdminOrdered = new ArrayList<>();
+      Collator collator = Collator.getInstance();
+      collator.setStrength(0);
+      labelsAdminOrdered = labelsThematic.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
+      labels.addAll(labelsAdminOrdered);
+      List<LabelModalView> labelsUser = LabelModalView.from(services.label().labelsByType(LabelType.User));
+      List<LabelModalView> labelsUserOrdered = new ArrayList<>();
+      labelsUserOrdered = labelsUser.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
+      labels.addAll(labelsUserOrdered);
+
+    }
+    model.addAttribute("Labels", labels);
+
   }
 
 }

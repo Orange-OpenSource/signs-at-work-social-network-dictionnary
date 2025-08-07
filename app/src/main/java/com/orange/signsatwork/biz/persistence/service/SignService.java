@@ -114,4 +114,5 @@ public interface SignService {
 
   void renameSignAndAssociateToRequest(Long signId, long requestId, String name);
 
+  List<Object[]> LabelsForSign(long signId);
 }

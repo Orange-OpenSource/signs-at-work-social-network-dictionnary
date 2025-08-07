@@ -27,10 +27,7 @@ import com.orange.signsatwork.biz.persistence.model.CommentData;
 import com.orange.signsatwork.biz.persistence.model.RatingData;
 import com.orange.signsatwork.biz.persistence.model.VideoHistoryData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
-import com.orange.signsatwork.biz.persistence.service.CommunityService;
-import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
-import com.orange.signsatwork.biz.persistence.service.Services;
-import com.orange.signsatwork.biz.persistence.service.UserService;
+import com.orange.signsatwork.biz.persistence.service.*;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.JCodecException;
@@ -73,6 +70,8 @@ public class AdminController {
   private CommunityService communityService;
   @Autowired
   MessageByLocaleService messageByLocaleService;
+  @Autowired
+  private LabelService labelService;
   @Autowired
   private Environment environment;
 
@@ -129,6 +128,17 @@ public class AdminController {
     model.addAttribute("projectCommunities", CommunityView.from(projectCommunities));
     model.addAttribute("appName", appName);
     return "admin/manage_communities";
+  }
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping("/sec/admin/manage_labels")
+  public String manageLabels(Model model) {
+    AuthentModel.addAuthenticatedModel(model, true);
+    model.addAttribute("title", messageByLocaleService.getMessage("manage_labels"));
+    Labels labels = labelService.findLabelsOrderByNameAsc();
+    model.addAttribute("labels", LabelModalView.from(labels));
+    model.addAttribute("appName", appName);
+    return "admin/manage_labels";
   }
 
   @Secured("ROLE_ADMIN")

@@ -46,6 +46,7 @@ public class Services {
   private EmailService emailService;
   private ArticleService article;
   private MessageServerService messageServerService;
+  private LabelService label;
 
   @Autowired
   private AppSecurityAdmin appSecurityAdmin;

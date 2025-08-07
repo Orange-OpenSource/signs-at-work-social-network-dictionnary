@@ -1,0 +1,69 @@
+package com.orange.signsatwork.biz.persistence.service.impl;
+
+/*
+ * #%L
+ * Signs at work
+ * %%
+ * Copyright (C) 2016 Orange
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-2.0.html>.
+ * #L%
+ */
+
+import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.persistence.model.*;
+import com.orange.signsatwork.biz.persistence.repository.*;
+import com.orange.signsatwork.biz.persistence.service.FavoriteService;
+import com.orange.signsatwork.biz.persistence.service.LabelService;
+import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
+import com.orange.signsatwork.biz.persistence.service.Services;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j
+public class LabelServiceImpl implements LabelService {
+  private final LabelRepository labelRepository;
+  private final Services services;
+
+  @Override
+  public Labels findLabelsOrderByNameAsc() {
+    return labelsFrom(labelRepository.findByOrderByNameAsc());
+  }
+  @Override
+  public Labels labelsByType(LabelType type) {
+    return labelsFrom(labelRepository.findLabelsByType(type));
+  }
+
+  private Labels labelsFrom(Iterable<LabelDB> labelsDB) {
+    List<Label>labels = new ArrayList<>();
+    labelsDB.forEach(lavelDB -> labels.add(labelFrom(lavelDB)));
+    return new Labels(labels);
+  }
+  static Label labelFrom(LabelDB labelDB) {
+    return labelDB == null ? null :
+      new Label(labelDB.getId(), labelDB.getName(), labelDB.getType());
+  }
+}

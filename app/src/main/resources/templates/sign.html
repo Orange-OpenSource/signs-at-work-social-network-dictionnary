@@ -34,6 +34,7 @@
 <div th:replace="fragments/modal-add-favorite :: div"/>
 <div th:replace="fragments/modal-new-video :: div"/>
 <div th:replace="fragments/modal-delete-comment :: div"/>
+<div th:replace="fragments/modal-add-label :: div"/>
 
 <body>
 <div class="container">
@@ -84,6 +85,14 @@
                   <h2 class="container_H2 text_hyphenation" id="definition" th:text="#{sign.description-not-empty}"/>
                   <div class="pull-right edit_black"></div>
                 </div>
+              </a>
+            </li>
+            <li class="aside_bckg_li" >
+              <a class="all_li_clickable" data-target="#add_sign_to_label" data-toggle="modal" href="#">
+                <div class="pull-left sticker_plain"></div>
+                <h2 class="container_H2 text_hyphenation" th:text="#{sign.tag}"></h2>
+                <div th:if="${!isSignHaveLabels}" class="pull-right add_black"></div>
+                <div th:if="${isSignHaveLabels}" class="pull-right chevron"></div>
               </a>
             </li>
             <li class="aside_bckg_li" th:if="${!isVideoCreatedByMe and isAuthenticated and ratingData.rateNoRate}">

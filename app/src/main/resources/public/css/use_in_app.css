@@ -690,7 +690,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/done_white.png"), url("/img/disconnect_black.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_blue.png"), url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
+  background: url("/img/sprite_picto_sticker_400X400.png"), url("/img/done_white.png"), url("/img/disconnect_black.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_blue.png"), url("/img/done_blue.png"), url("/img/sprite_picto_400X400.png") , url("/img/sprite_pictoAdmin_400X400.png") no-repeat;
 }
 
 .navbar-toggle {
@@ -2409,6 +2409,44 @@ table tbody td{
   width: 24px;
 }
 
+.sticker_plain {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: 73px auto;
+  height: 45px;
+  width: 24px;
+}
+
+.sticker_plain_white {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-position: -30px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
+.sticker_add {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-position: -48px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 48px;
+  width: 24px;
+}
+
+.sticker_double {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -120px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
 .rewind_blue {
   background-image: url("/img/sprite_picto_400X400.png");
   background-position: -2916px center;
@@ -3802,7 +3840,7 @@ panel-title {
   left: 0;
   width: 100%;
 }
-
 }
+
 
 

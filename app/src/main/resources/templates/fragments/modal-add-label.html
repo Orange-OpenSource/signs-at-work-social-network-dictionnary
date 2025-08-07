@@ -1,0 +1,87 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+
+
+<div th:fragment="div" id="add_sign_to_label" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class=" modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <div class="pull-left">
+                    <div class="sticker_plain_white pull-left"></div>
+                    <h2 class="pull-right" th:text="#{sign.tag}"/>
+                </div>
+            </div>
+            <div id="modal_body_add_favorite" class="modal-body text-center">
+              <h2 class="blue" th:text="#{choose_label_for_sign}"></h2>
+                <ul class="nav nav-list primary left-menu">
+                  <li th:if="${isAuthenticated}" class="clear aside_bckg_li">
+                    <a class="all_li_clickable" href="#" data-toggle="modal" data-target="#create-new-label_add_sign">
+                        <div class="sticker_add  pull-left"></div>
+                        <h2  class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="#{label.new}"></h2>
+                        <div class="pull-right add_black"></div>
+                    </a>
+                  </li>
+                </ul>
+                  <form id="AddVideoToFavoritesForm" th:if="${not #lists.isEmpty(labels)}"
+                        th:object="${signView}"
+                        method="post">
+                    <div class="form-group">
+                      <ul id="favorites-container" class="nav nav-list primary left-menu">
+                        <li class="clear aside_bckg_li" th:each="label :${labels}">
+                          <label th:id="${label.labelName()}"
+                                 th:for="${#ids.next('videoFavoritesIds')}">
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Thematic}" class="pull-left pinlist_blue"></div>
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Usage}" class="pull-left pinlist_shared"></div>
+                            <input type="checkbox" th:field="*{videoFavoritesIds}" th:value="${favorite.id}"/>
+                            <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Thematic}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
+                            <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Usage}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
+            </div>
+          <div class="modal-footer">
+            <button id="cancel_modal_add_favorite" data-dismiss="modal"
+                    th:onclick="javascript:onReloadForm()"
+                    th:text="#{undo}"></button>
+            <button id="validate_modal_add_favorite" th:data-videoId="${videoView.video.id}"
+                    th:onclick="javascript:onAddVideoToFavoritesForm(this.getAttribute('data-videoId'))"
+                    th:text="#{validate}"></button>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/modal-new-label-add-sign :: div"/>
+
+</body>
+</html>
