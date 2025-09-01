@@ -424,6 +424,24 @@ public class AdminController {
     return "admin/community";
   }
 
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = "/sec/admin/label/{labelId}")
+  public String label(@PathVariable long labelId, HttpServletRequest request, Principal principal, Model model)  {
+    Label label = services.label().withId(labelId);
+    if (label == null) {
+      return "redirect:/sec/admin/manage_labels";
+    }
+    String userAgent = request.getHeader("User-Agent");
+
+    model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
+    model.addAttribute("title", label.name);
+
+    model.addAttribute("label", label);
+    model.addAttribute("appName", appName);
+
+    return "admin/label";
+  }
+
   private boolean isIOSDevice(String userAgent) {
     boolean isIOSDevice = false;
     String osType = "Unknown";

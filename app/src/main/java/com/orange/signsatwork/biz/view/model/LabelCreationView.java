@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.service;
+package com.orange.signsatwork.biz.view.model;
 
 /*
  * #%L
@@ -22,22 +22,15 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-import java.util.Locale;
-
-public interface LabelService {
-
-  Labels findLabelsOrderByNameAsc();
-  Labels labelsByType(LabelType type);
-  List<Object[]> searchBis(String labelName);
-
-  Label withLabelName(String labelName);
-
-  Label create(Label label);
-
-  Label withId(long id);
-
-  void delete(Label label);
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class LabelCreationView {
+  private String name;
 }

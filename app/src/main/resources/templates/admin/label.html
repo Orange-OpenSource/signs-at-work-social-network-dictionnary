@@ -1,0 +1,152 @@
+<!--
+  #%L
+  Signs at work
+  %%
+  Copyright (C) 2016 Orange
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as
+  published by the Free Software Foundation, either version 2 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public
+  License along with this program.  If not, see
+  <http://www.gnu.org/licenses/gpl-2.0.html>.
+  #L%
+  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/header-head :: head"></th:block>
+</head>
+
+<header role="banner" th:replace="fragments/header-label-admin :: header">&nbsp;</header>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="pull-right col-md-12 col-xs-12 col-sm-12 col-lg-12">
+        <aside class="sidebar">
+          <ul class="nav nav-list primary left-menu">
+            <li class="label_sign aside_bckg_li">
+              <a class="all_li_clickable" data-target="#rename_label" data-toggle="modal" href="#">
+                <h1 class="container_H2 text_hyphenation" th:text="${label.name}"/>
+                <div class="pull-right edit_black"></div>
+              </a>
+            </li>
+            <li class="aside_bckg_li">
+              <a class="all_li_clickable" data-target="#delete_label" data-toggle="modal" href="#">
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left sticker_add-del"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{label.delete}"></h4>
+                  <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+  </div>
+</div>
+
+<div class="modal fade" id="rename_label" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="edit_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{label.rename_list}"></h2>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
+        <input class="form-control" id="labelName" name="labelName" th:autofocus="true"
+               th:value="${label.name}" type="text" autocomplete="off"/>
+        <span id="errorRename" style="visibility: hidden"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
+          <div class="x-close2_black center-block"></div>
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-rename-modal"
+                th:data-labelId="${label.id}"
+                th:onclick="javascript:onRenameLabel(this.getAttribute('data-labelId'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="validate_rename_label" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="edit_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{label.renamed_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 id="renamed_label"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="delete_label" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="sticker_plain_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{label.delete_list}"></h2>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{label.confirm_delete(${label.name})}"></h4>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
+          <div class="x-close2_black center-block"></div>
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss=""
+                th:data-labelId="${label.id}"
+                th:onclick="javascript:onDeleteLabel(this.getAttribute('data-labelId'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{confirm}"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="validate_delete_label" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-left">
+          <div class="group_delete_white pull-left"></div>
+          <h2 class="pull-right" th:text="#{label.deleted_title}"/>
+        </div>
+      </div>
+      <div class="modal-body text-center">
+        <h4 th:text="#{label.deleted(${label.name})}"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+
+
+<script src="../public/js/label-admin.js" th:src="@{/js/label-admin.js}" type="text/javascript"></script>
+
+</html>

@@ -51,6 +51,8 @@ class ServicesLinker {
   private ArticleService article;
   @Autowired
   private MessageServerService messageServerService;
+  @Autowired
+  private LabelService labelService;
 
   @Autowired
   private Services services;
@@ -68,5 +70,6 @@ class ServicesLinker {
     services.emailService(emailService);
     services.article(article);
     services.messageServerService(messageServerService);
+    services.label(labelService);
   }
 }

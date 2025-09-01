@@ -436,7 +436,7 @@ button.close{
   margin-right: 14px;
 }
 
-.errorRegexLastName, .errorRegexFirstName, .errorRegexEmail, .errorRegexFavoriteName, .errorRegexSignName, .errorRegexRequestName, .errorRegexCommunityName, #errorForgetPassword, #errorCreateUser, #errorUserExist {
+.errorRegexLastName, .errorRegexFirstName, .errorRegexEmail, .errorRegexFavoriteName, .errorRegexSignName, .errorRegexRequestName, .errorRegexCommunityName, .errorRegexLabelName, #errorForgetPassword, #errorCreateUser, #errorUserExist {
   font-size: 14px;
   color: red;
 }
@@ -2413,7 +2413,27 @@ table tbody td{
   background-image: url("/img/sprite_picto_sticker_400X400.png");
   background-repeat: no-repeat;
   background-position: 0px center;
-  background-size: 73px auto;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.sticker {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -120px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+
+
+.sticker_add-del {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -144px center;
+  background-size: auto 24px;
   height: 45px;
   width: 24px;
 }
@@ -2446,6 +2466,17 @@ table tbody td{
   width: 40px;
   margin-top: 4px;
 }
+
+.sticker_add_white_plain {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-position: -120px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
 
 .rewind_blue {
   background-image: url("/img/sprite_picto_400X400.png");

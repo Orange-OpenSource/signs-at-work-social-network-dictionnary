@@ -23,10 +23,7 @@ package com.orange.signsatwork.biz.persistence.repository;
  */
 
 import com.orange.signsatwork.biz.domain.LabelType;
-import com.orange.signsatwork.biz.persistence.model.FavoriteDB;
-import com.orange.signsatwork.biz.persistence.model.LabelDB;
-import com.orange.signsatwork.biz.persistence.model.RequestDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
+import com.orange.signsatwork.biz.persistence.model.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -35,10 +32,18 @@ import java.util.List;
 
 public interface LabelRepository extends CrudRepository<LabelDB, Long> {
 
+    List<LabelDB> findByName(String name);
+
     List<LabelDB> findByOrderByNameAsc();
 
-    @Query(value="select distinct A.id,A.name, A.type from labels A where A.type = :type order by lower(b.name) collate utf8_unicode_ci asc", nativeQuery = true)
+    @Query(value="select distinct id, name, type from labels where type = :type order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
     List<LabelDB> findLabelsByType(@Param("type") LabelType type);
 
+    @Query(value="select id, name, type from labels  where replace(replace(upper(name),'Œ','OE'),'Æ','AE') collate utf8_unicode_ci like concat('%',:name,'%')", nativeQuery = true)
+    List<Object[]> findStartByNameIgnoreCase(@Param("name") String name);
+
+  public default LabelDB findOne(long id) {
+    return findById(id).orElse(null);
+  }
 
 }

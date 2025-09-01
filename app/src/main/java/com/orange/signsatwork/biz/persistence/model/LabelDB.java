@@ -61,7 +61,7 @@ public class LabelDB {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<SignDB> signs = new ArrayList<>();
 
-    public LabelDB(String name) {
-        this.name = name;
+    public LabelDB(String name, LabelType type) {
+        this.name = name; this.type = type;
     }
 }

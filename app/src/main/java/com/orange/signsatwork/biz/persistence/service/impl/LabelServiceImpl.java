@@ -46,6 +46,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LabelServiceImpl implements LabelService {
   private final LabelRepository labelRepository;
+  private final CommunityRepository communityRepository;
   private final Services services;
 
   @Override
@@ -57,6 +58,50 @@ public class LabelServiceImpl implements LabelService {
     return labelsFrom(labelRepository.findLabelsByType(type));
   }
 
+  @Override
+  public List<Object[]> searchBis(String labelName) {
+    List<Object[]>  labelsMatches = labelRepository.findStartByNameIgnoreCase(labelName);
+
+    return labelsMatches;
+  }
+
+  @Override
+  public Label withLabelName(String labelName) {
+    List<LabelDB> labelDBList = labelRepository.findByName(labelName);
+    if (labelDBList.size() == 1) {
+      return labelFrom(labelDBList.get(0));
+    } else if (labelDBList.size() > 1){
+      String err = "Error while retrieving label with labelName = '" + labelName + "' (list size = " + labelDBList.size() + ")";
+      RuntimeException e = new IllegalStateException(err);
+      log.error(err, e);
+      throw e;
+    } else {
+      return null;
+    }
+  }
+
+  @Override
+  public Label create(Label label) {
+    LabelDB labelDB;
+
+    labelDB = new LabelDB(label.name, label.type);
+    labelRepository.save(labelDB);
+
+
+    return labelFrom(labelDB);
+  }
+
+  @Override
+  public Label withId(long id) {
+    return labelFrom(labelRepository.findOne(id));
+  }
+
+  @Override
+  public void delete(Label label) {
+    LabelDB labelDB = labelRepository.findOne(label.id);
+    labelRepository.delete(labelDB);
+  }
+
   private Labels labelsFrom(Iterable<LabelDB> labelsDB) {
     List<Label>labels = new ArrayList<>();
     labelsDB.forEach(lavelDB -> labels.add(labelFrom(lavelDB)));
@@ -66,4 +111,5 @@ public class LabelServiceImpl implements LabelService {
     return labelDB == null ? null :
       new Label(labelDB.getId(), labelDB.getName(), labelDB.getType());
   }
+
 }

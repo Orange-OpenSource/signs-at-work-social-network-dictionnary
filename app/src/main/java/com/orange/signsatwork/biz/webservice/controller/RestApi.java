@@ -31,6 +31,10 @@ public class RestApi {
   public static final String WS_SEC_GET_USERS = WS_SEC + "users";
   public static final String WS_ADMIN_USERS = WS_ADMIN + "users";
   public static final String WS_ADMIN_COMMUNITIES = WS_ADMIN + "communities";
+
+  public static final String WS_ADMIN_LABELS = WS_ADMIN + "labels";
+
+  public static final String WS_ADMIN_LABEL = WS_ADMIN + "label/{labelId}";
   public static final String WS_ADMIN_COMMUNITY_USERS = WS_ADMIN + "communities/{communityId}/users";
   public static final String WS_ADMIN_USER = WS_ADMIN + "users/{userId}";
   /*public static final String WS_SEC_CREATE_COMMUNITY= WS_SEC + "community/create";*/

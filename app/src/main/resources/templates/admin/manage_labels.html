@@ -25,7 +25,7 @@
   <th:block th:include="fragments/header-head :: head"></th:block>
 </head>
 
-<header role="banner" th:replace="fragments/header-manage-communities :: header">&nbsp;</header>
+<header role="banner" th:replace="fragments/header-manage-labels :: header">&nbsp;</header>
 
 <body>
 <div class="container">
@@ -38,6 +38,14 @@
               <div class="pull-left sticker_add"></div>
               <h2 class="container_H2 text_hyphenation" th:text="#{label.new}"></h2>
               <div class="pull-right add_black"></div>
+            </a>
+          </li>
+          <li class="aside_bckg_li" th:each="label:${labels}">
+            <a class="all_li_clickable" th:href="@{/sec/admin/label/} + ${label.id}">
+              <div class="pull-left sticker_plain" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}"></div>
+              <div class="pull-left sticker" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}"></div>
+              <h4 class="container_H2 text_hyphenation" th:text="${label.name}"></h4>
+              <div class="pull-right chevron"></div>
             </a>
           </li>
         </ul>
@@ -55,16 +63,16 @@
       <div class="modal-header">
         <button class="close" data-dismiss="modal" type="button"></button>
         <div class="pull-left">
-          <div class="group_project_add_white pull-left"></div>
-          <h2 class="pull-right" th:text="#{create_job_community}"></h2>
+          <div class="sticker_add_white_plain pull-left"></div>
+          <h2 class="pull-right" th:text="#{label.new}"></h2>
         </div>
       </div>
-      <form autocomplete="off" method="post" th:action="@{/sec/community/search(id='0',type='Job')}"
-            th:object="${communityCreationView}">
+      <form autocomplete="off" method="post" th:action="@{/sec/label/search(id='0',type='Admin')}"
+            th:object="${labelCreationView}">
         <div class="modal-body text-center">
-          <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
-          <input class="border form-control" id="communityName" name="name" required="" th:autofocus="true"
-                 th:placeholder="#{community.enter_name}" type="text" autocomplete="off"/>
+          <div class="errorRegexLabelName hidden" th:text="#{errorNameAuthorize}"></div>
+          <input class="border form-control" id="labelName" name="name" required="" th:autofocus="true"
+                 th:placeholder="#{label.enter_name}" type="text" autocomplete="off"/>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary pull-left" data-dismiss="modal" id="cancel-modal" th:title="#{title_cancel}"
@@ -72,7 +80,7 @@
             <div class="x-close2_black center-block"></div>
             <span th:text="#{cancel}"></span>
           </button>
-          <button id="submit-create-community" class="btn btn-default pull-right" data-dismiss="" type="submit">
+          <button id="submit-create-label" class="btn btn-default pull-right" data-dismiss="" type="submit">
             <div class="v-done2_blue center-block"></div>
             <span th:text="#{continue}"></span>
           </button>
@@ -84,5 +92,5 @@
 
 
 </body>
-<script src="../public/js/create-community.js" th:src="@{/js/create-community.js}" type="text/javascript"></script>
+<script src="../public/js/create-label.js" th:src="@{/js/create-label.js}" type="text/javascript"></script>
 </html>

@@ -1,4 +1,4 @@
-package com.orange.signsatwork.biz.persistence.service;
+package com.orange.signsatwork.biz.webservice.model;
 
 /*
  * #%L
@@ -22,22 +22,29 @@ package com.orange.signsatwork.biz.persistence.service;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.domain.Community;
+import com.orange.signsatwork.biz.domain.CommunityType;
+import com.orange.signsatwork.biz.domain.Label;
+import com.orange.signsatwork.biz.domain.LabelType;
+import com.orange.signsatwork.biz.security.ClearXss;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
-import java.util.Locale;
 
-public interface LabelService {
+@Getter
+@AllArgsConstructor
 
-  Labels findLabelsOrderByNameAsc();
-  Labels labelsByType(LabelType type);
-  List<Object[]> searchBis(String labelName);
+public class LabelCreationViewApi {
+  private String name;
 
-  Label withLabelName(String labelName);
+  public Label toLabel() {
+    return new Label(-1, this.name, LabelType.Admin);
+  }
 
-  Label create(Label label);
-
-  Label withId(long id);
-
-  void delete(Label label);
+  public void clearXss() {
+    if (name != null) {
+      name = ClearXss.cleanFormString(name);
+    }
+  }
 }
