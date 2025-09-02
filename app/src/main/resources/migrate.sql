@@ -57,4 +57,5 @@ update userdb set is_enabled = true, is_non_locked = true;
 
 alter table messages_server modify column val varchar(2000);
 
-alter table labels modify name varchar(255) character set utf8 collate utf8_bin;
+alter table labels modify name varchar(255) character set utf8mb4 collate utf8mb4_unicode_ci;
+alter table labels modify type varchar(255) character set utf8mb4 collate utf8mb4_unicode_ci;

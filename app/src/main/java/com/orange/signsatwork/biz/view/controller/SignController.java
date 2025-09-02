@@ -856,6 +856,7 @@ public class SignController {
   @RequestMapping(value = "/sign/{signId}/{videoId}")
   public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
     List<Long> favoritesIdBelowVideo = new ArrayList<>();
+    List<Long> labelsIdBelowSign = new ArrayList<>();
     Boolean isVideoCreatedByMe = false;
     Boolean isSignHaveLabels = false;
     String referer = req.getHeader("Referer");
@@ -910,6 +911,7 @@ public class SignController {
       if (labelDatas.size() >= 1) {
         isSignHaveLabels = true;
       }
+      fillModelWithLabels(model, isSignHaveLabels, sign.id);
       model.addAttribute("isSignHaveLabels", isSignHaveLabels);
     }
 
@@ -932,7 +934,7 @@ public class SignController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
-    VideoProfileView2 videoProfileView = new VideoProfileView2(video, favoritesIdBelowVideo);
+    VideoProfileView2 videoProfileView = new VideoProfileView2(video, favoritesIdBelowVideo, labelsIdBelowSign);
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", videoProfileView);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
@@ -1021,7 +1023,7 @@ public class SignController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
-    VideoProfileView2 videoProfileView = new VideoProfileView2(video, favoritesIdBelowVideo);
+    VideoProfileView2 videoProfileView = new VideoProfileView2(video, favoritesIdBelowVideo, null);
     model.addAttribute("signView", sign);
     model.addAttribute("signCreationView", new SignCreationView());
     model.addAttribute("videoView", videoProfileView);
@@ -1414,9 +1416,8 @@ public class SignController {
       List<LabelModalView> labelsUserOrdered = new ArrayList<>();
       labelsUserOrdered = labelsUser.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
       labels.addAll(labelsUserOrdered);
-
     }
-    model.addAttribute("Labels", labels);
+    model.addAttribute("labels", labels);
 
   }
 

@@ -106,7 +106,7 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
     @Query(value="select count(*) from ratings r, videos v where r.video_id = v.id and v.sign_id =  :signId", nativeQuery = true)
     Long findNbRatingForSign(@Param("signId") long signId);
 
-  @Query(value="select a.labels_id, b.name from labels_signs a inner join labels b on a.labels_id = b.id and a.signs_id = :signId order by lower(b.name) collate utf8_unicode_ci asc", nativeQuery = true)
+  @Query(value="select a.labels_id, b.name from labels_signs a inner join labels b on a.labels_id = b.id and a.signs_id = :signId order by lower(b.name)  asc", nativeQuery = true)
   List<Object[]>  findLabelsForSign(@Param("signId") long signId);
 
   public default SignDB findOne(long id) {

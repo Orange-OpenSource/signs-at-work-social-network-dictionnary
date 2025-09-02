@@ -40,4 +40,5 @@ public interface LabelService {
   Label withId(long id);
 
   void delete(Label label);
+
 }

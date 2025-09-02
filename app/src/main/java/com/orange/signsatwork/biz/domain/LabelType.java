@@ -23,6 +23,6 @@ package com.orange.signsatwork.biz.domain;
  */
 
 public enum LabelType {
-    Admin,
-    User;
+  Admin,
+  User;
 }

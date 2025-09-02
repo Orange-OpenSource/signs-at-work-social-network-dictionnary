@@ -37,9 +37,12 @@ import java.util.Set;
 public class VideoProfileView2 {
   private Video video;
   private List<Long> videoFavoritesIds;
+  private List<Long> signLabelsIds;
 
-  public VideoProfileView2(Video video, List<Long> videoFavoritesIds) {
+
+  public VideoProfileView2(Video video, List<Long> videoFavoritesIds, List<Long> signLabelsIds) {
     this.video = video;
     this.videoFavoritesIds = videoFavoritesIds;
+    this.signLabelsIds = signLabelsIds;
   }
 }

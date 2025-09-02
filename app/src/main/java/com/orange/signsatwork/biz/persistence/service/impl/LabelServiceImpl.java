@@ -102,6 +102,7 @@ public class LabelServiceImpl implements LabelService {
     labelRepository.delete(labelDB);
   }
 
+
   private Labels labelsFrom(Iterable<LabelDB> labelsDB) {
     List<Label>labels = new ArrayList<>();
     labelsDB.forEach(lavelDB -> labels.add(labelFrom(lavelDB)));

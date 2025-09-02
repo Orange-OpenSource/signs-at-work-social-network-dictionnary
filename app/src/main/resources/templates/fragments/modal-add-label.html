@@ -51,18 +51,18 @@
                   </li>
                 </ul>
                   <form id="AddVideoToFavoritesForm" th:if="${not #lists.isEmpty(labels)}"
-                        th:object="${signView}"
+                        th:object="${videoView}"
                         method="post">
                     <div class="form-group">
                       <ul id="favorites-container" class="nav nav-list primary left-menu">
                         <li class="clear aside_bckg_li" th:each="label :${labels}">
-                          <label th:id="${label.labelName()}"
-                                 th:for="${#ids.next('videoFavoritesIds')}">
-                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Thematic}" class="pull-left pinlist_blue"></div>
-                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Usage}" class="pull-left pinlist_shared"></div>
-                            <input type="checkbox" th:field="*{videoFavoritesIds}" th:value="${favorite.id}"/>
-                            <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Thematic}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
-                            <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Usage}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${favorite.favoriteName()}"></h4>
+                          <label th:id="${label.name}"
+                                 th:for="${#ids.next('signLabelsIds')}">
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="pull-left pinlist_blue"></div>
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="pull-left pinlist_shared"></div>
+                            <input type="checkbox" th:field="*{signLabelsIds}" th:value="${label.id}"/>
+                            <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>
+                            <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>
                           </label>
                         </li>
                       </ul>

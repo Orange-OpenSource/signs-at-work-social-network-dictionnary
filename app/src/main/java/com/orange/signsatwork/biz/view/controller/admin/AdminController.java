@@ -369,7 +369,7 @@ public class AdminController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
-    VideoProfileView2 videoProfileView = new VideoProfileView2(video, null);
+    VideoProfileView2 videoProfileView = new VideoProfileView2(video, null, null);
 
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", videoProfileView);

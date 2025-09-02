@@ -67,7 +67,7 @@ public interface FavoriteService {
 
   Favorite removeMeFromSeeFavorite(long favoriteId, long userId);
 
-  Long[] FavoriteIdsBelowVideoId(long videoId, List<Long>favoriteIds);
+  Long[] FavoriteIdsBelowVideoId(long videoId, List<Long> favoriteIds);
 
   Favorites shareFavoritesInCommunity(long communityId);
 

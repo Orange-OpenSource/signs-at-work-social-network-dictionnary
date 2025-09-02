@@ -36,14 +36,18 @@ public interface LabelRepository extends CrudRepository<LabelDB, Long> {
 
     List<LabelDB> findByOrderByNameAsc();
 
-    @Query(value="select distinct id, name, type from labels where type = :type order by lower(name) collate utf8_unicode_ci asc", nativeQuery = true)
+
+    @Query("SELECT l FROM LabelDB l WHERE l.type = :type ORDER BY LOWER(l.name) asc")
     List<LabelDB> findLabelsByType(@Param("type") LabelType type);
 
-    @Query(value="select id, name, type from labels  where replace(replace(upper(name),'Œ','OE'),'Æ','AE') collate utf8_unicode_ci like concat('%',:name,'%')", nativeQuery = true)
+
+    @Query(value="select id, name, type from labels  where replace(replace(upper(name),'Œ','OE'),'Æ','AE') like concat('%',:name,'%')", nativeQuery = true)
     List<Object[]> findStartByNameIgnoreCase(@Param("name") String name);
 
   public default LabelDB findOne(long id) {
     return findById(id).orElse(null);
   }
+
+
 
 }
