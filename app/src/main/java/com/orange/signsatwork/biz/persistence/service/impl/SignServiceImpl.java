@@ -26,10 +26,7 @@ import com.orange.signsatwork.AppProfile;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
-import com.orange.signsatwork.biz.persistence.model.RequestDB;
-import com.orange.signsatwork.biz.persistence.model.SignDB;
-import com.orange.signsatwork.biz.persistence.model.UserDB;
-import com.orange.signsatwork.biz.persistence.model.VideoDB;
+import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
@@ -59,6 +56,7 @@ public class SignServiceImpl implements SignService {
   private final VideoRepository videoRepository;
   private final CommentRepository commentRepository;
   private final RequestRepository requestRepository;
+  private final LabelRepository labelRepository;
   private final Services services;
 
   @Autowired
@@ -529,6 +527,26 @@ public class SignServiceImpl implements SignService {
   @Override
   public List<Object[]> LabelsForSign(long signId) {
     return signRepository.findLabelsForSign(signId);
+  }
+
+  public void SignToLabels(long signId, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck) {
+    SignDB signDB = signRepository.findOne(signId);
+    for (long id : labelIdsCheck) {
+      LabelDB labelDB = labelRepository.findOne(id);
+      List<SignDB> signDBs = labelDB.getSigns();
+      if (!signDBs.contains(signDB)) {
+        signDBs.add(signDB);
+        labelRepository.save(labelDB);
+      }
+    }
+    for (long id : labelIdsNoCheck) {
+      LabelDB labelDB = labelRepository.findOne(id);
+      List<SignDB> signDBs = labelDB.getSigns();
+      if (signDBs.contains(signDB)) {
+        signDBs.remove(signDB);
+        labelRepository.save(labelDB);
+      }
+    }
   }
 
   private SignDB withDBId(long id) {

@@ -909,9 +909,10 @@ public class SignController {
         .map(objectArray -> new LabelData(objectArray))
         .collect(Collectors.toList());
       if (labelDatas.size() >= 1) {
+        labelsIdBelowSign = labelDatas.stream().map(l -> l.id).collect(Collectors.toList());
         isSignHaveLabels = true;
       }
-      fillModelWithLabels(model, isSignHaveLabels, sign.id);
+      fillModelWithLabels(model, isSignHaveLabels, labelsIdBelowSign, sign.id);
       model.addAttribute("isSignHaveLabels", isSignHaveLabels);
     }
 
@@ -1403,21 +1404,32 @@ public class SignController {
       return favoritesIdBelowVideo;
   }
 
-  private void fillModelWithLabels(Model model, Boolean isSignHaveLabels, Long signId) {
+  private void fillModelWithLabels(Model model, Boolean isSignHaveLabels, List<Long> labelsIdBelowSign, Long signId) {
     List<LabelModalView> labels = new ArrayList<>();
-    if (!isSignHaveLabels) {
-      List<LabelModalView> labelsThematic = LabelModalView.from(services.label().labelsByType(LabelType.Admin));
-      List<LabelModalView> labelsAdminOrdered = new ArrayList<>();
-      Collator collator = Collator.getInstance();
-      collator.setStrength(0);
-      labelsAdminOrdered = labelsThematic.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
-      labels.addAll(labelsAdminOrdered);
-      List<LabelModalView> labelsUser = LabelModalView.from(services.label().labelsByType(LabelType.User));
-      List<LabelModalView> labelsUserOrdered = new ArrayList<>();
-      labelsUserOrdered = labelsUser.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
-      labels.addAll(labelsUserOrdered);
-    }
-    model.addAttribute("labels", labels);
+
+    List<LabelModalView> labelsThematic = LabelModalView.from(services.label().labelsByType(LabelType.Admin));
+    List<LabelModalView> labelsAdminOrdered = new ArrayList<>();
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+    labelsAdminOrdered = labelsThematic.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
+    labels.addAll(labelsAdminOrdered);
+    List<LabelModalView> labelsUser = LabelModalView.from(services.label().labelsByType(LabelType.User));
+    List<LabelModalView> labelsUserOrdered = new ArrayList<>();
+    labelsUserOrdered = labelsUser.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
+    labels.addAll(labelsUserOrdered);
+
+    List<LabelModalView> labelsOrdered = new ArrayList<>();
+    List<LabelModalView> labelsBelowSign = new ArrayList<>();
+    List<Long> finalLabelsIdBelowSign = labelsIdBelowSign;
+    labelsBelowSign = labels.stream().filter(f -> finalLabelsIdBelowSign.contains(f.getId()))
+      .sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+    labelsOrdered.addAll(labelsBelowSign);
+    List<LabelModalView> labelsNotBelowSign = new ArrayList<>();
+    labelsNotBelowSign = labels.stream().filter(f -> !finalLabelsIdBelowSign.contains(f.getId()))
+      .sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+    labelsOrdered.addAll(labelsNotBelowSign);
+
+    model.addAttribute("labels", labelsOrdered);
 
   }
 

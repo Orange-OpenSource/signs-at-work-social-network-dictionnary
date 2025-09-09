@@ -50,16 +50,16 @@
                     </a>
                   </li>
                 </ul>
-                  <form id="AddVideoToFavoritesForm" th:if="${not #lists.isEmpty(labels)}"
+                  <form id="AddSignToLabelsForm" th:if="${not #lists.isEmpty(labels)}"
                         th:object="${videoView}"
                         method="post">
                     <div class="form-group">
-                      <ul id="favorites-container" class="nav nav-list primary left-menu">
+                      <ul id="labels-container" class="nav nav-list primary left-menu">
                         <li class="clear aside_bckg_li" th:each="label :${labels}">
                           <label th:id="${label.name}"
                                  th:for="${#ids.next('signLabelsIds')}">
-                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="pull-left pinlist_blue"></div>
-                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="pull-left pinlist_shared"></div>
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="pull-left sticker_plain"></div>
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="pull-left sticker_plain_white"></div>
                             <input type="checkbox" th:field="*{signLabelsIds}" th:value="${label.id}"/>
                             <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>
                             <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>
@@ -73,8 +73,8 @@
             <button id="cancel_modal_add_favorite" data-dismiss="modal"
                     th:onclick="javascript:onReloadForm()"
                     th:text="#{undo}"></button>
-            <button id="validate_modal_add_favorite" th:data-videoId="${videoView.video.id}"
-                    th:onclick="javascript:onAddVideoToFavoritesForm(this.getAttribute('data-videoId'))"
+            <button id="validate_modal_add_favorite" th:data-signId="${signView.id}"
+                    th:onclick="javascript:onAddSignToLabelsForm(this.getAttribute('data-signId'))"
                     th:text="#{validate}"></button>
           </div>
         </div>

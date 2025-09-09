@@ -176,4 +176,6 @@ public class RestApi {
 
   public static final String WS_ADMIN_REQUEST = WS_ADMIN + "requests/{requestId}";
 
+  public static final String WS_SEC_SIGN_LABELS_ASSOCIATE = WS_SEC + "sign/{signId}/add/labels";
+
 }

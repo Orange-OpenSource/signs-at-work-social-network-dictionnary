@@ -124,6 +124,46 @@ function onAddVideoToFavoritesForm(videoId) {
   }
 };
 
+function onAddSignToLabelsForm(signId) {
+  console.log("onAddSignToLabelsForm ", signId);
+  if ($("#AddSignToLabelsForm").isChanged()) {
+    var signLabelsIdsCheck = [];
+    var signLabelsIdsNoCheck =  [];
+    i = 1;
+    $("#labels-container").children("li").children("label").each(function () {
+      if (!this.classList.contains("disabled")) {
+        if (document.getElementById("signLabelsIds" + i).checked) {
+          var selectedLabelId = document.getElementById("signLabelsIds" + i).value;
+          signLabelsIdsCheck.push(selectedLabelId);
+        } else {
+          var selectedLabelId = document.getElementById("signLabelsIds" + i).value;
+          signLabelsIdsNoCheck.push(selectedLabelId);
+        }
+      }
+      i = i + 1;
+    });
+    var signLabelViewApi = {
+      signLabelsIdsCheck: signLabelsIdsCheck,
+      signLabelsIdsNoCheck: signLabelsIdsNoCheck
+    };
+    $.ajax({
+      url: "/ws/sec/sign/" + signId + "/add/labels",
+      type: 'post',
+      data: JSON.stringify(signLabelViewApi),
+      contentType: "application/json",
+      success: function (response) {
+        console.log(response);
+        $('#add_sign_to_label').modal('hide');
+        location.reload();
+      },
+      error: function (response) {
+      }
+    })
+  } else {
+    $('#add_sign_to_label').modal('hide');
+  }
+};
+
 function onReloadForm() {
   console.log("onReloadForm");
   location.reload();
@@ -201,4 +241,5 @@ $(document).ready(function(){
     document.getElementById('submitButtonFileDailymotion').disabled=false;
   });
   $("#AddVideoToFavoritesForm").trackChanges();
+  $("#AddSignToLabelsForm").trackChanges();
 });
