@@ -3866,6 +3866,47 @@ panel-title {
   display: none;
 }
 
+.text-container {
+  position: relative;
+  padding-right: 25px; /* espace pour la flèche */
+}
+
+.short-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* nombre de lignes visibles */
+  overflow: hidden;
+  margin: 0;
+  transition: max-height 0.3s ease;
+  padding-top: 13px;
+}
+
+.text-container.expanded .short-text {
+  -webkit-line-clamp: initial; /* affiche tout le texte */
+  white-space: normal;
+}
+
+.toggle-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-decoration: none;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 10px;
+}
+
+.text-container.expanded .arrow {
+  transform: rotate(180deg); /* flèche pivote */
+}
+
+
+
 @media only screen and (max-width:768px) {
 .footer {
   left: 0;

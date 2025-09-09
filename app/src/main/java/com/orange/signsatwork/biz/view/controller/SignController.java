@@ -855,6 +855,7 @@ public class SignController {
 
   @RequestMapping(value = "/sign/{signId}/{videoId}")
   public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+    String labelsNameForSign = null;
     List<Long> favoritesIdBelowVideo = new ArrayList<>();
     List<Long> labelsIdBelowSign = new ArrayList<>();
     Boolean isVideoCreatedByMe = false;
@@ -911,9 +912,17 @@ public class SignController {
       if (labelDatas.size() >= 1) {
         labelsIdBelowSign = labelDatas.stream().map(l -> l.id).collect(Collectors.toList());
         isSignHaveLabels = true;
+        for(LabelData labelData : labelDatas) {
+          if (labelsNameForSign != null) {
+            labelsNameForSign = labelsNameForSign + ',' + labelData.name;
+          } else {
+            labelsNameForSign = labelData.name;
+          }
+        }
       }
       fillModelWithLabels(model, isSignHaveLabels, labelsIdBelowSign, sign.id);
       model.addAttribute("isSignHaveLabels", isSignHaveLabels);
+      model.addAttribute("labelsName", labelsNameForSign);
     }
 
     if (video.averageRate > 0) {

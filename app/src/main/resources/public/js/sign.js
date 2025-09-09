@@ -242,4 +242,11 @@ $(document).ready(function(){
   });
   $("#AddVideoToFavoritesForm").trackChanges();
   $("#AddSignToLabelsForm").trackChanges();
+  $('.toggle-text').click(function(e){
+    e.preventDefault();
+    $(this).closest('.text-container').toggleClass('expanded');
+  });
 });
+
+
+
