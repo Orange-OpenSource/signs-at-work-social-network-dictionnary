@@ -1873,12 +1873,13 @@ public class SignRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SIGN_LABELS_ASSOCIATE, method = RequestMethod.POST)
-  public void signAssociateLabels(@RequestBody SignLabelViewApi signLabelViewApi, @PathVariable long signId, HttpServletResponse response) {
+  public String signAssociateLabels(@RequestBody SignLabelViewApi signLabelViewApi, @PathVariable long signId, HttpServletResponse response) {
 
-    services.sign().SignToLabels(signId, signLabelViewApi.getSignLabelsIdsCheck(), signLabelViewApi.getSignLabelsIdsNoCheck());
+    String labels = services.sign().SignToLabels(signId, signLabelViewApi.getSignLabelsIds(), signLabelViewApi.getSignLabelsIdsCheck(), signLabelViewApi.getSignLabelsIdsNoCheck());
 
     response.setStatus(HttpServletResponse.SC_OK);
-    return;
+
+    return labels;
   }
 
   }

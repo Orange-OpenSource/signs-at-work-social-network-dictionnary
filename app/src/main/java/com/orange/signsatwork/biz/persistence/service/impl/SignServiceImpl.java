@@ -30,6 +30,8 @@ import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
+import com.orange.signsatwork.biz.webservice.model.LabelActionType;
+import com.orange.signsatwork.biz.webservice.model.LabelMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +41,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.text.Collator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -529,7 +529,11 @@ public class SignServiceImpl implements SignService {
     return signRepository.findLabelsForSign(signId);
   }
 
-  public void SignToLabels(long signId, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck) {
+  public String SignToLabels(long signId, List<Long> labelIds, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck) {
+    StringBuilder message = new StringBuilder();
+    LabelMessage labelMessage;
+    List<LabelMessage> labelMessages = new ArrayList<>();
+    List<LabelMessage> labelMessagesOrdered = new ArrayList<>();
     SignDB signDB = signRepository.findOne(signId);
     for (long id : labelIdsCheck) {
       LabelDB labelDB = labelRepository.findOne(id);
@@ -538,6 +542,12 @@ public class SignServiceImpl implements SignService {
         signDBs.add(signDB);
         labelRepository.save(labelDB);
       }
+      if (labelIds.contains(id)) {
+        labelMessage = new LabelMessage(id, labelDB.getName(), LabelActionType.PRESENT);
+      } else {
+        labelMessage = new LabelMessage(id, labelDB.getName(), LabelActionType.ADD);
+      }
+      labelMessages.add(labelMessage);
     }
     for (long id : labelIdsNoCheck) {
       LabelDB labelDB = labelRepository.findOne(id);
@@ -546,7 +556,35 @@ public class SignServiceImpl implements SignService {
         signDBs.remove(signDB);
         labelRepository.save(labelDB);
       }
+      if (labelIds.contains(id)) {
+        labelMessage = new LabelMessage(id, labelDB.getName(), LabelActionType.REMOVE);
+        labelMessages.add(labelMessage);
+      }
     }
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+    labelMessagesOrdered = labelMessages.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
+
+    StringJoiner joiner = new StringJoiner(", ");
+
+    for (LabelMessage lM : labelMessagesOrdered) {
+      switch (lM.getLabelActionType()) {
+        case REMOVE:
+          joiner.add("<del>" + lM.getName() + "</del>");
+          break;
+        case ADD:
+          joiner.add("<span class='fond-bleu'>" + lM.getName() + "</span>");
+          break;
+        case PRESENT:
+        default:
+          joiner.add(lM.getName());
+      }
+    }
+
+    message.append(joiner.toString());
+
+
+    return message.toString().trim();
   }
 
   private SignDB withDBId(long id) {

@@ -22,19 +22,14 @@ package com.orange.signsatwork.biz.webservice.model;
  * #L%
  */
 
+import com.orange.signsatwork.biz.domain.Sign;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.List;
-
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
-@Setter
-public class SignLabelViewApi {
-  private List<Long> signLabelsIds;
-  private List<Long> signLabelsIdsCheck;
-  private List<Long> signLabelsIdsNoCheck;
+@AllArgsConstructor
+public class LabelMessage {
+  private long id;
+  private String name;
+  private LabelActionType labelActionType;
 }

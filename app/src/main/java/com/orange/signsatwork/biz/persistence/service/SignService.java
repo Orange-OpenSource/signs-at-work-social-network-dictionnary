@@ -116,5 +116,5 @@ public interface SignService {
 
   List<Object[]> LabelsForSign(long signId);
 
-  void SignToLabels(long signId, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck);
+  String SignToLabels(long signId, List<Long> labelIds, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck);
 }

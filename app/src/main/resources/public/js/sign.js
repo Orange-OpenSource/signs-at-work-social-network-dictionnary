@@ -124,8 +124,22 @@ function onAddVideoToFavoritesForm(videoId) {
   }
 };
 
-function onAddSignToLabelsForm(signId) {
-  console.log("onAddSignToLabelsForm ", signId);
+
+function onAddSignToLabelsForm(labelsIdBelowSign, signId) {
+  console.log("onAddSignToLabelsForm ", labelsIdBelowSign, signId);
+  console.log("Avant parse:", labelsIdBelowSign);
+
+  // Convertir le string "[1, 2, 3]" en vrai tableau [1,2,3]
+  var signLabelsIds;
+  try {
+    signLabelsIds = JSON.parse(labelsIdBelowSign);
+  } catch (e) {
+    // fallback si c'est juste "1"
+    signLabelsIds = [Number(labelsIdBelowSign)];
+  }
+
+  console.log("Après parse:", signLabelsIds);
+
   if ($("#AddSignToLabelsForm").isChanged()) {
     var signLabelsIdsCheck = [];
     var signLabelsIdsNoCheck =  [];
@@ -142,7 +156,9 @@ function onAddSignToLabelsForm(signId) {
       }
       i = i + 1;
     });
+
     var signLabelViewApi = {
+      signLabelsIds: signLabelsIds,
       signLabelsIdsCheck: signLabelsIdsCheck,
       signLabelsIdsNoCheck: signLabelsIdsNoCheck
     };
@@ -154,7 +170,8 @@ function onAddSignToLabelsForm(signId) {
       success: function (response) {
         console.log(response);
         $('#add_sign_to_label').modal('hide');
-        location.reload();
+        document.getElementById("labels").innerHTML = response;
+        //location.reload();
       },
       error: function (response) {
       }
