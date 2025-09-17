@@ -3817,7 +3817,7 @@ panel-title {
 }
 
 
-#validate_modal_add_favorite {
+#validate_modal_add_favorite, #validate_modal_add_label {
   color: #4866F7;
   font-size: 14px;
   border-style: none;
@@ -3829,7 +3829,7 @@ panel-title {
   text-align: center;
 }
 
-#cancel_modal_add_favorite {
+#cancel_modal_add_favorite, #cancel_modal_add_label {
   color: #8C8C8C;
   font-size: 14px;
   border-style: none;
@@ -3905,6 +3905,13 @@ panel-title {
   transform: rotate(180deg); /* flèche pivote */
 }
 
+
+.fond-bleu {
+ background-color: #4866F7;
+ color: white;
+ padding: 2px 4px;
+ border-radius: 3px;
+}
 
 
 @media only screen and (max-width:768px) {
