@@ -171,6 +171,22 @@ function onAddSignToLabelsForm(labelsIdBelowSign, signId) {
         console.log(response);
         $('#add_sign_to_label').modal('hide');
         document.getElementById("labels").innerHTML = response;
+        document.getElementById("validate_modal_add_label").setAttribute("data-labelsidbelowsign",  JSON.stringify(signLabelsIdsCheck));
+
+        const statusDiv = document.getElementById("sign-label-status");
+
+        if (signLabelsIdsCheck.length > 0) {
+          // si le tableau contient des éléments → mettre chevron
+          statusDiv.classList.remove("add_black");
+          statusDiv.classList.add("chevron");
+        } else {
+          // si le tableau est vide → mettre add_black
+          statusDiv.classList.remove("chevron");
+          statusDiv.classList.add("add_black");
+        }
+
+
+        document.getElementById("messageLabel").style.visibility="visible";
         //location.reload();
       },
       error: function (response) {

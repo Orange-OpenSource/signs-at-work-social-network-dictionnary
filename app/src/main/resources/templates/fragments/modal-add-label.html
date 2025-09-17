@@ -70,11 +70,11 @@
                   </form>
             </div>
           <div class="modal-footer">
-            <button id="cancel_modal_add_favorite" data-dismiss="modal"
+            <button id="cancel_modal_add_label" data-dismiss="modal"
                     th:onclick="javascript:onReloadForm()"
                     th:text="#{undo}"></button>
-            <button id="validate_modal_add_favorite" th:data-labelsIdBelowSign="${videoView.signLabelsIds}" th:data-signId="${signView.id}"
-                    th:onclick="javascript:onAddSignToLabelsForm(this.getAttribute('data-labelsIdBelowSign'), this.getAttribute('data-signId'))"
+            <button id="validate_modal_add_label" th:data-labelsidbelowsign="${videoView.signLabelsIds}" th:data-signId="${signView.id}"
+                    th:onclick="javascript:onAddSignToLabelsForm(this.getAttribute('data-labelsidbelowsign'), this.getAttribute('data-signId'))"
                     th:text="#{validate}"></button>
           </div>
         </div>

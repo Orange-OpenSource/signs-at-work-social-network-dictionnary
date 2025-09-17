@@ -59,8 +59,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
-
 @Component
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
