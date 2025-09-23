@@ -529,6 +529,16 @@ public class SignServiceImpl implements SignService {
     return signRepository.findLabelsForSign(signId);
   }
 
+  public void addSignToLabel(long signId, long labelId) {
+    SignDB signDB = signRepository.findOne(signId);
+    LabelDB labelDB = labelRepository.findOne(labelId);
+    List<SignDB> signDBs = labelDB.getSigns();
+    if (!signDBs.contains(signDB)) {
+      signDBs.add(signDB);
+      labelRepository.save(labelDB);
+    }
+  }
+
   public String SignToLabels(long signId, List<Long> labelIds, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck) {
     StringBuilder message = new StringBuilder();
     LabelMessage labelMessage;

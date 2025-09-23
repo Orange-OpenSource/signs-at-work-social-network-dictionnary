@@ -2442,19 +2442,19 @@ table tbody td{
   background-image: url("/img/sprite_picto_sticker_400X400.png");
   background-position: -30px center;
   background-repeat: no-repeat;
-  background-size: auto 30px;
+  background-size: auto 29px;
   height: 45px;
-  width: 30px;
+  width: 28px;
   margin-right: 20px;
 }
 
 .sticker_add {
   background-image: url("/img/sprite_picto_sticker_400X400.png");
-  background-position: -48px center;
+  background-position: -49px center;
   background-repeat: no-repeat;
   background-size: auto 24px;
   height: 48px;
-  width: 24px;
+  width: 23px;
 }
 
 .sticker_double {

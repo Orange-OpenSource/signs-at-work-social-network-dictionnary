@@ -1,6 +1,7 @@
 package com.orange.signsatwork.biz.view.controller;
 
 import com.orange.signsatwork.biz.domain.CommunityType;
+import com.orange.signsatwork.biz.domain.Label;
 import com.orange.signsatwork.biz.domain.LabelType;
 import com.orange.signsatwork.biz.domain.User;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
@@ -45,22 +46,23 @@ public class LabelController {
 
   @Secured("ROLE_USER_A")
   @RequestMapping(value = "/sec/label/search")
-  public String searchLabel(@ModelAttribute LabelCreationView labelCreationView, @RequestParam("id") Long signId, @RequestParam("type") Optional<LabelType> labelType) {
+  public String searchLabel(@ModelAttribute LabelCreationView labelCreationView, @RequestParam("id") Long signId, @RequestParam("videoId") Long videoId, @RequestParam("type") Optional<LabelType> labelType) {
     if (signId == null) {
       signId = 0L;
     }
     String name = labelCreationView.getName();
     if (labelType.isPresent()) {
-      return "redirect:/sec/labels-suggest?name=" + URLEncoder.encode(name) + "&id=" + signId + "&type=" + labelType.get();
+      return "redirect:/sec/labels-suggest?name=" + URLEncoder.encode(name) + "&id=" + signId + "&videoId=" + videoId + "&type=" + labelType.get();
     } else {
-      return "redirect:/sec/labels-suggest?name=" + URLEncoder.encode(name) + "&id=" + signId;
+      return "redirect:/sec/labels-suggest?name=" + URLEncoder.encode(name) + "&id=" + signId + "&videoId=" + videoId;
     }
   }
 
   @Secured({"ROLE_USER","ROLE_ADMIN"})
   @RequestMapping(value = "/sec/labels-suggest")
-  public String showlabelsSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long signId, @RequestParam("type") Optional<LabelType> labelType, Principal principal) {
+  public String showlabelsSuggest(Model model, @RequestParam("name") String name, @RequestParam("id") Long signId, @RequestParam("videoId") Long videoId, @RequestParam("type") Optional<LabelType> labelType, Principal principal) {
     boolean isAdmin = appSecurityAdmin.isAdmin(principal);
+    boolean isLabelAlreadyExist = false;
     User user = services.user().withUserName(principal.getName());
     String decodeName = URLDecoder.decode(name);
     model.addAttribute("title", messageByLocaleService.getMessage("label.new"));
@@ -72,16 +74,17 @@ public class LabelController {
       .collect(Collectors.toList());
 
     model.addAttribute("labelName", decodeName.trim());
-    model.addAttribute("isLabelAlreadyExist", false);
+
     List<LabelViewData> labelsWithSameName = new ArrayList<>();
     for (LabelViewData label:labelViewData) {
       if (label.name.trim().replace("œ", "oe").replace("æ", "ae").equalsIgnoreCase(decodeName.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE")) ) {
-        model.addAttribute("isLabelAlreadyExist", true);
+        isLabelAlreadyExist = true;
         model.addAttribute("labelMatche", label);
       } else {
         labelsWithSameName.add(label);
       }
     }
+    model.addAttribute("isLabelAlreadyExist", isLabelAlreadyExist);
 
     /*List<Object[]> queryCommunitiesForFavorite = services.community().allForFavorite(user.id);
     List<CommunityViewData> communitiesViewData = queryCommunitiesForFavorite.stream()
@@ -107,7 +110,13 @@ public class LabelController {
       model.addAttribute("backUrl", "/sec/admin/manage_labels");
       return "admin/labels-suggest";
     } else {
-      return "labels-suggest";
+      if (!isLabelAlreadyExist && labelsWithSameName.size() == 0) {
+        Label label = services.label().create(new Label(-1, decodeName.trim(), LabelType.User));
+        services.sign().addSignToLabel(signId, label.id);
+        return "redirect:/sign/" + signId + "/" + videoId;
+      } else {
+        return "labels-suggest";
+      }
     }
   }
 }

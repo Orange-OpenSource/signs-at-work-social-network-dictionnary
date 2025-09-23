@@ -59,7 +59,7 @@
                           <label th:id="${label.name}"
                                  th:for="${#ids.next('signLabelsIds')}">
                             <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="pull-left sticker_plain"></div>
-                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="pull-left sticker_plain_white"></div>
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="pull-left sticker"></div>
                             <input type="checkbox" th:field="*{signLabelsIds}" th:value="${label.id}"/>
                             <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>
                             <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>
