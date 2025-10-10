@@ -957,6 +957,58 @@ public class SignController {
     return "sign";
   }
 
+  @RequestMapping(value = "/sign/{signId}/{videoId}/labels")
+  public String labels(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+    String labelsNameForSign = null;
+    List<Long> labelsIdBelowSign = new ArrayList<>();
+    Boolean isSignHaveLabels = false;
+    String referer = req.getHeader("Referer");
+
+    StringBuffer location = req.getRequestURL();
+
+    AuthentModel.addAuthenticatedModel(model, AuthentModel.isAuthenticated(principal));
+
+
+    Sign sign = services.sign().withIdSignsView(signId);
+    if (sign == null) {
+      return "null";
+    }
+
+    Video video = services.video().withId(videoId);
+    if (video == null) {
+      return "null";
+    }
+
+    if (principal != null) {
+      User user = services.user().withUserName(principal.getName());
+      model.addAttribute("userId", user.id);
+      List<Object[]> queryLabelsForSign = services.sign().LabelsForSign(signId);
+      List<LabelData> labelDatas = queryLabelsForSign.stream()
+        .map(objectArray -> new LabelData(objectArray))
+        .collect(Collectors.toList());
+      if (labelDatas.size() >= 1) {
+        labelsIdBelowSign = labelDatas.stream().map(l -> l.id).collect(Collectors.toList());
+        isSignHaveLabels = true;
+        for(LabelData labelData : labelDatas) {
+          if (labelsNameForSign != null) {
+            labelsNameForSign = labelsNameForSign + ',' + labelData.name;
+          } else {
+            labelsNameForSign = labelData.name;
+          }
+        }
+      }
+      fillModelWithLabels(model, isSignHaveLabels, labelsIdBelowSign, sign.id);
+      model.addAttribute("isSignHaveLabels", isSignHaveLabels);
+      model.addAttribute("labelsName", labelsNameForSign);
+      VideoProfileView2 videoProfileView = new VideoProfileView2(video, null, labelsIdBelowSign);
+      model.addAttribute("signView", sign);
+      model.addAttribute("videoView", videoProfileView);
+      model.addAttribute("labelCreationView", new LabelCreationView());
+    }
+
+    return "fragments/modal-add-label :: div";
+  }
+
   public static String millisToShortDHMS(long duration) {
     String res = "";    // java.util.concurrent.TimeUnit;
     long days       = TimeUnit.MILLISECONDS.toDays(duration);

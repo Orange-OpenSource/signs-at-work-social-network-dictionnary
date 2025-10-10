@@ -61,7 +61,7 @@
                   frameborder="0"
                   th:attr="title=${signView.name}" th:src="${videoView.video.url}" allow="autoplay; fullscreen; picture-in-picture; web-share"></iframe>
         </div>
-          <div th:if="${isSignHaveLabels}" class="text-container">
+          <div id="messageLabel" th:if="${isSignHaveLabels}" class="text-container">
             <div class="pull-left sticker_plain"></div>
             <p id="labels" class="short-text" th:text="${labelsName}">
             </p>

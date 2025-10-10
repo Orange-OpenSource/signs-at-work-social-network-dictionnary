@@ -125,77 +125,8 @@ function onAddVideoToFavoritesForm(videoId) {
 };
 
 
-function onAddSignToLabelsForm(labelsIdBelowSign, signId) {
-  console.log("onAddSignToLabelsForm ", labelsIdBelowSign, signId);
-  console.log("Avant parse:", labelsIdBelowSign);
-
-  // Convertir le string "[1, 2, 3]" en vrai tableau [1,2,3]
-  var signLabelsIds;
-  try {
-    signLabelsIds = JSON.parse(labelsIdBelowSign);
-  } catch (e) {
-    // fallback si c'est juste "1"
-    signLabelsIds = [Number(labelsIdBelowSign)];
-  }
-
-  console.log("Après parse:", signLabelsIds);
-
-  if ($("#AddSignToLabelsForm").isChanged()) {
-    var signLabelsIdsCheck = [];
-    var signLabelsIdsNoCheck =  [];
-    i = 1;
-    $("#labels-container").children("li").children("label").each(function () {
-      if (!this.classList.contains("disabled")) {
-        if (document.getElementById("signLabelsIds" + i).checked) {
-          var selectedLabelId = document.getElementById("signLabelsIds" + i).value;
-          signLabelsIdsCheck.push(selectedLabelId);
-        } else {
-          var selectedLabelId = document.getElementById("signLabelsIds" + i).value;
-          signLabelsIdsNoCheck.push(selectedLabelId);
-        }
-      }
-      i = i + 1;
-    });
-
-    var signLabelViewApi = {
-      signLabelsIds: signLabelsIds,
-      signLabelsIdsCheck: signLabelsIdsCheck,
-      signLabelsIdsNoCheck: signLabelsIdsNoCheck
-    };
-    $.ajax({
-      url: "/ws/sec/sign/" + signId + "/add/labels",
-      type: 'post',
-      data: JSON.stringify(signLabelViewApi),
-      contentType: "application/json",
-      success: function (response) {
-        console.log(response);
-        $('#add_sign_to_label').modal('hide');
-        document.getElementById("labels").innerHTML = response;
-        document.getElementById("validate_modal_add_label").setAttribute("data-labelsidbelowsign",  JSON.stringify(signLabelsIdsCheck));
-
-        const statusDiv = document.getElementById("sign-label-status");
-
-        if (signLabelsIdsCheck.length > 0) {
-          // si le tableau contient des éléments → mettre chevron
-          statusDiv.classList.remove("add_black");
-          statusDiv.classList.add("chevron");
-        } else {
-          // si le tableau est vide → mettre add_black
-          statusDiv.classList.remove("chevron");
-          statusDiv.classList.add("add_black");
-        }
 
 
-        document.getElementById("messageLabel").style.visibility="visible";
-        //location.reload();
-      },
-      error: function (response) {
-      }
-    })
-  } else {
-    $('#add_sign_to_label').modal('hide');
-  }
-};
 
 function onReloadForm() {
   console.log("onReloadForm");
@@ -213,6 +144,123 @@ $.fn.extend({
     return this.data("changed");
   }
 });
+
+function attachChangeListener() {
+  $("#AddSignToLabelsForm input, #AddSignToLabelsForm select").on("change", function() {
+    $("#AddSignToLabelsForm").data("changed", true);
+  });
+}
+
+
+
+function onAddSignToLabelsForm(labelsIdBelowSign, signId, videoId) {
+  console.log("👉 onAddSignToLabelsForm déclenchée");
+  console.log("Données brutes reçues :", labelsIdBelowSign, signId, videoId);
+
+  var signLabelsIds;
+
+  if (Array.isArray(labelsIdBelowSign)) {
+    signLabelsIds = labelsIdBelowSign.map(Number); // s'assurer que ce sont des nombres
+  } else {
+    try {
+      signLabelsIds = JSON.parse(labelsIdBelowSign);
+    } catch (e) {
+      signLabelsIds = [Number(labelsIdBelowSign)];
+    }
+  }
+  console.log("signLabelsIds après parse :", signLabelsIds);
+
+
+  // 🛡️ Parse robuste : on s'assure toujours d'avoir un tableau
+  // ✅ Si le formulaire n'a pas changé, on ferme juste la modale
+  if (!$("#AddSignToLabelsForm").isChanged()) {
+    console.log("Aucun changement détecté → fermeture de la modale");
+    $('#add_sign_to_label').modal('hide');
+    return;
+  }
+
+  // 📝 Récupération des cases cochées / décochées
+  const signLabelsIdsCheck = [];
+  const signLabelsIdsNoCheck = [];
+  let i = 1;
+
+  $("#labels-container").children("li").children("label").each(function () {
+    if (!this.classList.contains("disabled")) {
+      const checkbox = document.getElementById("signLabelsIds" + i);
+      if (checkbox) {
+        const selectedLabelId = checkbox.value;
+        if (checkbox.checked) {
+          signLabelsIdsCheck.push(selectedLabelId);
+        } else {
+          signLabelsIdsNoCheck.push(selectedLabelId);
+        }
+      }
+    }
+    i++;
+  });
+
+  console.log("✔ signLabelsIdsCheck :", signLabelsIdsCheck);
+  console.log("✖ signLabelsIdsNoCheck :", signLabelsIdsNoCheck);
+
+  const signLabelViewApi = {
+    signLabelsIds: signLabelsIds,
+    signLabelsIdsCheck: signLabelsIdsCheck,
+    signLabelsIdsNoCheck: signLabelsIdsNoCheck
+  };
+
+  // 📨 Envoi au backend
+  $.ajax({
+    url: "/ws/sec/sign/" + signId + "/add/labels",
+    type: "POST",
+    data: JSON.stringify(signLabelViewApi),
+    contentType: "application/json",
+    success: function (response) {
+      console.log("✅ Backend OK :", response);
+
+      // 🔹 Fermer la modale
+      $('#add_sign_to_label').modal('hide');
+
+      // 🔹 Mettre à jour la liste des labels
+      document.getElementById("labels").innerHTML = response;
+
+      // 🔹 Mettre à jour l'attribut data pour la prochaine ouverture
+      document
+        .getElementById("validate_modal_add_label")
+        .setAttribute("data-labelsidbelowsign", JSON.stringify(signLabelsIdsCheck));
+
+      // 🔹 Changer l’icône de statut
+      const statusDiv = document.getElementById("sign-label-status");
+      if (signLabelsIdsCheck.length > 0) {
+        statusDiv.classList.remove("add_black");
+        statusDiv.classList.add("chevron");
+      } else {
+        statusDiv.classList.remove("chevron");
+        statusDiv.classList.add("add_black");
+      }
+
+      document.getElementById("messageLabel").style.visibility = "visible";
+      // Après chaque rechargement dynamique :
+
+      // 🔹 Rechargement dynamique de la modale (sans recharger toute la page)
+      $.ajax({
+        url: "/sign/" + signId + "/" + videoId + "/labels",
+        success: function (response) {
+          const newBody = $(response).find(".modal-body").html();
+          $("#add_sign_to_label .modal-body").html(newBody);
+          console.log("♻️ Modal rechargée avec succès");
+          attachChangeListener(); // 🔥 important
+        },
+        error: function () {
+          console.error("❌ Erreur lors du rechargement de la modale");
+        }
+      });
+    },
+    error: function (xhr) {
+      console.error("❌ Erreur AJAX :", xhr);
+    }
+  });
+}
+
 
 function commentDelete(signId, videoId, commentId, commentMessage) {
   console.log("commentDelete ", signId, videoId, commentId, commentMessage);
@@ -269,6 +317,7 @@ $modal_delete_comment.on('hidden.bs.modal', function() {
 });
 
 $(document).ready(function(){
+  attachChangeListener();
   $('input[type="file"]').change(function(e){
     $("#add_video_file_dailymotion").modal('show');
     document.getElementById('submitButtonFileDailymotion').disabled=false;
@@ -279,6 +328,26 @@ $(document).ready(function(){
     e.preventDefault();
     $(this).closest('.text-container').toggleClass('expanded');
   });
+
+  $(document).on("click", "[data-action='add-sign-to-labels']", function (e) {
+    e.preventDefault();
+
+    // ⚡ Lire directement l'attribut DOM (toujours à jour)
+    const labelsIdBelowSign = this.getAttribute("data-labelsidbelowsign");
+    const signId = this.getAttribute("data-sign-id");
+    const videoId = this.getAttribute("data-video-id");
+
+    // 🔍 Debug pour bien vérifier que c'est la bonne valeur
+    console.log("👉 Clic sur validate_modal_add_label");
+    console.log("⚡ labelsIdBelowSign (ATTR) :", labelsIdBelowSign);
+    console.log("⚡ signId :", signId);
+    console.log("⚡ videoId :", videoId);
+
+    // ✅ Appel de la fonction principale
+    onAddSignToLabelsForm(labelsIdBelowSign, signId, videoId);
+  });
+
+
 });
 
 
