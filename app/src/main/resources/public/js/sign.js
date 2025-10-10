@@ -329,13 +329,15 @@ $(document).ready(function(){
     $(this).closest('.text-container').toggleClass('expanded');
   });
 
+
+
   $(document).on("click", "[data-action='add-sign-to-labels']", function (e) {
     e.preventDefault();
 
     // ⚡ Lire directement l'attribut DOM (toujours à jour)
     const labelsIdBelowSign = this.getAttribute("data-labelsidbelowsign");
-    const signId = this.getAttribute("data-sign-id");
-    const videoId = this.getAttribute("data-video-id");
+    const signId = $(this).data("sign-id");
+    const videoId = $(this).data("video-id");
 
     // 🔍 Debug pour bien vérifier que c'est la bonne valeur
     console.log("👉 Clic sur validate_modal_add_label");
