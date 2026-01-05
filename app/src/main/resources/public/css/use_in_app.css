@@ -1878,6 +1878,11 @@ img{
   background-color: transparent;
 }
 
+#frame-signs {
+  position: relative;
+  z-index: 1;
+}
+
 .spinner_hidden{
   visibility: hidden;
 }
@@ -1891,6 +1896,7 @@ img{
   background-position: center;
   opacity: 1;
   position: absolute;
+  z-index: 2;
 }
 
 .spinner-delete_show{
@@ -1902,6 +1908,7 @@ img{
   background-position: center;
   opacity: 1;
   position: absolute;
+  z-index: 2;
 }
 
 
@@ -3912,6 +3919,140 @@ panel-title {
  padding: 2px 4px;
  border-radius: 3px;
 }
+
+.search-mode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.mode-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.mode-item:hover {
+  transform: scale(1.05);
+}
+
+/* Icônes */
+.icon {
+  margin-right: 8px;
+}
+
+/* Texte */
+.mode-label {
+  font-size: 14px;
+}
+
+.blue {
+  color: #007bff;
+}
+
+.category-btn.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+  box-shadow: inset 0 0 3px #333;
+}
+
+#category-list {
+  max-height: 70px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+/* ---- STYLE DES TUILES (inchangé) ---- */
+.tile {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.tile:hover {
+  transform: scale(1.03);
+}
+.tile img {
+  max-width: 100%;
+  height: auto;
+}
+.tile-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  background: #f7f7f7;
+}
+
+/* ---- STYLE DES BOUTONS FILTRES ---- */
+.filter-btns {
+  margin-bottom: 10px;
+}
+
+.filter-btns .btn {
+  margin: 5px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  font-weight: bold;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  min-width: 120px;
+  text-align: left;
+  padding-right: 30px; /* espace pour la coche */
+}
+
+/* coche par défaut = invisible (car contenu vide) */
+.filter-btns .btn:after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Glyphicons Halflings";
+  font-size: 14px;
+}
+
+/* ÉTAT ACTIF : bouton enfoncé noir + coche */
+.filter-btns .btn-active {
+  background: #333 !important;
+  color: #fff !important;
+  border-color: #222;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+.filter-btns .btn-active:after {
+  content: "\e013"; /* glyphicon-ok */
+}
+
+/* ---- VOIR PLUS / VOIR MOINS ---- */
+.extra-filters {
+  display: none; /* caché par défaut */
+}
+
+.toggle-more {
+  margin: 10px auto;
+  cursor: pointer;
+  font-weight: bold;
+  color: #007bff;
+  display: inline-block;
+}
+
+.toggle-more i {
+  transition: transform 0.2s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
 
 
 @media only screen and (max-width:768px) {

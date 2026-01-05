@@ -27,6 +27,7 @@
 <body>
 
 <div id="frame-signs" th:fragment="div">
+  <div id="spinner-signs" class="spinner_hidden"></div>
   <div id="dropdown-filter" class="dropdown">
     <button th:attr="class=${classDropdownSize}" type="button" id="dropdownMenu1"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -38,59 +39,59 @@
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
           <div class="pull-left all-signs_blue"></div>
           <span th:text="#{all}"></span>
           <div class="pull-right v-done_black"></div>
         </a>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${!isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
           <div class="pull-left all-signs_blue"></div>
           <span th:text="#{all}"></span>
         </a>
       </li>
       <li>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAlphabeticAsc}" th:href="@{/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isAlphabeticAsc}" th:href="@{/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
           <div class="pull-left sort_alpha_blue"></div>
           <span th:text="#{alphabetic}"></span>
           <div class="pull-right v-done-down_black"></div>
         </a>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${!isAlphabeticAsc and !isAlphabeticDesc}" th:href="@{/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
           <div class="pull-left sort_alpha_blue"></div>
           <span th:text="#{alphabetic}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isAlphabeticDesc}" th:href="@{/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isAlphabeticDesc}" th:href="@{/signs/alphabetic/frame(isAlphabeticAsc=${isAlphabeticAsc}, isSearch=${isSearch})}">
           <div class="pull-left sort_alpha_blue"></div>
           <span th:text="#{alphabetic}"></span>
           <div class="pull-right v-done-up_black"></div>
         </a>
       </li>
       <li>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isMostRecent}"  th:href="@{/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isMostRecent}"  th:href="@{/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
           <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent}"></span>
           <div class="pull-right v-done-down_black"></div>
         </a>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isMostRecent and !isLowRecent}" th:href="@{/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${!isMostRecent and !isLowRecent}" th:href="@{/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
           <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isLowRecent}" th:href="@{/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isLowRecent}" th:href="@{/signs/mostrecent/frame(isMostRecent=${isMostRecent}, isSearch=${isSearch})}">
           <div class="pull-left new_blue"></div>
           <span th:text="#{most_recent}"></span>
           <div class="pull-right v-done-up_black"></div>
         </a>
       </li>
       <li>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isMostRating}" th:href="@{/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isMostRating}" th:href="@{/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
           <div class="pull-left smiley_happy_blue-sign "></div>
           <span th:text="#{most_rating}"></span>
           <div class="pull-right v-done-down_black"></div>
         </a>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${!isMostRating and !isLowRating}" th:href="@{/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${!isMostRating and !isLowRating}" th:href="@{/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
           <div class="pull-left smiley_happy_blue-sign "></div>
           <span th:text="#{most_rating}"></span>
         </a>
-        <a th:onclick="'javascript:onFiltreSign(event, this.href)'" th:if="${isLowRating}" th:href="@{/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
+        <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isLowRating}" th:href="@{/signs/mostrating/frame(isMostRating=${isMostRating}, isSearch=${isSearch})}">
           <div class="pull-left smiley_happy_blue-sign "></div>
           <span th:text="#{most_rating}"></span>
           <div class="pull-right v-done-up_black"></div>
@@ -158,7 +159,7 @@
   <div th:if="${favoriteId} == null">
     <div th:if="${not #lists.isEmpty(signsView)}" id="signs-container" class="row" >
       <h2 id="sign_available" th:text="#{sign_available}" style="display: none"></h2>
-      <div th:id="${signView.name}" th:each="signView:${signsView}" class="sign-view-hidden text-center col-xs-12 col-xl-2 col-lg-3 col-md-4 col-xs-6 col-sm-4">
+      <div th:id="${signView.name}" th:each="signView:${signsView}" class="sign-view-hidden text-center col-xs-12 col-xl-2 col-lg-3 col-md-4 col-xs-6 col-sm-4" th:classappend="' ' + ${signView.label}">
         <div class="row">
           <div class="col-lg-12 col-xl-12" >
             <div th:if="${isAuthenticated}">

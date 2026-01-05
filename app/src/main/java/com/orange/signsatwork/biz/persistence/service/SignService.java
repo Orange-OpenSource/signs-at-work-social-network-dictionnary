@@ -50,6 +50,8 @@ public interface SignService {
 
   Long[] lowRating();
 
+  List<Object[]> ConcatLabelsForSignsView();
+
   List<Object[]> SignsForSignsView();
 
   List<Object[]> SignsAndRequestsAlphabeticalOrderAscSignsView(long userId);

@@ -155,6 +155,11 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
+  public List<Object[]> ConcatLabelsForSignsView() {
+    return signRepository.findConcatLabelsForSigns();
+  }
+
+  @Override
   public List<Object[]> SignsAlphabeticalOrderDescSignsView() {
     return signRepository.findSignsAlphabeticalOrderDescForSignsView();
   }

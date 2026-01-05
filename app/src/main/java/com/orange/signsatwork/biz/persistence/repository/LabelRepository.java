@@ -44,7 +44,7 @@ public interface LabelRepository extends CrudRepository<LabelDB, Long> {
     @Query(value="select id, name, type from labels  where replace(replace(upper(name),'Œ','OE'),'Æ','AE') like concat('%',:name,'%')", nativeQuery = true)
     List<Object[]> findStartByNameIgnoreCase(@Param("name") String name);
 
-  public default LabelDB findOne(long id) {
+    public default LabelDB findOne(long id) {
     return findById(id).orElse(null);
   }
 

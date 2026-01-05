@@ -40,25 +40,65 @@
       <div class="text-center title_middle" th:if="${!isAuthenticated and #strings.equals(appName,'Signs@Work')}">
         <h2 class="blue" th:text="#{signatwork.lexical}"/>
       </div>
-      <div id="myform">
-        <input class="pull-rigth" id='reset' type='button'>
-        <div id="container-input">
-          <div th:if="${favoriteId} == null">
-            <input class="border form-control search-hidden" id="search-criteria" th:attr="aria-label=#{sign.search}" th:autocomplete="off"
-                   th:if="${#lists.isEmpty(signsView)}" th:placeholder="#{search}" type="search"/>
-            <input class="border form-control" id="search-criteria" th:attr="aria-label=#{sign.search}"
-                   th:autocomplete="off" th:if="${not #lists.isEmpty(signsView)}" th:placeholder="#{search}"
-                   type="search"/>
+      <div id="search-mode-selector" class="text-center" style="margin-bottom: 10px;">
+        <div class="search-mode">
+
+          <!-- Mode mots -->
+          <div id="mode-word" class="mode-item active">
+            <div class="icon sticker_plain"></div>
+            <div class="mode-label" id="label-word">Recherche par <span class="blue">mots</span></div>
           </div>
-          <div th:if="${favoriteId} != null">
-            <input class="border form-control" id="search-criteria" th:attr="aria-label=#{sign.search}"
-                   th:autocomplete="off" th:if="${not #lists.isEmpty(videosView)}" th:placeholder="#{search}"
-                   type="search"/>
-            <input class="border form-control search-hidden" id="search-criteria" th:attr="aria-label=#{sign.search}" th:autocomplete="off"
-                   th:if="${#lists.isEmpty(videosView)}" th:placeholder="#{search}" type="search"/>
+
+          <!-- Mode catégories -->
+          <div id="mode-category" class="mode-item">
+            <div class="icon sticker"></div>
+            <div class="mode-label" id="label-category" style="display:none;">
+              Recherche par <span class="blue">catégories</span>
+            </div>
           </div>
+
         </div>
-        </input>
+      </div>
+
+
+      <!-- Formulaire classique (mots) -->
+      <div id="search-by-word">
+        <div id="myform">
+          <input class="pull-rigth" id='reset' type='button'>
+          <div id="container-input">
+            <div th:if="${favoriteId} == null">
+              <input class="border form-control search-hidden" id="search-criteria" th:attr="aria-label=#{sign.search}" th:autocomplete="off"
+                     th:if="${#lists.isEmpty(signsView)}" th:placeholder="#{search}" type="search"/>
+              <input class="border form-control" id="search-criteria" th:attr="aria-label=#{sign.search}"
+                     th:autocomplete="off" th:if="${not #lists.isEmpty(signsView)}" th:placeholder="#{search}"
+                     type="search"/>
+            </div>
+            <div th:if="${favoriteId} != null">
+              <input class="border form-control" id="search-criteria" th:attr="aria-label=#{sign.search}"
+                     th:autocomplete="off" th:if="${not #lists.isEmpty(videosView)}" th:placeholder="#{search}"
+                     type="search"/>
+              <input class="border form-control search-hidden" id="search-criteria" th:attr="aria-label=#{sign.search}" th:autocomplete="off"
+                     th:if="${#lists.isEmpty(videosView)}" th:placeholder="#{search}" type="search"/>
+            </div>
+          </div>
+          </input>
+        </div>
+      </div>
+
+      <!-- Bloc catégories (caché au départ) -->
+      <div id="search-by-category" class="well well-sm" style="display:none; background-color:#e8f0fa; border-radius:12px;">
+        <div id="category-list" class="text-center filter-btns">
+          <th:block th:each="cat : ${categories}">
+            <button class="btn btn-default filter"
+                    th:data-filter="${cat.name}"
+                    th:text="${cat.name}"></button>
+          </th:block>
+        </div>
+        <div class="text-right" style="margin-top:5px;">
+          <a href="#" id="toggle-categories" style="color:#0044cc;">
+            Voir plus <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+          </a>
+        </div>
       </div>
       <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div">
         <div th:replace="fragments/frame-signs :: div"/>

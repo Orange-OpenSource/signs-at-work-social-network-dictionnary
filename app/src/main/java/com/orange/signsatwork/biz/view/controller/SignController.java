@@ -205,6 +205,8 @@ public class SignController {
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
     model.addAttribute("appName", appName);
+    Labels labels = services.label().findLabelsOrderByNameAsc();
+    model.addAttribute("categories", LabelModalView.from(labels));
     return "signs";
   }
 
@@ -213,9 +215,11 @@ public class SignController {
     fillModelWithContext(model, "sign.list", principal, SHOW_ADD_FAVORITE);
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     List<Object[]> querySigns;
+    List<ConcatLabelSignsData> concatLabelSignsData;
 
     if (isAlphabeticAsc == true) {
-      querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
+        concatLabelSignsData = null;
+        querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
       model.addAttribute("classDropdownDirection", "  up_black pull-right");
@@ -225,6 +229,11 @@ public class SignController {
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
       model.addAttribute("classDropdownDirection", "  down_black pull-right");
+      List<Object[]> queryLabelsForSigns;
+      queryLabelsForSigns = services.sign().ConcatLabelsForSignsView();
+      concatLabelSignsData = queryLabelsForSigns.stream()
+        .map(objectArray -> new ConcatLabelSignsData(objectArray))
+        .collect(Collectors.toList());
     }
 
 
@@ -242,7 +251,7 @@ public class SignController {
       List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
       signViews = signViewsData.stream()
-        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+        .map(signViewData -> buildSignViewWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user, concatLabelSignsData))
         .collect(Collectors.toList());
     } else {
       signViews = signViewsData.stream()
@@ -1372,6 +1381,25 @@ public class SignController {
     fillModelWithFavoritesForSignFilter(model, user);
     model.addAttribute("signsView", signViews);
     model.addAttribute("signCreationView", new SignCreationView());
+  }
+
+  private SignView2 buildSignViewWithLabels(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<Long> signInFavorite, User user, List<ConcatLabelSignsData> concatLabelSignsData) {
+    ConcatLabelSignsData item = concatLabelSignsData.stream()
+      .filter(x -> x.id.equals(signViewData.id))
+      .findFirst()
+      .orElse(null);   // ou .orElseThrow()
+    String concatLabel = null;
+    if (item != null) {
+      concatLabel = item.name;
+    }
+    return new SignView2(
+      signViewData,
+      signWithCommentList.contains(signViewData.id),
+      SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+      signWithView.contains(signViewData.id),
+      signWithPositiveRate.contains(signViewData.id),
+      signInFavorite.contains(signViewData.id),
+      concatLabel);
   }
 
   private SignView2 buildSignView(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<Long> signInFavorite, User user) {
