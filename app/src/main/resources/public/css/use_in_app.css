@@ -1878,11 +1878,6 @@ img{
   background-color: transparent;
 }
 
-#frame-signs {
-  position: relative;
-  z-index: 1;
-}
-
 .spinner_hidden{
   visibility: hidden;
 }

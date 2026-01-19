@@ -124,7 +124,7 @@ public class SignController {
     model.addAttribute("classDropdownSize", "adjust_size btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
     model.addAttribute("appName", appName);
-    return "fragments/frame-signs";
+    return "fragments/frame-signs :: div";
   }
 
 
@@ -278,7 +278,9 @@ public class SignController {
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
     model.addAttribute("appName", appName);
-    return "fragments/frame-signs";
+
+    return "fragments/frame-signs :: div";
+
   }
 
   @RequestMapping(value = "/sec/signs/{favoriteId}")
@@ -398,7 +400,7 @@ public class SignController {
     model.addAttribute("isSearch", isSearch);
     model.addAttribute("appName", appName);
 
-    return "fragments/frame-signs";
+    return "fragments/frame-signs :: div";
   }
 
   //fix me !!!!! kanban 473311 suite retour tests utilisateurs
@@ -605,7 +607,7 @@ public class SignController {
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
     model.addAttribute("appName", appName);
-    return "fragments/frame-signs";
+    return "fragments/frame-signs :: div";
   }
 
   //fix me !!!!! kanban 473311 suite retour tests utilisateurs
@@ -812,7 +814,7 @@ public class SignController {
     model.addAttribute("classDropdownSize", "btn btn-default dropdown-toggle");
     model.addAttribute("isSearch", isSearch);
     model.addAttribute("appName", appName);
-    return "fragments/frame-signs";
+    return "fragments/frame-signs :: div";
   }
 
   @RequestMapping(value = "/sign/{signId}")

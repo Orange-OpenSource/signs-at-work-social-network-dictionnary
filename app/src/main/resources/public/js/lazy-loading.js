@@ -585,22 +585,8 @@ function main() {
 
 }
 
-function showSpinner(el) {
-  el.classList.remove("spinner_hidden");
-  el.classList.add("spinner_show");
-}
-
-function hideSpinner(el) {
-  el.classList.remove("spinner_show", "spinner-delete_show");
-  el.classList.add("spinner_hidden");
-}
-
-
 function onFiltreSign(event, href, isModeCategorie) {
   console.log("onFiltre");
-  const spinner = document.getElementById("spinner-signs");
-  showSpinner(spinner);
-  ///document.getElementById("frame-signs").innerHTML = null;
   event.preventDefault();
   console.log("href "+href);
   $.ajax({
@@ -608,8 +594,10 @@ function onFiltreSign(event, href, isModeCategorie) {
     context: document.body,
     success: function (response) {
       console.log("Success ");
-      document.getElementById("frame-signs").innerHTML = response;
-      hideSpinner(spinner);
+
+      const newFrame = $(response);
+      $('#frame-signs').replaceWith(newFrame);
+
       signsContainer = document.getElementById("signs-container");
       signViewsHidden = signsContainer.getElementsByClassName(SIGN_HIDDEN_CLASS);
       signsCount = $("#signs-container").children("div").length;
@@ -654,7 +642,10 @@ function onFiltreVideo(event, href) {
     context: document.body,
     success: function (response) {
       console.log("Success ");
-      document.getElementById("frame-signs").innerHTML = response;
+
+      const newFrame = $(response);
+      $('#frame-signs').replaceWith(newFrame);
+
       videosContainer = document.getElementById("videos-container");
       if (videosContainer != null) {
         videoViewsHidden = videosContainer.getElementsByClassName(VIDEO_HIDDEN_CLASS);
