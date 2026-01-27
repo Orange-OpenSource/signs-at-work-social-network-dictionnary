@@ -101,13 +101,22 @@ $(document).on("click", ".filter-btns .filter", function (e) {
   // Cas 1 : aucun filtre => afficher toutes les tuiles
   if (activeFilters.length === 0) {
     activeFilter = false;
-    $("#signs-container").children("div").each(function () {
-      if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
-        showSignView(this);
-      } else {
-        $(this).show();
-      }
-    });
+    if (modeSearch === "false") {
+      $("#signs-container").children("div").each(function () {
+        if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
+          showSignView(this);
+        } else {
+          $(this).show();
+        }
+      });
+    } else {
+      $("#signs-container").children("div").each(function () {
+        if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
+          $(this).addClass(SIGN_HIDDEN_CLASS);
+          $(this).hide();
+        }});
+    }
+
     return;
   } else {
     activeFilter = true;
