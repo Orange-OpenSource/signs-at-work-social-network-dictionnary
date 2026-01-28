@@ -431,6 +431,11 @@ public class AdminController {
     if (label == null) {
       return "redirect:/sec/admin/manage_labels";
     }
+    long NbSignForLabel = services.label().findNbSignForLabel(labelId);
+    Boolean isLabelHaveSigns = false;
+    if (NbSignForLabel > 0) {
+      isLabelHaveSigns = true;
+    }
     String userAgent = request.getHeader("User-Agent");
 
     model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
@@ -438,6 +443,7 @@ public class AdminController {
 
     model.addAttribute("label", label);
     model.addAttribute("appName", appName);
+    model.addAttribute("isLabelHaveSigns", isLabelHaveSigns);
 
     return "admin/label";
   }

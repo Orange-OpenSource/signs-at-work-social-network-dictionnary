@@ -67,7 +67,7 @@
           <h2 class="pull-right" th:text="#{label.new}"></h2>
         </div>
       </div>
-      <form autocomplete="off" method="post" th:action="@{/sec/label/search(id='0',type='Admin')}"
+      <form autocomplete="off" method="post" th:action="@{/sec/label/search(id='0', videoId='0', type='Admin')}"
             th:object="${labelCreationView}">
         <div class="modal-body text-center">
           <div class="errorRegexLabelName hidden" th:text="#{errorNameAuthorize}"></div>

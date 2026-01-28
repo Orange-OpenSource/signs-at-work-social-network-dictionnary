@@ -102,6 +102,12 @@ public class LabelServiceImpl implements LabelService {
     labelRepository.delete(labelDB);
   }
 
+  @Override
+  public long findNbSignForLabel(long id) {
+    return labelRepository.findNbSignForLabel(id);
+  }
+
+
 
   private Labels labelsFrom(Iterable<LabelDB> labelsDB) {
     List<Label>labels = new ArrayList<>();

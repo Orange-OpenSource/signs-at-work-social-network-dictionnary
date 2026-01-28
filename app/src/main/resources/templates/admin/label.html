@@ -39,12 +39,21 @@
                 <div class="pull-right edit_black"></div>
               </a>
             </li>
-            <li class="aside_bckg_li">
+            <li class="aside_bckg_li" th:if="!${isLabelHaveSigns}">
               <a class="all_li_clickable" data-target="#delete_label" data-toggle="modal" href="#">
                 <div class="pull-left col-lg-12 col-md-12 col-xs-12">
                   <div class="pull-left sticker_add-del"></div>
                   <h4 class="container_H2 text_hyphenation" th:text="#{label.delete}"></h4>
                   <div class="pull-right chevron"></div>
+                </div>
+              </a>
+            </li>
+            <li class=" disabled aside_bckg_li" th:if="${isLabelHaveSigns}">
+              <a class="disabled" data-target="#delete_label" data-toggle="modal" href="#">
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left sticker_add-del"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{label.delete}"></h4>
+                  <div class="pull-right chevron_right_grey"></div>
                 </div>
               </a>
             </li>
@@ -133,7 +142,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="pull-left">
-          <div class="group_delete_white pull-left"></div>
+          <div class="sticker_plain_white pull-left"></div>
           <h2 class="pull-right" th:text="#{label.deleted_title}"/>
         </div>
       </div>

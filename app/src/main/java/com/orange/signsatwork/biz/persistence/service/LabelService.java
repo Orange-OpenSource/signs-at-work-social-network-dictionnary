@@ -41,4 +41,6 @@ public interface LabelService {
 
   void delete(Label label);
 
+  long findNbSignForLabel(long id);
+
 }
