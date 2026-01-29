@@ -187,10 +187,12 @@
             </li>
             <li class="aside_bckg_li" >
               <a class="all_li_clickable" data-target="#add_sign_to_label" data-toggle="modal" href="#">
-                <div class="pull-left sticker_plain"></div>
-                <h2 class="container_H2 text_hyphenation" th:text="#{sign.tag}"></h2>
-                <div id="sign-label-status" th:if="${!isSignHaveLabels}" class="pull-right add_black"></div>
-                <div id="sign-label-status" th:if="${isSignHaveLabels}" class="pull-right chevron"></div>
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <div class="pull-left sticker_plain"></div>
+                  <h2 class="container_H2 text_hyphenation" th:text="#{sign.tag}"></h2>
+                  <div id="sign-label-status" th:if="${!isSignHaveLabels}" class="pull-right add_black"></div>
+                  <div id="sign-label-status" th:if="${isSignHaveLabels}" class="pull-right chevron"></div>
+                </div>
               </a>
             </li>
           </ul>
