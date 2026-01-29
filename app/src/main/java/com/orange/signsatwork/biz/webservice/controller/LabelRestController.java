@@ -47,6 +47,10 @@ public class LabelRestController {
     User user = services.user().withUserName(principal.getName());
 
     Label label = services.label().create(labelCreationViewApi.toLabel());
+    String messageType = "CreateLabelMessage";
+    String values = user.name() + ';' + label.name;
+    MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+    services.messageServerService().addMessageServer(messageServer);
     labelResponseApi.labelId = label.id;
     /*String values = user.name() + ';' + messageByLocaleService.getMessage(CommunityType.Job.toString()) + ';' + communityCreationViewApi.getName();
     MessageServer messageServer = new MessageServer(new Date(), "CreateJobCommunityMessage", values, ActionType.NO);
@@ -72,6 +76,11 @@ public class LabelRestController {
     }
 
     services.label().delete(label);
+    String messageType = "DeleteLabelMessage";
+    User user = services.user().withUserName(principal.getName());
+    String values = user.name() + ';' + label.name;
+    MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+    services.messageServerService().addMessageServer(messageServer);
 
     response.setStatus(HttpServletResponse.SC_OK);
     return labelResponseApi;

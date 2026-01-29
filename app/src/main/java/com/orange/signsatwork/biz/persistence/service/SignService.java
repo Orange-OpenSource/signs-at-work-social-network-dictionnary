@@ -23,6 +23,7 @@ package com.orange.signsatwork.biz.persistence.service;
  */
 
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.webservice.model.LabelForMessageServer;
 
 import java.util.Date;
 import java.util.List;
@@ -120,5 +121,5 @@ public interface SignService {
 
   void addSignToLabel(long signId, long labelId);
 
-  String SignToLabels(long signId, List<Long> labelIds, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck);
+  LabelForMessageServer SignToLabels(long signId, List<Long> labelIds, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck);
 }

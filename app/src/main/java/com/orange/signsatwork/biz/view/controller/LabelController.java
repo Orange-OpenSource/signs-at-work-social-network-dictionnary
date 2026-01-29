@@ -1,9 +1,6 @@
 package com.orange.signsatwork.biz.view.controller;
 
-import com.orange.signsatwork.biz.domain.CommunityType;
-import com.orange.signsatwork.biz.domain.Label;
-import com.orange.signsatwork.biz.domain.LabelType;
-import com.orange.signsatwork.biz.domain.User;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
 import com.orange.signsatwork.biz.persistence.model.LabelViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -25,6 +22,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -112,7 +110,16 @@ public class LabelController {
     } else {
       if (!isLabelAlreadyExist && labelsWithSameName.size() == 0) {
         Label label = services.label().create(new Label(-1, decodeName.trim(), LabelType.User));
+        String messageType = "CreateLabelMessage";
+        String values = user.name() + ';' + label.name;
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
         services.sign().addSignToLabel(signId, label.id);
+        Sign sign = services.sign().withId(signId);
+        messageType = "AddLabelsToSignMessage";
+        values = user.name() + ';' + sign.name;
+        messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
         return "redirect:/sign/" + signId + "/" + videoId;
       } else {
         return "labels-suggest";

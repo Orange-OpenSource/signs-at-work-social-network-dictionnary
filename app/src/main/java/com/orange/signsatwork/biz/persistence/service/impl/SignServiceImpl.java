@@ -31,6 +31,7 @@ import com.orange.signsatwork.biz.persistence.repository.*;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import com.orange.signsatwork.biz.webservice.model.LabelActionType;
+import com.orange.signsatwork.biz.webservice.model.LabelForMessageServer;
 import com.orange.signsatwork.biz.webservice.model.LabelMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,6 +70,9 @@ public class SignServiceImpl implements SignService {
   @Autowired
   private Environment environment;
 
+  public enum ChangeType {
+    NONE, ADD_ONLY, REMOVE_ONLY, ADD_AND_REMOVE
+  }
 
   @Override
   public UrlFileUploadDailymotion getUrlFileUpload() {
@@ -544,7 +548,7 @@ public class SignServiceImpl implements SignService {
     }
   }
 
-  public String SignToLabels(long signId, List<Long> labelIds, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck) {
+  public LabelForMessageServer SignToLabels(long signId, List<Long> labelIds, List<Long> labelIdsCheck, List<Long> labelIdsNoCheck) {
     StringBuilder message = new StringBuilder();
     LabelMessage labelMessage;
     List<LabelMessage> labelMessages = new ArrayList<>();
@@ -581,13 +585,18 @@ public class SignServiceImpl implements SignService {
     labelMessagesOrdered = labelMessages.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
 
     StringJoiner joiner = new StringJoiner(", ");
+    boolean hasAdd = false;
+    boolean hasRemove = false;
+    ChangeType changeType;
 
     for (LabelMessage lM : labelMessagesOrdered) {
       switch (lM.getLabelActionType()) {
         case REMOVE:
+          hasRemove = true;
           joiner.add("<del>" + lM.getName() + "</del>");
           break;
         case ADD:
+          hasAdd = true;
           joiner.add("<span class='fond-bleu'>" + lM.getName() + "</span>");
           break;
         case PRESENT:
@@ -597,9 +606,19 @@ public class SignServiceImpl implements SignService {
     }
 
     message.append(joiner.toString());
+    if (hasAdd && hasRemove) {
+      changeType = ChangeType.ADD_AND_REMOVE;
+    } else if (hasAdd) {
+      changeType = ChangeType.ADD_ONLY;
+    } else if (hasRemove) {
+      changeType = ChangeType.REMOVE_ONLY;
+    } else {
+      changeType = ChangeType.NONE;
+    }
 
+    LabelForMessageServer labelForMessageServer = new LabelForMessageServer(message.toString().trim(), changeType);
 
-    return message.toString().trim();
+    return labelForMessageServer;
   }
 
   private SignDB withDBId(long id) {

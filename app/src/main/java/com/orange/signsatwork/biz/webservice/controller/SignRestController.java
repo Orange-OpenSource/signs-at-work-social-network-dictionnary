@@ -34,6 +34,7 @@ import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
 import com.orange.signsatwork.biz.persistence.service.SignService;
 import com.orange.signsatwork.biz.persistence.service.UserService;
+import com.orange.signsatwork.biz.persistence.service.impl.SignServiceImpl;
 import com.orange.signsatwork.biz.storage.StorageService;
 import com.orange.signsatwork.biz.view.controller.CommentOrderComparator;
 import com.orange.signsatwork.biz.view.model.*;
@@ -1873,13 +1874,30 @@ public class SignRestController {
 
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_SIGN_LABELS_ASSOCIATE, method = RequestMethod.POST)
-  public String signAssociateLabels(@RequestBody SignLabelViewApi signLabelViewApi, @PathVariable long signId, HttpServletResponse response) {
+  public String signAssociateLabels(@RequestBody SignLabelViewApi signLabelViewApi, @PathVariable long signId, HttpServletResponse response, Principal principal) {
 
-    String labels = services.sign().SignToLabels(signId, signLabelViewApi.getSignLabelsIds(), signLabelViewApi.getSignLabelsIdsCheck(), signLabelViewApi.getSignLabelsIdsNoCheck());
+    LabelForMessageServer labels = services.sign().SignToLabels(signId, signLabelViewApi.getSignLabelsIds(), signLabelViewApi.getSignLabelsIdsCheck(), signLabelViewApi.getSignLabelsIdsNoCheck());
+
+    User connectedUser = services.user().withUserName(principal.getName());
+    Sign sign = services.sign().withId(signId);
+    String messageType = null;
+    if (labels.getChangeType() == SignServiceImpl.ChangeType.ADD_AND_REMOVE) {
+      messageType = "ModifyLabelsToSignMessage";
+    } else if (labels.getChangeType() == SignServiceImpl.ChangeType.ADD_ONLY) {
+      messageType = "AddLabelsToSignMessage";
+    } else if (labels.getChangeType() == SignServiceImpl.ChangeType.REMOVE_ONLY) {
+      messageType = "RemoveLabelsToSignMessage";
+    }
+
+    if (messageType != null) {
+      String values = connectedUser.name() + ';' + sign.name;
+      MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+      services.messageServerService().addMessageServer(messageServer);
+    }
 
     response.setStatus(HttpServletResponse.SC_OK);
 
-    return labels;
+    return labels.getMessage();
   }
 
   }
