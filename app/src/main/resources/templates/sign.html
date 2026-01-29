@@ -61,22 +61,22 @@
                   frameborder="0"
                   th:attr="title=${signView.name}" th:src="${videoView.video.url}" allow="autoplay; fullscreen; picture-in-picture; web-share"></iframe>
         </div>
-          <div id="messageLabel" th:if="${isSignHaveLabels}" class="text-container">
-            <div class="pull-left sticker_plain"></div>
-            <p id="labels" class="short-text" th:text="${labelsName}">
-            </p>
-            <a href="#" class="toggle-text pull-right">
-              <span class="arrow">▼</span>
-            </a>
-          </div>
-          <div id="messageLabel" th:if="${!isSignHaveLabels}" class="text-container" style="visibility: hidden">
-            <div class="pull-left sticker_plain"></div>
-            <p id="labels" class="short-text" th:text="${labelsName}">
-            </p>
-            <a href="#" class="toggle-text pull-right">
-              <span class="arrow">▼</span>
-            </a>
-          </div>
+        <div id="messageLabel" th:if="${isSignHaveLabels}" class="text-container">
+          <div class="pull-left sticker_plain"></div>
+          <p id="labels" class="short-text" th:text="${labelsName}">
+          </p>
+          <a href="#" class="toggle-text pull-right">
+            <span class="arrow">▼</span>
+          </a>
+        </div>
+        <div id="messageLabel" th:if="${!isSignHaveLabels}" class="text-container" style="visibility: hidden">
+          <div class="pull-left sticker_plain"></div>
+          <p id="labels" class="short-text" th:text="${labelsName}">
+          </p>
+          <a href="#" class="toggle-text pull-right">
+            <span class="arrow">▼</span>
+          </a>
+        </div>
         </div>
       </div>
       <div class="sign_menu col-md-4 col-xs-12 col-lg-4">

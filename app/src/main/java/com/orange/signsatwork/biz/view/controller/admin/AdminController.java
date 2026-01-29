@@ -23,10 +23,7 @@ package com.orange.signsatwork.biz.view.controller.admin;
  */
 
 import com.orange.signsatwork.biz.domain.*;
-import com.orange.signsatwork.biz.persistence.model.CommentData;
-import com.orange.signsatwork.biz.persistence.model.RatingData;
-import com.orange.signsatwork.biz.persistence.model.VideoHistoryData;
-import com.orange.signsatwork.biz.persistence.model.VideoViewData;
+import com.orange.signsatwork.biz.persistence.model.*;
 import com.orange.signsatwork.biz.persistence.service.*;
 import com.orange.signsatwork.biz.view.model.*;
 import lombok.extern.slf4j.Slf4j;
@@ -331,8 +328,10 @@ public class AdminController {
   @Secured("ROLE_ADMIN")
   @RequestMapping(value = "/sec/admin/sign/{signId}/{videoId}")
   public String video(@PathVariable long signId, @PathVariable long videoId, HttpServletRequest  request, Principal principal, Model model) {
-
+    String labelsNameForSign = null;
     String userAgent = request.getHeader("User-Agent");
+    List<Long> labelsIdBelowSign = new ArrayList<>();
+    Boolean isSignHaveLabels = false;
 
     model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
@@ -369,7 +368,27 @@ public class AdminController {
       model.addAttribute("videoName", sign.name + "_" + video.idForName);
     }
 
-    VideoProfileView2 videoProfileView = new VideoProfileView2(video, null, null);
+
+    List<Object[]> queryLabelsForSign = services.sign().LabelsForSign(signId);
+    List<LabelData> labelDatas = queryLabelsForSign.stream()
+      .map(objectArray -> new LabelData(objectArray))
+      .collect(Collectors.toList());
+    if (labelDatas.size() >= 1) {
+      labelsIdBelowSign = labelDatas.stream().map(l -> l.id).collect(Collectors.toList());
+      isSignHaveLabels = true;
+      for(LabelData labelData : labelDatas) {
+        if (labelsNameForSign != null) {
+          labelsNameForSign = labelsNameForSign + ',' + labelData.name;
+        } else {
+          labelsNameForSign = labelData.name;
+        }
+      }
+    }
+    fillModelWithLabels(model, isSignHaveLabels, labelsIdBelowSign, sign.id);
+    VideoProfileView2 videoProfileView = new VideoProfileView2(video, null, labelsIdBelowSign);
+    model.addAttribute("isSignHaveLabels", isSignHaveLabels);
+    model.addAttribute("labelsName", labelsNameForSign);
+    model.addAttribute("labelCreationView", new LabelCreationView());
 
     model.addAttribute("signView", sign);
     model.addAttribute("videoView", videoProfileView);
@@ -378,6 +397,35 @@ public class AdminController {
     model.addAttribute("modalSignDefinitionAction", "/sec/sign/" + signId + "/" +videoId + "/definitionText");
 
     return "admin/sign";
+  }
+
+  private void fillModelWithLabels(Model model, Boolean isSignHaveLabels, List<Long> labelsIdBelowSign, Long signId) {
+    List<LabelModalView> labels = new ArrayList<>();
+
+    List<LabelModalView> labelsThematic = LabelModalView.from(services.label().labelsByType(LabelType.Admin));
+    List<LabelModalView> labelsAdminOrdered = new ArrayList<>();
+    Collator collator = Collator.getInstance();
+    collator.setStrength(0);
+    labelsAdminOrdered = labelsThematic.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
+    labels.addAll(labelsAdminOrdered);
+    List<LabelModalView> labelsUser = LabelModalView.from(services.label().labelsByType(LabelType.User));
+    List<LabelModalView> labelsUserOrdered = new ArrayList<>();
+    labelsUserOrdered = labelsUser.stream().sorted((l1, l2) -> collator.compare(l1.getName(),l2.getName())).collect(Collectors.toList());
+    labels.addAll(labelsUserOrdered);
+
+    List<LabelModalView> labelsOrdered = new ArrayList<>();
+    List<LabelModalView> labelsBelowSign = new ArrayList<>();
+    List<Long> finalLabelsIdBelowSign = labelsIdBelowSign;
+    labelsBelowSign = labels.stream().filter(f -> finalLabelsIdBelowSign.contains(f.getId()))
+      .sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+    labelsOrdered.addAll(labelsBelowSign);
+    List<LabelModalView> labelsNotBelowSign = new ArrayList<>();
+    labelsNotBelowSign = labels.stream().filter(f -> !finalLabelsIdBelowSign.contains(f.getId()))
+      .sorted((f1, f2) -> collator.compare(f1.getName(),f2.getName())).collect(Collectors.toList());
+    labelsOrdered.addAll(labelsNotBelowSign);
+
+    model.addAttribute("labels", labelsOrdered);
+
   }
 
   @Secured("ROLE_ADMIN")
