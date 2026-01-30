@@ -39,8 +39,12 @@ public interface LabelService {
 
   Label withId(long id);
 
+  Labels withNameIgnoreCase(String name);
+
   void delete(Label label);
 
   long findNbSignForLabel(long id);
+
+  void renameLabel(Long labelId, String name);
 
 }

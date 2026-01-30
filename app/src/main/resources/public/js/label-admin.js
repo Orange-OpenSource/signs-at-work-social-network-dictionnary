@@ -24,6 +24,7 @@ console.log("Cool, label-admin.js is loaded :)");
 var labelName = document.getElementById("labelName");
 var oldLabelName;
 var submitRenameModal = document.getElementById("submit-rename-modal");
+var submitForceRenameModal = document.getElementById("submit-force-rename-modal");
 
 var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
@@ -66,37 +67,44 @@ function onDeleteLabel(labelId) {
 };
 
 
-function onRenameLabel(labelId) {
+function onRenameLabel(labelId, force) {
 
+  console.log("force "+force);
   if (labelName.value != oldLabelName) {
     label = {
       name: labelName.value
     };
     $.ajax({
-      url: "/ws/sec/labels/" + labelId + "/datas",
+      url: "/ws/sec/labels/" + labelId + "/rename/?force=" + force,
       type: 'put',
       data: JSON.stringify(label),
       contentType: "application/json",
       success: function (response) {
         console.log(response);
-        errorRename.style.visibility = "hidden";
-        $('#rename_label').modal('hide');
-        renamed_label.textContent = response.errorMessage;
-        $("#validate_rename_label").modal('show');
-        setTimeout(function () {
-          $('#validate_rename_label').modal('hide');
-          location.reload();
-        }, 3000);
+        errorRename.style.display = "none";
+        location.reload();
       },
       error: function (response) {
         console.log(response.responseJSON);
-        errorRename.textContent = response.responseJSON.errorMessage;
-        errorRename.style.visibility = "visible";
+        if (response.responseJSON.errorMessage != null) {
+          errorRename.textContent = response.responseJSON.errorMessage;
+          errorRename.style.display = "block";
+          submitRenameModal.disabled = true;
+        } else {
+          if (response.responseJSON.warningMessage != null) {
+            warningRename.textContent = response.responseJSON.warningMessage;
+            warningRename.style.display = "block";
+            submitRenameModal.style.display="none";
+            submitForceRenameModal.style.display = "block";
+          }
+        }
+
       }
     })
   } else {
     submitRenameModal.disabled = true;
   }
+
 
 };
 
@@ -104,18 +112,24 @@ function onRenameLabel(labelId) {
 
 $('#rename_label').on('hidden.bs.modal', function (e) {
   var errorRename = document.getElementById('errorRename');
-  errorRename.style.visibility = "hidden";
+  var warningRename = document.getElementById('warningRename');
+  errorRename.style.display = "none";
+  warningRename.style.display = "none";
   labelName.value= oldLabelName;
+  submitRenameModal.style.display="block";
   submitRenameModal.disabled = true;
-  $('.errorRegexCommunityName').addClass("hidden");
+  $('.errorRegexLabelName').addClass("hidden");
 })
 
 
 function resetRenameError(event) {
   var errorRename = document.getElementById('errorRename');
-  errorRename.style.visibility = "hidden";
+  var warningRename = document.getElementById('warningRename');
+  errorRename.style.display = "none";
+  warningRename.style.display = "none";
   if (oldLabelName == labelName.value) {
     submitRenameModal.disabled = true;
+    $('.errorRegexLabelName').addClass("hidden");
   } else {
     checkLabelName();
   }

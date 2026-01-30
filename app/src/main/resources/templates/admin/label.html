@@ -73,10 +73,11 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <div class="errorRegexCommunityName hidden" th:text="#{errorNameAuthorize}"></div>
+        <span id="errorRename" style="display: none" class="red"></span>
+        <div class="errorRegexLabelName hidden" th:text="#{errorNameAuthorize}"></div>
         <input class="form-control" id="labelName" name="labelName" th:autofocus="true"
                th:value="${label.name}" type="text" autocomplete="off"/>
-        <span id="errorRename" style="visibility: hidden"></span>
+        <span id="warningRename" style="display: none"></span>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
@@ -84,8 +85,14 @@
           <span th:text="#{cancel}"></span>
         </button>
         <button class="btn btn-default pull-right" data-dismiss="" id="submit-rename-modal"
-                th:data-labelId="${label.id}"
-                th:onclick="javascript:onRenameLabel(this.getAttribute('data-labelId'))" type="submit">
+                th:data-labelId="${label.id}" th:data-force="false"
+                th:onclick="javascript:onRenameLabel(this.getAttribute('data-labelId'), this.getAttribute('data-force'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-force-rename-modal" style="display: none"
+                th:data-labelId="${label.id}" th:data-force="true"
+                th:onclick="javascript:onRenameLabel(this.getAttribute('data-labelId'), this.getAttribute('data-force'))" type="submit">
           <div class="v-done2_blue center-block"></div>
           <span th:text="#{continue}"></span>
         </button>

@@ -178,4 +178,6 @@ public class RestApi {
 
   public static final String WS_SEC_SIGN_LABELS_ASSOCIATE = WS_SEC + "sign/{signId}/add/labels";
 
+  public static final String WS_SEC_LABEL_RENAME = WS_SEC + "labels/{labelId}/rename";
+
 }

@@ -97,6 +97,11 @@ public class LabelServiceImpl implements LabelService {
   }
 
   @Override
+  public Labels withNameIgnoreCase(String name) {
+    return labelsFrom(labelRepository.findByNameIgnoreCase(name));
+  }
+
+  @Override
   public void delete(Label label) {
     LabelDB labelDB = labelRepository.findOne(label.id);
     labelRepository.delete(labelDB);
@@ -107,6 +112,13 @@ public class LabelServiceImpl implements LabelService {
     return labelRepository.findNbSignForLabel(id);
   }
 
+  @Override
+  public void renameLabel(Long labelId, String name) {
+    LabelDB labelDB = labelRepository.findOne(labelId);
+
+    labelDB.setName(name);
+    labelRepository.save(labelDB);
+  }
 
 
   private Labels labelsFrom(Iterable<LabelDB> labelsDB) {

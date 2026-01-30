@@ -36,6 +36,7 @@ public interface LabelRepository extends CrudRepository<LabelDB, Long> {
 
     List<LabelDB> findByOrderByNameAsc();
 
+    List<LabelDB> findByNameIgnoreCase(String name);
 
     @Query("SELECT l FROM LabelDB l WHERE l.type = :type ORDER BY LOWER(l.name) asc")
     List<LabelDB> findLabelsByType(@Param("type") LabelType type);
