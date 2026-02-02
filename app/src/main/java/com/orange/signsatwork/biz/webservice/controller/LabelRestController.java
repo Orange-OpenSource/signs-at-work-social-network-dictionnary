@@ -35,31 +35,65 @@ public class LabelRestController {
   @Autowired
   private AppSecurityAdmin appSecurityAdmin;
 
+
   @Secured("ROLE_ADMIN")
-  @RequestMapping(value = RestApi.WS_ADMIN_LABELS, method = RequestMethod.POST, headers = {"content-type=application/json"})
-  public LabelResponseApi label(@RequestBody LabelCreationViewApi labelCreationViewApi, HttpServletResponse response, Principal principal) {
+  @RequestMapping(value = RestApi.WS_SEC_LABELS, method = RequestMethod.POST)
+  public LabelResponseApi createLabel(@RequestBody LabelCreationViewApi labelCreationViewApi, @RequestParam("force") Boolean force, HttpServletRequest requestHttp, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    Boolean isAdmin = false;
     LabelResponseApi labelResponseApi = new LabelResponseApi();
-    labelCreationViewApi.clearXss();
-    if (services.label().withLabelName(labelCreationViewApi.getName()) != null) {
-      response.setStatus(HttpServletResponse.SC_CONFLICT);
-      labelResponseApi.errorMessage = messageByLocaleService.getMessage("label_already_exist");
-      return labelResponseApi;
-    }
 
     User user = services.user().withUserName(principal.getName());
+    User admin = services.user().getAdmin();
 
-    Label label = services.label().create(labelCreationViewApi.toLabel());
-    String messageType = "CreateLabelMessage";
-    String values = user.name() + ';' + label.name;
-    MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
-    services.messageServerService().addMessageServer(messageServer);
-    labelResponseApi.labelId = label.id;
-    /*String values = user.name() + ';' + messageByLocaleService.getMessage(CommunityType.Job.toString()) + ';' + communityCreationViewApi.getName();
-    MessageServer messageServer = new MessageServer(new Date(), "CreateJobCommunityMessage", values, ActionType.NO);
-    services.messageServerService().addMessageServer(messageServer);*/
+    labelCreationViewApi.clearXss();
 
-    response.setStatus(HttpServletResponse.SC_OK);
-    return labelResponseApi;
+
+    Labels labelsWithSameNameIgnoreCase = services.label().withNameIgnoreCase(labelCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"));
+    List<Label> labelsWithNameIgnoreCase = labelsWithSameNameIgnoreCase.stream().collect(Collectors.toList());
+    if (labelsWithNameIgnoreCase.isEmpty()) {
+      List<Object[]> queryLabels = services.label().searchBis(labelCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
+      List<LabelViewData> labelViewData = queryLabels.stream()
+        .map(objectArray -> new LabelViewData(objectArray))
+        .collect(Collectors.toList());
+      List<LabelViewData> withSameName = new ArrayList<>();
+      for (LabelViewData l : labelViewData) {
+        if (!l.name.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").equalsIgnoreCase(labelCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
+          withSameName.add(l);
+        }
+      }
+      String labelsWithSameName = null;
+      if (!withSameName.isEmpty()) {
+        labelsWithSameName = withSameName.stream().map(l -> l.name).collect(Collectors.joining(","));
+      }
+      if (labelsWithSameName != null) {
+        if (force) {
+          services.label().create(labelCreationViewApi.toLabel());
+          String messageType = "CreateLabelMessage";
+          String values = user.name() + ';' + labelCreationViewApi.getName();
+          MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
+          response.setStatus(HttpServletResponse.SC_OK);
+          return labelResponseApi;
+        } else {
+          labelResponseApi.warningMessage = messageByLocaleService.getMessage("same_name_exist", new Object[]{labelsWithSameName});
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          return labelResponseApi;
+        }
+      } else {
+        services.label().create(labelCreationViewApi.toLabel());
+        String messageType = "CreateLabelMessage";
+        String values = user.name() + ';' + labelCreationViewApi.getName();
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+        response.setStatus(HttpServletResponse.SC_OK);
+        return labelResponseApi;
+      }
+    } else {
+      labelResponseApi.errorMessage = messageByLocaleService.getMessage("label.name_already_exist");
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      return labelResponseApi;
+    }
   }
 
   @Secured("ROLE_ADMIN")

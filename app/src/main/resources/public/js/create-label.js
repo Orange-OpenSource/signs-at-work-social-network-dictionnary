@@ -22,12 +22,13 @@ console.log("Cool, create_label.js is loaded :)");
 
 
 var inputLabelName = document.getElementById('labelName');
-var submitCreateLabel = document.getElementById("submit-create-label");
+var submitCreateModal = document.getElementById("submit-create-modal");
+var submitForceCreateModal = document.getElementById("submit-force-create-modal");
 
 var regexName = new RegExp('^[0-9A-zÀ-ÖØ-öø-ÿ- ()œæŒÆ\'°/:]{1,255}$');
 
 inputLabelName.addEventListener('keyup',checkLabelName);
-submitCreateLabel.disabled = true;
+submitCreateModal.disabled = true;
 
 
 function checkLabelName() {
@@ -36,46 +37,66 @@ function checkLabelName() {
   if (valueLabelName != '') {
     if (!regexName.test(valueLabelName)) {
       $('.errorRegexLabelName').removeClass("hidden");
-      submitCreateLabel.disabled = true;
+      submitCreateModal.disabled = true;
     } else {
       $('.errorRegexLabelName').addClass("hidden");
-      submitCreateLabel.disabled = false;
+      submitCreateModal.disabled = false;
     }
   } else {
     $('.errorRegexLabelName').addClass("hidden");
-    submitCreateLabel.disabled = true;
+    submitCreateModal.disabled = true;
   }
 }
 
 $('#create_label').on('hidden.bs.modal', function (e) {
-  $('.errorRegexCommunityName').addClass("hidden");
-  inputLabelName.value = '';
-  submitCreateLabel.disabled = true;
+  var errorCreate = document.getElementById('errorCreate');
+  var warningCreate = document.getElementById('warningCreate');
+  labelName.value = '';
+  errorCreate.style.display = "none";
+  warningCreate.style.display = "none";
+  submitCreateModal.style.display="block";
+  submitCreateModal.disabled = true;
+  submitForceCreateModal.style.display = "none";
+  $('.errorRegexLabelName').addClass("hidden");
 })
 
-function onCreateLabel(name) {
+function onCreateLabel(force) {
+
+  console.log("force "+force);
+
     label = {
-      name: name,
+      name: labelName.value
     };
     $.ajax({
-      url: "/ws/admin/labels",
+      url: "/ws/sec/labels/?force=" + force,
       type: 'post',
       data: JSON.stringify(label),
       contentType: "application/json",
       success: function (response) {
         console.log(response);
-        $("#validate_create_label").modal('show');
-        setTimeout(function () {
-          $('#validate_create_label').modal('hide');
-          url = "/sec/admin/manage_labels";
-          window.history.replaceState({}, 'foo', url);
-          window.location = url;
-        }, 3000);
+        errorCreate.style.display = "none";
+        location.reload();
       },
       error: function (response) {
+        console.log(response.responseJSON);
+        if (response.responseJSON.errorMessage != null) {
+          errorCreate.textContent = response.responseJSON.errorMessage;
+          errorCreate.style.display = "block";
+          submitCreateModal.disabled = true;
+        } else {
+          if (response.responseJSON.warningMessage != null) {
+            warningCreate.textContent = response.responseJSON.warningMessage;
+            warningCreate.style.display = "block";
+            submitCreateModal.style.display="none";
+            submitForceCreateModal.style.display = "block";
+          }
+        }
+
       }
     })
+
 };
+
 
 function onContinueLabel(backUrl) {
   var url = backUrl;

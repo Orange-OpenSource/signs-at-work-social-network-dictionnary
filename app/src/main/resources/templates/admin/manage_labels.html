@@ -67,29 +67,34 @@
           <h2 class="pull-right" th:text="#{label.new}"></h2>
         </div>
       </div>
-      <form autocomplete="off" method="post" th:action="@{/sec/label/search(id='0', videoId='0', type='Admin')}"
-            th:object="${labelCreationView}">
-        <div class="modal-body text-center">
-          <div class="errorRegexLabelName hidden" th:text="#{errorNameAuthorize}"></div>
-          <input class="border form-control" id="labelName" name="name" required="" th:autofocus="true"
-                 th:placeholder="#{label.enter_name}" type="text" autocomplete="off"/>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary pull-left" data-dismiss="modal" id="cancel-modal" th:title="#{title_cancel}"
-                  type="button">
-            <div class="x-close2_black center-block"></div>
-            <span th:text="#{cancel}"></span>
-          </button>
-          <button id="submit-create-label" class="btn btn-default pull-right" data-dismiss="" type="submit">
-            <div class="v-done2_blue center-block"></div>
-            <span th:text="#{continue}"></span>
-          </button>
-        </div>
-      </form>
+      <div class="modal-body text-center">
+        <span id="errorCreate" style="display: none" class="red"></span>
+        <div class="errorRegexLabelName hidden" th:text="#{errorNameAuthorize}"></div>
+        <input class="border form-control" id="labelName" name="name" required="" th:autofocus="true"
+               th:placeholder="#{label.enter_name}" type="text" autocomplete="off"/>
+        <span id="warningCreate" style="display: none"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
+          <div class="x-close2_black center-block"></div>
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-create-modal"
+                th:data-force="false"
+                th:onclick="javascript:onCreateLabel(this.getAttribute('data-force'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-force-create-modal" style="display: none"
+                th:data-force="true"
+                th:onclick="javascript:onCreateLabel(this.getAttribute('data-force'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
-
 
 </body>
 <script src="../public/js/create-label.js" th:src="@{/js/create-label.js}" type="text/javascript"></script>
