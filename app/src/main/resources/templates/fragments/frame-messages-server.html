@@ -291,6 +291,12 @@
                 <div th:if="${messageServer.type == 'PrioriseRequestMessage'}" class="prio_blue" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreateSignForRequestSendEmailMessage'}" class="signlanguage_chartre_color" style="display: inline-table;vertical-align: middle;"></div>
                 <div th:if="${messageServer.type == 'CreateSignForRequestMessage'}" class="signlanguage_chartre_color" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'CreateLabelMessage'}" class="sticker_plain" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'DeleteLabelMessage'}" class="sticker_plain" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'AddLabelsToSignMessage'}" class="sticker_plain" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'RemoveLabelsToSignMessage'}" class="sticker_plain" style="display: inline-table;vertical-align: middle;"></div>
+                <div th:if="${messageServer.type == 'ModifyLabelsToSignMessage'}" class="sticker_plain" style="display: inline-table;vertical-align: middle;"></div>
+
                 <h4 class="text_hyphenation" th:utext="${messageServer.text}" style="display: inline-table; width:80%;"></h4>
               </li>
             </ul>
