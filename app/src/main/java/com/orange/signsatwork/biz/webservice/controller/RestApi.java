@@ -35,7 +35,7 @@ public class RestApi {
   public static final String WS_ADMIN_LABELS = WS_ADMIN + "labels";
 
   public static final String WS_SEC_LABELS = WS_SEC + "labels";
-
+  public static final String WS_SEC_CREATE_LABEL_ADD_SIGN = WS_SEC + "label/create_label_add_sign/{signId}";
   public static final String WS_ADMIN_LABEL = WS_ADMIN + "label/{labelId}";
   public static final String WS_ADMIN_COMMUNITY_USERS = WS_ADMIN + "communities/{communityId}/users";
   public static final String WS_ADMIN_USER = WS_ADMIN + "users/{userId}";

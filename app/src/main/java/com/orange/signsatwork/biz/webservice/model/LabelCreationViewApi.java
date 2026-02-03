@@ -38,8 +38,8 @@ import java.util.List;
 public class LabelCreationViewApi {
   private String name;
 
-  public Label toLabel() {
-    return new Label(-1, this.name, LabelType.Admin);
+  public Label toLabel(LabelType labelType) {
+    return new Label(-1, this.name, labelType);
   }
 
   public void clearXss() {

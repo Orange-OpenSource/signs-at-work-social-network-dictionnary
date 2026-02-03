@@ -40,7 +40,6 @@ public class LabelRestController {
   @RequestMapping(value = RestApi.WS_SEC_LABELS, method = RequestMethod.POST)
   public LabelResponseApi createLabel(@RequestBody LabelCreationViewApi labelCreationViewApi, @RequestParam("force") Boolean force, HttpServletRequest requestHttp, HttpServletResponse response, Principal principal) throws
     InterruptedException {
-    Boolean isAdmin = false;
     LabelResponseApi labelResponseApi = new LabelResponseApi();
 
     User user = services.user().withUserName(principal.getName());
@@ -68,7 +67,7 @@ public class LabelRestController {
       }
       if (labelsWithSameName != null) {
         if (force) {
-          services.label().create(labelCreationViewApi.toLabel());
+          services.label().create(labelCreationViewApi.toLabel(LabelType.Admin));
           String messageType = "CreateLabelMessage";
           String values = user.name() + ';' + labelCreationViewApi.getName();
           MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
@@ -81,10 +80,88 @@ public class LabelRestController {
           return labelResponseApi;
         }
       } else {
-        services.label().create(labelCreationViewApi.toLabel());
+        services.label().create(labelCreationViewApi.toLabel(LabelType.Admin));
         String messageType = "CreateLabelMessage";
         String values = user.name() + ';' + labelCreationViewApi.getName();
         MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+        response.setStatus(HttpServletResponse.SC_OK);
+        return labelResponseApi;
+      }
+    } else {
+      labelResponseApi.errorMessage = messageByLocaleService.getMessage("label.name_already_exist");
+      response.setStatus(HttpServletResponse.SC_CONFLICT);
+      return labelResponseApi;
+    }
+  }
+
+  @Secured({"ROLE_USER", "ROLE_ADMIN"})
+  @RequestMapping(value = RestApi.WS_SEC_CREATE_LABEL_ADD_SIGN, method = RequestMethod.POST)
+  public LabelResponseApi createLabelAddToSign(@RequestBody LabelCreationViewApi labelCreationViewApi, @PathVariable Long signId, @RequestParam("force") Boolean force, HttpServletRequest requestHttp, HttpServletResponse response, Principal principal) throws
+    InterruptedException {
+    boolean isAdmin = appSecurityAdmin.isAdmin(principal);
+    LabelType labelType;
+    if (isAdmin) {
+      labelType = LabelType.Admin;
+    } else {
+      labelType = LabelType.User;
+    }
+    LabelResponseApi labelResponseApi = new LabelResponseApi();
+
+    User user = services.user().withUserName(principal.getName());
+    User admin = services.user().getAdmin();
+
+    labelCreationViewApi.clearXss();
+
+
+    Labels labelsWithSameNameIgnoreCase = services.label().withNameIgnoreCase(labelCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"));
+    List<Label> labelsWithNameIgnoreCase = labelsWithSameNameIgnoreCase.stream().collect(Collectors.toList());
+    if (labelsWithNameIgnoreCase.isEmpty()) {
+      List<Object[]> queryLabels = services.label().searchBis(labelCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").toUpperCase());
+      List<LabelViewData> labelViewData = queryLabels.stream()
+        .map(objectArray -> new LabelViewData(objectArray))
+        .collect(Collectors.toList());
+      List<LabelViewData> withSameName = new ArrayList<>();
+      for (LabelViewData l : labelViewData) {
+        if (!l.name.trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE").equalsIgnoreCase(labelCreationViewApi.getName().trim().replace("œ", "oe").replace("æ", "ae").replace("Œ","OE").replace("Æ'", "AE"))) {
+          withSameName.add(l);
+        }
+      }
+      String labelsWithSameName = null;
+      if (!withSameName.isEmpty()) {
+        labelsWithSameName = withSameName.stream().map(l -> l.name).collect(Collectors.joining(","));
+      }
+      if (labelsWithSameName != null) {
+        if (force) {
+          Label label = services.label().create(labelCreationViewApi.toLabel(labelType));
+          String messageType = "CreateLabelMessage";
+          String values = user.name() + ';' + labelCreationViewApi.getName();
+          MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
+          services.sign().addSignToLabel(signId, label.id);
+          Sign sign = services.sign().withId(signId);
+          messageType = "AddLabelsToSignMessage";
+          values = user.name() + ';' + sign.name;
+          messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
+          response.setStatus(HttpServletResponse.SC_OK);
+          return labelResponseApi;
+        } else {
+          labelResponseApi.warningMessage = messageByLocaleService.getMessage("same_name_exist", new Object[]{labelsWithSameName});
+          response.setStatus(HttpServletResponse.SC_CONFLICT);
+          return labelResponseApi;
+        }
+      } else {
+        Label label = services.label().create(labelCreationViewApi.toLabel(labelType));
+        String messageType = "CreateLabelMessage";
+        String values = user.name() + ';' + labelCreationViewApi.getName();
+        MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+        services.sign().addSignToLabel(signId, label.id);
+        Sign sign = services.sign().withId(signId);
+        messageType = "AddLabelsToSignMessage";
+        values = user.name() + ';' + sign.name;
+        messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
         services.messageServerService().addMessageServer(messageServer);
         response.setStatus(HttpServletResponse.SC_OK);
         return labelResponseApi;

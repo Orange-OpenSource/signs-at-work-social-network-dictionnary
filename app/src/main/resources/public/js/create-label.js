@@ -60,6 +60,18 @@ $('#create_label').on('hidden.bs.modal', function (e) {
   $('.errorRegexLabelName').addClass("hidden");
 })
 
+$('#create-new-label_add_sign').on('hidden.bs.modal', function (e) {
+  var errorCreate = document.getElementById('errorCreate');
+  var warningCreate = document.getElementById('warningCreate');
+  labelName.value = '';
+  errorCreate.style.display = "none";
+  warningCreate.style.display = "none";
+  submitCreateModal.style.display="block";
+  submitCreateModal.disabled = true;
+  submitForceCreateModal.style.display = "none";
+  $('.errorRegexLabelName').addClass("hidden");
+})
+
 function onCreateLabel(force) {
 
   console.log("force "+force);
@@ -97,6 +109,43 @@ function onCreateLabel(force) {
 
 };
 
+
+function onCreateLabelAddToSign(signId, force) {
+
+  console.log("force "+force);
+
+  label = {
+    name: labelName.value
+  };
+  $.ajax({
+    url: "/ws/sec/label/create_label_add_sign/" + signId + "?force=" + force,
+    type: 'post',
+    data: JSON.stringify(label),
+    contentType: "application/json",
+    success: function (response) {
+      console.log(response);
+      errorCreate.style.display = "none";
+      location.reload();
+    },
+    error: function (response) {
+      console.log(response.responseJSON);
+      if (response.responseJSON.errorMessage != null) {
+        errorCreate.textContent = response.responseJSON.errorMessage;
+        errorCreate.style.display = "block";
+        submitCreateModal.disabled = true;
+      } else {
+        if (response.responseJSON.warningMessage != null) {
+          warningCreate.textContent = response.responseJSON.warningMessage;
+          warningCreate.style.display = "block";
+          submitCreateModal.style.display="none";
+          submitForceCreateModal.style.display = "block";
+        }
+      }
+
+    }
+  })
+
+};
 
 function onContinueLabel(backUrl) {
   var url = backUrl;

@@ -27,34 +27,44 @@
 <body>
 
 <div th:fragment="div" th:if="${isAuthenticated}" id="create-new-label_add_sign" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
-                <div class="pull-left">
-                    <div class="sticker_add_white_plain pull-left"></div>
-                    <h2 class="pull-right" th:text="#{label.modal.new}"></h2>
-                </div>
-            </div>
-            <form th:action="@{/sec/label/search(id=${signView.id}, videoId=${videoView.video.id},type='User')}" th:object="${labelCreationView}" method="post">
-                <div class="modal-body text-center">
-                    <input th:field="*{name}" type="text" class="border form-control"
-                           th:placeholder="#{label.enter_name}" required=""/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
-                      <div class="x-close2_black center-block"></div>
-                      <span th:text="#{cancel}"></span>
-                    </button>
-                    <button type="submit" class="btn btn-default pull-right"
-                            data-dismiss="">
-                      <div class="v-done2_blue center-block"></div>
-                      <span th:text="#{continue}"></span>
-                    </button>
-                </div>
-            </form>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button"></button>
+        <div class="pull-left">
+          <div class="sticker_add_white_plain pull-left"></div>
+          <h2 class="pull-right" th:text="#{label.new}"></h2>
         </div>
+      </div>
+      <div class="modal-body text-center">
+        <span id="errorCreate" style="display: none" class="red"></span>
+        <div class="errorRegexLabelName hidden" th:text="#{errorNameAuthorize}"></div>
+        <input class="border form-control" id="labelName" name="name" required="" th:autofocus="true"
+               th:placeholder="#{label.enter_name}" type="text" autocomplete="off"/>
+        <span id="warningCreate" style="display: none"></span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary pull-left" data-dismiss="modal" th:title="#{title_cancel}" type="button">
+          <div class="x-close2_black center-block"></div>
+          <span th:text="#{cancel}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-create-modal"
+                th:data-force="false"
+                th:data-signId="${signId}"
+                th:onclick="javascript:onCreateLabelAddToSign(this.getAttribute('data-signId'), this.getAttribute('data-force'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+        <button class="btn btn-default pull-right" data-dismiss="" id="submit-force-create-modal" style="display: none"
+                th:data-force="true"
+                th:data-signId="${signId}"
+                th:onclick="javascript:onCreateLabelAddToSign(this.getAttribute('data-signId'), this.getAttribute('data-force'))" type="submit">
+          <div class="v-done2_blue center-block"></div>
+          <span th:text="#{continue}"></span>
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
 </body>
