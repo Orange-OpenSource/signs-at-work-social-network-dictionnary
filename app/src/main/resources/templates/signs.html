@@ -87,7 +87,7 @@
 
       <!-- Bloc catégories (caché au départ) -->
       <div id="search-by-category" class="well well-sm" style="display:none; background-color:#e8f0fa; border-radius:12px;">
-        <div id="category-list" class="text-center filter-btns">
+        <div id="category-list" class="filter-btns">
           <th:block th:each="cat : ${categories}">
             <button class="btn btn-default filter"
                     th:data-filter="${cat.name}"

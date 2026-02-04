@@ -3992,14 +3992,13 @@ panel-title {
 }
 
 .filter-btns .btn {
-  margin: 5px;
+  margin: 0px;
   border: 1px solid #ccc;
   background: #fff;
   color: #333;
   font-weight: bold;
   box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
   position: relative;
-  min-width: 120px;
   text-align: left;
   padding-right: 30px; /* espace pour la coche */
 }
