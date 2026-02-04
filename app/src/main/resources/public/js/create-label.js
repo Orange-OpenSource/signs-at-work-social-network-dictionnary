@@ -34,6 +34,8 @@ submitCreateModal.disabled = true;
 function checkLabelName() {
   var valueLabelName = inputLabelName.value;
 
+  errorCreate.style.display = "none";
+  warningCreate.style.display = "none";
   if (valueLabelName != '') {
     if (!regexName.test(valueLabelName)) {
       $('.errorRegexLabelName').removeClass("hidden");
