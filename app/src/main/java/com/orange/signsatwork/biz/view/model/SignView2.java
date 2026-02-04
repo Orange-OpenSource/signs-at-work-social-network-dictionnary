@@ -67,6 +67,22 @@ public class SignView2 implements ComparableSign {
     this.signBelowToFavorite = signBelowToFavorite;
   }
 
+  public SignView2(SignViewData signViewData, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView, boolean videoHasPositiveRate, String label) {
+    id = signViewData.id;
+    name = signViewData.name;
+    createDate = signViewData.createDate;
+    lastVideoId = signViewData.lastVideoId;
+    url = signViewData.url;
+    pictureUri = signViewData.pictureUri;
+    nbVideo = signViewData.nbVideo;
+    signCreateAfterLastDateDeconnection = createdAfterLastDeconnection;
+
+    this.videoHasComment = videoHasComment;
+    this.videoHasView = videoHasView;
+    this.videoHasPositiveRate = videoHasPositiveRate;
+    this.label = label;
+  }
+
   public SignView2(SignViewData signViewData, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView, boolean videoHasPositiveRate, boolean signBelowToFavorite, String label) {
     id = signViewData.id;
     name = signViewData.name;
@@ -83,6 +99,7 @@ public class SignView2 implements ComparableSign {
     this.signBelowToFavorite = signBelowToFavorite;
     this.label = label;
   }
+
 
   public SignView2(Sign sign, boolean videoHasComment, boolean createdAfterLastDeconnection, boolean videoHasView, boolean videoHasPositiveRate, boolean signBelowToFavorite) {
     id = sign.id;

@@ -255,7 +255,7 @@ public class SignController {
         .collect(Collectors.toList());
     } else {
       signViews = signViewsData.stream()
-        .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+        .map(signViewData -> buildSignViewWithOutFavoriteWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, concatLabelSignsData))
         .collect(Collectors.toList());
     }
 
@@ -1401,6 +1401,24 @@ public class SignController {
       signWithView.contains(signViewData.id),
       signWithPositiveRate.contains(signViewData.id),
       signInFavorite.contains(signViewData.id),
+      concatLabel);
+  }
+
+  private SignView2 buildSignViewWithOutFavoriteWithLabels(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<ConcatLabelSignsData> concatLabelSignsData) {
+    ConcatLabelSignsData item = concatLabelSignsData.stream()
+      .filter(x -> x.id.equals(signViewData.id))
+      .findFirst()
+      .orElse(null);   // ou .orElseThrow()
+    String concatLabel = null;
+    if (item != null) {
+      concatLabel = item.name;
+    }
+    return new SignView2(
+      signViewData,
+      signWithCommentList.contains(signViewData.id),
+      SignView2.createdAfterLastDeconnection(signViewData.createDate, null),
+      signWithView.contains(signViewData.id),
+      signWithPositiveRate.contains(signViewData.id),
       concatLabel);
   }
 
