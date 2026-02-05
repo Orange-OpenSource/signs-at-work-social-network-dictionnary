@@ -27,11 +27,11 @@ import java.math.BigInteger;
 public class ConcatLabelSignsData {
 
   public final Long id;
-  public final String name;
+  public final String concatLabelId;
 
   public ConcatLabelSignsData(Object[] queryResultItem) {
     id = toLong(queryResultItem[0]);
-    name = toString(queryResultItem[1]);
+    concatLabelId = toString(queryResultItem[1]);
   }
 
   private String toString(Object o) {

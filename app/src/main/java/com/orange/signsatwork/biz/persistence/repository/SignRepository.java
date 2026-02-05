@@ -109,7 +109,7 @@ public interface SignRepository extends CrudRepository<SignDB, Long> {
   @Query(value="select a.labels_id, b.name from labels_signs a inner join labels b on a.labels_id = b.id and a.signs_id = :signId order by lower(b.name)  asc", nativeQuery = true)
   List<Object[]>  findLabelsForSign(@Param("signId") long signId);
 
-  @Query(value="select s.id AS sign_id, group_concat(l.name order by l.name separator ' ') AS labels FROM signs s JOIN labels_signs ls ON s.id = ls.signs_id JOIN labels l ON l.id = ls.labels_id group by s.id", nativeQuery = true)
+  @Query(value="select s.id AS sign_id, group_concat(l.id order by l.name separator ' ') AS labels FROM signs s JOIN labels_signs ls ON s.id = ls.signs_id JOIN labels l ON l.id = ls.labels_id group by s.id", nativeQuery = true)
   List<Object[]> findConcatLabelsForSigns();
 
   public default SignDB findOne(long id) {

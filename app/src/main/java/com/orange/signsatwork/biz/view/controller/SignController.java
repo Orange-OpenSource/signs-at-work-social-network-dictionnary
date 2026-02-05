@@ -236,6 +236,9 @@ public class SignController {
         .collect(Collectors.toList());
     }
 
+    Map<Long, ConcatLabelSignsData> labelsBySignId =
+      concatLabelSignsData == null ? Collections.emptyMap()
+        : concatLabelSignsData.stream().collect(Collectors.toMap(x -> x.id, x -> x));
 
     List<SignViewData> signViewsData = querySigns.stream()
       .map(objectArray -> new SignViewData(objectArray))
@@ -251,11 +254,11 @@ public class SignController {
       List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
       signViews = signViewsData.stream()
-        .map(signViewData -> buildSignViewWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user, concatLabelSignsData))
+        .map(signViewData -> buildSignViewWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user, labelsBySignId))
         .collect(Collectors.toList());
     } else {
       signViews = signViewsData.stream()
-        .map(signViewData -> buildSignViewWithOutFavoriteWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, concatLabelSignsData))
+        .map(signViewData -> buildSignViewWithOutFavoriteWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, labelsBySignId))
         .collect(Collectors.toList());
     }
 
@@ -1385,42 +1388,52 @@ public class SignController {
     model.addAttribute("signCreationView", new SignCreationView());
   }
 
-  private SignView2 buildSignViewWithLabels(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<Long> signInFavorite, User user, List<ConcatLabelSignsData> concatLabelSignsData) {
-    ConcatLabelSignsData item = concatLabelSignsData.stream()
-      .filter(x -> x.id.equals(signViewData.id))
-      .findFirst()
-      .orElse(null);   // ou .orElseThrow()
-    String concatLabel = null;
-    if (item != null) {
-      concatLabel = item.name;
-    }
+  private SignView2 buildSignViewWithLabels(
+    SignViewData signViewData,
+    List<Long> signWithCommentList,
+    List<Long> signWithView,
+    List<Long> signWithPositiveRate,
+    List<Long> signInFavorite,
+    User user,
+    Map<Long, ConcatLabelSignsData> labelsBySignId) {
+
+    ConcatLabelSignsData item = labelsBySignId.get(signViewData.id);
+    String concatLabelId = item != null ? item.concatLabelId : null;
+
     return new SignView2(
       signViewData,
       signWithCommentList.contains(signViewData.id),
-      SignView2.createdAfterLastDeconnection(signViewData.createDate, user == null ? null : user.lastDeconnectionDate),
+      SignView2.createdAfterLastDeconnection(
+        signViewData.createDate,
+        user == null ? null : user.lastDeconnectionDate),
       signWithView.contains(signViewData.id),
       signWithPositiveRate.contains(signViewData.id),
       signInFavorite.contains(signViewData.id),
-      concatLabel);
+      concatLabelId
+    );
   }
 
-  private SignView2 buildSignViewWithOutFavoriteWithLabels(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<ConcatLabelSignsData> concatLabelSignsData) {
-    ConcatLabelSignsData item = concatLabelSignsData.stream()
-      .filter(x -> x.id.equals(signViewData.id))
-      .findFirst()
-      .orElse(null);   // ou .orElseThrow()
-    String concatLabel = null;
-    if (item != null) {
-      concatLabel = item.name;
-    }
+
+  private SignView2 buildSignViewWithOutFavoriteWithLabels(
+    SignViewData signViewData,
+    List<Long> signWithCommentList,
+    List<Long> signWithView,
+    List<Long> signWithPositiveRate,
+    Map<Long, ConcatLabelSignsData> labelsBySignId) {
+
+    ConcatLabelSignsData item = labelsBySignId.get(signViewData.id);
+    String concatLabelId = item != null ? item.concatLabelId : null;
+
     return new SignView2(
       signViewData,
       signWithCommentList.contains(signViewData.id),
       SignView2.createdAfterLastDeconnection(signViewData.createDate, null),
       signWithView.contains(signViewData.id),
       signWithPositiveRate.contains(signViewData.id),
-      concatLabel);
+      concatLabelId
+    );
   }
+
 
   private SignView2 buildSignView(SignViewData signViewData, List<Long> signWithCommentList, List<Long> signWithView, List<Long> signWithPositiveRate, List<Long> signInFavorite, User user) {
     return new SignView2(

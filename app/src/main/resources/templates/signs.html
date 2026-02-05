@@ -90,7 +90,7 @@
         <div id="category-list" class="filter-btns">
           <th:block th:each="cat : ${categories}">
             <button class="btn btn-default filter"
-                    th:data-filter="${cat.name}"
+                    th:data-filter="${cat.id}"
                     th:text="${cat.name}"></button>
           </th:block>
         </div>
