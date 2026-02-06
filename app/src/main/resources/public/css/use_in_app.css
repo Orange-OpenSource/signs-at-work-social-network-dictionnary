@@ -4047,6 +4047,9 @@ panel-title {
   transform: rotate(180deg);
 }
 
+#warningCreate, #warningRename {
+  overflow-wrap: break-word;
+}
 
 
 @media only screen and (max-width:768px) {
