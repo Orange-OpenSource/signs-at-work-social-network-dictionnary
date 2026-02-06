@@ -3917,9 +3917,9 @@ panel-title {
 
 .search-mode {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
 
 .mode-item {

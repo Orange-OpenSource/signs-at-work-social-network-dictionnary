@@ -22,11 +22,9 @@ package com.orange.signsatwork.biz.view.controller;
  * #L%
  */
 
-import com.orange.signsatwork.biz.domain.Communities;
-import com.orange.signsatwork.biz.domain.Favorite;
-import com.orange.signsatwork.biz.domain.User;
-import com.orange.signsatwork.biz.domain.Users;
+import com.orange.signsatwork.biz.domain.*;
 import com.orange.signsatwork.biz.persistence.model.CommunityViewData;
+import com.orange.signsatwork.biz.persistence.model.ConcatLabelSignsData;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.model.VideoViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
@@ -46,9 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.security.Principal;
 import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -227,29 +223,58 @@ public class FavoriteController {
     Collator collator = Collator.getInstance();
     collator.setStrength(0);
 
+    List<Object[]> queryLabelsForSigns;
+    List<ConcatLabelSignsData> concatLabelSignsData;
+    queryLabelsForSigns = services.sign().ConcatLabelsForSignsView();
+    concatLabelSignsData = queryLabelsForSigns.stream()
+      .map(objectArray -> new ConcatLabelSignsData(objectArray))
+      .collect(Collectors.toList());
+
+    Map<Long, ConcatLabelSignsData> labelsBySignId =
+      concatLabelSignsData == null ? Collections.emptyMap()
+        : concatLabelSignsData.stream().collect(Collectors.toMap(x -> x.id, x -> x));
+
     List<Object[]> querySigns = services.sign().AllVideosForAllSigns();
     List<VideoViewData> videoViewsData = querySigns.stream()
       .map(objectArray -> new VideoViewData(objectArray))
       .sorted((v1, v2) -> collator.compare(v1.videoName, v2.videoName))
       .collect(Collectors.toList());
 
-    List<VideoViewData> videoInFavorite = videoViewsData.stream()
-      .filter(v -> favoriteProfileView.getFavoriteVideosIds().contains(v.videoId))
-      .sorted((v1, v2) -> collator.compare(v1.videoName, v2.videoName))
+    List<VideoFavoriteView> videoFavoriteViews = videoViewsData.stream()
+      .map(videoViewData -> buildVideoViewWithLabels(videoViewData,labelsBySignId ))
       .collect(Collectors.toList());
 
-    videoViewsData.removeAll(videoInFavorite);
+    List<VideoFavoriteView> videoInFavorite = videoFavoriteViews.stream()
+      .filter(v -> favoriteProfileView.getFavoriteVideosIds().contains(v.getVideoId()))
+      .sorted((v1, v2) -> collator.compare(v1.getVideoName(), v2.getVideoName()))
+      .collect(Collectors.toList());
 
-    List<VideoViewData> sortedVideos = new ArrayList<>();
+    videoFavoriteViews.removeAll(videoInFavorite);
+
+    List<VideoFavoriteView> sortedVideos = new ArrayList<>();
     sortedVideos.addAll(videoInFavorite);
-    sortedVideos.addAll(videoViewsData);
-
+    sortedVideos.addAll(videoFavoriteViews);
 
 
     model.addAttribute("videosView", sortedVideos);
     model.addAttribute("appName", appName);
+    Labels labels = services.label().findLabelsOrderByNameAsc();
+    model.addAttribute("categories", LabelModalView.from(labels));
 
     return "favorite-associate-sign";
+  }
+
+  private VideoFavoriteView buildVideoViewWithLabels(
+    VideoViewData videoViewData,
+    Map<Long, ConcatLabelSignsData> labelsBySignId) {
+
+    ConcatLabelSignsData item = labelsBySignId.get(videoViewData.signId);
+    String concatLabelId = item != null ? item.concatLabelId : null;
+
+    return new VideoFavoriteView(
+      videoViewData,
+      concatLabelId
+    );
   }
 
 

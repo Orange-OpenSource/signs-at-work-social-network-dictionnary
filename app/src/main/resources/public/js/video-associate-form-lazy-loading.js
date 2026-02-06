@@ -220,6 +220,62 @@ $.fn.extend({
     return ret;
   };
 
+  // -------- FILTRAGE PAR CATEGORIES ----------
+  $(document).on("click", ".filter-btns .filter", function (e) {
+    e.preventDefault();
+
+    // Active / désactive visuellement
+    $(this).toggleClass("btn-active");
+
+    // Récupère les filtres actifs
+    var activeFilters = [];
+    $(".filter-btns .btn-active").each(function () {
+      var raw = $(this).data("filter") || $(this).text();
+      raw = String(raw).trim();
+      if (raw.length) activeFilters.push(raw);
+    });
+
+    console.log("Filtres actifs :", activeFilters);
+
+    // Cas 1 : aucun filtre => afficher toutes les tuiles
+    if (activeFilters.length === 0) {
+      activeFilter = false;
+      $("#videos-container").children("label").each(function () {
+        if ($(this).hasClass(VIDEO_HIDDEN_CLASS)) {
+          showVideoView(this);
+        } else {
+          $(this).show();
+        }
+      });
+      return;
+    } else {
+      activeFilter = true;
+    }
+
+    // Cas 2 : filtrage "ET"
+    $("#videos-container").children("label").each(function () {
+
+      // classes de la tuile → normalisées
+      var tokens = String(this.className)
+        .split(/\s+/)
+        .map(function (c) { return c; });
+
+      var matchAll = activeFilters.every(function (f) {
+        return tokens.indexOf(f) !== -1;
+      });
+
+      if (matchAll) {
+        if ($(this).hasClass(VIDEO_HIDDEN_CLASS)) {
+          showVideoView(this); // nécessaire pour lazy-load
+        } else {
+          $(this).show();
+        }
+      } else {
+        $(this).hide();
+      }
+    });
+  });
+
   if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(searchString, position){
       position = position || 0;
@@ -253,7 +309,7 @@ $.fn.extend({
   function onScroll(event) {
     var noMoreHiddenVideos = videoViewsHidden.length === 0;
     var closeToBottom = $(window).scrollTop() + $(window).height() > $(document).height() - $(window).height() / 5;
-    if (search_criteria.value == "") {
+    if ((search_criteria.value == "") && (!activeFilter)) {
       if (!noMoreHiddenVideos && closeToBottom) {
         showNextVideoViews();
       }
@@ -373,4 +429,66 @@ function initWithFirstVideos() {
 
   main();
 
+  // --- Quand on clique sur "catégories"
+  $('#mode-category').on('click', function() {
+    if (!$(this).hasClass('active')) {
+      // Changement d’icônes
+      $('#mode-word .icon').removeClass('sticker_plain').addClass('sticker');
+      $('#mode-category .icon').removeClass('sticker').addClass('sticker_plain');
+
+      // Texte
+      $('#label-word').hide();
+      $('#label-category').fadeIn(200);
+
+      // Zones de contenu
+      $('#search-by-word').hide();
+      $('#search-by-category').slideDown();
+
+      // États actifs
+      $('#mode-word').removeClass('active');
+      $(this).addClass('active')
+      search_criteria.value = "";
+      onReset();
+      $('#dropdown-filter').hide();
+    }
+  });
+
+  // --- Quand on clique sur "mots"
+  $('#mode-word').on('click', function() {
+    if (!$(this).hasClass('active')) {
+      $('#mode-category .icon').removeClass('sticker_plain').addClass('sticker');
+      $('#mode-word .icon').removeClass('sticker').addClass('sticker_plain');
+
+      $('#label-category').hide();
+      $('#label-word').fadeIn(200);
+
+      $('#search-by-category').hide();
+      $('#search-by-word').slideDown();
+
+      $('#mode-category').removeClass('active');
+      $(this).addClass('active');
+      $('#dropdown-filter').slideDown();
+    }
+    $("#category-list").children("button").each(function () {
+      if ($(this).hasClass("btn-active")) {
+        $(this).removeClass("btn-active");
+      }
+    });
+    activeFilter = false;
+    onReset();
+  });
+
+  // --- Voir plus / Voir moins dans les catégories ---
+  let expanded = false;
+  $('#toggle-categories').on('click', function(e) {
+    e.preventDefault();
+    expanded = !expanded;
+    if (expanded) {
+      $('#category-list').css('max-height', 'none');
+      $(this).html('Voir moins <span class="glyphicon glyphicon-triangle-top text-primary"></span>');
+    } else {
+      $('#category-list').css('max-height', '70px');
+      $(this).html('Voir plus <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>');
+    }
+  });
 })($);
