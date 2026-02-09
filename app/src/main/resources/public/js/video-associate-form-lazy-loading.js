@@ -220,10 +220,16 @@ $.fn.extend({
     return ret;
   };
 
+  function updateVideosCount(count) {
+    const el = document.getElementById("videos-count");
+    el.textContent = count + " " + (count > 1 ? "Videos" : "Video");
+    el.style.visibility = "visible";
+  }
+
   // -------- FILTRAGE PAR CATEGORIES ----------
   $(document).on("click", ".filter-btns .filter", function (e) {
     e.preventDefault();
-
+    var display = 0;
     // Active / désactive visuellement
     $(this).toggleClass("btn-active");
 
@@ -247,6 +253,7 @@ $.fn.extend({
           $(this).show();
         }
       });
+      document.getElementById("videos-count").style.visibility = "hidden";
       return;
     } else {
       activeFilter = true;
@@ -270,10 +277,15 @@ $.fn.extend({
         } else {
           $(this).show();
         }
+        display++;
       } else {
         $(this).hide();
       }
     });
+    if (activeFilters) {
+      console.log("display ",display);
+      updateVideosCount(display);
+    }
   });
 
   if (!String.prototype.startsWith) {
@@ -476,6 +488,7 @@ function initWithFirstVideos() {
     });
     activeFilter = false;
     onReset();
+    document.getElementById("videos-count").style.visibility = "hidden";
   });
 
   // --- Voir plus / Voir moins dans les catégories ---

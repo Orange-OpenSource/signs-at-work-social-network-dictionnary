@@ -81,10 +81,18 @@ var normalize = function( term ) {
   return ret;
 };
 
+function updateSignesCount(count) {
+  const el = document.getElementById("signes-count");
+  el.textContent = count + " " + (count > 1 ? "Signes" : "Signe");
+  el.style.visibility = "visible";
+}
+
+
+
 // -------- FILTRAGE PAR CATEGORIES ----------
 $(document).on("click", ".filter-btns .filter", function (e) {
   e.preventDefault();
-
+  var display = 0;
   // Active / désactive visuellement
   $(this).toggleClass("btn-active");
 
@@ -116,7 +124,7 @@ $(document).on("click", ".filter-btns .filter", function (e) {
           $(this).hide();
         }});
     }
-
+    document.getElementById("signes-count").style.visibility = "hidden";
     return;
   } else {
     activeFilter = true;
@@ -140,10 +148,15 @@ $(document).on("click", ".filter-btns .filter", function (e) {
       } else {
         $(this).show();
       }
+      display++;
     } else {
       $(this).hide();
     }
   });
+  if (activeFilters) {
+    console.log("display ",display);
+    updateSignesCount(display);
+  }
 });
 
 
@@ -925,6 +938,7 @@ function backToTop() {
       }
     });
     onFiltreSign(event, '/signs/alphabetic/frame?isAlphabeticAsc=false&isSearch='+modeSearch, false);
+    document.getElementById("signes-count").style.visibility = "hidden";
 });
 
   // --- Voir plus / Voir moins dans les catégories ---

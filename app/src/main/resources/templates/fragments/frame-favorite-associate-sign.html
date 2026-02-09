@@ -63,9 +63,13 @@
                 th:text="${cat.name}"></button>
       </th:block>
     </div>
-    <div class="text-right" style="margin-top:5px;">
+    <div class="toggle-line">
+      <!-- Texte mis à jour par JavaScript -->
+      <span id="videos-count" class="center-count">
+          </span>
       <a href="#" id="toggle-categories" style="color:#0044cc;">
-        Voir plus <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+        Voir plus
+        <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>
       </a>
     </div>
   </div>
