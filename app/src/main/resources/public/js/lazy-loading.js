@@ -83,11 +83,11 @@ var normalize = function( term ) {
 
 function updateSignesCount(count) {
   const el = document.getElementById("signes-count");
-  el.textContent = count + " " + (count > 1 ? "Signes" : "Signe");
+  const SIGN_SINGULAR = el.dataset.singular;
+  const SIGN_PLURAL = el.dataset.plural;
+  el.textContent = count + " " + (count > 1 ? SIGN_PLURAL : SIGN_SINGULAR);
   el.style.visibility = "visible";
 }
-
-
 
 // -------- FILTRAGE PAR CATEGORIES ----------
 $(document).on("click", ".filter-btns .filter", function (e) {
@@ -943,16 +943,20 @@ function backToTop() {
 
   // --- Voir plus / Voir moins dans les catégories ---
   let expanded = false;
-  $('#toggle-categories').on('click', function(e) {
+  const $toggle = $('#toggle-categories');
+  const seeMore = $toggle.data('see-more');
+  const seeLess = $toggle.data('see-less');
+
+    $('#toggle-categories').on('click', function(e) {
   e.preventDefault();
   expanded = !expanded;
   if (expanded) {
-  $('#category-list').css('max-height', 'none');
-  $(this).html('Voir moins <span class="glyphicon glyphicon-triangle-top text-primary"></span>');
-} else {
-  $('#category-list').css('max-height', '70px');
-  $(this).html('Voir plus <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>');
-}
+    $('#category-list').css('max-height', 'none');
+    $(this).html(seeLess + ' <span class="glyphicon glyphicon-triangle-top text-primary"></span>');
+  } else {
+    $('#category-list').css('max-height', '70px');
+    $(this).html(seeMore + ' <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>');
+  }
 });
 
 });
