@@ -215,6 +215,10 @@ public class LabelRestController {
           if (labelsWithSameName != null) {
               if (force) {
                 services.label().renameLabel(labelId, labelCreationViewApi.getName());
+                String messageType = "RenameLabelMessage";
+                String values = user.name() + ';' + label.name + ';' + labelCreationViewApi.getName();
+                MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+                services.messageServerService().addMessageServer(messageServer);
                 response.setStatus(HttpServletResponse.SC_OK);
                 return labelResponseApi;
               } else {
@@ -224,6 +228,10 @@ public class LabelRestController {
               }
             } else {
             services.label().renameLabel(labelId, labelCreationViewApi.getName());
+            String messageType = "RenameLabelMessage";
+            String values = user.name() + ';' + label.name + ';' + labelCreationViewApi.getName();
+            MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+            services.messageServerService().addMessageServer(messageServer);
             response.setStatus(HttpServletResponse.SC_OK);
             return labelResponseApi;
           }
