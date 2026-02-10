@@ -220,9 +220,12 @@ $.fn.extend({
     return ret;
   };
 
+
   function updateVideosCount(count) {
     const el = document.getElementById("videos-count");
-    el.textContent = count + " " + (count > 1 ? "Videos" : "Video");
+    const VIDEO_SINGULAR = el.dataset.singular;
+    const VIDEO_PLURAL = el.dataset.plural;
+    el.textContent = count + " " + (count > 1 ? VIDEO_PLURAL : VIDEO_SINGULAR);
     el.style.visibility = "visible";
   }
 

@@ -65,8 +65,7 @@
     </div>
     <div class="toggle-line">
       <!-- Texte mis à jour par JavaScript -->
-      <span id="videos-count" class="center-count">
-          </span>
+      <span id="videos-count" class="center-count" th:attr="data-singular=#{video_singular}, data-plural=#{video_plural}"></span>
       <a href="#" id="toggle-categories" style="color:#0044cc;">
         Voir plus
         <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>
