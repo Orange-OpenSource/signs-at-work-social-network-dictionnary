@@ -40,15 +40,61 @@
       <div class="text-center title_middle" th:if="${!isAuthenticated and #strings.equals(appName,'Signs@Work')}">
         <h2 class="blue" th:text="#{signatwork.lexical}"/>
       </div>
+      <div th:if="${isSearch}">
+        <div id="vertical-display"
+             class="search-layout">
+        <div id="block-word">
+          <div id="search-mode-word" class="mode-item">
+            <div class="icon sticker"></div>
+            <div class="mode-label"
+                 th:utext="#{search_by_word}"></div>
+          </div>
+          <div>
+            <div id="search-myform">
+              <div id="search-container-input">
+                  <input class="border form-control search-hidden" th:attr="aria-label=#{sign.search}" th:autocomplete="off"
+                         th:if="${#lists.isEmpty(signsView)}" th:placeholder="#{search}" type="search"/>
+                  <input class="border form-control" th:attr="aria-label=#{sign.search}"
+                         th:autocomplete="off" th:if="${not #lists.isEmpty(signsView)}" th:placeholder="#{search}"
+                         type="search"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="block-category">
+          <div id="search-mode-category" class="mode-item">
+            <div class="icon sticker"></div>
+            <div class="mode-label"
+                 th:utext="#{search_by_categorie}"></div>
+          </div>
+          <div class="well well-sm" style="background-color:#e8f0fa; border-radius:12px;">
+            <div id="search-category-list" class="search-filter-btns">
+              <th:block th:each="cat : ${categories}">
+                <button class="btn btn-default filter"
+                        th:data-filter="${cat.id}"
+                        th:text="${cat.name}"></button>
+              </th:block>
+            </div>
+            <div class="toggle-line">
+              <!-- Texte mis à jour par JavaScript -->
+              <span id="signes-count" class="center-count" th:attr="data-singular=#{sign_singular}, data-plural=#{sign_plural}"></span>
+              <a href="#" id="search-toggle-categories" th:attr="data-see-more=#{see_more}, data-see-less=#{see_less}" style="color:#0044cc;">
+                <span th:text="#{see_more}"></span>
+                <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div id="horizontal-display" th:style="${isSearch} ? 'display:none;'">
       <div id="search-mode-selector" class="text-center" style="margin-bottom: 10px;">
         <div class="search-mode">
-
           <!-- Mode mots -->
           <div id="mode-word" class="mode-item active">
             <div class="icon sticker_plain"></div>
             <div class="mode-label" id="label-word" th:utext="#{search_by_word}"></div>
           </div>
-
           <!-- Mode catégories -->
           <div id="mode-category" class="mode-item">
             <div class="icon sticker"></div>
@@ -101,10 +147,14 @@
           </a>
         </div>
       </div>
-      <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div">
+        </div>
+
+      <div id="page-content" th:style="${isSearch} ? 'display:none;'">
+      <div class="text-center title_middle col-xl-2 col-lg-12 col-md-12 col-xs-12 middle-col" th:fragment="div" >
         <div th:replace="fragments/frame-signs :: div"/>
       </div>
       <button type="button" class="btn-floating btn btn-link" id="btn-back-to-top"></button>
+        </div>
     </div>
   </div>
 </div>

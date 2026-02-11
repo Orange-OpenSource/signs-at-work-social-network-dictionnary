@@ -1021,7 +1021,7 @@ a.disabled > h4 {
 /* Begin Voir les signes /sec/signs */
 
 
-#myform input::placeholder{
+#myform input::placeholder, #search-myform input::placeholder{
   color:white;
   height: 40px;
   line-height: 40px;
@@ -1093,7 +1093,7 @@ a.disabled > h4 {
   margin-left: 10px;
 }
 
-#myform input[type=search]{
+#myform input[type=search], #search-myform input[type=search]{
   padding-left: 25px;
   margin-bottom: 10px;
   line-height: 40px;
@@ -1552,7 +1552,7 @@ img{
   margin-left: 17%;
 }
 
-#container-input{
+#container-input, #search-container-input{
   margin: 0 auto;
   width:  95%
 }
@@ -1586,13 +1586,13 @@ img{
   margin-right: 10px;
 }
 
-#myform{
+#myform, #search-myform{
   margin: 0 auto;
   margin: 0 auto;
 }
 
 
-#myform{
+#myform, #search-myform{
   border :none;
 }
 
@@ -3928,11 +3928,15 @@ panel-title {
   align-items: center;
   cursor: pointer;
   transition: transform 0.2s ease;
+  transform-origin: center;
 }
 
 .mode-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.02); /* beaucoup plus subtil */
 }
+
+
+
 
 /* Icônes */
 .icon {
@@ -3955,7 +3959,7 @@ panel-title {
   box-shadow: inset 0 0 3px #333;
 }
 
-#category-list {
+#category-list, #search-category-list  {
   max-height: 70px;
   overflow: hidden;
   transition: max-height 0.3s ease;
@@ -3987,11 +3991,11 @@ panel-title {
 }
 
 /* ---- STYLE DES BOUTONS FILTRES ---- */
-.filter-btns {
+.filter-btns, .search-filter-btns {
   margin-bottom: 10px;
 }
 
-.filter-btns .btn {
+.filter-btns .btn, .search-filter-btns .btn {
   margin: 0px;
   border: 1px solid #ccc;
   background: #fff;
@@ -4066,6 +4070,36 @@ panel-title {
   font-weight: bold;
   visibility: hidden;
 }
+
+.search-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.search-layout .mode-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-layout #search-by-word,
+.search-layout #search-by-category {
+  display: block !important;
+}
+
+/* Mode preview vertical (isSearch = true) */
+.search-layout input {
+  pointer-events: none;
+  background-color: #f5f5f5;
+}
+
+.search-layout .search-filter-btns button {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+
 
 
 
