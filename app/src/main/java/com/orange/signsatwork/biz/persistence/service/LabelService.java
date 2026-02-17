@@ -47,4 +47,6 @@ public interface LabelService {
 
   void renameLabel(Long labelId, String name);
 
+  void changeLabelIcon(Long labelId, String filename);
+
 }

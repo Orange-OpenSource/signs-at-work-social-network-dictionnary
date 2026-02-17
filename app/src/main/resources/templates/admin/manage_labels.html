@@ -42,8 +42,11 @@
           </li>
           <li class="aside_bckg_li" th:each="label:${labels}">
             <a class="all_li_clickable" th:href="@{/sec/admin/label/} + ${label.id}">
-              <div class="pull-left sticker_plain" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}"></div>
-              <div class="pull-left sticker" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}"></div>
+              <img class="pull-left" id="iconLabel"
+                   th:if="${label.iconFilename != null}"
+                   th:src="@{/data/labels/{file}(file=${label.iconFilename})}"/>
+              <div class="pull-left sticker_plain" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin && label.iconFilename == null}"></div>
+              <div class="pull-left sticker" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User && label.iconFilename == null}"></div>
               <h4 class="container_H2 text_hyphenation" th:text="${label.name}"></h4>
               <div class="pull-right chevron"></div>
             </a>

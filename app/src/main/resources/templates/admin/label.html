@@ -39,6 +39,19 @@
                 <div class="pull-right edit_black"></div>
               </a>
             </li>
+            <li class="aside_bckg_li">
+              <a class="all_li_clickable" data-target="#add_file_icon_label" data-toggle="modal" href="#">
+                <div class="pull-left col-lg-12 col-md-12 col-xs-12">
+                  <img class="pull-left" id="iconLabel"
+                       th:if="${label.iconFilename != null}"
+                       th:src="@{/data/labels/{file}(file=${label.iconFilename})}"/>
+                  <div class="pull-left sticker_plain" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin && label.iconFilename == null}"></div>
+                  <div class="pull-left sticker" th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User && label.iconFilename == null}"></div>
+                  <h4 class="container_H2 text_hyphenation" th:text="#{label.change-icon}"></h4>
+                  <div class="pull-right edit_black"></div>
+                </div>
+              </a>
+            </li>
             <li class="aside_bckg_li" th:if="!${isLabelHaveSigns}">
               <a class="all_li_clickable" data-target="#delete_label" data-toggle="modal" href="#">
                 <div class="pull-left col-lg-12 col-md-12 col-xs-12">
@@ -61,6 +74,46 @@
         </aside>
   </div>
 </div>
+
+  <div id="add_file_icon_label" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <div class="pull-left">
+            <div class="pull-left description_movie_white"></div>
+            <h2 class="pull-right text_hyphenation" th:utext="#{label.change-icon}"></h2>
+          </div>
+        </div>
+        <div class="spinner spinner_hidden"></div>
+        <form id="uploadSelectedPictureFile" th:action="@{/ws/sec/uploadSelectedPictureFileForLabelIcon/} + ${label.id}"  enctype="multipart/form-data"  method="post">
+          <div th:if="!${isIOSDevice}" class="modal-body text-center">
+            <br/>
+            <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{label.join_file_icon}"></h4><br/>
+            <input name="file" type="file" id="InputFile" accept="image/png, image/jpeg"/>
+            <h4 id="errorSelectedFileIconSpan"  style="display: none"></h4>
+          </div>
+          <div th:if="${isIOSDevice}" class="modal-body">
+            <br/>
+            <h4 class="pull-left" id="subtitle_for_modal_video" th:text="#{sub_title_for_modal_video_IOSDevice}"></h4><br/>
+            <input name="file" accept="video/*" capture="camera"  type="file" id="InputFile"  style="display: none"/>
+            <h4 id="errorSelectedFileIconSpan"  style="display: none"></h4>
+          </div>
+          <div id="modal-footer_add_video_file_recording" class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-secondary pull-left" th:title="#{title_cancel}">
+              <div class="x-close2_black center-block"></div>
+              <span th:text="#{cancel}"></span>
+            </button>
+            <button id="submitButtonPictureFile" type="submit" class="btn btn-default pull-right"
+                    data-dismiss="" disabled="true">
+              <div class="v-done2_blue center-block"></div>
+              <span th:text="#{publish}"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 <div class="modal fade" id="rename_label" role="dialog">
   <div class="modal-dialog">

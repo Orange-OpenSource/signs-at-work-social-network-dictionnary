@@ -55,6 +55,8 @@ public class LabelDB {
     @Enumerated(EnumType.STRING)
     private LabelType type;
 
+    private String iconFilename;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "labels_signs", joinColumns = @JoinColumn(name = "labels_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "signs_id", referencedColumnName = "id"))
     @JsonManagedReference

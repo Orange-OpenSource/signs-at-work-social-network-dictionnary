@@ -39,13 +39,14 @@ public class LabelModalView {
   private long id;
   private String name;
   private LabelType type;
+  private String iconFilename;
 
   public Label toLabel() {
-    return new Label(id, name, type);
+    return new Label(id, name, type, iconFilename);
   }
 
   public static LabelModalView from(Label label) {
-    return new LabelModalView(label.id, label.name, label.type);
+    return new LabelModalView(label.id, label.name, label.type, label.iconFilename);
   }
 
   public static List<LabelModalView> from(Labels labels) {

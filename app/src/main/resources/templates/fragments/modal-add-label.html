@@ -58,8 +58,11 @@
                         <li class="clear aside_bckg_li" th:each="label :${labels}">
                           <label th:id="${label.name}"
                                  th:for="${#ids.next('signLabelsIds')}">
-                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="pull-left sticker_plain"></div>
-                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="pull-left sticker"></div>
+                            <img class="pull-left" id="iconLabel"
+                                 th:if="${label.iconFilename != null}"
+                                 th:src="@{/data/labels/{file}(file=${label.iconFilename})}"/>
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin && label.iconFilename == null}" class="pull-left sticker_plain"></div>
+                            <div th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User && label.iconFilename == null}" class="pull-left sticker"></div>
                             <input type="checkbox" th:field="*{signLabelsIds}" th:value="${label.id}"/>
                             <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).Admin}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>
                             <h4 th:if="${label.type == T(com.orange.signsatwork.biz.domain.LabelType).User}" class="label_favorite_Liste_H2 container_H2 text_hyphenation" th:text="${label.name}"></h4>

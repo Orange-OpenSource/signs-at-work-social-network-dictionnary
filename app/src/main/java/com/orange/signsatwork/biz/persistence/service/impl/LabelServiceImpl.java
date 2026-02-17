@@ -120,6 +120,13 @@ public class LabelServiceImpl implements LabelService {
     labelRepository.save(labelDB);
   }
 
+  @Override
+  public void changeLabelIcon(Long labelId, String filename) {
+    LabelDB labelDB = labelRepository.findOne(labelId);
+
+    labelDB.setIconFilename(filename);
+    labelRepository.save(labelDB);
+  }
 
   private Labels labelsFrom(Iterable<LabelDB> labelsDB) {
     List<Label>labels = new ArrayList<>();
@@ -128,7 +135,7 @@ public class LabelServiceImpl implements LabelService {
   }
   static Label labelFrom(LabelDB labelDB) {
     return labelDB == null ? null :
-      new Label(labelDB.getId(), labelDB.getName(), labelDB.getType());
+      new Label(labelDB.getId(), labelDB.getName(), labelDB.getType(), labelDB.getIconFilename());
   }
 
 }

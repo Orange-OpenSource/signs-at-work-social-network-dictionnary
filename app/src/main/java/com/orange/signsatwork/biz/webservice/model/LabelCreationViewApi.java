@@ -39,7 +39,7 @@ public class LabelCreationViewApi {
   private String name;
 
   public Label toLabel(LabelType labelType) {
-    return new Label(-1, this.name, labelType);
+    return new Label(-1, this.name, labelType, null);
   }
 
   public void clearXss() {

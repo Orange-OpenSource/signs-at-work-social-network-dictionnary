@@ -32,5 +32,6 @@ public class Label {
     public final long id;
     public final String name;
     public final LabelType type;
+    public final String iconFilename;
 
 }

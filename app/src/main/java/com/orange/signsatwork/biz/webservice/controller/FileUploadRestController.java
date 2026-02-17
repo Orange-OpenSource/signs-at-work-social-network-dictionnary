@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orange.signsatwork.DalymotionToken;
 import com.orange.signsatwork.SpringRestClient;
 import com.orange.signsatwork.biz.domain.*;
+import com.orange.signsatwork.biz.domain.Label;
 import com.orange.signsatwork.biz.nativeinterface.NativeInterface;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
@@ -51,9 +52,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -63,6 +67,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -2785,6 +2790,93 @@ public class FileUploadRestController {
     }
   }
   /****/
+
+  @Secured("ROLE_ADMIN")
+  @RequestMapping(value = RestApi.WS_SEC_SELECTED_PICTURE_FILE_UPLOAD_FOR_LABEL_ICON, method = RequestMethod.POST)
+  public String uploadSelectedPictureFileForLabelIcon(@RequestParam("file") MultipartFile file, @PathVariable long labelId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) throws IOException, JCodecException, InterruptedException {
+
+    Label label = services.label().withId(labelId);
+    User user = services.user().withUserName(principal.getName());
+
+    int TARGET_SIZE = 400;
+    Path UPLOAD_DIR = Paths.get(environment.getProperty("app.file") +"/labels/");
+
+    if (file == null || file.isEmpty()) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("empty_file");
+    }
+
+    if (!file.getContentType().startsWith("image/")) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("file_must_be_picture");
+    }
+
+    BufferedImage original = ImageIO.read(file.getInputStream());
+
+    if (original == null) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("file_must_be_picture");
+    }
+
+    int width = original.getWidth();
+    int height = original.getHeight();
+
+    // 🛑 REFUS si image trop petite
+    if (width < TARGET_SIZE || height < TARGET_SIZE) {
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return messageByLocaleService.getMessage("file_minimun_size");
+    }
+
+    // 🧠 SMART CROP CENTRÉ
+    int squareSize = Math.min(width, height);
+    int x = (width - squareSize) / 2;
+    int y = (height - squareSize) / 2;
+
+    BufferedImage cropped = original.getSubimage(x, y, squareSize, squareSize);
+
+    // 🎯 RESIZE vers 400×400
+    BufferedImage resized = new BufferedImage(
+      TARGET_SIZE,
+      TARGET_SIZE,
+      BufferedImage.TYPE_INT_ARGB
+    );
+
+    Graphics2D g = resized.createGraphics();
+
+    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+      RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+    g.setRenderingHint(RenderingHints.KEY_RENDERING,
+      RenderingHints.VALUE_RENDER_QUALITY);
+    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+      RenderingHints.VALUE_ANTIALIAS_ON);
+
+    g.drawImage(cropped, 0, 0, TARGET_SIZE, TARGET_SIZE, null);
+    g.dispose();
+
+    // Création dossier
+    Files.createDirectories(UPLOAD_DIR);
+
+
+    // Nom sécurisé
+    String filename = UUID.randomUUID() + ".png";
+    Path outputPath = UPLOAD_DIR.resolve(filename);
+
+    ImageIO.write(resized, "png", outputPath.toFile());
+
+    changeLabelIcon(label, filename, user);
+    response.setStatus(HttpServletResponse.SC_OK);
+    return Long.toString(labelId);
+  }
+
+  private void changeLabelIcon(Label label, String filename, User user) {
+    services.label().changeLabelIcon(label.id, filename);
+    String values = user.username + ';' + label.name;
+    String messageType= "ChangeLabelIconMessage";
+    MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+        services.messageServerService().addMessageServer(messageServer);
+  }
+
+
   @Secured("ROLE_USER")
   @RequestMapping(value = RestApi.WS_SEC_RECORDED_VIDEO_FILE_UPLOAD_FOR_COMMUNITY_DESCRIPTION , method = RequestMethod.POST)
   public String uploadRecordedVideoFileForCommunityDescription(@RequestBody VideoFile videoFile, @PathVariable long communityId, Principal principal, HttpServletResponse response, HttpServletRequest requestHttp) {

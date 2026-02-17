@@ -144,6 +144,8 @@ public class RestApi {
 
   public static final String WS_SEC_SELECTED_VIDEO_FILE_UPLOAD_FOR_NAME_FOR_USER = WS_SEC + "uploadSelectedVideoFileForName/{userId}";
 
+  public static final String WS_SEC_SELECTED_PICTURE_FILE_UPLOAD_FOR_LABEL_ICON = WS_SEC + "uploadSelectedPictureFileForLabelIcon/{labelId}";
+
   public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_NAME = WS_SEC + "deleteVideoFileForName";
 
   public static final String WS_SEC_DELETE_VIDEO_FILE_FOR_NAME_FOR_USER = WS_SEC + "deleteVideoFileForName/{userId}";
