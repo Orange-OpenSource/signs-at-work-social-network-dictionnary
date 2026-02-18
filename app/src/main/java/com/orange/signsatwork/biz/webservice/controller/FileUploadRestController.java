@@ -2870,6 +2870,12 @@ public class FileUploadRestController {
 
   private void changeLabelIcon(Label label, String filename, User user) {
     services.label().changeLabelIcon(label.id, filename);
+    if (label.iconFilename != null) {
+      File iconFileName = new File(environment.getProperty("app.file") +"/labels/" + label.iconFilename);
+      if (iconFileName.exists()) {
+        iconFileName.delete();
+      }
+    }
     String values = user.username + ';' + label.name;
     String messageType= "ChangeLabelIconMessage";
     MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);

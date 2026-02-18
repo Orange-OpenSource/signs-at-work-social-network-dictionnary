@@ -11,11 +11,13 @@ import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.webservice.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +36,9 @@ public class LabelRestController {
 
   @Autowired
   private AppSecurityAdmin appSecurityAdmin;
+
+  @Autowired
+  private Environment environment;
 
 
   @Secured("ROLE_ADMIN")
@@ -262,6 +267,12 @@ public class LabelRestController {
     }
 
     services.label().delete(label);
+    if (label.iconFilename != null) {
+      File iconFileName = new File(environment.getProperty("app.file") +"/labels/" + label.iconFilename);
+      if (iconFileName.exists()) {
+        iconFileName.delete();
+      }
+    }
     String messageType = "DeleteLabelMessage";
     User user = services.user().withUserName(principal.getName());
     String values = user.name() + ';' + label.name;
