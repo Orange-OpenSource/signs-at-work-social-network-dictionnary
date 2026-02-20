@@ -38,6 +38,10 @@ public interface MessageServerService {
 
   MessagesServer messagesServerDataSignDesc();
 
+  MessagesServer messagesServerDataLabelAsc();
+
+  MessagesServer messagesServerDataLabelDesc();
+
   MessagesServer messagesServerCreateUserChangeEmailToDoAsc();
 
   MessagesServer messagesServerCreateUserChangeEmailWithId(long id);

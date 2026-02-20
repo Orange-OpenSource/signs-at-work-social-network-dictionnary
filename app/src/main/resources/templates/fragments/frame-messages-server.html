@@ -165,6 +165,22 @@
           <div class="pull-right v-done-up_black"></div>
         </a>
       </li>
+      <li>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isDataLabelAsc}" th:href="@{/sec/admin/dataLabel/frame(isDataLabelAsc=${isDataLabelAsc})}">
+          <div class="pull-left fond_blanc_noir_LSF_filter"></div>
+          <span th:text="#{labelsAction}"></span>
+          <div class="pull-right v-done-down_black"></div>
+        </a>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${!isDataLabelAsc and !isDataLabelDesc}" th:href="@{/sec/admin/dataLabel/frame(isDataLabelAsc=${isDataLabelAsc})}">
+          <div class="pull-left fond_blanc_noir_LSF_filter"></div>
+          <span th:text="#{labelsAction}"></span>
+        </a>
+        <a th:onclick="'javascript:onFiltreMessagesServer(event, this.href)'" th:if="${isDataLabelDesc}" th:href="@{/sec/admin/dataLabel/frame(isDataLabelAsc=${isDataLabelAsc})}">
+          <div class="pull-left fond_blanc_noir_LSF_filter"></div>
+          <span th:text="#{labelsAction}"></span>
+          <div class="pull-right v-done-up_black"></div>
+        </a>
+      </li>
     </ul>
   </div>
 

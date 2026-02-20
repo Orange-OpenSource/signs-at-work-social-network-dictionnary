@@ -57,6 +57,12 @@ public interface MessageServerRepository extends CrudRepository<MessageServerDB,
   @Query("select distinct m FROM MessageServerDB m where m.type in ('ChangeLabelIconMessage','RenameLabelMessage','DeleteLabelMessage','CreateLabelMessage','AddLabelsToSignMessage','RemoveLabelsToSignMessage','ModifyLabelsToSignMessage','CommentDeleteMessage', 'CommentDeleteByUserSendEmailMessage', 'CommentDeleteSendEmailMessage', 'UpdateSignDefinitionMessage','UpdateSignDefinitionSendEmailMessage', 'AddSignDefinitionMessage', 'AddSignDefinitionSendEmailMessage', 'DeleteSignDefinitionMessage', 'DeleteSignDefinitionSendEmailMessage', 'AddSignDefinitionTextSendEmailMessage', 'UpdateSignDefinitionTextSendEmailMessage', 'DeleteVideoSendEmailMessage', 'DeleteVideoMessage', 'DeleteSignSendEmailMessage', 'DeleteSignMessage', 'UpdateVideoSendEmailMessage', 'UpdateVideoMessage', 'RenameSignMessage', 'RenameSignSendEmailMessage') order by m.date desc")
   List<MessageServerDB> findMessagesServerDataSignDesc();
 
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('ChangeLabelIconMessage','RenameLabelMessage','DeleteLabelMessage','CreateLabelMessage') order by m.date asc")
+  List<MessageServerDB> findMessagesServerDataLabelAsc();
+
+  @Query("select distinct m FROM MessageServerDB m where m.type in ('ChangeLabelIconMessage','RenameLabelMessage','DeleteLabelMessage','CreateLabelMessage') order by m.date desc")
+  List<MessageServerDB> findMessagesServerDataLabelDesc();
+
   @Query("select distinct m FROM MessageServerDB m where m.type in ('RequestCreateUserMessage','RequestChangeEmailMessage') and m.action='TODO' order by m.date asc")
   List<MessageServerDB> findMessagesServerCreateUserChangeEmailToDoAsc();
 
