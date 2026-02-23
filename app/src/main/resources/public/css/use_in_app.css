@@ -2430,6 +2430,40 @@ table tbody td{
 }
 
 
+.search-ABC_black {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -192px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+.search-ABC_blue-background {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -216px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 25px;
+}
+
+.search-sticker {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -241px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 22px;
+}
+
+.search-sticker_blue-background {
+  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  background-repeat: no-repeat;
+  background-position: -242px center;
+  background-size: auto 22px;
+  height: 45px;
+  width: 22px;
+}
 
 .sticker_add-del {
   background-image: url("/img/sprite_picto_sticker_400X400.png");

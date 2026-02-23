@@ -448,8 +448,8 @@ function initWithFirstVideos() {
   $('#mode-category').on('click', function() {
     if (!$(this).hasClass('active')) {
       // Changement d’icônes
-      $('#mode-word .icon').removeClass('sticker_plain').addClass('sticker');
-      $('#mode-category .icon').removeClass('sticker').addClass('sticker_plain');
+      $('#mode-word .icon').removeClass('search-ABC_blue-background').addClass('search-ABC_black');
+      $('#mode-category .icon').removeClass('search-sticker').addClass('search-sticker_blue-background');
 
       // Texte
       $('#label-word').hide();
@@ -471,8 +471,8 @@ function initWithFirstVideos() {
   // --- Quand on clique sur "mots"
   $('#mode-word').on('click', function() {
     if (!$(this).hasClass('active')) {
-      $('#mode-category .icon').removeClass('sticker_plain').addClass('sticker');
-      $('#mode-word .icon').removeClass('sticker').addClass('sticker_plain');
+      $('#mode-category .icon').removeClass('search-sticker_blue-background').addClass('search-sticker');
+      $('#mode-word .icon').removeClass('search-ABC_black').addClass('search-ABC_blue-background');
 
       $('#label-category').hide();
       $('#label-word').fadeIn(200);
