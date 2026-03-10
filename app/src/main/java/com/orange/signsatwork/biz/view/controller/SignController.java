@@ -928,7 +928,7 @@ public class SignController {
         isSignHaveLabels = true;
         for(LabelData labelData : labelDatas) {
           if (labelsNameForSign != null) {
-            labelsNameForSign = labelsNameForSign + ',' + labelData.name;
+            labelsNameForSign = labelsNameForSign + ", " + labelData.name;
           } else {
             labelsNameForSign = labelData.name;
           }

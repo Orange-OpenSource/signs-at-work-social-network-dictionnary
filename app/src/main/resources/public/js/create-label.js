@@ -72,6 +72,10 @@ $('#create-new-label_add_sign').on('hidden.bs.modal', function (e) {
   submitCreateModal.disabled = true;
   submitForceCreateModal.style.display = "none";
   $('.errorRegexLabelName').addClass("hidden");
+
+  if ($('.modal:visible').length) {
+    $('body').addClass('modal-open');
+  }
 })
 
 function onCreateLabel(force) {

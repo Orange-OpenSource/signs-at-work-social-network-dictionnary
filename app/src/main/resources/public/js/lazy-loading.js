@@ -117,14 +117,16 @@ $(document).on("click", ".filter-btns .filter", function (e) {
           $(this).show();
         }
       });
+      updateSignesCount(signsCount);
     } else {
       $("#signs-container").children("div").each(function () {
         if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
           $(this).addClass(SIGN_HIDDEN_CLASS);
           $(this).hide();
         }});
+      document.getElementById("signes-count").style.visibility = "hidden";
     }
-    document.getElementById("signes-count").style.visibility = "hidden";
+    /*document.getElementById("signes-count").style.visibility = "hidden";*/
     return;
   } else {
     activeFilter = true;
@@ -508,6 +510,7 @@ function scrollBarVisible() {
 
 function initWithFirstSigns() {
   nb.innerHTML = "("+signsCount+")";
+  updateSignesCount(signsCount);
   $(nb).show();
   do {
     showNextSignViews();
@@ -517,6 +520,7 @@ function initWithFirstSigns() {
 
 function initWithFirstVideos() {
   nb.innerHTML = "("+videosCount+")";
+  updateSignesCount(videosCount);
   $(nb).show();
   do {
     showNextVideoViews();
@@ -966,7 +970,10 @@ function backToTop() {
         }
       });
       onFiltreSign(event, '/signs/alphabetic/frame?isAlphabeticAsc=false&isSearch='+modeSearch, false);
-      document.getElementById("signes-count").style.visibility = "hidden";
+      if (modeSearch === "false") {
+        updateSignesCount(signsCount);
+      }
+      /*document.getElementById("signes-count").style.visibility = "hidden";*/
       $('#page-content').slideDown();
     });
 
@@ -992,7 +999,10 @@ function backToTop() {
       }
     });
     onFiltreSign(event, '/signs/alphabetic/frame?isAlphabeticAsc=false&isSearch='+modeSearch, false);
-    document.getElementById("signes-count").style.visibility = "hidden";
+    if (modeSearch === "false") {
+      updateSignesCount(signsCount);
+    }
+    /*document.getElementById("signes-count").style.visibility = "hidden";*/
 });
 
   // --- Voir plus / Voir moins dans les catégories ---
