@@ -191,7 +191,7 @@ $.fn.extend({
   var displayedVideosCount = 0;
   var search_criteria = document.getElementById("search-criteria");
   var signNotAvailable = document.getElementById("sign_not_available");
-
+  let activeFilter = false;
 
   var accentMap = {
     "à": "a", "â": "a", "á": "a", "ä": "a", "ã": "a", "å": "a", "ā": "a", "æ" : "ae",
