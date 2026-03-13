@@ -78,6 +78,12 @@ $('#create-new-label_add_sign').on('hidden.bs.modal', function (e) {
   }
 })
 
+$('#create-new-label_add_sign').on('shown.bs.modal', function () {
+  const input = $('#labelName');
+  input.val('');
+  input.focus();
+});
+
 function onCreateLabel(force) {
 
   console.log("force "+force);
