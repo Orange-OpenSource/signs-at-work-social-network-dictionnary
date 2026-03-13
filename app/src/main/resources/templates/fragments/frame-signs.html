@@ -31,12 +31,12 @@
     <button th:attr="class=${classDropdownSize}" type="button" id="dropdownMenu1"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
       <span class="menu_down_black pull-left"></span>
-      <span th:attr="class=${classDropdownTitle}"></span>
-      <span th:attr="class=${classDropdownDirection}"></span>
-      <span class="" th:text="${dropdownTitle}"></span>
+      <span id="dropdownTitleIcon" th:attr="class=${classDropdownTitle}"></span>
+      <span id="dropdownDirection" th:attr="class=${classDropdownDirection}"></span>
+      <span id="dropdownTitleText" class="" th:text="${dropdownTitle}"></span>
       <span id="nb"></span>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <ul id="dropdownMenuContent" class="dropdown-menu" aria-labelledby="dropdownMenu1">
       <li>
         <a th:onclick="'javascript:onFiltreSign(event, this.href, false)'" th:if="${isAll}" th:href="@{/signs/frame/(isSearch=${isSearch})}">
           <div class="pull-left all-signs_blue"></div>

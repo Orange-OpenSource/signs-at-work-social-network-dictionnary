@@ -73,6 +73,79 @@ var accentMap = {
 
 var dropdownFilter = document.getElementById("dropdown-filter");
 
+var initialSigns = [];
+
+let savedDropdownState = {};
+let savedDropdownMenu = "";
+let savedSignsContainer = null;
+
+$(document).ready(function () {
+  const signsContainer = document.getElementById("signs-container");
+  if (signsContainer) {
+    savedSignsContainer = signsContainer.cloneNode(true);
+    $("#signs-container").children("div").each(function() {
+      initialSigns.push(this);
+    });
+  }
+
+  const button = document.getElementById("dropdownMenu1");
+  savedDropdownState = {
+    buttonClass: button.className,
+    titleIconClass: document.getElementById("dropdownTitleIcon").className,
+    directionClass: document.getElementById("dropdownDirection").className,
+    titleText: document.getElementById("dropdownTitleText").textContent
+  };
+  const menu = document.getElementById("dropdownMenuContent");
+  savedDropdownMenu = menu.innerHTML;
+});
+
+function restoreDropdownState() {
+
+  const button = document.getElementById("dropdownMenu1");
+
+  button.className = savedDropdownState.buttonClass;
+  document.getElementById("dropdownTitleIcon").className = savedDropdownState.titleIconClass;
+  document.getElementById("dropdownDirection").className = savedDropdownState.directionClass;
+  document.getElementById("dropdownTitleText").textContent = savedDropdownState.titleText;
+
+}
+
+function restoreDropdownMenu() {
+
+  const menu = document.getElementById("dropdownMenuContent");
+  menu.innerHTML = savedDropdownMenu;
+
+}
+
+function restoreInitialOrder(containerSelector, initialArray) {
+
+  var container = $(containerSelector);
+  container.empty();
+  initialArray.forEach(function(div){
+    if (modeSearch === "false") {
+      $(div).show().css({'float':'left'});
+    } else {
+      $(div).show().css({'float':'left','display':'none'});
+    }
+    container.append(div);
+  });
+}
+
+function restoreSignsContainer() {
+
+  const videosContainer = document.getElementById("videos-container");
+  const signsContainer = document.getElementById("signs-container");
+
+  if (videosContainer && savedSignsContainer) {
+    videosContainer.replaceWith(savedSignsContainer.cloneNode(true));
+  } else {
+      if (signsContainer && savedSignsContainer) {
+        signsContainer.replaceWith(savedSignsContainer.cloneNode(true));
+      }
+  }
+
+}
+
 var normalize = function( term ) {
   var ret = "";
   for ( var i = 0; i < term.length; i++ ) {
@@ -917,7 +990,13 @@ function backToTop() {
         $('#mode-word').removeClass('active');
         $(this).addClass('active')
         search_criteria.value = "";
-        onFiltreSign(event, '/signs/alphabetic/frame?isAlphabeticAsc=false&isSearch='+modeSearch, true);
+        /*restoreInitialOrder("#signs-container", initialSigns);*/
+        restoreSignsContainer();
+        if (modeSearch === "false") {
+          signsCount = initialSigns.length;
+          updateSignesCount(signsCount);
+          nb.innerHTML = "("+signsCount+")";
+        }
         $('#dropdown-filter').hide();
       $('#page-content').slideDown();
     });
@@ -942,7 +1021,15 @@ function backToTop() {
       $('#mode-word').removeClass('active');
       $(this).addClass('active')
       search_criteria.value = "";
-      onFiltreSign(event, '/signs/alphabetic/frame?isAlphabeticAsc=false&isSearch='+modeSearch, true);
+
+      /*restoreInitialOrder("#signs-container", initialSigns);*/
+      restoreSignsContainer();
+      if (modeSearch === "false") {
+        signsCount = initialSigns.length;
+        updateSignesCount(signsCount);
+      } else {
+        document.getElementById("signes-count").style.visibility = "hidden";
+      }
       $('#dropdown-filter').hide();
     }
   });
@@ -969,11 +1056,14 @@ function backToTop() {
           $(this).removeClass("btn-active");
         }
       });
-      onFiltreSign(event, '/signs/alphabetic/frame?isAlphabeticAsc=false&isSearch='+modeSearch, false);
+
+      /*restoreInitialOrder("#signs-container", initialSigns);*/
+      restoreSignsContainer();
       if (modeSearch === "false") {
+        signsCount = initialSigns.length;
         updateSignesCount(signsCount);
+        nb.innerHTML = "("+signsCount+")";
       }
-      /*document.getElementById("signes-count").style.visibility = "hidden";*/
       $('#page-content').slideDown();
     });
 
@@ -998,11 +1088,16 @@ function backToTop() {
         $(this).removeClass("btn-active");
       }
     });
-    onFiltreSign(event, '/signs/alphabetic/frame?isAlphabeticAsc=false&isSearch='+modeSearch, false);
+
+    /*restoreInitialOrder("#signs-container", initialSigns);*/
+    restoreSignsContainer();
+    restoreDropdownState();
+    restoreDropdownMenu();
     if (modeSearch === "false") {
-      updateSignesCount(signsCount);
+      nb.innerHTML = "("+signsCount+")";
+    } else {
+      $(nb).hide();
     }
-    /*document.getElementById("signes-count").style.visibility = "hidden";*/
 });
 
   // --- Voir plus / Voir moins dans les catégories ---

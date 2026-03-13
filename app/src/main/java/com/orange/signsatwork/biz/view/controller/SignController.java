@@ -130,7 +130,7 @@ public class SignController {
 
   @RequestMapping(value = "/signs/alphabetic")
   public String signsAndRequestInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
-
+    List<ConcatLabelSignsData> concatLabelSignsData;
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     if (user == null && (appName.equals("Signs@Form") || appName.equals("Signs@ADIS") || appName.equals("Signs@LMB") || appName.equals("Signs@ANVOL"))) {
       return "redirect:/login";
@@ -145,6 +145,7 @@ public class SignController {
     List<Object[]> querySigns;
 
     if (isAlphabeticAsc == true) {
+      concatLabelSignsData = null;
       querySigns = services.sign().SignsAlphabeticalOrderDescSignsView();
       model.addAttribute("isAlphabeticDesc", true);
       model.addAttribute("isAlphabeticAsc", false);
@@ -155,7 +156,16 @@ public class SignController {
       model.addAttribute("isAlphabeticAsc", true);
       model.addAttribute("isAlphabeticDesc", false);
       model.addAttribute("classDropdownDirection", "  down_black pull-right");
+      List<Object[]> queryLabelsForSigns;
+      queryLabelsForSigns = services.sign().ConcatLabelsForSignsView();
+      concatLabelSignsData = queryLabelsForSigns.stream()
+        .map(objectArray -> new ConcatLabelSignsData(objectArray))
+        .collect(Collectors.toList());
     }
+
+    Map<Long, ConcatLabelSignsData> labelsBySignId =
+      concatLabelSignsData == null ? Collections.emptyMap()
+        : concatLabelSignsData.stream().collect(Collectors.toMap(x -> x.id, x -> x));
 
 
     List<SignViewData> signViewsData = querySigns.stream()
@@ -173,13 +183,14 @@ public class SignController {
       List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
       signViews = signViewsData.stream()
-        .map(signViewData -> buildSignView(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user))
+        .map(signViewData -> buildSignViewWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, signInFavorite, user, labelsBySignId))
         .collect(Collectors.toList());
     } else {
       signViews = signViewsData.stream()
-        .map(signViewData -> buildSignViewWithOutFavorite(signViewData, signWithCommentList, signWithView, signWithPositiveRate))
+        .map(signViewData -> buildSignViewWithOutFavoriteWithLabels(signViewData, signWithCommentList, signWithView, signWithPositiveRate, labelsBySignId))
         .collect(Collectors.toList());
     }
+
    // List<Long> signInFavorite = Arrays.asList(services.sign().SignsBellowToFavoriteByUser(user.id));
 
     //List<SignView2> signViews = signViewsData.stream()
