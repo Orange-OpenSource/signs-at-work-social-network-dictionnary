@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LabelResponseApi {
   public long labelId;
+  public String labelMessage;
   public String errorMessage;
   public String warningMessage;
 }

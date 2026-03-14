@@ -6,6 +6,7 @@ import com.orange.signsatwork.biz.persistence.model.RequestViewData;
 import com.orange.signsatwork.biz.persistence.model.SignViewData;
 import com.orange.signsatwork.biz.persistence.service.MessageByLocaleService;
 import com.orange.signsatwork.biz.persistence.service.Services;
+import com.orange.signsatwork.biz.persistence.service.impl.SignServiceImpl;
 import com.orange.signsatwork.biz.security.AppSecurityAdmin;
 import com.orange.signsatwork.biz.view.model.AuthentModel;
 import com.orange.signsatwork.biz.webservice.model.*;
@@ -143,12 +144,30 @@ public class LabelRestController {
           String values = user.name() + ';' + labelCreationViewApi.getName();
           MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
           services.messageServerService().addMessageServer(messageServer);
-          services.sign().addSignToLabel(signId, label.id);
+          labelCreationViewApi.getSignLabelViewApi().getSignLabelsIdsCheck().add(label.id);
+          LabelForMessageServer labels = services.sign().SignToLabels(signId, labelCreationViewApi.getSignLabelViewApi().getSignLabelsIds(),
+            labelCreationViewApi.getSignLabelViewApi().getSignLabelsIdsCheck(), labelCreationViewApi.getSignLabelViewApi().getSignLabelsIdsNoCheck());
+          if (labels.getChangeType() == SignServiceImpl.ChangeType.ADD_AND_REMOVE) {
+            messageType = "ModifyLabelsToSignMessage";
+          } else if (labels.getChangeType() == SignServiceImpl.ChangeType.ADD_ONLY) {
+            messageType = "AddLabelsToSignMessage";
+          } else if (labels.getChangeType() == SignServiceImpl.ChangeType.REMOVE_ONLY) {
+            messageType = "RemoveLabelsToSignMessage";
+          }
+
+          if (messageType != null) {
+            Sign sign = services.sign().withId(signId);
+            values = user.name() + ';' + sign.name;
+            messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+            services.messageServerService().addMessageServer(messageServer);
+          }
+          /*services.sign().addSignToLabel(signId, label.id);
           Sign sign = services.sign().withId(signId);
           messageType = "AddLabelsToSignMessage";
           values = user.name() + ';' + sign.name;
           messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
-          services.messageServerService().addMessageServer(messageServer);
+          services.messageServerService().addMessageServer(messageServer);*/
+          labelResponseApi.labelMessage = labels.getMessage();
           response.setStatus(HttpServletResponse.SC_OK);
           return labelResponseApi;
         } else {
@@ -162,12 +181,30 @@ public class LabelRestController {
         String values = user.name() + ';' + labelCreationViewApi.getName();
         MessageServer messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
         services.messageServerService().addMessageServer(messageServer);
-        services.sign().addSignToLabel(signId, label.id);
+        labelCreationViewApi.getSignLabelViewApi().getSignLabelsIdsCheck().add(label.id);
+        LabelForMessageServer labels = services.sign().SignToLabels(signId, labelCreationViewApi.getSignLabelViewApi().getSignLabelsIds(),
+          labelCreationViewApi.getSignLabelViewApi().getSignLabelsIdsCheck(), labelCreationViewApi.getSignLabelViewApi().getSignLabelsIdsNoCheck());
+        if (labels.getChangeType() == SignServiceImpl.ChangeType.ADD_AND_REMOVE) {
+          messageType = "ModifyLabelsToSignMessage";
+        } else if (labels.getChangeType() == SignServiceImpl.ChangeType.ADD_ONLY) {
+          messageType = "AddLabelsToSignMessage";
+        } else if (labels.getChangeType() == SignServiceImpl.ChangeType.REMOVE_ONLY) {
+          messageType = "RemoveLabelsToSignMessage";
+        }
+
+        if (messageType != null) {
+          Sign sign = services.sign().withId(signId);
+          values = user.name() + ';' + sign.name;
+          messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
+          services.messageServerService().addMessageServer(messageServer);
+        }
+        /*services.sign().addSignToLabel(signId, label.id);
         Sign sign = services.sign().withId(signId);
         messageType = "AddLabelsToSignMessage";
         values = user.name() + ';' + sign.name;
         messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
-        services.messageServerService().addMessageServer(messageServer);
+        services.messageServerService().addMessageServer(messageServer);*/
+        labelResponseApi.labelMessage = labels.getMessage();
         response.setStatus(HttpServletResponse.SC_OK);
         return labelResponseApi;
       }

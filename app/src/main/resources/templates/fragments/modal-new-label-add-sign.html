@@ -51,14 +51,18 @@
         <button class="btn btn-default pull-right" data-dismiss="" id="submit-create-modal"
                 th:data-force="false"
                 th:data-signId="${signId}"
-                th:onclick="javascript:onCreateLabelAddToSign(this.getAttribute('data-signId'), this.getAttribute('data-force'))" type="submit">
+                th:data-videoId="${videoId}"
+                th:data-labelsidbelowsign="${videoView.signLabelsIds}"
+                th:onclick="javascript:onCreateLabelAddToSign(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-force'), this.getAttribute('data-labelsidbelowsign'))" type="submit">
           <div class="v-done2_blue center-block"></div>
           <span th:text="#{continue}"></span>
         </button>
         <button class="btn btn-default pull-right" data-dismiss="" id="submit-force-create-modal" style="display: none"
                 th:data-force="true"
                 th:data-signId="${signId}"
-                th:onclick="javascript:onCreateLabelAddToSign(this.getAttribute('data-signId'), this.getAttribute('data-force'))" type="submit">
+                th:data-videoId="${videoId}"
+                th:data-labelsidbelowsign="${videoView.signLabelsIds}"
+                th:onclick="javascript:onCreateLabelAddToSign(this.getAttribute('data-signId'), this.getAttribute('data-videoId'), this.getAttribute('data-force'), this.getAttribute('data-labelsidbelowsign'))" type="submit">
           <div class="v-done2_blue center-block"></div>
           <span th:text="#{continue}"></span>
         </button>

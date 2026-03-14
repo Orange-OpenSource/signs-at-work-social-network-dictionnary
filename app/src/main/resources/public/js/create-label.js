@@ -122,12 +122,53 @@ function onCreateLabel(force) {
 };
 
 
-function onCreateLabelAddToSign(signId, force) {
+function onCreateLabelAddToSign(signId, videoId, force, labelsIdBelowSign) {
 
   console.log("force "+force);
+  var signLabelsIds;
+
+  if (Array.isArray(labelsIdBelowSign)) {
+    signLabelsIds = labelsIdBelowSign.map(Number); // s'assurer que ce sont des nombres
+  } else {
+    try {
+      signLabelsIds = JSON.parse(labelsIdBelowSign);
+    } catch (e) {
+      signLabelsIds = [Number(labelsIdBelowSign)];
+    }
+  }
+  console.log("signLabelsIds après parse :", signLabelsIds);
+
+  const signLabelsIdsCheck = [];
+  const signLabelsIdsNoCheck = [];
+  let i = 1;
+
+  $("#labels-container").children("li").children("label").each(function () {
+    if (!this.classList.contains("disabled")) {
+      const checkbox = document.getElementById("signLabelsIds" + i);
+      if (checkbox) {
+        const selectedLabelId = checkbox.value;
+        if (checkbox.checked) {
+          signLabelsIdsCheck.push(selectedLabelId);
+        } else {
+          signLabelsIdsNoCheck.push(selectedLabelId);
+        }
+      }
+    }
+    i++;
+  });
+
+  console.log("✔ signLabelsIdsCheck :", signLabelsIdsCheck);
+  console.log("✖ signLabelsIdsNoCheck :", signLabelsIdsNoCheck);
+
+  const signLabelViewApi = {
+    signLabelsIds: signLabelsIds,
+    signLabelsIdsCheck: signLabelsIdsCheck,
+    signLabelsIdsNoCheck: signLabelsIdsNoCheck
+  };
 
   label = {
-    name: labelName.value
+    name: labelName.value,
+    signLabelViewApi: signLabelViewApi
   };
   $.ajax({
     url: "/ws/sec/label/create_label_add_sign/" + signId + "?force=" + force,
@@ -135,9 +176,46 @@ function onCreateLabelAddToSign(signId, force) {
     data: JSON.stringify(label),
     contentType: "application/json",
     success: function (response) {
-      console.log(response);
+      console.log("✅ Backend OK :", response.labelMessage);
       errorCreate.style.display = "none";
-      location.reload();
+      // 🔹 Fermer la modale
+      $('#create-new-label_add_sign').modal('hide');
+      $('#add_sign_to_label').modal('hide');
+
+      // 🔹 Mettre à jour la liste des labels
+      document.getElementById("labels").innerHTML = response.labelMessage;
+
+      // 🔹 Mettre à jour l'attribut data pour la prochaine ouverture
+      document
+        .getElementById("validate_modal_add_label")
+        .setAttribute("data-labelsidbelowsign", JSON.stringify(signLabelsIdsCheck));
+
+      // 🔹 Changer l’icône de statut
+      const statusDiv = document.getElementById("sign-label-status");
+      if (signLabelsIdsCheck.length > 0) {
+        statusDiv.classList.remove("add_black");
+        statusDiv.classList.add("chevron");
+      } else {
+        statusDiv.classList.remove("chevron");
+        statusDiv.classList.add("add_black");
+      }
+
+      document.getElementById("messageLabel").style.visibility = "visible";
+      // Après chaque rechargement dynamique :
+
+      // 🔹 Rechargement dynamique de la modale (sans recharger toute la page)
+      $.ajax({
+        url: "/sign/" + signId + "/" + videoId + "/labels",
+        success: function (response) {
+          const newBody = $(response).find(".modal-body").html();
+          $("#add_sign_to_label .modal-body").html(newBody);
+          console.log("♻️ Modal rechargée avec succès");
+          attachChangeListener(); // 🔥 important
+        },
+        error: function () {
+          console.error("❌ Erreur lors du rechargement de la modale");
+        }
+      });
     },
     error: function (response) {
       console.log(response.responseJSON);
