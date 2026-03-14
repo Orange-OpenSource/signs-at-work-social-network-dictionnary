@@ -161,12 +161,6 @@ public class LabelRestController {
             messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
             services.messageServerService().addMessageServer(messageServer);
           }
-          /*services.sign().addSignToLabel(signId, label.id);
-          Sign sign = services.sign().withId(signId);
-          messageType = "AddLabelsToSignMessage";
-          values = user.name() + ';' + sign.name;
-          messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
-          services.messageServerService().addMessageServer(messageServer);*/
           labelResponseApi.labelMessage = labels.getMessage();
           response.setStatus(HttpServletResponse.SC_OK);
           return labelResponseApi;
@@ -198,12 +192,6 @@ public class LabelRestController {
           messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
           services.messageServerService().addMessageServer(messageServer);
         }
-        /*services.sign().addSignToLabel(signId, label.id);
-        Sign sign = services.sign().withId(signId);
-        messageType = "AddLabelsToSignMessage";
-        values = user.name() + ';' + sign.name;
-        messageServer = new MessageServer(new Date(), messageType, values, ActionType.NO);
-        services.messageServerService().addMessageServer(messageServer);*/
         labelResponseApi.labelMessage = labels.getMessage();
         response.setStatus(HttpServletResponse.SC_OK);
         return labelResponseApi;
