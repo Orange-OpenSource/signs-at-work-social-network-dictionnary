@@ -83,9 +83,9 @@ $(document).ready(function () {
   const signsContainer = document.getElementById("signs-container");
   if (signsContainer) {
     savedSignsContainer = signsContainer.cloneNode(true);
-    $("#signs-container").children("div").each(function() {
+    /*$("#signs-container").children("div").each(function() {
       initialSigns.push(this);
-    });
+    });*/
   }
 
   const button = document.getElementById("dropdownMenu1");
@@ -993,7 +993,7 @@ function backToTop() {
         /*restoreInitialOrder("#signs-container", initialSigns);*/
         restoreSignsContainer();
         if (modeSearch === "false") {
-          signsCount = initialSigns.length;
+          signsCount = savedSignsContainer.querySelectorAll(":scope > div").length;
           updateSignesCount(signsCount);
           nb.innerHTML = "("+signsCount+")";
         }
@@ -1025,7 +1025,7 @@ function backToTop() {
       /*restoreInitialOrder("#signs-container", initialSigns);*/
       restoreSignsContainer();
       if (modeSearch === "false") {
-        signsCount = initialSigns.length;
+        signsCount = savedSignsContainer.querySelectorAll(":scope > div").length;
         updateSignesCount(signsCount);
       } else {
         document.getElementById("signes-count").style.visibility = "hidden";
@@ -1060,7 +1060,7 @@ function backToTop() {
       /*restoreInitialOrder("#signs-container", initialSigns);*/
       restoreSignsContainer();
       if (modeSearch === "false") {
-        signsCount = initialSigns.length;
+        signsCount = savedSignsContainer.querySelectorAll(":scope > div").length;
         updateSignesCount(signsCount);
         nb.innerHTML = "("+signsCount+")";
       }
