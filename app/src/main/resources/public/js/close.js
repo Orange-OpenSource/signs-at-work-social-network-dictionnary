@@ -86,6 +86,13 @@ function goBack() {
   window.history.back();
 }
 
+window.addEventListener("beforeunload", function () {
+
+  $('.modal').modal('hide');
+  $('.modal-backdrop').remove();
+  $('body').removeClass('modal-open');
+
+});
 // Wire up the events as soon as the DOM tree is ready
 $(document).ready(function()
 {
