@@ -2431,13 +2431,43 @@ table tbody td{
 
 
 .search-ABC_black {
-  background-image: url("/img/sprite_picto_sticker_400X400.png");
-  background-repeat: no-repeat;
-  background-position: -192px center;
-  background-size: auto 24px;
-  height: 45px;
-  width: 24px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 6px;
+
+  box-shadow:
+    0 0 0 1px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+
+  overflow: hidden; /* coupe les icônes voisines du sprite */
 }
+
+.search-ABC_black::before {
+  content: "";
+  width: 23px;   /* taille réelle de l'icône dans le sprite */
+  height: 23px;
+
+  background-image: url(/img/sprite_picto_sticker_400X400.png);
+  background-repeat: no-repeat;
+  background-position: -192px 0px;
+  background-size: auto 24px;
+
+  transform-origin: center;
+}
+
+.search-ABC_black:hover {
+  box-shadow:
+    0 0 0 2px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+  background-color: #f5f5f5;
+}
+
 .search-ABC_blue-background {
   background-image: url("/img/sprite_picto_sticker_400X400.png");
   background-repeat: no-repeat;
@@ -2448,12 +2478,41 @@ table tbody td{
 }
 
 .search-sticker {
-  background-image: url("/img/sprite_picto_sticker_400X400.png");
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 6px;
+
+  box-shadow:
+    0 0 0 1px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+
+  overflow: hidden; /* coupe les icônes voisines du sprite */
+}
+
+.search-sticker::before {
+  content: "";
+  width: 23px;   /* taille réelle de l'icône dans le sprite */
+  height: 23px;
+
+  background-image: url(/img/sprite_picto_sticker_400X400.png);
   background-repeat: no-repeat;
-  background-position: -241px center;
+  background-position: -241px 1px;
   background-size: auto 24px;
-  height: 45px;
-  width: 22px;
+
+  transform-origin: center;
+}
+
+.search-sticker:hover {
+  box-shadow:
+    0 0 0 2px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+  background-color: #f5f5f5;
 }
 
 .search-sticker_blue-background {
