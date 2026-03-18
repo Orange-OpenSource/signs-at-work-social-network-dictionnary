@@ -4187,16 +4187,6 @@ panel-title {
   display: block !important;
 }
 
-/* Mode preview vertical (isSearch = true) */
-.search-layout input {
-  pointer-events: none;
-  background-color: #f5f5f5;
-}
-
-.search-layout .search-filter-btns button {
-  pointer-events: none;
-  opacity: 0.7;
-}
 
 #iconLabel {
   border: none;

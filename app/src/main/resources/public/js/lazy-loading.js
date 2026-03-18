@@ -1131,6 +1131,103 @@ function backToTop() {
       }
     });
 
+    $('#search-container-input input').on('input', function() {
+
+      const value = $(this).val();
+
+      if (value.length > 0) {
+
+        $('#vertical-display').hide();
+        $('#horizontal-display').slideDown();
+
+        // Mode WORD actif
+        $('#mode-word').addClass("active");
+        $('#mode-category').removeClass('active');
+
+        // Icônes
+        $('#mode-category .icon').removeClass('search-sticker_blue-background').addClass('search-sticker');
+        $('#mode-word .icon').removeClass('search-ABC_black').addClass('search-ABC_blue-background');
+
+        // Labels
+        $('#label-category').hide();
+        $('#label-word').show();
+
+        // Sections
+        $('#search-by-category').hide();
+        $('#search-by-word').show();
+
+        // Copier la valeur
+        $('#search-criteria').val(value).focus();
+
+        $('#page-content').slideDown();
+
+        // Reset catégories
+        $("#category-list").children("button").removeClass("btn-active");
+
+        restoreSignsContainer();
+
+        if (modeSearch === "false") {
+          signsCount = savedSignsContainer.querySelectorAll(":scope > div").length;
+          updateSignesCount(signsCount);
+          nb.innerHTML = "(" + signsCount + ")";
+        }
+      }
+    });
+
+    $(document).on('click', '#search-category-list button', function() {
+
+      console.log("CLICK OK");
+
+      const filterValue = $(this).data('filter');
+
+      // Basculer affichage
+      $('#vertical-display').hide();
+      $('#horizontal-display').slideDown();
+      $('#page-content').slideDown();
+
+      // Mode CATEGORY actif
+      $('#mode-category').addClass("active");
+      $('#mode-word').removeClass('active');
+
+      // Icônes
+      $('#mode-word .icon').removeClass('search-ABC_blue-background').addClass('search-ABC_black');
+      $('#mode-category .icon').removeClass('search-sticker').addClass('search-sticker_blue-background');
+
+      // Labels
+      $('#label-word').hide();
+      $('#label-category').show();
+
+      // Sections
+      $('#search-by-word').hide();
+      $('#search-by-category').show();
+
+
+      // Reset input
+      $('#search-criteria').val('');
+
+      restoreSignsContainer();
+
+      if (modeSearch === "false") {
+        signsCount = savedSignsContainer.querySelectorAll(":scope > div").length;
+        updateSignesCount(signsCount);
+      } else {
+        $('#signes-count').css('visibility', 'hidden');
+      }
+
+      $('#dropdown-filter').hide();
+
+      // Synchroniser sélection + déclencher filtre
+      const $buttons = $('#category-list').children('button');
+
+      const $targetBtn = $buttons.filter(function() {
+        return $(this).data('filter') == filterValue;
+      });
+
+      $buttons.removeClass('btn-active'); // reset
+      $targetBtn.trigger('click');        // 🔥 clé du problème
+
+    });
+
 });
 
 
