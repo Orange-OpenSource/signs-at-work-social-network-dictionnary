@@ -4039,6 +4039,8 @@ panel-title {
 /* Texte */
 .mode-label {
   font-size: 14px;
+  border-bottom: 3px solid blue;
+  display: inline-block; /* pour que la ligne s’adapte au texte */
 }
 
 .blue {
