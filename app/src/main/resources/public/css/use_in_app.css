@@ -4043,6 +4043,10 @@ panel-title {
   display: inline-block; /* pour que la ligne s’adapte au texte */
 }
 
+.search-mode-label {
+  font-size: 14px;
+}
+
 .blue {
   color: #007bff;
 }
