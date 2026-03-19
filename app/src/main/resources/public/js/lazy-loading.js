@@ -1011,7 +1011,7 @@ function backToTop() {
     // --- Quand on clique sur "catégories"
     $('#search-mode-category').on('click', function() {
       $('#vertical-display').hide();
-      $('#horizontal-display').slideDown();
+      $('#horizontal-display').show();
       $('#mode-category').addClass("active");
         // Changement d’icônes
         $('#mode-word .icon').removeClass('search-ABC_blue-background').addClass('search-ABC_black');
@@ -1036,7 +1036,7 @@ function backToTop() {
           nb.innerHTML = "("+signsCount+")";
         }
         $('#dropdown-filter').hide();
-      $('#page-content').slideDown();
+      $('#page-content').show();
     });
 
 
@@ -1073,7 +1073,7 @@ function backToTop() {
 
     $('#search-mode-word').on('click', function() {
       $('#vertical-display').hide();
-      $('#horizontal-display').slideDown();
+      $('#horizontal-display').show();
       $('#mode-word').addClass("active");
       $('#mode-category .icon').removeClass('search-sticker_blue-background').addClass('search-sticker');
       $('#mode-word .icon').removeClass('search-ABC_black').addClass('search-ABC_blue-background');
@@ -1100,7 +1100,7 @@ function backToTop() {
         updateSignesCount(signsCount);
         nb.innerHTML = "("+signsCount+")";
       }
-      $('#page-content').slideDown();
+      $('#page-content').show();
     });
 
   // --- Quand on clique sur "mots"
@@ -1176,7 +1176,7 @@ function backToTop() {
       if (value.length > 0) {
 
         $('#vertical-display').hide();
-        $('#horizontal-display').slideDown();
+        $('#horizontal-display').show();
 
         // Mode WORD actif
         $('#mode-word').addClass("active");
@@ -1197,7 +1197,7 @@ function backToTop() {
         // Copier la valeur
         $('#search-criteria').val(value).focus();
 
-        $('#page-content').slideDown();
+        $('#page-content').show();
 
         // Reset catégories
         $("#category-list").children("button").removeClass("btn-active");
@@ -1219,8 +1219,8 @@ function backToTop() {
 
       // Basculer affichage
       $('#vertical-display').hide();
-      $('#horizontal-display').slideDown();
-      $('#page-content').slideDown();
+      $('#horizontal-display').show();
+      $('#page-content').show();
 
       // Mode CATEGORY actif
       $('#mode-category').addClass("active");
