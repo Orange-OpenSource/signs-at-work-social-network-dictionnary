@@ -690,7 +690,7 @@ pre {
 /* Begin index page /index */
 
 #prefetch {
-  background: url("/img/done_white.png"), url("/img/disconnect_adis.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_adis.png"), url("/img/done_adis.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400_logo_ADIS.png"), url("/img/sprite_pictoAdmin_400X400_ADIS.png") no-repeat;
+  background: url("/img/sprite_picto_sticker_400X400_ADIS.png"), url("/img/done_white.png"), url("/img/disconnect_adis.png"), url("/img/disconnect_white.png"), url("/img/Arrow-up_adis.png"), url("/img/done_adis.png"), url("/img/sprite_picto_400X400_ADIS.png"), url("/img/sprite_picto_400X400_logo_ADIS.png"), url("/img/sprite_pictoAdmin_400X400_ADIS.png") no-repeat;
 }
 
 .navbar-toggle {
@@ -2397,6 +2397,167 @@ table tbody td{
   width: 24px;
 }
 
+.sticker_plain {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.sticker {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-repeat: no-repeat;
+  background-position: -120px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+
+.search-ABC_black {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 6px;
+
+  box-shadow:
+    0 0 0 1px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+
+  overflow: hidden; /* coupe les icônes voisines du sprite */
+}
+
+.search-ABC_black::before {
+  content: "";
+  width: 23px;   /* taille réelle de l'icône dans le sprite */
+  height: 23px;
+
+  background-image: url(/img/sprite_picto_sticker_400X400_ADIS.png);
+  background-repeat: no-repeat;
+  background-position: -192px 0px;
+  background-size: auto 24px;
+
+  transform-origin: center;
+}
+
+.search-ABC_black:hover {
+  box-shadow:
+    0 0 0 2px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+  background-color: #f5f5f5;
+}
+
+.search-ABC_blue-background {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-repeat: no-repeat;
+  background-position: -216px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 25px;
+}
+
+.search-sticker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 6px;
+
+  box-shadow:
+    0 0 0 1px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+
+  overflow: hidden; /* coupe les icônes voisines du sprite */
+}
+
+.search-sticker::before {
+  content: "";
+  width: 23px;   /* taille réelle de l'icône dans le sprite */
+  height: 23px;
+
+  background-image: url(/img/sprite_picto_sticker_400X400_ADIS.png);
+  background-repeat: no-repeat;
+  background-position: -241px 1px;
+  background-size: auto 24px;
+
+  transform-origin: center;
+}
+
+.search-sticker:hover {
+  box-shadow:
+    0 0 0 2px #000,
+    0 2px 4px rgba(0,0,0,0.15);
+  background-color: #f5f5f5;
+}
+
+.search-sticker_blue-background {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-repeat: no-repeat;
+  background-position: -242px center;
+  background-size: auto 22px;
+  height: 45px;
+  width: 22px;
+}
+
+.sticker_add-del {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-repeat: no-repeat;
+  background-position: -144px center;
+  background-size: auto 24px;
+  height: 45px;
+  width: 24px;
+}
+
+.sticker_plain_white {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-position: -30px center;
+  background-repeat: no-repeat;
+  background-size: auto 29px;
+  height: 45px;
+  width: 28px;
+  margin-right: 20px;
+}
+
+.sticker_add {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-position: -49px center;
+  background-repeat: no-repeat;
+  background-size: auto 24px;
+  height: 48px;
+  width: 23px;
+}
+
+.sticker_double {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-repeat: no-repeat;
+  background-position: -120px center;
+  background-size: auto 40px;
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+}
+
+.sticker_add_white_plain {
+  background-image: url("/img/sprite_picto_sticker_400X400_ADIS.png");
+  background-position: -120px center;
+  background-repeat: no-repeat;
+  background-size: auto 30px;
+  height: 45px;
+  width: 30px;
+  margin-right: 20px;
+}
+
 .rewind_blue {
   background-image: url("/img/sprite_picto_400X400_ADIS.png");
   background-position: -2916px center;
@@ -3738,7 +3899,7 @@ panel-title {
 }
 
 
-#validate_modal_add_favorite {
+#validate_modal_add_favorite, #validate_modal_add_label {
   color: #662a74;
   font-size: 14px;
   border-style: none;
@@ -3750,7 +3911,7 @@ panel-title {
   text-align: center;
 }
 
-#cancel_modal_add_favorite {
+#cancel_modal_add_favorite, #cancel_modal_add_label {
   color: #8C8C8C;
   font-size: 14px;
   border-style: none;
@@ -3785,6 +3946,244 @@ panel-title {
   bottom: 40px;
   right: 40px;
   display: none;
+}
+
+.text-container {
+  position: relative;
+  padding-right: 25px; /* espace pour la flèche */
+}
+
+.short-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* nombre de lignes visibles */
+  overflow: hidden;
+  margin: 0;
+  transition: max-height 0.3s ease;
+  padding-top: 13px;
+}
+
+.text-container.expanded .short-text {
+  -webkit-line-clamp: initial; /* affiche tout le texte */
+  white-space: normal;
+}
+
+.toggle-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-decoration: none;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 10px;
+}
+
+.text-container.expanded .arrow {
+  transform: rotate(180deg); /* flèche pivote */
+}
+
+
+.fond-bleu {
+  background-color: #662a74;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.search-mode {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
+}
+
+.mode-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+.mode-item:hover {
+  transform: scale(1.02); /* beaucoup plus subtil */
+}
+
+
+
+
+/* Icônes */
+.icon {
+  margin-right: 8px;
+}
+
+/* Texte */
+.mode-label {
+  font-size: 14px;
+  border-bottom: 3px solid #662a74;
+  display: inline-block; /* pour que la ligne s’adapte au texte */
+}
+
+.search-mode-label {
+  font-size: 14px;
+}
+
+.blue {
+  color: #662a74;
+}
+
+.category-btn.active {
+  background-color: #662a74;
+  color: white;
+  border-color: #0056b3;
+  box-shadow: inset 0 0 3px #333;
+}
+
+#category-list, #search-category-list  {
+  max-height: 70px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+/* ---- STYLE DES TUILES (inchangé) ---- */
+.tile {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.tile:hover {
+  transform: scale(1.03);
+}
+.tile img {
+  max-width: 100%;
+  height: auto;
+}
+.tile-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  background: #f7f7f7;
+}
+
+/* ---- STYLE DES BOUTONS FILTRES ---- */
+.filter-btns, .search-filter-btns {
+  margin-bottom: 10px;
+}
+
+.filter-btns .btn, .search-filter-btns .btn {
+  margin: 0px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  font-weight: bold;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  text-align: left;
+  padding-right: 30px; /* espace pour la coche */
+}
+
+/* coche par défaut = invisible (car contenu vide) */
+.filter-btns .btn:after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Glyphicons Halflings";
+  font-size: 14px;
+}
+
+/* ÉTAT ACTIF : bouton enfoncé noir + coche */
+.filter-btns .btn-active {
+  background: #333 !important;
+  color: #fff !important;
+  border-color: #222;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+.filter-btns .btn-active:after {
+  content: "\e013"; /* glyphicon-ok */
+}
+
+/* ---- VOIR PLUS / VOIR MOINS ---- */
+.extra-filters {
+  display: none; /* caché par défaut */
+}
+
+.toggle-more {
+  margin: 10px auto;
+  cursor: pointer;
+  font-weight: bold;
+  color: #662a74;
+  display: inline-block;
+}
+
+.toggle-more i {
+  transition: transform 0.2s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+#warningCreate, #warningRename {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.toggle-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.center-count {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  visibility: hidden;
+}
+
+.search-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.search-layout .mode-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-layout #search-by-word,
+.search-layout #search-by-category {
+  display: block !important;
+}
+
+
+#iconLabel {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  display: block;
+  height: 45px;
+  width: 24px;
+  object-fit: contain;
+  margin-bottom: 0px;
 }
 
 @media only screen and (max-width:768px) {

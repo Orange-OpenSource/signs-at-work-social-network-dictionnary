@@ -501,10 +501,10 @@ function initWithFirstVideos() {
     expanded = !expanded;
     if (expanded) {
       $('#category-list').css('max-height', 'none');
-      $(this).html('Voir moins <span class="glyphicon glyphicon-triangle-top text-primary"></span>');
+      $(this).html('Voir moins <span class="glyphicon glyphicon-triangle-top charte_color"></span>');
     } else {
       $('#category-list').css('max-height', '70px');
-      $(this).html('Voir plus <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>');
+      $(this).html('Voir plus <span class="glyphicon glyphicon-triangle-bottom charte_color"></span>');
     }
   });
 })($);

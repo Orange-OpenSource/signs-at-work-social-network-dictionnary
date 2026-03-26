@@ -316,6 +316,22 @@ $modal_delete_comment.on('hidden.bs.modal', function() {
   }
 });
 
+
+function ExpandedLabels() {
+  const container = document.querySelector(".text-container");
+
+  if (!container) return;
+
+  // Déployer au chargement
+  container.classList.add("expanded");
+
+  // Replier après 3 secondes
+  setTimeout(() => {
+    container.classList.remove("expanded");
+  }, 3000);
+}
+
+
 $(document).ready(function(){
   attachChangeListener();
   $('input[type="file"]').change(function(e){
@@ -328,7 +344,7 @@ $(document).ready(function(){
     e.preventDefault();
     $(this).closest('.text-container').toggleClass('expanded');
   });
-
+  ExpandedLabels();
 
 
   $(document).on("click", "[data-action='add-sign-to-labels']", function (e) {
@@ -348,8 +364,6 @@ $(document).ready(function(){
     // ✅ Appel de la fonction principale
     onAddSignToLabelsForm(labelsIdBelowSign, signId, videoId);
   });
-
-
 });
 
 

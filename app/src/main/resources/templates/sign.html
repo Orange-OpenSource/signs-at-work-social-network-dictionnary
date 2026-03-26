@@ -48,18 +48,19 @@
           <div class="pin_blue_in_frame" style="visibility: hidden" th:if="${!videoBelowToFavorite}"></div>
         </div>
         <div th:if="${!#strings.contains(videoView.video.url, 'http')}">
-          <div class="embed-responsive embed-responsive-16by9">
-          <video controls autoplay playsinline muted oncontextmenu="return false;">
-            <source th:src="${videoView.video.url}" type="video/webm"/>
-            <source th:src="${videoView.video.url}" type="video/mp4"/>
-          </video>
+          <div class="embed-responsive embed-responsive-16by9 video-block">
+            <video controls autoplay playsinline muted oncontextmenu="return false;">
+              <source th:src="${videoView.video.url}" type="video/webm"/>
+              <source th:src="${videoView.video.url}" type="video/mp4"/>
+            </video>
           </div>
         </div>
         <div th:if="${#strings.contains(videoView.video.url, 'http')}">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe allowfullscreen="" class="embed-responsive-item"
-                  frameborder="0"
-                  th:attr="title=${signView.name}" th:src="${videoView.video.url}" allow="autoplay; fullscreen; picture-in-picture; web-share"></iframe>
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe allowfullscreen="" class="embed-responsive-item"
+                    frameborder="0"
+                    th:attr="title=${signView.name}" th:src="${videoView.video.url}" allow="autoplay; fullscreen; picture-in-picture; web-share"></iframe>
+          </div>
         </div>
         <div id="messageLabel" th:if="${isSignHaveLabels}" class="text-container">
           <div class="pull-left sticker_plain"></div>
@@ -76,7 +77,6 @@
           <a href="#" class="toggle-text pull-right">
             <span class="arrow">▼</span>
           </a>
-        </div>
         </div>
       </div>
       <div class="sign_menu col-md-4 col-xs-12 col-lg-4">

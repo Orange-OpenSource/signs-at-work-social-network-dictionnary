@@ -1327,10 +1327,10 @@ function backToTop() {
       expanded = !expanded;
       if (expanded) {
         $('#category-list').css('max-height', 'none');
-        $(this).html(seeLess + ' <span class="glyphicon glyphicon-triangle-top text-primary"></span>');
+        $(this).html(seeLess + ' <span class="glyphicon glyphicon-triangle-top charte_color"></span>');
       } else {
         $('#category-list').css('max-height', '70px');
-        $(this).html(seeMore + ' <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>');
+        $(this).html(seeMore + ' <span class="glyphicon glyphicon-triangle-bottom charte_color"></span>');
       }
     });
 
@@ -1340,10 +1340,10 @@ function backToTop() {
       expanded = !expanded;
       if (expanded) {
         $('#search-category-list').css('max-height', 'none');
-        $(this).html(seeLess + ' <span class="glyphicon glyphicon-triangle-top text-primary"></span>');
+        $(this).html(seeLess + ' <span class="glyphicon glyphicon-triangle-top charte_color"></span>');
       } else {
         $('#search-category-list').css('max-height', '70px');
-        $(this).html(seeMore + ' <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>');
+        $(this).html(seeMore + ' <span class="glyphicon glyphicon-triangle-bottom charte_color"></span>');
       }
     });
 
