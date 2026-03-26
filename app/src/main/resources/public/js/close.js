@@ -82,8 +82,13 @@ function bindDOMEvents() {
 
 }
 
-function goBack() {
-  window.history.back();
+
+function goBack(url) {
+  if (url && url.trim() !== "") {
+    window.location.replace(url);
+  } else {
+    window.history.back();
+  }
 }
 
 window.addEventListener("beforeunload", function () {

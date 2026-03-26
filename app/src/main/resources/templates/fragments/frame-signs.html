@@ -162,7 +162,7 @@
         <div class="row">
           <div class="col-lg-12 col-xl-12" >
             <div th:if="${isAuthenticated}">
-            <a th:if="${signView.id != 0}" th:href="@{/sign/} + ${signView.id}" type="text/html">
+              <a th:if="${signView.id != 0}" th:href="@{/sign/{id}(id=${signView.id})}" class="sign-link">
               <div class="labelSigne text_hyphenation" th:text="${signView.name}"></div>
               <div class="chevron_blue pull-right"></div>
             </a>

@@ -39,8 +39,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.text.Collator;
 import java.text.Normalizer;
@@ -129,7 +131,8 @@ public class SignController {
 
 
   @RequestMapping(value = "/signs/alphabetic")
-  public String signsAndRequestInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch, Principal principal, Model model) {
+  public String signsAndRequestInAlphabeticalOrder(@RequestParam("isAlphabeticAsc") boolean isAlphabeticAsc, @RequestParam("isSearch") boolean isSearch,
+                                                   @RequestParam(required = false) String q, @RequestParam(required = false) List<Long> tags,Principal principal, Model model) {
     List<ConcatLabelSignsData> concatLabelSignsData;
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
     if (user == null && (appName.equals("Signs@Form") || appName.equals("Signs@ADIS") || appName.equals("Signs@LMB") || appName.equals("Signs@ANVOL"))) {
@@ -218,6 +221,8 @@ public class SignController {
     model.addAttribute("appName", appName);
     Labels labels = services.label().findLabelsOrderByNameAsc();
     model.addAttribute("categories", LabelModalView.from(labels));
+    model.addAttribute("query",q);
+    model.addAttribute("tags", tags);
     return "signs";
   }
 
@@ -832,7 +837,8 @@ public class SignController {
   }
 
   @RequestMapping(value = "/sign/{signId}")
-  public String sign(@PathVariable long signId, Principal principal, Model model) {
+  public String sign(HttpServletRequest req, @PathVariable long signId, @RequestParam(required = false) Boolean isSearch, @RequestParam(required = false) String q,
+    @RequestParam(required = false) String tags, Principal principal, Model model) {
     boolean isAdmin = appSecurityAdmin.isAdmin(principal);
     final User user = AuthentModel.isAuthenticated(principal) ? services.user().withUserName(principal.getName()) : null;
 
@@ -848,7 +854,7 @@ public class SignController {
     }
 
     if (videoViewsData.size() == 1) {
-      return showVideo(signId, videoViewsData.get(0).videoId, isAdmin);
+      return showVideo(signId, videoViewsData.get(0).videoId, isSearch, q, tags, isAdmin);
     } else {
       model.addAttribute("title", messageByLocaleService.getMessage("sign.all_video"));
       model.addAttribute("signName", videoViewsData.get(0).signName);
@@ -873,13 +879,17 @@ public class SignController {
       model.addAttribute("videosView", videoViews);
       model.addAttribute("appName", appName);
       model.addAttribute("isAdmin", isAdmin);
+      prepareBackUrl(model, req, isSearch, q, tags );
       return "videos";
     }
 
   }
 
   @RequestMapping(value = "/sign/{signId}/{videoId}")
-  public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId, Principal principal, Model model) {
+  public String video(HttpServletRequest req, @PathVariable long signId, @PathVariable long videoId,
+                      @RequestParam(required = false) Boolean isSearch, @RequestParam(required = false) String q,
+                      @RequestParam(required = false) String tags,
+                      Principal principal, Model model) {
     String labelsNameForSign = null;
     List<Long> favoritesIdBelowVideo = new ArrayList<>();
     List<Long> labelsIdBelowSign = new ArrayList<>();
@@ -979,7 +989,40 @@ public class SignController {
     model.addAttribute("nbRating", nbRating);
     model.addAttribute("appName", appName);
 
+    prepareBackUrl(model, req, isSearch, q, tags );
+
+
     return "sign";
+  }
+
+  public void prepareBackUrl(Model model, HttpServletRequest request,
+                             Boolean isSearch, String q, String tags) {
+
+    StringBuilder backUrlBuilder = new StringBuilder();
+
+    try {
+      // On ne construit un backUrl que si isSearch, q ou tags existent
+      if ((isSearch != null && isSearch) || (q != null && !q.isEmpty()) || (tags != null && !tags.isEmpty())) {
+        backUrlBuilder.append("/signs/alphabetic?isAlphabeticAsc=false");
+
+        if (isSearch != null) {
+          backUrlBuilder.append("&isSearch=").append(isSearch);
+        }
+        if (q != null && !q.isEmpty()) {
+          backUrlBuilder.append("&q=").append(URLEncoder.encode(q, "UTF-8"));
+        }
+        if (tags != null && !tags.isEmpty()) {
+          backUrlBuilder.append("&tags=").append(URLEncoder.encode(tags, "UTF-8"));
+        }
+      }
+
+      String backUrl = backUrlBuilder.length() > 0 ? backUrlBuilder.toString() : null;
+
+      model.addAttribute("backUrl", backUrl);
+
+    } catch (Exception e) {
+      throw new RuntimeException("Erreur lors de la construction du backUrl", e);
+    }
   }
 
   @RequestMapping(value = "/sign/{signId}/{videoId}/labels")
@@ -1342,12 +1385,38 @@ public class SignController {
     return "redirect:/sign/" + signId;
   }
 
-  private String showVideo(long signId, long videoId, boolean isAdmin) {
+  private String showVideo(long signId, long videoId, Boolean isSearch, String query, String tags, boolean isAdmin) {
     if (isAdmin) {
       return "redirect:/sec/admin/sign/" + signId + "/" + videoId;
-    } else {
-      return "redirect:/sign/" + signId + "/" + videoId;
     }
+
+    StringBuilder url = new StringBuilder();
+    url.append("/sign/").append(signId).append("/").append(videoId);
+
+    boolean firstParam = true;
+
+    try {
+      if (isSearch != null) {
+        url.append(firstParam ? "?" : "&").append("isSearch=").append(isSearch);
+        firstParam = false;
+      }
+
+      if (query != null && !query.isEmpty()) {
+        url.append(firstParam ? "?" : "&")
+          .append("q=").append(URLEncoder.encode(query, "UTF-8"));
+        firstParam = false;
+      }
+
+      if (tags != null && !tags.isEmpty()) {
+        url.append(firstParam ? "?" : "&")
+          .append("tags=").append(URLEncoder.encode(tags, "UTF-8"));
+      }
+    } catch (UnsupportedEncodingException e) {
+      // UTF-8 est garanti en Java, donc normalement ça ne se produit jamais
+      throw new RuntimeException("Erreur lors de l'encodage de l'URL", e);
+    }
+
+    return "redirect:" + url.toString();
   }
 
   private void fillModelWithContext(Model model, String messageEntry, Principal principal, boolean showAddFavorite) {

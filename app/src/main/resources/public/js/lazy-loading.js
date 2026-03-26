@@ -209,11 +209,18 @@ function updateSignesCount(count) {
 // -------- FILTRAGE PAR CATEGORIES ----------
 $(document).on("click", ".filter-btns .filter", function (e) {
   e.preventDefault();
-  var display = 0;
+
   // Active / désactive visuellement
   $(this).toggleClass("btn-active");
 
-  // Récupère les filtres actifs
+  applyCategoryFilterFromState();
+});
+
+function applyCategoryFilterFromState() {
+
+  var display = 0;
+
+  // Récupère les filtres actifs depuis le DOM
   var activeFilters = [];
   $(".filter-btns .btn-active").each(function () {
     var raw = $(this).data("filter") || $(this).text();
@@ -223,9 +230,10 @@ $(document).on("click", ".filter-btns .filter", function (e) {
 
   console.log("Filtres actifs :", activeFilters);
 
-  // Cas 1 : aucun filtre => afficher toutes les tuiles
+  // Cas 1 : aucun filtre
   if (activeFilters.length === 0) {
     activeFilter = false;
+
     if (modeSearch === "false") {
       $("#signs-container").children("div").each(function () {
         if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
@@ -240,10 +248,10 @@ $(document).on("click", ".filter-btns .filter", function (e) {
         if (!$(this).hasClass(SIGN_HIDDEN_CLASS)) {
           $(this).addClass(SIGN_HIDDEN_CLASS);
           $(this).hide();
-        }});
+        }
+      });
       document.getElementById("signes-count").style.visibility = "hidden";
     }
-    /*document.getElementById("signes-count").style.visibility = "hidden";*/
     return;
   } else {
     activeFilter = true;
@@ -252,7 +260,6 @@ $(document).on("click", ".filter-btns .filter", function (e) {
   // Cas 2 : filtrage "ET"
   $("#signs-container").children("div").each(function () {
 
-    // classes de la tuile → normalisées
     var tokens = String(this.className)
       .split(/\s+/)
       .map(function (c) { return c; });
@@ -263,7 +270,7 @@ $(document).on("click", ".filter-btns .filter", function (e) {
 
     if (matchAll) {
       if ($(this).hasClass(SIGN_HIDDEN_CLASS)) {
-        showSignView(this); // nécessaire pour lazy-load
+        showSignView(this);
       } else {
         $(this).show();
       }
@@ -272,12 +279,57 @@ $(document).on("click", ".filter-btns .filter", function (e) {
       $(this).hide();
     }
   });
-  if (activeFilters) {
-    console.log("display ",display);
-    updateSignesCount(display);
-  }
-});
 
+  console.log("display ", display);
+  updateSignesCount(display);
+}
+
+$(document).on("click", ".sign-link", function (e) {
+  console.log("CLICK SIGN LINK", this.href);
+  const baseUrl = this.href;
+
+  // -----------------------------
+  // récupérer la recherche texte
+  // -----------------------------
+  const query = search_criteria ? search_criteria.value.trim() : "";
+
+  // -----------------------------
+  // récupérer les tags actifs
+  // -----------------------------
+  const tags = [];
+  $(".filter-btns .btn-active").each(function () {
+    tags.push($(this).data("filter"));
+  });
+
+  // -----------------------------
+  // construire les paramètres
+  // -----------------------------
+  const params = new URLSearchParams();
+
+  if (modeSearch !== null) {
+    params.set("isSearch", modeSearch);
+  }
+
+  if (query.length > 0) {
+    params.set("q", query);
+  }
+
+  if (tags.length > 0) {
+    params.set("tags", tags.join(","));
+  }
+
+  // -----------------------------
+  // redirection finale
+  // -----------------------------
+  const finalUrl = params.toString()
+    ? baseUrl + "?" + params.toString()
+    : baseUrl;
+
+  window.location.href = finalUrl;
+  console.log("finalUrl ", finalUrl);
+
+  e.preventDefault();
+});
 
 var nb = document.getElementById("nb");
 
@@ -692,13 +744,138 @@ function onReset(event) {
 
 }
 
+function switchToHorizontalLayout() {
+  $('#vertical-display').hide();
+  $('#horizontal-display').show();
+  $('#page-content').show();
+}
+
+function activateWordMode() {
+
+  $('#mode-word').addClass("active");
+  $('#mode-category').removeClass('active');
+
+  $('#mode-category .icon')
+    .removeClass('search-sticker_blue-background')
+    .addClass('search-sticker');
+
+  $('#mode-word .icon')
+    .removeClass('search-ABC_black')
+    .addClass('search-ABC_blue-background');
+
+  $('#label-category').hide();
+  $('#label-word').show();
+
+  $('#search-by-category').hide();
+  $('#search-by-word').show();
+
+  $('#dropdown-filter').show();
+}
+
+function activateCategoryMode() {
+
+  $('#mode-category').addClass("active");
+  $('#mode-word').removeClass('active');
+
+  $('#mode-word .icon')
+    .removeClass('search-ABC_blue-background')
+    .addClass('search-ABC_black');
+
+  $('#mode-category .icon')
+    .removeClass('search-sticker')
+    .addClass('search-sticker_blue-background');
+
+  $('#label-word').hide();
+  $('#label-category').show();
+
+  $('#search-by-word').hide();
+  $('#search-by-category').show();
+
+  $('#dropdown-filter').hide();
+}
+
+function restoreSelectedTags(tagIds) {
+
+  const normalized = tagIds.map(id => String(id));
+
+  $(".filter-btns .filter").each(function () {
+
+    const buttonId = String($(this).attr("data-filter")).trim();
+
+    if (normalized.includes(buttonId)) {
+      $(this).addClass("btn-active");
+    }
+  });
+
+  // 🔥 appliquer le filtrage sans simuler un clic
+  applyCategoryFilterFromState();
+}
+
+function restoreSearchStateFromUrl() {
+
+  const params = new URLSearchParams(window.location.search);
+
+  const isSearch = params.get("isSearch");
+  const query = params.get("q");
+  const tags = params.get("tags");
+
+  console.log("restoreSearchState", { isSearch, query, tags });
+
+  // -----------------------------
+  // CAS 1 : recherche texte
+  // -----------------------------
+  if (query && query.length > 0) {
+
+    // si on était sur l’écran vertical, on passe en horizontal
+    if (isSearch === "true") {
+      switchToHorizontalLayout();
+      activateWordMode();
+    }
+
+    search_criteria.value = query;
+
+    setTimeout(function () {
+      searchSignAfterReload(query);
+    }, 0);
+
+    return;
+  }
+
+  // -----------------------------
+  // CAS 2 : recherche par tags
+  // -----------------------------
+  if (tags && tags.length > 0) {
+
+    switchToHorizontalLayout();
+    activateCategoryMode();
+
+    const tagList = tags.split(",").map(t => t.trim());
+    restoreSelectedTags(tagList);
+
+    return;
+  }
+
+  // -----------------------------
+  // CAS 3 : isSearch=true sans filtre
+  // -----------------------------
+  if (isSearch === "true") {
+    // rester en vertical
+    return;
+  }
+
+  // -----------------------------
+  // CAS 4 : liste normale
+  // -----------------------------
+  // rien à faire
+}
+
 let scrollInitialized = false;
 
 function main() {
   console.log("main "+window.location.href+" "+window.location.search);
 
-  var url_param = window.location.search;
-  modeSearch = url_param.substring(url_param.indexOf("isSearch") + 9);
+  const params = new URLSearchParams(window.location.search);
+  modeSearch = params.get("isSearch");
 
   // ⚠️ éviter d'ajouter plusieurs listeners
   if (!scrollInitialized) {
@@ -722,6 +899,7 @@ function main() {
   } else {
     $(nb).hide();
   }
+
 }
 
 
@@ -990,6 +1168,7 @@ function backToTop() {
 (function signOrvideoViewsLazyLoading($) {
 
   main();
+  restoreSearchStateFromUrl();
   var $play_video = $('#play_video');
   $play_video.on('hidden.bs.modal', function() {
     console.log("hidden play_video");
@@ -1054,7 +1233,6 @@ function backToTop() {
       // Zones de contenu
       $('#search-by-word').hide();
       $('#search-by-category').slideDown();
-
       // États actifs
       $('#mode-word').removeClass('active');
       $(this).addClass('active')
