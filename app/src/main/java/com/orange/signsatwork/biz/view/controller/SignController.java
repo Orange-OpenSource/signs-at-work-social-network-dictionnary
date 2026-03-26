@@ -1100,6 +1100,7 @@ public class SignController {
     List<Long> favoritesIdBelowVideo = new ArrayList<>();
     Boolean isVideoCreatedByMe = false;
     String userAgent = request.getHeader("User-Agent");
+    String referer = request.getHeader("Referer");
 
     model.addAttribute("isIOSDevice", isIOSDevice(userAgent));
 
@@ -1160,6 +1161,10 @@ public class SignController {
     model.addAttribute("videoView", videoProfileView);
     model.addAttribute("isVideoCreatedByMe", isVideoCreatedByMe);
     model.addAttribute("appName", appName);
+    if ((referer != null) && referer.contains("detail")) {
+      String backUrl = "/sign/"+signId+"/"+videoId;
+      model.addAttribute("backUrl", backUrl);
+    }
     return "sign-detail";
   }
 
