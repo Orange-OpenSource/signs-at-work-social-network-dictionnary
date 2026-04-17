@@ -212,13 +212,224 @@ $.fn.extend({
     "Ÿ" : "Y"
   };
 
-  var normalize = function( term ) {
-    var ret = "";
-    for ( var i = 0; i < term.length; i++ ) {
-      ret += accentMap[ term.charAt(i) ] || term.charAt(i);
+  function normalize(str) {
+    return str
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .toLowerCase();
+  }
+  function buildKey(query) {
+    return normalize(query);
+  }
+  function prefix(str, n) {
+    return str.slice(0, n);
+  }
+  function hasAccent(ch) {
+    const decomposed = ch.normalize("NFD");
+    const base = decomposed.replace(/\p{Diacritic}/gu, "");
+    return base.length === 1 && decomposed.length > 1 && base !== ch;
+  }
+  function baseChar(ch) {
+    return ch.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  }
+  function hasCedilla(ch) {
+    return ch === "ç" || ch === "Ç";
+  }
+  function compareChar(ref, ch) {
+    const refBase = baseChar(ref);
+    const chBase = baseChar(ch);
+    const refHasAccent = hasAccent(ref);
+    const chHasAccent = hasAccent(ch);
+    let accentMatch = 0;
+    if (refHasAccent === chHasAccent) {
+      if (refHasAccent) {
+        accentMatch = ref.normalize("NFD") === ch.normalize("NFD") ? 0 : 1;
+      }
+      else {
+        accentMatch = 0;
+      }
     }
-    return ret;
-  };
+    else {
+      accentMatch = 2;
+    }
+    const caseMatch = (ref === ref.toLowerCase()) === (ch === ch.toLowerCase()) ? 0 : 1;
+    let cedillaPenalty = 0;
+    if (hasCedilla(ref)) {
+      cedillaPenalty = hasCedilla(ch) ? 0 : 1;
+    }
+    if (refBase.toLowerCase() !== chBase.toLowerCase()) {
+      accentMatch = 2;
+    }
+    return { accentMatch, caseMatch, cedillaPenalty };
+  }
+  function prefixScore(word, ref) {
+    var _a, _b;
+    const n = ref.length;
+    let sumAccent = 0;
+    let sumCase = 0;
+    let sumCedilla = 0;
+    const wPref = prefix(word, n);
+    for (let i = 0; i < n; i++) {
+      const refCh = (_a = ref[i]) !== null && _a !== void 0 ? _a : "";
+      const wCh = (_b = wPref[i]) !== null && _b !== void 0 ? _b : "";
+      const { accentMatch, caseMatch, cedillaPenalty } = compareChar(refCh, wCh);
+      sumAccent += accentMatch;
+      sumCase += caseMatch;
+      sumCedilla += cedillaPenalty;
+    }
+    return [sumAccent, sumCase, sumCedilla];
+  }
+  function isSingleWord(str) {
+    return !str.includes(" ");
+  }
+  function computeR1(list, query) {
+    const entries = list.map((v, i) => ({ value: v, index: i }));
+    const key = normalize(query);
+    return entries
+      .filter((e) => isSingleWord(e.value) && normalize(e.value).startsWith(key))
+      .map((e) => ({
+        entry: e,
+        score: prefixScore(e.value, query),
+      }))
+      .sort((a, b) => {
+        const [aAcc, aCase, aCed] = a.score;
+        const [bAcc, bCase, bCed] = b.score;
+        if (aAcc !== bAcc)
+          return aAcc - bAcc;
+        if (aCase !== bCase)
+          return aCase - bCase;
+        if (aCed !== bCed)
+          return aCed - bCed;
+        const aKey = normalize(a.entry.value);
+        const bKey = normalize(b.entry.value);
+        if (aKey < bKey)
+          return -1;
+        if (aKey > bKey)
+          return 1;
+        return a.entry.index - b.entry.index;
+      });
+  }
+  function splitWords(str) {
+    return str.split(/\s+/).filter((w) => w.length > 0);
+  }
+  function computeR2(list, query) {
+    const entries = list.map((v, i) => ({ value: v, index: i }));
+    const key = normalize(query);
+    const r2 = [];
+    for (const e of entries) {
+      const words = splitWords(e.value);
+      if (words.length < 2)
+        continue;
+      let pivotIdx = -1;
+      for (let i = 0; i < words.length; i++) {
+        const wNorm = normalize(words[i]);
+        if (wNorm.startsWith(key)) {
+          pivotIdx = i;
+          break;
+        }
+      }
+      if (pivotIdx === -1)
+        continue;
+      const pivot = words[pivotIdx];
+      const pivotScore = prefixScore(pivot, query);
+      r2.push({
+        entry: e,
+        pivotIndex: pivotIdx,
+        pivotScore,
+      });
+    }
+    r2.sort((a, b) => {
+      const [aAcc, aCase, aCed] = a.pivotScore;
+      const [bAcc, bCase, bCed] = b.pivotScore;
+      if (aAcc !== bAcc)
+        return aAcc - bAcc;
+      if (aCase !== bCase)
+        return aCase - bCase;
+      if (aCed !== bCed)
+        return aCed - bCed;
+      if (a.pivotIndex !== b.pivotIndex)
+        return a.pivotIndex - b.pivotIndex;
+      const aKey = normalize(a.entry.value);
+      const bKey = normalize(b.entry.value);
+      if (aKey < bKey)
+        return -1;
+      if (aKey > bKey)
+        return 1;
+      return a.entry.index - b.entry.index;
+    });
+    return r2;
+  }
+  function localScoreAtPos(original, query, pos) {
+    const sub = original.slice(pos, pos + query.length);
+    return prefixScore(sub, query);
+  }
+  function computeR3(list, query, r1, r2) {
+    const key = normalize(query);
+    const r1Indices = new Set(r1.map((x) => x.entry.index));
+    const r2Indices = new Set(r2.map((x) => x.entry.index));
+    const entries = list.map((v, i) => ({ value: v, index: i }));
+    const r3 = [];
+    for (const e of entries) {
+      if (r1Indices.has(e.index) || r2Indices.has(e.index))
+        continue;
+      const sNorm = normalize(e.value);
+      const pos = sNorm.indexOf(key);
+      if (pos === -1)
+        continue;
+      const localScore = localScoreAtPos(e.value, query, pos);
+      r3.push({
+        entry: e,
+        pos,
+        localScore,
+      });
+    }
+    r3.sort((a, b) => {
+      if (a.pos !== b.pos)
+        return a.pos - b.pos;
+      const [aAcc, aCase, aCed] = a.localScore;
+      const [bAcc, bCase, bCed] = b.localScore;
+      if (aAcc !== bAcc)
+        return aAcc - bAcc;
+      if (aCase !== bCase)
+        return aCase - bCase;
+      if (aCed !== bCed)
+        return aCed - bCed;
+      const aKey = normalize(a.entry.value);
+      const bKey = normalize(b.entry.value);
+      if (aKey < bKey)
+        return -1;
+      if (aKey > bKey)
+        return 1;
+      return a.entry.index - b.entry.index;
+    });
+    return r3;
+  }
+  function computeFullRanking(list, query) {
+    const r1 = computeR1(list, query);
+    const r2 = computeR2(list, query);
+    const r3 = computeR3(list, query, r1, r2);
+    const usedIndices = new Set();
+    r1.forEach((x) => usedIndices.add(x.entry.index));
+    r2.forEach((x) => usedIndices.add(x.entry.index));
+    r3.forEach((x) => usedIndices.add(x.entry.index));
+    const entries = list.map((v, i) => ({ value: v, index: i }));
+    const rest = entries.filter((e) => !usedIndices.has(e.index));
+    const finalOrder = [
+      ...r1.map((x) => x.entry),
+      ...r2.map((x) => x.entry),
+      ...r3.map((x) => x.entry),
+    ];
+    return { R1: r1, R2: r2, R3: r3, finalOrder };
+  }
+
+  function getSignsList() {
+    const list = [];
+    $("#signs-container").children("div").each(function () {
+      list.push($(this).attr("id"));
+    });
+    return list;
+  }
+
 
 
   function updateVideosCount(count) {
@@ -333,42 +544,69 @@ $.fn.extend({
   }
 
   function search(event) {
-    var display = 0;
-    var g = normalize($(this).val());
+    let display = 0;
+    const query = $(this).val();
 
-    if (g!="") {
-      $("#videos-container").children("label").each(function () {
-        $("#reset").css("visibility", "visible");
-        var s = normalize($(this).attr("id"));
-        var img = $(this).find("img")[0];
-        if (s.toUpperCase().indexOf(g.toUpperCase()) != -1) {
-          if ($(this).hasClass(VIDEO_HIDDEN_CLASS)) {
-            $(this).removeClass(VIDEO_HIDDEN_CLASS);
-            var thumbnailUrl = img.dataset.src;
-            img.src = thumbnailUrl;
-            displayedVideosCount++;
-          }
-          $(this).show();
-          display++;
-        }
-        else {
-          $(this).hide();
-        }
+    if (query !== "") {
+      $("#reset").css("visibility", "visible");
+
+      // 🔥 1. Construire la liste des labels
+      const labels = $("#videos-container").children("label");
+
+      const list = [];
+      labels.each(function () {
+        list.push($(this).attr("id")); // texte à matcher
       });
-      if (display == 0) {
+
+      // 🔥 2. Appliquer TON algo
+      const result = computeFullRanking(list, query);
+
+      // 🔥 3. Masquer tout
+      labels.each(function () {
+        $(this).hide();
+      });
+
+      // 🔥 4. Afficher dans le bon ordre
+      result.finalOrder.forEach((entry) => {
+        const label = labels.eq(entry.index);
+        const img = label.find("img")[0];
+
+        // lazy load si nécessaire
+        if (label.hasClass(VIDEO_HIDDEN_CLASS)) {
+          label.removeClass(VIDEO_HIDDEN_CLASS);
+          if (img && img.dataset.src) {
+            img.src = img.dataset.src;
+          }
+          displayedVideosCount++;
+        }
+
+        label.show();
+        display++;
+      });
+
+      // 🔥 5. Gestion "aucun résultat"
+      if (display === 0) {
         $(signNotAvailable).show();
       } else {
         $(signNotAvailable).hide();
       }
+
     } else {
+      // 🔥 RESET IDENTIQUE au backspace (IMPORTANT)
+
       $("#reset").css("visibility", "hidden");
+
       $("#videos-container").children("label").each(function () {
         if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
           $(this).addClass(VIDEO_HIDDEN_CLASS);
           $(this).hide();
-        }});
+        }
+      });
+
       displayedVideosCount = 0;
-      initWithFirstVideos();
+      $(signNotAvailable).hide();
+
+      initWithFirstVideos(); // 🔥 clé du comportement correct
     }
   }
 
@@ -385,19 +623,11 @@ function initWithFirstVideos() {
 
   function onReset(event) {
 
-    $(':input', '#myform')
-      .not(':button, :submit, :reset, :hidden')
-      .val('');
-    $("#reset").css("visibility", "hidden");
-    $("#videos-container").children("label").each(function () {
-      if (!$(this).hasClass(VIDEO_HIDDEN_CLASS)) {
-        $(this).addClass(VIDEO_HIDDEN_CLASS);
-        $(this).hide();
-      }});
-    displayedVideosCount = 0;
-    $(signNotAvailable).hide();
-    initWithFirstVideos();
+    // vider input
+    search_criteria.value = "";
 
+    // 🔥 simuler un search vide
+    search.call(search_criteria);
   }
 
   //Get the button
