@@ -84,7 +84,7 @@ public class LabelServiceImpl implements LabelService {
   public Label create(Label label) {
     LabelDB labelDB;
 
-    labelDB = new LabelDB(label.name, label.type);
+    labelDB = new LabelDB(label.name.trim(), label.type);
     labelRepository.save(labelDB);
 
 
