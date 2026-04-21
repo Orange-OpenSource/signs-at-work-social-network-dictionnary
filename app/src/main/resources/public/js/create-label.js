@@ -121,6 +121,19 @@ function onCreateLabel(force) {
 
 };
 
+function ExpandedLabels() {
+  const container = document.querySelector(".text-container");
+
+  if (!container) return;
+
+  // Déployer au chargement
+  container.classList.add("expanded");
+
+  // Replier après 3 secondes
+  setTimeout(() => {
+    container.classList.remove("expanded");
+  }, 3000);
+}
 
 function onCreateLabelAddToSign(signId, videoId, force, labelsIdBelowSign) {
 
@@ -202,7 +215,7 @@ function onCreateLabelAddToSign(signId, videoId, force, labelsIdBelowSign) {
 
       document.getElementById("messageLabel").style.visibility = "visible";
       // Après chaque rechargement dynamique :
-
+      ExpandedLabels();
       // 🔹 Rechargement dynamique de la modale (sans recharger toute la page)
       $.ajax({
         url: "/sign/" + signId + "/" + videoId + "/labels",
