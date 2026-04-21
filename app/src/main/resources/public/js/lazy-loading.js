@@ -270,6 +270,7 @@ function getSignsList() {
 
 var search_criteria = document.getElementById("search-criteria");
 let activeFilter = false;
+let reloadFrame = false;
 
 var accentMap = {
   "à": "a", "â": "a", "á": "a", "ä": "a", "ã": "a", "å": "a", "ā": "a", "æ" : "ae",
@@ -295,6 +296,7 @@ var dropdownFilter = document.getElementById("dropdown-filter");
 let savedDropdownState = {};
 let savedDropdownMenu = "";
 let initialSigns = []; // Array of IDs or elements
+let initialSignsAfterFilter= [];
 let savedDropdownHtml = "";
 
 $(document).ready(function () {
@@ -383,14 +385,25 @@ function restoreSignsContainer() {
   $container.empty();
 
   // 🔴 Réinjecter les signes d'origine
-  initialSigns.forEach(function(div){
-    const clone = div.cloneNode(true);
-    $(clone)
-      .addClass(SIGN_HIDDEN_CLASS)
-      .css({ display: 'none', float: 'left' });
+  if (reloadFrame) {
+    initialSignsAfterFilter.forEach(function(div){
+      const clone = div.cloneNode(true);
+      $(clone)
+        .addClass(SIGN_HIDDEN_CLASS)
+        .css({ display: 'none', float: 'left' });
 
-    $container.append(clone);
-  });
+      $container.append(clone);
+    });
+  } else {
+    initialSigns.forEach(function(div){
+      const clone = div.cloneNode(true);
+      $(clone)
+        .addClass(SIGN_HIDDEN_CLASS)
+        .css({ display: 'none', float: 'left' });
+
+      $container.append(clone);
+    });
+  }
 
   // 🔴 Réinitialiser l'état lazy loading
   displayedSignsCount = 0;
@@ -398,7 +411,11 @@ function restoreSignsContainer() {
 
   // 🔴 Mode normal : afficher les premières vignettes
   if (modeSearch === "false") {
-    signsCount = initialSigns.length;
+    if (reloadFrame) {
+      signsCount = initialSignsAfterFilter.length;
+    } else {
+      signsCount = initialSigns.length;
+    }
     showNextSignViews();
     updateSignesCount(signsCount);
     nb.innerHTML = `(${signsCount})`;
@@ -1117,6 +1134,7 @@ function main() {
 
 function onFiltreSign(event, href, isModeCategorie) {
   console.log("onFiltre");
+  reloadFrame = true;
   event.preventDefault();
   console.log("href "+href);
   $.ajax({
@@ -1129,6 +1147,12 @@ function onFiltreSign(event, href, isModeCategorie) {
       $('#frame-signs').replaceWith(newFrame);
 
       signsContainer = document.getElementById("signs-container");
+      if (signsContainer) {
+        initialSignsAfterFilter.length = 0;
+        $('#signs-container').children('div').each(function() {
+          initialSignsAfterFilter.push(this.cloneNode(true)); // ⚠️ on stocke des clones
+        });
+      }
       signViewsHidden = signsContainer.getElementsByClassName(SIGN_HIDDEN_CLASS);
       signsCount = $("#signs-container").children("div").length;
       displayedSignsCount = 0;
@@ -1421,6 +1445,7 @@ function backToTop() {
         $(this).addClass('active')
         search_criteria.value = "";
         /*restoreInitialOrder("#signs-container", initialSigns);*/
+        reloadFrame = false;
         restoreSignsContainer();
         /*if (modeSearch === "false") {
           updateSignesCount(signsCount);
@@ -1451,6 +1476,7 @@ function backToTop() {
       search_criteria.value = "";
       activeFilter = false;
       /*restoreInitialOrder("#signs-container", initialSigns);*/
+      reloadFrame = false;
       restoreSignsContainer();
       /*if (modeSearch === "false") {
         updateSignesCount(signsCount);
@@ -1631,7 +1657,7 @@ function backToTop() {
 
       // Reset input
       $('#search-criteria').val('');
-
+      reloadFrame = false;
       restoreSignsContainer();
 
       if (modeSearch === "false") {
