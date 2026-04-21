@@ -240,7 +240,7 @@ function onAddSignToLabelsForm(labelsIdBelowSign, signId, videoId) {
 
       document.getElementById("messageLabel").style.visibility = "visible";
       // Après chaque rechargement dynamique :
-
+      ExpandedLabels();
       // 🔹 Rechargement dynamique de la modale (sans recharger toute la page)
       $.ajax({
         url: "/sign/" + signId + "/" + videoId + "/labels",
