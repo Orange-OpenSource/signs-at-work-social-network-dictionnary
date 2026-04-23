@@ -91,6 +91,13 @@ function goBack(url) {
   }
 }
 
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    // Chrome : page restaurée depuis le cache
+    window.location.reload();
+  }
+});
+
 window.addEventListener("beforeunload", function () {
 
   $('.modal').modal('hide');
