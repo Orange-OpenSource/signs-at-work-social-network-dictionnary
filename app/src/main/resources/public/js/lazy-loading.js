@@ -1329,7 +1329,7 @@ function backToTop() {
         $('#category-list').css('max-height', 'none');
         $(this).html(seeLess + ' <span class="glyphicon glyphicon-triangle-top charte_color"></span>');
       } else {
-        $('#category-list').css('max-height', '70px');
+        $('#category-list').css('max-height', 'calc(2 * 44px + 6px)');
         $(this).html(seeMore + ' <span class="glyphicon glyphicon-triangle-bottom charte_color"></span>');
       }
     });

@@ -4059,9 +4059,29 @@ panel-title {
 }
 
 #category-list, #search-category-list  {
-  max-height: 70px;
   overflow: hidden;
   transition: max-height 0.3s ease;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  line-height: 1.2;
+  max-height: calc(2 * 44px + 6px); /* 2 lignes + gap */
+}
+
+
+.filter-btns .btn {
+  position: relative;
+  z-index: 1;
+  min-height: 44px; /* tactile */
+}
+
+.filter-btns .btn:after {
+  pointer-events: none;
+}
+
+.filter-btns .btn {
+  display: flex;
+  align-items: center;
 }
 
 /* ---- STYLE DES TUILES (inchangé) ---- */
