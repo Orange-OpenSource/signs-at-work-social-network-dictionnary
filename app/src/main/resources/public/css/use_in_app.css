@@ -1558,11 +1558,16 @@ img{
 }
 
 
-.btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .btn-secondary:focus, .btn-secondary.focus, .btn-secondary:active, .btn-secondary.active{
-  /*background-color: #4866F7;*/
- /* color: #4866F7;*/
-  border:none !important;
-  outline:none !important;
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active,
+.btn-secondary:focus,
+.btn-secondary.focus,
+.btn-secondary:active,
+.btn-secondary.active {
+  border: 1px solid transparent !important;
+  outline: none !important;
 }
 
 .v-done_black {
@@ -4073,6 +4078,7 @@ panel-title {
   position: relative;
   z-index: 1;
   min-height: 44px; /* tactile */
+  box-sizing: border-box;
 }
 
 .filter-btns .btn:after {
@@ -4146,7 +4152,16 @@ panel-title {
 }
 
 .filter-btns .btn-active:after {
-  content: "\e013"; /* glyphicon-ok */
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;   /* adapte à ton image */
+  height: 16px;
+  background-image: url('/img/done_white.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 /* ---- VOIR PLUS / VOIR MOINS ---- */
