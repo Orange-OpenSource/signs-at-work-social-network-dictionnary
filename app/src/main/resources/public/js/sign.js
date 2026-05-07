@@ -78,7 +78,8 @@ $add_video_file_dailymotion.on('hidden.bs.modal', function() {
 
 });
 
-$('#add_sign_to_label').on('hidden.bs.modal', function () {
+
+$('#close_modal_add_label').on('click', function () {
   $('#modal_body_add_label').load(location.href + ' #modal_body_add_label > *');
 });
 

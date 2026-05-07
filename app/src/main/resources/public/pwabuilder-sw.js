@@ -26,6 +26,8 @@ self.addEventListener("install", function (event) {
 self.addEventListener("fetch", function (event) {
   if (event.request.method !== "GET") return;
 
+  if (event.request.headers.has('range')) return;
+
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
@@ -59,7 +61,25 @@ function fromCache(request) {
 }
 
 function updateCache(request, response) {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.put(request, response);
-  });
+  // ❌ Ignore les réponses partielles (vidéo, audio, etc.)
+  if (!response || response.status === 206) {
+    return Promise.resolve();
+  }
+
+  // ❌ Ignore les requêtes avec Range (streaming)
+  if (request.headers.has('range')) {
+    return Promise.resolve();
+  }
+
+  // ❌ Ignore les vidéos (optionnel mais recommandé)
+  if (request.url.endsWith('.mp4')) {
+    return Promise.resolve();
+  }
+
+  // ✅ Cache uniquement les réponses valides
+  if (response.ok) {
+    return caches.open(CACHE).then(function (cache) {
+      return cache.put(request, response);
+    });
+  }
 }

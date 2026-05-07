@@ -33,7 +33,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class=" modal-header">
-                <button type="button" class="close" data-dismiss="modal"></button>
+                <button id="close_modal_add_label" type="button" class="close" data-dismiss="modal"></button>
                 <div class="pull-left">
                     <div class="sticker_plain_white pull-left"></div>
                     <h2 class="pull-right" th:text="#{sign.tag}"/>
@@ -82,7 +82,7 @@
                     th:data-labelsidbelowsign="${videoView.signLabelsIds}"
                     th:data-sign-id="${signView.id}"
                     th:data-video-id="${videoView.video.id}"
-                    th:text="#{validate}">
+                    th:text="#{validate}"></button>
           </div>
         </div>
     </div>
