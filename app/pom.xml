@@ -256,12 +256,12 @@
         <pluginRepository>
             <id>jcenter</id>
             <name>jcenter</name>
-            <url>http://jcenter.bintray.com </url>
+            <url>https://jcenter.bintray.com </url>
         </pluginRepository>
         <pluginRepository>
             <id>jfrog-plugins</id>
             <name>jfrog-plugins-dist</name>
-            <url>http://repo.jfrog.org/artifactory/plugins-releases</url>
+            <url>https://repo.jfrog.org/artifactory/plugins-releases</url>
         </pluginRepository>
     </pluginRepositories>
 
