@@ -31,7 +31,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-
+import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 // we want to save 'Sign' objects in the 'signs' DB table
 @Table(name = "signs")
 @Entity
@@ -68,6 +69,9 @@ public class SignDB {
   @OneToMany(mappedBy = "sign", fetch = FetchType.LAZY)
   private List<VideoDB> videos;
 
+  @ManyToMany(mappedBy = "signs", fetch = FetchType.LAZY)
+  @JsonBackReference
+  private List<LabelDB> labels = new ArrayList<>();
 
   public SignDB(String name, String url, Date createDate) {
     this.name = name;

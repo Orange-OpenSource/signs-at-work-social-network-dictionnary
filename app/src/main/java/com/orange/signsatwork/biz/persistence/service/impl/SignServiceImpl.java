@@ -431,19 +431,28 @@ public class SignServiceImpl implements SignService {
     videoRepository.save(videoDB);
     signRepository.save(signDB);
   }
-
   @Override
+  @Transactional
   public void delete(Sign sign) {
     SignDB signDB = signRepository.findOne(sign.id);
+
     List<VideoDB> videoDBs = new ArrayList<>();
     videoDBs.addAll(signDB.getVideos());
+
     videoDBs.stream()
-            .map(videoDB -> services.video().withId(videoDB.getId()))
-            .forEach(video -> services.video().delete(video));
+      .map(videoDB -> services.video().withId(videoDB.getId()))
+      .forEach(video -> services.video().delete(video));
+
     RequestDB requestDB = requestRepository.findBySign(signDB);
     if (requestDB != null) {
       requestDB.setSign(null);
     }
+
+    // Suppression des associations dans labels_signs
+    for (LabelDB label : new ArrayList<>(signDB.getLabels())) {
+      label.getSigns().remove(signDB);
+    }
+    signDB.getLabels().clear();
 
     signRepository.delete(signDB);
   }
